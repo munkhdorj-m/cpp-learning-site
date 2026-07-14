@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { Search, CheckCircle2, Circle, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
@@ -186,11 +186,14 @@ export function ProblemsList({ items: initialItems }: { items: Item[] }) {
     };
   }, []);
 
-  // Read page from URL (?page=2), default to 1
-  const [page, setPage] = useState(() => {
+  // Read page from URL (?page=2), default to 1.
+  // Derived from searchParams so it stays in sync after client-side
+  // navigation — useState initializer runs during SSR where
+  // useSearchParams() returns empty, locking page to 1 forever.
+  const page = useMemo(() => {
     const p = Number(searchParams.get("page"));
     return p >= 1 ? p : 1;
-  });
+  }, [searchParams]);
 
   // Pre-compute topic set per item so filtering is O(1) per row
   const itemsWithTopics = useMemo(
@@ -212,9 +215,19 @@ export function ProblemsList({ items: initialItems }: { items: Item[] }) {
       .map(({ item }) => item);
   }, [itemsWithTopics, query, diff, topic, solvedFilter]);
 
-  // Reset to page 1 when filters change
+  // Reset to page 1 when filters change (skip on initial mount — page
+  // is read from the URL, e.g. ?page=3 when using the back button).
+  const mounted = useRef(false);
   useEffect(() => {
-    setPage(1);
+    if (!mounted.current) {
+      mounted.current = true;
+      return;
+    }
+    // URL is source of truth — remove page param to go to page 1
+    const params = new URLSearchParams(window.location.search);
+    params.delete("page");
+    const qs = params.toString();
+    router.replace(qs ? `/problems?${qs}` : "/problems", { scroll: false });
   }, [query, diff, topic, solvedFilter]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
@@ -222,11 +235,11 @@ export function ProblemsList({ items: initialItems }: { items: Item[] }) {
   const pageOffset = (currentPage - 1) * PAGE_SIZE;
   const visible = filtered.slice(pageOffset, pageOffset + PAGE_SIZE);
 
-  // Update URL when page changes (so back button returns to correct page)
+  // Update URL when page changes (URL is source of truth —
+  // useMemo derives page from searchParams automatically).
   const goToPage = (p: number) => {
     const newPage = Math.max(1, Math.min(totalPages, p));
-    setPage(newPage);
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(window.location.search);
     if (newPage === 1) {
       params.delete("page");
     } else {
@@ -336,7 +349,7 @@ export function ProblemsList({ items: initialItems }: { items: Item[] }) {
             {visible.map((p, idx) => (
               <li key={p.id}>
                 <Link
-                  href={`/problems/${p.slug}`}
+                  href={`/problems/${p.slug}?fromPage=${currentPage}`}
                   className={cn(
                     "group flex items-center gap-3 px-4 py-2.5 transition-colors",
                     p.solved

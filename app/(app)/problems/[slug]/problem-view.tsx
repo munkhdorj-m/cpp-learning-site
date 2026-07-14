@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { Play, Sparkles, Clock, HardDrive } from "lucide-react";
+import { Play, Sparkles, Clock, HardDrive, ArrowLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import confetti from "canvas-confetti";
@@ -107,11 +107,13 @@ export function ProblemView({
   problem,
   samples,
   labels,
+  fromPage = 1,
   pastSubmissions = [],
 }: {
   problem: Problem;
   samples: Sample[];
   labels: Labels;
+  fromPage?: number;
   pastSubmissions?: PastSubmission[];
 }) {
   const tDiff = useTranslations("problems.difficulty");
@@ -170,6 +172,19 @@ export function ProblemView({
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
       <div className="space-y-4 max-h-[calc(100vh-7rem)] lg:overflow-y-auto lg:pr-2">
+        {/* Back button */}
+        <button
+          onClick={() =>
+            router.replace(
+              fromPage > 1 ? `/problems?page=${fromPage}` : "/problems",
+            )
+          }
+          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors -ml-1 px-1 py-0.5 rounded-md hover:bg-muted/50"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          {tCommon("back")}
+        </button>
+
         <div className="space-y-2">
           <div className="flex items-center gap-2 flex-wrap">
             <Badge

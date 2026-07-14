@@ -11,10 +11,14 @@ export const dynamic = "force-dynamic";
 
 export default async function ProblemPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ fromPage?: string }>;
 }) {
   const { slug } = await params;
+  const sp = await searchParams;
+  const fromPage = sp.fromPage ? parseInt(sp.fromPage, 10) : 1;
   const t = await getTranslations("problem");
   const localeRaw = await getLocale();
   const locale = isLocale(localeRaw) ? localeRaw : DEFAULT_LOCALE;
@@ -91,6 +95,7 @@ export default async function ProblemPage({
       }}
       samples={samples ?? []}
       labels={labels}
+      fromPage={fromPage}
       pastSubmissions={(mySubmissions ?? []).map((s) => ({
         id: s.id,
         verdict: s.verdict,
