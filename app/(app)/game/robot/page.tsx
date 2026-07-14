@@ -29,9 +29,10 @@ export default async function RobotPage({
   const completedLevelIds = (progressRes.data ?? []).map((r) => r.level_id);
 
   // Merge DB levels with built-in levels (DB overrides same IDs)
-  const dbLevels: Level[] = ((dbRes.data ?? []) as any[]).map((r: any) =>
-    dbRowToLevel(r),
-  );
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- dbRowToLevel accepts a flexible DB row shape
+  const dbLevels: Level[] = (
+    (dbRes.data ?? []) as Record<string, unknown>[]
+  ).map((r) => dbRowToLevel(r as Parameters<typeof dbRowToLevel>[0]));
   const allLevels = mergeLevels(dbLevels);
   const total = allLevels.length;
 
