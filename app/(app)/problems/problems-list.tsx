@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { Search, CheckCircle2, Circle, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
@@ -215,20 +215,18 @@ export function ProblemsList({ items: initialItems }: { items: Item[] }) {
       .map(({ item }) => item);
   }, [itemsWithTopics, query, diff, topic, solvedFilter]);
 
-  // Reset to page 1 when filters change (skip on initial mount — page
-  // is read from the URL, e.g. ?page=3 when using the back button).
-  const mounted = useRef(false);
-  useEffect(() => {
-    if (!mounted.current) {
-      mounted.current = true;
-      return;
-    }
-    // URL is source of truth — remove page param to go to page 1
+  // Reset to page 1 when user changes a filter.
+  // Moved out of useEffect into each filter's onChange handler so it
+  // never fires on mount. This prevents a race where React Strict Mode
+  // double-invocation (or Next.js navigation quirks) could reset the
+  // page param read from the URL (e.g. ?page=3 when using back button).
+  const resetPageTo1 = useCallback(() => {
     const params = new URLSearchParams(window.location.search);
+    if (!params.has("page")) return; // already on page 1
     params.delete("page");
     const qs = params.toString();
     router.replace(qs ? `/problems?${qs}` : "/problems", { scroll: false });
-  }, [query, diff, topic, solvedFilter]);
+  }, [router]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
@@ -283,13 +281,21 @@ export function ProblemsList({ items: initialItems }: { items: Item[] }) {
           <Input
             placeholder={t("search_placeholder")}
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              resetPageTo1();
+            }}
             className="pl-9"
           />
         </div>
         <Select
           value={diff}
-          onValueChange={(v) => v && setDiff(v as typeof diff)}
+          onValueChange={(v) => {
+            if (v) {
+              setDiff(v as typeof diff);
+              resetPageTo1();
+            }
+          }}
         >
           <SelectTrigger className="w-full sm:w-[140px]">
             <span className="text-sm">{diffLabel(diff)}</span>
@@ -301,7 +307,12 @@ export function ProblemsList({ items: initialItems }: { items: Item[] }) {
             <SelectItem value="hard">{t("difficulty.hard")}</SelectItem>
           </SelectContent>
         </Select>
-        <Select value={topic} onValueChange={(v) => v && setTopic(v)}>
+        <Select value={topic} onValueChange={(v) => {
+          if (v) {
+            setTopic(v);
+            resetPageTo1();
+          }
+        }}>
           <SelectTrigger className="w-full sm:w-[160px]">
             <span className="text-sm">
               {topic === "all" ? t("all") : topicLabel[topic] || topic}
@@ -318,7 +329,12 @@ export function ProblemsList({ items: initialItems }: { items: Item[] }) {
         </Select>
         <Select
           value={solvedFilter}
-          onValueChange={(v) => v && setSolvedFilter(v as typeof solvedFilter)}
+          onValueChange={(v) => {
+            if (v) {
+              setSolvedFilter(v as typeof solvedFilter);
+              resetPageTo1();
+            }
+          }}
         >
           <SelectTrigger className="w-full sm:w-[140px]">
             <span className="text-sm">{solvedLabel(solvedFilter)}</span>
