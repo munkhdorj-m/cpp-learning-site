@@ -1,0 +1,119 @@
+{
+  "code": "RGB7010",
+  "status": "ok",
+  "data": {
+    "slug": "sum-of-digits-of-3-digit-number",
+    "title_mn": "3 оронтой тооны цифрүүдийн нийлбэр",
+    "title_en": "Sum of Digits of a 3-Digit Number",
+    "statement_mn": "Өгөгдсөн 3 оронтой тооны цифрүүдийн нийлбэрийг ол.",
+    "statement_en": "Find the sum of digits of a given 3-digit number.",
+    "input_format_mn": "Нэг мөрөнд 3 оронтой эерэг тоо өгөгдөнө.",
+    "input_format_en": "A single line contains a positive 3-digit number.",
+    "output_format_mn": "Цифрүүдийн нийлбэрийг хэвлэ.",
+    "output_format_en": "Print the sum of its digits.",
+    "constraints_mn": "- Тусгай хязгаарлалт байхгүй. Өгөгдсөн тоо нь 100-аас 999 хүртэлх 3 оронтой эерэг бүхэл тоо байна.",
+    "constraints_en": "- No special constraints. The given number is a positive 3-digit integer between 100 and 999 inclusive.",
+    "difficulty": "easy",
+    "tags": [
+      "math",
+      "digits"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    int sum = 0;\n    while (n > 0) {\n        sum += n % 10;\n        n /= 10;\n    }\n    cout << sum << endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "123\n",
+        "output": "6\n"
+      },
+      {
+        "input": "999\n",
+        "output": "27\n"
+      },
+      {
+        "input": "100\n",
+        "output": "1\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "505\n",
+      "110\n",
+      "321\n",
+      "478\n",
+      "999\n",
+      "100\n",
+      "555\n",
+      "736\n",
+      "890\n",
+      "247\n",
+      "666\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "6",
+      "got": "6"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "27",
+      "got": "27"
+    },
+    {
+      "i": 2,
+      "ok": true,
+      "expected": "1",
+      "got": "1"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "505\n",
+      "stdout": "10\n"
+    },
+    {
+      "stdin": "110\n",
+      "stdout": "2\n"
+    },
+    {
+      "stdin": "321\n",
+      "stdout": "6\n"
+    },
+    {
+      "stdin": "478\n",
+      "stdout": "19\n"
+    },
+    {
+      "stdin": "999\n",
+      "stdout": "27\n"
+    },
+    {
+      "stdin": "100\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "555\n",
+      "stdout": "15\n"
+    },
+    {
+      "stdin": "736\n",
+      "stdout": "16\n"
+    },
+    {
+      "stdin": "890\n",
+      "stdout": "17\n"
+    },
+    {
+      "stdin": "247\n",
+      "stdout": "13\n"
+    },
+    {
+      "stdin": "666\n",
+      "stdout": "18\n"
+    }
+  ]
+}

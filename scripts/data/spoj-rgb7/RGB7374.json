@@ -1,0 +1,13 @@
+{
+  "title": "Квадратлаг тоо",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Тэгш оронтой тооны оронгийн тоо болох N тоо өгөгдөв. N оронтой тоонуудаас &nbsp;тооны эхний N/2 ширхэг цифрээс бүтсэн тоон дээр сүүлчийн &nbsp;N/2 ширхэг цифрээс бүтсэн тоог нэмээд квадрат зэрэг дэвшүүлэхэд өөрөө гардаг тоонуудыг ол. Жишээ нь 2025=(20+25)<sup>2</sup></span></p>\n<h3><span style=\"font-size: small;\">Input</span></h3>\n<p><span style=\"font-size: small;\">Оронгийн тоо N (1&lt;N&lt;=14) өгөгдөнө.</span></p>\n<h3><span style=\"font-size: small;\">Output</span></h3>\n<p><span style=\"font-size: small;\">Бодлогын нөхцлийг хангах тоонуудыг өсөх эрэмбээр хэвлэх. Жишээг сайн харна уу.</span></p>\n<h3>Example</h3>\n<p><strong><span style=\"font-size: small;\">Input 1 :</span></strong></p>\n<p><span style=\"font-size: x-small;\">2</span></p>\n<p><strong><span style=\"font-size: small;\">Output 1 :</span></strong></p>\n<p><span style=\"font-size: x-small;\">81</span></p>\n<p><strong><span style=\"font-size: small;\">Input 2 :</span></strong></p>\n<p><span style=\"font-size: x-small;\">4</span></p>\n<p><strong><span style=\"font-size: small;\">Output 2 :</span></strong></p>\n<p><span style=\"font-size: x-small;\">2025</span></p>\n<p><span style=\"font-size: x-small;\">3025</span></p>\n<p><span style=\"font-size: x-small;\">9801</span></p>",
+  "bodyText": "Тэгш оронтой тооны оронгийн тоо болох N тоо өгөгдөв. N оронтой тоонуудаас  тооны эхний N/2 ширхэг цифрээс бүтсэн тоон дээр сүүлчийн  N/2 ширхэг цифрээс бүтсэн тоог нэмээд квадрат зэрэг дэвшүүлэхэд өөрөө гардаг тоонуудыг ол. Жишээ нь 2025=(20+25)2\nInput\nОронгийн тоо N (1<N<=14) өгөгдөнө.\nOutput\nБодлогын нөхцлийг хангах тоонуудыг өсөх эрэмбээр хэвлэх. Жишээг сайн харна уу.\nExample\nInput 1 :\n2\nOutput 1 :\n81\nInput 2 :\n4\nOutput 2 :\n2025\n3025\n9801",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7374/",
+  "code": "RGB7374",
+  "scrapedAt": "2026-06-29T06:43:23.167Z"
+}

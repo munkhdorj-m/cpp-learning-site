@@ -1,0 +1,57 @@
+{
+  "code": "RGB7930",
+  "status": "ref_wrong_on_samples",
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": false,
+      "expected": "2",
+      "got": "5"
+    }
+  ],
+  "data": {
+    "slug": "message-relay",
+    "title_mn": "Мессеж дамжуулалт",
+    "title_en": "Message Relay",
+    "statement_mn": "Фермер Жонны **N** үнээ (1 ≤ N ≤ 1000) 1..N дугаартай. Хуучин загварын цагаан тугалга ба олс дээр суурилсан холбооны механизм ашиглан үнээнүүд фермер Жонд анзааралгүйгээр хоорондоо харилцах аргыг бодож олжээ.\n\nҮнээ бүр хамгийн ихдээ нэг өөр үнээнд мессеж дамжуулж чадна: i-р үнээний хувьд F(i) утга нь i-р үнээний хүлээн авсан мессежээ дамжуулах үнээний индексийг заана (энэ тоо i-тэй хэзээ ч тэнцүү биш). Хэрэв F(i) = 0 бол i-р үнээ мессеж дамжуулдаггүй.\n\nХарамсалтай нь үнээнүүд зарим үнээнээс гаралтай мессеж эцэстээ циклд гацаж, мөнхөд дамжуулагдаж болзошгүй гэдгийг ойлгосон. Хэрэв тухайн үнээнээс илгээсэн мессеж эцэстээ циклд гацдаг бол тэр үнээг \"циклт\" (\"loopy\") гэж нэрлэдэг. Үнээнүүд циклт үнээнүүдээс мессеж илгээхээс зайлсхийхийг хүсч байна. Циклт **биш** үнээнүүдийн нийт тоог олоход туслана уу.",
+    "statement_en": "Farmer John's N cows (1 ≤ N ≤ 1000) are numbered from 1 to N. Using an old-fashioned communication mechanism based on tin cans and strings, the cows have figured out how to communicate with each other without Farmer John noticing.\n\nEach cow can forward messages to at most one other cow: for cow i, the value F(i) tells you the index of the cow to which cow i will forward any messages she receives (this number is always different from i). If F(i) is zero, then cow i does not forward messages.\n\nUnfortunately, the cows have realized the possibility that messages originating from certain cows might ultimately get stuck in loops, forwarded around in a cycle forever. A cow is said to be \"loopy\" if a message sent from that cow will ultimately get stuck in a loop. The cows want to avoid sending messages from loopy cows. Please help them by counting the total number of FJ's cows that are **not** loopy.",
+    "input_format_mn": "- Эхний мөрөнд N бүхэл тоо агуулагдана.\n- Дараагийн N мөр тус бүрд нэг бүхэл тоо F(i) агуулагдана. i-р мөр (1 ≤ i ≤ N) нь i-р үнээний дамжуулах үнээний дугаарыг (эсвэл дамжуулахгүй бол 0) заана.",
+    "input_format_en": "- The first line contains the integer N.\n- The next N lines each contain one integer F(i). The i-th line (1 ≤ i ≤ N) gives the index of the cow that cow i will forward messages to (or 0 if she does not forward).",
+    "output_format_mn": "Нэг мөрөнд циклт биш үнээнүүдийн тоог (бүхэл тоо) хэвлэ.",
+    "output_format_en": "Print a single line containing the number of cows that are not loopy.",
+    "constraints_mn": "- 1 ≤ N ≤ 1000\n- 0 ≤ F(i) ≤ N\n- F(i) ≠ i (гацсан үед өөртөө илгээхгүй)",
+    "constraints_en": "- 1 ≤ N ≤ 1000\n- 0 ≤ F(i) ≤ N\n- F(i) ≠ i (a cow never forwards to herself)",
+    "difficulty": "easy",
+    "tags": [
+      "graph",
+      "cycle-detection",
+      "dfs"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    ios_base::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int N;\n    cin >> N;\n\n    vector<int> F(N + 1); // 1-indexed\n    for (int i = 1; i <= N; ++i) {\n        cin >> F[i];\n    }\n\n    vector<int> state(N + 1, 0); // 0=unvisited, 1=visiting, 2=processed\n    vector<bool> loopy(N + 1, false);\n\n    for (int i = 1; i <= N; ++i) {\n        if (state[i] != 0) continue;\n        int cur = i;\n        // traverse until we hit a visited node or a dead end (0)\n        while (cur != 0 && state[cur] == 0) {\n            state[cur] = 1; // visiting\n            cur = F[cur];\n        }\n        // Now cur is either 0, a node marked visiting (cycle found), or a node marked processed\n        if (cur != 0 && state[cur] == 1) {\n            // we found a cycle: mark all nodes in the cycle as loopy\n            int cycle_start = cur;\n            int node = cycle_start;\n            do {\n                loopy[node] = true;\n                node = F[node];\n            } while (node != cycle_start);\n        }\n        // Mark all nodes in this traversal path as processed (except those in cycle already done)\n        // Walk again from the start and mark processed\n        cur = i;\n        while (cur != 0 && state[cur] != 2) {\n            state[cur] = 2; // processed\n            cur = F[cur];\n        }\n    }\n\n    int count_not_loopy = 0;\n    for (int i = 1; i <= N; ++i) {\n        if (!loopy[i]) ++count_not_loopy;\n    }\n\n    cout << count_not_loopy << \"\\n\";\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5\n0\n1\n2\n3\n4\n",
+        "output": "2\n"
+      },
+      {
+        "input": "5\n2\n3\n4\n5\n0\n",
+        "output": "5\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "10\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n",
+      "10\n2\n3\n4\n5\n6\n7\n8\n9\n10\n0\n",
+      "10\n2\n3\n4\n5\n1\n0\n0\n0\n0\n0\n",
+      "6\n2\n3\n4\n5\n6\n4\n",
+      "3\n0\n0\n0\n",
+      "1\n0\n",
+      "4\n2\n3\n4\n2\n",
+      "8\n2\n0\n4\n0\n6\n0\n8\n0\n",
+      "7\n2\n3\n4\n5\n6\n7\n5\n",
+      "5\n2\n3\n2\n5\n0\n"
+    ]
+  }
+}

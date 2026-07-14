@@ -1,0 +1,104 @@
+{
+  "code": "RGB7110",
+  "status": "ok",
+  "data": {
+    "slug": "divisible-by-3",
+    "title_mn": "3-д хуваагдах",
+    "title_en": "Divisible by 3",
+    "statement_mn": "Өгөгдсөн 4 тоон дотроос 3-д хуваагддаг тоонуудын тоог ол.",
+    "statement_en": "Given 4 integers, find how many of them are divisible by 3.",
+    "input_format_mn": "Нэг мөрөнд `int` төрлийн 4 тоо зайгаар тусгаарлагдан өгөгдөнө.",
+    "input_format_en": "A single line containing 4 integers separated by spaces.",
+    "output_format_mn": "3-д хуваагддаг тоонуудын тоо.",
+    "output_format_en": "The number of integers that are divisible by 3.",
+    "constraints_mn": "- Тоо бүр `int` төрлийн хүрээнд (ойролцоогоор -2∙10⁹-с 2∙10⁹ хүртэл) байна.",
+    "constraints_en": "- Each number fits in a 32-bit signed integer (approximately -2∙10⁹ to 2∙10⁹).",
+    "difficulty": "easy",
+    "tags": [
+      "divisibility",
+      "counting"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b, c, d;\n    cin >> a >> b >> c >> d;\n    int count = 0;\n    if (a % 3 == 0) ++count;\n    if (b % 3 == 0) ++count;\n    if (c % 3 == 0) ++count;\n    if (d % 3 == 0) ++count;\n    cout << count << endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "3 12 8 9\n",
+        "output": "3\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1 2 4 5\n",
+      "3 6 9 12\n",
+      "-3 -6 0 12\n",
+      "-1 -2 -4 -5\n",
+      "999999999 1000000000 -999999999 -1000000000\n",
+      "0 0 0 0\n",
+      "3 3 3 3\n",
+      "2147483647 -2147483648 1 2\n",
+      "9 99 999 9999\n",
+      "-9 -18 -27 -36\n",
+      "2 3 5 7\n",
+      "1 2 4 8\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "3",
+      "got": "3"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1 2 4 5\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "3 6 9 12\n",
+      "stdout": "4\n"
+    },
+    {
+      "stdin": "-3 -6 0 12\n",
+      "stdout": "4\n"
+    },
+    {
+      "stdin": "-1 -2 -4 -5\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "999999999 1000000000 -999999999 -1000000000\n",
+      "stdout": "2\n"
+    },
+    {
+      "stdin": "0 0 0 0\n",
+      "stdout": "4\n"
+    },
+    {
+      "stdin": "3 3 3 3\n",
+      "stdout": "4\n"
+    },
+    {
+      "stdin": "2147483647 -2147483648 1 2\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "9 99 999 9999\n",
+      "stdout": "4\n"
+    },
+    {
+      "stdin": "-9 -18 -27 -36\n",
+      "stdout": "4\n"
+    },
+    {
+      "stdin": "2 3 5 7\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "1 2 4 8\n",
+      "stdout": "0\n"
+    }
+  ]
+}

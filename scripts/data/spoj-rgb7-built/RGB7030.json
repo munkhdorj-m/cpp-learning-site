@@ -1,0 +1,105 @@
+{
+  "code": "RGB7030",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7030-hypotenuse",
+    "title_mn": "Гипотенуз",
+    "title_en": "Hypotenuse",
+    "statement_mn": "Тэгш өнцөгт гурвалжны катетууд нь өгөгдсөн. Гипотенузыг ол. Бодит тоон бодлого.",
+    "statement_en": "Given the legs of a right triangle, find its hypotenuse. A real-number problem.",
+    "input_format_mn": "Катетууд нэг мөрөнд зайгаар тусгаарлагдан өгөгдөнө.",
+    "input_format_en": "The legs are given on a single line, separated by a space.",
+    "output_format_mn": "Гипотенуз. Таслалаас хойш нэг оронгийн нарийвчлалтай хэвлэ.",
+    "output_format_en": "Output the hypotenuse. Print with exactly one digit after the decimal point.",
+    "constraints_mn": "- Катетууд нь бодит тоо (float).  \n- Катет бүрийн утга 1.0-с 1000.0 хүртэл.",
+    "constraints_en": "- The legs are real numbers (floating-point).  \n- Each leg is between 1.0 and 1000.0 inclusive.",
+    "difficulty": "easy",
+    "tags": [
+      "math",
+      "geometry",
+      "floating-point"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <cmath>\n#include <iomanip>\n\nusing namespace std;\n\nint main() {\n    double a, b;\n    cin >> a >> b;\n    double c = sqrt(a * a + b * b);\n    cout << fixed << setprecision(1) << c << endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "3.0 4.0\n",
+        "output": "5.0\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1.0 1.0\n",
+      "1000.0 1000.0\n",
+      "1.0 1000.0\n",
+      "2.5 6.0\n",
+      "7.0 24.0\n",
+      "10.5 20.3\n",
+      "500.0 500.0\n",
+      "999.0 999.0\n",
+      "3.14159 2.71828\n",
+      "1000.0 1.0\n",
+      "5.0 12.0\n",
+      "123.456 789.012\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "5.0",
+      "got": "5.0"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1.0 1.0\n",
+      "stdout": "1.4\n"
+    },
+    {
+      "stdin": "1000.0 1000.0\n",
+      "stdout": "1414.2\n"
+    },
+    {
+      "stdin": "1.0 1000.0\n",
+      "stdout": "1000.0\n"
+    },
+    {
+      "stdin": "2.5 6.0\n",
+      "stdout": "6.5\n"
+    },
+    {
+      "stdin": "7.0 24.0\n",
+      "stdout": "25.0\n"
+    },
+    {
+      "stdin": "10.5 20.3\n",
+      "stdout": "22.9\n"
+    },
+    {
+      "stdin": "500.0 500.0\n",
+      "stdout": "707.1\n"
+    },
+    {
+      "stdin": "999.0 999.0\n",
+      "stdout": "1412.8\n"
+    },
+    {
+      "stdin": "3.14159 2.71828\n",
+      "stdout": "4.2\n"
+    },
+    {
+      "stdin": "1000.0 1.0\n",
+      "stdout": "1000.0\n"
+    },
+    {
+      "stdin": "5.0 12.0\n",
+      "stdout": "13.0\n"
+    },
+    {
+      "stdin": "123.456 789.012\n",
+      "stdout": "798.6\n"
+    }
+  ]
+}

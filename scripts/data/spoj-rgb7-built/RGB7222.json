@@ -1,0 +1,104 @@
+{
+  "code": "RGB7222",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7222",
+    "title_mn": "Есөөс цифр хүртэл",
+    "title_en": "From Nine to a Digit",
+    "statement_mn": "Өгөгдсөн цифрээс эхлэн 9 хүртэлх цифрүүдийг нэг нэг мөрөнд хэвлэ. Хэвлэх дараалал нь 9, 8, 7, ..., өгөгдсөн цифр байна.\n\nЖишээ нь: **Input:** 5, **Output:**\n```\n9\n8\n7\n6\n5\n```",
+    "statement_en": "Print digits from 9 down to a given digit, one per line.\n\nFor example, if the input is 5, the output is:\n```\n9\n8\n7\n6\n5\n```",
+    "input_format_mn": "Нэг мөрөнд нэг бүхэл цифр (0-9) өгөгдөнө.",
+    "input_format_en": "A single line containing one integer digit (0-9).",
+    "output_format_mn": "9-с эхлэн өгөгдсөн цифр хүртэлх цифр бүрийг нэг нэг мөрөнд хэвлэ. Цифр бүрийн дараа шинэ мөр хэвлэ.",
+    "output_format_en": "Print each digit from 9 down to the given digit, one per line. Each digit should be followed by a newline.",
+    "constraints_mn": "- Өгөгдсөн цифр нь 0-с 9 хүртэлх бүхэл тоо байна.",
+    "constraints_en": "- The input digit is an integer between 0 and 9 inclusive.",
+    "difficulty": "easy",
+    "tags": [
+      "loops",
+      "basic-io"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n\nint main() {\n    int n;\n    std::cin >> n;\n    for (int i = 9; i >= n; --i) {\n        std::cout << i << \"\\n\";\n    }\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5",
+        "output": "9\n8\n7\n6\n5\n"
+      },
+      {
+        "input": "0",
+        "output": "9\n8\n7\n6\n5\n4\n3\n2\n1\n0\n"
+      },
+      {
+        "input": "9",
+        "output": "9\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "8",
+      "1",
+      "2",
+      "3",
+      "4",
+      "6",
+      "7",
+      "9"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "9\n8\n7\n6\n5",
+      "got": "9\n8\n7\n6\n5"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "9\n8\n7\n6\n5\n4\n3\n2\n1\n0",
+      "got": "9\n8\n7\n6\n5\n4\n3\n2\n1\n0"
+    },
+    {
+      "i": 2,
+      "ok": true,
+      "expected": "9",
+      "got": "9"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "8",
+      "stdout": "9\n8\n"
+    },
+    {
+      "stdin": "1",
+      "stdout": "9\n8\n7\n6\n5\n4\n3\n2\n1\n"
+    },
+    {
+      "stdin": "2",
+      "stdout": "9\n8\n7\n6\n5\n4\n3\n2\n"
+    },
+    {
+      "stdin": "3",
+      "stdout": "9\n8\n7\n6\n5\n4\n3\n"
+    },
+    {
+      "stdin": "4",
+      "stdout": "9\n8\n7\n6\n5\n4\n"
+    },
+    {
+      "stdin": "6",
+      "stdout": "9\n8\n7\n6\n"
+    },
+    {
+      "stdin": "7",
+      "stdout": "9\n8\n7\n"
+    },
+    {
+      "stdin": "9",
+      "stdout": "9\n"
+    }
+  ]
+}

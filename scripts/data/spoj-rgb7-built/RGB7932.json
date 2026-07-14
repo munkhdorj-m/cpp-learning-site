@@ -1,0 +1,46 @@
+{
+  "code": "RGB7932",
+  "status": "compile_error",
+  "error": "C:\\Users\\MUNKHD~1\\AppData\\Local\\Temp\\ref_1782724820815_8r2wb4t9d0g.cpp: In function 'int main()':\r\nC:\\Users\\MUNKHD~1\\AppData\\Local\\Temp\\ref_1782724820815_8r2wb4t9d0g.cpp:30:14: error: expected unqualified-id before '[' token\r\n         auto [cx, cy] = q.front(); q.pop();\r\n              ^\r\nC:\\Users\\MUNKHD~1\\AppData\\Local\\Temp\\ref_1782724820815_8r2wb4t9d0g.cpp:32:22: error: 'cx' was not declared in this scope\r\n             int nx = cx + dx[d];\r\n                      ^~\r\nC:\\Users\\MUNKHD~1\\AppData\\Local\\Temp\\ref_1782724820815_8r2wb4t9d0g.cpp:33:22: error: 'cy' was not declared in this scope\r\n             int ny = cy + dy[d];\r\n                      ^~\r\n",
+  "data": {
+    "slug": "rgb7932-perimeter",
+    "title_mn": "Периметр",
+    "title_en": "Perimeter",
+    "statement_mn": "Фармер Жон N ш өвсөн боодлыг (1 ≤ N ≤ 10,000) талбайнхаа голд байрлуулжээ. Талбайг 100 x 100 хэмжээтэй 1x1 квадрат нүднүүдээс бүрдсэн сүлжээ гэж үзвэл, өвсөн боодол бүр яг нэг нүдийг эзэлдэг (мэдээж хоёр өвсөн боодол нэг нүдийг эзэлдэггүй). Фармер Жон өвсөн боодлууд нь нэг том холбоотой бүс үүсгэдэг болохыг анзаарчээ. Өөрөөр хэлбэл, аль ч боодлоос эхлэн хойд, өмнөд, зүүн, баруун чиглэлд зэргэлдээх боодол руу алхам хийж бусад бүх боодолд хүрч болно. Өвсөн боодлын холбоотой бүс нь \"нүхнүүд\"-ийг агуулж болно – өвсөн боодлоор бүрэн хүрээлэгдсэн хоосон нүднүүд. Фармер Жонд өвсөн боодлуудаас үүссэн бүсийн периметрийг тодорхойлоход тусална уу. Нүхнүүд периметрт орохгүй гэдгийг анхаарна уу.\n\n### Оролт\nОролтын эхний мөрөнд N бүхэл тоо агуулагдана. Дараагийн N мөр бүрт хоосон зайгаар тусгаарлагдсан хоёр бүхэл тоо x, y (1 ≤ x, y ≤ 100) байх бөгөөд өвсөн боодлын байрлалыг илэрхийлнэ.\n\n### Гаралт\nНэг мөрөнд бүсийн периметрийг илэрхийлсэн нэг бүхэл тоог хэвлэнэ.\n\n### Жишээ\n**Оролт:**\n```\n8\n1 1\n2 1\n3 1\n4 1\n1 2\n4 2\n1 3\n4 3\n```\n\n**Гаралт:**\n```\n18\n```",
+    "statement_en": "Farmer John has arranged N hay bales (1 ≤ N ≤ 10,000) in the middle of one of his fields. If we think of the field as a 100 x 100 grid of 1 x 1 square cells, each hay bale occupies exactly one of these cells (no two hay bales occupy the same cell, of course). FJ notices that his hay bales all form one large connected region, meaning that starting from any bale, one can reach any other bale by taking a series of steps either north, south, east, or west onto directly adjacent bales. The connected region of hay bales may however contain \"holes\" -- empty regions that are completely surrounded by hay bales. Please help FJ determine the perimeter of the region formed by his hay bales. Note that holes do not contribute to the perimeter.\n\n### Input\nThe first line of input contains an integer N. The next N lines each contain two space-separated integers x and y (1 ≤ x, y ≤ 100), representing the coordinates of a hay bale.\n\n### Output\nPrint a single line containing a single integer — the perimeter of the region.\n\n### Example\n**Input:**\n```\n8\n1 1\n2 1\n3 1\n4 1\n1 2\n4 2\n1 3\n4 3\n```\n\n**Output:**\n```\n18\n```",
+    "input_format_mn": "Оролтын эхний мөрөнд N бүхэл тоо агуулагдана. Дараагийн N мөр бүрт хоосон зайгаар тусгаарлагдсан хоёр бүхэл тоо x, y (1 ≤ x, y ≤ 100) байх бөгөөд өвсөн боодлын байрлалыг илэрхийлнэ.",
+    "input_format_en": "The first line of input contains an integer N. The next N lines each contain two space-separated integers x and y (1 ≤ x, y ≤ 100), representing the coordinates of a hay bale.",
+    "output_format_mn": "Нэг мөрөнд бүсийн периметрийг илэрхийлсэн нэг бүхэл тоог хэвлэнэ.",
+    "output_format_en": "Print a single line containing a single integer — the perimeter of the region.",
+    "constraints_mn": "- 1 ≤ N ≤ 10,000\n- 1 ≤ x, y ≤ 100\n- Өвсөн боодлууд нэг холбоотой бүс үүсгэдэг.\n- Талбай нь 100 x 100 сүлжээ юм.",
+    "constraints_en": "- 1 ≤ N ≤ 10,000\n- 1 ≤ x, y ≤ 100\n- The hay bales form a single connected region.\n- The field is a 100 x 100 grid.",
+    "difficulty": "medium",
+    "tags": [
+      "grid",
+      "bfs",
+      "connected-components",
+      "perimeter"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 20,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nconst int MAX = 102; // 1-indexed, add border\nbool grid[MAX+2][MAX+2]; // grid[x][y]\nbool visited[MAX+2][MAX+2];\n\nint dx[4] = {0, 0, 1, -1};\nint dy[4] = {1, -1, 0, 0};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int N;\n    cin >> N;\n    for (int i = 0; i < N; i++) {\n        int x, y;\n        cin >> x >> y;\n        grid[x][y] = true;\n    }\n\n    // BFS from outside (0,0) to find all empty cells reachable from the outer border\n    // Use a 102x102 grid (1..100 are actual field cells, 0 and 101 are border)\n    queue<pair<int,int>> q;\n    q.push({0, 0});\n    visited[0][0] = true;\n\n    while (!q.empty()) {\n        auto [cx, cy] = q.front(); q.pop();\n        for (int d = 0; d < 4; d++) {\n            int nx = cx + dx[d];\n            int ny = cy + dy[d];\n            if (nx < 0 || nx > MAX+1 || ny < 0 || ny > MAX+1) continue;\n            if (visited[nx][ny]) continue;\n            if (grid[nx][ny]) continue; // hay bale blocks\n            visited[nx][ny] = true;\n            q.push({nx, ny});\n        }\n    }\n\n    // Now compute perimeter: For each hay bale cell, count edges adjacent to\n    // cells that are NOT hay bales AND are reachable from outside (i.e., not holes).\n    int perimeter = 0;\n    for (int x = 1; x <= 100; x++) {\n        for (int y = 1; y <= 100; y++) {\n            if (!grid[x][y]) continue;\n            for (int d = 0; d < 4; d++) {\n                int nx = x + dx[d];\n                int ny = y + dy[d];\n                // If neighbor is outside the grid or is not a hay bale and is reachable from outside\n                if (nx < 1 || nx > 100 || ny < 1 || ny > 100) {\n                    // border of field counts as outside\n                    perimeter++;\n                } else if (!grid[nx][ny] && visited[nx][ny]) {\n                    perimeter++;\n                }\n            }\n        }\n    }\n\n    cout << perimeter << \"\\n\";\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "8\n1 1\n2 1\n3 1\n4 1\n1 2\n4 2\n1 3\n4 3\n",
+        "output": "18\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n1 1\n",
+      "2\n1 1\n2 1\n",
+      "3\n1 1\n1 2\n2 1\n",
+      "4\n1 1\n2 1\n1 2\n2 2\n",
+      "5\n50 50\n50 51\n51 50\n51 51\n52 52\n",
+      "16\n1 1\n1 2\n1 3\n1 4\n2 1\n2 4\n3 1\n3 4\n4 1\n4 2\n4 3\n4 4\n2 2\n2 3\n3 2\n3 3\n",
+      "20\n1 1\n2 1\n3 1\n4 1\n5 1\n1 2\n5 2\n1 3\n5 3\n1 4\n5 4\n1 5\n2 5\n3 5\n4 5\n5 5\n2 3\n3 2\n3 4\n4 3\n",
+      "12\n1 1\n1 2\n1 3\n2 1\n2 3\n3 1\n3 2\n3 3\n2 2\n4 4\n4 5\n5 4\n",
+      "10000\n1 1\n2 1\n3 1\n4 1\n5 1\n6 1\n7 1\n8 1\n9 1\n10 1\n11 1\n12 1\n13 1\n14 1\n15 1\n16 1\n17 1\n18 1\n19 1\n20 1\n21 1\n22 1\n23 1\n24 1\n25 1\n26 1\n27 1\n28 1\n29 1\n30 1\n31 1\n32 1\n33 1\n34 1\n35 1\n36 1\n37 1\n38 1\n39 1\n40 1\n41 1\n42 1\n43 1\n44 1\n45 1\n46 1\n47 1\n48 1\n49 1\n50 1\n51 1\n52 1\n53 1\n54 1\n55 1\n56 1\n57 1\n58 1\n59 1\n60 1\n61 1\n62 1\n63 1\n64 1\n65 1\n66 1\n67 1\n68 1\n69 1\n70 1\n71 1\n72 1\n73 1\n74 1\n75 1\n76 1\n77 1\n78 1\n79 1\n80 1\n81 1\n82 1\n83 1\n84 1\n85 1\n86 1\n87 1\n88 1\n89 1\n90 1\n91 1\n92 1\n93 1\n94 1\n95 1\n96 1\n97 1\n98 1\n99 1\n100 1\n"
+    ]
+  }
+}

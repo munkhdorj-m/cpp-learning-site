@@ -1,0 +1,17 @@
+{
+  "title": "Тэмдэгтүүд",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн англи цагаан толгойн үсгээс Z хүртэлх үсгүүдийг жишээн дээрх форматаар мөрүүдэд хэвлэ.</p>\n<h3>Input</h3>\n<p>Англи цагаан толгойн том үсэг өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Өгөгдсөн цагаан толгойн үсгээс Z хүртэлх үсгүүдийг жишээн дээрх форматаар мөрүүдэд зайгүйгээр хэвлэнэ.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\nX\n\n<strong>Output:</strong>\nX</pre>\n<pre>XY</pre>\n<pre>XYZ</pre>",
+  "bodyText": "Өгөгдсөн англи цагаан толгойн үсгээс Z хүртэлх үсгүүдийг жишээн дээрх форматаар мөрүүдэд хэвлэ.\nInput\nАнгли цагаан толгойн том үсэг өгөгдөнө.\nOutput\nӨгөгдсөн цагаан толгойн үсгээс Z хүртэлх үсгүүдийг жишээн дээрх форматаар мөрүүдэд зайгүйгээр хэвлэнэ.\nExample\nInput:\nX\n\nOutput:\nX\nXY\nXYZ",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\nX\n\nOutput:\nX",
+    "XY",
+    "XYZ"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7440/",
+  "code": "RGB7440",
+  "scrapedAt": "2026-06-29T06:42:49.259Z"
+}

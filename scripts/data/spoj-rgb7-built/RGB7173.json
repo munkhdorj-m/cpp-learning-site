@@ -1,0 +1,99 @@
+{
+  "code": "RGB7173",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7173-tsegijn-bajirlal",
+    "title_mn": "Цэгийн байрлал",
+    "title_en": "Point Location",
+    "statement_mn": "Тэгш өнцөгт координатын системд цэгийн координат тэгээс ялгаатай бүхэл тоогоор өгөгдсөн бол хэд дүгээр мөчид харьяалагдах вэ?",
+    "statement_en": "Given a point in the Cartesian coordinate system with integer coordinates different from zero, determine which quadrant it belongs to.",
+    "input_format_mn": "Цэгийн координатыг тодорхойлох 2 тоо нэг мөрөнд зайгаар тусгаарлагдан өгөгдөнө. Int төрөл.",
+    "input_format_en": "Two integers, the coordinates of the point, separated by a space on a single line. Both are of int type.",
+    "output_format_mn": "Харьяалагдах координатын хавтгайн мөч. Мөчийн дугаарыг ромбо тоогоор хэвлэнэ. 1-р мөч I, 2-р мөч II, 3-р мөч III, 4-р мөч IV.",
+    "output_format_en": "The quadrant number in Roman numeral: I, II, III, or IV.",
+    "constraints_mn": "- Хоёр координат нь тэгээс ялгаатай бүхэл тоо.\n- Утга нь int төрлийн мужид байна (ойролцоогоор -2³¹-ээс 2³¹-1 хүртэл).",
+    "constraints_en": "- Both coordinates are non-zero integers.\n- The values fit within the int range (approximately -2³¹ to 2³¹-1).",
+    "difficulty": "easy",
+    "tags": [
+      "quadrant",
+      "conditional"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int x, y;\n    cin >> x >> y;\n    \n    if (x > 0 && y > 0) {\n        cout << \"I\\n\";\n    } else if (x < 0 && y > 0) {\n        cout << \"II\\n\";\n    } else if (x < 0 && y < 0) {\n        cout << \"III\\n\";\n    } else {\n        cout << \"IV\\n\";\n    }\n    \n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "-13 20\n",
+        "output": "II\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1 1\n",
+      "-1 1\n",
+      "-1 -1\n",
+      "1 -1\n",
+      "1000000000 1\n",
+      "-999999999 500000000\n",
+      "-123456789 -987654321\n",
+      "5 -999999999\n",
+      "2147483647 1\n",
+      "1 -2147483647\n",
+      "-2147483647 -1\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "II",
+      "got": "II"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1 1\n",
+      "stdout": "I\n"
+    },
+    {
+      "stdin": "-1 1\n",
+      "stdout": "II\n"
+    },
+    {
+      "stdin": "-1 -1\n",
+      "stdout": "III\n"
+    },
+    {
+      "stdin": "1 -1\n",
+      "stdout": "IV\n"
+    },
+    {
+      "stdin": "1000000000 1\n",
+      "stdout": "I\n"
+    },
+    {
+      "stdin": "-999999999 500000000\n",
+      "stdout": "II\n"
+    },
+    {
+      "stdin": "-123456789 -987654321\n",
+      "stdout": "III\n"
+    },
+    {
+      "stdin": "5 -999999999\n",
+      "stdout": "IV\n"
+    },
+    {
+      "stdin": "2147483647 1\n",
+      "stdout": "I\n"
+    },
+    {
+      "stdin": "1 -2147483647\n",
+      "stdout": "IV\n"
+    },
+    {
+      "stdin": "-2147483647 -1\n",
+      "stdout": "III\n"
+    }
+  ]
+}

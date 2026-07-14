@@ -1,0 +1,51 @@
+{
+  "code": "RGB7542",
+  "status": "ref_wrong_on_samples",
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": false,
+      "expected": "  5  4  3  2  1\n 10  9  8  7  6\n 15 14 13 12 11\n 20 19 18 17 16\n 25 24 23 22 21",
+      "got": "  5   4   3   2   1\n 10   9   8   7   6\n 15  14  13  12  11\n 20  19  18  17  16\n 25  24  23  22  21"
+    }
+  ],
+  "data": {
+    "slug": "rgb7542-utga-olgolt-2",
+    "title_mn": "Утга олголт 2",
+    "title_en": "Value Assignment 2",
+    "statement_mn": "N×N хэмжээтэй квадрат массивыг жишээн дээрх загвараар дүүргэ.\n\nКвадрат массивын мөр бүрийг N-ээс эхлэн 1 хүртэлх тоогоор буурахаар дүүргэх боловч, дараагийн мөр бүр өмнөх мөрийн үргэлжлэл байна. Өөрөөр хэлбэл, массивыг N×N хүртэлх тоогоор дүүргэхдээ мөр бүрийг дотор нь буурахаар, харин мөр хоорондоо өсөх дарааллаар байрлуулна.\n\nЖишээ нь N=5 үед:\n\n- 1-р мөр: 5 4 3 2 1\n- 2-р мөр: 10 9 8 7 6\n- 3-р мөр: 15 14 13 12 11\n- 4-р мөр: 20 19 18 17 16\n- 5-р мөр: 25 24 23 22 21",
+    "statement_en": "Fill an N×N square array according to the pattern shown in the example.\n\nEach row of the square array is filled with numbers decreasing from a multiple of N down to the previous multiple of N plus 1. In other words, the array is filled with numbers from 1 to N×N such that each row is in decreasing order, but rows are arranged in increasing order of their starting values.\n\nFor example, when N=5:\n\n- Row 1: 5 4 3 2 1\n- Row 2: 10 9 8 7 6\n- Row 3: 15 14 13 12 11\n- Row 4: 20 19 18 17 16\n- Row 5: 25 24 23 22 21",
+    "input_format_mn": "Ганц мөрөнд квадрат массивын хэмжээ N натурал тоо өгөгдөнө.",
+    "input_format_en": "A single line containing a positive integer N, the size of the square array.",
+    "output_format_mn": "N мөр хэвлэнэ. Мөр бүрт N ширхэг тоо байх ба тоо бүрийг 3 тэмдэгтийн өргөнтэйгөөр баруун тийш тэгшлэн хэвлэнэ. Мөрний төгсгөлд нэмэлт хоосон зай байхгүй байх ёстой.\n\nТоонуудыг форматлахдаа: тоо бүрийн урд хангалттай хоосон зай нэмж, нийт 3 тэмдэгтийн байр эзлүүлэн хэвлэнэ. Жишээнд 5 гэх тоо урдаа 2 хоосон зайтай (нийт 3 тэмдэгт), 10 гэх тоо урдаа 1 хоосон зайтай (нийт 3 тэмдэгт) хэвлэгдсэн байна.",
+    "output_format_en": "Print N lines. Each line contains N integers, each formatted with a width of 3 characters (right-aligned). There should be no extra spaces at the end of each line.\n\nWhen formatting: each number should be preceded by enough spaces so that the total width occupied is exactly 3 characters. In the example, the number 5 is printed with 2 spaces before it (total 3 characters), and the number 10 is printed with 1 space before it (total 3 characters).",
+    "constraints_mn": "- 1 ≤ N < 10",
+    "constraints_en": "- 1 ≤ N < 10",
+    "difficulty": "easy",
+    "tags": [
+      "array",
+      "implementation",
+      "loops"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <iomanip>\n\nusing namespace std;\n\nint main() {\n    int N;\n    cin >> N;\n\n    for (int i = 0; i < N; i++) {\n        int start = (i + 1) * N;\n        for (int j = 0; j < N; j++) {\n            if (j > 0) cout << ' ';\n            cout << setw(3) << (start - j);\n        }\n        cout << '\\n';\n    }\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5\n",
+        "output": "  5  4  3  2  1\n 10  9  8  7  6\n 15 14 13 12 11\n 20 19 18 17 16\n 25 24 23 22 21\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n",
+      "2\n",
+      "3\n",
+      "4\n",
+      "6\n",
+      "7\n",
+      "8\n",
+      "9\n"
+    ]
+  }
+}

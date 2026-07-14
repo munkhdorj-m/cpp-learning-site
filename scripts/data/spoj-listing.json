@@ -1,0 +1,4272 @@
+[
+  {
+    "code": "RGB7002",
+    "name": "Гурвалжин",
+    "users": 21921,
+    "accepted_pct": 41.35,
+    "position": 0
+  },
+  {
+    "code": "RGB7001",
+    "name": "2 тооны нийлбэр",
+    "users": 21645,
+    "accepted_pct": 51.81,
+    "position": 1
+  },
+  {
+    "code": "RGB7004",
+    "name": "Куб",
+    "users": 19043,
+    "accepted_pct": 41.79,
+    "position": 2
+  },
+  {
+    "code": "RGB7003",
+    "name": "Тэгш өнцөгт",
+    "users": 18585,
+    "accepted_pct": 44.75,
+    "position": 3
+  },
+  {
+    "code": "RGB7005",
+    "name": "Функц 1",
+    "users": 17951,
+    "accepted_pct": 63.07,
+    "position": 4
+  },
+  {
+    "code": "RGB7006",
+    "name": "Функц 2",
+    "users": 17178,
+    "accepted_pct": 65.36,
+    "position": 5
+  },
+  {
+    "code": "RGB7007",
+    "name": "Сүүлийн цифр",
+    "users": 17077,
+    "accepted_pct": 66.24,
+    "position": 6
+  },
+  {
+    "code": "RGB7008",
+    "name": "Аравтын орны цифр",
+    "users": 16445,
+    "accepted_pct": 63.19,
+    "position": 7
+  },
+  {
+    "code": "RGB7009",
+    "name": "2 оронтой тоо",
+    "users": 16196,
+    "accepted_pct": 58.73,
+    "position": 8
+  },
+  {
+    "code": "RGB7010",
+    "name": "3 оронтой тоо",
+    "users": 15550,
+    "accepted_pct": 51.69,
+    "position": 9
+  },
+  {
+    "code": "RGB7011",
+    "name": "Минут секунд",
+    "users": 15056,
+    "accepted_pct": 56.37,
+    "position": 10
+  },
+  {
+    "code": "RGB7012",
+    "name": "Цаг минут секунд",
+    "users": 14104,
+    "accepted_pct": 44.48,
+    "position": 11
+  },
+  {
+    "code": "RGB7013",
+    "name": "Минут секунд -> секунд",
+    "users": 13913,
+    "accepted_pct": 68.45,
+    "position": 12
+  },
+  {
+    "code": "RGB7014",
+    "name": "Цаг, минут, секунд -> секунд",
+    "users": 13690,
+    "accepted_pct": 73.5,
+    "position": 13
+  },
+  {
+    "code": "RGB7015",
+    "name": "Хоног цаг",
+    "users": 13568,
+    "accepted_pct": 68.21,
+    "position": 14
+  },
+  {
+    "code": "RGB7016",
+    "name": "Хоног цаг -> цаг",
+    "users": 13246,
+    "accepted_pct": 77.73,
+    "position": 15
+  },
+  {
+    "code": "RGB7017",
+    "name": "Жил сар",
+    "users": 13001,
+    "accepted_pct": 73.34,
+    "position": 16
+  },
+  {
+    "code": "RGB7018",
+    "name": "Жил сар -> сар",
+    "users": 12805,
+    "accepted_pct": 79.66,
+    "position": 17
+  },
+  {
+    "code": "RGB7101",
+    "name": "Хоёр тооны их",
+    "users": 13896,
+    "accepted_pct": 57.94,
+    "position": 18
+  },
+  {
+    "code": "RGB7102",
+    "name": "Хоёр тооны бага",
+    "users": 13373,
+    "accepted_pct": 74.26,
+    "position": 19
+  },
+  {
+    "code": "RGB7103",
+    "name": "3 тооны их",
+    "users": 13028,
+    "accepted_pct": 45.91,
+    "position": 20
+  },
+  {
+    "code": "RGB7104",
+    "name": "4 тооны бага",
+    "users": 12314,
+    "accepted_pct": 59.01,
+    "position": 21
+  },
+  {
+    "code": "RGB7105",
+    "name": "Нийлбэр 80",
+    "users": 12252,
+    "accepted_pct": 54.45,
+    "position": 22
+  },
+  {
+    "code": "RGB7106",
+    "name": "Үржвэр 5",
+    "users": 11663,
+    "accepted_pct": 55.57,
+    "position": 23
+  },
+  {
+    "code": "RGB7107",
+    "name": "Тэгш тоонуудын нийлбэр",
+    "users": 11655,
+    "accepted_pct": 59.95,
+    "position": 24
+  },
+  {
+    "code": "RGB7108",
+    "name": "Сондгой тоонуудын үржвэр",
+    "users": 11341,
+    "accepted_pct": 65.95,
+    "position": 25
+  },
+  {
+    "code": "RGB7109",
+    "name": "Тэнцүү 5",
+    "users": 11154,
+    "accepted_pct": 69.83,
+    "position": 26
+  },
+  {
+    "code": "RGB7110",
+    "name": "3-д хуваагдах",
+    "users": 11058,
+    "accepted_pct": 62.73,
+    "position": 27
+  },
+  {
+    "code": "RGB7111",
+    "name": "11-д хуваагддаггүй",
+    "users": 10891,
+    "accepted_pct": 64.37,
+    "position": 28
+  },
+  {
+    "code": "RGB7112",
+    "name": "10-аас их",
+    "users": 10879,
+    "accepted_pct": 51.48,
+    "position": 29
+  },
+  {
+    "code": "RGB7113",
+    "name": "5-аас бага",
+    "users": 10762,
+    "accepted_pct": 70.25,
+    "position": 30
+  },
+  {
+    "code": "RGB7114",
+    "name": "Тэгш тоонууд YES",
+    "users": 10654,
+    "accepted_pct": 52.2,
+    "position": 31
+  },
+  {
+    "code": "RGB7201",
+    "name": "IOI",
+    "users": 11353,
+    "accepted_pct": 62.82,
+    "position": 32
+  },
+  {
+    "code": "RGB7202",
+    "name": "IOI 3 удаа",
+    "users": 11178,
+    "accepted_pct": 67.95,
+    "position": 33
+  },
+  {
+    "code": "RGB7203",
+    "name": "IOI n удаа",
+    "users": 10972,
+    "accepted_pct": 57.51,
+    "position": 34
+  },
+  {
+    "code": "RGB7204",
+    "name": "Эхний n тооны нийлбэр",
+    "users": 10717,
+    "accepted_pct": 60.44,
+    "position": 35
+  },
+  {
+    "code": "RGB7205",
+    "name": "n!",
+    "users": 10588,
+    "accepted_pct": 66.13,
+    "position": 36
+  },
+  {
+    "code": "RGB7206",
+    "name": "100-г n удаа нэм",
+    "users": 10614,
+    "accepted_pct": 73.25,
+    "position": 37
+  },
+  {
+    "code": "RGB7207",
+    "name": "a тоог n удаа нэм",
+    "users": 10298,
+    "accepted_pct": 74.02,
+    "position": 38
+  },
+  {
+    "code": "RGB7208",
+    "name": "2-ын n зэрэг",
+    "users": 10036,
+    "accepted_pct": 64.71,
+    "position": 39
+  },
+  {
+    "code": "RGB7209",
+    "name": "a тооны n зэрэг",
+    "users": 9635,
+    "accepted_pct": 65.92,
+    "position": 40
+  },
+  {
+    "code": "RGB7115",
+    "name": "Тэнцсэн, унасан",
+    "users": 9561,
+    "accepted_pct": 43.67,
+    "position": 41
+  },
+  {
+    "code": "RGB7116",
+    "name": "5-аас онц руу",
+    "users": 9554,
+    "accepted_pct": 66.4,
+    "position": 42
+  },
+  {
+    "code": "RGB7117",
+    "name": "Тоон үнэлгээнээс үсгэнд",
+    "users": 9056,
+    "accepted_pct": 50.23,
+    "position": 43
+  },
+  {
+    "code": "RGB7118",
+    "name": "Гараг",
+    "users": 9175,
+    "accepted_pct": 55.12,
+    "position": 44
+  },
+  {
+    "code": "RGB7119",
+    "name": "Улирал",
+    "users": 9057,
+    "accepted_pct": 36.18,
+    "position": 45
+  },
+  {
+    "code": "RGB7120",
+    "name": "Гурвалжин эсэх",
+    "users": 9058,
+    "accepted_pct": 48.01,
+    "position": 46
+  },
+  {
+    "code": "RGB7210",
+    "name": "Тооны хүрд",
+    "users": 9059,
+    "accepted_pct": 52.32,
+    "position": 47
+  },
+  {
+    "code": "RGB7211",
+    "name": "Тооны зэргийн хүрд",
+    "users": 9060,
+    "accepted_pct": 47.08,
+    "position": 48
+  },
+  {
+    "code": "RGB7019",
+    "name": "Илэрхийлэл 1",
+    "users": 13121,
+    "accepted_pct": 72.22,
+    "position": 49
+  },
+  {
+    "code": "RGB7170",
+    "name": "Давхрын хэд дэх хаалга",
+    "users": 13158,
+    "accepted_pct": 37.32,
+    "position": 50
+  },
+  {
+    "code": "RGB7171",
+    "name": "Орц, давхар, хаалга",
+    "users": 13160,
+    "accepted_pct": 36.83,
+    "position": 51
+  },
+  {
+    "code": "RGB7070",
+    "name": "Нийлбэр 1",
+    "users": 13162,
+    "accepted_pct": 63.95,
+    "position": 52
+  },
+  {
+    "code": "RGB7071",
+    "name": "Нийлбэр 2",
+    "users": 13163,
+    "accepted_pct": 69.56,
+    "position": 53
+  },
+  {
+    "code": "RGB7072",
+    "name": "Нийлбэр 3",
+    "users": 13164,
+    "accepted_pct": 71.17,
+    "position": 54
+  },
+  {
+    "code": "RGB7301",
+    "name": "Ахмад орны цифр",
+    "users": 13184,
+    "accepted_pct": 57.24,
+    "position": 55
+  },
+  {
+    "code": "RGB7302",
+    "name": "Цифрүүдийн нийлбэр",
+    "users": 13190,
+    "accepted_pct": 58.51,
+    "position": 56
+  },
+  {
+    "code": "RGB7303",
+    "name": "Тэгш цифрүүдийн нийлбэр",
+    "users": 13191,
+    "accepted_pct": 65.56,
+    "position": 57
+  },
+  {
+    "code": "RGB7304",
+    "name": "Сондгой цифрүүдийн тоо",
+    "users": 13192,
+    "accepted_pct": 60.16,
+    "position": 58
+  },
+  {
+    "code": "RGB7305",
+    "name": "Цифрийн давталт",
+    "users": 13193,
+    "accepted_pct": 64.72,
+    "position": 59
+  },
+  {
+    "code": "RGB7306",
+    "name": "Тоон дахь их цифр",
+    "users": 13194,
+    "accepted_pct": 65.83,
+    "position": 60
+  },
+  {
+    "code": "RGB7307",
+    "name": "Тоон дахь бага цифр",
+    "users": 13195,
+    "accepted_pct": 63.98,
+    "position": 61
+  },
+  {
+    "code": "RGB7308",
+    "name": "Тонгорогсон тоо",
+    "users": 13196,
+    "accepted_pct": 69.44,
+    "position": 62
+  },
+  {
+    "code": "RGB7309",
+    "name": "Палиндром эсэх",
+    "users": 13197,
+    "accepted_pct": 55.13,
+    "position": 63
+  },
+  {
+    "code": "RGB7310",
+    "name": "Хоёрын зэрэгт",
+    "users": 13229,
+    "accepted_pct": 49.11,
+    "position": 64
+  },
+  {
+    "code": "RGB7311",
+    "name": "Гуравын зэрэгтэд хураа",
+    "users": 13230,
+    "accepted_pct": 61.92,
+    "position": 65
+  },
+  {
+    "code": "RGB7312",
+    "name": "Тооны факториал",
+    "users": 13231,
+    "accepted_pct": 32.11,
+    "position": 66
+  },
+  {
+    "code": "RGB7313",
+    "name": "ХИЕХ",
+    "users": 13245,
+    "accepted_pct": 56.55,
+    "position": 67
+  },
+  {
+    "code": "RGB7314",
+    "name": "ХБЕХ",
+    "users": 13246,
+    "accepted_pct": 61.19,
+    "position": 68
+  },
+  {
+    "code": "RGB7315",
+    "name": "Бутархайг хураа",
+    "users": 13247,
+    "accepted_pct": 66.37,
+    "position": 69
+  },
+  {
+    "code": "RGB7220",
+    "name": "Цифр давталт",
+    "users": 13296,
+    "accepted_pct": 69.81,
+    "position": 70
+  },
+  {
+    "code": "RGB7221",
+    "name": "Цифр хүртэлх",
+    "users": 13297,
+    "accepted_pct": 66.23,
+    "position": 71
+  },
+  {
+    "code": "RGB7222",
+    "name": "Есөөс цифр хүртэл",
+    "users": 13299,
+    "accepted_pct": 66.98,
+    "position": 72
+  },
+  {
+    "code": "RGB7400",
+    "name": "Давхар давталт 0",
+    "users": 13304,
+    "accepted_pct": 59.35,
+    "position": 73
+  },
+  {
+    "code": "RGB7401",
+    "name": "Давхар давталт 1",
+    "users": 13305,
+    "accepted_pct": 34.82,
+    "position": 74
+  },
+  {
+    "code": "RGB7402",
+    "name": "Давхар давталт 2",
+    "users": 13306,
+    "accepted_pct": 73.28,
+    "position": 75
+  },
+  {
+    "code": "RGB7403",
+    "name": "Давхар давталт 3",
+    "users": 13307,
+    "accepted_pct": 60.59,
+    "position": 76
+  },
+  {
+    "code": "RGB7404",
+    "name": "Давхар давталт 4",
+    "users": 13311,
+    "accepted_pct": 71.32,
+    "position": 77
+  },
+  {
+    "code": "RGB7405",
+    "name": "Давхар давталт 5",
+    "users": 13312,
+    "accepted_pct": 71.19,
+    "position": 78
+  },
+  {
+    "code": "RGB7090",
+    "name": "Шагай",
+    "users": 13314,
+    "accepted_pct": 66.4,
+    "position": 79
+  },
+  {
+    "code": "RGB7172",
+    "name": "Гурвалжны хэлбэр",
+    "users": 13315,
+    "accepted_pct": 39.49,
+    "position": 80
+  },
+  {
+    "code": "RGB7316",
+    "name": "Гурван тооны ХБЕХ",
+    "users": 13324,
+    "accepted_pct": 37.24,
+    "position": 81
+  },
+  {
+    "code": "RGB7317",
+    "name": "Цөөн квадрат",
+    "users": 13325,
+    "accepted_pct": 48.22,
+    "position": 82
+  },
+  {
+    "code": "RGB7318",
+    "name": "Залгаад квадрат зэрэг",
+    "users": 13326,
+    "accepted_pct": 30.88,
+    "position": 83
+  },
+  {
+    "code": "RGB7030",
+    "name": "Гипотенуз",
+    "users": 13331,
+    "accepted_pct": 47.69,
+    "position": 84
+  },
+  {
+    "code": "RGB7031",
+    "name": "Гурвалжны талбай",
+    "users": 13332,
+    "accepted_pct": 53.62,
+    "position": 85
+  },
+  {
+    "code": "RGB7032",
+    "name": "Дугуйн талбай",
+    "users": 13333,
+    "accepted_pct": 34.71,
+    "position": 86
+  },
+  {
+    "code": "RGB7033",
+    "name": "Хоёр цэгийн хоорондох зай",
+    "users": 13334,
+    "accepted_pct": 38.84,
+    "position": 87
+  },
+  {
+    "code": "RGB7034",
+    "name": "2 тооны дундаж",
+    "users": 13335,
+    "accepted_pct": 61.9,
+    "position": 88
+  },
+  {
+    "code": "RGB7075",
+    "name": "Нийлбэр 4",
+    "users": 13336,
+    "accepted_pct": 28.76,
+    "position": 89
+  },
+  {
+    "code": "RGB7035",
+    "name": "Тойргийн талбай, урт",
+    "users": 13337,
+    "accepted_pct": 66.53,
+    "position": 90
+  },
+  {
+    "code": "RGB7500",
+    "name": "Массив нийлбэр",
+    "users": 13343,
+    "accepted_pct": 61.17,
+    "position": 91
+  },
+  {
+    "code": "RGB7501",
+    "name": "Массив тэгээс их нийлбэр",
+    "users": 13344,
+    "accepted_pct": 70.33,
+    "position": 92
+  },
+  {
+    "code": "RGB7502",
+    "name": "Муугийн тоо",
+    "users": 13345,
+    "accepted_pct": 70.58,
+    "position": 93
+  },
+  {
+    "code": "RGB7503",
+    "name": "Сондгой нь их үү",
+    "users": 13346,
+    "accepted_pct": 47.7,
+    "position": 94
+  },
+  {
+    "code": "RGB7504",
+    "name": "Массивын их",
+    "users": 13347,
+    "accepted_pct": 42.77,
+    "position": 95
+  },
+  {
+    "code": "RGB7505",
+    "name": "Массивын бага",
+    "users": 13348,
+    "accepted_pct": 69.27,
+    "position": 96
+  },
+  {
+    "code": "RGB7506",
+    "name": "Массивт өгөгдсөн тоо хэд",
+    "users": 13349,
+    "accepted_pct": 55.89,
+    "position": 97
+  },
+  {
+    "code": "RGB7507",
+    "name": "Массивын их нь хэд дэх",
+    "users": 13350,
+    "accepted_pct": 35.08,
+    "position": 98
+  },
+  {
+    "code": "RGB7508",
+    "name": "Массивын их хэд",
+    "users": 13351,
+    "accepted_pct": 54.32,
+    "position": 99
+  },
+  {
+    "code": "RGB7509",
+    "name": "Массивт байгаа эсэх",
+    "users": 13352,
+    "accepted_pct": 43.14,
+    "position": 100
+  },
+  {
+    "code": "RGB7212",
+    "name": "Факториалын хүрд",
+    "users": 13425,
+    "accepted_pct": 64.04,
+    "position": 101
+  },
+  {
+    "code": "RGB7213",
+    "name": "Үржвэр нийлбэр 1",
+    "users": 13426,
+    "accepted_pct": 75.64,
+    "position": 102
+  },
+  {
+    "code": "RGB7214",
+    "name": "Үржвэр нийлбэр 2",
+    "users": 13427,
+    "accepted_pct": 68.73,
+    "position": 103
+  },
+  {
+    "code": "RGB7215",
+    "name": "Үржвэр нийлбэр 3",
+    "users": 13428,
+    "accepted_pct": 65.62,
+    "position": 104
+  },
+  {
+    "code": "RGB7216",
+    "name": "Үржвэр нийлбэр 4",
+    "users": 13429,
+    "accepted_pct": 76.87,
+    "position": 105
+  },
+  {
+    "code": "RGB7217",
+    "name": "Давхар факториал",
+    "users": 13430,
+    "accepted_pct": 73.42,
+    "position": 106
+  },
+  {
+    "code": "RGB7218",
+    "name": "Зэрэгтүүдийн нийлбэр",
+    "users": 13433,
+    "accepted_pct": 73.14,
+    "position": 107
+  },
+  {
+    "code": "RGB7219",
+    "name": "Факториалуудын нийлбэр",
+    "users": 13434,
+    "accepted_pct": 75.1,
+    "position": 108
+  },
+  {
+    "code": "RGB7230",
+    "name": "Синус нийлбэр 1",
+    "users": 13459,
+    "accepted_pct": 58.82,
+    "position": 109
+  },
+  {
+    "code": "RGB7231",
+    "name": "Синус нийлбэр 2",
+    "users": 13460,
+    "accepted_pct": 65.52,
+    "position": 110
+  },
+  {
+    "code": "RGB7232",
+    "name": "Синус нийлбэр 3",
+    "users": 13461,
+    "accepted_pct": 63.72,
+    "position": 111
+  },
+  {
+    "code": "RGB7233",
+    "name": "Синус косинус",
+    "users": 13463,
+    "accepted_pct": 74.42,
+    "position": 112
+  },
+  {
+    "code": "RGB7234",
+    "name": "Косинус",
+    "users": 13464,
+    "accepted_pct": 70.46,
+    "position": 113
+  },
+  {
+    "code": "RGB7235",
+    "name": "Квадратын урвуу үржвэр",
+    "users": 13478,
+    "accepted_pct": 66.27,
+    "position": 114
+  },
+  {
+    "code": "RGB7236",
+    "name": "Квадрат язгуур доорх 2",
+    "users": 13479,
+    "accepted_pct": 61.79,
+    "position": 115
+  },
+  {
+    "code": "RGB7237",
+    "name": "Арифметик дундаж",
+    "users": 13480,
+    "accepted_pct": 35.42,
+    "position": 116
+  },
+  {
+    "code": "RGB7600",
+    "name": "Хүүн довтолгоо",
+    "users": 13486,
+    "accepted_pct": 34.25,
+    "position": 117
+  },
+  {
+    "code": "RGB7603",
+    "name": "Супер жаал саад тойрон",
+    "users": 13487,
+    "accepted_pct": 32.89,
+    "position": 118
+  },
+  {
+    "code": "RGB7604",
+    "name": "Хүү гишгүүрт мөнгө төлбөл",
+    "users": 13488,
+    "accepted_pct": 53.84,
+    "position": 119
+  },
+  {
+    "code": "RGB7605",
+    "name": "Бага төлөх гишгүүрүүд",
+    "users": 13489,
+    "accepted_pct": 33.76,
+    "position": 120
+  },
+  {
+    "code": "RGB7606",
+    "name": "Фибоначчийн n дахь гишүүн",
+    "users": 13490,
+    "accepted_pct": 58.08,
+    "position": 121
+  },
+  {
+    "code": "RGB7607",
+    "name": "Фибаноччийн гишүүний цифр",
+    "users": 13491,
+    "accepted_pct": 20.19,
+    "position": 122
+  },
+  {
+    "code": "RGB7608",
+    "name": "Энгийн дараалал",
+    "users": 13492,
+    "accepted_pct": 55.92,
+    "position": 123
+  },
+  {
+    "code": "RGB7609",
+    "name": "Зальжин дараалал",
+    "users": 13493,
+    "accepted_pct": 59.49,
+    "position": 124
+  },
+  {
+    "code": "RGB7602",
+    "name": "Супер жаал",
+    "users": 13494,
+    "accepted_pct": 46.01,
+    "position": 125
+  },
+  {
+    "code": "RGB7601",
+    "name": "Хүү саадыг тойрон",
+    "users": 13495,
+    "accepted_pct": 60.27,
+    "position": 126
+  },
+  {
+    "code": "RGB7300",
+    "name": "Оронгийн тоо",
+    "users": 13505,
+    "accepted_pct": 47.81,
+    "position": 127
+  },
+  {
+    "code": "RGB7406",
+    "name": "Илэрхийлэл 1",
+    "users": 13597,
+    "accepted_pct": 36.39,
+    "position": 128
+  },
+  {
+    "code": "RGB7060",
+    "name": "Жижгээс томд",
+    "users": 13605,
+    "accepted_pct": 75.06,
+    "position": 129
+  },
+  {
+    "code": "RGB7061",
+    "name": "Томоос жижигт",
+    "users": 13606,
+    "accepted_pct": 83.87,
+    "position": 130
+  },
+  {
+    "code": "RGB7062",
+    "name": "Дараагийн тэмдэгт",
+    "users": 13608,
+    "accepted_pct": 70.61,
+    "position": 131
+  },
+  {
+    "code": "RGB7063",
+    "name": "Тоонд харгалзах тэмдэгт",
+    "users": 13609,
+    "accepted_pct": 69.35,
+    "position": 132
+  },
+  {
+    "code": "RGB7064",
+    "name": "Тэмдэгтэд  харгалзах код",
+    "users": 13610,
+    "accepted_pct": 76.66,
+    "position": 133
+  },
+  {
+    "code": "RGB7160",
+    "name": "Том үсэгт шилжүүл",
+    "users": 13611,
+    "accepted_pct": 47.24,
+    "position": 134
+  },
+  {
+    "code": "RGB7190",
+    "name": "Тоо сэргээх",
+    "users": 13623,
+    "accepted_pct": 56.8,
+    "position": 135
+  },
+  {
+    "code": "RGB7091",
+    "name": "Шоо",
+    "users": 13629,
+    "accepted_pct": 51.64,
+    "position": 136
+  },
+  {
+    "code": "RGB7580",
+    "name": "Тооны цифрээс үүсэх их тоо",
+    "users": 13632,
+    "accepted_pct": 50.68,
+    "position": 137
+  },
+  {
+    "code": "RGB7581",
+    "name": "Тооноос бага тоо",
+    "users": 13633,
+    "accepted_pct": 40.04,
+    "position": 138
+  },
+  {
+    "code": "RGB7582",
+    "name": "ЭЕШ",
+    "users": 13634,
+    "accepted_pct": 33.52,
+    "position": 139
+  },
+  {
+    "code": "RGB7583",
+    "name": "Давталт",
+    "users": 13635,
+    "accepted_pct": 20.28,
+    "position": 140
+  },
+  {
+    "code": "RGB7584",
+    "name": "Дараалал",
+    "users": 13636,
+    "accepted_pct": 6.87,
+    "position": 141
+  },
+  {
+    "code": "RGB7585",
+    "name": "Өр авлага",
+    "users": 13637,
+    "accepted_pct": 39.44,
+    "position": 142
+  },
+  {
+    "code": "RGB7586",
+    "name": "Хөгжилтэй цохилт",
+    "users": 13638,
+    "accepted_pct": 58.31,
+    "position": 143
+  },
+  {
+    "code": "RGB7587",
+    "name": "К үет массив",
+    "users": 13639,
+    "accepted_pct": 37.34,
+    "position": 144
+  },
+  {
+    "code": "RGB7588",
+    "name": "Урвуулах тоглоом",
+    "users": 13640,
+    "accepted_pct": 31.93,
+    "position": 145
+  },
+  {
+    "code": "RGB7589",
+    "name": "Луунууд",
+    "users": 13641,
+    "accepted_pct": 22.65,
+    "position": 146
+  },
+  {
+    "code": "RGB7700",
+    "name": "Боломжит замууд",
+    "users": 13652,
+    "accepted_pct": 52.26,
+    "position": 147
+  },
+  {
+    "code": "RGB7701",
+    "name": "Шинэ жилийн тээвэр",
+    "users": 13653,
+    "accepted_pct": 53.05,
+    "position": 148
+  },
+  {
+    "code": "RGB7702",
+    "name": "Бүжгийн хос",
+    "users": 13654,
+    "accepted_pct": 31.58,
+    "position": 149
+  },
+  {
+    "code": "RGB7703",
+    "name": "Хоёр товчлуур",
+    "users": 13655,
+    "accepted_pct": 31.78,
+    "position": 150
+  },
+  {
+    "code": "RGB7704",
+    "name": "Үдэшлэг",
+    "users": 13656,
+    "accepted_pct": 43.11,
+    "position": 151
+  },
+  {
+    "code": "RGB7540",
+    "name": "Утга олголт 0",
+    "users": 13663,
+    "accepted_pct": 68.45,
+    "position": 152
+  },
+  {
+    "code": "RGB7541",
+    "name": "Утга олголт 1",
+    "users": 13664,
+    "accepted_pct": 51.17,
+    "position": 153
+  },
+  {
+    "code": "RGB7542",
+    "name": "Утга олголт 2",
+    "users": 13665,
+    "accepted_pct": 69.35,
+    "position": 154
+  },
+  {
+    "code": "RGB7543",
+    "name": "Утга олголт 3",
+    "users": 13666,
+    "accepted_pct": 68.02,
+    "position": 155
+  },
+  {
+    "code": "RGB7544",
+    "name": "Утга олголт 4",
+    "users": 13667,
+    "accepted_pct": 67.7,
+    "position": 156
+  },
+  {
+    "code": "RGB7545",
+    "name": "Утга олголт 5",
+    "users": 13668,
+    "accepted_pct": 41.27,
+    "position": 157
+  },
+  {
+    "code": "RGB7546",
+    "name": "Утга олголт 6",
+    "users": 13670,
+    "accepted_pct": 73.5,
+    "position": 158
+  },
+  {
+    "code": "RGB7547",
+    "name": "Утга олголт 7",
+    "users": 13671,
+    "accepted_pct": 56.77,
+    "position": 159
+  },
+  {
+    "code": "RGB7548",
+    "name": "Квадратын хүрээгээр",
+    "users": 13672,
+    "accepted_pct": 56.52,
+    "position": 160
+  },
+  {
+    "code": "RGB7549",
+    "name": "Квадратын диагоналиар",
+    "users": 13673,
+    "accepted_pct": 46.89,
+    "position": 161
+  },
+  {
+    "code": "RGB7550",
+    "name": "Гурвалжингийн хүрээгээр",
+    "users": 13715,
+    "accepted_pct": 59.17,
+    "position": 162
+  },
+  {
+    "code": "RGB7551",
+    "name": "Ромбын хүрээгээр",
+    "users": 13716,
+    "accepted_pct": 79.33,
+    "position": 163
+  },
+  {
+    "code": "RGB7610",
+    "name": "Дараалан 1 ороогүй",
+    "users": 13725,
+    "accepted_pct": 43.92,
+    "position": 164
+  },
+  {
+    "code": "RGB7611",
+    "name": "3 дараалан 1 ороогүй",
+    "users": 13726,
+    "accepted_pct": 52.55,
+    "position": 165
+  },
+  {
+    "code": "RGB7612",
+    "name": "0,1,2-оос дараалан 1 ороогүй",
+    "users": 13727,
+    "accepted_pct": 53.56,
+    "position": 166
+  },
+  {
+    "code": "RGB7613",
+    "name": "Калькулятор",
+    "users": 13728,
+    "accepted_pct": 24.21,
+    "position": 167
+  },
+  {
+    "code": "RGB7614",
+    "name": "Калькуляторын үйлдлүүд",
+    "users": 13729,
+    "accepted_pct": 34.26,
+    "position": 168
+  },
+  {
+    "code": "RGB7615",
+    "name": "Хадааснууд",
+    "users": 13730,
+    "accepted_pct": 13.43,
+    "position": 169
+  },
+  {
+    "code": "RGB7616",
+    "name": "Дараалан ижил",
+    "users": 13731,
+    "accepted_pct": 43.52,
+    "position": 170
+  },
+  {
+    "code": "RGB7617",
+    "name": "Нийлбэр нь их  дараалсан",
+    "users": 13732,
+    "accepted_pct": 39.82,
+    "position": 171
+  },
+  {
+    "code": "RGB7618",
+    "name": "Өсөх дэд дараалал",
+    "users": 13733,
+    "accepted_pct": 36.24,
+    "position": 172
+  },
+  {
+    "code": "RGB7510",
+    "name": "Өмнөхөөсөө их",
+    "users": 13846,
+    "accepted_pct": 51.01,
+    "position": 173
+  },
+  {
+    "code": "RGB7511",
+    "name": "Хөршийн байр солих",
+    "users": 13847,
+    "accepted_pct": 58.9,
+    "position": 174
+  },
+  {
+    "code": "RGB7512",
+    "name": "Хойш 1 шилжилт",
+    "users": 13848,
+    "accepted_pct": 70.47,
+    "position": 175
+  },
+  {
+    "code": "RGB7513",
+    "name": "Угсраа хөрвүүлэлт",
+    "users": 13849,
+    "accepted_pct": 44.24,
+    "position": 176
+  },
+  {
+    "code": "RGB7514",
+    "name": "Супер шилжилт",
+    "users": 13850,
+    "accepted_pct": 44.15,
+    "position": 177
+  },
+  {
+    "code": "RGB7515",
+    "name": "Монотонд ялгаатай нь",
+    "users": 13851,
+    "accepted_pct": 52.41,
+    "position": 178
+  },
+  {
+    "code": "RGB7516",
+    "name": "Давхардлыг арилга",
+    "users": 13852,
+    "accepted_pct": 39.47,
+    "position": 179
+  },
+  {
+    "code": "RGB7517",
+    "name": "Массиваас хас, бас нэм",
+    "users": 13853,
+    "accepted_pct": 39.91,
+    "position": 180
+  },
+  {
+    "code": "RGB7518",
+    "name": "Оргил ба ёроол",
+    "users": 13854,
+    "accepted_pct": 43.71,
+    "position": 181
+  },
+  {
+    "code": "RGB7519",
+    "name": "Өсөх эсэх",
+    "users": 13855,
+    "accepted_pct": 45.11,
+    "position": 182
+  },
+  {
+    "code": "RGB7520",
+    "name": "Массив нийлбэр",
+    "users": 14070,
+    "accepted_pct": 68,
+    "position": 183
+  },
+  {
+    "code": "RGB7521",
+    "name": "Массивын ихийн байрлал",
+    "users": 14071,
+    "accepted_pct": 31.72,
+    "position": 184
+  },
+  {
+    "code": "RGB7522",
+    "name": "Хамгийн бага нь хэд",
+    "users": 14072,
+    "accepted_pct": 50.41,
+    "position": 185
+  },
+  {
+    "code": "RGB7523",
+    "name": "Мөрүүдийн ихүүд",
+    "users": 14073,
+    "accepted_pct": 46.98,
+    "position": 186
+  },
+  {
+    "code": "RGB7524",
+    "name": "Багануудын багууд",
+    "users": 14074,
+    "accepted_pct": 58.1,
+    "position": 187
+  },
+  {
+    "code": "RGB7525",
+    "name": "Тэгшхэм гол диагональ",
+    "users": 14075,
+    "accepted_pct": 54.67,
+    "position": 188
+  },
+  {
+    "code": "RGB7526",
+    "name": "Тэгшхэм хажуу диагональ",
+    "users": 14076,
+    "accepted_pct": 45.57,
+    "position": 189
+  },
+  {
+    "code": "RGB7527",
+    "name": "Диагогаль квадрат нийлбэр",
+    "users": 14077,
+    "accepted_pct": 73.53,
+    "position": 190
+  },
+  {
+    "code": "RGB7528",
+    "name": "Их багын зөрүү",
+    "users": 14078,
+    "accepted_pct": 48,
+    "position": 191
+  },
+  {
+    "code": "RGB7529",
+    "name": "Сапер",
+    "users": 14079,
+    "accepted_pct": 49.94,
+    "position": 192
+  },
+  {
+    "code": "RGB7530",
+    "name": "Массив эргүүлэлт",
+    "users": 14136,
+    "accepted_pct": 51.58,
+    "position": 193
+  },
+  {
+    "code": "RGB7531",
+    "name": "Ширээ",
+    "users": 14137,
+    "accepted_pct": 40.81,
+    "position": 194
+  },
+  {
+    "code": "RGB7532",
+    "name": "Алиса Боб",
+    "users": 14139,
+    "accepted_pct": 37.8,
+    "position": 195
+  },
+  {
+    "code": "RGB7533",
+    "name": "Генералын айлчлал",
+    "users": 14140,
+    "accepted_pct": 44.03,
+    "position": 196
+  },
+  {
+    "code": "RGB7534",
+    "name": "Бэлгэнүүд",
+    "users": 14141,
+    "accepted_pct": 71.89,
+    "position": 197
+  },
+  {
+    "code": "RGB7535",
+    "name": "Өмсгөл",
+    "users": 14142,
+    "accepted_pct": 64.42,
+    "position": 198
+  },
+  {
+    "code": "RGB7536",
+    "name": "Хөөрхөн матриц",
+    "users": 14143,
+    "accepted_pct": 56.71,
+    "position": 199
+  },
+  {
+    "code": "RGB7537",
+    "name": "Азтай хэсэг",
+    "users": 14144,
+    "accepted_pct": 30.47,
+    "position": 200
+  },
+  {
+    "code": "RGB7538",
+    "name": "Хэт хурдан математикч",
+    "users": 14145,
+    "accepted_pct": 65.57,
+    "position": 201
+  },
+  {
+    "code": "RGB7539",
+    "name": "Chat өрөө",
+    "users": 14146,
+    "accepted_pct": 52.43,
+    "position": 202
+  },
+  {
+    "code": "RGB7173",
+    "name": "Цэгийн байрлал",
+    "users": 14228,
+    "accepted_pct": 71.54,
+    "position": 203
+  },
+  {
+    "code": "RGB7174",
+    "name": "Хөрш нүд",
+    "users": 14229,
+    "accepted_pct": 44.36,
+    "position": 204
+  },
+  {
+    "code": "RGB7370",
+    "name": "Хуваагч",
+    "users": 14230,
+    "accepted_pct": 23.12,
+    "position": 205
+  },
+  {
+    "code": "RGB7371",
+    "name": "Армстронгийн тоо",
+    "users": 14231,
+    "accepted_pct": 54.1,
+    "position": 206
+  },
+  {
+    "code": "RGB7440",
+    "name": "Тэмдэгтүүд",
+    "users": 14232,
+    "accepted_pct": 57.55,
+    "position": 207
+  },
+  {
+    "code": "RGB7560",
+    "name": "Их багын байр солих",
+    "users": 14233,
+    "accepted_pct": 50.51,
+    "position": 208
+  },
+  {
+    "code": "RGB7191",
+    "name": "Метро  Аалзны тор",
+    "users": 14288,
+    "accepted_pct": 39.45,
+    "position": 209
+  },
+  {
+    "code": "RGB7620",
+    "name": "Жимс",
+    "users": 14357,
+    "accepted_pct": 47.88,
+    "position": 210
+  },
+  {
+    "code": "RGB7621",
+    "name": "Нэмэгдэхүүн давхцахгүй",
+    "users": 14389,
+    "accepted_pct": 39.27,
+    "position": 211
+  },
+  {
+    "code": "RGB7622",
+    "name": "Нэмэгдэхүүн давхцаж болно",
+    "users": 14390,
+    "accepted_pct": 30.84,
+    "position": 212
+  },
+  {
+    "code": "RGB7640",
+    "name": "Төлбөр",
+    "users": 14412,
+    "accepted_pct": 54.41,
+    "position": 213
+  },
+  {
+    "code": "RGB7175",
+    "name": "Хагас дугуй",
+    "users": 14446,
+    "accepted_pct": 39.39,
+    "position": 214
+  },
+  {
+    "code": "RGB7176",
+    "name": "Хиймэл зүлгэн хавтан",
+    "users": 14447,
+    "accepted_pct": 65.98,
+    "position": 215
+  },
+  {
+    "code": "RGB7290",
+    "name": "Кенгуру",
+    "users": 14450,
+    "accepted_pct": 31.86,
+    "position": 216
+  },
+  {
+    "code": "RGB7590",
+    "name": "Шилжилтүүдийн хамгийн их",
+    "users": 14453,
+    "accepted_pct": 34.71,
+    "position": 217
+  },
+  {
+    "code": "RGB7192",
+    "name": "Хаалт зөв эсэх",
+    "users": 14465,
+    "accepted_pct": 25.19,
+    "position": 218
+  },
+  {
+    "code": "RGB7177",
+    "name": "Тоо 15",
+    "users": 14498,
+    "accepted_pct": 21.52,
+    "position": 219
+  },
+  {
+    "code": "RGB7390",
+    "name": "Палиндром үүсгэ",
+    "users": 14499,
+    "accepted_pct": 24.15,
+    "position": 220
+  },
+  {
+    "code": "RGB7372",
+    "name": "Ялгавар",
+    "users": 14505,
+    "accepted_pct": 54.31,
+    "position": 221
+  },
+  {
+    "code": "RGB7552",
+    "name": "Шилжилтээр матрицад",
+    "users": 14510,
+    "accepted_pct": 70.34,
+    "position": 222
+  },
+  {
+    "code": "RGB7680",
+    "name": "Хоёр оронт анхны тоо",
+    "users": 14511,
+    "accepted_pct": 28.42,
+    "position": 223
+  },
+  {
+    "code": "RGB7178",
+    "name": "Нийлбэр",
+    "users": 14554,
+    "accepted_pct": 19.57,
+    "position": 224
+  },
+  {
+    "code": "RGB7373",
+    "name": "Тэгш сондгой",
+    "users": 14555,
+    "accepted_pct": 43.32,
+    "position": 225
+  },
+  {
+    "code": "RGB7374",
+    "name": "Квадратлаг тоо",
+    "users": 14571,
+    "accepted_pct": 34.29,
+    "position": 226
+  },
+  {
+    "code": "RGB7375",
+    "name": "Тойрог",
+    "users": 14594,
+    "accepted_pct": 26.85,
+    "position": 227
+  },
+  {
+    "code": "RGB7460",
+    "name": "Найзууд",
+    "users": 14595,
+    "accepted_pct": 25.26,
+    "position": 228
+  },
+  {
+    "code": "RGB7193",
+    "name": "Ехселийн багана",
+    "users": 14596,
+    "accepted_pct": 51.66,
+    "position": 229
+  },
+  {
+    "code": "RGB7376",
+    "name": "Тоо 1 3 7",
+    "users": 14605,
+    "accepted_pct": 21.93,
+    "position": 230
+  },
+  {
+    "code": "RGB7260",
+    "name": "Үсэг дахиад",
+    "users": 14606,
+    "accepted_pct": 47.63,
+    "position": 231
+  },
+  {
+    "code": "RGB7270",
+    "name": "Үлдэгдэл",
+    "users": 14608,
+    "accepted_pct": 70.14,
+    "position": 232
+  },
+  {
+    "code": "RGB7271",
+    "name": "Бүхэл цэгүүд",
+    "users": 14609,
+    "accepted_pct": 41.38,
+    "position": 233
+  },
+  {
+    "code": "RGB7710",
+    "name": "Тоо хуваагдаад л",
+    "users": 14614,
+    "accepted_pct": 39.67,
+    "position": 234
+  },
+  {
+    "code": "RGB7350",
+    "name": "Үржигдэхүүн нийлбэр",
+    "users": 14624,
+    "accepted_pct": 17.42,
+    "position": 235
+  },
+  {
+    "code": "RGB7340",
+    "name": "Цифрүүдийн нийлбэр тоо",
+    "users": 14636,
+    "accepted_pct": 28.24,
+    "position": 236
+  },
+  {
+    "code": "RGB7677",
+    "name": "Үлдэх нь",
+    "users": 14645,
+    "accepted_pct": 24.89,
+    "position": 237
+  },
+  {
+    "code": "RGB7641",
+    "name": "Хаалт",
+    "users": 14847,
+    "accepted_pct": 11.57,
+    "position": 238
+  },
+  {
+    "code": "RGB7272",
+    "name": "Оновчтой зогсолт",
+    "users": 15020,
+    "accepted_pct": 62.29,
+    "position": 239
+  },
+  {
+    "code": "RGB7320",
+    "name": "Текстийн хашилт",
+    "users": 15021,
+    "accepted_pct": 21.01,
+    "position": 240
+  },
+  {
+    "code": "RGB7341",
+    "name": "Кодтой цоож",
+    "users": 15022,
+    "accepted_pct": 15.7,
+    "position": 241
+  },
+  {
+    "code": "RGB7223",
+    "name": "Хамаарлын үйлдэл",
+    "users": 15023,
+    "accepted_pct": 57.78,
+    "position": 242
+  },
+  {
+    "code": "RGB7261",
+    "name": "One Two Three",
+    "users": 15024,
+    "accepted_pct": 33.18,
+    "position": 243
+  },
+  {
+    "code": "RGB7224",
+    "name": "Зардлаа хэмнэх",
+    "users": 15025,
+    "accepted_pct": 32.81,
+    "position": 244
+  },
+  {
+    "code": "RGB7262",
+    "name": "Setu-г аврая",
+    "users": 15026,
+    "accepted_pct": 63.92,
+    "position": 245
+  },
+  {
+    "code": "RGB7342",
+    "name": "Цифр болтол нь нэмье",
+    "users": 15171,
+    "accepted_pct": 40.5,
+    "position": 246
+  },
+  {
+    "code": "RGB7273",
+    "name": "Хурал төлөвлөлт",
+    "users": 15172,
+    "accepted_pct": 32.68,
+    "position": 247
+  },
+  {
+    "code": "RGB7274",
+    "name": "Утасны төлбөр",
+    "users": 15173,
+    "accepted_pct": 48.9,
+    "position": 248
+  },
+  {
+    "code": "RGB7275",
+    "name": "Үсэрдэг Марио",
+    "users": 15174,
+    "accepted_pct": 55.45,
+    "position": 249
+  },
+  {
+    "code": "RGB7276",
+    "name": "Lumberjack",
+    "users": 15175,
+    "accepted_pct": 43.59,
+    "position": 250
+  },
+  {
+    "code": "RGB7277",
+    "name": "Робот",
+    "users": 15176,
+    "accepted_pct": 52.54,
+    "position": 251
+  },
+  {
+    "code": "RGB7343",
+    "name": "Суваг солих",
+    "users": 15177,
+    "accepted_pct": 35.56,
+    "position": 252
+  },
+  {
+    "code": "RGB7278",
+    "name": "Хавцал",
+    "users": 15209,
+    "accepted_pct": 24.28,
+    "position": 253
+  },
+  {
+    "code": "RGB7800",
+    "name": "Graph",
+    "users": 17081,
+    "accepted_pct": 47.63,
+    "position": 254
+  },
+  {
+    "code": "RGB7623",
+    "name": "Зөв тоо",
+    "users": 17367,
+    "accepted_pct": 33.83,
+    "position": 255
+  },
+  {
+    "code": "RGB7624",
+    "name": "Эрэмбэлэх",
+    "users": 17444,
+    "accepted_pct": 45.17,
+    "position": 256
+  },
+  {
+    "code": "RGB7279",
+    "name": "Сарнай",
+    "users": 17460,
+    "accepted_pct": 25.28,
+    "position": 257
+  },
+  {
+    "code": "RGB7901",
+    "name": "Тэмцээний цаг",
+    "users": 17575,
+    "accepted_pct": 17.6,
+    "position": 258
+  },
+  {
+    "code": "RGB7902",
+    "name": "Алдсан цифрүүд",
+    "users": 17576,
+    "accepted_pct": 33.81,
+    "position": 259
+  },
+  {
+    "code": "RGB7903",
+    "name": "Moo Sick",
+    "users": 17577,
+    "accepted_pct": 44.78,
+    "position": 260
+  },
+  {
+    "code": "RGB7904",
+    "name": "Cow Beauty Pageant",
+    "users": 17578,
+    "accepted_pct": 27.62,
+    "position": 261
+  },
+  {
+    "code": "RGB7905",
+    "name": "Өвсөн бухал",
+    "users": 17582,
+    "accepted_pct": 44.72,
+    "position": 262
+  },
+  {
+    "code": "RGB7906",
+    "name": "Cow Photography",
+    "users": 17583,
+    "accepted_pct": 40.4,
+    "position": 263
+  },
+  {
+    "code": "RGB7907",
+    "name": "Escaping the Farm",
+    "users": 17585,
+    "accepted_pct": 24.35,
+    "position": 264
+  },
+  {
+    "code": "RGB7908",
+    "name": "Бэлэг",
+    "users": 17601,
+    "accepted_pct": 26.67,
+    "position": 265
+  },
+  {
+    "code": "RGB7909",
+    "name": "Бухал өрөх",
+    "users": 17602,
+    "accepted_pct": 27.3,
+    "position": 266
+  },
+  {
+    "code": "RGB7910",
+    "name": "Grazing Patterns",
+    "users": 17603,
+    "accepted_pct": 35.79,
+    "position": 267
+  },
+  {
+    "code": "RGB7911",
+    "name": "Олс нугалах",
+    "users": 17604,
+    "accepted_pct": 19.38,
+    "position": 268
+  },
+  {
+    "code": "RGB7912",
+    "name": "Зүлэг тарих",
+    "users": 17605,
+    "accepted_pct": 33.12,
+    "position": 269
+  },
+  {
+    "code": "RGB7913",
+    "name": "Mүү",
+    "users": 17606,
+    "accepted_pct": 23.99,
+    "position": 270
+  },
+  {
+    "code": "RGB7914",
+    "name": "17 дахин",
+    "users": 17607,
+    "accepted_pct": 20.71,
+    "position": 271
+  },
+  {
+    "code": "RGB7915",
+    "name": "Үхрүүдийг холбо",
+    "users": 17608,
+    "accepted_pct": 24.36,
+    "position": 272
+  },
+  {
+    "code": "RGB7916",
+    "name": "Алдаатай удирдлага",
+    "users": 17609,
+    "accepted_pct": 14.86,
+    "position": 273
+  },
+  {
+    "code": "RGB7917",
+    "name": "Дараалсан үнээнүүд",
+    "users": 17610,
+    "accepted_pct": 33.33,
+    "position": 274
+  },
+  {
+    "code": "RGB7918",
+    "name": "Гурван шулуун",
+    "users": 17611,
+    "accepted_pct": 25.19,
+    "position": 275
+  },
+  {
+    "code": "RGB7919",
+    "name": "Арлууд",
+    "users": 17612,
+    "accepted_pct": 19.23,
+    "position": 276
+  },
+  {
+    "code": "RGB7920",
+    "name": "Unlocking Blocks",
+    "users": 17613,
+    "accepted_pct": 25,
+    "position": 277
+  },
+  {
+    "code": "RGB7921",
+    "name": "Үнээг ол",
+    "users": 17614,
+    "accepted_pct": 40.87,
+    "position": 278
+  },
+  {
+    "code": "RGB7922",
+    "name": "Тэмдэгтийн алдаа",
+    "users": 17615,
+    "accepted_pct": 18.84,
+    "position": 279
+  },
+  {
+    "code": "RGB7923",
+    "name": "Horseshoes",
+    "users": 17630,
+    "accepted_pct": 39.29,
+    "position": 280
+  },
+  {
+    "code": "RGB7924",
+    "name": "Уулзаад мэндэл",
+    "users": 17631,
+    "accepted_pct": 15.91,
+    "position": 281
+  },
+  {
+    "code": "RGB7925",
+    "name": "Scrambled Letters",
+    "users": 17632,
+    "accepted_pct": 52.94,
+    "position": 282
+  },
+  {
+    "code": "RGB7926",
+    "name": "Crazy Fences",
+    "users": 17633,
+    "accepted_pct": 33.33,
+    "position": 283
+  },
+  {
+    "code": "RGB7927",
+    "name": "Mirrors",
+    "users": 17634,
+    "accepted_pct": 10.98,
+    "position": 284
+  },
+  {
+    "code": "RGB7928",
+    "name": "Хашаа будах",
+    "users": 17635,
+    "accepted_pct": 27.69,
+    "position": 285
+  },
+  {
+    "code": "RGB7929",
+    "name": "Liars and Truth Tellers",
+    "users": 17679,
+    "accepted_pct": 37.04,
+    "position": 286
+  },
+  {
+    "code": "RGB7930",
+    "name": "Message Relay",
+    "users": 17680,
+    "accepted_pct": 35.42,
+    "position": 287
+  },
+  {
+    "code": "RGB7931",
+    "name": "Зам хөндлөн гарах",
+    "users": 17681,
+    "accepted_pct": 12.5,
+    "position": 288
+  },
+  {
+    "code": "RGB7932",
+    "name": "Perimeter",
+    "users": 17682,
+    "accepted_pct": 35.85,
+    "position": 289
+  },
+  {
+    "code": "RGB7933",
+    "name": "Уралдаан",
+    "users": 17683,
+    "accepted_pct": 34.09,
+    "position": 290
+  },
+  {
+    "code": "RGB7934",
+    "name": "Breed Proximity",
+    "users": 17684,
+    "accepted_pct": 43.59,
+    "position": 291
+  },
+  {
+    "code": "RGB7935",
+    "name": "Үүлдэр оноолт",
+    "users": 17685,
+    "accepted_pct": 17.65,
+    "position": 292
+  },
+  {
+    "code": "RGB7936",
+    "name": "Bovine Ballet",
+    "users": 17686,
+    "accepted_pct": 52.63,
+    "position": 293
+  },
+  {
+    "code": "RGB7937",
+    "name": "Blink",
+    "users": 17687,
+    "accepted_pct": 29.09,
+    "position": 294
+  },
+  {
+    "code": "RGB7938",
+    "name": "Photo",
+    "users": 17688,
+    "accepted_pct": 32.14,
+    "position": 295
+  },
+  {
+    "code": "RGB7939",
+    "name": "Haywire",
+    "users": 17690,
+    "accepted_pct": 37.5,
+    "position": 296
+  },
+  {
+    "code": "RGB7960",
+    "name": "Cow Beauty Pageant",
+    "users": 17811,
+    "accepted_pct": 20.73,
+    "position": 297
+  },
+  {
+    "code": "RGB7961",
+    "name": "Cow Lineup",
+    "users": 17812,
+    "accepted_pct": 30.65,
+    "position": 298
+  },
+  {
+    "code": "RGB7962",
+    "name": "Tile Exchanging",
+    "users": 17814,
+    "accepted_pct": 23.53,
+    "position": 299
+  },
+  {
+    "code": "RGB7963",
+    "name": "Cow Photography",
+    "users": 17815,
+    "accepted_pct": 24.06,
+    "position": 300
+  },
+  {
+    "code": "RGB7964",
+    "name": "Roadblock",
+    "users": 17817,
+    "accepted_pct": 10.91,
+    "position": 301
+  },
+  {
+    "code": "RGB7965",
+    "name": "Шүхэр",
+    "users": 17818,
+    "accepted_pct": 26.15,
+    "position": 302
+  },
+  {
+    "code": "RGB7179",
+    "name": "Шоо хаях",
+    "users": 17835,
+    "accepted_pct": 48.45,
+    "position": 303
+  },
+  {
+    "code": "RGB7344",
+    "name": "Шинэ жилийн лаа",
+    "users": 17851,
+    "accepted_pct": 41.81,
+    "position": 304
+  },
+  {
+    "code": "RGB7280",
+    "name": "Шинэ жилийн урамшуулал",
+    "users": 17868,
+    "accepted_pct": 17.12,
+    "position": 305
+  },
+  {
+    "code": "RGB7281",
+    "name": "Хөшүүрэг",
+    "users": 17871,
+    "accepted_pct": 62.22,
+    "position": 306
+  },
+  {
+    "code": "RGB7561",
+    "name": "хувцасны өлгүүр",
+    "users": 17873,
+    "accepted_pct": 58.4,
+    "position": 307
+  },
+  {
+    "code": "RGB7377",
+    "name": "Үнэгний хуваалт",
+    "users": 17894,
+    "accepted_pct": 29.03,
+    "position": 308
+  },
+  {
+    "code": "RGB7180",
+    "name": "Тэрэг тэмээ ноён",
+    "users": 17895,
+    "accepted_pct": 29.21,
+    "position": 309
+  },
+  {
+    "code": "RGB7282",
+    "name": "Аяга таваг",
+    "users": 17896,
+    "accepted_pct": 62.42,
+    "position": 310
+  },
+  {
+    "code": "RGB7283",
+    "name": "Жижүүрүүд",
+    "users": 17911,
+    "accepted_pct": 7.11,
+    "position": 311
+  },
+  {
+    "code": "RGB7378",
+    "name": "K сайн тоо",
+    "users": 17912,
+    "accepted_pct": 23.51,
+    "position": 312
+  },
+  {
+    "code": "RGB7284",
+    "name": "Фибионаччийн дэд хэсэг",
+    "users": 17915,
+    "accepted_pct": 31.02,
+    "position": 313
+  },
+  {
+    "code": "RGB7263",
+    "name": "Соробан",
+    "users": 17916,
+    "accepted_pct": 56.2,
+    "position": 314
+  },
+  {
+    "code": "RGB7285",
+    "name": "Хашаа",
+    "users": 17917,
+    "accepted_pct": 49.6,
+    "position": 315
+  },
+  {
+    "code": "RGB7264",
+    "name": "Ялагч",
+    "users": 17919,
+    "accepted_pct": 13.61,
+    "position": 316
+  },
+  {
+    "code": "RGB7265",
+    "name": "Typo-г засах",
+    "users": 17920,
+    "accepted_pct": 31.5,
+    "position": 317
+  },
+  {
+    "code": "RGB7286",
+    "name": "Цифрүүд",
+    "users": 17927,
+    "accepted_pct": 36.31,
+    "position": 318
+  },
+  {
+    "code": "RGB7287",
+    "name": "Нийтийн тээвэр",
+    "users": 17937,
+    "accepted_pct": 72.57,
+    "position": 319
+  },
+  {
+    "code": "RGB7288",
+    "name": "Үзвэрийн эгнээ",
+    "users": 17938,
+    "accepted_pct": 33.99,
+    "position": 320
+  },
+  {
+    "code": "RGB7289",
+    "name": "Соронзууд",
+    "users": 17941,
+    "accepted_pct": 61.77,
+    "position": 321
+  },
+  {
+    "code": "RGB7121",
+    "name": "Энгийн молекулууд",
+    "users": 17942,
+    "accepted_pct": 40.14,
+    "position": 322
+  },
+  {
+    "code": "RGB7570",
+    "name": "Математикийн тусламж",
+    "users": 17950,
+    "accepted_pct": 54.9,
+    "position": 323
+  },
+  {
+    "code": "RGB7291",
+    "name": "Тойргоор",
+    "users": 17952,
+    "accepted_pct": 51.96,
+    "position": 324
+  },
+  {
+    "code": "RGB7591",
+    "name": "Сережа ба дагаварууд",
+    "users": 17965,
+    "accepted_pct": 68.86,
+    "position": 325
+  },
+  {
+    "code": "RGB7592",
+    "name": "Хөзөр нийлбэр",
+    "users": 18052,
+    "accepted_pct": 47.03,
+    "position": 326
+  },
+  {
+    "code": "RGB7593",
+    "name": "Шат үүсгэх",
+    "users": 18053,
+    "accepted_pct": 6.85,
+    "position": 327
+  },
+  {
+    "code": "RGB7181",
+    "name": "Цэцгийн баглаа",
+    "users": 18100,
+    "accepted_pct": 11.77,
+    "position": 328
+  },
+  {
+    "code": "RGB7073",
+    "name": "Ус",
+    "users": 18148,
+    "accepted_pct": 24.02,
+    "position": 329
+  },
+  {
+    "code": "RGB7292",
+    "name": "Аялал",
+    "users": 18177,
+    "accepted_pct": 36.87,
+    "position": 330
+  },
+  {
+    "code": "RGB7182",
+    "name": "Метро",
+    "users": 18179,
+    "accepted_pct": 14.75,
+    "position": 331
+  },
+  {
+    "code": "RGB7074",
+    "name": "Театрын талбай",
+    "users": 18250,
+    "accepted_pct": 31.98,
+    "position": 332
+  },
+  {
+    "code": "RGB7266",
+    "name": "Хүснэгт",
+    "users": 18300,
+    "accepted_pct": 22.64,
+    "position": 333
+  },
+  {
+    "code": "RGB7330",
+    "name": "Эртний цирк",
+    "users": 18301,
+    "accepted_pct": 1.56,
+    "position": 334
+  },
+  {
+    "code": "RGB7321",
+    "name": "Ноёны богино нүүдэл",
+    "users": 18317,
+    "accepted_pct": 34.76,
+    "position": 335
+  },
+  {
+    "code": "RGB7130",
+    "name": "Тарвас",
+    "users": 18325,
+    "accepted_pct": 29.81,
+    "position": 336
+  },
+  {
+    "code": "RGB7267",
+    "name": "Бүртгэлийн систем",
+    "users": 18327,
+    "accepted_pct": 68.6,
+    "position": 337
+  },
+  {
+    "code": "RGB7150",
+    "name": "Гурвалжин",
+    "users": 18433,
+    "accepted_pct": 53.14,
+    "position": 338
+  },
+  {
+    "code": "RGB7122",
+    "name": "Шооны нүд",
+    "users": 18560,
+    "accepted_pct": 41.91,
+    "position": 339
+  },
+  {
+    "code": "RGB7161",
+    "name": "Төвийн тэгшхэм",
+    "users": 18599,
+    "accepted_pct": 59.55,
+    "position": 340
+  },
+  {
+    "code": "RGB7250",
+    "name": "Бодолт зѳв үү",
+    "users": 18600,
+    "accepted_pct": 34,
+    "position": 341
+  },
+  {
+    "code": "RGB7322",
+    "name": "Дараагийн шат",
+    "users": 18615,
+    "accepted_pct": 52.88,
+    "position": 342
+  },
+  {
+    "code": "RGB7255",
+    "name": "Хэтэрхий урт үгнүүд",
+    "users": 18617,
+    "accepted_pct": 44.81,
+    "position": 343
+  },
+  {
+    "code": "RGB7256",
+    "name": "Тэмдэгт мөртэй ажиллах",
+    "users": 18619,
+    "accepted_pct": 52.68,
+    "position": 344
+  },
+  {
+    "code": "RGB7240",
+    "name": "Такси",
+    "users": 18620,
+    "accepted_pct": 56.71,
+    "position": 345
+  },
+  {
+    "code": "RGB7020",
+    "name": "Даалуу шахах",
+    "users": 18621,
+    "accepted_pct": 68.88,
+    "position": 346
+  },
+  {
+    "code": "RGB7225",
+    "name": "Багаар програмчлахуй",
+    "users": 18623,
+    "accepted_pct": 66.18,
+    "position": 347
+  },
+  {
+    "code": "RGB7226",
+    "name": "Трамвай",
+    "users": 18624,
+    "accepted_pct": 71.18,
+    "position": 348
+  },
+  {
+    "code": "RGB7251",
+    "name": "cAPS lOCK",
+    "users": 18891,
+    "accepted_pct": 21.54,
+    "position": 349
+  },
+  {
+    "code": "RGB7252",
+    "name": "Бит",
+    "users": 18892,
+    "accepted_pct": 63.66,
+    "position": 350
+  },
+  {
+    "code": "RGB7323",
+    "name": "Давхар кола",
+    "users": 18898,
+    "accepted_pct": 62.79,
+    "position": 351
+  },
+  {
+    "code": "RGB7253",
+    "name": "Зэргэлдээ чулуунууд",
+    "users": 18899,
+    "accepted_pct": 71.75,
+    "position": 352
+  },
+  {
+    "code": "RGB7254",
+    "name": "Баатарлаг тоглоом",
+    "users": 18900,
+    "accepted_pct": 53.64,
+    "position": 353
+  },
+  {
+    "code": "RGB7257",
+    "name": "Хөлбөмбөг",
+    "users": 18902,
+    "accepted_pct": 43.07,
+    "position": 354
+  },
+  {
+    "code": "RGB7324",
+    "name": "Үеэлүүд",
+    "users": 18903,
+    "accepted_pct": 42.86,
+    "position": 355
+  },
+  {
+    "code": "RGB7162",
+    "name": "Томоор бичих",
+    "users": 18904,
+    "accepted_pct": 56.99,
+    "position": 356
+  },
+  {
+    "code": "RGB7325",
+    "name": "Бараг л азын дугаар",
+    "users": 18909,
+    "accepted_pct": 32.23,
+    "position": 357
+  },
+  {
+    "code": "RGB7258",
+    "name": "Эрэгтэй юу эмэгтэй юу",
+    "users": 18910,
+    "accepted_pct": 55.24,
+    "position": 358
+  },
+  {
+    "code": "RGB7123",
+    "name": "Морьны тах",
+    "users": 18911,
+    "accepted_pct": 39.98,
+    "position": 359
+  },
+  {
+    "code": "RGB7326",
+    "name": "Үзэсгэлэнтэй он",
+    "users": 18916,
+    "accepted_pct": 50.42,
+    "position": 360
+  },
+  {
+    "code": "RGB7441",
+    "name": "Сургууль дахь оочер",
+    "users": 18928,
+    "accepted_pct": 62.45,
+    "position": 361
+  },
+  {
+    "code": "RGB7268",
+    "name": "Залуу физикч",
+    "users": 19040,
+    "accepted_pct": 59.04,
+    "position": 362
+  },
+  {
+    "code": "RGB7092",
+    "name": "Товчлуурууд",
+    "users": 19041,
+    "accepted_pct": 40.51,
+    "position": 363
+  },
+  {
+    "code": "RGB7331",
+    "name": "Дабстэп",
+    "users": 19044,
+    "accepted_pct": 57.55,
+    "position": 364
+  },
+  {
+    "code": "RGB7259",
+    "name": "Орчуулга",
+    "users": 19053,
+    "accepted_pct": 61.75,
+    "position": 365
+  },
+  {
+    "code": "RGB7407",
+    "name": "Ленагийн бэлэг",
+    "users": 19063,
+    "accepted_pct": 33.25,
+    "position": 366
+  },
+  {
+    "code": "RGB7227",
+    "name": "Тансаг хашаа",
+    "users": 19067,
+    "accepted_pct": 29.85,
+    "position": 367
+  },
+  {
+    "code": "RGB7228",
+    "name": "Тойрог шулуун",
+    "users": 19068,
+    "accepted_pct": 53.61,
+    "position": 368
+  },
+  {
+    "code": "RGB7124",
+    "name": "Илья болон Харилцах данс",
+    "users": 19074,
+    "accepted_pct": 48.46,
+    "position": 369
+  },
+  {
+    "code": "RGB7125",
+    "name": "Байрлалуудын тоо",
+    "users": 19078,
+    "accepted_pct": 29.91,
+    "position": 370
+  },
+  {
+    "code": "RGB7408",
+    "name": "Тэгшитгэлийн систем",
+    "users": 19079,
+    "accepted_pct": 44.64,
+    "position": 371
+  },
+  {
+    "code": "RGB7241",
+    "name": "Өдрийн хоолны тааламж",
+    "users": 19087,
+    "accepted_pct": 52.67,
+    "position": 372
+  },
+  {
+    "code": "RGB7126",
+    "name": "Грегийн дасгал сургуулилт",
+    "users": 19093,
+    "accepted_pct": 15.67,
+    "position": 373
+  },
+  {
+    "code": "RGB7409",
+    "name": "Төгс сэлгэмэл",
+    "users": 19094,
+    "accepted_pct": 23.27,
+    "position": 374
+  },
+  {
+    "code": "RGB7131",
+    "name": "Ундаа",
+    "users": 19095,
+    "accepted_pct": 44.44,
+    "position": 375
+  },
+  {
+    "code": "RGB7242",
+    "name": "Дима ба найзууд",
+    "users": 19096,
+    "accepted_pct": 71.2,
+    "position": 376
+  },
+  {
+    "code": "RGB7410",
+    "name": "Гэрэл унтраахуй",
+    "users": 19117,
+    "accepted_pct": 48.04,
+    "position": 377
+  },
+  {
+    "code": "RGB7327",
+    "name": "IQ тест",
+    "users": 19126,
+    "accepted_pct": 64.69,
+    "position": 378
+  },
+  {
+    "code": "RGB7243",
+    "name": "Азтай билет",
+    "users": 19128,
+    "accepted_pct": 39.6,
+    "position": 379
+  },
+  {
+    "code": "RGB7411",
+    "name": "Рома ба азын тоонууд",
+    "users": 19155,
+    "accepted_pct": 61.22,
+    "position": 380
+  },
+  {
+    "code": "RGB7244",
+    "name": "Арми",
+    "users": 19172,
+    "accepted_pct": 64.81,
+    "position": 381
+  },
+  {
+    "code": "RGB7328",
+    "name": "Маш ихээс ч их",
+    "users": 19187,
+    "accepted_pct": 53.47,
+    "position": 382
+  },
+  {
+    "code": "RGB7021",
+    "name": "Параллелепипед",
+    "users": 19202,
+    "accepted_pct": 37.13,
+    "position": 383
+  },
+  {
+    "code": "RGB7442",
+    "name": "IQ Тест",
+    "users": 19203,
+    "accepted_pct": 38.22,
+    "position": 384
+  },
+  {
+    "code": "RGB7562",
+    "name": "Петр ба ном",
+    "users": 19207,
+    "accepted_pct": 45.22,
+    "position": 385
+  },
+  {
+    "code": "RGB7553",
+    "name": "Илья болон хүсэлт",
+    "users": 19236,
+    "accepted_pct": 50,
+    "position": 386
+  },
+  {
+    "code": "RGB7625",
+    "name": "Битийн дараалал",
+    "users": 19354,
+    "accepted_pct": 18.36,
+    "position": 387
+  },
+  {
+    "code": "RGB7563",
+    "name": "Геометр прогресс",
+    "users": 19355,
+    "accepted_pct": 23.71,
+    "position": 388
+  },
+  {
+    "code": "RGB7564",
+    "name": "16-т палиндром",
+    "users": 19361,
+    "accepted_pct": 45.87,
+    "position": 389
+  },
+  {
+    "code": "RGB7565",
+    "name": "8-т палиндром",
+    "users": 19368,
+    "accepted_pct": 51.29,
+    "position": 390
+  },
+  {
+    "code": "RGB7245",
+    "name": "Жижигхэн заан ба Родзил",
+    "users": 19495,
+    "accepted_pct": 43.31,
+    "position": 391
+  },
+  {
+    "code": "RGB7554",
+    "name": "Зургийн жаазнууд",
+    "users": 19523,
+    "accepted_pct": 52.71,
+    "position": 392
+  },
+  {
+    "code": "RGB7566",
+    "name": "Сэлгэлт",
+    "users": 19542,
+    "accepted_pct": 26.97,
+    "position": 393
+  },
+  {
+    "code": "RGB7555",
+    "name": "Хѳлбѳмбѳг",
+    "users": 19581,
+    "accepted_pct": 59.51,
+    "position": 394
+  },
+  {
+    "code": "RGB7246",
+    "name": "Азтай дэд тэмдэгт мөр",
+    "users": 19919,
+    "accepted_pct": 46.63,
+    "position": 395
+  },
+  {
+    "code": "RGB7249",
+    "name": "Петя ба тэмдэгт мөрүүд",
+    "users": 21907,
+    "accepted_pct": 37.86,
+    "position": 396
+  },
+  {
+    "code": "RGB7556",
+    "name": "Үг",
+    "users": 21961,
+    "accepted_pct": 44.98,
+    "position": 397
+  },
+  {
+    "code": "RGB5657",
+    "name": "Үг бүтээх",
+    "users": 21976,
+    "accepted_pct": 37.05,
+    "position": 398
+  },
+  {
+    "code": "RGB7558",
+    "name": "Баавгай ба тэмдэгт мөр",
+    "users": 22065,
+    "accepted_pct": 53.85,
+    "position": 399
+  },
+  {
+    "code": "RGB7559",
+    "name": "Нууц үг сэргээх",
+    "users": 22071,
+    "accepted_pct": 47.94,
+    "position": 400
+  },
+  {
+    "code": "RGB7567",
+    "name": "Хүчирхэг тэмдэгт мөр",
+    "users": 22074,
+    "accepted_pct": 50.54,
+    "position": 401
+  },
+  {
+    "code": "RGB7568",
+    "name": "Палиндром цагууд",
+    "users": 22076,
+    "accepted_pct": 26.65,
+    "position": 402
+  },
+  {
+    "code": "RGB7132",
+    "name": "Вася ба оймс",
+    "users": 22079,
+    "accepted_pct": 48.01,
+    "position": 403
+  },
+  {
+    "code": "RGB7229",
+    "name": "Нойргүйдлын эм",
+    "users": 22081,
+    "accepted_pct": 61.36,
+    "position": 404
+  },
+  {
+    "code": "RGB7293",
+    "name": "Жорж ба байр",
+    "users": 22083,
+    "accepted_pct": 67.45,
+    "position": 405
+  },
+  {
+    "code": "RGB7127",
+    "name": "Саваануудтай тоглоом",
+    "users": 22084,
+    "accepted_pct": 42.41,
+    "position": 406
+  },
+  {
+    "code": "RGB7128",
+    "name": "Шагналууд",
+    "users": 22085,
+    "accepted_pct": 45.71,
+    "position": 407
+  },
+  {
+    "code": "RGB7129",
+    "name": "Анхны бооцоо",
+    "users": 22088,
+    "accepted_pct": 26.74,
+    "position": 408
+  },
+  {
+    "code": "RGB7269",
+    "name": "Оргил өөд",
+    "users": 22091,
+    "accepted_pct": 25.23,
+    "position": 409
+  },
+  {
+    "code": "RGB7294",
+    "name": "Компьютерийн гар",
+    "users": 22093,
+    "accepted_pct": 45.55,
+    "position": 410
+  },
+  {
+    "code": "RGB7133",
+    "name": "Хямд аялал",
+    "users": 22096,
+    "accepted_pct": 30.48,
+    "position": 411
+  },
+  {
+    "code": "RGB7295",
+    "name": "Цагдаа элсүүлэх",
+    "users": 22111,
+    "accepted_pct": 48.67,
+    "position": 412
+  },
+  {
+    "code": "RGB7296",
+    "name": "Антон ба үсэгнүүд",
+    "users": 22113,
+    "accepted_pct": 36.84,
+    "position": 413
+  },
+  {
+    "code": "RGB7443",
+    "name": "Бизнес аялал",
+    "users": 22119,
+    "accepted_pct": 33.02,
+    "position": 414
+  },
+  {
+    "code": "RGB7569",
+    "name": "Үг боловсруулагч",
+    "users": 22128,
+    "accepted_pct": 63.41,
+    "position": 415
+  },
+  {
+    "code": "RGB7571",
+    "name": "MUH ба саваа",
+    "users": 22163,
+    "accepted_pct": 42.36,
+    "position": 416
+  },
+  {
+    "code": "RGB7572",
+    "name": "Би залуу болох",
+    "users": 22164,
+    "accepted_pct": 32.64,
+    "position": 417
+  },
+  {
+    "code": "RGB7412",
+    "name": "Одой морь ба уурхай",
+    "users": 22165,
+    "accepted_pct": 74.44,
+    "position": 418
+  },
+  {
+    "code": "RGB7134",
+    "name": "Пашмак ба цэцэрлэг",
+    "users": 22166,
+    "accepted_pct": 32.74,
+    "position": 419
+  },
+  {
+    "code": "RGB7194",
+    "name": "Федя ба математик",
+    "users": 22359,
+    "accepted_pct": 34.12,
+    "position": 420
+  },
+  {
+    "code": "RGB7573",
+    "name": "Дзигийн дуртай хэш",
+    "users": 22362,
+    "accepted_pct": 34.48,
+    "position": 421
+  },
+  {
+    "code": "RGB7135",
+    "name": "Шатрын бэрс",
+    "users": 22399,
+    "accepted_pct": 56.06,
+    "position": 422
+  },
+  {
+    "code": "RGB7136",
+    "name": "Мөрийн дугаар",
+    "users": 22400,
+    "accepted_pct": 32.47,
+    "position": 423
+  },
+  {
+    "code": "RGB7345",
+    "name": "Тоог хувиргагч",
+    "users": 23440,
+    "accepted_pct": 30.86,
+    "position": 424
+  },
+  {
+    "code": "RGB7329",
+    "name": "Шинэ жилийн гэрлэн хэлхээ",
+    "users": 26151,
+    "accepted_pct": 32.43,
+    "position": 425
+  },
+  {
+    "code": "RGB7626",
+    "name": "Палиндром үүсэхэд хэд?",
+    "users": 35212,
+    "accepted_pct": 21.96,
+    "position": 426
+  },
+  {
+    "code": "RGB7557",
+    "name": "Валютын ченж",
+    "users": 35286,
+    "accepted_pct": 68.94,
+    "position": 427
+  },
+  {
+    "code": "RGB7461",
+    "name": "Цифрүүдийн нийлбэр",
+    "users": 35288,
+    "accepted_pct": 18.15,
+    "position": 428
+  },
+  {
+    "code": "RGB7627",
+    "name": "Тэмдэгт мөрүүдийн зай",
+    "users": 35289,
+    "accepted_pct": 25,
+    "position": 429
+  },
+  {
+    "code": "RGB7297",
+    "name": "Сүү холих",
+    "users": 35317,
+    "accepted_pct": 52.5,
+    "position": 430
+  },
+  {
+    "code": "RGB7594",
+    "name": "Хувин",
+    "users": 35318,
+    "accepted_pct": 71.95,
+    "position": 431
+  },
+  {
+    "code": "RGB7595",
+    "name": "Наашаа цаашаа",
+    "users": 35319,
+    "accepted_pct": 52.08,
+    "position": 432
+  },
+  {
+    "code": "RGB7163",
+    "name": "Хөзрийн нэгэн тоглоом",
+    "users": 35320,
+    "accepted_pct": 54.59,
+    "position": 433
+  },
+  {
+    "code": "RGB7596",
+    "name": "Тэмцээн зохиох",
+    "users": 35322,
+    "accepted_pct": 41.27,
+    "position": 434
+  },
+  {
+    "code": "RGB7631",
+    "name": "Цоожны хувилбар",
+    "users": 35326,
+    "accepted_pct": 44.07,
+    "position": 435
+  },
+  {
+    "code": "RGB7577",
+    "name": "Хаалтууд угсрах",
+    "users": 35327,
+    "accepted_pct": 25.23,
+    "position": 436
+  },
+  {
+    "code": "RGB7076",
+    "name": "Нийлбэр 5",
+    "users": 35356,
+    "accepted_pct": 49.25,
+    "position": 437
+  },
+  {
+    "code": "RGB7077",
+    "name": "Нийлбэр 6",
+    "users": 35357,
+    "accepted_pct": 56.29,
+    "position": 438
+  },
+  {
+    "code": "RGB7078",
+    "name": "Нийлбэр 7",
+    "users": 35358,
+    "accepted_pct": 62.19,
+    "position": 439
+  },
+  {
+    "code": "RGB7022",
+    "name": "Арифметик прогрессын N-р гишүүн",
+    "users": 35359,
+    "accepted_pct": 66.28,
+    "position": 440
+  },
+  {
+    "code": "RGB7966",
+    "name": "Зүлэг тарих Silver",
+    "users": 35362,
+    "accepted_pct": 15.15,
+    "position": 441
+  },
+  {
+    "code": "RGB7578",
+    "name": "Дараалсан тоонуудын дундаж",
+    "users": 35453,
+    "accepted_pct": 30,
+    "position": 442
+  },
+  {
+    "code": "RGB7967",
+    "name": "Кодтой цоож",
+    "users": 35454,
+    "accepted_pct": 24.76,
+    "position": 443
+  },
+  {
+    "code": "RGB7968",
+    "name": "Алтан шаргал үст охин болон N үнээнүүд",
+    "users": 35455,
+    "accepted_pct": 23.89,
+    "position": 444
+  },
+  {
+    "code": "RGB7628",
+    "name": "Тоглоом",
+    "users": 35626,
+    "accepted_pct": 16.54,
+    "position": 445
+  },
+  {
+    "code": "RGB7629",
+    "name": "Шинэ үйлчилгээ",
+    "users": 35627,
+    "accepted_pct": 22.25,
+    "position": 446
+  },
+  {
+    "code": "RGB7137",
+    "name": "3 тоог өсөхөөр",
+    "users": 36739,
+    "accepted_pct": 44.07,
+    "position": 447
+  },
+  {
+    "code": "RGB7164",
+    "name": "Жижиг том үсэг",
+    "users": 36740,
+    "accepted_pct": 67.51,
+    "position": 448
+  },
+  {
+    "code": "RGB7298",
+    "name": "Анхны тоо",
+    "users": 36778,
+    "accepted_pct": 28.58,
+    "position": 449
+  },
+  {
+    "code": "RGB7413",
+    "name": "Үнээний гимнастик",
+    "users": 36857,
+    "accepted_pct": 42.55,
+    "position": 450
+  },
+  {
+    "code": "RGB7445",
+    "name": "Би хаана байна вэ?",
+    "users": 36858,
+    "accepted_pct": 22.81,
+    "position": 451
+  },
+  {
+    "code": "RGB7299",
+    "name": "Төгс тоо",
+    "users": 36859,
+    "accepted_pct": 59.79,
+    "position": 452
+  },
+  {
+    "code": "RGB7414",
+    "name": "Фото зураг даруулах",
+    "users": 36884,
+    "accepted_pct": 34.58,
+    "position": 453
+  },
+  {
+    "code": "RGB7415",
+    "name": "Уралдаан USA",
+    "users": 36885,
+    "accepted_pct": 21.43,
+    "position": 454
+  },
+  {
+    "code": "RGB7416",
+    "name": "Сондгой нийлбэртэй массив",
+    "users": 36915,
+    "accepted_pct": 47.47,
+    "position": 455
+  },
+  {
+    "code": "RGB7417",
+    "name": "Хүнс худалдаж авах",
+    "users": 36917,
+    "accepted_pct": 64.62,
+    "position": 456
+  },
+  {
+    "code": "RGB7597",
+    "name": "Оймсны худалдаачин",
+    "users": 36940,
+    "accepted_pct": 58.65,
+    "position": 457
+  },
+  {
+    "code": "RGB7598",
+    "name": "Хонхорхойг тоол",
+    "users": 36942,
+    "accepted_pct": 49.45,
+    "position": 458
+  },
+  {
+    "code": "RGB7632",
+    "name": "Үүлэн дээгүүр харайгч",
+    "users": 36943,
+    "accepted_pct": 53.51,
+    "position": 459
+  },
+  {
+    "code": "RGB7599",
+    "name": "Давтагдсан тэмдэгт мөр",
+    "users": 36944,
+    "accepted_pct": 42.97,
+    "position": 460
+  },
+  {
+    "code": "RGB7841",
+    "name": "Массив зүүн эргэлт",
+    "users": 36945,
+    "accepted_pct": 53.12,
+    "position": 461
+  },
+  {
+    "code": "RGB7842",
+    "name": "Шинэ жилийн эмх замбараагүй байдал",
+    "users": 36950,
+    "accepted_pct": 47.95,
+    "position": 462
+  },
+  {
+    "code": "RGB7843",
+    "name": "Хамгийн цөөн Swap",
+    "users": 36952,
+    "accepted_pct": 43.3,
+    "position": 463
+  },
+  {
+    "code": "RGB7848",
+    "name": "Хамгийн бага абсолют ялгавар",
+    "users": 36953,
+    "accepted_pct": 41.44,
+    "position": 464
+  },
+  {
+    "code": "RGB7844",
+    "name": "2 хэмжээст массив",
+    "users": 36954,
+    "accepted_pct": 51.15,
+    "position": 465
+  },
+  {
+    "code": "RGB7845",
+    "name": "Барьцааны шаардлага",
+    "users": 36955,
+    "accepted_pct": 33.33,
+    "position": 466
+  },
+  {
+    "code": "RGB7846",
+    "name": "Хоёр тэмдэгт мөр",
+    "users": 36956,
+    "accepted_pct": 8.22,
+    "position": 467
+  },
+  {
+    "code": "RGB7847",
+    "name": "Марк ба тоглоомнууд",
+    "users": 36958,
+    "accepted_pct": 32.5,
+    "position": 468
+  },
+  {
+    "code": "RGB7849",
+    "name": "Массив өөрчлөлт",
+    "users": 36960,
+    "accepted_pct": 58.23,
+    "position": 469
+  },
+  {
+    "code": "RGB7850",
+    "name": "Азын тэнцвэр",
+    "users": 36962,
+    "accepted_pct": 56.9,
+    "position": 470
+  },
+  {
+    "code": "RGB7851",
+    "name": "Анаграм бүтээх",
+    "users": 36969,
+    "accepted_pct": 46.34,
+    "position": 471
+  },
+  {
+    "code": "RGB7852",
+    "name": "Шерлок ба тэмдэгт мөр",
+    "users": 36975,
+    "accepted_pct": 24.62,
+    "position": 472
+  },
+  {
+    "code": "RGB7853",
+    "name": "Тэмдгүүдийг өөрчлөх",
+    "users": 36976,
+    "accepted_pct": 72,
+    "position": 473
+  },
+  {
+    "code": "RGB7854",
+    "name": "Диагоналиудын зөрүү",
+    "users": 36977,
+    "accepted_pct": 57.83,
+    "position": 474
+  },
+  {
+    "code": "RGB7855",
+    "name": "Шат",
+    "users": 36978,
+    "accepted_pct": 66.97,
+    "position": 475
+  },
+  {
+    "code": "RGB7856",
+    "name": "Бага, их нийлбэр",
+    "users": 36979,
+    "accepted_pct": 52.94,
+    "position": 476
+  },
+  {
+    "code": "RGB7857",
+    "name": "Цаг хувиргалт",
+    "users": 36980,
+    "accepted_pct": 46.74,
+    "position": 477
+  },
+  {
+    "code": "RGB7878",
+    "name": "Дүн гаргах",
+    "users": 36982,
+    "accepted_pct": 66.67,
+    "position": 478
+  },
+  {
+    "code": "RGB7859",
+    "name": "Том нь хамгийн их",
+    "users": 36983,
+    "accepted_pct": 71.74,
+    "position": 479
+  },
+  {
+    "code": "RGB7860",
+    "name": "Кенгеру",
+    "users": 36984,
+    "accepted_pct": 37.46,
+    "position": 480
+  },
+  {
+    "code": "RGB7861",
+    "name": "Гүний газрын зураг",
+    "users": 36985,
+    "accepted_pct": 52.17,
+    "position": 481
+  },
+  {
+    "code": "RGB7862",
+    "name": "Шифрлэх",
+    "users": 36986,
+    "accepted_pct": 56.1,
+    "position": 482
+  },
+  {
+    "code": "RGB7863",
+    "name": "Урт факториал",
+    "users": 36989,
+    "accepted_pct": 16.92,
+    "position": 483
+  },
+  {
+    "code": "RGB7864",
+    "name": "Утоп",
+    "users": 36990,
+    "accepted_pct": 68.83,
+    "position": 484
+  },
+  {
+    "code": "RGB7865",
+    "name": "Цифрүүдийг ол",
+    "users": 36991,
+    "accepted_pct": 70,
+    "position": 485
+  },
+  {
+    "code": "RGB7866",
+    "name": "Таум ба төрсөн өдөр",
+    "users": 36992,
+    "accepted_pct": 61.54,
+    "position": 486
+  },
+  {
+    "code": "RGB7867",
+    "name": "Рекорд эвдэх",
+    "users": 36994,
+    "accepted_pct": 39.84,
+    "position": 487
+  },
+  {
+    "code": "RGB7868",
+    "name": "Үгэн цаг",
+    "users": 36999,
+    "accepted_pct": 9.78,
+    "position": 488
+  },
+  {
+    "code": "RGB7869",
+    "name": "Гурвалыг харьцуул",
+    "users": 37000,
+    "accepted_pct": 76,
+    "position": 489
+  },
+  {
+    "code": "RGB7870",
+    "name": "Төрсөн өдрийн бялууны лаа",
+    "users": 37001,
+    "accepted_pct": 60.18,
+    "position": 490
+  },
+  {
+    "code": "RGB7871",
+    "name": "Шоколадны цэнгэл",
+    "users": 37003,
+    "accepted_pct": 75,
+    "position": 491
+  },
+  {
+    "code": "RGB7872",
+    "name": "Мануса ба чулуунууд",
+    "users": 37004,
+    "accepted_pct": 65.22,
+    "position": 492
+  },
+  {
+    "code": "RGB7873",
+    "name": "Өөрчлөгдсөн Kapekar тоонууд",
+    "users": 37005,
+    "accepted_pct": 40.66,
+    "position": 493
+  },
+  {
+    "code": "RGB7874",
+    "name": "ACM ICPC -н баг",
+    "users": 37006,
+    "accepted_pct": 68.63,
+    "position": 494
+  },
+  {
+    "code": "RGB7875",
+    "name": "Сүлжээсээс хайх",
+    "users": 37007,
+    "accepted_pct": 69.44,
+    "position": 495
+  },
+  {
+    "code": "RGB7876",
+    "name": "Сонин тоолуур",
+    "users": 37008,
+    "accepted_pct": 57.53,
+    "position": 496
+  },
+  {
+    "code": "RGB7877",
+    "name": "Онооны жагсаалт",
+    "users": 37020,
+    "accepted_pct": 68.66,
+    "position": 497
+  },
+  {
+    "code": "RGB7879",
+    "name": "Ууртай проффесор",
+    "users": 37023,
+    "accepted_pct": 60.42,
+    "position": 498
+  },
+  {
+    "code": "RGB7880",
+    "name": "Шерлок ба квадратууд",
+    "users": 37024,
+    "accepted_pct": 51.82,
+    "position": 499
+  },
+  {
+    "code": "RGB7881",
+    "name": "Програмчийн өдөр",
+    "users": 37025,
+    "accepted_pct": 32.11,
+    "position": 500
+  },
+  {
+    "code": "RGB7882",
+    "name": "Төрсөн өдрийн шоколад",
+    "users": 37026,
+    "accepted_pct": 38.49,
+    "position": 501
+  },
+  {
+    "code": "RGB7883",
+    "name": "Нүүдлийн шувууд",
+    "users": 37027,
+    "accepted_pct": 39.88,
+    "position": 502
+  },
+  {
+    "code": "RGB7884",
+    "name": "Бон Аппетит",
+    "users": 37029,
+    "accepted_pct": 64.86,
+    "position": 503
+  },
+  {
+    "code": "RGB7885",
+    "name": "Нийлбэр нь хуваагддаг хосууд",
+    "users": 37030,
+    "accepted_pct": 48.7,
+    "position": 504
+  },
+  {
+    "code": "RGB7886",
+    "name": "Электрон барааны дэлгүүр",
+    "users": 37031,
+    "accepted_pct": 53.55,
+    "position": 505
+  },
+  {
+    "code": "RGB7887",
+    "name": "Түмэнд сурталчлах",
+    "users": 37038,
+    "accepted_pct": 65.75,
+    "position": 506
+  },
+  {
+    "code": "RGB7888",
+    "name": "PDF уншигч",
+    "users": 37039,
+    "accepted_pct": 63.16,
+    "position": 507
+  },
+  {
+    "code": "RGB7889",
+    "name": "Үзэсгэлэнтэй киноны өдрүүд",
+    "users": 37040,
+    "accepted_pct": 40.76,
+    "position": 508
+  },
+  {
+    "code": "RGB7890",
+    "name": "Хоригдлыг авар",
+    "users": 37041,
+    "accepted_pct": 48.68,
+    "position": 509
+  },
+  {
+    "code": "RGB7891",
+    "name": "Муур хулгана",
+    "users": 37042,
+    "accepted_pct": 44.63,
+    "position": 510
+  },
+  {
+    "code": "RGB7892",
+    "name": "Номын сангийн торгууль",
+    "users": 37043,
+    "accepted_pct": 45.51,
+    "position": 511
+  },
+  {
+    "code": "RGB7893",
+    "name": "Үйлчилгээний эгнээ",
+    "users": 37044,
+    "accepted_pct": 77.39,
+    "position": 512
+  },
+  {
+    "code": "RGB7894",
+    "name": "Бэрсний нүүдэл II",
+    "users": 37045,
+    "accepted_pct": 48.76,
+    "position": 513
+  },
+  {
+    "code": "RGB7895",
+    "name": "Жаргалтай цохнууд",
+    "users": 37047,
+    "accepted_pct": 41.09,
+    "position": 514
+  },
+  {
+    "code": "RGB7896",
+    "name": "Лисагийн бодлогын ном",
+    "users": 37048,
+    "accepted_pct": 54.13,
+    "position": 515
+  },
+  {
+    "code": "RGB7897",
+    "name": "Шударга хүртээмж",
+    "users": 37049,
+    "accepted_pct": 69.83,
+    "position": 516
+  },
+  {
+    "code": "RGB7898",
+    "name": "Хуваагдахгүй хэсэг",
+    "users": 37050,
+    "accepted_pct": 47.15,
+    "position": 517
+  },
+  {
+    "code": "RGB7899",
+    "name": "Флатландын сансрын төв",
+    "users": 37051,
+    "accepted_pct": 50.37,
+    "position": 518
+  },
+  {
+    "code": "RGB7721",
+    "name": "Савтай бөмбөгүүдийг зохицуулах",
+    "users": 37055,
+    "accepted_pct": 36.11,
+    "position": 519
+  },
+  {
+    "code": "RGB7722",
+    "name": "Абсолют өөрчлөлт",
+    "users": 37056,
+    "accepted_pct": 50.43,
+    "position": 520
+  },
+  {
+    "code": "RGB7723",
+    "name": "Алим ба жүрж",
+    "users": 37057,
+    "accepted_pct": 55.49,
+    "position": 521
+  },
+  {
+    "code": "RGB7724",
+    "name": "2 олонлогийн хамаарал",
+    "users": 37059,
+    "accepted_pct": 50.68,
+    "position": 522
+  },
+  {
+    "code": "RGB7725",
+    "name": "Зургийн альбом",
+    "users": 37060,
+    "accepted_pct": 57.34,
+    "position": 523
+  },
+  {
+    "code": "RGB7726",
+    "name": "Тоонууд сонгох",
+    "users": 37061,
+    "accepted_pct": 54.55,
+    "position": 524
+  },
+  {
+    "code": "RGB7727",
+    "name": "Дарааллыг тойргоор эргүүлэх",
+    "users": 37062,
+    "accepted_pct": 55.88,
+    "position": 525
+  },
+  {
+    "code": "RGB7728",
+    "name": "Дарааллыг ижилсүүлэх",
+    "users": 37063,
+    "accepted_pct": 62.96,
+    "position": 526
+  },
+  {
+    "code": "RGB7729",
+    "name": "Залгах ба устгах",
+    "users": 37064,
+    "accepted_pct": 47.57,
+    "position": 527
+  },
+  {
+    "code": "RGB7730",
+    "name": "Саваануудыг богиносго",
+    "users": 37065,
+    "accepted_pct": 72.94,
+    "position": 528
+  },
+  {
+    "code": "RGB7731",
+    "name": "Үзэсгэлэнт гурвал",
+    "users": 37077,
+    "accepted_pct": 58.25,
+    "position": 529
+  },
+  {
+    "code": "RGB7732",
+    "name": "Үргэлжлэх тэнцэл",
+    "users": 37079,
+    "accepted_pct": 73.21,
+    "position": 530
+  },
+  {
+    "code": "RGB7733",
+    "name": "Үүлэн дээгүүр дахин үсэрч байна",
+    "users": 37084,
+    "accepted_pct": 74.23,
+    "position": 531
+  },
+  {
+    "code": "RGB7734",
+    "name": "Халловений хямдрал",
+    "users": 37085,
+    "accepted_pct": 61.86,
+    "position": 532
+  },
+  {
+    "code": "RGB7735",
+    "name": "Хамгийн бага зай",
+    "users": 37086,
+    "accepted_pct": 55.64,
+    "position": 533
+  },
+  {
+    "code": "RGB7736",
+    "name": "Бараг л эрэмбэлэгдсэн",
+    "users": 37087,
+    "accepted_pct": 45,
+    "position": 534
+  },
+  {
+    "code": "RGB7737",
+    "name": "Ларригийн дараалал",
+    "users": 37088,
+    "accepted_pct": 59.76,
+    "position": 535
+  },
+  {
+    "code": "RGB7738",
+    "name": "Саадтай гүйлт",
+    "users": 37089,
+    "accepted_pct": 70.53,
+    "position": 536
+  },
+  {
+    "code": "RGB7739",
+    "name": "Шидэт квадрат үүсгэх",
+    "users": 37090,
+    "accepted_pct": 54.05,
+    "position": 537
+  },
+  {
+    "code": "RGB7740",
+    "name": "Эмагийн супер компьютер",
+    "users": 37091,
+    "accepted_pct": 57.81,
+    "position": 538
+  },
+  {
+    "code": "RGB7741",
+    "name": "Бөмбөг дэлбэлэгч тоглоом",
+    "users": 37092,
+    "accepted_pct": 47.62,
+    "position": 539
+  },
+  {
+    "code": "RGB7742",
+    "name": "3 хэмжээст гадаргуугийн талбай",
+    "users": 37093,
+    "accepted_pct": 40.56,
+    "position": 540
+  },
+  {
+    "code": "RGB7743",
+    "name": "Массив давхаргын эргэлт",
+    "users": 37099,
+    "accepted_pct": 59.6,
+    "position": 541
+  },
+  {
+    "code": "RGB7744",
+    "name": "Сүлжээний сорил",
+    "users": 37100,
+    "accepted_pct": 54.74,
+    "position": 542
+  },
+  {
+    "code": "RGB7745",
+    "name": "Гурвалжны хамгийн их периметр",
+    "users": 37101,
+    "accepted_pct": 53.33,
+    "position": 543
+  },
+  {
+    "code": "RGB7746",
+    "name": "Шерлок ба Араатан",
+    "users": 37127,
+    "accepted_pct": 71.11,
+    "position": 544
+  },
+  {
+    "code": "RGB7747",
+    "name": "Прианка ба тоглоомнууд",
+    "users": 37128,
+    "accepted_pct": 79.37,
+    "position": 545
+  },
+  {
+    "code": "RGB7748",
+    "name": "Хамгийн том сэлгэмэл",
+    "users": 37129,
+    "accepted_pct": 33.08,
+    "position": 546
+  },
+  {
+    "code": "RGB7749",
+    "name": "Жим ба түүний захиалгууд",
+    "users": 37130,
+    "accepted_pct": 37.5,
+    "position": 547
+  },
+  {
+    "code": "RGB7750",
+    "name": "Хоёр массивын элементүүдийг сэлгэх",
+    "users": 37131,
+    "accepted_pct": 73.04,
+    "position": 548
+  },
+  {
+    "code": "RGB7751",
+    "name": "Маркын бялууны алхалт",
+    "users": 37132,
+    "accepted_pct": 43.11,
+    "position": 549
+  },
+  {
+    "code": "RGB7752",
+    "name": "Гоёмсог хосууд",
+    "users": 37133,
+    "accepted_pct": 18.73,
+    "position": 550
+  },
+  {
+    "code": "RGB7753",
+    "name": "Чихэр",
+    "users": 37141,
+    "accepted_pct": 41.79,
+    "position": 551
+  },
+  {
+    "code": "RGB7754",
+    "name": "Шуналтай цэцэгчин",
+    "users": 37142,
+    "accepted_pct": 69.77,
+    "position": 552
+  },
+  {
+    "code": "RGB7755",
+    "name": "Хамгийн их хамгийн бага",
+    "users": 37143,
+    "accepted_pct": 58.44,
+    "position": 553
+  },
+  {
+    "code": "RGB7756",
+    "name": "Гүүдланд эрчим хүч",
+    "users": 37145,
+    "accepted_pct": 63.16,
+    "position": 554
+  },
+  {
+    "code": "RGB7758",
+    "name": "Үүлэрхэг хот",
+    "users": 37146,
+    "accepted_pct": 50,
+    "position": 555
+  },
+  {
+    "code": "RGB7757",
+    "name": "Хавтанг хуваах",
+    "users": 37147,
+    "accepted_pct": 54.29,
+    "position": 556
+  },
+  {
+    "code": "RGB7759",
+    "name": "Тонгоргох Чөлөөт Нэгтгэх",
+    "users": 37148,
+    "accepted_pct": 52,
+    "position": 557
+  },
+  {
+    "code": "RGB7760",
+    "name": "Ахлах харайгч",
+    "users": 37149,
+    "accepted_pct": 73.81,
+    "position": 558
+  },
+  {
+    "code": "RGB7761",
+    "name": "Шерлок ба MiniMax",
+    "users": 37170,
+    "accepted_pct": 0,
+    "position": 559
+  },
+  {
+    "code": "RGB7762",
+    "name": "Гоёл чимэглэлийн цуглуулга",
+    "users": 37171,
+    "accepted_pct": 0,
+    "position": 560
+  },
+  {
+    "code": "RGB7763",
+    "name": "Баг бүрдүүлэлт",
+    "users": 37172,
+    "accepted_pct": 0,
+    "position": 561
+  },
+  {
+    "code": "RGB7764",
+    "name": "Халз тулаан",
+    "users": 37173,
+    "accepted_pct": 0,
+    "position": 562
+  },
+  {
+    "code": "RGB7970",
+    "name": "Хосууд",
+    "users": 37177,
+    "accepted_pct": 11.55,
+    "position": 563
+  },
+  {
+    "code": "RGB7971",
+    "name": "Гагнасан гинжийг таслаад өгөөч!",
+    "users": 37178,
+    "accepted_pct": 36.84,
+    "position": 564
+  },
+  {
+    "code": "RGB7972",
+    "name": "Хамгийн их нийлбэр",
+    "users": 37179,
+    "accepted_pct": 43.4,
+    "position": 565
+  },
+  {
+    "code": "RGB7973",
+    "name": "Өрсөлдөөнтэй тоглоом",
+    "users": 37181,
+    "accepted_pct": 42.86,
+    "position": 566
+  },
+  {
+    "code": "RGB7974",
+    "name": "Kоронавирусийн дүрслэл",
+    "users": 37182,
+    "accepted_pct": 31.82,
+    "position": 567
+  },
+  {
+    "code": "RGB7975",
+    "name": "Ковид 19 xалдварын түвшин",
+    "users": 37183,
+    "accepted_pct": 6.19,
+    "position": 568
+  },
+  {
+    "code": "RGB7765",
+    "name": "Түргэн эрэмбэлэлт 1 - Ялгах",
+    "users": 37186,
+    "accepted_pct": 27.03,
+    "position": 569
+  },
+  {
+    "code": "RGB7766",
+    "name": "Том эрэмбэлэлт",
+    "users": 37187,
+    "accepted_pct": 40.79,
+    "position": 570
+  },
+  {
+    "code": "RGB7767",
+    "name": "Эрэмбэлэлт эхлэл",
+    "users": 37188,
+    "accepted_pct": 70.27,
+    "position": 571
+  },
+  {
+    "code": "RGB7768",
+    "name": "Оруулах эрэмбэлэлт 1",
+    "users": 37189,
+    "accepted_pct": 50.79,
+    "position": 572
+  },
+  {
+    "code": "RGB7769",
+    "name": "Оруулах эрэмбэлэлт 2",
+    "users": 37190,
+    "accepted_pct": 71.11,
+    "position": 573
+  },
+  {
+    "code": "RGB7770",
+    "name": "Эргэх цаг алгоритм 1",
+    "users": 37192,
+    "accepted_pct": 79.31,
+    "position": 574
+  },
+  {
+    "code": "RGB7771",
+    "name": "Эргэх цаг алгоритм 2",
+    "users": 37193,
+    "accepted_pct": 74.36,
+    "position": 575
+  },
+  {
+    "code": "RGB7772",
+    "name": "Тоолон эрэмбэлэх 1",
+    "users": 37194,
+    "accepted_pct": 59.74,
+    "position": 576
+  },
+  {
+    "code": "RGB7773",
+    "name": "Тоолон эрэмбэлэх 2",
+    "users": 37195,
+    "accepted_pct": 67.35,
+    "position": 577
+  },
+  {
+    "code": "RGB7774",
+    "name": "Хамгийн ойр тоо",
+    "users": 37196,
+    "accepted_pct": 70.63,
+    "position": 578
+  },
+  {
+    "code": "RGB7775",
+    "name": "Медианыг ол",
+    "users": 37197,
+    "accepted_pct": 48.57,
+    "position": 579
+  },
+  {
+    "code": "RGB7776",
+    "name": "Тоолдог эрэмбэлэлт (Бүрэн)",
+    "users": 37198,
+    "accepted_pct": 65.22,
+    "position": 580
+  },
+  {
+    "code": "RGB7777",
+    "name": "Луйвардсан үйл ажиллагааны мэдэгдэл",
+    "users": 37199,
+    "accepted_pct": 28.17,
+    "position": 581
+  },
+  {
+    "code": "RGB7778",
+    "name": "Лилигийн гэрийн даалгавар",
+    "users": 37200,
+    "accepted_pct": 45.95,
+    "position": 582
+  },
+  {
+    "code": "RGB7779",
+    "name": "Оруулах эрэмбэлэлт нарийвчилсан шинжилгээ",
+    "users": 37201,
+    "accepted_pct": 27.03,
+    "position": 583
+  },
+  {
+    "code": "RGB7780",
+    "name": "Мөхөөлдөсний мухлагууд",
+    "users": 37202,
+    "accepted_pct": 67.65,
+    "position": 584
+  },
+  {
+    "code": "RGB7781",
+    "name": "Шерлок ба массив",
+    "users": 37203,
+    "accepted_pct": 52,
+    "position": 585
+  },
+  {
+    "code": "RGB7782",
+    "name": "Гээгдсэн тоонууд",
+    "users": 37204,
+    "accepted_pct": 43.75,
+    "position": 586
+  },
+  {
+    "code": "RGB7783",
+    "name": "Хакерланд радио дамжуулагчууд",
+    "users": 37211,
+    "accepted_pct": 55.22,
+    "position": 587
+  },
+  {
+    "code": "RGB7784",
+    "name": "Гридланд метро",
+    "users": 37212,
+    "accepted_pct": 36.11,
+    "position": 588
+  },
+  {
+    "code": "RGB7785",
+    "name": "Шатрын L морь",
+    "users": 37213,
+    "accepted_pct": 59.46,
+    "position": 589
+  },
+  {
+    "code": "RGB7786",
+    "name": "Хамгийн бага гарз",
+    "users": 37214,
+    "accepted_pct": 32.81,
+    "position": 590
+  },
+  {
+    "code": "RGB7787",
+    "name": "Богино палиндром",
+    "users": 37215,
+    "accepted_pct": 0.3,
+    "position": 591
+  },
+  {
+    "code": "RGB7788",
+    "name": "Хосууд",
+    "users": 37216,
+    "accepted_pct": 52.63,
+    "position": 592
+  },
+  {
+    "code": "RGB7789",
+    "name": "Холбоост нүднүүд",
+    "users": 37217,
+    "accepted_pct": 47.62,
+    "position": 593
+  },
+  {
+    "code": "RGB7790",
+    "name": "Аз тоолох",
+    "users": 37224,
+    "accepted_pct": 51.52,
+    "position": 594
+  },
+  {
+    "code": "RGB7791",
+    "name": "Мод огтлох",
+    "users": 37260,
+    "accepted_pct": 47.37,
+    "position": 595
+  },
+  {
+    "code": "RGB7792",
+    "name": "Гена Ханойн цамхгаар тоглож байна",
+    "users": 37261,
+    "accepted_pct": 0,
+    "position": 596
+  },
+  {
+    "code": "RGB7793",
+    "name": "Үзэсгэлэнт дөрвөл",
+    "users": 37262,
+    "accepted_pct": 0,
+    "position": 597
+  },
+  {
+    "code": "RGB7794",
+    "name": "Улаан бэрсний хамгийн богино нүүдэл",
+    "users": 37263,
+    "accepted_pct": 32.06,
+    "position": 598
+  },
+  {
+    "code": "RGB7795",
+    "name": "Чихэр хийх",
+    "users": 37264,
+    "accepted_pct": 0,
+    "position": 599
+  },
+  {
+    "code": "RGB7796",
+    "name": "Maximum Subarray Sum",
+    "users": 37267,
+    "accepted_pct": 0,
+    "position": 600
+  },
+  {
+    "code": "RGB7797",
+    "name": "Дугуйн уралдаан",
+    "users": 37268,
+    "accepted_pct": 0,
+    "position": 601
+  },
+  {
+    "code": "RGB7798",
+    "name": "Maximizing Mission Points",
+    "users": 37269,
+    "accepted_pct": 0,
+    "position": 602
+  },
+  {
+    "code": "RGB7799",
+    "name": "Task Scheduling",
+    "users": 37270,
+    "accepted_pct": 0,
+    "position": 603
+  },
+  {
+    "code": "RGB7470",
+    "name": "Ижил хос",
+    "users": 37271,
+    "accepted_pct": 0,
+    "position": 604
+  },
+  {
+    "code": "RGB7471",
+    "name": "Элементүүдийн абсолют утгуудын нийлбэр",
+    "users": 37278,
+    "accepted_pct": 0,
+    "position": 605
+  },
+  {
+    "code": "RGB7472",
+    "name": "Almost Integer Rock Garden",
+    "users": 37279,
+    "accepted_pct": 0,
+    "position": 606
+  },
+  {
+    "code": "RGB7473",
+    "name": "Sorted Subsegments",
+    "users": 37280,
+    "accepted_pct": 0,
+    "position": 607
+  },
+  {
+    "code": "RGB7474",
+    "name": "Distant Pairs",
+    "users": 37281,
+    "accepted_pct": 0,
+    "position": 608
+  },
+  {
+    "code": "RGB7475",
+    "name": "",
+    "users": 37282,
+    "accepted_pct": 0,
+    "position": 609
+  }
+]

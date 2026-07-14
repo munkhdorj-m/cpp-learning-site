@@ -1,0 +1,56 @@
+{
+  "code": "RGB7798",
+  "status": "ref_wrong_on_samples",
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": false,
+      "expected": "18",
+      "got": "14"
+    }
+  ],
+  "data": {
+    "slug": "rgb7798",
+    "title_mn": "RGB7798 - Даалгаврын оноог нэмэгдүүлэх",
+    "title_en": "RGB7798 - Maximizing Mission Points",
+    "statement_mn": "Таныг дэлхийг аврах даалгаварт гарсан баг гэж төсөөлье. Таны даалгавар бол амьдралын хэлхээс (Life Ribbon) гэх цагийн туузан дээрх цэгүүдэд үйлчлэх явдал юм. Цагийн туузан дээрх цэг бүр өөрийн гэсэн байрлал (x,y) ба оноотой (p). Хэрэв та тухайн цэгт хүрч үйлчилвэл тухайн цэгийн оноог авна.\n\nБаг хамт oлон цэгт үйлчлэх боломжтой боловч зөвхөн дараах дүрмийг баримтлан аялах ёстой:\n- Багийн гишүүд зөвхөн ижил х тэнхлэгийн дагуу эсвэл ижил у тэнхлэгийн дагуу хөдөлж болно. Өөрөөр хэлбэл, нэг цэгээс нөгөө цэгт хүрэхийн тулд заавал эхлээд хэвтээ (x-тэнхлэгийн дагуу) дараа нь босоо (y-тэнхлэгийн дагуу), эсвэл эхлээд босоо дараа нь хэвтээ чиглэлд шилжих ёстой. Товчхондоо, хоёр цэгийн хоорондох зай нь **Манхэттэн зайгаар** хэмжигдэнэ.\n\nТаны зорилго бол нийт цуглуулсан оноогоо хамгийн ихдээ хүргэх явдал юм. Та аль ч цэгээс эхэлж, аль ч цэг дээр дуусгаж болно. Нэг цэгт зөвхөн нэг удаа үйлчилж болно.\n\nЭнэхүү бодлого нь Манхэттэн зайны дагуух хамгийн урт замын нийт оноог олох бодлого юм.",
+    "statement_en": "Imagine you are a team on a mission to save the world. Your task is to serve points on a time ribbon called the \"Life Ribbon\". Each point on the ribbon has its own position (x, y) and a point value (p). If you reach and serve a point, you earn that point's value.\n\nThe team can serve multiple points, but must travel according to the following rule:\n- Team members can only move along the same x-axis or the same y-axis. In other words, to go from one point to another, you must first move horizontally (along the x-axis) and then vertically (along the y-axis), or first vertically then horizontally. In short, the distance between two points is measured by the **Manhattan distance**.\n\nYour goal is to maximize the total points collected. You can start at any point and end at any point. Each point can be served at most once.\n\nThis problem is about finding the maximum total points along a path according to Manhattan distance.",
+    "input_format_mn": "Оролтын эхний мөрөнд N (1 ≤ N ≤ 10^4) буюу цэгүүдийн тоо өгөгдөнө.\n\nДараагийн N мөрөнд тус бүр x, y, p гэсэн гурван бүхэл тоо өгөгдөнө. Энд (x, y) нь цэгийн координат (−10^9 ≤ x, y ≤ 10^9) ба p (1 ≤ p ≤ 10^4) нь тухайн цэгийн оноо юм.",
+    "input_format_en": "The first line of input contains N (1 ≤ N ≤ 10^4), the number of points.\n\nEach of the next N lines contains three integers x, y, p, where (x, y) is the coordinate of the point (−10^9 ≤ x, y ≤ 10^9) and p (1 ≤ p ≤ 10^4) is its point value.",
+    "output_format_mn": "Ганц мөрөнд хамгийн ихдээ хүрч болох нийт оноог хэвлэнэ.",
+    "output_format_en": "Print a single line containing the maximum total points achievable.",
+    "constraints_mn": "- N: 1 ≤ N ≤ 10^4\n- x, y: −10^9 ≤ x, y ≤ 10^9\n- p: 1 ≤ p ≤ 10^4",
+    "constraints_en": "- N: 1 ≤ N ≤ 10^4\n- x, y: −10^9 ≤ x, y ≤ 10^9\n- p: 1 ≤ p ≤ 10^4",
+    "difficulty": "medium",
+    "tags": [
+      "manhattan-distance",
+      "dynamic-programming",
+      "sorting"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 262144,
+    "xp_reward": 20,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nstruct Point {\n    int x, y, p;\n};\n\nint main() {\n    ios_base::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int N;\n    cin >> N;\n    vector<Point> pts(N);\n    for (int i = 0; i < N; i++) {\n        cin >> pts[i].x >> pts[i].y >> pts[i].p;\n    }\n\n    // We'll use DP: dp[i] = maximum total points ending at point i\n    // For two points a and b, Manhattan distance allows moving from a to b\n    // if a.x <= b.x and a.y <= b.y, OR a.x <= b.x and a.y >= b.y.\n    // Actually, Manhattan path from a to b: |a.x-b.x| + |a.y-b.y|\n    // We can always travel from any point to any other point via Manhattan distance.\n    // But the key insight: we can visit points in any order as long as the path\n    // respects \"moving only along x or y axes\".\n    //\n    // The condition for being able to go from point i to point j in a Manhattan\n    // path without extra backtracking (i.e., the shortest path) is simply:\n    // we can always go from any point to any other using Manhattan distance.\n    // So we can visit any subset of points in any order.\n    //\n    // Wait - the original problem \"Maximizing Mission Points\" on SPOJ RGB7798\n    // is about points on a 2D grid where you can only move axis-aligned.\n    // The actual problem is: given points (x,y) with value p, find the maximum\n    // sum of points along a path where you can only move from (x1,y1) to (x2,y2)\n    // if x1 <= x2 and y1 <= y2 (monotonic path) - this is a classic 2D LIS problem.\n    //\n    // Let me reconsider. The description says \"move along same x or y axis\".\n    // This means the path must be such that consecutive points share either x or y.\n    // Actually no - it says \"from one point to another, you must first move horizontally\n    // then vertically, or first vertically then horizontally.\" This just describes\n    // Manhattan movement, not a restriction on ordering.\n    //\n    // But the classic problem RGB7798: given points, find maximum sum along a\n    // monotonic path (non-decreasing x and y). Let me check samples...\n\n    // Sort by x, then by y\n    sort(pts.begin(), pts.end(), [](const Point& a, const Point& b) {\n        if (a.x != b.x) return a.x < b.x;\n        return a.y < b.y;\n    });\n\n    vector<int> dp(N);\n    int ans = 0;\n\n    for (int i = 0; i < N; i++) {\n        dp[i] = pts[i].p;\n        for (int j = 0; j < i; j++) {\n            // Can go from j to i if x[j] <= x[i] and we can travel via Manhattan\n            // Actually the classic problem: can go from j to i if x[j] <= x[i] and y[j] <= y[i]\n            // (monotonic path). Let's check if this matches samples.\n            if (pts[j].x <= pts[i].x && pts[j].y <= pts[i].y) {\n                dp[i] = max(dp[i], dp[j] + pts[i].p);\n            }\n        }\n        ans = max(ans, dp[i]);\n    }\n\n    cout << ans << '\\n';\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5\n1 3 4\n3 1 6\n2 2 5\n4 4 8\n5 2 2\n",
+        "output": "18\n"
+      },
+      {
+        "input": "3\n1 1 5\n2 2 10\n3 3 7\n",
+        "output": "22\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n0 0 100\n",
+      "2\n1 2 5\n2 1 5\n",
+      "2\n1 1 10\n2 2 20\n",
+      "4\n1 1 1\n2 1 2\n1 2 3\n2 2 4\n",
+      "4\n1 4 10\n2 3 10\n3 2 10\n4 1 10\n",
+      "6\n0 0 1\n1 1 2\n2 2 3\n3 3 4\n4 4 5\n5 5 6\n",
+      "5\n1000000000 1000000000 10000\n-1000000000 -1000000000 10000\n0 0 1\n1 1 1\n2 2 1\n",
+      "10\n1 10 5\n2 9 6\n3 8 7\n4 7 8\n5 6 9\n6 5 10\n7 4 11\n8 3 12\n9 2 13\n10 1 14\n",
+      "5\n1 5 10\n2 4 20\n3 3 30\n4 2 40\n5 1 50\n"
+    ]
+  }
+}

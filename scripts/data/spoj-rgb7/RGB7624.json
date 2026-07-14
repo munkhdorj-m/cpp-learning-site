@@ -1,0 +1,13 @@
+{
+  "title": "Эрэмбэлэх",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Тавиур дээр 1-ээс n хүртэл дугаарлагдсан n ширхэг ном дурын дарааллаар байв.&nbsp; Номнуудыг зүүнээс баруун гар тийш эрэмбэлэхийн тулд аль нэг номыг сугалж аваад номнуудын эхэнд тавих эсвэл төгсгөлд тавих эсвэл аль нэг хоёр номны завсраар хийх зэрэг үйлдлүүдээр эрэмбэлэнэ. Тэгвэл хамгийн багадаа хичнээн үйлдлээр эрэмбэлж болох вэ?</span></p>\n<h3><span style=\"font-size: medium;\">Input</span></h3>\n<p><span style=\"font-size: small;\"> </span></p>\n<p><span style=\"font-size: small;\">Файлын эхний мөрөнд номны тоо болох n(n&lt;100) натурал тоо байна. Дараагийн мөрөнд номнуудын дугаарууд хоосон зайгаар тусгаарлагдан байрлана.</span></p>\n<h3><span style=\"font-size: small;\">Output</span></h3>\n<p><span style=\"font-size: small;\">Хариу болох ганц ганц натурал тоог агуулна.</span></p>\n<p><span style=\"font-size: small;\"> </span></p>\n<h3>Example</h3>\n<p><span style=\"font-size: small;\"><strong>Input 1:</strong> </span></p>\n<p><span style=\"font-size: small;\">3</span></p>\n<p><span style=\"font-size: small;\"> 1 3 2</span></p>\n<p><span style=\"font-size: small;\"><strong>Output 1:</strong> </span></p>\n<p><span style=\"font-size: small;\">1</span></p>\n<p>&nbsp;</p>\n<p><span style=\"font-size: small;\"><strong>Input 2:</strong> </span></p>\n<p><span style=\"font-size: small;\">12</span></p>\n<p><span style=\"font-size: small;\"> 11 1&nbsp; 10&nbsp; 4&nbsp; 3&nbsp; 2&nbsp; 8&nbsp; 7&nbsp; 12&nbsp; 6&nbsp; 9&nbsp; 5</span></p>\n<p><span style=\"font-size: small;\"><strong>Output 2:</strong> </span></p>\n<p><span style=\"font-size: small;\">8</span></p>\n<p>&nbsp;</p>",
+  "bodyText": "Тавиур дээр 1-ээс n хүртэл дугаарлагдсан n ширхэг ном дурын дарааллаар байв.  Номнуудыг зүүнээс баруун гар тийш эрэмбэлэхийн тулд аль нэг номыг сугалж аваад номнуудын эхэнд тавих эсвэл төгсгөлд тавих эсвэл аль нэг хоёр номны завсраар хийх зэрэг үйлдлүүдээр эрэмбэлэнэ. Тэгвэл хамгийн багадаа хичнээн үйлдлээр эрэмбэлж болох вэ?\nInput\n \nФайлын эхний мөрөнд номны тоо болох n(n<100) натурал тоо байна. Дараагийн мөрөнд номнуудын дугаарууд хоосон зайгаар тусгаарлагдан байрлана.\nOutput\nХариу болох ганц ганц натурал тоог агуулна.\n \nExample\nInput 1: \n3\n 1 3 2\nOutput 1: \n1\n \nInput 2: \n12\n 11 1  10  4  3  2  8  7  12  6  9  5\nOutput 2: \n8",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7624/",
+  "code": "RGB7624",
+  "scrapedAt": "2026-06-29T06:44:15.852Z"
+}

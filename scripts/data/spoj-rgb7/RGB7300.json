@@ -1,0 +1,15 @@
+{
+  "title": "Оронгийн тоо",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн натурал тооны оронг тоол.</p>\n<h3>Input</h3>\n<p>Натурал тоо.</p>\n<h3>Output</h3>\n<p>Оронгийн тоо.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n12345\n\n<strong>Output:</strong>\n5</pre>",
+  "bodyText": "Өгөгдсөн натурал тооны оронг тоол.\nInput\nНатурал тоо.\nOutput\nОронгийн тоо.\nExample\nInput:\n12345\n\nOutput:\n5",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n12345\n\nOutput:\n5"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7300/",
+  "code": "RGB7300",
+  "scrapedAt": "2026-06-29T06:40:28.838Z"
+}

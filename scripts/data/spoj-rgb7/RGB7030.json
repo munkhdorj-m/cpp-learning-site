@@ -1,0 +1,15 @@
+{
+  "title": "Гипотенуз",
+  "hidden": true,
+  "bodyHtml": "<p>Тэгш өнцөгт гурвалжны катетууд нь өгөгдсөн. Гипотенузыг ол. Бодит тоон бодлого.</p>\n<h3>Input</h3>\n<p>Катетууд нэг мөрөнд зайгаар тусгаарлагдан өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Гипотенуз. Таслалаас хойш нэг оронгийн нарийвчлалтай хэвлэ.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n3.0 4.0\n\n<strong>Output:</strong>\n5.0\n</pre>",
+  "bodyText": "Тэгш өнцөгт гурвалжны катетууд нь өгөгдсөн. Гипотенузыг ол. Бодит тоон бодлого.\nInput\nКатетууд нэг мөрөнд зайгаар тусгаарлагдан өгөгдөнө.\nOutput\nГипотенуз. Таслалаас хойш нэг оронгийн нарийвчлалтай хэвлэ.\nExample\nInput:\n3.0 4.0\n\nOutput:\n5.0",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n3.0 4.0\n\nOutput:\n5.0"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7030/",
+  "code": "RGB7030",
+  "scrapedAt": "2026-06-29T06:39:13.244Z"
+}

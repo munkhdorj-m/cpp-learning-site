@@ -1,0 +1,13 @@
+{
+  "title": "Массив нийлбэр",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\"><span style=\"color: #000000;\">Өгөгдсөн бүхэл тоон дарааллын гишүүдийн нийлбэрийг ол.</span></span></p>\n<p><span style=\"font-size: small;\"><span style=\"color: #000000;\"><strong>Оролт</strong></span></span></p>\n<p><span style=\"font-size: small;\"><span style=\"color: #000000;\">Эхний мөрөнд бүхэл тоон дарааллын гишүүдийн тоо өгөгдөнө.</span></span></p>\n<p><span style=\"font-size: small;\"><span style=\"color: #000000;\">Хоёр дахь мөрнөөс эхлэн мөр болгонд&nbsp; тоон дарааллын гишүүд нэг нэгээр өгөгдөнө.</span></span></p>\n<p><span style=\"font-size: small;\"><span style=\"color: #000000;\"><strong>Гаралт</strong></span></span></p>\n<p><span style=\"font-size: small;\"><span style=\"color: #000000;\">Нийлбэр.</span></span></p>\n<p><span style=\"color: #000000;\"><span style=\"font-size: small;\"><strong>Жишээ</strong></span></span></p>\n<p><span style=\"font-size: small;\"><strong><span style=\"color: #000000;\"><strong><span style=\"font-size: small;\">Оролт</span></strong></span></strong></span></p>\n<p><span style=\"font-size: small;\"><span style=\"color: #000000;\">4<br>12</span></span></p>\n<p><span style=\"font-size: small;\"><span style=\"color: #000000;\">13</span></span></p>\n<p><span style=\"font-size: small;\"><span style=\"color: #000000;\">14</span></span></p>\n<p><span style=\"font-size: small;\"><span style=\"color: #000000;\">15<br><br><strong>Гаралт</strong></span></span></p>\n<p><span style=\"font-size: small;\"><span style=\"color: #000000;\">54 </span></span></p>",
+  "bodyText": "Өгөгдсөн бүхэл тоон дарааллын гишүүдийн нийлбэрийг ол.\nОролт\nЭхний мөрөнд бүхэл тоон дарааллын гишүүдийн тоо өгөгдөнө.\nХоёр дахь мөрнөөс эхлэн мөр болгонд  тоон дарааллын гишүүд нэг нэгээр өгөгдөнө.\nГаралт\nНийлбэр.\nЖишээ\nОролт\n412\n13\n14\n15Гаралт\n54",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7500/",
+  "code": "RGB7500",
+  "scrapedAt": "2026-06-29T06:39:25.480Z"
+}

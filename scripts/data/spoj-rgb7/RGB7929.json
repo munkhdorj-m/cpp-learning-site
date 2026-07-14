@@ -1,0 +1,15 @@
+{
+  "title": "Liars and Truth Tellers",
+  "hidden": true,
+  "bodyHtml": "<p><span id=\"probtext-text\">After spending so much time around his cows, Farmer John has started to understand their language.  Moreover, he notices that among his N cows  (2 &lt;= N &lt;= 1000), some always tell the truth while others always lie.  FJ carefully listens to M statements (1 &lt;= M &lt;= 10,000) from his cows, each of the form \"x y T\", meaning that \"cow x claims cow y always tells the truth\" or \"x y L\", meaning that \"cow x claims cow y always tells lies\".  Each statement involves a pair of different cows, and the same pair of cows may appear in multiple statements.    Unfortunately, FJ believes he might have written down some entries in his list incorrectly, so there may not be a valid way to designate each cow as a truth teller or a liar that is consistent with all the M statements on FJ's list.  To help FJ salvage as much of his list as possible, please compute the largest value of A such that there exists a valid way to designate each cow as a truth teller or a liar in a manner that is consistent with the first A entries in FJ's list. </span></p>\n<h3>Input</h3>\n<p>Input description...</p>\n<h3>Output</h3>\n<p>Output description...</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\netc.\n\n<strong>Output:</strong>\netc.\n</pre>",
+  "bodyText": "After spending so much time around his cows, Farmer John has started to understand their language.  Moreover, he notices that among his N cows  (2 <= N <= 1000), some always tell the truth while others always lie.  FJ carefully listens to M statements (1 <= M <= 10,000) from his cows, each of the form \"x y T\", meaning that \"cow x claims cow y always tells the truth\" or \"x y L\", meaning that \"cow x claims cow y always tells lies\".  Each statement involves a pair of different cows, and the same pair of cows may appear in multiple statements.    Unfortunately, FJ believes he might have written down some entries in his list incorrectly, so there may not be a valid way to designate each cow as a truth teller or a liar that is consistent with all the M statements on FJ's list.  To help FJ salvage as much of his list as possible, please compute the largest value of A such that there exists a valid way to designate each cow as a truth teller or a liar in a manner that is consistent with the first A entries in FJ's list. \nInput\nInput description...\nOutput\nOutput description...\nExample\nInput:\netc.\n\nOutput:\netc.",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\netc.\n\nOutput:\netc."
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7929/",
+  "code": "RGB7929",
+  "scrapedAt": "2026-06-29T06:45:08.305Z"
+}

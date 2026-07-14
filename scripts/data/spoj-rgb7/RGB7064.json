@@ -1,0 +1,15 @@
+{
+  "title": "Тэмдэгтэд  харгалзах код",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн тэмдэгтэд харгалзах ASCII кодыг хэвлэ.</p>\n<h3>Input</h3>\n<p>Тэмдэгт өгөгдөнө. Тусгайгаас хэрэгцээнийхээс бусад.</p>\n<h3>Output</h3>\n<p>Харгалзах ASCII код.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\nA\n\n<strong>Output:</strong>\n65\n</pre>",
+  "bodyText": "Өгөгдсөн тэмдэгтэд харгалзах ASCII кодыг хэвлэ.\nInput\nТэмдэгт өгөгдөнө. Тусгайгаас хэрэгцээнийхээс бусад.\nOutput\nХаргалзах ASCII код.\nExample\nInput:\nA\n\nOutput:\n65",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\nA\n\nOutput:\n65"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7064/",
+  "code": "RGB7064",
+  "scrapedAt": "2026-06-29T06:40:39.315Z"
+}

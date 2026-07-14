@@ -1,0 +1,13 @@
+{
+  "title": "Залгаад квадрат зэрэг",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Өгөгдсөн натурал тооны бичиглэлийн эх адагт нь 1-ийн цифр залгаж бичээд квадрат зэрэгт дэвшүүл.</span></p>\n<h3>Input</h3>\n<p><span style=\"font-size: small;\">Натурал тоо өгөгдөнө.</span></p>\n<h3>Output</h3>\n<p><span style=\"font-size: small;\">Натурал тоо</span></p>\n<h3>Example</h3>\n<p><span style=\"font-size: small;\"><strong>Input :</strong> </span></p>\n<p><span style=\"font-size: small;\">23</span></p>\n<p><span style=\"font-size: small;\"> <strong>Output:</strong> </span></p>\n<p><span style=\"font-size: small;\">1515361</span></p>",
+  "bodyText": "Өгөгдсөн натурал тооны бичиглэлийн эх адагт нь 1-ийн цифр залгаж бичээд квадрат зэрэгт дэвшүүл.\nInput\nНатурал тоо өгөгдөнө.\nOutput\nНатурал тоо\nExample\nInput : \n23\n Output: \n1515361",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7318/",
+  "code": "RGB7318",
+  "scrapedAt": "2026-06-29T06:39:11.506Z"
+}

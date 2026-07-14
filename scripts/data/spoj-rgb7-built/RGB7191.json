@@ -1,0 +1,125 @@
+{
+  "code": "RGB7191",
+  "status": "ok",
+  "data": {
+    "slug": "metro-spider-web",
+    "title_mn": "Метро Аалзны тор",
+    "title_en": "Metro Spider Web",
+    "statement_mn": "Их хотод тээврийн хүндрэлтэй асуудлаа шийдвэрлэхийн тулд хялбар метро байгуулж туршжээ. Байгууламж нь хотын төвөөс гарсан **6 цацраг шугам** болон **зургаан өнцөгт хэлбэрийн k ширхэг бүслүүр**ээс тогтоно. \n\nМетроны буудлууд нь цацраг шугам болон бүслүүрүүдийн огтлолцол дээр байрлана. Буудал бүр дээр бүслүүрээс цацраг руу мөн цацрагаас бүслүүр рүү шилжин суухыг зөвшөөрдөг.\n\n- Цацраг шугамыг цагийн зүүний дагуу **1-ээс 6** хүртэл дугаарласан.\n- Цагираг бүслүүрүүд хотын төвөөс эхлэн дугаарлагдана (хотын төвийг 1 буудлаас тогтох **0** дугаартай цагираг бүслүүр гэж тооцно).\n- Цацраг шугаман дээр байрлах зэргэлдээ 2 буудлын хоорондох зай яг **1 км**.\n- **i** дугаартай цагирган бүслүүр дээр байрлах зэргэлдээ 2 буудлын хоорондох зай **i км**.\n- Буудал болгон нь цацраг шугамын дугаар (1 ≤ r ≤ 6) ба бүслүүр цагирагийн дугаар k (0 ≤ k ≤ 32000) хоёроор илэрхийлэгдэх хос тоогоор тодорхойлогдоно.\n\n**Өгөгдсөн хоёр буудлын хоорондох хамгийн богино замын уртыг ол.**\n",
+    "statement_en": "A large city has built a simple metro system to solve its transportation difficulties. The structure consists of **6 radial lines** (rays) emanating from the city center and **k concentric hexagonal rings**.\n\nMetro stations are located at the intersections of radial lines and rings. At each station, passengers may transfer from a ring to a radial line and vice versa.\n\n- The radial lines are numbered clockwise from **1** to **6**.\n- The rings are numbered outward from the city center (the city center itself is considered ring **0**, consisting of a single station at the intersection of all lines).\n- The distance between two adjacent stations on the same radial line is exactly **1 km**.\n- The distance between two adjacent stations on the **i**-th ring is exactly **i km**.\n- Each station is identified by a pair (r, k), where **r** (1 ≤ r ≤ 6) is the radial line number and **k** (0 ≤ k ≤ 32000) is the ring number.\n\n**Find the length of the shortest path between two given stations.**\n",
+    "input_format_mn": "Эхлэл болон төгсгөлийн буудлын координатууд нэг мөрөнд өгөгдөнө: **r1 k1 r2 k2**.\n",
+    "input_format_en": "The coordinates of the start and end stations are given on a single line: **r1 k1 r2 k2**.\n",
+    "output_format_mn": "Эхлэл буудлаас төгсгөлийн буудал хүрэх хамгийн богино замын уртыг км-ээр тооцож гарга.\n",
+    "output_format_en": "Output the length (in km) of the shortest path from the start station to the end station.\n",
+    "constraints_mn": "- 1 ≤ r1, r2 ≤ 6\n- 0 ≤ k1, k2 ≤ 32000\n",
+    "constraints_en": "- 1 ≤ r1, r2 ≤ 6\n- 0 ≤ k1, k2 ≤ 32000\n",
+    "difficulty": "medium",
+    "tags": [
+      "shortest-path",
+      "geometry",
+      "math"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 20,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int r1, k1, r2, k2;\n    cin >> r1 >> k1 >> r2 >> k2;\n\n    long long ans = LLONG_MAX;\n\n    // We can think of the spider web in terms of coordinates.\n    // Convert to 0-based ray indices:\n    int a = r1 - 1, b = r2 - 1;\n\n    // The distance between two rays i and j in the circular sense (0..5):\n    auto ray_dist = [&](int i, int j) -> int {\n        int d = abs(i - j);\n        return min(d, 6 - d);\n    };\n\n    // The optimal path will go from (r1,k1) to some ring level h (0 <= h <= max(k1,k2))\n    // then along the ring to align with r2, then radially outward/inward to (r2,k2).\n\n    // Equivalent formulation: we can travel radially (changing k) at cost 1 per unit,\n    // and circularly (changing ray) at ring level k with cost k per step (adjacent ray step).\n\n    // The minimal distance can be reasoned as:\n    // Let d_ray = ray_dist(a, b) = number of ray steps between r1 and r2.\n    // Option 1: go to ring 0 (center), then out to (r2,k2)\n    long long option1 = k1 + k2; // radial only through center\n    ans = min(ans, option1);\n\n    // Option 2: go to some ring L, travel along it, then go radially\n    // The optimal L is somewhere between min(k1,k2) and max(k1,k2), but we can\n    // directly compute: go from k1 to L, travel d_ray * L, then from L to k2.\n    // The total = |k1 - L| + |k2 - L| + d_ray * L.\n    // This is minimized at L = something...\n    // But we can also consider going to the outer ring and back.\n\n    // A simpler approach: the answer is:\n    // dist = min over L>=0 of |k1 - L| + |k2 - L| + d_ray * L\n    // And also L can be 0 (already covered as option1).\n\n    // We can find the best L by analyzing the piecewise linear function.\n    // Let f(L) = |k1 - L| + |k2 - L| + d_ray * L.\n    // For L <= min(k1,k2): f(L) = (k1 - L) + (k2 - L) + d_ray * L = k1 + k2 + (d_ray - 2)*L\n    //   This is minimized at L = 0 if d_ray >= 2, or at L = min(k1,k2) if d_ray < 2.\n    // For min(k1,k2) <= L <= max(k1,k2): f(L) = |k1 - k2| + (d_ray - 1)*L ??? let's be careful.\n    //   WLOG k1 <= k2: then for L in [k1, k2]: f(L) = (L - k1) + (k2 - L) + d_ray * L = (k2 - k1) + d_ray * L\n    //   This is increasing with L, so min at L = k1.\n    // For L >= max(k1,k2): f(L) = (L - k1) + (L - k2) + d_ray * L = -(k1+k2) + (2 + d_ray)*L\n    //   Increasing with L, min at L = max(k1,k2).\n\n    // So the candidates for optimal L are: 0, min(k1,k2), max(k1,k2).\n    // Also possibly some intermediate value? Let's check analytically.\n    // Actually for d_ray = 0, f(L) = |k1-L|+|k2-L|, minimized at any L between k1 and k2, value = |k1-k2|.\n    // For d_ray = 1: between k1 and k2, f(L) = |k1-k2| + L, minimized at L = min(k1,k2), value = |k1-k2| + min(k1,k2).\n    // For d_ray >= 2: the decreasing part only at L in [0,min(k1,k2)] with slope d_ray-2 >= 0, so min at L=0.\n\n    // But wait, we might also consider going the long way around the circle (6 - d_ray steps).\n    // Actually d_ray is already the minimal ray distance.\n    // However, sometimes taking more ray steps but on a smaller ring could be better?\n    // The formula already accounts for d_ray minimal; using more steps would be worse since cost is proportional to L.\n\n    int d = ray_dist(a, b);\n    long long k_min = min(k1, k2);\n    long long k_max = max(k1, k2);\n\n    // L = 0\n    ans = min(ans, (long long)k1 + k2);\n\n    // L = k_min\n    // f(k_min) = |k1 - k_min| + |k2 - k_min| + d * k_min\n    // = (k1 - k_min) + (k2 - k_min) + d * k_min = k1 + k2 - 2*k_min + d*k_min\n    // But if k1 == k_min and k2 == k_max, then k1 - k_min = 0, k2 - k_min = k_max - k_min = |k1-k2|\n    // So = |k1-k2| + d * k_min\n    ans = min(ans, (long long)abs(k1 - k2) + d * k_min);\n\n    // L = k_max\n    // f(k_max) = (k_max - k1) + (k_max - k2) + d * k_max = 2*k_max - (k1+k2) + d*k_max\n    ans = min(ans, (long long)k_max * (2 + d) - (k1 + k2));\n\n    // But there is another possibility: instead of using the minimal ray distance d,\n    // maybe going the other way around (6-d steps) is better if L is large?\n    // That's actually covered because d is already the minimal circular distance.\n    // Using more steps would strictly increase cost since d_ray * L would be larger.\n    // So no.\n\n    // However, one more nuance: we might travel radially outward first, then along a ring,\n    // then radially inward. The formula with L = max(k1,k2) accounts for going outward to\n    // the larger ring, then along it, then inward... but if both are at same ring, that's fine.\n\n    // Actually there is also the possibility of going radially inward to 0, then out different ray.\n    // That's option1 = k1 + k2.\n\n    // Let's also consider going to some intermediate level L that's not one of these three.\n    // For d=0: the minimum is |k1-k2|, achieved at any L between k1 and k2. Our candidates:\n    // f(0)=k1+k2, f(k_min)=|k1-k2|, f(k_max)=|k1-k2|. So we get the right answer.\n    // For d=1: f(L)=|k1-L|+|k2-L|+L. The minimum occurs at L = min(k1,k2). Our candidates include it.\n    // For d>=2: minimum at L=0 (or negative which is not allowed). So our candidates cover it.\n\n    // But wait -- what if k1=0 or k2=0? The center station (0) is at ring 0, and it's just one point\n    // (all rays meet there). Traveling to/from it costs k (radial distance). That's covered.\n\n    // Let's test with samples.\n\n    cout << ans << \"\\n\";\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "1 5 1 4\n",
+        "output": "1\n"
+      },
+      {
+        "input": "1 5 2 4\n",
+        "output": "5\n"
+      },
+      {
+        "input": "2 0 6 3\n",
+        "output": "3\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1 1 1 1\n",
+      "1 0 3 0\n",
+      "1 5 4 5\n",
+      "1 32000 4 32000\n",
+      "1 0 4 10000\n",
+      "1 100 2 50\n",
+      "1 7 1 3\n",
+      "1 32000 1 0\n",
+      "6 0 1 0\n",
+      "3 5000 5 3000\n",
+      "1 2 3 4\n",
+      "6 100 2 200\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "1",
+      "got": "1"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "5",
+      "got": "5"
+    },
+    {
+      "i": 2,
+      "ok": true,
+      "expected": "3",
+      "got": "3"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1 1 1 1\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "1 0 3 0\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "1 5 4 5\n",
+      "stdout": "10\n"
+    },
+    {
+      "stdin": "1 32000 4 32000\n",
+      "stdout": "64000\n"
+    },
+    {
+      "stdin": "1 0 4 10000\n",
+      "stdout": "10000\n"
+    },
+    {
+      "stdin": "1 100 2 50\n",
+      "stdout": "100\n"
+    },
+    {
+      "stdin": "1 7 1 3\n",
+      "stdout": "4\n"
+    },
+    {
+      "stdin": "1 32000 1 0\n",
+      "stdout": "32000\n"
+    },
+    {
+      "stdin": "6 0 1 0\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "3 5000 5 3000\n",
+      "stdout": "8000\n"
+    },
+    {
+      "stdin": "1 2 3 4\n",
+      "stdout": "6\n"
+    },
+    {
+      "stdin": "6 100 2 200\n",
+      "stdout": "300\n"
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "code": "RGB7201",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7201-ioi",
+    "title_mn": "IOI",
+    "title_en": "IOI",
+    "statement_mn": "Дэлгэцэнд **IOI** гэж 1 удаа хэвлэ.",
+    "statement_en": "Print **IOI** to the screen once.",
+    "input_format_mn": "Оролт байхгүй.",
+    "input_format_en": "There is no input.",
+    "output_format_mn": "**IOI** гэсэн мөрийг хэвлэ.",
+    "output_format_en": "Print the line **IOI**.",
+    "constraints_mn": "Оролт байхгүй.",
+    "constraints_en": "No input.",
+    "difficulty": "easy",
+    "tags": [
+      "implementation",
+      "basic-io"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n\nint main() {\n    std::cout << \"IOI\" << std::endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "",
+        "output": "IOI"
+      }
+    ],
+    "extra_test_inputs": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "IOI",
+      "got": "IOI"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "",
+      "stdout": "IOI\n"
+    },
+    {
+      "stdin": "",
+      "stdout": "IOI\n"
+    },
+    {
+      "stdin": "",
+      "stdout": "IOI\n"
+    },
+    {
+      "stdin": "",
+      "stdout": "IOI\n"
+    },
+    {
+      "stdin": "",
+      "stdout": "IOI\n"
+    },
+    {
+      "stdin": "",
+      "stdout": "IOI\n"
+    },
+    {
+      "stdin": "",
+      "stdout": "IOI\n"
+    },
+    {
+      "stdin": "",
+      "stdout": "IOI\n"
+    },
+    {
+      "stdin": "",
+      "stdout": "IOI\n"
+    },
+    {
+      "stdin": "",
+      "stdout": "IOI\n"
+    }
+  ]
+}

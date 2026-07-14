@@ -1,0 +1,105 @@
+{
+  "code": "RGB7613",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7613-calculator",
+    "title_mn": "Калькулятор",
+    "title_en": "Calculator",
+    "statement_mn": "Сурагчийн зохиосон калькулятор нь дараах 3 үйлдлийг гүйцэтгэх чадвартай.\n\n1. **X** тоог 1-ээр нэмэгдүүлэх\n2. **X** тоог 2-оор үржүүлэх\n3. **X** тоог 3-аар үржүүлэх\n\nСурагчийн калькуляторын дээрх 3 үйлдлийн тусламжтайгаар 1-ийн тооноос өгөгдсөн тоо **N**-ийг гаргахдаа хамгийн цөөндөө хэдэн үйлдэл хийх вэ?",
+    "statement_en": "A student made a calculator that can perform the following three operations:\n\n1. Increase **X** by 1.\n2. Multiply **X** by 2.\n3. Multiply **X** by 3.\n\nUsing these three operations, starting from 1, what is the minimum number of operations needed to reach the given number **N**?",
+    "input_format_mn": "Натурал тоо **N** (N < 10<sup>6</sup>).",
+    "input_format_en": "A single natural number **N** (N < 10<sup>6</sup>).",
+    "output_format_mn": "1-ээс өгөгдсөн **N** тоог гаргах хамгийн цөөн үйлдлийн тоо.",
+    "output_format_en": "The minimum number of operations needed to obtain **N** starting from 1.",
+    "constraints_mn": "- N < 10<sup>6</sup>",
+    "constraints_en": "- N < 10<sup>6</sup>",
+    "difficulty": "easy",
+    "tags": [
+      "bfs",
+      "dp",
+      "shortest-path"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int N;\n    cin >> N;\n\n    // dp[x] = minimum operations to reach x from 1\n    vector<int> dp(N + 1, 0);\n    // We can fill bottom-up:\n    // dp[1] = 0\n    // For x from 1 to N-1:\n    //   dp[x+1] = min(dp[x+1], dp[x] + 1)\n    //   if 2*x <= N: dp[2*x] = min(dp[2*x], dp[x] + 1)\n    //   if 3*x <= N: dp[3*x] = min(dp[3*x], dp[x] + 1)\n\n    const int INF = 1e9;\n    for (int i = 2; i <= N; ++i) dp[i] = INF;\n    dp[1] = 0;\n\n    for (int x = 1; x <= N; ++x) {\n        if (dp[x] == INF) continue;\n        int nx = x + 1;\n        if (nx <= N && dp[nx] > dp[x] + 1) dp[nx] = dp[x] + 1;\n        nx = x * 2;\n        if (nx <= N && dp[nx] > dp[x] + 1) dp[nx] = dp[x] + 1;\n        nx = x * 3;\n        if (nx <= N && dp[nx] > dp[x] + 1) dp[nx] = dp[x] + 1;\n    }\n\n    cout << dp[N] << '\\n';\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "29\n",
+        "output": "5\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n",
+      "2\n",
+      "3\n",
+      "4\n",
+      "5\n",
+      "10\n",
+      "100\n",
+      "999999\n",
+      "100000\n",
+      "500000\n",
+      "1000\n",
+      "81\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "5",
+      "got": "5"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "2\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "3\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "4\n",
+      "stdout": "2\n"
+    },
+    {
+      "stdin": "5\n",
+      "stdout": "3\n"
+    },
+    {
+      "stdin": "10\n",
+      "stdout": "3\n"
+    },
+    {
+      "stdin": "100\n",
+      "stdout": "7\n"
+    },
+    {
+      "stdin": "999999\n",
+      "stdout": "19\n"
+    },
+    {
+      "stdin": "100000\n",
+      "stdout": "18\n"
+    },
+    {
+      "stdin": "500000\n",
+      "stdout": "18\n"
+    },
+    {
+      "stdin": "1000\n",
+      "stdout": "9\n"
+    },
+    {
+      "stdin": "81\n",
+      "stdout": "4\n"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Хагас дугуй",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">(x0,y0) координаттай цэг нь (x1,y1) цэг дээр төвтэй R радиустай, OX тэнхлэгтэй паралель диаметрээс дээш орших хагас дугуйд харьяалагдах эсэхийг тогтоо. Харьяалагдаж байвал YES, үгүй бол NO гэж хэвлэ. Бодит тоон бодлого.</span></p>\n<h3><span style=\"font-size: small;\">Input</span></h3>\n<p><span style=\"font-size: small;\">Эхний мөрөнд x0, y0 тоонууд зайгаар тусгаарлагдан өгөгдөнө.</span></p>\n<p><span style=\"font-size: small;\">Хоёр дахь мөрөнд радиус R өгөгдөнө.</span></p>\n<p><span style=\"font-size: small;\">Гурав дахь мөрөнд тойргийн төв болох x1, y1 тоонууд зайгаар тусгаарлагдан өгөгдөнө.</span></p>\n<h3><span style=\"font-size: small;\"><strong>Output</strong></span></h3>\n<p><span style=\"font-size: small;\">Харьяалагдаж байвал YES үгүй бол NO гэж хэвлэнэ.</span></p>\n<h3><span style=\"font-size: small;\">Example</span></h3>\n<p><strong><span style=\"font-size: small;\">Input:</span></strong></p>\n<p><span style=\"font-size: small;\">3 0<br>2<br>2 1</span></p>\n<p><strong><span style=\"font-size: small;\">Output:</span></strong></p>\n<p><span style=\"font-size: small;\">NO</span></p>",
+  "bodyText": "(x0,y0) координаттай цэг нь (x1,y1) цэг дээр төвтэй R радиустай, OX тэнхлэгтэй паралель диаметрээс дээш орших хагас дугуйд харьяалагдах эсэхийг тогтоо. Харьяалагдаж байвал YES, үгүй бол NO гэж хэвлэ. Бодит тоон бодлого.\nInput\nЭхний мөрөнд x0, y0 тоонууд зайгаар тусгаарлагдан өгөгдөнө.\nХоёр дахь мөрөнд радиус R өгөгдөнө.\nГурав дахь мөрөнд тойргийн төв болох x1, y1 тоонууд зайгаар тусгаарлагдан өгөгдөнө.\nOutput\nХарьяалагдаж байвал YES үгүй бол NO гэж хэвлэнэ.\nExample\nInput:\n3 022 1\nOutput:\nNO",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7175/",
+  "code": "RGB7175",
+  "scrapedAt": "2026-06-29T06:43:02.121Z"
+}

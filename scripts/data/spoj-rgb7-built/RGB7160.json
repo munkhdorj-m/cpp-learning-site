@@ -1,0 +1,94 @@
+{
+  "code": "RGB7160",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7160-to uppercase",
+    "title_mn": "Том үсэгт шилжүүл",
+    "title_en": "Convert to Uppercase",
+    "statement_mn": "Англи цагаан толгойн өгөгдсөн 3 үсгийг харгалзах том үсэгт нь шилжүүл.",
+    "statement_en": "Given 3 letters of the English alphabet, convert each to its corresponding uppercase letter.",
+    "input_format_mn": "Нэг мөрөнд зайгаар тусгаарлагдан 3 тэмдэгт өгөгдөнө. Тэмдэгт бүр нь Англи цагаан толгойн жижиг эсвэл том үсэг байна.",
+    "input_format_en": "A single line containing 3 characters separated by spaces. Each character is a lowercase or uppercase English letter.",
+    "output_format_mn": "Харгалзах том үсгүүд нэг мөрөнд зайгаар тусгаарлагдан хэвлэгдэнэ.",
+    "output_format_en": "Print the corresponding uppercase letters on a single line, separated by spaces.",
+    "constraints_mn": "- Тэмдэгт бүр нь `'a'...'z'` эсвэл `'A'...'Z'` мужид хамаарах Англи цагаан толгойн үсэг байна.",
+    "constraints_en": "- Each character is an English letter in the range `'a'...'z'` or `'A'...'Z'`.",
+    "difficulty": "easy",
+    "tags": [
+      "strings",
+      "implementation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <cctype>\n\nint main() {\n    char a, b, c;\n    std::cin >> a >> b >> c;\n    std::cout << (char)std::toupper(a) << ' '\n              << (char)std::toupper(b) << ' '\n              << (char)std::toupper(c) << '\\n';\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": " A n d\n",
+        "output": "A N D\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "a b c\n",
+      "A B C\n",
+      "z y x\n",
+      "Z Y X\n",
+      "a A a\n",
+      "X y Z\n",
+      "p Q r\n",
+      "M n O\n",
+      "t u v\n",
+      "G H i\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "A N D",
+      "got": "A N D"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "a b c\n",
+      "stdout": "A B C\n"
+    },
+    {
+      "stdin": "A B C\n",
+      "stdout": "A B C\n"
+    },
+    {
+      "stdin": "z y x\n",
+      "stdout": "Z Y X\n"
+    },
+    {
+      "stdin": "Z Y X\n",
+      "stdout": "Z Y X\n"
+    },
+    {
+      "stdin": "a A a\n",
+      "stdout": "A A A\n"
+    },
+    {
+      "stdin": "X y Z\n",
+      "stdout": "X Y Z\n"
+    },
+    {
+      "stdin": "p Q r\n",
+      "stdout": "P Q R\n"
+    },
+    {
+      "stdin": "M n O\n",
+      "stdout": "M N O\n"
+    },
+    {
+      "stdin": "t u v\n",
+      "stdout": "T U V\n"
+    },
+    {
+      "stdin": "G H i\n",
+      "stdout": "G H I\n"
+    }
+  ]
+}

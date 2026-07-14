@@ -1,0 +1,134 @@
+{
+  "code": "RGB7090",
+  "status": "ok",
+  "data": {
+    "slug": "shagai",
+    "title_mn": "Шагай",
+    "title_en": "Shagai (Ankle Bones)",
+    "statement_mn": "Шагайг **k** ширхэг орхиход / хаяхад / буух ялгаатай боломжийн тоог ол.\n\nШагай нь **морь**, **тэмээ**, **хонь**, **ямаа** гэсэн **4** янзаар бууна.",
+    "statement_en": "Find the number of distinct outcomes when throwing / tossing **k** shagai (ankle bones).\n\nEach shagai can land in **4** different ways: **horse** (морь), **camel** (тэмээ), **sheep** (хонь), or **goat** (ямаа).",
+    "input_format_mn": "Гараас нэг мөрөнд **k** (шагайны тоо) өгөгдөнө.",
+    "input_format_en": "A single line containing **k** — the number of shagai.",
+    "output_format_mn": "Ялгаатай буултын тоог хэвлэнэ.",
+    "output_format_en": "Print the number of distinct outcomes.",
+    "constraints_mn": "- 1 ≤ k ≤ 10^6",
+    "constraints_en": "- 1 ≤ k ≤ 10^6",
+    "difficulty": "medium",
+    "tags": [
+      "combinatorics",
+      "stars-and-bars"
+    ],
+    "time_limit_ms": 500,
+    "memory_limit_kb": 65536,
+    "xp_reward": 20,
+    "reference_cpp": "#include <iostream>\n\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    long long k;\n    cin >> k;\n\n    // Number of ways to put k indistinguishable items into 4 distinguishable boxes\n    // = C(k+4-1, 4-1) = C(k+3, 3)\n    // C(k+3, 3) = (k+3)*(k+2)*(k+1) / 6\n    long long ans = (k + 3) * (k + 2) * (k + 1) / 6;\n\n    cout << ans << '\\n';\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "4\n",
+        "output": "35\n"
+      },
+      {
+        "input": "1\n",
+        "output": "4\n"
+      },
+      {
+        "input": "2\n",
+        "output": "10\n"
+      },
+      {
+        "input": "3\n",
+        "output": "20\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "5\n",
+      "10\n",
+      "100\n",
+      "1000\n",
+      "1000000\n",
+      "999999\n",
+      "7\n",
+      "50\n",
+      "500000\n",
+      "1\n",
+      "2\n",
+      "3\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "35",
+      "got": "35"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "4",
+      "got": "4"
+    },
+    {
+      "i": 2,
+      "ok": true,
+      "expected": "10",
+      "got": "10"
+    },
+    {
+      "i": 3,
+      "ok": true,
+      "expected": "20",
+      "got": "20"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "5\n",
+      "stdout": "56\n"
+    },
+    {
+      "stdin": "10\n",
+      "stdout": "286\n"
+    },
+    {
+      "stdin": "100\n",
+      "stdout": "176851\n"
+    },
+    {
+      "stdin": "1000\n",
+      "stdout": "167668501\n"
+    },
+    {
+      "stdin": "1000000\n",
+      "stdout": "166667666668500001\n"
+    },
+    {
+      "stdin": "999999\n",
+      "stdout": "166667166667000000\n"
+    },
+    {
+      "stdin": "7\n",
+      "stdout": "120\n"
+    },
+    {
+      "stdin": "50\n",
+      "stdout": "23426\n"
+    },
+    {
+      "stdin": "500000\n",
+      "stdout": "20833583334250001\n"
+    },
+    {
+      "stdin": "1\n",
+      "stdout": "4\n"
+    },
+    {
+      "stdin": "2\n",
+      "stdout": "10\n"
+    },
+    {
+      "stdin": "3\n",
+      "stdout": "20\n"
+    }
+  ]
+}

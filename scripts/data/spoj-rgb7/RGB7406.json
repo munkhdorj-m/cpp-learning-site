@@ -1,0 +1,13 @@
+{
+  "title": "Илэрхийлэл 1",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">1*2&nbsp; + 2*3*4 + 3*4*5*6 + ... + n*(n+1)*...*2*n илэрхийллийг бод.</span></p>\n<h3>Input</h3>\n<p><span style=\"font-size: small;\">Натурал тоо n өгөгдөнө. n&lt;10.</span></p>\n<h3>Output</h3>\n<p><span style=\"font-size: small;\">Илэрхийллийн утга.</span></p>\n<h3>Example</h3>\n<p><span style=\"font-size: small;\"><strong>Input:</strong> </span></p>\n<p><span style=\"font-size: small;\">2 </span></p>\n<p><span style=\"font-size: small;\"> <strong>Output:</strong> </span></p>\n<p><span style=\"font-size: small;\">26 </span></p>",
+  "bodyText": "1*2  + 2*3*4 + 3*4*5*6 + ... + n*(n+1)*...*2*n илэрхийллийг бод.\nInput\nНатурал тоо n өгөгдөнө. n<10.\nOutput\nИлэрхийллийн утга.\nExample\nInput: \n2 \n Output: \n26",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7406/",
+  "code": "RGB7406",
+  "scrapedAt": "2026-06-29T06:40:30.602Z"
+}

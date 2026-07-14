@@ -1,0 +1,15 @@
+{
+  "title": "Косинус",
+  "hidden": true,
+  "bodyHtml": "<p>cos(1+cos(2+...+cos((n-1)+cos(n))...) илэрхийллийг бод.</p>\n<h3>Input</h3>\n<p>Натурал тоо өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Илэрхийллийн утга. Таслалаас хойш 3 оронгийн нарийвчлалтайгаар гарга.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n3\n<br><strong>Output:</strong><br>0.039 </pre>",
+  "bodyText": "cos(1+cos(2+...+cos((n-1)+cos(n))...) илэрхийллийг бод.\nInput\nНатурал тоо өгөгдөнө.\nOutput\nИлэрхийллийн утга. Таслалаас хойш 3 оронгийн нарийвчлалтайгаар гарга.\nExample\nInput:\n3\nOutput:0.039",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n3\nOutput:0.039"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7234/",
+  "code": "RGB7234",
+  "scrapedAt": "2026-06-29T06:40:04.304Z"
+}

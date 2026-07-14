@@ -1,0 +1,15 @@
+{
+  "title": "Scrambled Letters",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-family: monospace; font-size: 14px; white-space: pre-wrap;\">Farmer John keeps an alphabetically-ordered list of his N cows (1 &lt;= N &lt;= 50,000) taped to the barn door.  Each cow name is represented by a distinct string of between 1 and 20 lower-case characters.  Always the troublemaker, Bessie the cow alters the list by re-ordering the cows on the list.  In addition, she also scrambles the letters in each cow's name.  Given this modified list, please help Farmer John compute, for each entry in the list, the lowest and highest positions at which it could have possibly appeared in the original list.</span></p>\n<h3>Input</h3>\n<p>Input description...</p>\n<h3>Output</h3>\n<p>Output description...</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\netc.\n\n<strong>Output:</strong>\netc.\n</pre>",
+  "bodyText": "Farmer John keeps an alphabetically-ordered list of his N cows (1 <= N <= 50,000) taped to the barn door.  Each cow name is represented by a distinct string of between 1 and 20 lower-case characters.  Always the troublemaker, Bessie the cow alters the list by re-ordering the cows on the list.  In addition, she also scrambles the letters in each cow's name.  Given this modified list, please help Farmer John compute, for each entry in the list, the lowest and highest positions at which it could have possibly appeared in the original list.\nInput\nInput description...\nOutput\nOutput description...\nExample\nInput:\netc.\n\nOutput:\netc.",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\netc.\n\nOutput:\netc."
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7925/",
+  "code": "RGB7925",
+  "scrapedAt": "2026-06-29T06:45:01.351Z"
+}

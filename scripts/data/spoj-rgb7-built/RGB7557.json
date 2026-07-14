@@ -1,0 +1,105 @@
+{
+  "code": "RGB7557",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7557-currency-trader",
+    "title_mn": "Валютын ченж",
+    "title_en": "Currency Trader",
+    "statement_mn": "Валютийн ченжүүд доллар хямдарсан өдөр их хэмжээний доллар худалдан авч үнэтэй болсон өдөр нь буцааж арилждаг. Ченжид ойрын N өдрийн долларын ханшийн төлөв мэдэгдэж байгаа бол түүний нэг доллар бүрээс олох хамгийн их ашгийг ол. Тэрээр **нэг л удаа** валют авах боломжтой.",
+    "statement_en": "Currency traders buy large amounts of dollars when the exchange rate drops and sell them back when the rate rises. Given the predicted dollar exchange rates for the next N days, find the maximum profit that can be made from a single dollar. The trader can buy and sell **only once**.",
+    "input_format_mn": "Эхний мөрөнд N (N ≤ 10⁶) тоо өгөгдөнө. Дараагийн мөрөнд ойрын N өдрийн нэг долларын ханшийн мэдээлэл (эерэг бүхэл тоонууд) байна. Долларын ханш 2000-аас хэтрэхгүй.",
+    "input_format_en": "The first line contains an integer N (N ≤ 10⁶). The next line contains N integers — the dollar exchange rates for the next N days. Each rate does not exceed 2000.",
+    "output_format_mn": "Ганц мөрөнд хамгийн их ашгийг хэвлэ. Хэрэв ашиг олох боломжгүй бол 0-г хэвлэ.",
+    "output_format_en": "Print a single integer — the maximum profit that can be obtained. If no profit is possible, print 0.",
+    "constraints_mn": "- 2 ≤ N ≤ 10⁶\n- Долларын ханш бүр нь 1-ээс 2000 хүртэлх бүхэл тоо.",
+    "constraints_en": "- 2 ≤ N ≤ 10⁶\n- Each exchange rate is an integer between 1 and 2000 inclusive.",
+    "difficulty": "easy",
+    "tags": [
+      "maximum-difference",
+      "array",
+      "greedy"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <climits>\n\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int N;\n    cin >> N;\n\n    int min_price = INT_MAX;\n    int max_profit = 0;\n\n    for (int i = 0; i < N; ++i) {\n        int price;\n        cin >> price;\n        if (price < min_price) {\n            min_price = price;\n        }\n        int profit = price - min_price;\n        if (profit > max_profit) {\n            max_profit = profit;\n        }\n    }\n\n    cout << max_profit << '\\n';\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5\n10 2 3 5 1\n",
+        "output": "3\n"
+      },
+      {
+        "input": "5\n1400 1396 1410 1405 1450\n",
+        "output": "54\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "2\n100 100\n",
+      "2\n100 50\n",
+      "3\n200 150 180\n",
+      "6\n5 4 3 2 1 1\n",
+      "10\n10 20 30 40 50 60 70 80 90 100\n",
+      "10\n100 90 80 70 60 50 40 30 20 10\n",
+      "8\n3 8 1 7 2 9 4 6\n",
+      "4\n1450 1400 1396 1410\n",
+      "1\n42\n",
+      "10\n1 2000 1 2000 1 2000 1 2000 1 2000\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "3",
+      "got": "3"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "54",
+      "got": "54"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "2\n100 100\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "2\n100 50\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "3\n200 150 180\n",
+      "stdout": "30\n"
+    },
+    {
+      "stdin": "6\n5 4 3 2 1 1\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "10\n10 20 30 40 50 60 70 80 90 100\n",
+      "stdout": "90\n"
+    },
+    {
+      "stdin": "10\n100 90 80 70 60 50 40 30 20 10\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "8\n3 8 1 7 2 9 4 6\n",
+      "stdout": "8\n"
+    },
+    {
+      "stdin": "4\n1450 1400 1396 1410\n",
+      "stdout": "14\n"
+    },
+    {
+      "stdin": "1\n42\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "10\n1 2000 1 2000 1 2000 1 2000 1 2000\n",
+      "stdout": "1999\n"
+    }
+  ]
+}

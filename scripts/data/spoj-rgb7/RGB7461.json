@@ -1,0 +1,19 @@
+{
+  "title": "Цифрүүдийн нийлбэр",
+  "hidden": true,
+  "bodyHtml": "<p>0 цифр агуулаагүй бөгөөд цифрүүдийн нийлбэр нь өгөгдсөн N-тэй тэнцүү байх тоонуудын тоог олно уу. N&lt;30</p>\n<h3>Input</h3>\n<p>N бүхэл тоо. 0&lt;N&lt;30</p>\n<h3>Output</h3>\n<p>Бүхэл тоо</p>\n<h3>Example</h3>\n<pre><strong>Input 1:</strong>\n5\n\n<strong>Output 1:</strong>\n16</pre>\n<pre><strong>Input 1:</strong></pre>\n<pre>2</pre>\n<pre><strong>Output 1:</strong></pre>\n<pre>2</pre>",
+  "bodyText": "0 цифр агуулаагүй бөгөөд цифрүүдийн нийлбэр нь өгөгдсөн N-тэй тэнцүү байх тоонуудын тоог олно уу. N<30\nInput\nN бүхэл тоо. 0<N<30\nOutput\nБүхэл тоо\nExample\nInput 1:\n5\n\nOutput 1:\n16\nInput 1:\n2\nOutput 1:\n2",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input 1:\n5\n\nOutput 1:\n16",
+    "Input 1:",
+    "2",
+    "Output 1:",
+    "2"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7461/",
+  "code": "RGB7461",
+  "scrapedAt": "2026-06-29T06:49:21.109Z"
+}

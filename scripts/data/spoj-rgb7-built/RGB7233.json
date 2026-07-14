@@ -1,0 +1,101 @@
+{
+  "code": "RGB7233",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7233-sine-cosine-product",
+    "title_mn": "Синус косинус",
+    "title_en": "Sine Cosine",
+    "statement_mn": "Дараах үржвэрийн утгыг ол:\n\n$$\\\\left(\\\\frac{\\\\cos 1}{\\\\sin 1}\\\\right) \\\\times \\\\left(\\\\frac{\\\\cos 1 + \\\\cos 2}{\\\\sin 1 + \\\\sin 2}\\\\right) \\\\times \\\\dots \\\\times \\\\left(\\\\frac{\\\\cos 1 + \\\\cos 2 + \\\\dots + \\\\cos n}{\\\\sin 1 + \\\\sin 2 + \\\\dots + \\\\sin n}\\\\right)$$\n\nЭнд өнцгүүдийн хэмжээ **радианаар** өгөгдсөн.",
+    "statement_en": "Find the value of the following product:\n\n$$\\\\left(\\\\frac{\\\\cos 1}{\\\\sin 1}\\\\right) \\\\times \\\\left(\\\\frac{\\\\cos 1 + \\\\cos 2}{\\\\sin 1 + \\\\sin 2}\\\\right) \\\\times \\\\dots \\\\times \\\\left(\\\\frac{\\\\cos 1 + \\\\cos 2 + \\\\dots + \\\\cos n}{\\\\sin 1 + \\\\sin 2 + \\\\dots + \\\\sin n}\\\\right)$$\n\nHere the angles are given in **radians**.",
+    "input_format_mn": "Эхний мөрөнд натурал тоо $n$ өгөгдөнө.",
+    "input_format_en": "The first line contains a natural number $n$.",
+    "output_format_mn": "Үржвэрийн утгыг таслалаас хойш 3 оронгийн нарийвчлалтайгаар (аравтын бутархайн дараа 3 орон) хэвлэ.",
+    "output_format_en": "Print the value of the product with exactly 3 digits after the decimal point.",
+    "constraints_mn": "$$1 \\\\leq n \\\\leq 100$$",
+    "constraints_en": "$$1 \\\\leq n \\\\leq 100$$",
+    "difficulty": "easy",
+    "tags": "math,trigonometry,prefix-sum",
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "samples": [
+      {
+        "input": "2\n",
+        "output": "0.046\n"
+      }
+    ],
+    "reference_cpp": "#include <iostream>\n#include <iomanip>\n#include <cmath>\n\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    \n    int n;\n    cin >> n;\n    \n    double sum_cos = 0.0, sum_sin = 0.0;\n    double product = 1.0;\n    \n    for (int k = 1; k <= n; ++k) {\n        sum_cos += cos(k);\n        sum_sin += sin(k);\n        // For n >= 1, sum_sin should not be zero for the given range,\n        // but guard just in case:\n        if (sum_sin != 0.0) {\n            product *= sum_cos / sum_sin;\n        }\n    }\n    \n    cout << fixed << setprecision(3) << product << \"\\n\";\n    \n    return 0;\n}\n",
+    "extra_test_inputs": [
+      "1\n",
+      "3\n",
+      "5\n",
+      "10\n",
+      "20\n",
+      "50\n",
+      "100\n",
+      "7\n",
+      "15\n",
+      "30\n",
+      "80\n",
+      "99\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "0.046",
+      "got": "0.046"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n",
+      "stdout": "0.642\n"
+    },
+    {
+      "stdin": "3\n",
+      "stdout": "-0.021\n"
+    },
+    {
+      "stdin": "5\n",
+      "stdout": "-0.196\n"
+    },
+    {
+      "stdin": "10\n",
+      "stdout": "-0.029\n"
+    },
+    {
+      "stdin": "20\n",
+      "stdout": "-0.519\n"
+    },
+    {
+      "stdin": "50\n",
+      "stdout": "-0.264\n"
+    },
+    {
+      "stdin": "100\n",
+      "stdout": "0.164\n"
+    },
+    {
+      "stdin": "7\n",
+      "stdout": "-0.451\n"
+    },
+    {
+      "stdin": "15\n",
+      "stdout": "-0.028\n"
+    },
+    {
+      "stdin": "30\n",
+      "stdout": "0.014\n"
+    },
+    {
+      "stdin": "80\n",
+      "stdout": "-0.011\n"
+    },
+    {
+      "stdin": "99\n",
+      "stdout": "0.039\n"
+    }
+  ]
+}

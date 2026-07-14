@@ -1,0 +1,13 @@
+{
+  "title": "Рома ба азын тоонууд",
+  "hidden": true,
+  "bodyHtml": "<p style=\"text-align: justify;\"><span style=\"font-size: small;\">Рома 4, 7 цифрүүдийг азын цифр гэж итгэдэг.</span></p>\n<p style=\"text-align: justify;\"><span style=\"font-size: small;\"> Ромад&nbsp;<em>n</em>&nbsp;ширхэг бүхэл тоонууд байгаа. Тэр &nbsp;өөрт нь <em>k</em><em>-</em>&nbsp;гаас хэтрэхгүй &nbsp;азын цифрүүдтэй тоо хэд байгааг олохыг хүсчээ. Та түүнд тусална уу.</span></p>\n<h3>Input</h3>\n<p style=\"text-align: justify;\"><span style=\"font-size: small;\">Эхний мөрөнд&nbsp;<em>n</em>&nbsp;ба&nbsp;<em>k</em>&nbsp;(1≤<em>n</em>,<em>k</em>≤100) хоёр бүхэл тоонууд өгөгдөнө. Хоёр дахь мөрөнд&nbsp;<em>n</em>&nbsp;ширхэг бүхэл тооноос бүрдэх&nbsp;<em>a</em><em><sub>i</sub></em>&nbsp;(1≤<em>a</em><em><sub>i</sub></em>≤10<sup>9</sup>) Ромад байгаа тоонууд өгөгдөнө.</span></p>\n<h3>Output</h3>\n<p><span style=\"color: #222222; line-height: 19.600000381469727px;\"><span style=\"font-size: small;\">Ганц мөрөнд бодлогын хариу болох ганц бүхэл тоог хэвлэнэ.</span></span></p>\n<h3>Example</h3>\n<p><span style=\"font-size: small;\"><strong>Input 1:</strong> </span></p>\n<p><span style=\"font-size: small;\">3 4<br>1 2 4</span></p>\n<p><span style=\"font-size: small;\"> <strong>Output 1:</strong> </span></p>\n<p><span style=\"font-size: x-small;\">3</span></p>\n<p><span style=\"font-size: small;\"><strong>Input 2:</strong></span></p>\n<p><span style=\"font-size: small;\">3 2<br>447 44 77</span></p>\n<p><span style=\"font-size: small;\"><strong>Output 2:</strong></span></p>\n<p><span style=\"font-size: x-small;\">2</span></p>",
+  "bodyText": "Рома 4, 7 цифрүүдийг азын цифр гэж итгэдэг.\n Ромад n ширхэг бүхэл тоонууд байгаа. Тэр  өөрт нь k- гаас хэтрэхгүй  азын цифрүүдтэй тоо хэд байгааг олохыг хүсчээ. Та түүнд тусална уу.\nInput\nЭхний мөрөнд n ба k (1≤n,k≤100) хоёр бүхэл тоонууд өгөгдөнө. Хоёр дахь мөрөнд n ширхэг бүхэл тооноос бүрдэх ai (1≤ai≤109) Ромад байгаа тоонууд өгөгдөнө.\nOutput\nГанц мөрөнд бодлогын хариу болох ганц бүхэл тоог хэвлэнэ.\nExample\nInput 1: \n3 41 2 4\n Output 1: \n3\nInput 2:\n3 2447 44 77\nOutput 2:\n2",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7411/",
+  "code": "RGB7411",
+  "scrapedAt": "2026-06-29T06:47:54.484Z"
+}

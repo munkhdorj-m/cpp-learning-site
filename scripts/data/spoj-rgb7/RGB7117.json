@@ -1,0 +1,15 @@
+{
+  "title": "Тоон үнэлгээнээс үсгэнд",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн тоон үнэлгээг үсгэн үнэлгээнд шилжүүл.</p>\n<h3>Input</h3>\n<p>Тоон үнэлгээ 100-аас ихгүй эерэг бүхэл тоогоор өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Тоон үнэлгээ 89-өөс их бол А, 79-өөс их В, 69-өөс их бол С, 59-өөс их бол D бусад тохиолдолд F үсгэн дүнг хэвлэ.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n84\n\n<strong>Output:</strong>\nВ\n</pre>",
+  "bodyText": "Өгөгдсөн тоон үнэлгээг үсгэн үнэлгээнд шилжүүл.\nInput\nТоон үнэлгээ 100-аас ихгүй эерэг бүхэл тоогоор өгөгдөнө.\nOutput\nТоон үнэлгээ 89-өөс их бол А, 79-өөс их В, 69-өөс их бол С, 59-өөс их бол D бусад тохиолдолд F үсгэн дүнг хэвлэ.\nExample\nInput:\n84\n\nOutput:\nВ",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n84\n\nOutput:\nВ"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7117/",
+  "code": "RGB7117",
+  "scrapedAt": "2026-06-29T06:38:01.491Z"
+}

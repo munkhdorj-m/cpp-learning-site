@@ -1,0 +1,101 @@
+{
+  "code": "RGB7796",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7796-maximum-subarray-sum",
+    "title_mn": "Хамгийн их дэд массивын нийлбэр",
+    "title_en": "Maximum Subarray Sum",
+    "statement_mn": "$N$ урттай $A$ массивын **аль ч тасралтгүй дэд массивын** нийлбэрүүдээс хамгийн ихийг ол. \n\nДэд массив нь дор хаяж нэг элементээс тогтох ёстой.",
+    "statement_en": "Given an array $A$ of length $N$, find the **maximum sum of any contiguous subarray**.\n\nA subarray must contain at least one element.",
+    "input_format_mn": "Эхний мөрөнд $N$ ($1 \\le N \\le 10^6$) — массивын урт.  \nДараагийн мөрөнд $N$ ширхэг бүхэл тоо $A_1, A_2, \\dots, A_N$ ($-10^9 \\le A_i \\le 10^9$) өгөгдөнө.",
+    "input_format_en": "The first line contains $N$ ($1 \\le N \\le 10^6$) — the length of the array.  \nThe next line contains $N$ integers $A_1, A_2, \\dots, A_N$ ($-10^9 \\le A_i \\le 10^9$).",
+    "output_format_mn": "Ганц мөрөнд хамгийн их дэд массивын нийлбэрийг хэвлэ.",
+    "output_format_en": "Print a single integer — the maximum subarray sum.",
+    "constraints_mn": "- $1 \\le N \\le 10^6$\n- $-10^9 \\le A_i \\le 10^9$\n- Хариу 32 битийн төрөлд багтахгүй байж болзошгүй тул 64 битийн бүхэл тоо (C++-д `long long`) хэрэглэ.",
+    "constraints_en": "- $1 \\le N \\le 10^6$\n- $-10^9 \\le A_i \\le 10^9$\n- The answer may not fit in a 32-bit integer; use a 64-bit integer (`long long` in C++).",
+    "difficulty": "medium",
+    "tags": [
+      "maximum-subarray",
+      "kadane",
+      "prefix-sum",
+      "greedy"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 20,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    long long best = LLONG_MIN;\n    long long cur = 0;\n    for (int i = 0; i < n; ++i) {\n        long long x;\n        cin >> x;\n        cur = max(x, cur + x);\n        best = max(best, cur);\n    }\n    cout << best << '\\n';\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "8\n-1 2 4 -3 5 2 -5 2\n",
+        "output": "10\n"
+      },
+      {
+        "input": "5\n-1 -2 -3 -4 -5\n",
+        "output": "-1\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "3\n1000000000 1000000000 1000000000\n",
+      "4\n-1000000000 -1000000000 -1000000000 -1000000000\n",
+      "1\n0\n",
+      "1\n-5\n",
+      "6\n5 -2 3 4 -10 6\n",
+      "10\n1 2 3 4 5 6 7 8 9 10\n",
+      "10\n-1 -2 -3 -4 -5 0 -1 -2 -3 -4\n",
+      "6\n-5 4 -1 7 -3 2\n",
+      "2\n-1000000000 1000000000\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "10",
+      "got": "10"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "-1",
+      "got": "-1"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "3\n1000000000 1000000000 1000000000\n",
+      "stdout": "3000000000\n"
+    },
+    {
+      "stdin": "4\n-1000000000 -1000000000 -1000000000 -1000000000\n",
+      "stdout": "-1000000000\n"
+    },
+    {
+      "stdin": "1\n0\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "1\n-5\n",
+      "stdout": "-5\n"
+    },
+    {
+      "stdin": "6\n5 -2 3 4 -10 6\n",
+      "stdout": "10\n"
+    },
+    {
+      "stdin": "10\n1 2 3 4 5 6 7 8 9 10\n",
+      "stdout": "55\n"
+    },
+    {
+      "stdin": "10\n-1 -2 -3 -4 -5 0 -1 -2 -3 -4\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "6\n-5 4 -1 7 -3 2\n",
+      "stdout": "10\n"
+    },
+    {
+      "stdin": "2\n-1000000000 1000000000\n",
+      "stdout": "1000000000\n"
+    }
+  ]
+}

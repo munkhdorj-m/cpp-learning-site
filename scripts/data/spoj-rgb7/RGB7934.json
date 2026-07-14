@@ -1,0 +1,15 @@
+{
+  "title": "Breed Proximity",
+  "hidden": true,
+  "bodyHtml": "<p><span id=\"probtext-text\">Farmer John's N cows (1 &lt;= N &lt;= 50,000) are standing in a line, each described by an integer breed ID.  Cows of the same breed are at risk for getting into an argument with each-other if they are standing too close.  Specifically, two cows of the same breed are said to be \"crowded\" if their positions within the line differ by no more than K (1 &lt;= K &lt; N).    Please compute the maximum breed ID of a pair of crowded cows.</span></p>\n<h3>Input</h3>\n<p>Input description...</p>\n<h3>Output</h3>\n<p>Output description...</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\netc.\n\n<strong>Output:</strong>\netc.\n</pre>",
+  "bodyText": "Farmer John's N cows (1 <= N <= 50,000) are standing in a line, each described by an integer breed ID.  Cows of the same breed are at risk for getting into an argument with each-other if they are standing too close.  Specifically, two cows of the same breed are said to be \"crowded\" if their positions within the line differ by no more than K (1 <= K < N).    Please compute the maximum breed ID of a pair of crowded cows.\nInput\nInput description...\nOutput\nOutput description...\nExample\nInput:\netc.\n\nOutput:\netc.",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\netc.\n\nOutput:\netc."
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7934/",
+  "code": "RGB7934",
+  "scrapedAt": "2026-06-29T06:45:17.112Z"
+}

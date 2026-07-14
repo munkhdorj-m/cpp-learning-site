@@ -1,0 +1,13 @@
+{
+  "title": "Жижиг том үсэг",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Англи цагаан толгой үсгийг харгалзах жижиг эсвэл том үсгийн хамтаар хэвлэ</span></p>\n<h3>Input</h3>\n<p><span style=\"font-size: small;\">Англи цагаан толгой үсэг өгөгдөнө.</span></p>\n<div><span style=\"font-size: 1.17em;\">Output</span></div>\n<p><span style=\"font-size: small;\">Жижиг үсэг, том үсгийг зайгаар тусгаарлан хэвлэнэ.</span></p>\n<p><span style=\"font-size: 1.17em;\">Example</span></p>\n<p>&nbsp;</p>\n<p><span style=\"font-size: small;\"><strong>Input 1:</strong></span></p>\n<p><span style=\"font-size: small;\">N</span></p>\n<p><span style=\"font-size: small;\"><strong>Output 1:</strong></span></p>\n<p><span style=\"font-size: small;\">n N</span></p>\n<p><span style=\"font-size: small;\"><strong>Input 2:</strong> </span></p>\n<p><span style=\"font-size: small;\">y</span></p>\n<p><span style=\"font-size: small;\"><strong>Output 2:</strong> </span></p>\n<p><span style=\"font-size: small;\">y Y</span></p>",
+  "bodyText": "Англи цагаан толгой үсгийг харгалзах жижиг эсвэл том үсгийн хамтаар хэвлэ\nInput\nАнгли цагаан толгой үсэг өгөгдөнө.\nOutput\nЖижиг үсэг, том үсгийг зайгаар тусгаарлан хэвлэнэ.\nExample\n \nInput 1:\nN\nOutput 1:\nn N\nInput 2: \ny\nOutput 2: \ny Y",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7164/",
+  "code": "RGB7164",
+  "scrapedAt": "2026-06-29T06:49:56.231Z"
+}

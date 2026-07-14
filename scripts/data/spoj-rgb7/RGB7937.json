@@ -1,0 +1,15 @@
+{
+  "title": "Blink",
+  "hidden": true,
+  "bodyHtml": "<p><span id=\"probtext-text\">Unhappy with the dim lighting in his barn, Farmer John has just installed a fancy new chandelier consisting of N (3 &lt;= N &lt;= 16) lights bulbs arranged in a circle.    The cows are fascinated by this new light fixture, and enjoy playing the following game: at time T, they toggle the state of each light bulb if its neighbor to the left was turned on at time T-1.  They continue this game for B units of time (1 &lt;= B &lt;= 10^15).  Note that B might be too large to fit into a standard 32-bit integer.  Given the initial states of the light bulbs, please determine their final states after B units of time have elapsed.</span></p>\n<h3>Input</h3>\n<p>Input description...</p>\n<h3>Output</h3>\n<p>Output description...</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\netc.\n\n<strong>Output:</strong>\netc.\n</pre>",
+  "bodyText": "Unhappy with the dim lighting in his barn, Farmer John has just installed a fancy new chandelier consisting of N (3 <= N <= 16) lights bulbs arranged in a circle.    The cows are fascinated by this new light fixture, and enjoy playing the following game: at time T, they toggle the state of each light bulb if its neighbor to the left was turned on at time T-1.  They continue this game for B units of time (1 <= B <= 10^15).  Note that B might be too large to fit into a standard 32-bit integer.  Given the initial states of the light bulbs, please determine their final states after B units of time have elapsed.\nInput\nInput description...\nOutput\nOutput description...\nExample\nInput:\netc.\n\nOutput:\netc.",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\netc.\n\nOutput:\netc."
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7937/",
+  "code": "RGB7937",
+  "scrapedAt": "2026-06-29T06:45:22.346Z"
+}

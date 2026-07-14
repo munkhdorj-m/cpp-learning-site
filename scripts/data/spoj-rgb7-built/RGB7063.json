@@ -1,0 +1,95 @@
+{
+  "code": "RGB7063",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7063-toond-kharagdalakh-temdegt",
+    "title_mn": "Тоонд харгалзах тэмдэгт",
+    "title_en": "Character Corresponding to Number",
+    "statement_mn": "Өгөгдсөн тоонд харгалзах ASCII тэмдэгтийг хэвлэ.",
+    "statement_en": "Print the ASCII character corresponding to the given number.",
+    "input_format_mn": "Натурал тоо n өгөгдөнө.",
+    "input_format_en": "A single natural number n is given.",
+    "output_format_mn": "Харгалзах ASCII тэмдэгт.",
+    "output_format_en": "The corresponding ASCII character.",
+    "constraints_mn": "32 ≤ n ≤ 255",
+    "constraints_en": "32 ≤ n ≤ 255",
+    "difficulty": "easy",
+    "tags": [
+      "ascii",
+      "io",
+      "character"
+    ],
+    "time_limit_ms": 500,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    cout << (char)n << endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "65\n",
+        "output": "A\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "32\n",
+      "48\n",
+      "57\n",
+      "65\n",
+      "90\n",
+      "97\n",
+      "122\n",
+      "255\n",
+      "100\n",
+      "126\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "A",
+      "got": "A"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "32\n",
+      "stdout": "\n"
+    },
+    {
+      "stdin": "48\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "57\n",
+      "stdout": "9\n"
+    },
+    {
+      "stdin": "65\n",
+      "stdout": "A\n"
+    },
+    {
+      "stdin": "90\n",
+      "stdout": "Z\n"
+    },
+    {
+      "stdin": "97\n",
+      "stdout": "a\n"
+    },
+    {
+      "stdin": "122\n",
+      "stdout": "z\n"
+    },
+    {
+      "stdin": "255\n",
+      "stdout": "�\n"
+    },
+    {
+      "stdin": "100\n",
+      "stdout": "d\n"
+    },
+    {
+      "stdin": "126\n",
+      "stdout": "~\n"
+    }
+  ]
+}

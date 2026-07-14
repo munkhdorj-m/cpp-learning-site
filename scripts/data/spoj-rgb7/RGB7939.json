@@ -1,0 +1,15 @@
+{
+  "title": "Haywire",
+  "hidden": true,
+  "bodyHtml": "<p><span id=\"probtext-text\">Farmer John's N cows (4 &lt;= N &lt;= 12, N even) have built a primitive system for communicating between pairs of friendly cows by building wires protected by wrappings made of hay.    Each cow has exactly 3 other friends in the barn, and the cows must arrange themselves to occupy N stalls lined up in a row.  A wire of length L requires exactly L units of hay to build, so for example if the cows in stalls 4 and 7 are friends, it would take 3 units of hay to construct a wire to connect them.    Assuming every pair of friends must be connected by a separate wire, please determine the minimum possible amount of hay required to build these wires if the cows order themselves in the best possible way. </span></p>\n<h3>Input</h3>\n<p>Input description...</p>\n<h3>Output</h3>\n<p>Output description...</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\netc.\n\n<strong>Output:</strong>\netc.\n</pre>",
+  "bodyText": "Farmer John's N cows (4 <= N <= 12, N even) have built a primitive system for communicating between pairs of friendly cows by building wires protected by wrappings made of hay.    Each cow has exactly 3 other friends in the barn, and the cows must arrange themselves to occupy N stalls lined up in a row.  A wire of length L requires exactly L units of hay to build, so for example if the cows in stalls 4 and 7 are friends, it would take 3 units of hay to construct a wire to connect them.    Assuming every pair of friends must be connected by a separate wire, please determine the minimum possible amount of hay required to build these wires if the cows order themselves in the best possible way. \nInput\nInput description...\nOutput\nOutput description...\nExample\nInput:\netc.\n\nOutput:\netc.",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\netc.\n\nOutput:\netc."
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7939/",
+  "code": "RGB7939",
+  "scrapedAt": "2026-06-29T06:45:25.828Z"
+}

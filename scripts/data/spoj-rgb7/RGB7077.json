@@ -1,0 +1,13 @@
+{
+  "title": "Нийлбэр 6",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">1/(1*3) + 1/(2*4) + 1/(3*5) + . . . + 1/(n*(n+2)) нийлбэрийг ол.</span></p>\n<p><span style=\"font-size: x-small;\">Давталт ашиглахгүй бодвол сайн.</span></p>\n<h3><span style=\"font-size: small;\">Input</span></h3>\n<p><span style=\"font-size: small;\">n натурал сондгой тоо өгөгдөнө.</span></p>\n<h3><span style=\"font-size: small;\">Output</span></h3>\n<p><span style=\"font-size: small;\">Нийлбэрийг таслалаас хойш 6 оронгийн нарийвчлалтай гаргана.</span></p>\n<h3><span style=\"font-size: small;\">Example</span></h3>\n<p><span style=\"font-size: small;\"><strong>Input:</strong> </span></p>\n<p><span style=\"font-size: small;\">9</span></p>\n<p><span style=\"font-size: small;\"> <strong>Output:</strong> </span></p>\n<p><span style=\"font-size: small;\">0.654545</span></p>",
+  "bodyText": "1/(1*3) + 1/(2*4) + 1/(3*5) + . . . + 1/(n*(n+2)) нийлбэрийг ол.\nДавталт ашиглахгүй бодвол сайн.\nInput\nn натурал сондгой тоо өгөгдөнө.\nOutput\nНийлбэрийг таслалаас хойш 6 оронгийн нарийвчлалтай гаргана.\nExample\nInput: \n9\n Output: \n0.654545",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7077/",
+  "code": "RGB7077",
+  "scrapedAt": "2026-06-29T06:49:38.687Z"
+}

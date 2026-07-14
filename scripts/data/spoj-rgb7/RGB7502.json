@@ -1,0 +1,15 @@
+{
+  "title": "Муугийн тоо",
+  "hidden": true,
+  "bodyHtml": "<p>Сурагчдын дүн нэг хэмжээст массиваар өгөгдөв. Муу дүгнэгдсэн сурагчдын тоог ол.</p>\n<h3>Input</h3>\n<p>Эхний мөрөнд сурагчдын тоо.</p>\n<p>Дараагийн мөрүүдэд сурагчдын дүн нэг нэг мөрөнд өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Муу дүнтэй сурагчдын тоо.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n5<br>96<br>59<br>55<br>76<br>62<br><strong>Output:</strong>\n2\n</pre>",
+  "bodyText": "Сурагчдын дүн нэг хэмжээст массиваар өгөгдөв. Муу дүгнэгдсэн сурагчдын тоог ол.\nInput\nЭхний мөрөнд сурагчдын тоо.\nДараагийн мөрүүдэд сурагчдын дүн нэг нэг мөрөнд өгөгдөнө.\nOutput\nМуу дүнтэй сурагчдын тоо.\nExample\nInput:\n59659557662Output:\n2",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n59659557662Output:\n2"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7502/",
+  "code": "RGB7502",
+  "scrapedAt": "2026-06-29T06:39:28.943Z"
+}

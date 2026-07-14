@@ -1,0 +1,95 @@
+{
+  "code": "RGB7520",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7520-array-sum",
+    "title_mn": "Массив нийлбэр",
+    "title_en": "Array Sum",
+    "statement_mn": "Өгөгдсөн хоёр хэмжээст массивын элементүүдийн нийлбэрийг ол.",
+    "statement_en": "Find the sum of all elements in a given two-dimensional array.",
+    "input_format_mn": "Эхний мөрөнд мөрийн болон баганын хэмжээсүүд (n,m) зайгаар тусгаарлагдан өгөгдөнө. Дараагийн n мөрөнд массивын элементүүд мөр мөрөөрөө, тус бүр m тоо зайгаар тусгаарлагдан өгөгдөнө.",
+    "input_format_en": "The first line contains two integers n and m (the number of rows and columns), separated by a space. The next n lines contain the array elements row by row, each line with m integers separated by spaces.",
+    "output_format_mn": "Нийлбэрийг илэрхийлсэн нэг бүхэл тоог хэвлэ.",
+    "output_format_en": "Print a single integer representing the sum of all elements.",
+    "constraints_mn": "- 0 < n, m < 10\n- Элементүүд int төрлийн бүхэл тоо (32 бит)",
+    "constraints_en": "- 0 < n, m < 10\n- Elements are 32-bit integers",
+    "difficulty": "easy",
+    "tags": [
+      "array",
+      "sum",
+      "2d-array"
+    ],
+    "time_limit_ms": 500,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n, m;\n    cin >> n >> m;\n    \n    long long sum = 0;\n    for (int i = 0; i < n; i++) {\n        for (int j = 0; j < m; j++) {\n            int x;\n            cin >> x;\n            sum += x;\n        }\n    }\n    \n    cout << sum << endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "2 3\n1 2 3\n4 5 6",
+        "output": "21"
+      }
+    ],
+    "extra_test_inputs": [
+      "1 1\n5",
+      "1 5\n10 20 30 40 50",
+      "5 1\n1\n2\n3\n4\n5",
+      "3 3\n1 2 3\n4 5 6\n7 8 9",
+      "2 2\n1000000000 1000000000\n1000000000 1000000000",
+      "2 2\n-1000000000 -1000000000\n-1000000000 -1000000000",
+      "3 4\n1 -2 3 -4\n5 -6 7 -8\n9 -10 11 -12",
+      "9 9\n1 2 3 4 5 6 7 8 9\n2 3 4 5 6 7 8 9 1\n3 4 5 6 7 8 9 1 2\n4 5 6 7 8 9 1 2 3\n5 6 7 8 9 1 2 3 4\n6 7 8 9 1 2 3 4 5\n7 8 9 1 2 3 4 5 6\n8 9 1 2 3 4 5 6 7\n9 1 2 3 4 5 6 7 8",
+      "4 5\n0 0 0 0 0\n0 0 0 0 0\n0 0 0 0 0\n0 0 0 0 0",
+      "2 3\n-5 10 -15\n20 -25 30"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "21",
+      "got": "21"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1 1\n5",
+      "stdout": "5\n"
+    },
+    {
+      "stdin": "1 5\n10 20 30 40 50",
+      "stdout": "150\n"
+    },
+    {
+      "stdin": "5 1\n1\n2\n3\n4\n5",
+      "stdout": "15\n"
+    },
+    {
+      "stdin": "3 3\n1 2 3\n4 5 6\n7 8 9",
+      "stdout": "45\n"
+    },
+    {
+      "stdin": "2 2\n1000000000 1000000000\n1000000000 1000000000",
+      "stdout": "4000000000\n"
+    },
+    {
+      "stdin": "2 2\n-1000000000 -1000000000\n-1000000000 -1000000000",
+      "stdout": "-4000000000\n"
+    },
+    {
+      "stdin": "3 4\n1 -2 3 -4\n5 -6 7 -8\n9 -10 11 -12",
+      "stdout": "-6\n"
+    },
+    {
+      "stdin": "9 9\n1 2 3 4 5 6 7 8 9\n2 3 4 5 6 7 8 9 1\n3 4 5 6 7 8 9 1 2\n4 5 6 7 8 9 1 2 3\n5 6 7 8 9 1 2 3 4\n6 7 8 9 1 2 3 4 5\n7 8 9 1 2 3 4 5 6\n8 9 1 2 3 4 5 6 7\n9 1 2 3 4 5 6 7 8",
+      "stdout": "405\n"
+    },
+    {
+      "stdin": "4 5\n0 0 0 0 0\n0 0 0 0 0\n0 0 0 0 0\n0 0 0 0 0",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "2 3\n-5 10 -15\n20 -25 30",
+      "stdout": "15\n"
+    }
+  ]
+}

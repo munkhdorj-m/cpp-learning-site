@@ -1,0 +1,23 @@
+{
+  "title": "Мөрүүдийн ихүүд",
+  "hidden": true,
+  "bodyHtml": "<pre><span style=\"white-space: normal; \">Өгөгдсөн хоёр хэмжээст массивын мөр бүрийн хамгийн их элементүүдийг нэг нэг мөрөнд хэвлэ.</span><span style=\"white-space: normal;\">\n<h3>Input</h3>\n<p>Эхний мөрөнд мөрийн болон баганын хэмжээсүүд (n,m) зайгаар тусгаарлагдан өгөгдөнө. 0&lt;n,m&lt;10.</p>\n<p>Дараагийн мөрүүдэд массивын элементүүд мөр мөрөөрөө өгөгдөнө. Int төрөл.</p>\n<h3>Output</h3>\n<p>Массивын&nbsp;мөр бүрийн хамгийн их элементүүдийг нэг нэг мөрөнд хэвлэ.</p>\n<h3>Example</h3><pre>Input:&nbsp;</pre>\n<pre><strong><strong><strong>3 4</strong></strong></strong></pre>\n<pre><strong><strong><strong>1 2 3 4</strong></strong></strong></pre>\n<pre><strong><strong><strong>4 3 2 1</strong></strong></strong></pre>\n<pre><strong><strong><strong>6 7 5 7<br></strong></strong></strong>\n<strong>Output:</strong></pre>\n<pre><strong>4</strong></pre>\n<pre><strong>4</strong></pre>\n<pre><strong>7</strong></pre>\n</span></pre>",
+  "bodyText": "Өгөгдсөн хоёр хэмжээст массивын мөр бүрийн хамгийн их элементүүдийг нэг нэг мөрөнд хэвлэ.\nInput\nЭхний мөрөнд мөрийн болон баганын хэмжээсүүд (n,m) зайгаар тусгаарлагдан өгөгдөнө. 0<n,m<10.\nДараагийн мөрүүдэд массивын элементүүд мөр мөрөөрөө өгөгдөнө. Int төрөл.\nOutput\nМассивын мөр бүрийн хамгийн их элементүүдийг нэг нэг мөрөнд хэвлэ.\nExampleInput: \n3 4\n1 2 3 4\n4 3 2 1\n6 7 5 7\nOutput:\n4\n4\n7",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Өгөгдсөн хоёр хэмжээст массивын мөр бүрийн хамгийн их элементүүдийг нэг нэг мөрөнд хэвлэ.\nInput\nЭхний мөрөнд мөрийн болон баганын хэмжээсүүд (n,m) зайгаар тусгаарлагдан өгөгдөнө. 0<n,m<10.\nДараагийн мөрүүдэд массивын элементүүд мөр мөрөөрөө өгөгдөнө. Int төрөл.\nOutput\nМассивын мөр бүрийн хамгийн их элементүүдийг нэг нэг мөрөнд хэвлэ.\nExampleInput: \n3 4\n1 2 3 4\n4 3 2 1\n6 7 5 7\nOutput:\n4\n4\n7",
+    "Input:",
+    "3 4",
+    "1 2 3 4",
+    "4 3 2 1",
+    "6 7 5 7\nOutput:",
+    "4",
+    "4",
+    "7"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7523/",
+  "code": "RGB7523",
+  "scrapedAt": "2026-06-29T06:42:12.475Z"
+}

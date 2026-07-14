@@ -1,0 +1,105 @@
+{
+  "code": "RGB7370",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7370-huwaagch",
+    "title_mn": "RGB7370. Хуваагч",
+    "title_en": "RGB7370. Divisor",
+    "statement_mn": "N, K натурал тоонууд өгөгдөв. Өгөгдсөн N тооны **сондгой** дугаартай цифрүүдийн нийлбэр, тэгш дугаартай цифрүүдийн нийлбэрийн ялгавар K-д хуваагдах эсэхийг тогтоо. Цифрийг ахлах орны цифрээс эхлэн дугаарлана.",
+    "statement_en": "Given natural numbers N and K. Determine whether the difference between the sum of digits at **odd** positions and the sum of digits at even positions of N is divisible by K. Digit positions are numbered starting from the most significant digit.",
+    "input_format_mn": "Эхний мөрөнд K (0 < K < 1000), дараагийн мөрөнд N (1 ≤ N ≤ 10^100) натурал тоо байрлана.",
+    "input_format_en": "The first line contains K (0 < K < 1000). The next line contains N (1 ≤ N ≤ 10^100).",
+    "output_format_mn": "Нөхцөлийг хангах бол \"YES\", эсрэг тохиолдолд \"NO\" гэж хэвлэ.",
+    "output_format_en": "Print \"YES\" if the condition holds, otherwise print \"NO\".",
+    "constraints_mn": "- 0 < K < 1000\n- 1 ≤ N ≤ 10^100 (N нь 100 хүртэлх оронтой)",
+    "constraints_en": "- 0 < K < 1000\n- 1 ≤ N ≤ 10^100 (N has up to 100 digits)",
+    "difficulty": "easy",
+    "tags": [
+      "big-numbers",
+      "digit-sum",
+      "divisibility"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int K;\n    string N;\n    cin >> K >> N;\n\n    int oddSum = 0, evenSum = 0;\n    for (size_t i = 0; i < N.size(); i++) {\n        int digit = N[i] - '0';\n        if ((i + 1) % 2 == 1) { // odd position (1-indexed from most significant)\n            oddSum += digit;\n        } else {\n            evenSum += digit;\n        }\n    }\n\n    int diff = oddSum - evenSum;\n    if (diff % K == 0) {\n        cout << \"YES\\n\";\n    } else {\n        cout << \"NO\\n\";\n    }\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "4\n123\n",
+        "output": "NO\n"
+      },
+      {
+        "input": "3\n12345\n",
+        "output": "YES\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "5\n1\n",
+      "2\n2\n",
+      "1\n9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999\n",
+      "2\n10\n",
+      "7\n10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\n",
+      "999\n1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890\n",
+      "1\n5\n",
+      "11\n1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111\n",
+      "3\n100\n",
+      "10\n999\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "NO",
+      "got": "NO"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "YES",
+      "got": "YES"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "5\n1\n",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "2\n2\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "1\n9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "2\n10\n",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "7\n10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\n",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "999\n1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890\n",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "1\n5\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "11\n1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "3\n100\n",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "10\n999\n",
+      "stdout": "NO\n"
+    }
+  ]
+}

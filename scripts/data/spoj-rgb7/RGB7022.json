@@ -1,0 +1,17 @@
+{
+  "title": "Арифметик прогрессын N-р гишүүн",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Бүхэл тоон арифметик прогрессын p дэх гишүүн a<sub>p&nbsp;</sub>болон q дэх гишүүн&nbsp; a<sub>q</sub>&nbsp;өгөгдсөн бол N дүгээр гишүүнийг ол.&nbsp; &nbsp;</span></p>\n<h3><span style=\"font-size: small;\">Input</span></h3>\n<p><span style=\"font-size: small;\">Эхний мөрөнд&nbsp; p, a<sub>p</sub>&nbsp;2 тоо зайгаар тусгаарлагдан өгөгдөнө.</span></p>\n<p><span style=\"font-size: small;\">Хоёр дахь мөрөнд q, a<sub><sub>q </sub><span style=\"font-size: small;\">тоо зайгаар тусгаарлагдан өгөгдөнө.</span></sub></span></p>\n<p><span style=\"font-size: small;\">Гурав дахь мөрөнд бүхэл тоо N өгөгдөнө.</span></p>\n<h3><span style=\"font-size: small;\">Output</span></h3>\n<p><span style=\"font-size: small;\">Арифметик прогрессын N дүгээр гишүүн.</span>&nbsp;</p>\n<h3><span style=\"font-size: small;\">Example</span></h3>\n<pre><span style=\"font-size: small;\"><strong>Input:</strong>\n5 31</span></pre>\n<pre><span style=\"font-size: small;\">9 43</span></pre>\n<pre><span style=\"font-size: small;\">2019\n\n<strong>Output:</strong>\n</span><span style=\"font-size: small;\">6073</span></pre>",
+  "bodyText": "Бүхэл тоон арифметик прогрессын p дэх гишүүн ap болон q дэх гишүүн  aq өгөгдсөн бол N дүгээр гишүүнийг ол.   \nInput\nЭхний мөрөнд  p, ap 2 тоо зайгаар тусгаарлагдан өгөгдөнө.\nХоёр дахь мөрөнд q, aq тоо зайгаар тусгаарлагдан өгөгдөнө.\nГурав дахь мөрөнд бүхэл тоо N өгөгдөнө.\nOutput\nАрифметик прогрессын N дүгээр гишүүн. \nExample\nInput:\n5 31\n9 43\n2019\n\nOutput:\n6073",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n5 31",
+    "9 43",
+    "2019\n\nOutput:\n6073"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7022/",
+  "code": "RGB7022",
+  "scrapedAt": "2026-06-29T06:49:42.196Z"
+}

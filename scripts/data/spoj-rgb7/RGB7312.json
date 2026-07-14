@@ -1,0 +1,15 @@
+{
+  "title": "Тооны факториал",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн тоо ямар нэгэн тооны факториал бол тэр тоог хэвлэ. Үгүй бол No гэж хэвлэ.</p>\n<h3>Input</h3>\n<p>Бүхэл тоо өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Өгөгдсөн тоо ямар нэгэн тооны факториал бол тэр тоог үгүй бол No.</p>\n<h3>Example</h3>\n<pre><strong>Input 1:</strong>\n24\n\n<strong>Output 1:</strong>\n4<br>Input 2:<br>10<br>Output 2:<br>No <strong><br>Input 2:</strong>\n1\n<strong>Output 2:</strong>\n1<br><br></pre>",
+  "bodyText": "Өгөгдсөн тоо ямар нэгэн тооны факториал бол тэр тоог хэвлэ. Үгүй бол No гэж хэвлэ.\nInput\nБүхэл тоо өгөгдөнө.\nOutput\nӨгөгдсөн тоо ямар нэгэн тооны факториал бол тэр тоог үгүй бол No.\nExample\nInput 1:\n24\n\nOutput 1:\n4Input 2:10Output 2:No Input 2:\n1\nOutput 2:\n1",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input 1:\n24\n\nOutput 1:\n4Input 2:10Output 2:No Input 2:\n1\nOutput 2:\n1"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7312/",
+  "code": "RGB7312",
+  "scrapedAt": "2026-06-29T06:38:41.717Z"
+}

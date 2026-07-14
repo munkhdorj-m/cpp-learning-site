@@ -1,0 +1,95 @@
+{
+  "code": "RGB7230",
+  "status": "ok",
+  "data": {
+    "slug": "sinus-sum-1",
+    "title_mn": "Синус нийлбэр 1",
+    "title_en": "Sine Sum 1",
+    "statement_mn": "sin(x) + sin(x²) + sin(x³) + ... + sin(xⁿ) нийлбэрийг ол.",
+    "statement_en": "Find the sum sin(x) + sin(x²) + sin(x³) + ... + sin(xⁿ).",
+    "input_format_mn": "Бодит тоо **x**, натурал тоо **n** зайгаар тусгаарлагдан нэг мөрөнд өгөгдөнө.",
+    "input_format_en": "A single line containing a real number **x** and a natural number **n**, separated by a space.",
+    "output_format_mn": "Нийлбэр. Таслалаас хойш **3** орны нарийвчлалтай (аравтын 3 орон) хэвлэнэ.",
+    "output_format_en": "Print the sum with exactly **3** digits after the decimal point.",
+    "constraints_mn": "- 0 < n ≤ 10⁶  \n- x нь бодит тоо, |x| ≤ 10³  \n- Аравтын 3 орны нарийвчлал гаргахад хангалттай нарийвчлалтай ажиллана.",
+    "constraints_en": "- 0 < n ≤ 10⁶  \n- x is a real number, |x| ≤ 10³  \n- Use sufficient precision to produce output accurate to 3 decimal places.",
+    "difficulty": "medium",
+    "tags": [
+      "math",
+      "trigonometry",
+      "loops"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 20,
+    "reference_cpp": "#include <iostream>\n#include <cmath>\n#include <iomanip>\n\nusing namespace std;\n\nint main() {\n    ios_base::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    double x;\n    int n;\n    cin >> x >> n;\n\n    double sum = 0.0;\n    double term = x; // x^k, starts as x^1\n\n    for (int k = 1; k <= n; ++k) {\n        sum += sin(term);\n        term *= x; // term = x^(k+1)\n    }\n\n    cout << fixed << setprecision(3) << sum << '\\n';\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "2.5 3\n",
+        "output": "0.648\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "0.0 5\n",
+      "1.0 1\n",
+      "1.0 10\n",
+      "-1.0 5\n",
+      "3.1415926535 10\n",
+      "0.5 1000000\n",
+      "-0.5 1000000\n",
+      "1000.0 1\n",
+      "0.1 7\n",
+      "2.0 100\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "0.648",
+      "got": "0.648"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "0.0 5\n",
+      "stdout": "0.000\n"
+    },
+    {
+      "stdin": "1.0 1\n",
+      "stdout": "0.841\n"
+    },
+    {
+      "stdin": "1.0 10\n",
+      "stdout": "8.415\n"
+    },
+    {
+      "stdin": "-1.0 5\n",
+      "stdout": "-0.841\n"
+    },
+    {
+      "stdin": "3.1415926535 10\n",
+      "stdout": "-1.201\n"
+    },
+    {
+      "stdin": "0.5 1000000\n",
+      "stdout": "0.976\n"
+    },
+    {
+      "stdin": "-0.5 1000000\n",
+      "stdout": "-0.315\n"
+    },
+    {
+      "stdin": "1000.0 1\n",
+      "stdout": "0.827\n"
+    },
+    {
+      "stdin": "0.1 7\n",
+      "stdout": "0.111\n"
+    },
+    {
+      "stdin": "2.0 100\n",
+      "stdout": "4.564\n"
+    }
+  ]
+}

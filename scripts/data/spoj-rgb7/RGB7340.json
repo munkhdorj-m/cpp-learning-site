@@ -1,0 +1,13 @@
+{
+  "title": "Цифрүүдийн нийлбэр тоо",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Өгөгдсөн натурал тоон цифрүүдийн нийлбэрээр үүссэн тоо нь 9-өөс их байвал тэрхүү тооноос нь дахин цифрүүдийн нийлбэрийг олж тоо үүсгэнэ. 9-өөс их байвал энэ процесс үргэлжилнэ. 9-өөс бага байвал тэр тоог хэвлэ.</span></p>\n<h3><span style=\"font-size: small;\">Input</span></h3>\n<p><span style=\"font-size: small;\">Натурал тоо өгөгдөнө. Оронгийн тоо 50-аас ихгүй.</span></p>\n<h3><span style=\"font-size: small;\">Output</span></h3>\n<p><span style=\"font-size: small;\">Үлдсэн тоо.</span></p>\n<h3><span style=\"font-size: small;\">Example</span></h3>\n<p><strong><span style=\"font-size: small;\">Input:</span></strong></p>\n<p><span style=\"font-size: small;\">3247598</span></p>\n<p><strong><span style=\"font-size: small;\">Output:</span></strong></p>\n<p><span style=\"font-size: small;\">2</span></p>",
+  "bodyText": "Өгөгдсөн натурал тоон цифрүүдийн нийлбэрээр үүссэн тоо нь 9-өөс их байвал тэрхүү тооноос нь дахин цифрүүдийн нийлбэрийг олж тоо үүсгэнэ. 9-өөс их байвал энэ процесс үргэлжилнэ. 9-өөс бага байвал тэр тоог хэвлэ.\nInput\nНатурал тоо өгөгдөнө. Оронгийн тоо 50-аас ихгүй.\nOutput\nҮлдсэн тоо.\nExample\nInput:\n3247598\nOutput:\n2",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7340/",
+  "code": "RGB7340",
+  "scrapedAt": "2026-06-29T06:43:40.739Z"
+}

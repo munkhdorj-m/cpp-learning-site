@@ -1,0 +1,13 @@
+{
+  "title": "Тойргийн талбай, урт",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Тойргийн радиус өгөгдсөн үед тойргийн талбай ба уртыг ол.</span></p>\n<p><span style=\"font-size: x-small;\"><span style=\"color: #555555; font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; text-align: justify;\">Томьёон дахь пи тоог ойролцоогоор 3.141592 гэж авна.</span></span></p>\n<h3>Input</h3>\n<p><span style=\"font-size: small;\">Тойргийн радиус бодит тоогоор өгөгдөнө.</span></p>\n<h3>Output</h3>\n<p><span style=\"font-size: small;\">Тойргийн талбай, уртыг нэг мөрөнд зайгаар тусгаарлан таслалаас хойш 1 оронгийн нарийвчлалтай хэвлэ.&nbsp;</span></p>\n<h3>Example</h3>\n<p><span style=\"font-size: small;\"><strong>Input:</strong> </span></p>\n<p><span style=\"font-size: small;\">4.16</span></p>\n<p><span style=\"font-weight: bold; font-size: small;\">Output:</span></p>\n<p><span style=\"font-size: small;\">54.4 26.1</span></p>",
+  "bodyText": "Тойргийн радиус өгөгдсөн үед тойргийн талбай ба уртыг ол.\nТомьёон дахь пи тоог ойролцоогоор 3.141592 гэж авна.\nInput\nТойргийн радиус бодит тоогоор өгөгдөнө.\nOutput\nТойргийн талбай, уртыг нэг мөрөнд зайгаар тусгаарлан таслалаас хойш 1 оронгийн нарийвчлалтай хэвлэ. \nExample\nInput: \n4.16\nOutput:\n54.4 26.1",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7035/",
+  "code": "RGB7035",
+  "scrapedAt": "2026-06-29T06:39:23.736Z"
+}

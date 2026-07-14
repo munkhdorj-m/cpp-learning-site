@@ -1,0 +1,13 @@
+{
+  "title": "3 тоог өсөхөөр",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Өгөгдсөн 3 тоог өсөхөөр эрэмбэл.</span></p>\n<h3>Input</h3>\n<p><span style=\"font-size: small;\">Нэг мөрөнд 3 бүхэл тоо зайгаар тусгаарлагдан өгөгдөнө.&nbsp;</span></p>\n<h3>Output</h3>\n<p><span style=\"font-size: small;\">Өсөхөөр эрэмдлэгдсэн 3 тоог зайгаар тугаарлан нэг мөрөнд хэвлэ.</span></p>\n<h3>Example&nbsp;</h3>\n<p><span style=\"font-size: small;\"><strong>Input 1:</strong> </span></p>\n<p><span style=\"font-size: small;\">24 65 10</span></p>\n<p><span style=\"font-size: small; font-weight: bold;\">Output 1:</span></p>\n<p><span style=\"font-size: small;\">10 24 65</span></p>\n<p><span style=\"font-size: small;\"><strong>Input 2:</strong></span></p>\n<p><span style=\"font-size: small;\">240 240 -234</span></p>\n<p><span style=\"font-size: small; font-weight: bold;\">Output 2:</span></p>\n<p><span style=\"font-size: small;\">-234 240 240</span></p>\n<div><span style=\"font-size: small;\"><br></span></div>",
+  "bodyText": "Өгөгдсөн 3 тоог өсөхөөр эрэмбэл.\nInput\nНэг мөрөнд 3 бүхэл тоо зайгаар тусгаарлагдан өгөгдөнө. \nOutput\nӨсөхөөр эрэмдлэгдсэн 3 тоог зайгаар тугаарлан нэг мөрөнд хэвлэ.\nExample \nInput 1: \n24 65 10\nOutput 1:\n10 24 65\nInput 2:\n240 240 -234\nOutput 2:\n-234 240 240",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7137/",
+  "code": "RGB7137",
+  "scrapedAt": "2026-06-29T06:49:54.469Z"
+}

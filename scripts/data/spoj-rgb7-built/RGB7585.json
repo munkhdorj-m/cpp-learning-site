@@ -1,0 +1,120 @@
+{
+  "code": "RGB7585",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7585-debt-simplification",
+    "title_mn": "Өр авлага",
+    "title_en": "Debt Simplification",
+    "statement_mn": "*A*, *B*, *C* гэсэн 3 найз байсан ба *A* *B*-д 20 рублийн өртэй, *B* *C*-д бас 20 рублийн өртэй гэж үзье. Энд нийт өрийн хэмжээ 40 рубль. Таны харж байгаагаар өрийн байдал тийм ч зөв биш байна. Үүнийг *A* *C*-д 20 рублийн өртэй бөгөөд *B* хэнд ч өргүй гэж өөрчилж болно. Өрийн байдал хэвэндээ боловч нийт өрийн хэмжээ 20 рубль болж өөрчлөгдсөн байна.\n\nТаны даалгавар дээр байгаачлан өрийг хялбарчлах юм. Нийт *n* найзууд байсан ба хүн бүрийн бусаддаа өгөх өрийн хэмжээ мэдэгдэж байгаа. Өрийн сүлжээг бүх хүний хувьд анх авах байсан мөнгө болон төлөх мөнгөний зөрүү хэвэндээ байхаар хялбарчил. Өрийн сүлжээг хялбарчилсны дараа байж болох хамгийн бага өрийн нийлбэрийг хэвлэ.\n\nБодлогын тавилыг илүү сайн ойлгохыг хүсвэл жишээ тестийг хараарай.",
+    "statement_en": "Suppose three friends A, B, C exist, with A owing B 20 rubles and B owing C 20 rubles. Here the total debt amount is 40 rubles. As you can see, this debt situation is not ideal. It can be changed so that A owes C 20 rubles and B owes nothing to anyone. The debt situation is equivalent, but the total debt amount has changed to 20 rubles.\n\nYour task is to simplify debts as described above. There are *n* friends, and the amount each person owes to others is known. Simplify the debt network so that for every person, the difference between the amount they receive and the amount they pay remains the same as before. Print the minimum possible total debt sum after simplification.\n\nSee the example tests for better understanding.",
+    "input_format_mn": "Эхний мөрөнд хүмүүсийн тоо *n* болон одоо байгаа өрийн тоо *m* (1 ≤ *n* ≤ 100; 0 ≤ *m* ≤ 10⁴) өгөгдөнө. Дараагийн *m* мөрөнд өрүүдийн мэдээлэл байх бөгөөд *i*-р мөр *aᵢ* хүний *bᵢ* хүнд төлөх өрийн хэмжээ болох *cᵢ* (1 ≤ *aᵢ*, *bᵢ* ≤ *n*; *aᵢ* ≠ *bᵢ*; 1 ≤ *cᵢ* ≤ 100)-г агуулна.\n\nХүмүүсийг 1-с *n* хүртэл дугаарлагдсан гэж үзээрэй.\n\nОролтонд нэг хос хамгийн ихдээ 1 удаа тааралдана. Жишээ нь (*x*, *y*) ба (*y*, *x*) хосыг агуулахгүй.",
+    "input_format_en": "The first line contains two integers *n* and *m* — the number of people and the number of existing debts (1 ≤ *n* ≤ 100; 0 ≤ *m* ≤ 10⁴). Each of the following *m* lines contains three integers *aᵢ*, *bᵢ*, *cᵢ*, meaning person *aᵢ* owes person *bᵢ* an amount of *cᵢ* (1 ≤ *aᵢ*, *bᵢ* ≤ *n*; *aᵢ* ≠ *bᵢ*; 1 ≤ *cᵢ* ≤ 100).\n\nPeople are numbered from 1 to *n*.\n\nEach ordered pair (*x*, *y*) appears at most once; there will be no pair (*x*, *y*) and (*y*, *x*) simultaneously.",
+    "output_format_mn": "Зөв хялбарчилгааны дараах өрийн нийлбэр болох ганц тоог хэвлэ.",
+    "output_format_en": "Print a single integer — the minimum possible total debt sum after simplification.",
+    "constraints_mn": "- 1 ≤ *n* ≤ 100\n- 0 ≤ *m* ≤ 10⁴\n- 1 ≤ *aᵢ*, *bᵢ* ≤ *n*, *aᵢ* ≠ *bᵢ*\n- 1 ≤ *cᵢ* ≤ 100\n- (*x*, *y*) хос хамгийн ихдээ нэг удаа орно.\n- (*x*, *y*) ба (*y*, *x*) хос зэрэг оролцохгүй.",
+    "constraints_en": "- 1 ≤ *n* ≤ 100\n- 0 ≤ *m* ≤ 10⁴\n- 1 ≤ *aᵢ*, *bᵢ* ≤ *n*, *aᵢ* ≠ *bᵢ*\n- 1 ≤ *cᵢ* ≤ 100\n- Each ordered pair (*x*, *y*) appears at most once.\n- The pairs (*x*, *y*) and (*y*, *x*) will not both appear.",
+    "difficulty": "medium",
+    "tags": [
+      "graphs",
+      "net-flow",
+      "greedy"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 20,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n, m;\n    cin >> n >> m;\n\n    vector<int> balance(n + 1, 0);\n\n    for (int i = 0; i < m; i++) {\n        int a, b, c;\n        cin >> a >> b >> c;\n        // a owes b the amount c: a loses c, b gains c\n        balance[a] -= c;\n        balance[b] += c;\n    }\n\n    // Collect positive balances (people owed money)\n    vector<int> pos;\n    for (int i = 1; i <= n; i++) {\n        if (balance[i] > 0) pos.push_back(balance[i]);\n    }\n\n    // The problem reduces to: we have some positive values (amounts people are owed)\n    // and negative values (debts). We want to minimize sum of debts = sum of positive values\n    // that cannot be cancelled out within groups.\n    // Actually, the minimum total debt equals the sum of absolute balances / 2? \n    // Let's think: we can rearrange arbitrarily as long as net balance per person stays same.\n    // The minimum total debt = sum of positive balances = sum of absolute balances / 2.\n    // Since total positive = total negative (sum balance = 0).\n    \n    // But careful: not all debts can be cancelled arbitrarily if there is no connection?\n    // The problem says: simplify so that the difference remains same.\n    // Actually, any person's net balance is fixed. We can create any debt edges as long as\n    // for each person: incoming - outgoing = original net balance.\n    // This is exactly a flow problem. The minimum sum of debts = sum of positive balances.\n    // Because we can always connect each positive to a negative directly for the full amount.\n    // Example 1: balances: 1: -10, 2: +8, 3: +1, 4: +1, 5: 0. Positives sum = 10. Output = 10.\n    // Example 2: no debts, all balances 0, sum pos = 0. Output 0.\n    // Example 3: 1->2 1, 2->3 1, 3->1 1 => balances all 0, sum pos = 0. Output 0.\n    // So answer = sum of positive balances.\n\n    long long ans = 0;\n    for (int v : pos) ans += v;\n\n    cout << ans << \"\\n\";\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5 3\n1 2 10\n2 3 1\n2 4 1\n",
+        "output": "10\n"
+      },
+      {
+        "input": "3 0\n",
+        "output": "0\n"
+      },
+      {
+        "input": "4 3\n1 2 1\n2 3 1\n3 1 1\n",
+        "output": "0\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "2 0\n",
+      "2 1\n1 2 100\n",
+      "3 2\n1 2 5\n2 3 5\n",
+      "3 2\n1 2 7\n2 1 3\n",
+      "5 4\n1 2 10\n2 3 20\n3 4 30\n4 5 40\n",
+      "4 4\n1 2 50\n2 3 30\n3 4 20\n4 1 10\n",
+      "1 0\n",
+      "10 5\n1 2 15\n3 4 25\n5 6 35\n7 8 45\n9 10 55\n",
+      "6 6\n1 2 10\n2 3 10\n3 1 10\n4 5 10\n5 6 10\n6 4 10\n",
+      "3 4\n1 2 3\n2 1 5\n1 3 7\n3 1 2\n",
+      "100 0\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "10",
+      "got": "10"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "0",
+      "got": "0"
+    },
+    {
+      "i": 2,
+      "ok": true,
+      "expected": "0",
+      "got": "0"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "2 0\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "2 1\n1 2 100\n",
+      "stdout": "100\n"
+    },
+    {
+      "stdin": "3 2\n1 2 5\n2 3 5\n",
+      "stdout": "5\n"
+    },
+    {
+      "stdin": "3 2\n1 2 7\n2 1 3\n",
+      "stdout": "4\n"
+    },
+    {
+      "stdin": "5 4\n1 2 10\n2 3 20\n3 4 30\n4 5 40\n",
+      "stdout": "40\n"
+    },
+    {
+      "stdin": "4 4\n1 2 50\n2 3 30\n3 4 20\n4 1 10\n",
+      "stdout": "40\n"
+    },
+    {
+      "stdin": "1 0\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "10 5\n1 2 15\n3 4 25\n5 6 35\n7 8 45\n9 10 55\n",
+      "stdout": "175\n"
+    },
+    {
+      "stdin": "6 6\n1 2 10\n2 3 10\n3 1 10\n4 5 10\n5 6 10\n6 4 10\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "3 4\n1 2 3\n2 1 5\n1 3 7\n3 1 2\n",
+      "stdout": "5\n"
+    },
+    {
+      "stdin": "100 0\n",
+      "stdout": "0\n"
+    }
+  ]
+}

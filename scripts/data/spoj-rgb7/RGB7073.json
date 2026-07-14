@@ -1,0 +1,13 @@
+{
+  "title": "Ус",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">1<sup>0</sup>-ын 1 литр,&nbsp; 2<sup>0</sup>-ын 2 литр, 3<sup>0</sup>-ын 3 литр, ..., n<sup>0</sup>-ын n литр халуун ус өөр өөр саванд байв. Бүгдийг нэг саванд хийвэл хичнээн градусын ус болох вэ.</span></p>\n<h3>Input</h3>\n<p><span style=\"font-size: small;\">n&nbsp; (n&lt;10<sup>10</sup>) эерэг бүхэл тоо.</span></p>\n<h3>Output</h3>\n<p><span style=\"font-size: small;\">Усны градусыг илэрхийлсэн 6 оронгийн нарийвчлалтай нэг бодит тоо байна.</span></p>\n<h3>Example</h3>\n<p><span style=\"font-size: small;\"><strong>Input 1:</strong> </span></p>\n<p><span style=\"font-size: small;\">2</span></p>\n<p><span style=\"font-size: small;\"> <strong>Output 1:</strong> </span></p>\n<p><span style=\"font-size: small;\"><span style=\"line-height: 115%;\">1.666667</span></span></p>\n<p><span style=\"font-size: small;\"><strong>Input 2:</strong></span></p>\n<p><span style=\"font-size: small;\">40</span></p>\n<p><span style=\"font-size: small;\"><strong>Output 2:</strong></span></p>\n<p><span style=\"font-size: small;\"><span style=\"line-height: 14.95px;\">27.000000</span></span></p>",
+  "bodyText": "10-ын 1 литр,  20-ын 2 литр, 30-ын 3 литр, ..., n0-ын n литр халуун ус өөр өөр саванд байв. Бүгдийг нэг саванд хийвэл хичнээн градусын ус болох вэ.\nInput\nn  (n<1010) эерэг бүхэл тоо.\nOutput\nУсны градусыг илэрхийлсэн 6 оронгийн нарийвчлалтай нэг бодит тоо байна.\nExample\nInput 1: \n2\n Output 1: \n1.666667\nInput 2:\n40\nOutput 2:\n27.000000",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7073/",
+  "code": "RGB7073",
+  "scrapedAt": "2026-06-29T06:46:23.634Z"
+}

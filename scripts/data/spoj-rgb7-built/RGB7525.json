@@ -1,0 +1,95 @@
+{
+  "code": "RGB7525",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7525-symmetric-main-diagonal",
+    "title_mn": "Тэгшхэм гол диагональ",
+    "title_en": "Symmetric Main Diagonal",
+    "statement_mn": "Хоёр хэмжээст квадрат матриц өгөгдөв. Квадрат матриц гэдэг нь мөр, баганын тоо нь тэнцүү 2 хэмжээст массив.\n\nӨгөгдсөн квадрат матриц гол диагоналынхаа хувьд тэгшхэмтэй бол **YES**, үгүй бол **NO** гэж хэвлэ.",
+    "statement_en": "Given a two-dimensional square matrix. A square matrix is a 2D array where the number of rows and columns are equal.\n\nIf the given square matrix is symmetric with respect to its main diagonal, print **YES**, otherwise print **NO**.",
+    "input_format_mn": "Эхний мөрөнд квадрат матрицын хэмжээс $n$ өгөгдөнө.\n\nДараагийн $n$ мөрөнд тус бүр $n$ бүхэл тоо зайгаар тусгаарлагдан өгөгдөнө.",
+    "input_format_en": "The first line contains the size $n$ of the square matrix.\n\nEach of the next $n$ lines contains $n$ integers separated by spaces.",
+    "output_format_mn": "Хэрэв матриц гол диагональтайгаа харьцуулахад тэгшхэмтэй бол **YES**, үгүй бол **NO** гэж хэвлэнэ.",
+    "output_format_en": "If the matrix is symmetric with respect to its main diagonal, print **YES**, otherwise print **NO**.",
+    "constraints_mn": "- $1 \\le n \\le 10$\n- Элементүүд нь `int` төрөлд багтах хэмжээний бүхэл тоо.",
+    "constraints_en": "- $1 \\le n \\le 10$\n- Elements are integers fitting in the `int` type.",
+    "difficulty": "easy",
+    "tags": [
+      "matrix",
+      "symmetry",
+      "implementation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    \n    int n;\n    cin >> n;\n    \n    vector<vector<int>> a(n, vector<int>(n));\n    for (int i = 0; i < n; ++i) {\n        for (int j = 0; j < n; ++j) {\n            cin >> a[i][j];\n        }\n    }\n    \n    bool symmetric = true;\n    for (int i = 0; i < n && symmetric; ++i) {\n        for (int j = i + 1; j < n; ++j) {\n            if (a[i][j] != a[j][i]) {\n                symmetric = false;\n                break;\n            }\n        }\n    }\n    \n    cout << (symmetric ? \"YES\" : \"NO\") << '\\n';\n    \n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "3\n1 2 3\n2 4 5\n3 5 6\n",
+        "output": "YES\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n5",
+      "2\n1 2\n3 4",
+      "2\n1 2\n2 1",
+      "4\n1 1 1 1\n1 1 1 1\n1 1 1 1\n1 1 1 1",
+      "5\n1 0 0 0 0\n0 2 0 0 0\n0 0 3 0 0\n0 0 0 4 0\n0 0 0 0 5",
+      "3\n1 2 3\n4 5 6\n7 8 9",
+      "3\n0 0 0\n0 0 0\n0 0 0",
+      "4\n1 2 3 4\n2 5 6 7\n3 6 8 9\n4 7 9 10",
+      "7\n1 2 3 4 5 6 7\n2 8 9 10 11 12 13\n3 9 14 15 16 17 18\n4 10 15 19 20 21 22\n5 11 16 20 23 24 25\n6 12 17 21 24 26 27\n7 13 18 22 25 27 28",
+      "10\n1 1 1 1 1 1 1 1 1 2\n1 2 1 1 1 1 1 1 1 1\n1 1 3 1 1 1 1 1 1 1\n1 1 1 4 1 1 1 1 1 1\n1 1 1 1 5 1 1 1 1 1\n1 1 1 1 1 6 1 1 1 1\n1 1 1 1 1 1 7 1 1 1\n1 1 1 1 1 1 1 8 1 1\n1 1 1 1 1 1 1 1 9 1\n2 1 1 1 1 1 1 1 1 10"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "YES",
+      "got": "YES"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n5",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "2\n1 2\n3 4",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "2\n1 2\n2 1",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "4\n1 1 1 1\n1 1 1 1\n1 1 1 1\n1 1 1 1",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "5\n1 0 0 0 0\n0 2 0 0 0\n0 0 3 0 0\n0 0 0 4 0\n0 0 0 0 5",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "3\n1 2 3\n4 5 6\n7 8 9",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "3\n0 0 0\n0 0 0\n0 0 0",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "4\n1 2 3 4\n2 5 6 7\n3 6 8 9\n4 7 9 10",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "7\n1 2 3 4 5 6 7\n2 8 9 10 11 12 13\n3 9 14 15 16 17 18\n4 10 15 19 20 21 22\n5 11 16 20 23 24 25\n6 12 17 21 24 26 27\n7 13 18 22 25 27 28",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "10\n1 1 1 1 1 1 1 1 1 2\n1 2 1 1 1 1 1 1 1 1\n1 1 3 1 1 1 1 1 1 1\n1 1 1 4 1 1 1 1 1 1\n1 1 1 1 5 1 1 1 1 1\n1 1 1 1 1 6 1 1 1 1\n1 1 1 1 1 1 7 1 1 1\n1 1 1 1 1 1 1 8 1 1\n1 1 1 1 1 1 1 1 9 1\n2 1 1 1 1 1 1 1 1 10",
+      "stdout": "YES\n"
+    }
+  ]
+}

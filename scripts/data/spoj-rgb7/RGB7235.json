@@ -1,0 +1,15 @@
+{
+  "title": "Квадратын урвуу үржвэр",
+  "hidden": true,
+  "bodyHtml": "<p>(1+1/1<sup>2</sup>)*(1+1/2<sup>2</sup>)*...*(1+1/n<sup>2</sup>) үржвэрийг ол.</p>\n<h3>Input</h3>\n<p>Натурал тоо n өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Үржвэр. Таслалаас хойш 3 оронгийн нарийвчлалтай гаргана.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n3\n\n<strong>Output:</strong>\n2.778\n</pre>",
+  "bodyText": "(1+1/12)*(1+1/22)*...*(1+1/n2) үржвэрийг ол.\nInput\nНатурал тоо n өгөгдөнө.\nOutput\nҮржвэр. Таслалаас хойш 3 оронгийн нарийвчлалтай гаргана.\nExample\nInput:\n3\n\nOutput:\n2.778",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n3\n\nOutput:\n2.778"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7235/",
+  "code": "RGB7235",
+  "scrapedAt": "2026-06-29T06:40:06.004Z"
+}

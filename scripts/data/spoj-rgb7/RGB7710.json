@@ -1,0 +1,13 @@
+{
+  "title": "Тоо хуваагдаад л",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">n оронтой a<sub>1</sub>a<sub>2</sub>...a<sub>n&nbsp;</sub>тоог 0,1,2,3,4,5,6,7,8,9 цифрүүдийн тусламжтайгаар дараахь 3 чанарыг хангахаар үүсгэв.</span></p>\n<p><span style=\"font-size: small;\">1. 0 цифрээр эхлэхгүй</span></p>\n<p><span style=\"font-size: small;\">2. Цифр давхцахгүй</span></p>\n<p><span style=\"font-size: small;\">3.&nbsp;</span><span style=\"font-size: small;\">a<sub>1</sub>a<sub>2</sub>&nbsp;тоо 2-т хуваагдана,</span><span style=\"font-size: small;\">&nbsp;a<sub>1</sub>a<sub>2</sub>a<sub>3</sub>&nbsp;тоо 3-т хуваагдана, ..., a<sub>1</sub>a<sub>2</sub>...a<sub>n</sub>&nbsp;тоо n-д хуваагдана.</span></p>\n<p><span style=\"font-size: small;\"><span style=\"font-size: small;\">Эхний цифр a<sub>1</sub>&nbsp;өгөгдөхөд дээрх чанарыг хангах хамгийн их тоог ол.</span></span></p>\n<h3><span style=\"font-size: small;\">Input</span></h3>\n<p><span style=\"font-size: small;\">0-ээс ялгаатай цифр өгөгдөнө.</span></p>\n<h3><span style=\"font-size: small;\">Output</span></h3>\n<p><span style=\"font-size: small;\">Өгөгдсөн цифрээр эхэлсэн дээрх 3 чанарыг хангах хамгийн их тоог ол.</span></p>\n<h3><span style=\"font-size: small;\">Example</span></h3>\n<p><strong><span style=\"font-size: small;\">Input:</span></strong></p>\n<p><span style=\"font-size: small;\">5 </span></p>\n<p><span style=\"font-size: small;\"> <strong>Output:</strong> </span></p>\n<p><span style=\"font-size: x-small;\">5612047</span></p>",
+  "bodyText": "n оронтой a1a2...an тоог 0,1,2,3,4,5,6,7,8,9 цифрүүдийн тусламжтайгаар дараахь 3 чанарыг хангахаар үүсгэв.\n1. 0 цифрээр эхлэхгүй\n2. Цифр давхцахгүй\n3. a1a2 тоо 2-т хуваагдана, a1a2a3 тоо 3-т хуваагдана, ..., a1a2...an тоо n-д хуваагдана.\nЭхний цифр a1 өгөгдөхөд дээрх чанарыг хангах хамгийн их тоог ол.\nInput\n0-ээс ялгаатай цифр өгөгдөнө.\nOutput\nӨгөгдсөн цифрээр эхэлсэн дээрх 3 чанарыг хангах хамгийн их тоог ол.\nExample\nInput:\n5 \n Output: \n5612047",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7710/",
+  "code": "RGB7710",
+  "scrapedAt": "2026-06-29T06:43:37.232Z"
+}

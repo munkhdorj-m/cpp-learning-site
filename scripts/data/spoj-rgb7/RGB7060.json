@@ -1,0 +1,15 @@
+{
+  "title": "Жижгээс томд",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн англи цагаан толгойн жижиг үсгийг том үсэгт нь шилжүүл.</p>\n<h3>Input</h3>\n<p>Англи цагаан толгойн жижиг үсэг.</p>\n<h3>Output</h3>\n<p>Харгалзах том үсэг</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\nb\n\n<strong>Output:</strong>\nB\n</pre>",
+  "bodyText": "Өгөгдсөн англи цагаан толгойн жижиг үсгийг том үсэгт нь шилжүүл.\nInput\nАнгли цагаан толгойн жижиг үсэг.\nOutput\nХаргалзах том үсэг\nExample\nInput:\nb\n\nOutput:\nB",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\nb\n\nOutput:\nB"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7060/",
+  "code": "RGB7060",
+  "scrapedAt": "2026-06-29T06:40:32.325Z"
+}

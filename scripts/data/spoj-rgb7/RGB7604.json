@@ -1,0 +1,13 @@
+{
+  "title": "Хүү гишгүүрт мөнгө төлбөл",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Хүү шатаар өгсөхдөө 2 янзаар урагшилна. Зогсож байгаа гишгүүрийн дараагийнх эсвэл 1 гишгүүр алгасаад дараагийнх дээр нь очно. Гэтэл нэгэн нөхөр шатны гишгүүрүүдийг төлбөртэй болгосноор асуудал үүсгэв. Сүүлийн гишгүүрт хамгийн багадаа хэдийг төлж хүрэх вэ?</span></p>\n<h3>Input</h3>\n<p><span style=\"font-size: small;\">Эхний мөрөнд гишгүүрийн тоо. n&lt;40.</span></p>\n<p><span style=\"font-size: small;\">Дараагийн мөрөнд 1-р гишгүүрээс эхлэн сүүлийн гишгүүр хүртэлх гишгүүрээр дамжсаны төлбөрүүд зайгаар тусгаарлагдан өгөгдөнө. Int Төрөл.</span></p>\n<h3>Output</h3>\n<p><span style=\"font-size: small;\">Хамгийн бага төлбөр</span></p>\n<h3>Example</h3>\n<p><span style=\"font-size: small;\"><strong>Input:</strong> </span></p>\n<p><span style=\"font-size: small;\">8 </span></p>\n<p><span style=\"font-size: small;\"> <strong>2 3 4 2 2 4 3 5</strong></span></p>\n<p><span style=\"font-size: small;\"><strong></strong></span><span style=\"font-weight: bold; font-size: small;\">Output:</span></p>\n<p><span style=\"font-size: small;\">14</span></p>",
+  "bodyText": "Хүү шатаар өгсөхдөө 2 янзаар урагшилна. Зогсож байгаа гишгүүрийн дараагийнх эсвэл 1 гишгүүр алгасаад дараагийнх дээр нь очно. Гэтэл нэгэн нөхөр шатны гишгүүрүүдийг төлбөртэй болгосноор асуудал үүсгэв. Сүүлийн гишгүүрт хамгийн багадаа хэдийг төлж хүрэх вэ?\nInput\nЭхний мөрөнд гишгүүрийн тоо. n<40.\nДараагийн мөрөнд 1-р гишгүүрээс эхлэн сүүлийн гишгүүр хүртэлх гишгүүрээр дамжсаны төлбөрүүд зайгаар тусгаарлагдан өгөгдөнө. Int Төрөл.\nOutput\nХамгийн бага төлбөр\nExample\nInput: \n8 \n 2 3 4 2 2 4 3 5\nOutput:\n14",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7604/",
+  "code": "RGB7604",
+  "scrapedAt": "2026-06-29T06:40:14.786Z"
+}

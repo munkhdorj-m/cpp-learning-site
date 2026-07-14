@@ -1,0 +1,329 @@
+{
+  "app": {
+    "name": "CPP Шүүгч",
+    "tagline": "C++ програмчлал сурах, бодлого бодох"
+  },
+  "nav": {
+    "problems": "Бодлогууд",
+    "leaderboard": "Шилдгүүд",
+    "assignments": "Даалгаврууд",
+    "contests": "Тэмцээн",
+    "game": "Тоглоом",
+    "robot": "Робот",
+    "quests": "Тэмцэл",
+    "profile": "Профайл",
+    "ide": "Код бичих",
+    "login": "Нэвтрэх",
+    "signup": "Бүртгүүлэх",
+    "logout": "Гарах",
+    "teacher": "Багшийн хэсэг"
+  },
+  "robot": {
+    "title": "Робот програмчлал",
+    "subtitle": "Командууд цуглуулж роботыг алхуул. Гэрлүүдийг асаа.",
+    "progress": "Гүйцэтгэл",
+    "level": "Түвшин",
+    "queue": "Заавар",
+    "queue_empty": "Хоосон — доорхоос заавар нэм",
+    "palette": "Зайн дээрх товчлуурууд",
+    "clear": "Цэвэрлэх",
+    "reset": "Сэргээх",
+    "run": "Ажиллуулах",
+    "success": "Амжилт!",
+    "fail": "Болсонгүй",
+    "fail_hint": "Бүх өндгийг авч чадаагүй. Дахин үзээрэй.",
+    "already_done": "Энэ түвшинг өмнө шийдсэн",
+    "play_again": "Дахин тоглох",
+    "next_level": "Дараагийн",
+    "try_again": "Дахин",
+    "step": "Алхам",
+    "more_hint": "Зөвлөгөө +",
+    "blocks": "Блок"
+  },
+  "game_hub": {
+    "title": "Тоглоомууд",
+    "subtitle": "Тоглоомоо сонгож тогло"
+  },
+  "bug_smash": {
+    "title": "Bug Smash",
+    "subtitle": "Хорхойнуудыг товш — хурдан хийвэл цуврал нэмэгдэнэ",
+    "score": "Оноо",
+    "time": "Хугацаа",
+    "best_combo": "Хамгийн их цуврал",
+    "ready_title": "Бэлэн үү?",
+    "instructions": "60 секундын дотор хорхойнуудыг чадах чинээгээрээ товш. Хурдан дараалан цохивол цуврал нэмэгдэж нэмэлт оноо авна. Хоосон газар товш бол цуврал тасрана.",
+    "start": "Эхлэх",
+    "play_again": "Дахин тоглох",
+    "over_title": "Тоглоом дууслаа!",
+    "daily_cap_hit": "Өнөөдрийн XP хязгаар ({cap}) хүрсэн. Шинэ рекорд тавихыг оролд!"
+  },
+  "quests": {
+    "title": "Өдрийн тэмцэл",
+    "subtitle": "Өдөр бүр 5 бяцхан даалгавар. Зөв хариулж XP цуглуул.",
+    "progress": "Гүйцэтгэл",
+    "earned_today": "XP өнөөдөр",
+    "show_answer": "Хариу харах",
+    "correct": "Зөв!",
+    "wrong": "Буруу",
+    "your_answer": "Таны хариулт",
+    "correct_answer": "Зөв хариу",
+    "placeholder_output": "Гаралтыг яг бичих...",
+    "no_quests": "Одоогоор тэмцэл алга",
+    "perfect_day": "Төгс өдөр! Бүх даалгавар зөв.",
+    "type_predict_output": "Гаралт таа",
+    "type_bug_hunt": "Алдаа ол",
+    "type_multiple_choice": "Сонголт"
+  },
+  "landing": {
+    "hero_title": "C++ суралцаж, бодлого бод",
+    "hero_subtitle": "Бодлого шийдэж туршлага цуглуул, найзуудтайгаа өрсөлд",
+    "get_started": "Эхлэх",
+    "have_account": "Бүртгэлтэй юу? Нэвтрэх"
+  },
+  "auth": {
+    "login": {
+      "title": "Нэвтрэх",
+      "email": "Имэйл",
+      "password": "Нууц үг",
+      "submit": "Нэвтрэх",
+      "no_account": "Бүртгэлгүй юу?",
+      "signup_link": "Бүртгүүлэх",
+      "error": "Имэйл эсвэл нууц үг буруу байна"
+    },
+    "signup": {
+      "title": "Бүртгүүлэх",
+      "invite_code": "Урилгын код",
+      "invite_code_hint": "Багшаасаа авах",
+      "username": "Хэрэглэгчийн нэр",
+      "display_name": "Бүтэн нэр",
+      "email": "Имэйл",
+      "password": "Нууц үг",
+      "submit": "Бүртгэлээ үүсгэх",
+      "has_account": "Бүртгэлтэй юу?",
+      "login_link": "Нэвтрэх",
+      "invalid_code": "Урилгын код буруу байна",
+      "class_will_be": "Та {class} ангид нэгдэнэ"
+    }
+  },
+  "problems": {
+    "title": "Бодлогууд",
+    "search_placeholder": "Бодлогын нэрээр хайх...",
+    "filter": "Шүүх",
+    "all": "Бүгд",
+    "solved": "Шийдсэн",
+    "unsolved": "Шийдээгүй",
+    "difficulty": {
+      "easy": "Хялбар",
+      "medium": "Дунд",
+      "hard": "Хэцүү"
+    },
+    "xp_reward": "{xp} XP",
+    "no_problems": "Бодлого олдсонгүй",
+    "load_more": "Илүү ихийг ачаалах",
+    "remaining": "үлдсэн"
+  },
+  "problem": {
+    "statement": "Бодлогын текст",
+    "input_format": "Оролтын формат",
+    "output_format": "Гаралтын формат",
+    "constraints": "Хязгаарлалт",
+    "samples": "Жишээ",
+    "sample_input": "Оролт",
+    "sample_output": "Гаралт",
+    "time_limit": "Хугацааны хязгаар",
+    "memory_limit": "Санах ойн хязгаар",
+    "submit": "Илгээх",
+    "submitting": "Илгээж байна...",
+    "your_solution": "Таны шийдэл",
+    "run_samples": "Жишээгээр шалгах"
+  },
+  "verdict": {
+    "pending": "Хүлээгдэж байна",
+    "judging": "Шалгаж байна",
+    "accepted": "Зөв",
+    "wrong_answer": "Буруу хариу",
+    "time_limit_exceeded": "Хугацаа хэтэрсэн",
+    "memory_limit_exceeded": "Санах ой хэтэрсэн",
+    "runtime_error": "Ажиллах үеийн алдаа",
+    "compile_error": "Хөрвүүлэлтийн алдаа",
+    "internal_error": "Системийн алдаа"
+  },
+  "reward": {
+    "level_up": "Шинэ түвшин! Lv {level}",
+    "new_badge": "Шинэ тэмдэг"
+  },
+  "ide": {
+    "title": "Онлайн код бичих",
+    "subtitle": "C++ код бичээд тэр даруй ажиллуул",
+    "stdin": "Оролт (stdin)",
+    "stdout": "Гаралт (stdout)",
+    "stderr": "Алдаа (stderr)",
+    "run": "Ажиллуулах",
+    "running": "Ажиллаж байна...",
+    "clear": "Цэвэрлэх"
+  },
+  "leaderboard": {
+    "title": "Шилдгүүд",
+    "rank": "Зэрэг",
+    "student": "Сурагч",
+    "class": "Анги",
+    "xp": "XP",
+    "problems": "Бодлого",
+    "filter_all": "Бүх сурагчид",
+    "filter_class": "Зөвхөн миний анги"
+  },
+  "profile": {
+    "xp": "Туршлага",
+    "level": "Түвшин",
+    "streak": "Дараалал",
+    "streak_days": "{days} өдөр",
+    "problems_solved": "Шийдсэн бодлого",
+    "badges": "Тэмдгүүд",
+    "recent_submissions": "Сүүлийн илгээлтүүд",
+    "no_submissions": "Одоогоор илгээлт байхгүй"
+  },
+  "level": {
+    "1": "Шинэхэн",
+    "2": "Сурагч",
+    "5": "Кодлогч",
+    "10": "Мэргэжилтэн",
+    "20": "Мастер",
+    "30": "Их Мастер"
+  },
+  "common": {
+    "loading": "Ачаалж байна...",
+    "submit": "Илгээх",
+    "cancel": "Цуцлах",
+    "save": "Хадгалах",
+    "delete": "Устгах",
+    "edit": "Засах",
+    "error": "Алдаа гарлаа",
+    "retry": "Дахин оролдох",
+    "back": "Буцах",
+    "next": "Дараах",
+    "previous": "Өмнөх"
+  },
+  "language": {
+    "switch_to_en": "English",
+    "switch_to_mn": "Монгол"
+  },
+  "teacher": {
+    "nav": {
+      "dashboard": "Хяналт",
+      "classes": "Ангиуд",
+      "problems": "Бодлогууд",
+      "assignments": "Даалгаврууд",
+      "contests": "Тэмцээн",
+      "plagiarism": "Хуулбар",
+      "robot_levels": "Робот тоглоом",
+      "analytics": "Шинжилгээ"
+    },
+    "dashboard": {
+      "title": "Багшийн хяналт",
+      "subtitle": "Анги, бодлого, даалгавраа удирд",
+      "stat_classes": "Анги",
+      "stat_students": "Сурагч",
+      "stat_problems": "Бодлого",
+      "stat_submissions_24h": "Илгээлт (24 цаг)",
+      "quick_actions": "Шуурхай үйлдэл",
+      "create_class": "Анги нэмэх",
+      "create_problem": "Бодлого нэмэх",
+      "create_assignment": "Даалгавар нэмэх",
+      "recent_submissions": "Сүүлийн илгээлтүүд"
+    },
+    "classes": {
+      "title": "Ангиуд",
+      "new": "Шинэ анги",
+      "name": "Нэр",
+      "grade": "Анги (7 / 8)",
+      "invite_code": "Урилгын код",
+      "students": "Сурагч",
+      "regenerate": "Шинэчлэх",
+      "create_title": "Шинэ анги нэмэх",
+      "create_button": "Үүсгэх",
+      "no_classes": "Анги одоогоор алга",
+      "copy_code": "Хуулах",
+      "code_copied": "Хуулагдсан",
+      "regenerate_confirm": "Урилгын код шинэчлэх үү? Хуучин код ажиллахгүй болно."
+    },
+    "problems": {
+      "title": "Бодлогууд",
+      "new": "Шинэ бодлого",
+      "edit": "Засах",
+      "public": "Нийтийн",
+      "private": "Хувийн",
+      "create_title": "Шинэ бодлого үүсгэх",
+      "edit_title": "Бодлого засах",
+      "save": "Хадгалах",
+      "saving": "Хадгалж байна...",
+      "delete_confirm": "Энэ бодлогыг устгах уу?",
+      "no_problems": "Бодлого алга",
+      "field": {
+        "slug": "Slug (URL)",
+        "slug_hint": "жишээ: add-two-numbers (зөвхөн жижиг үсэг, тоо, зураас)",
+        "title_mn": "Гарчиг (МН)",
+        "title_en": "Гарчиг (ЕН)",
+        "statement_mn": "Бодлогын текст (МН)",
+        "statement_en": "Бодлогын текст (ЕН)",
+        "input_format_mn": "Оролтын формат (МН)",
+        "input_format_en": "Оролтын формат (ЕН)",
+        "output_format_mn": "Гаралтын формат (МН)",
+        "output_format_en": "Гаралтын формат (ЕН)",
+        "constraints_mn": "Хязгаарлалт (МН)",
+        "constraints_en": "Хязгаарлалт (ЕН)",
+        "difficulty": "Хүндрэл",
+        "time_limit_ms": "Хугацааны хязгаар (мс)",
+        "memory_limit_kb": "Санах ойн хязгаар (KB)",
+        "xp_reward": "XP шагнал",
+        "tags": "Шошго (таслалаар тусгаарлах)",
+        "is_public": "Нийтэд харагдах"
+      },
+      "test_cases": {
+        "title": "Тест",
+        "add": "Тест нэмэх",
+        "input": "Оролт",
+        "expected": "Хүлээгдэх гаралт",
+        "is_sample": "Жишээ",
+        "is_sample_hint": "Сурагчдад харагдана",
+        "remove": "Устгах",
+        "empty": "Дор хаяж нэг тест нэмнэ үү"
+      }
+    },
+    "plagiarism": {
+      "title": "Хуулбар шалгалт",
+      "subtitle": "Ижил кодтой илгээлтүүд автоматаар тэмдэглэгдэнэ",
+      "similarity": "Төстэй",
+      "problem": "Бодлого",
+      "students": "Сурагчид",
+      "compare": "Харьцуулах",
+      "mark_reviewed": "Шалгасан",
+      "mark_unreviewed": "Буцаах",
+      "reviewed_filter": "Шалгасан",
+      "unreviewed_filter": "Шалгаагүй",
+      "no_flags": "Хуулбар илрээгүй"
+    },
+    "assignments": {
+      "title": "Даалгаврууд",
+      "new": "Шинэ даалгавар",
+      "create_title": "Даалгавар үүсгэх",
+      "no_assignments": "Даалгавар алга",
+      "field": {
+        "class": "Анги",
+        "title": "Гарчиг",
+        "description": "Тайлбар",
+        "start_at": "Эхлэх",
+        "due_at": "Дуусах",
+        "allow_late": "Хоцрогдсон илгээлтийг хүлээж авах",
+        "late_penalty_pct": "Хоцрогдлын торгууль (%)",
+        "problems": "Бодлогууд",
+        "add_problem": "Бодлого нэмэх",
+        "points": "Оноо"
+      },
+      "grading": {
+        "student": "Сурагч",
+        "total": "Нийт",
+        "open_assignment": "Даалгавар нээх"
+      }
+    }
+  }
+}

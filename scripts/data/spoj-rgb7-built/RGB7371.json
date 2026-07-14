@@ -1,0 +1,115 @@
+{
+  "code": "RGB7371",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7371-armstrong-number",
+    "title_mn": "Армстронгийн тоо",
+    "title_en": "Armstrong Number",
+    "statement_mn": "Тооны цифр тус бүрийг оронгийнх нь тоогоор зэрэгт дэвшүүлж нэмэнхэд гарсан тоо нь уг тоотойгоо тэнцүү байвал уг тоог **Армстронгийн тоо** гэнэ.\n\nӨгөгдсөн тоо Армстронгийн тоо бол `YES`, үгүй бол `NO` гэж хэвлэ.\n\n**Жишээ:** 153 тоо нь 3 оронтой тоо тул 1, 5, 3 цифр тус бүрийг 3 зэрэгт дэвшүүлж нэмбэл  \n1³ + 5³ + 3³ = 1 + 125 + 27 = 153 болно. Иймд 153 нь Армстронгийн тоо болно.",
+    "statement_en": "A number is called an **Armstrong number** (or narcissistic number) if the sum of its digits each raised to the power of the number of digits equals the number itself.\n\nGiven an integer, print `YES` if it is an Armstrong number, otherwise print `NO`.\n\n**Example:** 153 has 3 digits, so compute  \n1³ + 5³ + 3³ = 1 + 125 + 27 = 153.  \nSince the result equals the original number, 153 is an Armstrong number.",
+    "input_format_mn": "Нэг мөрөнд нэг бүхэл тоо өгөгдөнө. Тоо нь `int` төрөлд багтана.",
+    "input_format_en": "A single line containing one integer. The integer fits in the `int` type.",
+    "output_format_mn": "Хэрэв тоо Армстронгийн тоо бол `YES`, үгүй бол `NO` гэж хэвлэнэ.",
+    "output_format_en": "Print `YES` if the number is an Armstrong number, otherwise print `NO`.",
+    "constraints_mn": "- Тоо нь `int` төрөлд багтана (−2,147,483,648-аас 2,147,483,647 хүртэл).  \n- Тоо эерэг, сөрөг, эсвэл тэг байж болно.",
+    "constraints_en": "- The integer fits within the `int` type (−2,147,483,648 to 2,147,483,647).  \n- The number can be positive, negative, or zero.",
+    "difficulty": "easy",
+    "tags": [
+      "armstrong-number",
+      "math",
+      "digits"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <cmath>\n\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n\n    // For negative numbers, we consider absolute value? \n    // The problem says integer fits in int. Armstrong numbers are typically defined for non-negative.\n    // But let's handle: if n < 0, it's definitely not an Armstrong number.\n    if (n < 0) {\n        cout << \"NO\\n\";\n        return 0;\n    }\n\n    // Count digits\n    int temp = n;\n    int digits = 0;\n    while (temp > 0) {\n        digits++;\n        temp /= 10;\n    }\n    // Special case: n == 0\n    if (n == 0) {\n        digits = 1;  // 0 has 1 digit: 0^1 = 0, so YES\n    }\n\n    // Compute sum of digits raised to power 'digits'\n    long long sum = 0;\n    temp = n;\n    while (temp > 0) {\n        int d = temp % 10;\n        long long p = 1;\n        for (int i = 0; i < digits; i++) {\n            p *= d;\n        }\n        sum += p;\n        temp /= 10;\n        // Early exit: if sum already exceeds n, it's not Armstrong\n        if (sum > n) {\n            cout << \"NO\\n\";\n            return 0;\n        }\n    }\n\n    if (sum == n) {\n        cout << \"YES\\n\";\n    } else {\n        cout << \"NO\\n\";\n    }\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "371\n",
+        "output": "YES\n"
+      },
+      {
+        "input": "153\n",
+        "output": "YES\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "0\n",
+      "1\n",
+      "2\n",
+      "9\n",
+      "10\n",
+      "123\n",
+      "9474\n",
+      "9475\n",
+      "1634\n",
+      "8208\n",
+      "-153\n",
+      "1000000\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "YES",
+      "got": "YES"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "YES",
+      "got": "YES"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "0\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "1\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "2\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "9\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "10\n",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "123\n",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "9474\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "9475\n",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "1634\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "8208\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "-153\n",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "1000000\n",
+      "stdout": "NO\n"
+    }
+  ]
+}

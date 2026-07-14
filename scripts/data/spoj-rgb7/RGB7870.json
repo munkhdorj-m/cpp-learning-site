@@ -1,0 +1,13 @@
+{
+  "title": "Төрсөн өдрийн бялууны лаа",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Чи дүүгийнхээ төрсөн өдрийн бялууг хийж байгаа ба бялуун дээр тэрний насны хэмжээний лаа байна. Дүү чинь хамгийн өдөр лаануудыг л үлээж унтрааж чадна.</span></p>\n<p><span style=\"font-size: small;\">Чиний даалгавар бол хэдэн лаа уитрааж чадахыг олох.</span></p>\n<p><span style=\"font-size: small;\"><strong>Оролт</strong></span></p>\n<p><span style=\"font-size: small;\">Эхний мөрөнд дүүгийн чинь хүрж байгаа нас өөрөөр бялуун дээр байх лааны тоо n өгөгдөнө. (1&lt;=n&lt;=10^7)</span></p>\n<p><span style=\"font-size: small;\">Дараагийн мөрөнд лаануудын өндөр зайгаар тусгаарлагдан өгөгдөнө.&nbsp;</span><span style=\"font-size: small;\">(1&lt;=лааны өнлдөр&lt;=10^9)</span></p>\n<p><span style=\"font-size: small;\"><strong>Гаралт</strong></span></p>\n<p><span style=\"font-size: small;\">Нэг үлээлтээр унтрах лааны тоо</span></p>\n<p><strong><span style=\"font-size: small;\">Sample Input 0</span></strong></p>\n<p><span style=\"font-size: small;\">4</span></p>\n<p><span style=\"font-size: small;\">3 2 1 3</span></p>\n<p><strong><span style=\"font-size: small;\">Sample Output 0</span></strong></p>\n<p><span style=\"font-size: small;\">2</span></p>\n<p><span style=\"color: #555555; font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: small; font-weight: 700; text-align: justify;\">Дархан-Уул аймгийн Монгол Оюу сургуулийн 7.2 ангийн сурагч Г.Амарсанаа&nbsp;</span></p>",
+  "bodyText": "Чи дүүгийнхээ төрсөн өдрийн бялууг хийж байгаа ба бялуун дээр тэрний насны хэмжээний лаа байна. Дүү чинь хамгийн өдөр лаануудыг л үлээж унтрааж чадна.\nЧиний даалгавар бол хэдэн лаа уитрааж чадахыг олох.\nОролт\nЭхний мөрөнд дүүгийн чинь хүрж байгаа нас өөрөөр бялуун дээр байх лааны тоо n өгөгдөнө. (1<=n<=10^7)\nДараагийн мөрөнд лаануудын өндөр зайгаар тусгаарлагдан өгөгдөнө. (1<=лааны өнлдөр<=10^9)\nГаралт\nНэг үлээлтээр унтрах лааны тоо\nSample Input 0\n4\n3 2 1 3\nSample Output 0\n2\nДархан-Уул аймгийн Монгол Оюу сургуулийн 7.2 ангийн сурагч Г.Амарсанаа",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7870/",
+  "code": "RGB7870",
+  "scrapedAt": "2026-06-29T06:51:10.013Z"
+}

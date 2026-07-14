@@ -1,0 +1,13 @@
+{
+  "title": "Битийн дараалал",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Зөвхөн 0, 1 цифрүүдээс тогтсон дарааллыг битийн дараалал гэе. 1-ийн цифр зэрэгцэн оршихгүй N урттай дарааллын тоог ол.</span></p>\n<h3>Input</h3>\n<p><span style=\"font-size: small;\">N натурал тоо өгөгдөнө. ( 1&lt;=N&lt;=100 )</span></p>\n<h3>Output</h3>\n<p><span style=\"font-size: small;\">Эерэг бүхэл тоо.</span></p>\n<h3>Example</h3>\n<p><span style=\"font-size: small;\"><strong>Input:</strong> </span></p>\n<p><span style=\"font-size: small;\">5 </span></p>\n<p><span style=\"font-size: small;\"> <strong>Output:</strong> </span></p>\n<p><span style=\"font-size: small;\">13</span></p>",
+  "bodyText": "Зөвхөн 0, 1 цифрүүдээс тогтсон дарааллыг битийн дараалал гэе. 1-ийн цифр зэрэгцэн оршихгүй N урттай дарааллын тоог ол.\nInput\nN натурал тоо өгөгдөнө. ( 1<=N<=100 )\nOutput\nЭерэг бүхэл тоо.\nExample\nInput: \n5 \n Output: \n13",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7625/",
+  "code": "RGB7625",
+  "scrapedAt": "2026-06-29T06:48:06.705Z"
+}

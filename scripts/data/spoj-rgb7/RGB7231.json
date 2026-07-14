@@ -1,0 +1,15 @@
+{
+  "title": "Синус нийлбэр 2",
+  "hidden": true,
+  "bodyHtml": "<p>sinx+sin<sup>2</sup>x+sin<sup>3</sup>x+...+sin<sup>n</sup>x нийлбэрийг ол.</p>\n<h3>Input</h3>\n<p>Бодит тоо x натурал тоо n нэг мөрөнд зайгаар тусгаарлагдан өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Нийлбэр. Таслалаас хойш 3 оронгоор нарийвчлалтайгаар гарга.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n0.5 4\n\n<strong>Output:</strong>\n0.872\n</pre>",
+  "bodyText": "sinx+sin2x+sin3x+...+sinnx нийлбэрийг ол.\nInput\nБодит тоо x натурал тоо n нэг мөрөнд зайгаар тусгаарлагдан өгөгдөнө.\nOutput\nНийлбэр. Таслалаас хойш 3 оронгоор нарийвчлалтайгаар гарга.\nExample\nInput:\n0.5 4\n\nOutput:\n0.872",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n0.5 4\n\nOutput:\n0.872"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7231/",
+  "code": "RGB7231",
+  "scrapedAt": "2026-06-29T06:39:58.991Z"
+}

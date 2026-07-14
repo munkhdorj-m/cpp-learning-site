@@ -1,0 +1,15 @@
+{
+  "title": "2 оронтой тоо",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн 2 оронтой тооны цифрүүдийн үржвэрийг ол.</p>\n<h3>Input</h3>\n<p>2 оронтой тоо өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Нэгж ба аравтын орны цифрүүдийн үржвэр.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong><br>27<br><strong>Output:</strong><br>14</pre>",
+  "bodyText": "Өгөгдсөн 2 оронтой тооны цифрүүдийн үржвэрийг ол.\nInput\n2 оронтой тоо өгөгдөнө.\nOutput\nНэгж ба аравтын орны цифрүүдийн үржвэр.\nExample\nInput:27Output:14",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:27Output:14"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7009/",
+  "code": "RGB7009",
+  "scrapedAt": "2026-06-29T06:36:59.569Z"
+}

@@ -1,0 +1,51 @@
+{
+  "code": "RGB7545",
+  "status": "ref_wrong_on_samples",
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": false,
+      "expected": " 25 24 23 22 21\n 16 17 18 19 20\n 15 14 13 12 11\n  6  7  8  9 10\n  5  4  3  2  1",
+      "got": " 21 22 23 24 25\n 20 19 18 17 16\n 11 12 13 14 15\n 10  9  8  7  6\n  1  2  3  4  5"
+    }
+  ],
+  "data": {
+    "slug": "rgb7545-fill-grid-pattern",
+    "title_mn": "Утга олголт 5",
+    "title_en": "Fill Grid Pattern 5",
+    "statement_mn": "**Загвар дүүргэлт**\n\nN x N хэмжээтэй квадрат массивыг жишээн дээрх загвараар дүүргэ.\n\nМассив нь дараах дүрмээр дүүргэгдэнэ:\n- Дээд мөрөнд баруунаас зүүн тийш N², N²-1, ..., хүртэл тоонуудыг бичнэ.\n- Дараагийн мөрөнд зүүнээс баруун тийш үргэлжлүүлэн тоонуудыг бичнэ.\n- Өөрөөр хэлбэл, \"snake\" хэв маягаар (сондгой мөрүүд баруунаас зүүн, тэгш мөрүүд зүүнээс баруун) тоонуудыг N²-с 1 хүртэл бууруулан байрлуулна.",
+    "statement_en": "**Fill Grid Pattern**\n\nFill an N x N square array with numbers according to the pattern shown in the example.\n\nThe array is filled according to the following rule:\n- The top row is filled from right to left with N², N²-1, ..., downwards.\n- The next row is filled from left to right continuing the sequence.\n- In other words, numbers are placed in a \"snake\" pattern (odd rows: right to left, even rows: left to right) decreasing from N² down to 1.",
+    "input_format_mn": "Квадрат массивын хэмжээ натурал тоо N өгөгдөнө. N < 10.",
+    "input_format_en": "A single integer N — the size of the square array. N < 10.",
+    "output_format_mn": "Квадрат массивын элементүүдийг мөр мөрөөр нь хэвлэнэ. Элемент бүрийг 3 хоосон зайд хойш нь шахаж (баруун тийш тэгшлэгдсэн) хэвлэнэ. Жишээг сайн ажиглана уу.\n\nЖишээн дээрх 1-ийн тоо гэхэд урдаа, хойноо тус бүр 2 хоосон зайтай байна. Мөн 10-ын тоо урдаа 1, хойноо 2 хоосон зайтай байна.",
+    "output_format_en": "Print the array row by row. Each element must be printed right-aligned in a field of width 3 (i.e., padded on the left with spaces to occupy exactly 3 characters per element). Study the example carefully.\n\nIn the example, the number 1 has two spaces before it and two after it. The number 10 has one space before and two after.",
+    "constraints_mn": "- 1 ≤ N < 10 (N нь натурал тоо)",
+    "constraints_en": "- 1 ≤ N < 10 (N is a natural number)",
+    "difficulty": "easy",
+    "tags": [
+      "pattern",
+      "array",
+      "formatting"
+    ],
+    "time_limit_ms": 500,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nint main() {\n    int N;\n    cin >> N;\n    \n    int grid[10][10];\n    int num = N * N;\n    \n    for (int i = 0; i < N; i++) {\n        if (i % 2 == 0) {\n            // Even rows (0-indexed): right to left\n            for (int j = N - 1; j >= 0; j--) {\n                grid[i][j] = num--;\n            }\n        } else {\n            // Odd rows: left to right\n            for (int j = 0; j < N; j++) {\n                grid[i][j] = num--;\n            }\n        }\n    }\n    \n    for (int i = 0; i < N; i++) {\n        for (int j = 0; j < N; j++) {\n            cout << setw(3) << grid[i][j];\n        }\n        cout << \"\\n\";\n    }\n    \n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5\n",
+        "output": " 25 24 23 22 21\n 16 17 18 19 20\n 15 14 13 12 11\n  6  7  8  9 10\n  5  4  3  2  1\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n",
+      "2\n",
+      "3\n",
+      "4\n",
+      "6\n",
+      "7\n",
+      "8\n",
+      "9\n"
+    ]
+  }
+}

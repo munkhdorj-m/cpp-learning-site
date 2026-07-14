@@ -1,0 +1,104 @@
+{
+  "code": "RGB7308",
+  "status": "ok",
+  "data": {
+    "slug": "tongorogson-too",
+    "title_mn": "Тонгорогсон тоо",
+    "title_en": "Reversed Number",
+    "statement_mn": "Өгөгдсөн тооны тонгорогсон тоог ол.",
+    "statement_en": "Find the reversed number of the given number.",
+    "input_format_mn": "Нэг мөрөнд нэг бүхэл тоо өгөгдөнө.",
+    "input_format_en": "A single line containing one integer.",
+    "output_format_mn": "Тонгорогсон тоог хэвлэнэ.",
+    "output_format_en": "Print the reversed number.",
+    "constraints_mn": "- 0 ≤ тоо ≤ 10^9",
+    "constraints_en": "- 0 ≤ number ≤ 10^9",
+    "difficulty": "easy",
+    "tags": [
+      "string",
+      "implementation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <string>\n#include <algorithm>\n\nint main() {\n    std::string s;\n    std::cin >> s;\n    std::reverse(s.begin(), s.end());\n    // Remove leading zeros but keep at least one digit\n    size_t pos = 0;\n    while (pos < s.size() - 1 && s[pos] == '0') {\n        ++pos;\n    }\n    std::cout << s.substr(pos) << std::endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "1234\n",
+        "output": "4321\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "0",
+      "1",
+      "9",
+      "10",
+      "100",
+      "101",
+      "1000",
+      "123456789",
+      "1000000000",
+      "987654321",
+      "111111111",
+      "500"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "4321",
+      "got": "4321"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "0",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "1",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "9",
+      "stdout": "9\n"
+    },
+    {
+      "stdin": "10",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "100",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "101",
+      "stdout": "101\n"
+    },
+    {
+      "stdin": "1000",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "123456789",
+      "stdout": "987654321\n"
+    },
+    {
+      "stdin": "1000000000",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "987654321",
+      "stdout": "123456789\n"
+    },
+    {
+      "stdin": "111111111",
+      "stdout": "111111111\n"
+    },
+    {
+      "stdin": "500",
+      "stdout": "5\n"
+    }
+  ]
+}

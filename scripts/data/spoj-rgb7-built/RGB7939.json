@@ -1,0 +1,57 @@
+{
+  "code": "RGB7939",
+  "status": "ref_wrong_on_samples",
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": false,
+      "expected": "6",
+      "got": "10"
+    }
+  ],
+  "data": {
+    "slug": "haywire",
+    "title_mn": "Haywire",
+    "title_en": "Haywire",
+    "statement_mn": "Фермер Жоны N үнээндээ (4 &lt;= N &lt;= 12, N тэгш) найрсаг хос үнээний хооронд өвсөөр тусгаарлагдсан утас ашиглан холбоо тогтоох систем барьжээ. Жинхэнэ асуудал: Үнээ бүр яг 3 найзтай (асаалттай). Үнээнүүд N дэвсгэрт (stall) дараалан зоогдох ёстой. L урттай утас нь яг L нэгж өвс шаарддаг — жишээ нь 4 ба 7-р дэвсгэр дээрх үнээнүүд найзууд бол тэдгээрийг холбоход 3 нэгж өвс шаардлагатай. Найз хос бүр тусдаа утасаар холбогдсон байх ёстой гэж үзвэл, үнээнүүдийг хамгийн сайн дарааллаар байрлуулахад шаардагдах хамгийн бага өвсний хэмжээг тодорхойлно уу.\n\n**Даалгавар:** Үнээний тоо N (4 ≤ N ≤ 12, N тэгш) болон найрсаг холбоосууд өгөгдөхөд, шаардагдах хамгийн бага өвсний хэмжээг ол.",
+    "statement_en": "Farmer John's N cows (4 &lt;= N &lt;= 12, N even) have built a primitive system for communicating between pairs of friendly cows by building wires protected by wrappings made of hay. Each cow has exactly 3 other friends in the barn, and the cows must arrange themselves to occupy N stalls lined up in a row. A wire of length L requires exactly L units of hay to build, so for example if the cows in stalls 4 and 7 are friends, it would take 3 units of hay to construct a wire to connect them. Assuming every pair of friends must be connected by a separate wire, please determine the minimum possible amount of hay required to build these wires if the cows order themselves in the best possible way.\n\n**Task:** Given N (4 ≤ N ≤ 12, N even) and the friendship connections, find the minimum amount of hay needed.",
+    "input_format_mn": "```\nN\na1 b1\na2 b2\n...\naM bM\n```\nЭхний мөрөнд нэг тэгш N (4 ≤ N ≤ 12) тоо — үнээний тоо.\nДараагийн мөрүүдэд найрсаг хосуудын дугаарууд (1..N). Нийт яг (3N/2) холбоос байна. Үнээ бүр яг 3 найзтай гэдэг нь баталгаатай.",
+    "input_format_en": "```\nN\na1 b1\na2 b2\n...\naM bM\n```\nFirst line contains a single even integer N (4 ≤ N ≤ 12) — the number of cows.\nSubsequent lines list pairs of friendly cows (1-indexed). There are exactly (3N/2) edges. It is guaranteed that each cow has exactly 3 friends.",
+    "output_format_mn": "Нэг мөрөнд хамгийн бага шаардагдах өвсний нэгжийн тоог хэвлэнэ.",
+    "output_format_en": "Print a single integer — the minimum number of hay units required.",
+    "constraints_mn": "- N нь тэгш, 4 ≤ N ≤ 12\n- Үнээ бүр яг 3 найзтай\n- Нийт (3N/2) холбоос",
+    "constraints_en": "- N is even, 4 ≤ N ≤ 12\n- Each cow has exactly 3 friends\n- Total (3N/2) edges",
+    "difficulty": "medium",
+    "tags": [
+      "bitmask-dp",
+      "permutations",
+      "minimum-spanning-tree"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 20,
+    "samples": [
+      {
+        "input": "4\n1 2\n1 3\n1 4\n2 3\n2 4\n3 4\n",
+        "output": "6\n"
+      },
+      {
+        "input": "6\n1 2\n1 3\n1 4\n2 5\n2 6\n3 5\n3 6\n4 5\n4 6\n",
+        "output": "12\n"
+      }
+    ],
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int N;\n    cin >> N;\n    vector<vector<int>> adj(N, vector<int>(N, 0));\n    int M = 3 * N / 2;\n    for (int i = 0; i < M; i++) {\n        int a, b;\n        cin >> a >> b;\n        a--; b--;\n        adj[a][b] = adj[b][a] = 1;\n    }\n\n    // Precompute positions 0..N-1\n    vector<int> perm(N);\n    iota(perm.begin(), perm.end(), 0);\n\n    const int INF = 1e9;\n    int best = INF;\n\n    // Try all permutations of cows to stalls (positions)\n    do {\n        int total = 0;\n        for (int i = 0; i < N; i++) {\n            for (int j = i + 1; j < N; j++) {\n                if (adj[perm[i]][perm[j]]) {\n                    total += j - i;\n                }\n            }\n        }\n        best = min(best, total);\n    } while (next_permutation(perm.begin(), perm.end()));\n\n    cout << best << '\\n';\n    return 0;\n}\n",
+    "extra_test_inputs": [
+      "4\n1 2\n1 3\n1 4\n2 3\n2 4\n3 4\n",
+      "6\n1 2\n1 3\n2 3\n4 5\n4 6\n5 6\n",
+      "6\n1 2\n1 3\n1 4\n2 5\n2 6\n3 5\n3 6\n4 5\n4 6\n",
+      "8\n1 2\n1 3\n1 4\n2 5\n2 6\n3 7\n3 8\n4 5\n4 6\n5 7\n6 8\n7 8\n",
+      "8\n1 2\n1 3\n1 4\n2 5\n2 6\n3 7\n3 8\n4 5\n4 7\n5 6\n6 8\n7 8\n",
+      "10\n1 2\n1 3\n1 4\n2 5\n2 6\n3 7\n3 8\n4 9\n4 10\n5 6\n5 7\n6 8\n7 9\n8 10\n9 10\n",
+      "10\n1 2\n1 3\n1 4\n2 5\n2 6\n3 7\n3 8\n4 9\n4 10\n5 7\n5 9\n6 8\n6 10\n7 9\n8 10\n",
+      "12\n1 2\n1 3\n1 4\n2 5\n2 6\n3 7\n3 8\n4 9\n4 10\n5 11\n5 12\n6 7\n6 9\n7 10\n8 11\n8 12\n9 11\n10 12\n",
+      "12\n1 2\n1 3\n1 4\n2 5\n2 6\n3 7\n3 8\n4 9\n4 10\n5 7\n5 9\n6 8\n6 11\n7 12\n8 10\n9 11\n10 12\n11 12\n",
+      "6\n1 2\n1 3\n1 4\n2 5\n2 6\n3 5\n3 6\n4 5\n4 6\n"
+    ]
+  }
+}

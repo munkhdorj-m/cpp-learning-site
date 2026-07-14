@@ -1,0 +1,135 @@
+{
+  "code": "RGB7174",
+  "status": "ok",
+  "data": {
+    "slug": "khorsh-nud",
+    "title_mn": "Хөрш нүд",
+    "title_en": "Neighbor Cells",
+    "statement_mn": "N*N хэмжээтэй шатрын хөлгийг нэг өнцгөөс нь эхлэн 1-ээс N*N хүртэлх тоогоор дугаарлажээ.\n\nХөлгийн 1 нүдний дугаар өгөгдөхөд тэдгээрийн хөрш нүднүүдийн дугаарыг хэвлэх программ зохионо уу. Хөрш нүд гэдэг нь тухайн нүдтэй талаараа нийлсэн нүднүүдийг хэлнэ. Зураг 1-т үзүүлсэн хөлгийн 5 дугаартай нүдний хөрш нүдүүд нь 2, 6, 8, 4 дугаартай нүднүүд болно.",
+    "statement_en": "An N×N chessboard is numbered from 1 to N×N starting from one corner.\n\nGiven the number K of a cell, write a program that prints the numbers of its neighbor cells. Neighbor cells are cells that share a side with the given cell. For example, in the board shown in Figure 1, the neighbors of cell number 5 are cells 2, 6, 8, and 4.",
+    "input_format_mn": "Нэг мөрөнд хоёр натурал тоо: нүдний дугаар **K** (1 ≤ K ≤ N×N) ба хөлгийн хэмжээ **N** (2 < N ≤ 256) зайгаар тусгаарлагдан өгөгдөнө.",
+    "input_format_en": "A single line containing two natural numbers: the cell number **K** (1 ≤ K ≤ N×N) and the board size **N** (2 < N ≤ 256), separated by a space.",
+    "output_format_mn": "Тухайн нүдний хөрш нүдний дугаарууд болох 2-оос 4 ширхэг натурал тоо нэг хоосон зайтай, дээд талын нүднээс эхлэн цагийн зүүний дагуу дарааллаар гаргана.",
+    "output_format_en": "Print 2 to 4 natural numbers (the neighbor cell numbers) separated by single spaces, starting from the top neighbor and proceeding clockwise.",
+    "constraints_mn": "- 2 < N ≤ 256\n- 1 ≤ K ≤ N×N",
+    "constraints_en": "- 2 < N ≤ 256\n- 1 ≤ K ≤ N×N",
+    "difficulty": "easy",
+    "tags": [
+      "grid",
+      "math",
+      "implementation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <vector>\n#include <algorithm>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int K, N;\n    cin >> K >> N;\n\n    // Convert K to 0-based row and column\n    // The board is numbered row by row from top-left:\n    // row = (K-1) / N, col = (K-1) % N\n    int r = (K - 1) / N;\n    int c = (K - 1) % N;\n\n    vector<int> neighbors;\n\n    // Top neighbor\n    if (r > 0) {\n        int top = (r - 1) * N + c + 1;\n        neighbors.push_back(top);\n    }\n    // Right neighbor\n    if (c + 1 < N) {\n        int right = r * N + (c + 1) + 1;\n        neighbors.push_back(right);\n    }\n    // Bottom neighbor\n    if (r + 1 < N) {\n        int bottom = (r + 1) * N + c + 1;\n        neighbors.push_back(bottom);\n    }\n    // Left neighbor\n    if (c > 0) {\n        int left = r * N + (c - 1) + 1;\n        neighbors.push_back(left);\n    }\n\n    for (size_t i = 0; i < neighbors.size(); ++i) {\n        if (i > 0) cout << ' ';\n        cout << neighbors[i];\n    }\n    cout << '\\n';\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5 3\n",
+        "output": "2 6 8 4\n"
+      },
+      {
+        "input": "1 3\n",
+        "output": "2 4\n"
+      },
+      {
+        "input": "4 3\n",
+        "output": "1 5 7\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "2 3\n",
+      "3 3\n",
+      "6 3\n",
+      "7 3\n",
+      "8 3\n",
+      "9 3\n",
+      "1 4\n",
+      "4 4\n",
+      "7 4\n",
+      "10 4\n",
+      "13 4\n",
+      "16 4\n",
+      "1 256\n",
+      "65536 256\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "2 6 8 4",
+      "got": "2 6 8 4"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "2 4",
+      "got": "2 4"
+    },
+    {
+      "i": 2,
+      "ok": true,
+      "expected": "1 5 7",
+      "got": "1 5 7"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "2 3\n",
+      "stdout": "3 5 1\n"
+    },
+    {
+      "stdin": "3 3\n",
+      "stdout": "6 2\n"
+    },
+    {
+      "stdin": "6 3\n",
+      "stdout": "3 9 5\n"
+    },
+    {
+      "stdin": "7 3\n",
+      "stdout": "4 8\n"
+    },
+    {
+      "stdin": "8 3\n",
+      "stdout": "5 9 7\n"
+    },
+    {
+      "stdin": "9 3\n",
+      "stdout": "6 8\n"
+    },
+    {
+      "stdin": "1 4\n",
+      "stdout": "2 5\n"
+    },
+    {
+      "stdin": "4 4\n",
+      "stdout": "8 3\n"
+    },
+    {
+      "stdin": "7 4\n",
+      "stdout": "3 8 11 6\n"
+    },
+    {
+      "stdin": "10 4\n",
+      "stdout": "6 11 14 9\n"
+    },
+    {
+      "stdin": "13 4\n",
+      "stdout": "9 14\n"
+    },
+    {
+      "stdin": "16 4\n",
+      "stdout": "12 15\n"
+    },
+    {
+      "stdin": "1 256\n",
+      "stdout": "2 257\n"
+    },
+    {
+      "stdin": "65536 256\n",
+      "stdout": "65280 65535\n"
+    }
+  ]
+}

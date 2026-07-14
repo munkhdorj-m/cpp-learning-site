@@ -1,0 +1,51 @@
+{
+  "code": "RGB7544",
+  "status": "ref_wrong_on_samples",
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": false,
+      "expected": " 25 24 23 22 21\n 20 19 18 17 16\n 15 14 13 12 11\n 10  9  8  7  6\n  5  4  3  2  1",
+      "got": "   5  4  3  2  1\n  10  9  8  7  6\n  15 14 13 12 11\n  20 19 18 17 16\n  25 24 23 22 21"
+    }
+  ],
+  "data": {
+    "slug": "fill-snake-matrix",
+    "title_mn": "Утга олголт 4",
+    "title_en": "Value Assignment 4",
+    "statement_mn": "N×N хэмжээтэй квадрат массивыг жишээн дээрх загвараар дүүргэ.\n\nМассив нь баруун дээд булангаас эхлэн зүүн тийш, дараа нь доош, дараа нь баруун тийш, дараа нь доош гэх мэтчилэн могой хэлбэрээр дүүргэгдэнэ. Эхний мөр баруунаас зүүн тийш N, N-1, ..., 1 тоогоор дүүрнэ. Хоёр дахь мөр мөн баруунаас зүүн тийш 2N, 2N-1, ..., N+1 тоогоор дүүрнэ. Гурав дахь мөр мөн адил. Ерөнхийдөө i-р мөр (i=0..N-1) баруунаас зүүн тийш (i+1)*N, (i+1)*N-1, ..., i*N+1 тоогоор дүүрнэ.",
+    "statement_en": "Fill an N×N square array in the pattern shown in the example.\n\nThe array is filled row by row from the top row to the bottom row. Each row is filled from right to left with consecutive numbers. The first row (top) contains N, N-1, ..., 1 from right to left. The second row contains 2N, 2N-1, ..., N+1 from right to left. In general, row i (0-indexed from top) contains (i+1)*N, (i+1)*N-1, ..., i*N+1 from right to left.",
+    "input_format_mn": "Квадрат массивын хэмжээ натурал тоо N өгөгдөнө.",
+    "input_format_en": "A single integer N, the size of the square array.",
+    "output_format_mn": "Квадрат массивын элементүүдийг мөр мөрөөр нь хэвлэнэ. Гэхдээ элемент бүрийг 3 хоосон зайд хойш нь шахаж хэвлэнэ. Жишээг сайн ажиглана уу. Жишээн дээрх 5-ын тоо гэхэд урдаа, хойноо тус бүр 2 хоосон зайтай байна. Мөн 15-ын тоо урдаа, хойноо тус бүр 1 хоосон зайтай байна.\n\nТодорхойлбол: Тоо бүрийг яг 3 тэмдэгтээр (баруун тийш зэрэгцүүлэн) хэвлэх бөгөөд тоо 3-аас бага оронтой бол урд талд нь хоосон зайгаар дүүргэнэ. Мөр бүрийн эхний тооны өмнө нэг хоосон зай байна.",
+    "output_format_en": "Print the elements of the array row by row. Each element should be printed right-aligned in a field of width 3 (i.e., padded with leading spaces if needed). There is a single space before the first element of each row. See the example carefully.\n\nIn the example, the number 5 has 2 spaces before and 2 spaces after it (the 3-character field \"  5\" with a leading space before the field). The number 15 has 1 space before and 1 space after it (the 3-character field \" 15\" with a leading space before the field).",
+    "constraints_mn": "* N < 10 (N нь натурал тоо, 1 ≤ N ≤ 9)",
+    "constraints_en": "* N < 10 (N is a natural number, 1 ≤ N ≤ 9)",
+    "difficulty": "easy",
+    "tags": [
+      "array",
+      "output-formatting",
+      "pattern"
+    ],
+    "time_limit_ms": 500,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nint main() {\n    int N;\n    cin >> N;\n\n    for (int i = 0; i < N; i++) {\n        // Print a leading space before each row\n        cout << ' ';\n        for (int j = N; j >= 1; j--) {\n            int val = i * N + j;\n            cout << setw(3) << val;\n        }\n        cout << '\\n';\n    }\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5\n",
+        "output": " 25 24 23 22 21\n 20 19 18 17 16\n 15 14 13 12 11\n 10  9  8  7  6\n  5  4  3  2  1\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n",
+      "2\n",
+      "3\n",
+      "4\n",
+      "6\n",
+      "7\n",
+      "8\n",
+      "9\n"
+    ]
+  }
+}

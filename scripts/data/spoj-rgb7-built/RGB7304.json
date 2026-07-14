@@ -1,0 +1,104 @@
+{
+  "code": "RGB7304",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7304-sondgoi-tsifruudiin-too",
+    "title_mn": "Сондгой цифрүүдийн тоо",
+    "title_en": "Count of Odd Digits",
+    "statement_mn": "Өгөгдсөн бүхэл тоон дахь **сондгой цифрүүдийн тоог** ол.\n\nСондгой цифрүүд: 1, 3, 5, 7, 9.",
+    "statement_en": "Find the **number of odd digits** in the given integer.\n\nOdd digits are: 1, 3, 5, 7, 9.",
+    "input_format_mn": "Нэг мөрөнд нэг бүхэл тоо өгөгдөнө.",
+    "input_format_en": "A single line containing one integer.",
+    "output_format_mn": "Сондгой цифрүүдийн тоог илэрхийлсэн нэг бүхэл тоог хэвлэ.",
+    "output_format_en": "Print a single integer — the count of odd digits.",
+    "constraints_mn": "- Тоо **0**-ээс их, **10¹²**-оос бага (эерэг бүхэл тоо).",
+    "constraints_en": "- The number is greater than **0** and less than **10¹²** (a positive integer).",
+    "difficulty": "easy",
+    "tags": [
+      "digits",
+      "implementation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <string>\n\nusing namespace std;\n\nint main() {\n    ios_base::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string s;\n    cin >> s;\n\n    int count = 0;\n    for (char ch : s) {\n        int d = ch - '0';\n        if (d % 2 == 1) {\n            ++count;\n        }\n    }\n\n    cout << count << \"\\n\";\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "23457\n",
+        "output": "3\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1",
+      "9",
+      "10",
+      "99",
+      "111",
+      "222",
+      "1234567890",
+      "999999999999",
+      "100000000000",
+      "2468024680",
+      "1357913579",
+      "0"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "3",
+      "got": "3"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "9",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "10",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "99",
+      "stdout": "2\n"
+    },
+    {
+      "stdin": "111",
+      "stdout": "3\n"
+    },
+    {
+      "stdin": "222",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "1234567890",
+      "stdout": "5\n"
+    },
+    {
+      "stdin": "999999999999",
+      "stdout": "12\n"
+    },
+    {
+      "stdin": "100000000000",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "2468024680",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "1357913579",
+      "stdout": "10\n"
+    },
+    {
+      "stdin": "0",
+      "stdout": "0\n"
+    }
+  ]
+}

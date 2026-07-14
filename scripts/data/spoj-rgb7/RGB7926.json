@@ -1,0 +1,15 @@
+{
+  "title": "Crazy Fences",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-family: monospace; font-size: 14px; white-space: pre-wrap;\">After visiting a modern art museum, Farmer John decides to re-design his farm by moving all of the N (1 &lt;= N &lt;= 500) fences between his pastures!  Each fence is describe by either a horizontal or a vertical line segment in the 2D plane.  If two fences meet, they do so only at their endpoints.  FJ has C cows (1 &lt;= C &lt;= 500) on his farm.  Each cow resides at a point in the 2D plane that is not on any fence, and no two cows reside at the same point.  Two cows are said to be in the same community if one could walk to the other without touching any fences.  Please help FJ determine the size of the largest community.</span></p>\n<h3>Input</h3>\n<p>Input description...</p>\n<h3>Output</h3>\n<p>Output description...</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\netc.\n\n<strong>Output:</strong>\netc.\n</pre>",
+  "bodyText": "After visiting a modern art museum, Farmer John decides to re-design his farm by moving all of the N (1 <= N <= 500) fences between his pastures!  Each fence is describe by either a horizontal or a vertical line segment in the 2D plane.  If two fences meet, they do so only at their endpoints.  FJ has C cows (1 <= C <= 500) on his farm.  Each cow resides at a point in the 2D plane that is not on any fence, and no two cows reside at the same point.  Two cows are said to be in the same community if one could walk to the other without touching any fences.  Please help FJ determine the size of the largest community.\nInput\nInput description...\nOutput\nOutput description...\nExample\nInput:\netc.\n\nOutput:\netc.",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\netc.\n\nOutput:\netc."
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7926/",
+  "code": "RGB7926",
+  "scrapedAt": "2026-06-29T06:45:03.099Z"
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Гурвалжин",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Өгөгдсөн гурвалжны периметрийг ол.</span></p>\n<h3><span style=\"font-size: small;\">Input</span></h3>\n<p><span style=\"font-size: small;\">Гурвалжны талууд бүхэл тоогоор нэг мөрөнд зайгаар тусгаарлагдан өгөгдөнө.</span></p>\n<h3><span style=\"font-size: small;\">Output</span></h3>\n<p><span style=\"font-size: small;\">Гурвалжны периметр.</span></p>\n<h3><span style=\"font-size: small;\">Example</span></h3>\n<p><span style=\"font-size: small;\"><strong>Input:</strong><br>3 4 5<br><br><strong>Output:</strong><br>12</span></p>",
+  "bodyText": "Өгөгдсөн гурвалжны периметрийг ол.\nInput\nГурвалжны талууд бүхэл тоогоор нэг мөрөнд зайгаар тусгаарлагдан өгөгдөнө.\nOutput\nГурвалжны периметр.\nExample\nInput:3 4 5Output:12",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7002/",
+  "code": "RGB7002",
+  "scrapedAt": "2026-06-29T06:36:45.320Z"
+}

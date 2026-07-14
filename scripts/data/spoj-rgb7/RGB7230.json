@@ -1,0 +1,15 @@
+{
+  "title": "Синус нийлбэр 1",
+  "hidden": true,
+  "bodyHtml": "<p>sin(x)+sin(x<sup>2</sup>)+sin(x<sup>3</sup>)+...+sin(x<sup>n</sup>) нийлбэрийг ол.</p>\n<h3>Input</h3>\n<p>Бодит тоо x, натурал тоо n зайгаар тусгаарлагдан нэг мөрөнд өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Нийлбэр. Таслалаас хойш 3 орны нарийвчлалтай гарга.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n2.5 3\n\n<strong>Output:</strong>\n0.648</pre>",
+  "bodyText": "sin(x)+sin(x2)+sin(x3)+...+sin(xn) нийлбэрийг ол.\nInput\nБодит тоо x, натурал тоо n зайгаар тусгаарлагдан нэг мөрөнд өгөгдөнө.\nOutput\nНийлбэр. Таслалаас хойш 3 орны нарийвчлалтай гарга.\nExample\nInput:\n2.5 3\n\nOutput:\n0.648",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n2.5 3\n\nOutput:\n0.648"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7230/",
+  "code": "RGB7230",
+  "scrapedAt": "2026-06-29T06:39:57.242Z"
+}

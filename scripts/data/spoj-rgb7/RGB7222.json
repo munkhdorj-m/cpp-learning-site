@@ -1,0 +1,19 @@
+{
+  "title": "Есөөс цифр хүртэл",
+  "hidden": true,
+  "bodyHtml": "<p>Есийн цифрээс өгөгдсөн цифр хүртэл нэг нэгээр нэг мөрөнд хэвлэ.</p>\n<h3>Input</h3>\n<p>Цифр өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Цифрүүд нэг нэг мөрөнд.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n5\n\n<strong>Output:</strong>\n9</pre>\n<pre>8</pre>\n<pre>7</pre>\n<pre>6</pre>\n<pre>5</pre>",
+  "bodyText": "Есийн цифрээс өгөгдсөн цифр хүртэл нэг нэгээр нэг мөрөнд хэвлэ.\nInput\nЦифр өгөгдөнө.\nOutput\nЦифрүүд нэг нэг мөрөнд.\nExample\nInput:\n5\n\nOutput:\n9\n8\n7\n6\n5",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n5\n\nOutput:\n9",
+    "8",
+    "7",
+    "6",
+    "5"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7222/",
+  "code": "RGB7222",
+  "scrapedAt": "2026-06-29T06:38:52.240Z"
+}

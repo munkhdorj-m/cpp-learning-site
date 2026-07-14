@@ -1,0 +1,13 @@
+{
+  "title": "Хүү саадыг тойрон",
+  "hidden": true,
+  "bodyHtml": "<p style=\"text-align: justify;\"><span style=\"font-size: small;\"><span style=\"white-space: pre;\"> </span>Хүү n гишгүүртэй шатаар өгсөхдөө 2 янзаар урагшилж чадна. Зогсож байгаа гишгүүрийнхээ дараагийн гишгүүрт, эсвэл 1 алгасаад дараагийн гишгүүрт алхаж очно. Шатны хаа нэгтээ k дахь гишгүүр цөмөрсөн байгаа бол нэгдүгээр гишгүүрийн өмнө зогсож байгаа хүү n-р гишгүүрт хичнээн ялгаатай маршрутаар алхаж очих вэ? </span></p>\n<p style=\"text-align: justify;\"><span style=\"font-size: small;\">Жич : 4 өөр алгоритмаар бодолт хийгдээд байгаа. 5 дахь бодолт байвал саналаа <a href=\"/cdn-cgi/l/email-protection\" class=\"__cf_email__\" data-cfemail=\"26414f56555f4b48665f474e49490845494b\">[email&nbsp;protected]</a> хаягаар илгээнэ үү.</span></p>\n<h3>Input</h3>\n<p style=\"text-align: justify;\"><span style=\"font-size: small;\">Шатны нийт гишгүүрийн тоо болон цөмөрсөн гишгүүрийн дугаар зайгаар тусгаалагдан нэг мөрөнд өгөгдөнө.</span></p>\n<p style=\"text-align: justify;\"><span style=\"font-size: small;\">3&lt;=k&lt;n&lt;=88. Үүнд : n нийт гишгүүрийн тоо, k цөмөрсөн гишгүүрийн дугаар.&nbsp;</span></p>\n<h3>Output</h3>\n<p><span style=\"font-size: small;\">Маршрутын тоо.</span></p>\n<h3>Example</h3>\n<p><span style=\"font-size: small;\"><strong>Input:<br></strong></span><span style=\"font-size: small;\">7 4<br></span><span style=\"font-size: small;\"> </span><span style=\"font-size: small;\"><strong>Output:<br></strong></span><span style=\"font-size: small;\">6<br></span><span style=\"font-size: small;\">Input<br></span><span style=\"font-size: small;\">88 44<br></span><span style=\"font-size: small;\">Output<br></span><span style=\"font-size: small;\">491974210728665289</span></p>",
+  "bodyText": "Хүү n гишгүүртэй шатаар өгсөхдөө 2 янзаар урагшилж чадна. Зогсож байгаа гишгүүрийнхээ дараагийн гишгүүрт, эсвэл 1 алгасаад дараагийн гишгүүрт алхаж очно. Шатны хаа нэгтээ k дахь гишгүүр цөмөрсөн байгаа бол нэгдүгээр гишгүүрийн өмнө зогсож байгаа хүү n-р гишгүүрт хичнээн ялгаатай маршрутаар алхаж очих вэ? \nЖич : 4 өөр алгоритмаар бодолт хийгдээд байгаа. 5 дахь бодолт байвал саналаа [email protected] хаягаар илгээнэ үү.\nInput\nШатны нийт гишгүүрийн тоо болон цөмөрсөн гишгүүрийн дугаар зайгаар тусгаалагдан нэг мөрөнд өгөгдөнө.\n3<=k<n<=88. Үүнд : n нийт гишгүүрийн тоо, k цөмөрсөн гишгүүрийн дугаар. \nOutput\nМаршрутын тоо.\nExample\nInput:7 4 Output:6Input88 44Output491974210728665289",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7601/",
+  "code": "RGB7601",
+  "scrapedAt": "2026-06-29T06:40:27.095Z"
+}

@@ -1,0 +1,100 @@
+{
+  "code": "RGB7615",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7615-hadaasnuud",
+    "title_mn": "Хадааснууд",
+    "title_en": "Nails",
+    "statement_mn": "Шугаман саваанд хадааснууд зоогдов. Аливаа хоёр хадаасыг уяагаар холбож болно.\n\nХадаас бүр ядаж нэг уяанд холбогдсон байхаар уяануудын нийлбэрийн хамгийн бага утгыг ол.",
+    "statement_en": "Nails are placed on a linear bar. Any two nails can be connected with a string.\n\nFind the minimum total length of strings such that every nail is connected to at least one string.",
+    "input_format_mn": "Эхний мөрөнд хадааснуудын тоо $N$ өгөгдөнө. $(1 \\le N \\le 100)$.\n\nДараагийн мөрөнд хадааснуудын координат болох сөрөг биш $10000$-аас хэтрэхгүй $N$ ширхэг бүхэл тоонууд зайгаар тусгаарлагдан өгөгдөнө.",
+    "input_format_en": "The first line contains the number of nails $N$ $(1 \\le N \\le 100)$.\n\nThe next line contains $N$ non-negative integers not exceeding $10000$ — the coordinates of the nails, separated by spaces.",
+    "output_format_mn": "Утаснуудын хамгийн бага нийлбэрийг бүхэл тоогоор хэвлэ.",
+    "output_format_en": "Print the minimum total length of strings as an integer.",
+    "constraints_mn": "- $1 \\le N \\le 100$\n- Координатууд нь сөрөг биш, $10000$-аас хэтрэхгүй бүхэл тоо.",
+    "constraints_en": "- $1 \\le N \\le 100$\n- Coordinates are non-negative integers not exceeding $10000$.",
+    "difficulty": "easy",
+    "tags": [
+      "minimum-spanning-tree",
+      "greedy",
+      "sorting"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <cmath>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int N;\n    cin >> N;\n\n    vector<int> x(N);\n    for (int i = 0; i < N; ++i) {\n        cin >> x[i];\n    }\n\n    if (N <= 1) {\n        cout << 0 << '\\n';\n        return 0;\n    }\n\n    sort(x.begin(), x.end());\n\n    // dp[i] = min total length for first i nails (0-indexed)\n    vector<int> dp(N, 0);\n    dp[0] = 0;          // one nail needs no string\n    dp[1] = x[1] - x[0]; // two nails must be connected\n\n    for (int i = 2; i < N; ++i) {\n        // Option 1: connect i to i-1 (pair them)\n        // then subproblem for i-2\n        int opt1 = dp[i - 2] + (x[i] - x[i - 1]);\n\n        // Option 2: connect i to i-1 and also i-1 was already paired with i-2,\n        // i.e. i-1,i-2 are paired, so i,i-1 is connected to i-2,i-1?\n        // Actually the nail i-1 can be part of two strings to cover i-2 and i.\n        // But we also need to consider that i-1 could be the \"middle\" nail\n        // connecting i-2 and i.\n        // Better approach: standard minimum cost to connect nails such that\n        // each nail is incident to at least one string = minimum spanning tree\n        // on a complete graph where weight = distance.\n        // But N <= 100, coordinates on a line, so MST = sum of consecutive gaps\n        // after sorting? No — MST on line connects all points with N-1 edges\n        // covering all nails. However the problem says \"each nail is connected\n        // to at least one string\", not that all nails must be in a single connected\n        // component. So we can leave gaps. The minimum is to connect each nail\n        // to its nearest neighbor, but that's not simply pairing consecutive.\n        //\n        // Let's re-read: \"Хадаас бүр ядаж нэг уяанд холбогдсон байхаар\"\n        // Each nail is incident to at least one string.\n        // Strings can connect any two nails. We want min sum of string lengths.\n        //\n        // This is exactly: find a set of edges such that every vertex has degree >= 1,\n        // minimizing sum of edge weights. This is the minimum-weight edge cover problem.\n        // On a general graph it's solvable via matching, but on a line (sorted coordinates)\n        // it has a simple DP:\n        // dp[i] = min cost to cover first i nails (0-indexed).\n        // dp[0] = 0 (no nails)\n        // dp[1] = INF? Actually with 1 nail, no edges needed, cost = 0.\n        // But our indexing: dp[i] for i nails.\n        // Let's redo:\n        // dp[i] = min cost to cover nails 0..i (inclusive) where nail i is covered.\n        // We can pair i with i-1, or we can skip covering i-1 specifically?\n        //\n        // Edge cover on a path graph. On a path, the minimum edge cover is:\n        // DP[i] = min(DP[i-2] + w(i-1,i), DP[i-1] + w(i-1,i))? Not exactly.\n        //\n        // Let's just implement the general minimum weight edge cover via\n        // reduction to maximum weight matching, but N <= 100 we can do DP\n        // on sorted coordinates properly.\n        //\n        // Actually the problem is classic: given points on a line, connect them\n        // with segments so each point touches at least one segment, minimize total\n        // segment length. This is known as \"minimum edge cover on a path graph\"\n        // and the DP is:\n        // Let nails sorted: a[0..N-1]\n        // dp[0] = 0\n        // dp[1] = INF (impossible to cover 2 points with 1 edge? No, one edge covers both)\n        // Actually dp[i] = min cost to cover first i points (0-indexed up to i).\n        // For i=0: cost 0.\n        // For i>=1:\n        //   dp[i] = min over k from 0..i-1 of dp[k-1] + (a[i] - a[k])  where we cover k..i with one edge\n        // But a single edge covers both endpoints, so if we put edge (k,i), it covers k and i.\n        // Points k+1..i-1 might be left uncovered! So we need to ensure all points are covered.\n        //\n        // Simpler: minimum edge cover on a line graph:\n        // Each edge covers its two endpoints. We want to select edges so every vertex is incident\n        // to at least one selected edge.\n        //\n        // On a line where edges exist only between consecutive vertices (since non-consecutive\n        // edge would be longer and wasteful), the optimal edge cover uses only consecutive edges.\n        // Proof: any edge (i,j) with j>i+1 can be replaced by edges (i,i+1), (i+1,i+2), ..., (j-1,j)\n        // which cover the same vertices and total length = a[j]-a[i] = same! So no benefit to skip.\n        // So we only consider edges between consecutive nails.\n        //\n        // Now we have a path graph with N vertices and N-1 edges (between consecutive sorted coords).\n        // We need minimum weight edge cover on a path.\n        //\n        // DP: let the edges be e_i between a[i] and a[i+1], weight w_i = a[i+1]-a[i]\n        // We need to select a subset of edges such that every vertex is incident to >=1 selected edge.\n        //\n        // dp[i][0] = min cost to cover vertices 0..i such that vertex i is NOT incident to any selected edge\n        //            (but then vertex i must be covered by... impossible if there's no edge to i.\n        //             Actually if i is not incident, it's uncovered → invalid.)\n        // dp[i][1] = min cost to cover vertices 0..i such that vertex i IS incident to a selected edge.\n        //\n        // For i=0 (single vertex 0):\n        //   dp[0][0] = 0 (no edges, vertex 0 is not incident... but it's uncovered? Wait, a single nail\n        //                 with no edges is already \"connected\" to a string? No, it needs to be connected\n        //                 to at least one string. So a single nail needs no strings. So cost 0 is fine.)\n        //   dp[0][1] = INF (impossible to have an incident edge because no edges)\n        //\n        // For i>=1, consider edge e_{i-1} between i-1 and i with weight w = a[i]-a[i-1]:\n        //   Case: edge NOT selected\n        //     dp[i][0] = dp[i-1][0]   -- but then vertex i is not incident, so invalid if i is last?\n        //     Actually dp[i][0] means vertex i has no incident selected edge → invalid unless i is the\n        //     last vertex and we don't need to cover it? No, every vertex must be incident.\n        //     So dp[i][0] is only valid if we are not yet done... Actually for an intermediate vertex,\n        //     it could be covered by the next edge. So dp[i][0] = dp[i-1][1] (since edge not selected,\n        //     vertex i has no incident edge, but it could be covered later by edge i).\n        //     But in DP we process left to right. If we decide edge e_{i-1} is NOT selected, then\n        //     vertex i is not incident yet, but vertex i-1 must have been incident already (by dp[i-1][1]).\n        //   So: dp[i][0] = dp[i-1][1]   (edge e_{i-1} not taken, i not incident yet)\n        //\n        //   Case: edge selected\n        //     dp[i][1] = w + min(dp[i-1][0], dp[i-1][1])\n        //     because if we take edge, vertex i-1 is covered (regardless of its previous state)\n        //     and vertex i is covered.\n        //\n        // Base: dp[0][0] = 0, dp[0][1] = INF\n        //\n        // Answer for N nails: we need all vertices covered, so vertex N-1 must be incident.\n        // Answer = dp[N-1][1]\n        //\n        // Let's verify with sample.\n    }\n\n    // Redo with proper DP\n    if (N == 1) {\n        cout << 0 << '\\n';\n        return 0;\n    }\n\n    sort(x.begin(), x.end());\n\n    const int INF = 1e9;\n    vector<int> dp0(N, INF), dp1(N, INF);\n    dp0[0] = 0;  // vertex 0 not incident yet (will be covered by edge to 1)\n    // dp1[0] stays INF\n\n    for (int i = 1; i < N; ++i) {\n        int w = x[i] - x[i - 1];\n        // edge not selected\n        dp0[i] = dp1[i - 1];\n        // edge selected\n        dp1[i] = w + min(dp0[i - 1], dp1[i - 1]);\n    }\n\n    cout << dp1[N - 1] << '\\n';\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5\n4 10 0 12 2\n",
+        "output": "6\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n0\n",
+      "2\n0 5\n",
+      "3\n0 5 10\n",
+      "4\n0 2 5 9\n",
+      "6\n1 2 3 4 5 6\n",
+      "3\n10000 0 5000\n",
+      "5\n0 0 0 0 0\n",
+      "4\n0 100 200 300\n",
+      "5\n0 1 3 6 10\n",
+      "7\n10 20 30 40 50 60 70\n",
+      "8\n0 7 14 21 28 35 42 49\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "6",
+      "got": "6"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n0\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "2\n0 5\n",
+      "stdout": "5\n"
+    },
+    {
+      "stdin": "3\n0 5 10\n",
+      "stdout": "10\n"
+    },
+    {
+      "stdin": "4\n0 2 5 9\n",
+      "stdout": "6\n"
+    },
+    {
+      "stdin": "6\n1 2 3 4 5 6\n",
+      "stdout": "3\n"
+    },
+    {
+      "stdin": "3\n10000 0 5000\n",
+      "stdout": "10000\n"
+    },
+    {
+      "stdin": "5\n0 0 0 0 0\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "4\n0 100 200 300\n",
+      "stdout": "200\n"
+    },
+    {
+      "stdin": "5\n0 1 3 6 10\n",
+      "stdout": "7\n"
+    },
+    {
+      "stdin": "7\n10 20 30 40 50 60 70\n",
+      "stdout": "40\n"
+    },
+    {
+      "stdin": "8\n0 7 14 21 28 35 42 49\n",
+      "stdout": "28\n"
+    }
+  ]
+}

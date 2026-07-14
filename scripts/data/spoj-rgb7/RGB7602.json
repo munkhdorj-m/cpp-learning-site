@@ -1,0 +1,13 @@
+{
+  "title": "Супер жаал",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Супер хүү тул зогсож байгаа байрлалаасаа 3 янзаар урагшилна. Дараагийн гишгүүрт очихоос гадна &nbsp;1 болон 2 гишгүүр алгасач чадна. 1-р гишгүүрийн өмнө зогсож буй супер хүү хичнээн ялгаатай маршрутаар n-р гишгүүрт хүрэх вэ?</span></p>\n<p><span style=\"color: #555555; line-height: 20px; text-align: justify;\"><span style=\"font-size: small;\">Жич : 2 өөр алгоритмаар бодолт хийгдээд байгаа. 3 дахь бодолт байвал саналаа <a href=\"/cdn-cgi/l/email-protection\" class=\"__cf_email__\" data-cfemail=\"85e2ecf5f6fce8ebc5fce4edeaeaabe6eae8\">[email&nbsp;protected]</a> хаягаар илгээнэ үү.</span></span></p>\n<h3>Input</h3>\n<p><span style=\"font-size: small;\">Шатны гишгүүрийн тоо. 3&lt;n&lt;40.</span></p>\n<h3>Output</h3>\n<p><span style=\"font-size: small;\">Маршрутын тоо.</span></p>\n<h3>Example</h3>\n<p><span style=\"font-size: small;\"><strong>Input:</strong> </span></p>\n<p><span style=\"font-size: small;\">5 </span></p>\n<p><span style=\"font-size: small;\"> <strong>Output:</strong> </span></p>\n<p><span style=\"font-size: small;\">13</span></p>",
+  "bodyText": "Супер хүү тул зогсож байгаа байрлалаасаа 3 янзаар урагшилна. Дараагийн гишгүүрт очихоос гадна  1 болон 2 гишгүүр алгасач чадна. 1-р гишгүүрийн өмнө зогсож буй супер хүү хичнээн ялгаатай маршрутаар n-р гишгүүрт хүрэх вэ?\nЖич : 2 өөр алгоритмаар бодолт хийгдээд байгаа. 3 дахь бодолт байвал саналаа [email protected] хаягаар илгээнэ үү.\nInput\nШатны гишгүүрийн тоо. 3<n<40.\nOutput\nМаршрутын тоо.\nExample\nInput: \n5 \n Output: \n13",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7602/",
+  "code": "RGB7602",
+  "scrapedAt": "2026-06-29T06:40:25.348Z"
+}

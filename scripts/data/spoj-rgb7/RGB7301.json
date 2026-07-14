@@ -1,0 +1,18 @@
+{
+  "title": "Ахмад орны цифр",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Өгөгдсөн натурал тооны ахмад орны&nbsp;цифрийг ол.&nbsp;</span></p>\n<h3>Input</h3>\n<p><span style=\"font-size: small;\">n натурал тоо өгөгдөнө. (n&lt;=10^6).</span></p>\n<h3>Output</h3>\n<p><span style=\"font-size: small;\">Ахмад орны цифр болох нэг цифр байна.</span></p>\n<h3>Example</h3>\n<pre><strong><span style=\"font-size: small;\">Input:</span></strong></pre>\n<pre><span style=\"font-size: small;\">1234</span></pre>\n<pre><strong><span style=\"font-size: small;\">Output:</span></strong></pre>\n<pre><span style=\"font-size: small;\">1</span>\n</pre>",
+  "bodyText": "Өгөгдсөн натурал тооны ахмад орны цифрийг ол. \nInput\nn натурал тоо өгөгдөнө. (n<=10^6).\nOutput\nАхмад орны цифр болох нэг цифр байна.\nExample\nInput:\n1234\nOutput:\n1",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:",
+    "1234",
+    "Output:",
+    "1"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7301/",
+  "code": "RGB7301",
+  "scrapedAt": "2026-06-29T06:38:22.509Z"
+}

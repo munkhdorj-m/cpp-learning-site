@@ -1,0 +1,15 @@
+{
+  "title": "Хоёрын зэрэгт",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн тоо хоёрын зэрэгт мөн бол YES үгүй бол NO гэж хэвлэ.</p>\n<h3>Input</h3>\n<p>Бүхэл тоо өгөгдөнө.</p>\n<h3>Output</h3>\n<p>2-ын зэрэгт бол YES үгүй бол NO.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n16\n\n<strong>Output:</strong>\nYES\n</pre>",
+  "bodyText": "Өгөгдсөн тоо хоёрын зэрэгт мөн бол YES үгүй бол NO гэж хэвлэ.\nInput\nБүхэл тоо өгөгдөнө.\nOutput\n2-ын зэрэгт бол YES үгүй бол NO.\nExample\nInput:\n16\n\nOutput:\nYES",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n16\n\nOutput:\nYES"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7310/",
+  "code": "RGB7310",
+  "scrapedAt": "2026-06-29T06:38:38.251Z"
+}

@@ -1,0 +1,99 @@
+{
+  "code": "RGB7022",
+  "status": "ok",
+  "data": {
+    "slug": "arifmetic-progressiin-n-r-gishuun",
+    "title_mn": "Арифметик прогрессын N-р гишүүн",
+    "title_en": "N-th Term of an Arithmetic Progression",
+    "statement_mn": "Бүхэл тоон арифметик прогрессын $p$ дэх гишүүн $a_p$ болон $q$ дэх гишүүн $a_q$ өгөгдсөн бол $N$ дүгээр гишүүнийг ол.",
+    "statement_en": "Given the $p$-th term $a_p$ and the $q$-th term $a_q$ of an integer arithmetic progression, find the $N$-th term.",
+    "input_format_mn": "Эхний мөрөнд $p$ ба $a_p$ гэсэн 2 тоо зайгаар тусгаарлагдан өгөгдөнө.\n\nХоёр дахь мөрөнд $q$ ба $a_q$ гэсэн 2 тоо зайгаар тусгаарлагдан өгөгдөнө.\n\nГурав дахь мөрөнд $N$ бүхэл тоо өгөгдөнө.",
+    "input_format_en": "The first line contains two integers $p$ and $a_p$, separated by a space.\n\nThe second line contains two integers $q$ and $a_q$, separated by a space.\n\nThe third line contains an integer $N$.",
+    "output_format_mn": "Арифметик прогрессын $N$ дүгээр гишүүн буюу $a_N$ тоог хэвлэ.",
+    "output_format_en": "Print the $N$-th term $a_N$ of the arithmetic progression.",
+    "constraints_mn": "- $1 \\le p, q, N \\le 10^9$\n- $-10^9 \\le a_p, a_q \\le 10^9$\n- $p \\neq q$\n- Өгөгдөл нь бүхэл тоон арифметик прогресс байх нөхцөлийг хангана (ялгавар $d$ нь бүхэл тоо).",
+    "constraints_en": "- $1 \\le p, q, N \\le 10^9$\n- $-10^9 \\le a_p, a_q \\le 10^9$\n- $p \\neq q$\n- The input guarantees a valid integer arithmetic progression (the common difference $d$ is an integer).",
+    "difficulty": "easy",
+    "tags": [
+      "arithmetic-progression",
+      "math"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\nusing namespace std;\n\nint main() {\n    long long p, ap, q, aq, N;\n    cin >> p >> ap;\n    cin >> q >> aq;\n    cin >> N;\n\n    // d = (aq - ap) / (q - p)\n    long long d = (aq - ap) / (q - p);\n    long long an = ap + (N - p) * d;\n    cout << an << endl;\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5 31\n9 43\n2019",
+        "output": "6073"
+      }
+    ],
+    "extra_test_inputs": [
+      "1 5\n2 10\n3",
+      "1 100\n5 200\n10",
+      "10 50\n5 25\n1",
+      "1 0\n2 0\n1000000000",
+      "1 -1000000000\n2 -999999999\n1000000000",
+      "1000000000 1000000000\n1 1\n500000000",
+      "1 7\n3 7\n10",
+      "5 10\n10 20\n1000000000",
+      "1 -5\n3 5\n2",
+      "7 100\n3 60\n1",
+      "1 0\n3 -10\n5"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "6073",
+      "got": "6073"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1 5\n2 10\n3",
+      "stdout": "15\n"
+    },
+    {
+      "stdin": "1 100\n5 200\n10",
+      "stdout": "325\n"
+    },
+    {
+      "stdin": "10 50\n5 25\n1",
+      "stdout": "5\n"
+    },
+    {
+      "stdin": "1 0\n2 0\n1000000000",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "1 -1000000000\n2 -999999999\n1000000000",
+      "stdout": "-1\n"
+    },
+    {
+      "stdin": "1000000000 1000000000\n1 1\n500000000",
+      "stdout": "500000000\n"
+    },
+    {
+      "stdin": "1 7\n3 7\n10",
+      "stdout": "7\n"
+    },
+    {
+      "stdin": "5 10\n10 20\n1000000000",
+      "stdout": "2000000000\n"
+    },
+    {
+      "stdin": "1 -5\n3 5\n2",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "7 100\n3 60\n1",
+      "stdout": "40\n"
+    },
+    {
+      "stdin": "1 0\n3 -10\n5",
+      "stdout": "-20\n"
+    }
+  ]
+}

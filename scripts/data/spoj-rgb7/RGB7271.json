@@ -1,0 +1,13 @@
+{
+  "title": "Бүхэл цэгүүд",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Тэгш өнцөгт координатын хавтгайд хэсэг тэгш өнцөгт өгөгджээ. Бүх тэгш өнцөгтөд харьяалагдах бүхэл координаттай цэгүүдийн тоог ол.</span></p>\n<h3><span style=\"font-size: small;\">Input</span></h3>\n<p><span style=\"font-size: small;\">Эхний мөрөнд тэгш өнцөгтийн тоо N өгөгдөнө. 1&lt;=N&lt;=1000.</span></p>\n<p><span style=\"font-size: small;\">Дараагийн мөрүүдэд тэгш өнцөгтийг тодорхойлох 4 тоо зайгаар тусгаарлагдан өгөгдөнө. Тоонууд модулиараа 1000-аас ихгүй.&nbsp;Эхлээд тэгш өнцөгтийн зүүн дээд булангийн координат, дараа нь баруун доод булангийн координат өгөгдөнө.&nbsp;</span></p>\n<h3><span style=\"font-size: small;\">Output</span></h3>\n<p><span style=\"font-size: small;\">Өгөгдсөн бүх тэгш өнцөгтөд харьяалагдах бүхэл координаттай цэгүүдийн тоо.</span>&nbsp;</p>\n<h3><span style=\"font-size: small;\">Example</span></h3>\n<p><strong><span style=\"font-size: small;\">Input 1 :</span></strong></p>\n<p><span style=\"font-size: x-small;\">3</span></p>\n<p><span style=\"font-size: x-small;\">2 6 6 2</span></p>\n<p><span style=\"font-size: x-small;\">4 5 8 1</span></p>\n<p><span style=\"font-size: x-small;\">3 7 9 3</span></p>\n<p><strong><span style=\"font-size: small;\">Output 1 :</span></strong></p>\n<p><span style=\"font-size: x-small;\">9</span></p>\n<p><strong><span style=\"font-size: small;\">Input 2 :</span></strong></p>\n<p><span style=\"font-size: small;\">2</span></p>\n<p><span style=\"font-size: small;\">2 8 6 4</span></p>\n<p><span style=\"font-size: small;\">1 3 7 2</span></p>\n<p><strong><span style=\"font-size: small;\">Output 2 :</span></strong></p>\n<p><span style=\"font-size: small;\">0</span></p>\n<div><span style=\"font-size: x-small;\"><br></span></div>",
+  "bodyText": "Тэгш өнцөгт координатын хавтгайд хэсэг тэгш өнцөгт өгөгджээ. Бүх тэгш өнцөгтөд харьяалагдах бүхэл координаттай цэгүүдийн тоог ол.\nInput\nЭхний мөрөнд тэгш өнцөгтийн тоо N өгөгдөнө. 1<=N<=1000.\nДараагийн мөрүүдэд тэгш өнцөгтийг тодорхойлох 4 тоо зайгаар тусгаарлагдан өгөгдөнө. Тоонууд модулиараа 1000-аас ихгүй. Эхлээд тэгш өнцөгтийн зүүн дээд булангийн координат, дараа нь баруун доод булангийн координат өгөгдөнө. \nOutput\nӨгөгдсөн бүх тэгш өнцөгтөд харьяалагдах бүхэл координаттай цэгүүдийн тоо. \nExample\nInput 1 :\n3\n2 6 6 2\n4 5 8 1\n3 7 9 3\nOutput 1 :\n9\nInput 2 :\n2\n2 8 6 4\n1 3 7 2\nOutput 2 :\n0",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7271/",
+  "code": "RGB7271",
+  "scrapedAt": "2026-06-29T06:43:35.454Z"
+}

@@ -1,0 +1,124 @@
+{
+  "code": "RGB7150",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7150-triangle",
+    "title_mn": "Гурвалжин",
+    "title_en": "Triangle",
+    "statement_mn": "Жонни маш ухаантай Анн гэдэг дүүтэй. Анн цэцэрлэгээсээ ирээд ахаасаа гэрийн даалгаварт өгсөн бодлогыг асуужээ. Уг даалгавар нь 4 өөр өнгөтэй саваагаар гурвалжин байгуулах ёстой юм. Тэгэхдээ нэг савааг нь ашиглахгүй. Саваануудыг хугалж болохгүй, бас хагасаар нь гурвалжин байгуулахгүй. Анн уг бодлогыг аль хэдийнээ бодчихсон, харин одоо ахыгаа шалгаж байна.\n\nЖонни энэ бодлогыг шууд л бодчихно гэж бодсон боловч тийм ч амархан биш бололтой. Хэрвээ эерэг талбайтай гурвалжин байгуулах боломжгүй бол 0 талбайтай зураасан гурвалжин байгуулж болох байв. Тэгтэл заримдаа бүүр 0 талбайтай гурвалжин ч байгуулах боломжгүй болчихоод байлаа. Тэгээд манай хүү энэ олон тохиолдлын учрыг олохоосоо залхуураад, танаас тусламж гуйжээ.",
+    "statement_en": "Johnny has a very smart little sister named Ann. Ann came back from kindergarten and asked her brother for help with her homework. The task is to form a triangle using 4 sticks of different colors, leaving exactly one stick unused. Sticks cannot be broken, and you cannot form a triangle using half sticks. Ann has already solved the problem, and now she is testing her brother.\n\nJohnny thought he could solve it right away, but it turned out not so easy. If a triangle with positive area cannot be formed, it might be possible to form a degenerate triangle (zero area — three sticks lying along a line). However, in some cases even a degenerate triangle is impossible. Johnny got tired of figuring out all these cases and asks for your help.",
+    "input_format_mn": "Нэг мөрөнд 4 савааны урт болох 4 эерэг бүхэл тоо өгөгдөнө.",
+    "input_format_en": "A single line containing 4 positive integers — the lengths of the four sticks.",
+    "output_format_mn": "Хэрвээ эерэг талбайтай гурвалжин үүсгэх боломжтой бол **TRIANGLE** гэж хэвлэнэ. Хэрвээ 0 талбайтай гурвалжин (зураасан гурвалжин) үүсгэх боломжтой бол **SEGMENT** гэж хэвлэнэ. Харин огт гурвалжин үүсгэх боломжгүй бол **IMPOSSIBLE** гэж хэвлэнэ.",
+    "output_format_en": "If a triangle with positive area can be formed, print **TRIANGLE**. If only a degenerate triangle (zero area) can be formed, print **SEGMENT**. If no triangle can be formed at all, print **IMPOSSIBLE**.",
+    "constraints_mn": "- Савааны урт нь 1-ээс 100 хүртэлх эерэг бүхэл тоо.",
+    "constraints_en": "- Each stick length is a positive integer between 1 and 100 inclusive.",
+    "difficulty": "easy",
+    "tags": [
+      "triangle-inequality",
+      "brute-force"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <algorithm>\n#include <vector>\n\nusing namespace std;\n\nint main() {\n    ios_base::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    vector<int> a(4);\n    for (int i = 0; i < 4; ++i) {\n        cin >> a[i];\n    }\n\n    // Sort to make checking easier\n    sort(a.begin(), a.end());\n\n    bool triangle = false; // positive area\n    bool segment = false;  // zero area (degenerate)\n\n    // Try all combinations of 3 sticks out of 4\n    for (int i = 0; i < 4; ++i) {\n        for (int j = i + 1; j < 4; ++j) {\n            for (int k = j + 1; k < 4; ++k) {\n                int x = a[i], y = a[j], z = a[k];\n                // For a non-degenerate triangle, the sum of the two smallest\n                // must be strictly greater than the largest.\n                if (x + y > z) {\n                    triangle = true;\n                } else if (x + y == z) {\n                    segment = true;\n                }\n            }\n        }\n    }\n\n    if (triangle) {\n        cout << \"TRIANGLE\\n\";\n    } else if (segment) {\n        cout << \"SEGMENT\\n\";\n    } else {\n        cout << \"IMPOSSIBLE\\n\";\n    }\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "4 2 1 3\n",
+        "output": "TRIANGLE\n"
+      },
+      {
+        "input": "7 2 2 4\n",
+        "output": "SEGMENT\n"
+      },
+      {
+        "input": "3 5 9 1\n",
+        "output": "IMPOSSIBLE\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1 1 1 1\n",
+      "1 2 3 4\n",
+      "100 100 100 100\n",
+      "1 99 100 1\n",
+      "2 3 5 8\n",
+      "1 1 2 3\n",
+      "20 20 30 40\n",
+      "1 2 2 4\n",
+      "3 4 5 6\n",
+      "100 1 1 1\n",
+      "5 5 10 10\n",
+      "10 10 20 30\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "TRIANGLE",
+      "got": "TRIANGLE"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "SEGMENT",
+      "got": "SEGMENT"
+    },
+    {
+      "i": 2,
+      "ok": true,
+      "expected": "IMPOSSIBLE",
+      "got": "IMPOSSIBLE"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1 1 1 1\n",
+      "stdout": "TRIANGLE\n"
+    },
+    {
+      "stdin": "1 2 3 4\n",
+      "stdout": "TRIANGLE\n"
+    },
+    {
+      "stdin": "100 100 100 100\n",
+      "stdout": "TRIANGLE\n"
+    },
+    {
+      "stdin": "1 99 100 1\n",
+      "stdout": "SEGMENT\n"
+    },
+    {
+      "stdin": "2 3 5 8\n",
+      "stdout": "SEGMENT\n"
+    },
+    {
+      "stdin": "1 1 2 3\n",
+      "stdout": "SEGMENT\n"
+    },
+    {
+      "stdin": "20 20 30 40\n",
+      "stdout": "TRIANGLE\n"
+    },
+    {
+      "stdin": "1 2 2 4\n",
+      "stdout": "TRIANGLE\n"
+    },
+    {
+      "stdin": "3 4 5 6\n",
+      "stdout": "TRIANGLE\n"
+    },
+    {
+      "stdin": "100 1 1 1\n",
+      "stdout": "TRIANGLE\n"
+    },
+    {
+      "stdin": "5 5 10 10\n",
+      "stdout": "TRIANGLE\n"
+    },
+    {
+      "stdin": "10 10 20 30\n",
+      "stdout": "SEGMENT\n"
+    }
+  ]
+}

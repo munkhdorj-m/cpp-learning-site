@@ -1,0 +1,15 @@
+{
+  "title": "Photo",
+  "hidden": true,
+  "bodyHtml": "<p><span id=\"probtext-text\">FJ wants to take pictures of his N cows (2 &lt;= N &lt;= 1,000,000,000), which are standing in a line and conveniently numbered 1..N.  Each photograph can capture a consecutive range of cows from the lineup, and FJ wants to make sure that each cow appears in at least one photo.    Unfortunately, there are K unfriendly pairs of cows (1 &lt;= K &lt;= 1000) that each refuse to be in the same photograph.  Given the locations of these unfriendly pairs, please determine the minimum number of photos FJ needs to take.</span></p>\n<h3>Input</h3>\n<p>Input description...</p>\n<h3>Output</h3>\n<p>Output description...</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\netc.\n\n<strong>Output:</strong>\netc.\n</pre>",
+  "bodyText": "FJ wants to take pictures of his N cows (2 <= N <= 1,000,000,000), which are standing in a line and conveniently numbered 1..N.  Each photograph can capture a consecutive range of cows from the lineup, and FJ wants to make sure that each cow appears in at least one photo.    Unfortunately, there are K unfriendly pairs of cows (1 <= K <= 1000) that each refuse to be in the same photograph.  Given the locations of these unfriendly pairs, please determine the minimum number of photos FJ needs to take.\nInput\nInput description...\nOutput\nOutput description...\nExample\nInput:\netc.\n\nOutput:\netc.",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\netc.\n\nOutput:\netc."
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7938/",
+  "code": "RGB7938",
+  "scrapedAt": "2026-06-29T06:45:24.087Z"
+}

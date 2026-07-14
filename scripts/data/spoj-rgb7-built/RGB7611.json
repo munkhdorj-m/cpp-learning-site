@@ -1,0 +1,105 @@
+{
+  "code": "RGB7611",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7611-no-three-consecutive-ones",
+    "title_mn": "3 дараалан 1 ороогүй",
+    "title_en": "No Three Consecutive Ones",
+    "statement_mn": "0, 1 цифрүүдээс бүтэх N урттай тоон дараалал дахь 1 цифр дараалан 3 ороогүй байх дарааллын тоог ол. 0 цифрээр эхэлж болно.",
+    "statement_en": "Count the number of binary sequences of length N that do NOT contain three consecutive 1s. Sequences may begin with 0.",
+    "input_format_mn": "Натурал тоо n өгөгдөнө. n < 40.",
+    "input_format_en": "A single natural number n. n < 40.",
+    "output_format_mn": "3 дараалан 1 цифр ороогүй n урттай дарааллын тоог хэвлэ.",
+    "output_format_en": "Print the number of binary sequences of length n that contain no three consecutive 1s.",
+    "constraints_mn": "- 1 ≤ n < 40",
+    "constraints_en": "- 1 ≤ n < 40",
+    "difficulty": "easy",
+    "tags": [
+      "dp",
+      "binary-sequences",
+      "counting"
+    ],
+    "time_limit_ms": 500,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <vector>\n\nint main() {\n    int n;\n    std::cin >> n;\n    \n    // dp[i][j] = number of valid sequences of length i ending with j consecutive 1s (j = 0, 1, 2)\n    // dp[0][0] = 1 (empty sequence)\n    std::vector<std::vector<long long>> dp(n + 1, std::vector<long long>(3, 0));\n    dp[0][0] = 1;\n    \n    for (int i = 1; i <= n; i++) {\n        // add a 0: any previous ending resets to 0 consecutive 1s\n        dp[i][0] = dp[i-1][0] + dp[i-1][1] + dp[i-1][2];\n        \n        // add a 1 after ending with 0 consecutive 1s\n        dp[i][1] = dp[i-1][0];\n        \n        // add a 1 after ending with 1 consecutive 1\n        dp[i][2] = dp[i-1][1];\n        \n        // cannot add a 1 after ending with 2 consecutive 1s (would make 3)\n    }\n    \n    long long result = dp[n][0] + dp[n][1] + dp[n][2];\n    std::cout << result << std::endl;\n    \n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "4\n",
+        "output": "13\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n",
+      "2\n",
+      "3\n",
+      "5\n",
+      "10\n",
+      "15\n",
+      "20\n",
+      "25\n",
+      "30\n",
+      "35\n",
+      "38\n",
+      "39\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "13",
+      "got": "13"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n",
+      "stdout": "2\n"
+    },
+    {
+      "stdin": "2\n",
+      "stdout": "4\n"
+    },
+    {
+      "stdin": "3\n",
+      "stdout": "7\n"
+    },
+    {
+      "stdin": "5\n",
+      "stdout": "24\n"
+    },
+    {
+      "stdin": "10\n",
+      "stdout": "504\n"
+    },
+    {
+      "stdin": "15\n",
+      "stdout": "10609\n"
+    },
+    {
+      "stdin": "20\n",
+      "stdout": "223317\n"
+    },
+    {
+      "stdin": "25\n",
+      "stdout": "4700770\n"
+    },
+    {
+      "stdin": "30\n",
+      "stdout": "98950096\n"
+    },
+    {
+      "stdin": "35\n",
+      "stdout": "2082876103\n"
+    },
+    {
+      "stdin": "38\n",
+      "stdout": "12960201916\n"
+    },
+    {
+      "stdin": "39\n",
+      "stdout": "23837527729\n"
+    }
+  ]
+}

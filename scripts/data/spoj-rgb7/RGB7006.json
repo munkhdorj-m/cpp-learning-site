@@ -1,0 +1,15 @@
+{
+  "title": "Функц 2",
+  "hidden": true,
+  "bodyHtml": "<p>y=<sub>4x<sup>2</sup>-3x+5</sub><sup> <br></sup></p>\n<h3>Input</h3>\n<p>x - нь Int төрлийн бүхэл тоо.</p>\n<h3>Output</h3>\n<p>y-гийн утга.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong><br>-2<br><br><strong>Output:</strong><br>27<br></pre>",
+  "bodyText": "y=4x2-3x+5 \nInput\nx - нь Int төрлийн бүхэл тоо.\nOutput\ny-гийн утга.\nExample\nInput:-2Output:27",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:-2Output:27"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7006/",
+  "code": "RGB7006",
+  "scrapedAt": "2026-06-29T06:36:54.224Z"
+}

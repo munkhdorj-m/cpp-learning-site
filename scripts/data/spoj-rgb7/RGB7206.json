@@ -1,0 +1,15 @@
+{
+  "title": "100-г n удаа нэм",
+  "hidden": true,
+  "bodyHtml": "<p>100-гийн тоог тодорхой давталт ашиглан өгөгдсөн тоон удаа нэм.</p>\n<h3>Input</h3>\n<p>Int төрлийн эерэг тоо өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Нийлбэр</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n6\n<strong>Output:</strong>\n600</pre>",
+  "bodyText": "100-гийн тоог тодорхой давталт ашиглан өгөгдсөн тоон удаа нэм.\nInput\nInt төрлийн эерэг тоо өгөгдөнө.\nOutput\nНийлбэр\nExample\nInput:\n6\nOutput:\n600",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n6\nOutput:\n600"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7206/",
+  "code": "RGB7206",
+  "scrapedAt": "2026-06-29T06:37:50.947Z"
+}

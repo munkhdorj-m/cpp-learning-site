@@ -1,0 +1,105 @@
+{
+  "code": "RGB7113",
+  "status": "ok",
+  "data": {
+    "slug": "less-than-5",
+    "title_mn": "5-аас бага",
+    "title_en": "Less than 5",
+    "statement_mn": "Өгөгдсөн тоо 5-аас бага бол **YES**, үгүй бол **NO** гэж хэвлэ.",
+    "statement_en": "Given an integer, print **YES** if it is less than 5, otherwise print **NO**.",
+    "input_format_mn": "Int төрлийн нэг тоо өгөгдөнө.",
+    "input_format_en": "A single integer is given.",
+    "output_format_mn": "**YES** эсвэл **NO** гэж хэвлэ.",
+    "output_format_en": "Print **YES** or **NO**.",
+    "constraints_mn": "- Тоо нь Int төрлийн (\\(-2^{31}\\) &#x2248; \\(-2.147\\cdot 10^9\\) &#x2013; \\(2^{31}-1\\) &#x2248; \\(2.147\\cdot 10^9\\)) мужид байна.",
+    "constraints_en": "- The integer fits in a 32-bit signed int (\\(-2^{31} \\approx -2.147\\cdot 10^9\\) to \\(2^{31}-1 \\approx 2.147\\cdot 10^9\\)).",
+    "difficulty": "easy",
+    "tags": [
+      "if-else",
+      "conditional",
+      "comparison"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int x;\n    cin >> x;\n    if (x < 5)\n        cout << \"YES\\n\";\n    else\n        cout << \"NO\\n\";\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "4\n",
+        "output": "YES\n"
+      },
+      {
+        "input": "5\n",
+        "output": "NO\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "-100\n",
+      "0\n",
+      "1\n",
+      "3\n",
+      "5\n",
+      "10\n",
+      "1000000\n",
+      "-2147483648\n",
+      "2147483647\n",
+      "-5\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "YES",
+      "got": "YES"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "NO",
+      "got": "NO"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "-100\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "0\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "1\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "3\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "5\n",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "10\n",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "1000000\n",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "-2147483648\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "2147483647\n",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "-5\n",
+      "stdout": "YES\n"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "code": "RGB7473",
+  "status": "compile_error",
+  "error": "C:\\Users\\MUNKHD~1\\AppData\\Local\\Temp\\ref_1782723344240_82fgukwuk13.cpp:1:1: error: 'TBD' does not name a type\r\n TBD\r\n ^~~\r\n",
+  "data": {
+    "slug": "rgb7473-sorted-subsegments",
+    "title_mn": "Эрэмбэлэгдсэн Дэд Хэсгүүд",
+    "title_en": "Sorted Subsegments",
+    "statement_mn": "TBD - will fill",
+    "statement_en": "TBD",
+    "difficulty": "hard",
+    "tags": [
+      "sorting",
+      "prefix-sums",
+      "binary-search"
+    ],
+    "time_limit_ms": 2000,
+    "memory_limit_kb": 262144,
+    "xp_reward": 35,
+    "reference_cpp": "TBD",
+    "samples": [
+      {
+        "input": "TBD",
+        "output": "TBD"
+      }
+    ],
+    "extra_test_inputs": [
+      "TBD"
+    ]
+  }
+}

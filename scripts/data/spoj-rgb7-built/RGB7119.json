@@ -1,0 +1,99 @@
+{
+  "code": "RGB7119",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7119-uliral",
+    "title_mn": "Улирал",
+    "title_en": "Season",
+    "statement_mn": "Өгөгдсөн сар аль улиралд хамаарах вэ. Улирлыг англиар бичихдээ эхний үсгийг томоор бичнэ үү.\n\n2-р сарыг хаварт тооцно уу.",
+    "statement_en": "Given a month number, determine which season it belongs to. When writing the season in English, capitalize the first letter.\n\nConsider February as spring.",
+    "input_format_mn": "Натурал тоо n (1 ≤ n ≤ 12) — сарын дугаар.",
+    "input_format_en": "A single natural number n (1 ≤ n ≤ 12) — the month number.",
+    "output_format_mn": "Аль нэг улирлын нэрийг англиар эхний үсгийг томоор бичнэ: **Spring**, **Summer**, **Autumn**, эсвэл **Winter**.",
+    "output_format_en": "The name of the season in English with the first letter capitalized: **Spring**, **Summer**, **Autumn**, or **Winter**.",
+    "constraints_mn": "- 1 ≤ n ≤ 12",
+    "constraints_en": "- 1 ≤ n ≤ 12",
+    "difficulty": "easy",
+    "tags": [
+      "conditionals",
+      "basic-math"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <string>\n\nint main() {\n    int n;\n    std::cin >> n;\n\n    std::string season;\n\n    // February (2) is spring, so:\n    // Spring:  2, 3, 4\n    // Summer:  5, 6, 7\n    // Autumn:  8, 9, 10\n    // Winter:  11, 12, 1\n    if (n == 2 || n == 3 || n == 4) {\n        season = \"Spring\";\n    } else if (n == 5 || n == 6 || n == 7) {\n        season = \"Summer\";\n    } else if (n == 8 || n == 9 || n == 10) {\n        season = \"Autumn\";\n    } else { // 11, 12, 1\n        season = \"Winter\";\n    }\n\n    std::cout << season << std::endl;\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "3\n",
+        "output": "Spring\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n",
+      "2\n",
+      "4\n",
+      "5\n",
+      "7\n",
+      "8\n",
+      "10\n",
+      "11\n",
+      "12\n",
+      "6\n",
+      "9\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "Spring",
+      "got": "Spring"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n",
+      "stdout": "Winter\n"
+    },
+    {
+      "stdin": "2\n",
+      "stdout": "Spring\n"
+    },
+    {
+      "stdin": "4\n",
+      "stdout": "Spring\n"
+    },
+    {
+      "stdin": "5\n",
+      "stdout": "Summer\n"
+    },
+    {
+      "stdin": "7\n",
+      "stdout": "Summer\n"
+    },
+    {
+      "stdin": "8\n",
+      "stdout": "Autumn\n"
+    },
+    {
+      "stdin": "10\n",
+      "stdout": "Autumn\n"
+    },
+    {
+      "stdin": "11\n",
+      "stdout": "Winter\n"
+    },
+    {
+      "stdin": "12\n",
+      "stdout": "Winter\n"
+    },
+    {
+      "stdin": "6\n",
+      "stdout": "Summer\n"
+    },
+    {
+      "stdin": "9\n",
+      "stdout": "Autumn\n"
+    }
+  ]
+}

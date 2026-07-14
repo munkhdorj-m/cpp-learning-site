@@ -1,0 +1,105 @@
+{
+  "code": "RGB7595",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7595-naashaa-tsaashaa",
+    "title_mn": "Наашаа цаашаа",
+    "title_en": "Back and Forth",
+    "statement_mn": "Жон сүү хадгалах 2 агуулахтай. Агуулах тус бүрд сүү хадгалах нэг нэг том сав, мөн тус бүрд 10 жижиг хувин байгаа.\n\nДаваа гарагт 2 агуулахынхаа сүү хадгалах том савнууддаа яг 1000 литр сүү хадгалсан.\n\nМягмар гарагт 1-р агуулах дахь жижиг хувингуудаас 1-ийг нь сонгож, сүү хадгалах том савнаас дүүргээд 2-р агуулахт хүргэж, сүү хадгалах том сав руу юүлээд саваа тэндээ орхисон.\n\nЛхагва гарагт 2-р агуулах дахь жижиг хувингуудаас (орхисон хувинг сонгож болно) нэгийг нь сонгож, сүү хадгалах том савнаас дүүргээд 1-р агуулахт хүргэж, сүү хадгалах том сав руу юүлээд саваа тэндээ орхисон.\n\nПүрэв гарагт 1-р агуулах дахь жижиг хувингуудаас (орхисон хувинг сонгож болно) нэгийг нь сонгож, сүү хадгалах том савнаас дүүргээд 2-р агуулахт хүргэж, сүү хадгалах том сав руу юүлээд саваа тэндээ орхисон.\n\nБаасан гарагт 2-р агуулах дахь жижиг хувингуудаас (орхисон хувинг сонгож болно) нэгийг нь сонгож, сүү хадгалах том савнаас дүүргээд 1-р агуулахт хүргэж, сүү хадгалах том сав руу юүлээд саваа тэндээ орхисон.\n\nЖон Баасан гарагийн орой 1-р агуулахын сүү хадгалах том савны хэмжээ хэдэн янз болсон байхыг сонирхож байна.",
+    "statement_en": "John has 2 barns for storing milk. Each barn has one large tank for storing milk, and also 10 small buckets.\n\nOn Monday, both barns' large tanks were each filled with exactly 1000 liters of milk.\n\nOn Tuesday, John chooses one of the 10 small buckets in barn 1, fills it from barn 1's large tank, carries it to barn 2, pours it into barn 2's large tank, and leaves the bucket there.\n\nOn Wednesday, he chooses one of the 10 small buckets now in barn 2 (which may include the bucket he left there on Tuesday), fills it from barn 2's large tank, carries it to barn 1, pours it into barn 1's large tank, and leaves the bucket there.\n\nOn Thursday, he chooses one of the 10 small buckets now in barn 1 (which may include the bucket he left there on Wednesday), fills it from barn 1's large tank, carries it to barn 2, pours it into barn 2's large tank, and leaves the bucket there.\n\nOn Friday, he chooses one of the 10 small buckets now in barn 2 (which may include the bucket he left there on Thursday), fills it from barn 2's large tank, carries it to barn 1, pours it into barn 1's large tank, and leaves the bucket there.\n\nJohn is wondering how many different possible amounts of milk could be in barn 1's large tank on Friday evening.",
+    "input_format_mn": "1-р мөрөнд 1-р агуулах дахь 10 жижиг хувингийн хэмжээг илэрхийлэх 10 бүхэл тоо.\n2-р мөрөнд 2-р агуулах дахь 10 жижиг хувингийн хэмжээг илэрхийлэх 10 бүхэл тоо.",
+    "input_format_en": "The first line contains 10 integers — the capacities of the 10 small buckets in barn 1.\nThe second line contains 10 integers — the capacities of the 10 small buckets in barn 2.",
+    "output_format_mn": "Баасан гарагийн орой 1-р агуулахын сүү хадгалах том савны байж болох ялгаатай хэмжээний тоог хэвлэ.",
+    "output_format_en": "Print the number of distinct possible amounts of milk in barn 1's large tank on Friday evening.",
+    "constraints_mn": "- Бүх жижиг хувингийн хэмжээ 1-ээс 100 хүртэлх бүхэл тоо.",
+    "constraints_en": "- All bucket capacities are integers between 1 and 100 inclusive.",
+    "difficulty": "medium",
+    "tags": [
+      "brute-force",
+      "simulation",
+      "sets"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 20,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    vector<int> a(10), b(10);\n    for (int i = 0; i < 10; i++) cin >> a[i];\n    for (int i = 0; i < 10; i++) cin >> b[i];\n\n    // All possible amounts in barn1's tank on Friday evening\n    // Start: 1000\n    // Tue: barn1 loses some bucket amount x (from a), barn2 gains x\n    // Wed: barn2 loses some bucket amount y (from the set of 10 buckets currently in barn2 = b + {x} after Tue), barn1 gains y\n    // Thu: barn1 loses some bucket amount z (from the set of 10 buckets currently in barn1 = a - {x} + {y}), barn2 gains z\n    // Fri: barn2 loses some bucket amount w (from the set of 10 buckets currently in barn2 = b + {x} - {y} + {z}), barn1 gains w\n    //\n    // Net change to barn1 = -x + y - z + w\n    // So final amount = 1000 + (-x + y - z + w)\n\n    // But x is chosen from a (original barn1 buckets)\n    // y is chosen from (b union {x})\n    // z is chosen from (a - {x} union {y})\n    // w is chosen from (b union {x} - {y} union {z})\n\n    // Brute force all possibilities: x from a, y from b or x, z from a or y (but can't be x if x still there? careful)\n    // The bucket is moved and left in the destination barn. So each time the set of buckets in a barn is:\n    // Initially: barn1 has A = multiset a, barn2 has B = multiset b\n    // After Tue: barn1 has A without one copy of x, barn2 has B with one extra copy of x\n    // After Wed: barn2 has (B + {x}) without one copy of y, barn1 has (A - {x}) with one extra copy of y\n    // After Thu: barn1 has (A - {x} + {y}) without one copy of z, barn2 has (B + {x} - {y}) with one extra copy of z\n    // After Fri: barn2 has (B + {x} - {y} + {z}) without one copy of w, barn1 has (A - {x} + {y} - {z}) with one extra copy of w\n    //\n    // Net barn1 = 1000 - x + y - z + w\n\n    // Since bucket capacities are small (1..100) and only 10 per barn, we can brute force all combinations.\n    // Max possibilities: 10 * (11) * (up to 11) * (up to 11) ≈ 10*11*11*11 = 13310, trivial.\n\n    set<int> results;\n\n    for (int xi = 0; xi < 10; xi++) {\n        int x = a[xi];\n\n        // Multiset for barn2 after Tue: b + {x}\n        vector<int> b2 = b;\n        b2.push_back(x); // size 11\n\n        for (int yi = 0; yi < (int)b2.size(); yi++) {\n            int y = b2[yi];\n\n            // Multiset for barn1 after Wed: (a - {x}) + {y}\n            vector<int> a1;\n            bool used_x = false;\n            for (int i = 0; i < 10; i++) {\n                if (!used_x && a[i] == x) {\n                    used_x = true;\n                    continue;\n                }\n                a1.push_back(a[i]);\n            }\n            a1.push_back(y); // size 10\n\n            for (int zi = 0; zi < (int)a1.size(); zi++) {\n                int z = a1[zi];\n\n                // Multiset for barn2 after Thu: (b2 - {y}) + {z}\n                vector<int> b3;\n                bool used_y = false;\n                for (int i = 0; i < (int)b2.size(); i++) {\n                    if (!used_y && b2[i] == y) {\n                        used_y = true;\n                        continue;\n                    }\n                    b3.push_back(b2[i]);\n                }\n                b3.push_back(z); // size 11 again\n\n                for (int wi = 0; wi < (int)b3.size(); wi++) {\n                    int w = b3[wi];\n                    int amount = 1000 - x + y - z + w;\n                    results.insert(amount);\n                }\n            }\n        }\n    }\n\n    cout << results.size() << \"\\n\";\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "1 1 1 1 1 1 1 1 1 2\n5 5 5 5 5 5 5 5 5 5\n",
+        "output": "5\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1 2 3 4 5 6 7 8 9 10\n1 2 3 4 5 6 7 8 9 10\n",
+      "10 20 30 40 50 60 70 80 90 100\n1 1 1 1 1 1 1 1 1 1\n",
+      "1 1 1 1 1 1 1 1 1 1\n1 1 1 1 1 1 1 1 1 1\n",
+      "100 100 100 100 100 100 100 100 100 100\n100 100 100 100 100 100 100 100 100 100\n",
+      "1 2 3 4 5 6 7 8 9 10\n11 12 13 14 15 16 17 18 19 20\n",
+      "5 10 15 20 25 30 35 40 45 50\n2 4 6 8 10 12 14 16 18 20\n",
+      "1 1 1 1 2 2 2 2 3 3\n3 3 4 4 5 5 6 6 7 7\n",
+      "7 13 21 34 55 89 1 2 3 5\n8 13 21 34 55 89 1 2 3 5\n",
+      "42 42 42 42 42 42 42 42 42 42\n99 99 99 99 99 99 99 99 99 99\n",
+      "1 100 1 100 1 100 1 100 1 100\n50 50 50 50 50 50 50 50 50 50\n",
+      "97 68 54 32 11 89 75 44 23 10\n12 33 45 67 78 90 21 43 56 88\n",
+      "1 2 3 4 5 6 7 8 9 10\n5 10 15 20 25 30 35 40 45 50\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "5",
+      "got": "5"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1 2 3 4 5 6 7 8 9 10\n1 2 3 4 5 6 7 8 9 10\n",
+      "stdout": "33\n"
+    },
+    {
+      "stdin": "10 20 30 40 50 60 70 80 90 100\n1 1 1 1 1 1 1 1 1 1\n",
+      "stdout": "28\n"
+    },
+    {
+      "stdin": "1 1 1 1 1 1 1 1 1 1\n1 1 1 1 1 1 1 1 1 1\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "100 100 100 100 100 100 100 100 100 100\n100 100 100 100 100 100 100 100 100 100\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "1 2 3 4 5 6 7 8 9 10\n11 12 13 14 15 16 17 18 19 20\n",
+      "stdout": "37\n"
+    },
+    {
+      "stdin": "5 10 15 20 25 30 35 40 45 50\n2 4 6 8 10 12 14 16 18 20\n",
+      "stdout": "109\n"
+    },
+    {
+      "stdin": "1 1 1 1 2 2 2 2 3 3\n3 3 4 4 5 5 6 6 7 7\n",
+      "stdout": "13\n"
+    },
+    {
+      "stdin": "7 13 21 34 55 89 1 2 3 5\n8 13 21 34 55 89 1 2 3 5\n",
+      "stdout": "272\n"
+    },
+    {
+      "stdin": "42 42 42 42 42 42 42 42 42 42\n99 99 99 99 99 99 99 99 99 99\n",
+      "stdout": "3\n"
+    },
+    {
+      "stdin": "1 100 1 100 1 100 1 100 1 100\n50 50 50 50 50 50 50 50 50 50\n",
+      "stdout": "6\n"
+    },
+    {
+      "stdin": "97 68 54 32 11 89 75 44 23 10\n12 33 45 67 78 90 21 43 56 88\n",
+      "stdout": "234\n"
+    },
+    {
+      "stdin": "1 2 3 4 5 6 7 8 9 10\n5 10 15 20 25 30 35 40 45 50\n",
+      "stdout": "98\n"
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "code": "RGB7521",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7521-max-array-position",
+    "title_mn": "Массивын ихийн байрлал",
+    "title_en": "Max Element Position in 2D Array",
+    "statement_mn": "Өгөгдсөн хоёр хэмжээст массивын хамгийн их элементийг байрлалын хамт хэвлэ.\n\nХэрвээ хамгийн их элемент нэгээс олон байвал мөрийн бага дугаартайг нь (мөрийн дугаар ижил бол баганын бага дугаартайг нь) хэвлэнэ.",
+    "statement_en": "Given a two-dimensional array, print its maximum element together with its position.\n\nIf there are multiple occurrences of the maximum element, print the one with the smallest row index (if rows are the same, print the one with the smallest column index).",
+    "input_format_mn": "Эхний мөрөнд мөрийн болон баганын хэмжээсүүд (n, m) зайгаар тусгаарлагдан өгөгдөнө. Дараагийн n мөрөнд массивын элементүүд мөр мөрөөрөө өгөгдөнө.",
+    "input_format_en": "The first line contains two integers n and m — the number of rows and columns, separated by a space. The next n lines each contain m integers — the elements of the array row by row.",
+    "output_format_mn": "Нэг мөрөнд хамгийн их элемент, мөрийн дугаар, баганын дугаар хоорондоо нэг зайгаар тусгаарлагдан хэвлэгдэнэ. Мөр, баганын дугаарлал 1-ээс эхэлнэ.",
+    "output_format_en": "Print a single line containing three integers: the maximum element, the row index, and the column index, separated by spaces. Row and column indices are 1-based.",
+    "constraints_mn": "- 0 < n, m < 10\n- Элементүүд нь int төрөлд багтах бүхэл тоо.",
+    "constraints_en": "- 0 < n, m < 10\n- All elements fit in the int range.",
+    "difficulty": "easy",
+    "tags": [
+      "2d-array",
+      "max-element",
+      "implementation"
+    ],
+    "time_limit_ms": 500,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <climits>\nusing namespace std;\n\nint main() {\n    int n, m;\n    cin >> n >> m;\n\n    int max_val = INT_MIN;\n    int max_i = 1, max_j = 1;\n\n    for (int i = 1; i <= n; i++) {\n        for (int j = 1; j <= m; j++) {\n            int x;\n            cin >> x;\n            if (x > max_val) {\n                max_val = x;\n                max_i = i;\n                max_j = j;\n            }\n        }\n    }\n\n    cout << max_val << \" \" << max_i << \" \" << max_j << endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "3 4\n1 2 3 4\n4 3 2 1\n6 7 5 7\n",
+        "output": "7 3 2\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1 1\n0\n",
+      "2 2\n-5 -2\n-3 -1\n",
+      "1 5\n10 20 30 40 50\n",
+      "5 1\n3\n7\n1\n8\n2\n",
+      "3 3\n1 2 3\n4 5 6\n7 8 9\n",
+      "2 4\n100 200 300 400\n400 300 200 100\n",
+      "2 3\n-10 -20 -30\n-5 -15 -25\n",
+      "3 2\n1 1\n1 1\n1 1\n",
+      "4 4\n5 5 5 5\n5 5 5 5\n5 5 5 5\n5 5 5 5\n",
+      "9 9\n1 2 3 4 5 6 7 8 9\n2 3 4 5 6 7 8 9 1\n3 4 5 6 7 8 9 1 2\n4 5 6 7 8 9 1 2 3\n5 6 7 8 9 1 2 3 4\n6 7 8 9 1 2 3 4 5\n7 8 9 1 2 3 4 5 6\n8 9 1 2 3 4 5 6 7\n9 1 2 3 4 5 6 7 8\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "7 3 2",
+      "got": "7 3 2"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1 1\n0\n",
+      "stdout": "0 1 1\n"
+    },
+    {
+      "stdin": "2 2\n-5 -2\n-3 -1\n",
+      "stdout": "-1 2 2\n"
+    },
+    {
+      "stdin": "1 5\n10 20 30 40 50\n",
+      "stdout": "50 1 5\n"
+    },
+    {
+      "stdin": "5 1\n3\n7\n1\n8\n2\n",
+      "stdout": "8 4 1\n"
+    },
+    {
+      "stdin": "3 3\n1 2 3\n4 5 6\n7 8 9\n",
+      "stdout": "9 3 3\n"
+    },
+    {
+      "stdin": "2 4\n100 200 300 400\n400 300 200 100\n",
+      "stdout": "400 1 4\n"
+    },
+    {
+      "stdin": "2 3\n-10 -20 -30\n-5 -15 -25\n",
+      "stdout": "-5 2 1\n"
+    },
+    {
+      "stdin": "3 2\n1 1\n1 1\n1 1\n",
+      "stdout": "1 1 1\n"
+    },
+    {
+      "stdin": "4 4\n5 5 5 5\n5 5 5 5\n5 5 5 5\n5 5 5 5\n",
+      "stdout": "5 1 1\n"
+    },
+    {
+      "stdin": "9 9\n1 2 3 4 5 6 7 8 9\n2 3 4 5 6 7 8 9 1\n3 4 5 6 7 8 9 1 2\n4 5 6 7 8 9 1 2 3\n5 6 7 8 9 1 2 3 4\n6 7 8 9 1 2 3 4 5\n7 8 9 1 2 3 4 5 6\n8 9 1 2 3 4 5 6 7\n9 1 2 3 4 5 6 7 8\n",
+      "stdout": "9 1 9\n"
+    }
+  ]
+}

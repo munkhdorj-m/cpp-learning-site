@@ -1,0 +1,13 @@
+{
+  "title": "Супер жаал саад тойрон",
+  "hidden": true,
+  "bodyHtml": "<p style=\"text-align: justify;\"><span style=\"font-size: small;\"><span style=\"white-space: pre;\"> </span>Супер жаал 3 янзаар урагшилж чаддаг. Дараагийн гишгүүрт очихоос гадна 1 болон 2 гишгүүр алгасаж чадна. Замд нь нийтдээ k ширхэг цөмөрсөн шат байгаа бол хичнээн ялгаатай маршрутаар n-р гишгүүрт хүрэх вэ. Цөмөрсөн шатны дугаар өсөх эрэмбээр өгөгдөнө.</span></p>\n<p style=\"text-align: justify;\"><span style=\"font-size: small;\"><span style=\"line-height: 20px;\">Жич : Надад ганган бодолт байгаа. Илүү ганган бодсон нь <a href=\"/cdn-cgi/l/email-protection\" class=\"__cf_email__\" data-cfemail=\"7b1c120b080216153b021a13141455181416\">[email&nbsp;protected]</a> хаягаар бодолтоо илгээнэ үү.</span></span></p>\n<h3>Input</h3>\n<p style=\"text-align: justify;\"><span style=\"font-size: small;\">Эхний мөрөн шатны гишгүүрийн тоо. 3&lt;n&lt;100.</span></p>\n<p style=\"text-align: justify;\"><span style=\"font-size: small;\">Хоёр дахь мөрөнд цөмөрсөн гишгүүрийн тоо. k&lt;n.&nbsp;</span></p>\n<p style=\"text-align: justify;\"><span style=\"font-size: small;\">Гурав дахь мөрөнд цөмөрсөн гишгүүрийн дугаарууд зайгаар тусгаарлагдан өгөгдөнө.</span></p>\n<h3>Output</h3>\n<p><span style=\"font-size: small;\">Маршрутын тоо.</span></p>\n<h3>Example</h3>\n<p><span style=\"font-size: small;\"><strong>Input:<br></strong>10<br>3<br>4 7 8<br> <strong>Output:<br></strong>10</span></p>",
+  "bodyText": "Супер жаал 3 янзаар урагшилж чаддаг. Дараагийн гишгүүрт очихоос гадна 1 болон 2 гишгүүр алгасаж чадна. Замд нь нийтдээ k ширхэг цөмөрсөн шат байгаа бол хичнээн ялгаатай маршрутаар n-р гишгүүрт хүрэх вэ. Цөмөрсөн шатны дугаар өсөх эрэмбээр өгөгдөнө.\nЖич : Надад ганган бодолт байгаа. Илүү ганган бодсон нь [email protected] хаягаар бодолтоо илгээнэ үү.\nInput\nЭхний мөрөн шатны гишгүүрийн тоо. 3<n<100.\nХоёр дахь мөрөнд цөмөрсөн гишгүүрийн тоо. k<n. \nГурав дахь мөрөнд цөмөрсөн гишгүүрийн дугаарууд зайгаар тусгаарлагдан өгөгдөнө.\nOutput\nМаршрутын тоо.\nExample\nInput:1034 7 8 Output:10",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7603/",
+  "code": "RGB7603",
+  "scrapedAt": "2026-06-29T06:40:13.048Z"
+}

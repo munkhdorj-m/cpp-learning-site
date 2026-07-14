@@ -1,0 +1,49 @@
+{
+  "code": "RGB7390",
+  "status": "compile_error",
+  "error": "C:\\Users\\MUNKHD~1\\AppData\\Local\\Temp\\ref_1782723157033_520vphwa1o.cpp: In function 'int main()':\r\nC:\\Users\\MUNKHD~1\\AppData\\Local\\Temp\\ref_1782723157033_520vphwa1o.cpp:97:45: error: no matching function for call to 'BigInt::divide(std::__cxx11::string)'\r\n             count.divide(fact[k].to_string()); // this is hack-ish, let's just compute by dividing by k! directly using integer arithmetic\r\n                                             ^\r\nC:\\Users\\MUNKHD~1\\AppData\\Local\\Temp\\ref_1782723157033_520vphwa1o.cpp:39:10: note: candidate: void BigInt::divide(long long int)\r\n     void divide(long long x) {\r\n          ^~~~~~\r\nC:\\Users\\MUNKHD~1\\AppData\\Local\\Temp\\ref_1782723157033_520vphwa1o.cpp:39:10: note:   no known conversion for argument 1 from 'std::__cxx11::string {aka std::__cxx11::basic_string<char>}' to 'long long int'\r\n",
+  "data": {
+    "slug": "rgb7390-palindrome-formation",
+    "title_mn": "Палиндром үүсгэ",
+    "title_en": "Form a Palindrome",
+    "statement_mn": "Өгөгдсөн тооны цифрүүдийн байрыг солих замаар хичнээн палиндром тоо үүсгэж болох вэ. Мөн үүсгэж болох палиндром тоонуудаас хамгийн их палиндром тоог хэвлэ.\n\nТоо тэг (`0`) цифр агуулаагүй, тоонд оролцсон цифрүүд тэгш тоотой байна.\n\nПалиндром тоо гэдэг нь зүүнээс баруун, баруунаас зүүн тийш уншихад ижил тоо байхыг хэлнэ.",
+    "statement_en": "Given a number, how many distinct palindromic numbers can be formed by rearranging its digits? Also, print the largest palindromic number that can be formed.\n\nThe number does not contain the digit `0`, and every digit appears an even number of times.\n\nA palindrome is a number that reads the same forwards and backwards.",
+    "input_format_mn": "Натурал тоо өгөгдөнө. Оронгийн тоо 40-өөс ихгүй.",
+    "input_format_en": "A single natural number. The number of digits does not exceed 40.",
+    "output_format_mn": "Эхний мөрөнд өгөгдсөн тооны цифрүүдээр үүсгэж болох палиндром тоонуудын тоо.\n\nХоёр дахь мөрөнд үүсгэж болох палиндром тоонуудын хамгийн их тоо.",
+    "output_format_en": "The first line contains the number of distinct palindromes that can be formed.\n\nThe second line contains the largest such palindrome.",
+    "constraints_mn": "- Оронгийн тоо $n$: $1 \\le n \\le 40$\n- $n$ нь тэгш тоо.\n- Цифрүүд `1`-`9` (тэг байхгүй).\n- Цифр бүр тэгш тоогоор орно.",
+    "constraints_en": "- Number of digits $n$: $1 \\le n \\le 40$\n- $n$ is even.\n- Digits are from `1` to `9` (no zero).\n- Every digit appears an even number of times.",
+    "difficulty": "hard",
+    "tags": [
+      "palindrome",
+      "counting",
+      "combinatorics",
+      "big-integers"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 66000,
+    "xp_reward": 35,
+    "samples": [
+      {
+        "input": "12123333\n",
+        "output": "12\n33211233\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "11",
+      "1111",
+      "1212",
+      "11223344",
+      "1111111111111111111111111111111111111111",
+      "11",
+      "22",
+      "11111111111111111111111111111111111111111111111111",
+      "123456789123456789123456789123456789",
+      "9999999999999999999999999999999999999999",
+      "1919",
+      "1122446688"
+    ],
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\n// Big integer for counting palindromes and for constructing the largest palindrome\nstruct BigInt {\n    string s; // stored in reverse (least significant first)\n    BigInt() : s(\"0\") {}\n    BigInt(long long x) {\n        if (x == 0) s = \"0\";\n        else {\n            s = \"\";\n            while (x) { s.push_back('0' + (x % 10)); x /= 10; }\n        }\n    }\n    BigInt(const string &str) {\n        s = str;\n        reverse(s.begin(), s.end());\n    }\n    void add(const BigInt &other) {\n        int carry = 0;\n        size_t i;\n        for (i = 0; i < s.size() || i < other.s.size() || carry; ++i) {\n            if (i >= s.size()) s.push_back('0');\n            int sum = (s[i] - '0') + (i < other.s.size() ? other.s[i] - '0' : 0) + carry;\n            carry = sum / 10;\n            s[i] = '0' + (sum % 10);\n        }\n    }\n    void multiply(long long x) {\n        if (x == 0) { s = \"0\"; return; }\n        long long carry = 0;\n        for (size_t i = 0; i < s.size() || carry; ++i) {\n            if (i >= s.size()) s.push_back('0');\n            long long prod = (s[i] - '0') * x + carry;\n            s[i] = '0' + (prod % 10);\n            carry = prod / 10;\n        }\n    }\n    void divide(long long x) {\n        if (x == 0) return;\n        string res;\n        long long rem = 0;\n        for (int i = (int)s.size() - 1; i >= 0; --i) {\n            rem = rem * 10 + (s[i] - '0');\n            res.push_back('0' + (rem / x));\n            rem %= x;\n        }\n        // remove leading zeros\n        size_t pos = res.find_first_not_of('0');\n        if (pos == string::npos) {\n            s = \"0\";\n        } else {\n            res = res.substr(pos);\n            reverse(res.begin(), res.end());\n            s = res;\n        }\n    }\n    string to_string() const {\n        string t = s;\n        reverse(t.begin(), t.end());\n        return t;\n    }\n};\n\nBigInt fact[21]; // factorials up to 20! (max half length = 20)\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string num;\n    cin >> num;\n\n    // Count digit frequencies\n    int freq[10] = {0};\n    for (char c : num) {\n        freq[c - '0']++;\n    }\n\n    // total half length = n/2\n    int n = (int)num.size();\n    int half = n / 2;\n\n    // Precompute factorials\n    fact[0] = BigInt(1);\n    for (int i = 1; i <= half; ++i) {\n        fact[i] = fact[i-1];\n        fact[i].multiply(i);\n    }\n\n    // Count distinct palindromes = (half)! / prod_over_digits (freq[d]/2)!\n    // But digits that appear 0 times contribute freq[d]/2 = 0! = 1, so fine.\n    BigInt count = fact[half];\n    for (int d = 0; d <= 9; ++d) {\n        int k = freq[d] / 2;\n        if (k > 0) {\n            count.divide(fact[k].to_string()); // this is hack-ish, let's just compute by dividing by k! directly using integer arithmetic\n        }\n    }\n\n    // Actually let's redo count properly using long double? No, we need exact.\n    // We'll compute count by multiplying/dividing stepwise to avoid big division issues.\n    // Simpler: compute count as multinomial coefficient using repeated multiplication and division.\n    // Re-do:\n    count = BigInt(1);\n    // Numerator: multiply by 1..half\n    // Denominator: for each digit d, multiply by 1..(freq[d]/2)\n    // We'll do count = 1; for i=2..half: count = count * i / ... \n    // Better: use factorial and division as above but implement divide(BigInt) properly.\n\n    // Let's implement divide(BigInt) - actually we'll just do integer division by small ints.\n    // Recompute cleanly:\n    count = BigInt(1);\n    // Multiply by 1..half\n    for (int i = 2; i <= half; ++i) {\n        count.multiply(i);\n    }\n    // Divide by (freq[d]/2)! for each d\n    for (int d = 0; d <= 9; ++d) {\n        int k = freq[d] / 2;\n        for (int i = 2; i <= k; ++i) {\n            count.divide(i);\n        }\n    }\n\n    // Output count\n    cout << count.to_string() << \"\\n\";\n\n    // Construct largest palindrome:\n    // For each digit from 9 down to 0, take half of its frequency for the left half.\n    string left = \"\";\n    for (int d = 9; d >= 0; --d) {\n        int k = freq[d] / 2;\n        left.append(k, '0' + d);\n    }\n    string right = left;\n    reverse(right.begin(), right.end());\n    string largest = left + right;\n    // Remove leading zeros (shouldn't happen because highest digit freq > 0)\n    cout << largest << \"\\n\";\n\n    return 0;\n}\n"
+  }
+}

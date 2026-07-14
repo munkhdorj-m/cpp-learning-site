@@ -1,0 +1,15 @@
+{
+  "title": "Синус косинус",
+  "hidden": true,
+  "bodyHtml": "<p>(cos1/sin1)*((cos1+cos2)/(sin1+sin2))*...((cos1+cos2+...+cosn)/(sin1+sin2+...+sinn)) нийлбэрийг ол.</p>\n<h3>Input</h3>\n<p>Натурал тоо n өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Үржвэр. Таслалаас хойш 3 оронгийн нарийвчлалтайгаар гарга.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n2\n\n<strong>Output:</strong>\n0.046\n</pre>",
+  "bodyText": "(cos1/sin1)*((cos1+cos2)/(sin1+sin2))*...((cos1+cos2+...+cosn)/(sin1+sin2+...+sinn)) нийлбэрийг ол.\nInput\nНатурал тоо n өгөгдөнө.\nOutput\nҮржвэр. Таслалаас хойш 3 оронгийн нарийвчлалтайгаар гарга.\nExample\nInput:\n2\n\nOutput:\n0.046",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n2\n\nOutput:\n0.046"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7233/",
+  "code": "RGB7233",
+  "scrapedAt": "2026-06-29T06:40:02.538Z"
+}

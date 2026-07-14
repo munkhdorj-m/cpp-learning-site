@@ -1,0 +1,94 @@
+{
+  "code": "RGB7300",
+  "status": "ok",
+  "data": {
+    "slug": "orongiyn-too",
+    "title_mn": "Оронгийн тоо",
+    "title_en": "Number of Digits",
+    "statement_mn": "Өгөгдсөн натурал тооны оронг тоол.",
+    "statement_en": "Count the number of digits of a given natural number.",
+    "input_format_mn": "Нэг мөрөнд нэг натурал тоо өгөгдөнө.",
+    "input_format_en": "A single line containing one natural number.",
+    "output_format_mn": "Тухайн тооны оронгийн тоог илэрхийлсэн нэг бүхэл тоог хэвлэнэ.",
+    "output_format_en": "Print a single integer representing the number of digits of the given number.",
+    "constraints_mn": "- Тоо нь 1-ээс 10^9-ийн хооронд байна.",
+    "constraints_en": "- The number is between 1 and 10^9 inclusive.",
+    "difficulty": "easy",
+    "tags": [
+      "math",
+      "implementation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <string>\n\nint main() {\n    std::string s;\n    std::cin >> s;\n    std::cout << s.length() << std::endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "12345\n",
+        "output": "5\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n",
+      "9\n",
+      "10\n",
+      "99\n",
+      "100\n",
+      "999\n",
+      "1000\n",
+      "999999999\n",
+      "1000000000\n",
+      "123456789\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "5",
+      "got": "5"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "9\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "10\n",
+      "stdout": "2\n"
+    },
+    {
+      "stdin": "99\n",
+      "stdout": "2\n"
+    },
+    {
+      "stdin": "100\n",
+      "stdout": "3\n"
+    },
+    {
+      "stdin": "999\n",
+      "stdout": "3\n"
+    },
+    {
+      "stdin": "1000\n",
+      "stdout": "4\n"
+    },
+    {
+      "stdin": "999999999\n",
+      "stdout": "9\n"
+    },
+    {
+      "stdin": "1000000000\n",
+      "stdout": "10\n"
+    },
+    {
+      "stdin": "123456789\n",
+      "stdout": "9\n"
+    }
+  ]
+}

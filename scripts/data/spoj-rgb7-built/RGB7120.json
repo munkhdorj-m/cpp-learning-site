@@ -1,0 +1,105 @@
+{
+  "code": "RGB7120",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7120-triangle-check",
+    "title_mn": "Гурвалжин эсэх",
+    "title_en": "Is it a triangle?",
+    "statement_mn": "Өгөгдсөн 3 тоогоор талаа хийсэн гурвалжинг байгуулж болох бол `YES`, үгүй бол `NO` гэж хэвлэ.",
+    "statement_en": "Given three numbers as side lengths, print `YES` if a triangle can be formed, otherwise print `NO`.",
+    "input_format_mn": "Нэг мөрөнд 3 натурал тоо (`a`, `b`, `c`) зайгаар тусгаарлагдан өгөгдөнө.",
+    "input_format_en": "A single line containing three natural numbers `a`, `b`, `c` separated by spaces.",
+    "output_format_mn": "Гурвалжин байгуулж болох бол `YES`, үгүй бол `NO` гэж хэвлэ.",
+    "output_format_en": "Print `YES` if a triangle can be formed, otherwise print `NO`.",
+    "constraints_mn": "- 1 ≤ `a`, `b`, `c` ≤ 10^9",
+    "constraints_en": "- 1 ≤ `a`, `b`, `c` ≤ 10^9",
+    "difficulty": "easy",
+    "tags": [
+      "triangle-inequality",
+      "geometry",
+      "conditional"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\nusing namespace std;\n\nint main() {\n    long long a, b, c;\n    cin >> a >> b >> c;\n    \n    bool ok = (a + b > c) && (a + c > b) && (b + c > a);\n    \n    cout << (ok ? \"YES\" : \"NO\") << endl;\n    \n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "3 4 5\n",
+        "output": "YES\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1 1 1\n",
+      "1 2 3\n",
+      "5 5 10\n",
+      "10 10 1\n",
+      "1000000000 1000000000 1000000000\n",
+      "1 1 2\n",
+      "7 8 14\n",
+      "1 1000000000 1000000000\n",
+      "999999999 1 999999999\n",
+      "1000000000 1 1\n",
+      "2 3 4\n",
+      "5 12 13\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "YES",
+      "got": "YES"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1 1 1\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "1 2 3\n",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "5 5 10\n",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "10 10 1\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "1000000000 1000000000 1000000000\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "1 1 2\n",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "7 8 14\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "1 1000000000 1000000000\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "999999999 1 999999999\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "1000000000 1 1\n",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "2 3 4\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "5 12 13\n",
+      "stdout": "YES\n"
+    }
+  ]
+}

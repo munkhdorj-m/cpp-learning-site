@@ -1,0 +1,135 @@
+{
+  "code": "RGB7281",
+  "status": "ok",
+  "data": {
+    "slug": "balance-check",
+    "title_mn": "Хөшүүрэг",
+    "title_en": "Lever Balance",
+    "statement_mn": "Танд хөшүүргийн тодорхойлолт болох **s** тэмдэгт мөр өгөгджээ. Уг тэмдэгт мөрийн уртыг |s| гэж үзвэл хөшүүрэг нь |s|-1 урттай, яг 1 тулах цэгтэй болно. Бид уг хөшүүргийг **Ox** тэнхлэг дээр 0-с s − 1 цэг дээр байгаа гэж үзье.\n\nХөшүүргийн мэдээллийг дараах байдлаар илэрхийлье:\n\n- Тэмдэгт мөрийн *i*-р элемент `^` тэмдэгт байвал *i* цэг дээр тулгуур байгаа.\n- Тэмдэгт мөрийн *i*-р элемент `=` тэмдэгт байвал *i* цэг дээр ачаа байхгүй.\n- Тэмдэгт мөрийн *i*-р элемент **c** (1-9) тоо байвал *i* цэг дээр **c** жинтэй ачаа тавьсан.\n\nТаны даалгавар бол өгөгдсөн хөшүүрэг нь тэнцвэрт байгаа эсэхийг тодорхойлох юм. Хөшүүргийн хавтан өөрийн жингүй гэж үз. Анх хөшүүрэг тэнцвэрт байсан бөгөөд бүх ачааг зэрэг тавьсан болно. Үүний дараа хөшүүрэг зүүн, эсвэл баруун тийшээ хазайна. Мөн тэнцвэртэй хэвээр үлдэж болно.\n",
+    "statement_en": "You are given a string **s** describing a lever. The lever has length |s|-1 and exactly one fulcrum. Consider the lever placed on the **Ox** axis at points 0 through |s|-1.\n\nThe string encodes the lever as follows:\n\n- If the *i*-th character is `^`, there is a fulcrum at point *i*.\n- If the *i*-th character is `=`, there is no load at point *i*.\n- If the *i*-th character is a digit **c** (1-9), there is a weight of magnitude **c** at point *i*.\n\nYour task is to determine whether the given lever is balanced. The lever's beam is weightless. Initially the lever is balanced, and all weights are placed simultaneously. After that, the lever may tilt left, right, or stay balanced.\n",
+    "input_format_mn": "Оролтонд `^`, `=` тэмдэгт болон 1-9 цифрээс тогтох **s** (3 ≤ |s| ≤ 10<sup>6</sup>) тэмдэгт мөр өгөгдөнө. Оролтонд яг ганц `^` тэмдэгт байна. Мөн хөшүүргийн тулгуур аль нэг захад байрлахгүй.\n",
+    "input_format_en": "The input consists of a single line — a string **s** (3 ≤ |s| ≤ 10<sup>6</sup>) composed of characters `^`, `=`, and digits `1`-`9`. The string contains exactly one `^`, which is not at either end.\n",
+    "output_format_mn": "Хэрвээ зүүн тийшээ хазайх бол `left`, баруун тийшээ хазайх бол `right`, тэнцвэртэй байх бол `balance` гэж хэвлэ.\n",
+    "output_format_en": "If the lever tilts left, output `left`; if it tilts right, output `right`; if it is balanced, output `balance`.\n",
+    "constraints_mn": "- 3 ≤ |s| ≤ 10<sup>6</sup>\n- Яг ганц `^` тэмдэгт байна.\n- `^` тэмдэгт хамгийн эхний эсвэл хамгийн сүүлчийн байрлалд байхгүй.\n",
+    "constraints_en": "- 3 ≤ |s| ≤ 10<sup>6</sup>\n- Exactly one `^` character.\n- The `^` is not at the first or last position.\n",
+    "difficulty": "easy",
+    "tags": [
+      "torque",
+      "prefix-sum",
+      "balance"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string s;\n    cin >> s;\n    int n = (int)s.size();\n\n    // Find the fulcrum position\n    int pivot = -1;\n    for (int i = 0; i < n; ++i) {\n        if (s[i] == '^') {\n            pivot = i;\n            break;\n        }\n    }\n\n    long long torque = 0;\n    for (int i = 0; i < n; ++i) {\n        if (s[i] >= '1' && s[i] <= '9') {\n            int weight = s[i] - '0';\n            int dist = i - pivot;  // positive = right side, negative = left side\n            torque += 1LL * weight * dist;\n        }\n    }\n\n    if (torque < 0) {\n        cout << \"left\\n\";\n    } else if (torque > 0) {\n        cout << \"right\\n\";\n    } else {\n        cout << \"balance\\n\";\n    }\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "=^==",
+        "output": "balance"
+      },
+      {
+        "input": "9===^==1",
+        "output": "left"
+      },
+      {
+        "input": "2==^7==",
+        "output": "right"
+      },
+      {
+        "input": "41^52==",
+        "output": "balance"
+      }
+    ],
+    "extra_test_inputs": [
+      "1^=",
+      "3^3",
+      "9^9",
+      "=^=1",
+      "1^===",
+      "=====^======",
+      "111^111",
+      "999^999",
+      "12345^6789====",
+      "======^987654321",
+      "=^=2=3=4=5=6=7=8=9=8=7=6=5=4=3=2=1=",
+      "9=8=7=6=5=4=3=2=1^1=2=3=4=5=6=7=8=9"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "balance",
+      "got": "balance"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "left",
+      "got": "left"
+    },
+    {
+      "i": 2,
+      "ok": true,
+      "expected": "right",
+      "got": "right"
+    },
+    {
+      "i": 3,
+      "ok": true,
+      "expected": "balance",
+      "got": "balance"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1^=",
+      "stdout": "left\n"
+    },
+    {
+      "stdin": "3^3",
+      "stdout": "balance\n"
+    },
+    {
+      "stdin": "9^9",
+      "stdout": "balance\n"
+    },
+    {
+      "stdin": "=^=1",
+      "stdout": "right\n"
+    },
+    {
+      "stdin": "1^===",
+      "stdout": "left\n"
+    },
+    {
+      "stdin": "=====^======",
+      "stdout": "balance\n"
+    },
+    {
+      "stdin": "111^111",
+      "stdout": "balance\n"
+    },
+    {
+      "stdin": "999^999",
+      "stdout": "balance\n"
+    },
+    {
+      "stdin": "12345^6789====",
+      "stdout": "right\n"
+    },
+    {
+      "stdin": "======^987654321",
+      "stdout": "right\n"
+    },
+    {
+      "stdin": "=^=2=3=4=5=6=7=8=9=8=7=6=5=4=3=2=1=",
+      "stdout": "right\n"
+    },
+    {
+      "stdin": "9=8=7=6=5=4=3=2=1^1=2=3=4=5=6=7=8=9",
+      "stdout": "balance\n"
+    }
+  ]
+}

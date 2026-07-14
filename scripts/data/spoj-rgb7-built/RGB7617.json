@@ -1,0 +1,95 @@
+{
+  "code": "RGB7617",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7617-max-subarray-sum",
+    "title_mn": "Нийлбэр нь их дараалсан",
+    "title_en": "Maximum Subarray Sum",
+    "statement_mn": "Бүхэл тоон дараалал дотроос нийлбэр нь хамгийн их байх дараалсан тоонуудын нийлбэрийг ол.\n\n### Оролт\nЭхний мөрөнд натурал тоо **n** өгөгдөнө.\nДараагийн мөрөнд **n** ширхэг бүхэл тоо зайгаар тусгаарлагдан өгөгдөнө.\n\n### Гаралт\nНийлбэр нь хамгийн их дараалсан тоонуудын нийлбэрийг хэвлэ.\n\n### Жишээ\n**Оролт:**\n```\n4\n-2 5 -3 6\n```\n**Гаралт:**\n```\n8\n```",
+    "statement_en": "Given a sequence of integers, find the maximum possible sum of a contiguous (non-empty) subsequence.\n\n### Input\nThe first line contains a positive integer **n**.\nThe next line contains **n** integers separated by spaces.\n\n### Output\nPrint the maximum sum of any contiguous subarray.\n\n### Example\n**Input:**\n```\n4\n-2 5 -3 6\n```\n**Output:**\n```\n8\n```",
+    "input_format_mn": "Эхний мөрөнд натурал тоо **n** өгөгдөнө. Дараагийн мөрөнд **n** ширхэг бүхэл тоо зайгаар тусгаарлагдан өгөгдөнө.",
+    "input_format_en": "The first line contains a single integer **n**. The next line contains **n** integers separated by spaces.",
+    "output_format_mn": "Нийлбэр нь хамгийн их дараалсан тоонуудын нийлбэрийг хэвлэ.",
+    "output_format_en": "Print the maximum sum of any contiguous subarray.",
+    "constraints_mn": "- **1 ≤ n ≤ 100**\n- Тоо бүр нь int төрөлд багтах бүхэл тоо (C++ int, ойролцоогоор -2·10⁹ … 2·10⁹)",
+    "constraints_en": "- **1 ≤ n ≤ 100**\n- Each integer fits into a 32-bit signed integer (C++ int, roughly -2·10⁹ … 2·10⁹)",
+    "difficulty": "easy",
+    "tags": [
+      "maximum-subarray",
+      "kadane",
+      "array"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <vector>\n#include <climits>\n\nusing namespace std;\n\nint main() {\n    ios_base::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n\n    vector<int> a(n);\n    for (int i = 0; i < n; ++i) {\n        cin >> a[i];\n    }\n\n    int best = INT_MIN;\n    int current = 0;\n\n    for (int i = 0; i < n; ++i) {\n        current += a[i];\n        if (current > best) {\n            best = current;\n        }\n        if (current < 0) {\n            current = 0;\n        }\n    }\n\n    cout << best << '\\n';\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "4\n-2 5 -3 6\n",
+        "output": "8\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n0\n",
+      "1\n-100\n",
+      "5\n1 2 3 4 5\n",
+      "5\n-1 -2 -3 -4 -5\n",
+      "6\n2 -1 2 -1 2 -1\n",
+      "5\n100 -200 150 -50 100\n",
+      "3\n1000000000 0 -1000000000\n",
+      "10\n-5 1 2 3 -10 5 6 -1 2 4\n",
+      "2\n-10 5\n",
+      "6\n-3 4 -1 2 1 -5\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "8",
+      "got": "8"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n0\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "1\n-100\n",
+      "stdout": "-100\n"
+    },
+    {
+      "stdin": "5\n1 2 3 4 5\n",
+      "stdout": "15\n"
+    },
+    {
+      "stdin": "5\n-1 -2 -3 -4 -5\n",
+      "stdout": "-1\n"
+    },
+    {
+      "stdin": "6\n2 -1 2 -1 2 -1\n",
+      "stdout": "4\n"
+    },
+    {
+      "stdin": "5\n100 -200 150 -50 100\n",
+      "stdout": "200\n"
+    },
+    {
+      "stdin": "3\n1000000000 0 -1000000000\n",
+      "stdout": "1000000000\n"
+    },
+    {
+      "stdin": "10\n-5 1 2 3 -10 5 6 -1 2 4\n",
+      "stdout": "16\n"
+    },
+    {
+      "stdin": "2\n-10 5\n",
+      "stdout": "5\n"
+    },
+    {
+      "stdin": "6\n-3 4 -1 2 1 -5\n",
+      "stdout": "6\n"
+    }
+  ]
+}

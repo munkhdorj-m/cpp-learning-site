@@ -1,0 +1,15 @@
+{
+  "title": "Цаг, минут, секунд -> секунд",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн цаг, минут, секундыг секунд рүү шилжүүл.</p>\n<h3>Input</h3>\n<p>Цаг, минут, секунд зайгаар тусгаарлагдан нэг мөрөнд Int төрлөөр өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Секунд гарна.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n1 2 3\n<strong>Output:</strong>\n3723</pre>",
+  "bodyText": "Өгөгдсөн цаг, минут, секундыг секунд рүү шилжүүл.\nInput\nЦаг, минут, секунд зайгаар тусгаарлагдан нэг мөрөнд Int төрлөөр өгөгдөнө.\nOutput\nСекунд гарна.\nExample\nInput:\n1 2 3\nOutput:\n3723",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n1 2 3\nOutput:\n3723"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7014/",
+  "code": "RGB7014",
+  "scrapedAt": "2026-06-29T06:37:08.384Z"
+}

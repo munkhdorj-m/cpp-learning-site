@@ -1,0 +1,99 @@
+{
+  "code": "RGB7594",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7594-huwin",
+    "title_mn": "Хувин",
+    "title_en": "Buckets",
+    "statement_mn": "Үхэрчин үнээгээ саахдаа 1 эгнээнд цувуулан өрсөн хувингуудын эхнээс нь хэрэгтэй тоогоороо авч хэрэглээд дуусахаараа мөн эхэнд нь буцааж өрдөг.\n\nҮхэрчин 1...N хүртэл дугаарлагдсан N (1 ≤ N ≤ 100) үхэртэй. i-р үнээг s<sub>i</sub>-аас t<sub>i</sub> хугацаа хүртэл саахдаа b<sub>i</sub> ширхэг хувин ашиглан саадаг.\n\nБүх үнээгээ ирсэн хугацааны дараалаар нь сааж дуусахад нэгэн зэрэг ашиглагдах хувингийн хамгийн их тоог ол.",
+    "statement_en": "When milking his cows, a herder takes buckets from the front of a row of buckets, uses as many as needed, and when finished returns them to the front of the row.\n\nThe herder has N cows numbered 1...N (1 ≤ N ≤ 100). When milking the i-th cow, from time s<sub>i</sub> to time t<sub>i</sub>, it uses b<sub>i</sub> buckets.\n\nAfter all cows are milked in order of their arrival time, find the maximum number of buckets that are used simultaneously.",
+    "input_format_mn": "Эхний мөрөнд үнээний тоо N өгөгдөнө.\n\nДараагийн N мөрөнд мөр бүрт 1 үнээг саах эхлэх, дуусах хугацаа болон саахад ашиглах хувингийн тоо өгөгдөнө: s<sub>i</sub>, t<sub>i</sub>, b<sub>i</sub>.",
+    "input_format_en": "The first line contains an integer N, the number of cows.\n\nEach of the next N lines contains three integers: s<sub>i</sub>, t<sub>i</sub>, b<sub>i</sub> — the start time, end time, and number of buckets needed for the i-th cow.",
+    "output_format_mn": "Нэгэн зэрэг ашиглагдах хувингийн хамгийн их тоог харуулсан нэг мөр гарга.",
+    "output_format_en": "Output a single line containing the maximum number of buckets used simultaneously.",
+    "constraints_mn": "- 1 ≤ N ≤ 100\n- 1 ≤ s<sub>i</sub> ≤ t<sub>i</sub> ≤ 1000\n- 1 ≤ b<sub>i</sub> ≤ 10",
+    "constraints_en": "- 1 ≤ N ≤ 100\n- 1 ≤ s<sub>i</sub> ≤ t<sub>i</sub> ≤ 1000\n- 1 ≤ b<sub>i</sub> ≤ 10",
+    "difficulty": "easy",
+    "tags": [
+      "sweep-line",
+      "simulation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int N;\n    cin >> N;\n\n    const int MAX_T = 1000;\n    vector<int> buckets_in_use(MAX_T + 2, 0);\n\n    for (int i = 0; i < N; i++) {\n        int s, t, b;\n        cin >> s >> t >> b;\n        buckets_in_use[s] += b;\n        buckets_in_use[t + 1] -= b;\n    }\n\n    int current = 0;\n    int max_buckets = 0;\n    for (int time = 1; time <= MAX_T + 1; time++) {\n        current += buckets_in_use[time];\n        if (current > max_buckets) {\n            max_buckets = current;\n        }\n    }\n\n    cout << max_buckets << \"\\n\";\n    return 0;\n}",
+    "samples": [
+      {
+        "input": "3\n4 10 1\n8 13 3\n2 6 2\n",
+        "output": "4\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n1 10 5",
+      "2\n1 5 3\n1 5 4",
+      "5\n1 2 1\n2 3 1\n3 4 1\n4 5 1\n5 6 1",
+      "3\n1 10 10\n1 10 10\n1 10 10",
+      "4\n1 3 2\n2 5 3\n4 7 1\n6 10 2",
+      "1\n1 1 10",
+      "10\n1 5 2\n2 6 3\n7 10 1\n8 12 4\n9 15 2\n10 20 5\n11 18 3\n12 16 2\n13 19 1\n14 20 4",
+      "3\n1 1000 10\n500 1000 10\n1 999 10",
+      "2\n1 2 1\n3 4 1",
+      "6\n1 1 5\n2 2 3\n3 3 7\n4 4 2\n5 5 6\n6 6 4",
+      "3\n1 1000 5\n500 1000 5\n1 500 5"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "4",
+      "got": "4"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n1 10 5",
+      "stdout": "5\n"
+    },
+    {
+      "stdin": "2\n1 5 3\n1 5 4",
+      "stdout": "7\n"
+    },
+    {
+      "stdin": "5\n1 2 1\n2 3 1\n3 4 1\n4 5 1\n5 6 1",
+      "stdout": "2\n"
+    },
+    {
+      "stdin": "3\n1 10 10\n1 10 10\n1 10 10",
+      "stdout": "30\n"
+    },
+    {
+      "stdin": "4\n1 3 2\n2 5 3\n4 7 1\n6 10 2",
+      "stdout": "5\n"
+    },
+    {
+      "stdin": "1\n1 1 10",
+      "stdout": "10\n"
+    },
+    {
+      "stdin": "10\n1 5 2\n2 6 3\n7 10 1\n8 12 4\n9 15 2\n10 20 5\n11 18 3\n12 16 2\n13 19 1\n14 20 4",
+      "stdout": "17\n"
+    },
+    {
+      "stdin": "3\n1 1000 10\n500 1000 10\n1 999 10",
+      "stdout": "30\n"
+    },
+    {
+      "stdin": "2\n1 2 1\n3 4 1",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "6\n1 1 5\n2 2 3\n3 3 7\n4 4 2\n5 5 6\n6 6 4",
+      "stdout": "7\n"
+    },
+    {
+      "stdin": "3\n1 1000 5\n500 1000 5\n1 500 5",
+      "stdout": "15\n"
+    }
+  ]
+}

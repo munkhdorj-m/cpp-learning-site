@@ -1,0 +1,115 @@
+{
+  "code": "RGB7161",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7161",
+    "title_mn": "Төвийн тэгшхэм",
+    "title_en": "Center Symmetry",
+    "statement_mn": "3×3 хүснэгтийн нүд бүр `x` ба `.` тэмдэгтүүдийн аль нэг нь байна. Голын нүдний хувьд тэгш хэмтэй эсэхийг шалгана уу.\n\nХүснэгтийг 180° эргүүлэхэд анхны хүснэгттэй яг ижил байвал төвийн тэгш хэмтэй гэж үзнэ. Өөрөөр хэлбэл, `(i, j)` ба `(2-i, 2-j)` байрлалд (0-indexed) үргэлж ижил тэмдэгт байх ёстой.",
+    "statement_en": "Each cell of a 3×3 grid contains either the character `x` or `.`. Check whether the grid is symmetric with respect to the center.\n\nA grid is symmetric about its center if rotating it by 180° yields exactly the same grid. In other words, for every cell `(i, j)` (0-indexed), the character at `(i, j)` must equal the character at `(2-i, 2-j)`.",
+    "input_format_mn": "Гурван мөрөнд хүснэгтийн мөрүүд өгөгдөнө. Мөр бүр нь зөвхөн `x` ба `.` тэмдэгтээс бүрдсэн яг 3 тэмдэгттэй байна.",
+    "input_format_en": "Three lines, each containing exactly 3 characters consisting only of `x` and `.`.",
+    "output_format_mn": "Хэрэв төвийн тэгш хэмтэй бол `YES`, үгүй бол `NO` гэж хэвлэ.",
+    "output_format_en": "Print `YES` if the grid is centrally symmetric, otherwise print `NO`.",
+    "constraints_mn": "- Оролт нь яг 3 мөр, мөр бүр яг 3 тэмдэгт.\n- Тэмдэгт нь зөвхөн `x` эсвэл `.`.",
+    "constraints_en": "- The input consists of exactly 3 lines, each containing exactly 3 characters.\n- Characters are only `x` or `.`.",
+    "difficulty": "easy",
+    "tags": [
+      "strings",
+      "implementation",
+      "2d-array"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string grid[3];\n    for (int i = 0; i < 3; i++) {\n        cin >> grid[i];\n    }\n    for (int i = 0; i < 3; i++) {\n        for (int j = 0; j < 3; j++) {\n            if (grid[i][j] != grid[2 - i][2 - j]) {\n                cout << \"NO\" << endl;\n                return 0;\n            }\n        }\n    }\n    cout << \"YES\" << endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "XX.\n...\n.XX",
+        "output": "YES"
+      },
+      {
+        "input": "X.X\nX..\n...",
+        "output": "NO"
+      }
+    ],
+    "extra_test_inputs": [
+      "...\n...\n...",
+      "xxx\nxxx\nxxx",
+      "x..\n...\n..x",
+      "..x\n...\nx..",
+      "xx.\n.x.\n.xx",
+      ".x.\nx.x\n.x.",
+      "x..\n.x.\n..x",
+      "..x\n.x.\nx..",
+      "xxx\n...\nxxx",
+      "x.x\n.x.\nx.x",
+      "xx.\n..x\n.xx",
+      "x..\n..x\n..."
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "YES",
+      "got": "YES"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "NO",
+      "got": "NO"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "...\n...\n...",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "xxx\nxxx\nxxx",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "x..\n...\n..x",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "..x\n...\nx..",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "xx.\n.x.\n.xx",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": ".x.\nx.x\n.x.",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "x..\n.x.\n..x",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "..x\n.x.\nx..",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "xxx\n...\nxxx",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "x.x\n.x.\nx.x",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "xx.\n..x\n.xx",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "x..\n..x\n...",
+      "stdout": "NO\n"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "title": "Монотонд ялгаатай нь",
+  "hidden": true,
+  "bodyHtml": "<p>N элементтэй бүхэл тоон монотон өсөх тоон дараалал өгөгдөв. Монотон өсөх тоон дараалал гэдэг нь элемент бүр нь өмнөхөөсөө багагүй байхыг хэлнэ. Жишээ нь : {1, 2, 2, 3, 3, 4}&nbsp;</p>\n<p style=\"font-family: Arial, Helvetica, sans-serif; font-size: 13px;\" align=\"\\\\\\\"><span style=\"font-size: 1.17em; font-family: Verdana, Arial, Helvetica, sans-serif;\">Input</span></p>\n<p>Эхний мөрөнд массивын элементийн тоо N өгөгдөнө. N&lt;=100.</p>\n<p>Дараагийн мөрөнд массивын элементүүд хоорондоо нэг зайгаар тусгаарлагдан өгөгдөнө. Int төрөл.</p>\n<h3>Output</h3>\n<p>Ялгаатай элементийн тоо.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n7</pre>\n<pre>1 2 2 5 7 7 7\n\n<strong>Output:</strong>\n4</pre>",
+  "bodyText": "N элементтэй бүхэл тоон монотон өсөх тоон дараалал өгөгдөв. Монотон өсөх тоон дараалал гэдэг нь элемент бүр нь өмнөхөөсөө багагүй байхыг хэлнэ. Жишээ нь : {1, 2, 2, 3, 3, 4} \nInput\nЭхний мөрөнд массивын элементийн тоо N өгөгдөнө. N<=100.\nДараагийн мөрөнд массивын элементүүд хоорондоо нэг зайгаар тусгаарлагдан өгөгдөнө. Int төрөл.\nOutput\nЯлгаатай элементийн тоо.\nExample\nInput:\n7\n1 2 2 5 7 7 7\n\nOutput:\n4",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n7",
+    "1 2 2 5 7 7 7\n\nOutput:\n4"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7515/",
+  "code": "RGB7515",
+  "scrapedAt": "2026-06-29T06:41:58.338Z"
+}

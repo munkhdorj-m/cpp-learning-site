@@ -1,0 +1,115 @@
+{
+  "code": "RGB7857",
+  "status": "ok",
+  "data": {
+    "slug": "time-conversion-am-pm-to-24h",
+    "title_mn": "Цаг хувиргалт",
+    "title_en": "Time Conversion",
+    "statement_mn": "Өгөгдсөн 12 цагийн форматтай (AM-PM) цагийг 24 цагийн форматтай болгож өөрчил.",
+    "statement_en": "Convert the given time in 12-hour (AM/PM) format to 24-hour format.",
+    "input_format_mn": "Цаг минут секундыг илэрхийлэх нэг тэмдэгт мөр **цц:мм:ссAM** эсвэл **цц:мм:ссPM** хэлбэрээр өгөгдөнө (жишээ нь `07:05:45PM`).",
+    "input_format_en": "A single line containing the time in the format **hh:mm:ssAM** or **hh:mm:ssPM** (e.g. `07:05:45PM`).",
+    "output_format_mn": "24 цагийн **цц:мм:сс** формат руу шилжүүлэн хэвлэнэ (00 <= ЦЦ <= 23).",
+    "output_format_en": "Print the converted time in 24-hour format **hh:mm:ss** (00 <= hh <= 23).",
+    "constraints_mn": "- 01 <= цц <= 12\n- 00 <= мм, сс <= 59",
+    "constraints_en": "- 01 <= hh <= 12\n- 00 <= mm, ss <= 59",
+    "difficulty": "easy",
+    "tags": [
+      "string",
+      "time-conversion",
+      "conditionals"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <string>\n#include <iomanip>\n\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string s;\n    cin >> s;\n\n    // s = \"hh:mm:ssAM\" or \"hh:mm:ssPM\"\n    int h = stoi(s.substr(0, 2));\n    string mm = s.substr(3, 2);\n    string ss = s.substr(6, 2);\n    string ampm = s.substr(8, 2);\n\n    if (ampm == \"AM\") {\n        if (h == 12) h = 0;\n    } else { // PM\n        if (h != 12) h += 12;\n    }\n\n    cout << setw(2) << setfill('0') << h << \":\"\n         << mm << \":\" << ss << \"\\n\";\n\n    return 0;\n}",
+    "samples": [
+      {
+        "input": "07:05:45PM",
+        "output": "19:05:45"
+      },
+      {
+        "input": "12:05:39AM",
+        "output": "00:05:39"
+      }
+    ],
+    "extra_test_inputs": [
+      "12:00:00AM",
+      "12:00:00PM",
+      "01:00:00AM",
+      "01:00:00PM",
+      "11:59:59AM",
+      "11:59:59PM",
+      "12:30:15AM",
+      "12:30:15PM",
+      "07:00:00AM",
+      "07:00:00PM",
+      "09:08:07AM",
+      "09:08:07PM"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "19:05:45",
+      "got": "19:05:45"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "00:05:39",
+      "got": "00:05:39"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "12:00:00AM",
+      "stdout": "00:00:00\n"
+    },
+    {
+      "stdin": "12:00:00PM",
+      "stdout": "12:00:00\n"
+    },
+    {
+      "stdin": "01:00:00AM",
+      "stdout": "01:00:00\n"
+    },
+    {
+      "stdin": "01:00:00PM",
+      "stdout": "13:00:00\n"
+    },
+    {
+      "stdin": "11:59:59AM",
+      "stdout": "11:59:59\n"
+    },
+    {
+      "stdin": "11:59:59PM",
+      "stdout": "23:59:59\n"
+    },
+    {
+      "stdin": "12:30:15AM",
+      "stdout": "00:30:15\n"
+    },
+    {
+      "stdin": "12:30:15PM",
+      "stdout": "12:30:15\n"
+    },
+    {
+      "stdin": "07:00:00AM",
+      "stdout": "07:00:00\n"
+    },
+    {
+      "stdin": "07:00:00PM",
+      "stdout": "19:00:00\n"
+    },
+    {
+      "stdin": "09:08:07AM",
+      "stdout": "09:08:07\n"
+    },
+    {
+      "stdin": "09:08:07PM",
+      "stdout": "21:08:07\n"
+    }
+  ]
+}

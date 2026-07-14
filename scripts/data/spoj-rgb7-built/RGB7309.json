@@ -1,0 +1,105 @@
+{
+  "code": "RGB7309",
+  "status": "ok",
+  "data": {
+    "slug": "palindrome-check",
+    "title_mn": "Палиндром эсэх",
+    "title_en": "Palindrome Check",
+    "statement_mn": "Өгөгдсөн тоо палиндром бол **YES**, үгүй бол **NO** гэж хэвлэ. Палиндром тоо гэдэг нь тонгорогсон тоотойгоо тэнцүү тоог хэлнэ.",
+    "statement_en": "Given an integer, print **YES** if it is a palindrome, and **NO** otherwise. A palindrome number is a number that is equal to its reverse.",
+    "input_format_mn": "Нэг мөрөнд нэг бүхэл тоо өгөгдөнө.",
+    "input_format_en": "A single line containing one integer.",
+    "output_format_mn": "Палиндром бол **YES**, үгүй бол **NO** гэж хэвлэ.",
+    "output_format_en": "Print **YES** if the number is a palindrome, otherwise print **NO**.",
+    "constraints_mn": "- Тоо нь 0-ээс 10^18 хүртэлх бүхэл тоо байна.",
+    "constraints_en": "- The integer is between 0 and 10^18 inclusive.",
+    "difficulty": "easy",
+    "tags": [
+      "palindrome",
+      "string",
+      "implementation"
+    ],
+    "time_limit_ms": 500,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <string>\n#include <algorithm>\n\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string s;\n    cin >> s;\n\n    string rev = s;\n    reverse(rev.begin(), rev.end());\n\n    if (s == rev) {\n        cout << \"YES\\n\";\n    } else {\n        cout << \"NO\\n\";\n    }\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "12321\n",
+        "output": "YES\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "0\n",
+      "1\n",
+      "7\n",
+      "11\n",
+      "121\n",
+      "123456789987654321\n",
+      "100\n",
+      "12345678901234567890\n",
+      "1111111111111111111\n",
+      "12345678900987654321\n",
+      "10\n",
+      "999999999999999999\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "YES",
+      "got": "YES"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "0\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "1\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "7\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "11\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "121\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "123456789987654321\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "100\n",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "12345678901234567890\n",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "1111111111111111111\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "12345678900987654321\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "10\n",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "999999999999999999\n",
+      "stdout": "YES\n"
+    }
+  ]
+}

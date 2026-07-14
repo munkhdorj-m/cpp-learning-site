@@ -1,0 +1,13 @@
+{
+  "title": "Цөөн квадрат",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Өгөгдсөн тэгш өнцөгтийг хамгийн цөөн квадратадуудад хуваа.&nbsp;&nbsp;</span></p>\n<h3>Input</h3>\n<p><span style=\"font-size: small;\">2 бүхэл эерэг тоо зайгаар тусгаарлагдан өгөгдөнө.</span></p>\n<h3>Output</h3>\n<p><span style=\"font-size: small;\">Мөр тус бүрт квадратын талын хэмжээ хэдэн ширхэг байгааг зайгаар тусгаарлан хэвлэнэ.</span></p>\n<h3>Example</h3>\n<p><span style=\"font-size: small;\"><strong>Input 1:</strong> </span></p>\n<p><span style=\"font-size: small;\">11 4</span></p>\n<p><span style=\"font-size: small;\"> <strong>Output:</strong></span></p>\n<p><span style=\"font-size: x-small;\"> </span></p>\n<div id=\"_mcePaste\" style=\"position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\">3 1</div>\n<div id=\"_mcePaste\" style=\"position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow: hidden;\">1 3</div>\n<p>&nbsp;</p>\n<p><span style=\"font-size: small;\">4 2</span></p>\n<p><span style=\"font-size: small;\">3 1</span></p>\n<p><span style=\"font-size: small;\">1 3</span></p>\n<p>&nbsp;</p>",
+  "bodyText": "Өгөгдсөн тэгш өнцөгтийг хамгийн цөөн квадратадуудад хуваа.  \nInput\n2 бүхэл эерэг тоо зайгаар тусгаарлагдан өгөгдөнө.\nOutput\nМөр тус бүрт квадратын талын хэмжээ хэдэн ширхэг байгааг зайгаар тусгаарлан хэвлэнэ.\nExample\nInput 1: \n11 4\n Output:\n \n3 1\n1 3\n \n4 2\n3 1\n1 3",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7317/",
+  "code": "RGB7317",
+  "scrapedAt": "2026-06-29T06:39:09.732Z"
+}

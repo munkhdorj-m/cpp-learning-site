@@ -1,0 +1,15 @@
+{
+  "title": "Цаг минут секунд",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн секундыг цаг минут секунд болго.</p>\n<h3>Input</h3>\n<p>Секунд Int төрлийн тоон утгаар өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Цаг, минут, секундууд хоорондоо 1 зайгаар тусгаарлагдан хэвлэгдэнэ. Цаг минут руу шилжихгүй бол 0 хэвлэнэ.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n3612<br><strong>Output:</strong>\n1 0 12</pre>",
+  "bodyText": "Өгөгдсөн секундыг цаг минут секунд болго.\nInput\nСекунд Int төрлийн тоон утгаар өгөгдөнө.\nOutput\nЦаг, минут, секундууд хоорондоо 1 зайгаар тусгаарлагдан хэвлэгдэнэ. Цаг минут руу шилжихгүй бол 0 хэвлэнэ.\nExample\nInput:\n3612Output:\n1 0 12",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n3612Output:\n1 0 12"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7012/",
+  "code": "RGB7012",
+  "scrapedAt": "2026-06-29T06:37:04.861Z"
+}

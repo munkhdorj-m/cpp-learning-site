@@ -1,0 +1,59 @@
+{
+  "code": "RGB7925",
+  "status": "ref_wrong_on_samples",
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": false,
+      "expected": "1 3\n2 3\n4 4\n2 3",
+      "got": "4 4\n1 1\n3 3\n2 2"
+    }
+  ],
+  "data": {
+    "slug": "rgb7925-scrambled-letters",
+    "title_mn": "Холимог үсгүүд",
+    "title_en": "Scrambled Letters",
+    "statement_mn": "Фермер Жон өөрийн N үнээний (1 ≤ N ≤ 50,000) цагаан толгойн дарааллаар эрэмблэгдсэн жагсаалтыг амбаарын хаалганд наасан байв. Үнээ бүрийн нэр нь 1-ээс 20 хүртэлх жижиг латин үсэгнээс тогтсон, хоорондоо ялгаатай тэмдэгт мөр юм. Үрмийн төвөгчин Бесси үнээний нэрсийг өөрчлөн дахин эрэмбэлж, мөн үнээ бүрийн нэрний үсгүүдийг хольж хутгасан байна. Та өөрчлөгдсөн жагсаалт өгөгдсөн үед жагсаалтын үнээ бүрийн анхны жагсаалтад байж болох хамгийн бага болон хамгийн их байрлалыг олоход Фермер Жонд туслана уу.\n\n**Тэмдэглэл:** \"Байрлал\" гэдэг нь жагсаалтын индексийг (1-ээс эхлэх) хэлнэ. Анхны жагсаалт цагаан толгойн дарааллаар эрэмблэгдсэн тул үнээний нэрийн үсгүүдийг цагаан толгойн дарааллаар эрэмблэвэл анхны нэрийг олж болохгүй — зөвхөн үсгийн багц нь ижил байна.",
+    "statement_en": "Farmer John keeps an alphabetically-ordered list of his N cows (1 ≤ N ≤ 50,000) taped to the barn door. Each cow name is represented by a distinct string of between 1 and 20 lower-case characters. Always the troublemaker, Bessie the cow alters the list by re-ordering the cows on the list. In addition, she also scrambles the letters in each cow's name. Given this modified list, please help Farmer John compute, for each entry in the list, the lowest and highest positions at which it could have possibly appeared in the original list.\n\n**Note:** \"Position\" refers to the 1-based index in the list. Since the original list was alphabetically ordered, scrambling a name changes its letters but the multiset of letters remains the same.",
+    "input_format_mn": "Эхний мөрөнд N бүхэл тоо агуулагдана. Дараагийн N мөрөнд өөрчлөгдсөн жагсаалтын үнээний нэрс (жижиг латин үсгээр бичигдсэн тэмдэгт мөр) агуулагдана. Бүх нэрс ялгаатай.",
+    "input_format_en": "Line 1: An integer N (1 ≤ N ≤ 50,000).  \nLines 2..N+1: The modified list entries, one per line. Each entry is a distinct string of 1–20 lowercase letters.",
+    "output_format_mn": "Жагсаалтад орсон дарааллаар, мөр бүрт хоёр бүхэл тоо: тухайн үнээний анхны жагсаалтад байж болох хамгийн бага байрлал, хамгийн их байрлал.",
+    "output_format_en": "For each entry in the order they appear in the input, output two integers: the lowest possible 1-based position in the original list, and the highest possible 1-based position in the original list.",
+    "constraints_mn": "- 1 ≤ N ≤ 50,000\n- Нэр бүр 1-ээс 20 хүртэлх жижиг латин үсэг ('a'-'z') агуулна.\n- Бүх нэрс хоорондоо ялгаатай.",
+    "constraints_en": "- 1 ≤ N ≤ 50,000\n- Each name consists of 1–20 lowercase letters ('a'–'z').\n- All names are distinct.",
+    "difficulty": "medium",
+    "tags": [
+      "sorting",
+      "two-pointers",
+      "strings"
+    ],
+    "time_limit_ms": 2000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 20,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios_base::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int N;\n    cin >> N;\n\n    vector<string> a(N);\n    for (int i = 0; i < N; ++i) {\n        cin >> a[i];\n    }\n\n    // For each name, produce its \"sorted-letter\" canonical form.\n    // Also store original index.\n    vector<pair<string, int>> sorted(N);\n    for (int i = 0; i < N; ++i) {\n        string s = a[i];\n        sort(s.begin(), s.end());\n        sorted[i] = {s, i};\n    }\n\n    // Sort by canonical form (and by original index for tie-breaking).\n    sort(sorted.begin(), sorted.end());\n\n    // For each position in sorted order, the \"lowest possible original position\"\n    // for this canonical key is determined by the first occurrence of that key,\n    // and the \"highest possible original position\" by the last occurrence.\n    // We'll compute answer for each original index.\n    vector<int> lo(N), hi(N);\n    int i = 0;\n    while (i < N) {\n        int j = i;\n        while (j < N && sorted[j].first == sorted[i].first) {\n            ++j;\n        }\n        // All indices from i to j-1 have the same canonical form.\n        // The lowest possible original position for any of these is (i+1).\n        // The highest possible original position for any of these is (j).\n        for (int k = i; k < j; ++k) {\n            int idx = sorted[k].second;\n            lo[idx] = i + 1;\n            hi[idx] = j;  // j is the count, which equals the last possible position\n        }\n        i = j;\n    }\n\n    for (int i = 0; i < N; ++i) {\n        cout << lo[i] << \" \" << hi[i] << \"\\n\";\n    }\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "4\nesor\nnoitat\nxffe\nniat\n",
+        "output": "1 3\n2 3\n4 4\n2 3\n"
+      },
+      {
+        "input": "3\na\nb\nc\n",
+        "output": "1 1\n2 2\n3 3\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "5\nabc\nbac\ncab\ncba\nacb\n",
+      "1\na\n",
+      "2\nab\nba\n",
+      "6\nhello\nworld\nhello\nolelh\nworld\ndlorw\n",
+      "10\naaa\naab\naac\naba\nabb\nabc\nbaa\nbab\nbac\ncaa\n",
+      "4\nxyz\nxzy\nyxz\nyzx\n",
+      "2\na\nb\n",
+      "3\nab\nabc\na\n",
+      "3\nz\nya\nax\n",
+      "20\nabc\nbca\ncab\ncba\nacb\nbac\na\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk\nl\nm\nn\n",
+      "1\nzzzzzzzzzzzzzzzzzzzz\n",
+      "2\nqwertyuioplkjhgfdsazxcvbnm\nmnbvcxzlkjhgfdsapoiuytrewq\n"
+    ]
+  }
+}

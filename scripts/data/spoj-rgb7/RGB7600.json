@@ -1,0 +1,13 @@
+{
+  "title": "Хүүн довтолгоо",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\"><span style=\"white-space: pre;\"> </span>Хүү n гишгүүртэй шатаар өгсөхдөө 2 янзаар урагшилж чадна. Зогсож байгаа гишгүүрийнхээ дараах гишгүүрт, эсвэл 1 алгасаад дараагийн гишгүүрт алхаж очно. Нэгдүгээр гишгүүрийн өмнө зогсож байгаа хүү n-р гишгүүр хүртэл хичнээн ялгаатай маршрутаар алхаж очиж вэ?</span></p>\n<p><span style=\"font-size: small;\"><span style=\"color: #555555; line-height: 20px; text-align: justify;\">Жич : 2 өөр алгоритмаар бодолт хийгдээд байгаа. 3 дахь бодолт байвал саналаа <a href=\"/cdn-cgi/l/email-protection\" class=\"__cf_email__\" data-cfemail=\"e2858b92919b8f8ca29b838a8d8dcc818d8f\">[email&nbsp;protected]</a> хаягаар илгээнэ үү.</span></span></p>\n<h3>Input</h3>\n<p><span style=\"font-size: small;\">Шатан дахь гишгүүрийн тоо натурал тоогоор өгөгдөнө. n&lt;=88.</span></p>\n<h3>Output</h3>\n<p><span style=\"font-size: small;\">Маршрутын тоо.</span></p>\n<h3>Example</h3>\n<p><span style=\"font-size: small;\"><strong>Input:</strong> </span></p>\n<p><span style=\"font-size: small;\">5 </span></p>\n<p><span style=\"font-size: small;\"><strong>Output:</strong> </span></p>\n<p><span style=\"font-size: small;\">8</span></p>",
+  "bodyText": "Хүү n гишгүүртэй шатаар өгсөхдөө 2 янзаар урагшилж чадна. Зогсож байгаа гишгүүрийнхээ дараах гишгүүрт, эсвэл 1 алгасаад дараагийн гишгүүрт алхаж очно. Нэгдүгээр гишгүүрийн өмнө зогсож байгаа хүү n-р гишгүүр хүртэл хичнээн ялгаатай маршрутаар алхаж очиж вэ?\nЖич : 2 өөр алгоритмаар бодолт хийгдээд байгаа. 3 дахь бодолт байвал саналаа [email protected] хаягаар илгээнэ үү.\nInput\nШатан дахь гишгүүрийн тоо натурал тоогоор өгөгдөнө. n<=88.\nOutput\nМаршрутын тоо.\nExample\nInput: \n5 \nOutput: \n8",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7600/",
+  "code": "RGB7600",
+  "scrapedAt": "2026-06-29T06:40:11.277Z"
+}

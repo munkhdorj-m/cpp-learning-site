@@ -1,0 +1,15 @@
+{
+  "title": "Минут секунд",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн секундыг минут секунд болго.</p>\n<h3>Input</h3>\n<p>Секунд Int тоон утгаар өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Минут секундыг зайгаар тусгаарлан хэвлэ.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong><br>200<br><br><strong>Output:</strong><br>3 20<br></pre>",
+  "bodyText": "Өгөгдсөн секундыг минут секунд болго.\nInput\nСекунд Int тоон утгаар өгөгдөнө.\nOutput\nМинут секундыг зайгаар тусгаарлан хэвлэ.\nExample\nInput:200Output:3 20",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:200Output:3 20"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7011/",
+  "code": "RGB7011",
+  "scrapedAt": "2026-06-29T06:37:03.121Z"
+}

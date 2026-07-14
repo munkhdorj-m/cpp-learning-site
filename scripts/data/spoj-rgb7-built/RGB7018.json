@@ -1,0 +1,94 @@
+{
+  "code": "RGB7018",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7018-year-month-to-months",
+    "title_mn": "Жил сар -> сар",
+    "title_en": "Year Month -> Months",
+    "statement_mn": "Өгөгдсөн жил, сарыг сард шилжүүл.",
+    "statement_en": "Convert the given year and month into months.",
+    "input_format_mn": "Жил, сар нэг мөрөнд зайгаар тусгаарлагдан Int төрлөөр өгөгдөнө.",
+    "input_format_en": "A single line containing two integers separated by a space: the year and the month.",
+    "output_format_mn": "Сар хэвлэгдэнэ.",
+    "output_format_en": "Print the total number of months.",
+    "constraints_mn": "- Жил: 0 ≤ жил ≤ 10^9<br>- Сар: 1 ≤ сар ≤ 12",
+    "constraints_en": "- Year: 0 ≤ year ≤ 10^9<br>- Month: 1 ≤ month ≤ 12",
+    "difficulty": "easy",
+    "tags": [
+      "arithmetic",
+      "basic-math"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n\nusing namespace std;\n\nint main() {\n    ios_base::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    long long year, month;\n    cin >> year >> month;\n    cout << year * 12 + month << \"\\n\";\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "2 7\n",
+        "output": "31\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "0 1\n",
+      "0 12\n",
+      "1 1\n",
+      "5 6\n",
+      "100 7\n",
+      "1000000 1\n",
+      "1000000000 12\n",
+      "999999999 11\n",
+      "0 7\n",
+      "123456789 3\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "31",
+      "got": "31"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "0 1\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "0 12\n",
+      "stdout": "12\n"
+    },
+    {
+      "stdin": "1 1\n",
+      "stdout": "13\n"
+    },
+    {
+      "stdin": "5 6\n",
+      "stdout": "66\n"
+    },
+    {
+      "stdin": "100 7\n",
+      "stdout": "1207\n"
+    },
+    {
+      "stdin": "1000000 1\n",
+      "stdout": "12000001\n"
+    },
+    {
+      "stdin": "1000000000 12\n",
+      "stdout": "12000000012\n"
+    },
+    {
+      "stdin": "999999999 11\n",
+      "stdout": "11999999999\n"
+    },
+    {
+      "stdin": "0 7\n",
+      "stdout": "7\n"
+    },
+    {
+      "stdin": "123456789 3\n",
+      "stdout": "1481481471\n"
+    }
+  ]
+}

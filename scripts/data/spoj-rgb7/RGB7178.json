@@ -1,0 +1,15 @@
+{
+  "title": "Нийлбэр",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Натурал тоог дэс дараалсан натурал тооны нийлбэрт хэд хэдэн янзаар задалж бичиж болно. </span></p>\n<p><span style=\"font-size: small;\">Жишээ нь 15=7+8, 15=4+5+6, 15=1+2+3+4+5 гэх мэт.</span></p>\n<p><span style=\"font-size: small;\">N натурал тоог хамгийн олон тооны нийлбэрт задлаж бичих програм зохио.</span></p>\n<h3><span style=\"font-size: small;\">Input</span></h3>\n<p><span style=\"font-size: small;\">Натурал тоо N, 1&lt;=N&lt;=10^9</span></p>\n<h3><span style=\"font-size: small;\">Output</span></h3>\n<p><span style=\"font-size: small;\">Хамгийн олон дараалсан тооны нийлбэрийн эхний тоо ба уг нийлбэрийн тоонуудын тоо болох хос тоо байна.</span></p>\n<h3>Example</h3>\n<p><strong><span style=\"font-size: small;\">Input:</span></strong></p>\n<p><span style=\"font-size: small;\">14</span></p>\n<p><strong><span style=\"font-size: small;\">Output:</span></strong></p>\n<p><span style=\"font-size: small;\">2 4</span></p>\n<pre><strong>Тайлбар:</strong>&nbsp;14=2+3+4+5 учир нийлбэрийн хамгийн бага тоо 2, нийт 4 тооны нийлбэрт хамгийн уртдаа бичиж болно.</pre>",
+  "bodyText": "Натурал тоог дэс дараалсан натурал тооны нийлбэрт хэд хэдэн янзаар задалж бичиж болно. \nЖишээ нь 15=7+8, 15=4+5+6, 15=1+2+3+4+5 гэх мэт.\nN натурал тоог хамгийн олон тооны нийлбэрт задлаж бичих програм зохио.\nInput\nНатурал тоо N, 1<=N<=10^9\nOutput\nХамгийн олон дараалсан тооны нийлбэрийн эхний тоо ба уг нийлбэрийн тоонуудын тоо болох хос тоо байна.\nExample\nInput:\n14\nOutput:\n2 4\nТайлбар: 14=2+3+4+5 учир нийлбэрийн хамгийн бага тоо 2, нийт 4 тооны нийлбэрт хамгийн уртдаа бичиж болно.",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Тайлбар: 14=2+3+4+5 учир нийлбэрийн хамгийн бага тоо 2, нийт 4 тооны нийлбэрт хамгийн уртдаа бичиж болно."
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7178/",
+  "code": "RGB7178",
+  "scrapedAt": "2026-06-29T06:43:19.677Z"
+}

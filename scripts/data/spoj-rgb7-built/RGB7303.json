@@ -1,0 +1,114 @@
+{
+  "code": "RGB7303",
+  "status": "ok",
+  "data": {
+    "slug": "sum-of-even-digits",
+    "title_mn": "Тэгш цифрүүдийн нийлбэр",
+    "title_en": "Sum of Even Digits",
+    "statement_mn": "Өгөгдсөн бүхэл тоон дахь **тэгш цифрүүдийн нийлбэрийг** ол.\n\nТэгш цифр гэдэг нь 0, 2, 4, 6, 8 цифрүүдийг хэлнэ.",
+    "statement_en": "Find the **sum of even digits** in a given integer.\n\nEven digits are 0, 2, 4, 6, 8.",
+    "input_format_mn": "Нэг мөрөнд нэг бүхэл тоо өгөгдөнө.",
+    "input_format_en": "A single integer on one line.",
+    "output_format_mn": "Тэгш цифрүүдийн нийлбэрийг илэрхийлэх нэг бүхэл тоог хэвлэнэ.",
+    "output_format_en": "Print a single integer — the sum of all even digits.",
+    "constraints_mn": "* −10⁹ ≤ тоо ≤ 10⁹\n* Тэмдэг (хасах) нь тоон цифрт хамаарахгүй.",
+    "constraints_en": "* −10⁹ ≤ number ≤ 10⁹\n* The sign (minus) is not considered a digit.",
+    "difficulty": "easy",
+    "tags": [
+      "digit-extraction",
+      "conditionals"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <cstdlib>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n\n    // Work with absolute value so sign doesn't matter\n    n = abs(n);\n\n    int sum = 0;\n    while (n > 0) {\n        int digit = n % 10;\n        if (digit % 2 == 0) {\n            sum += digit;\n        }\n        n /= 10;\n    }\n\n    cout << sum << endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "34567\n",
+        "output": "10\n"
+      },
+      {
+        "input": "0\n",
+        "output": "0\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n",
+      "2\n",
+      "8\n",
+      "9\n",
+      "24680\n",
+      "13579\n",
+      "-123456\n",
+      "-222\n",
+      "1000000000\n",
+      "-1000000000\n",
+      "111111111\n",
+      "0\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "10",
+      "got": "10"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "0",
+      "got": "0"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "2\n",
+      "stdout": "2\n"
+    },
+    {
+      "stdin": "8\n",
+      "stdout": "8\n"
+    },
+    {
+      "stdin": "9\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "24680\n",
+      "stdout": "20\n"
+    },
+    {
+      "stdin": "13579\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "-123456\n",
+      "stdout": "12\n"
+    },
+    {
+      "stdin": "-222\n",
+      "stdout": "6\n"
+    },
+    {
+      "stdin": "1000000000\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "-1000000000\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "111111111\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "0\n",
+      "stdout": "0\n"
+    }
+  ]
+}

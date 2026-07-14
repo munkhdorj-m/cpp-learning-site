@@ -1,0 +1,13 @@
+{
+  "title": "Урт факториал",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Өгөгдсөн n тоооны факториал-г ол.</span></p>\n<p><span style=\"font-size: small;\"><strong>Оролт</strong></span></p>\n<p><span style=\"font-size: small;\">Шинэ мөрөнд n тоо өгөгдөнө. (1&lt;=n&lt;=100)</span></p>\n<p><span style=\"font-size: small;\"><strong>Гаралт</strong></span></p>\n<p><span style=\"font-size: small;\">n тооны факториaлыг хэвлэ.</span></p>\n<p><span style=\"font-size: small;\"><strong>Тэмдэглэл</strong></span></p>\n<p><span style=\"font-size: small;\">n&gt;20 үед long long төрөл багадна.</span></p>\n<p><span style=\"font-size: small;\"><strong>Жишээ </strong></span></p>\n<p><span style=\"font-size: small;\"><strong>Оролт</strong></span></p>\n<p><span style=\"font-size: small;\">25</span></p>\n<p><span style=\"font-size: small;\"><strong>Гаралт</strong></span></p>\n<p><span style=\"font-size: small;\">15511210043330985984000000</span></p>\n<p><span style=\"font-size: small;\"><span style=\"font-size: small; font-style: italic; box-sizing: border-box; font-weight: 700;\">Орчуулсан : Дархан-Уул аймгийн Монгол-Оюу сургуулийн 11.1 ангийн сурагч Э.Цэлмэг</span><span style=\"font-size: small; font-style: italic;\">&nbsp;</span></span></p>",
+  "bodyText": "Өгөгдсөн n тоооны факториал-г ол.\nОролт\nШинэ мөрөнд n тоо өгөгдөнө. (1<=n<=100)\nГаралт\nn тооны факториaлыг хэвлэ.\nТэмдэглэл\nn>20 үед long long төрөл багадна.\nЖишээ \nОролт\n25\nГаралт\n15511210043330985984000000\nОрчуулсан : Дархан-Уул аймгийн Монгол-Оюу сургуулийн 11.1 ангийн сурагч Э.Цэлмэг",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7863/",
+  "code": "RGB7863",
+  "scrapedAt": "2026-06-29T06:50:57.714Z"
+}

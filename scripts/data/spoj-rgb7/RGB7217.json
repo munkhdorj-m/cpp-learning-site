@@ -1,0 +1,15 @@
+{
+  "title": "Давхар факториал",
+  "hidden": true,
+  "bodyHtml": "<p>n!! - ыг ол. n тоо тэгш бол n хүртэлх тэгш тоонуудын үржвэр. n тоо сондгой бол n хүртэлх сондгой тоонуудын үржвэр. n=6 үед 2*4*6=48, n=7 үед 1*3*5*7=105</p>\n<h3>Input</h3>\n<p>Натурал тоо өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Давхар факториал.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n6\n\n<strong>Output:</strong>\n48\n</pre>",
+  "bodyText": "n!! - ыг ол. n тоо тэгш бол n хүртэлх тэгш тоонуудын үржвэр. n тоо сондгой бол n хүртэлх сондгой тоонуудын үржвэр. n=6 үед 2*4*6=48, n=7 үед 1*3*5*7=105\nInput\nНатурал тоо өгөгдөнө.\nOutput\nДавхар факториал.\nExample\nInput:\n6\n\nOutput:\n48",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n6\n\nOutput:\n48"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7217/",
+  "code": "RGB7217",
+  "scrapedAt": "2026-06-29T06:39:51.972Z"
+}

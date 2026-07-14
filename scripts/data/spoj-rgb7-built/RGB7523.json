@@ -1,0 +1,99 @@
+{
+  "code": "RGB7523",
+  "status": "ok",
+  "data": {
+    "slug": "row-maxima-7523",
+    "title_mn": "Мөрүүдийн ихүүд",
+    "title_en": "Row Maxima",
+    "statement_mn": "Өгөгдсөн хоёр хэмжээст массивын мөр бүрийн хамгийн их элементүүдийг нэг нэг мөрөнд хэвлэ.\n\n### Input\nЭхний мөрөнд мөрийн болон баганын хэмжээсүүд (n,m) зайгаар тусгаарлагдан өгөгдөнө. Дараагийн мөрүүдэд массивын элементүүд мөр мөрөөрөө өгөгдөнө.\n\n### Output\nМассивын мөр бүрийн хамгийн их элементүүдийг нэг нэг мөрөнд хэвлэ.\n\n### Example\n**Input:**\n```\n3 4\n1 2 3 4\n4 3 2 1\n6 7 5 7\n```\n\n**Output:**\n```\n4\n4\n7\n```",
+    "statement_en": "Given a two-dimensional array, print the maximum element of each row on a separate line.\n\n### Input\nThe first line contains two integers n and m, the number of rows and columns, separated by a space. The next n lines each contain m integers — the elements of the array row by row.\n\n### Output\nPrint the maximum element of each row, one value per line.\n\n### Example\n**Input:**\n```\n3 4\n1 2 3 4\n4 3 2 1\n6 7 5 7\n```\n\n**Output:**\n```\n4\n4\n7\n```",
+    "input_format_mn": "Эхний мөрөнд мөрийн тоо **n** болон баганын тоо **m** зайгаар тусгаарлагдан өгөгдөнө. Дараагийн **n** мөрөнд тус бүр **m** ширхэг бүхэл тоо массивын мөрүүдийг илэрхийлэн өгөгдөнө.",
+    "input_format_en": "The first line contains two integers **n** and **m**, the number of rows and columns, separated by a space. The next **n** lines each contain **m** integers representing the rows of the array.",
+    "output_format_mn": "**n** мөрөнд тус бүр харгалзах мөрийн хамгийн их элементийг хэвлэ.",
+    "output_format_en": "Print **n** lines, each containing the maximum element of the corresponding row.",
+    "constraints_mn": "- 0 < n, m < 10\n- Элементүүд нь int төрөлд багтах бүхэл тоо",
+    "constraints_en": "- 0 < n, m < 10\n- Array elements are integers fitting in int",
+    "difficulty": "easy",
+    "tags": [
+      "arrays",
+      "max-element"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <limits>\nusing namespace std;\n\nint main() {\n    int n, m;\n    cin >> n >> m;\n\n    for (int i = 0; i < n; i++) {\n        int row_max = numeric_limits<int>::min();\n        for (int j = 0; j < m; j++) {\n            int x;\n            cin >> x;\n            if (x > row_max) row_max = x;\n        }\n        cout << row_max << '\\n';\n    }\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "3 4\n1 2 3 4\n4 3 2 1\n6 7 5 7\n",
+        "output": "4\n4\n7\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1 1\n5",
+      "1 5\n-10 -5 0 5 10",
+      "2 2\n-100 -200\n-300 -400",
+      "3 3\n1 2 3\n4 5 6\n7 8 9",
+      "3 3\n9 8 7\n6 5 4\n3 2 1",
+      "4 1\n42\n-1\n0\n100",
+      "1 9\n-1000 1000 -999 999 -998 998 -997 997 -996",
+      "5 5\n1 1 1 1 1\n2 2 2 2 2\n3 3 3 3 3\n4 4 4 4 4\n5 5 5 5 5",
+      "2 6\n10 20 30 40 50 60\n60 50 40 30 20 10",
+      "4 3\n7 8 9\n4 5 6\n1 2 3\n0 -1 -2",
+      "4 4\n-5 -4 -3 -2\n-1 0 1 2\n3 4 5 6\n7 8 9 10"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "4\n4\n7",
+      "got": "4\n4\n7"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1 1\n5",
+      "stdout": "5\n"
+    },
+    {
+      "stdin": "1 5\n-10 -5 0 5 10",
+      "stdout": "10\n"
+    },
+    {
+      "stdin": "2 2\n-100 -200\n-300 -400",
+      "stdout": "-100\n-300\n"
+    },
+    {
+      "stdin": "3 3\n1 2 3\n4 5 6\n7 8 9",
+      "stdout": "3\n6\n9\n"
+    },
+    {
+      "stdin": "3 3\n9 8 7\n6 5 4\n3 2 1",
+      "stdout": "9\n6\n3\n"
+    },
+    {
+      "stdin": "4 1\n42\n-1\n0\n100",
+      "stdout": "42\n-1\n0\n100\n"
+    },
+    {
+      "stdin": "1 9\n-1000 1000 -999 999 -998 998 -997 997 -996",
+      "stdout": "1000\n"
+    },
+    {
+      "stdin": "5 5\n1 1 1 1 1\n2 2 2 2 2\n3 3 3 3 3\n4 4 4 4 4\n5 5 5 5 5",
+      "stdout": "1\n2\n3\n4\n5\n"
+    },
+    {
+      "stdin": "2 6\n10 20 30 40 50 60\n60 50 40 30 20 10",
+      "stdout": "60\n60\n"
+    },
+    {
+      "stdin": "4 3\n7 8 9\n4 5 6\n1 2 3\n0 -1 -2",
+      "stdout": "9\n6\n3\n0\n"
+    },
+    {
+      "stdin": "4 4\n-5 -4 -3 -2\n-1 0 1 2\n3 4 5 6\n7 8 9 10",
+      "stdout": "-2\n2\n6\n10\n"
+    }
+  ]
+}

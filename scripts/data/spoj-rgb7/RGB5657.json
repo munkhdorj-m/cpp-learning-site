@@ -1,0 +1,13 @@
+{
+  "title": "Үг бүтээх",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">3 дахь мөрөн дахь үсгүүдийг ашиглан эхний 2 мөрөн дэх үгийг үүсгэж болох уу? Нэг ч үсэг шинээр нэмэх болон нэг ч үсэг илүү гарах ёсгүй.</span></p>\n<h3>Input</h3>\n<p><span style=\"font-size: small;\">Оролт нь латин том үсгээрх 3 мөрнөөс бүрдэнэ. Мөр тус бүрийн урт нь 100-аас хэтрэхгүй.</span></p>\n<h3>Output</h3>\n<p><span style=\"font-size: small;\">Үг бүтээж болж байвал \"YES\", үгүй бол \"NO\" гэж хэвлэ. </span></p>\n<h3>Example</h3>\n<p><span style=\"font-size: small;\"><strong>Input 1:</strong> </span></p>\n<p><span style=\"color: #000000;\"><span style=\"font-size: small;\">SANTACLAUS<br>DEDMOROZ<br>SANTAMOROZDEDCLAUS</span></span></p>\n<p><span style=\"font-weight: bold; font-size: small;\">Output 1:</span></p>\n<p><span style=\"font-size: small;\">YES</span></p>\n<p><span style=\"font-size: small;\"><strong>Input 2:</strong></span></p>\n<p><span style=\"font-size: small;\">PAPAINOEL<br>JOULUPUKKI<br>JOULNAPAOILELUPUKKI</span></p>\n<p><span style=\"font-size: small; font-weight: bold;\">Output 2:</span></p>\n<p><span style=\"font-size: small;\">NO</span></p>",
+  "bodyText": "3 дахь мөрөн дахь үсгүүдийг ашиглан эхний 2 мөрөн дэх үгийг үүсгэж болох уу? Нэг ч үсэг шинээр нэмэх болон нэг ч үсэг илүү гарах ёсгүй.\nInput\nОролт нь латин том үсгээрх 3 мөрнөөс бүрдэнэ. Мөр тус бүрийн урт нь 100-аас хэтрэхгүй.\nOutput\nҮг бүтээж болж байвал \"YES\", үгүй бол \"NO\" гэж хэвлэ. \nExample\nInput 1: \nSANTACLAUSDEDMOROZSANTAMOROZDEDCLAUS\nOutput 1:\nYES\nInput 2:\nPAPAINOELJOULUPUKKIJOULNAPAOILELUPUKKI\nOutput 2:\nNO",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB5657/",
+  "code": "RGB5657",
+  "scrapedAt": "2026-06-29T06:48:25.997Z"
+}

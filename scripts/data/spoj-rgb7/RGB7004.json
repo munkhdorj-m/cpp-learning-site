@@ -1,0 +1,15 @@
+{
+  "title": "Куб",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн кубын эзэлхүүн ба гүйцэд гадаргуугийн талбайг ол.</p>\n<h3>Input</h3>\n<p>Кубын тал бүхэл тоон утгатайгаар нэг мөрөнд өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Кубын эзэлхүүн, гүйцэд гадаргуугийн талбай нэг мөрөнд зайгаар тусгаарлагдан хэвлэгдэнэ.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n5\n\n<strong>Output:</strong>\n125 150\n</pre>",
+  "bodyText": "Өгөгдсөн кубын эзэлхүүн ба гүйцэд гадаргуугийн талбайг ол.\nInput\nКубын тал бүхэл тоон утгатайгаар нэг мөрөнд өгөгдөнө.\nOutput\nКубын эзэлхүүн, гүйцэд гадаргуугийн талбай нэг мөрөнд зайгаар тусгаарлагдан хэвлэгдэнэ.\nExample\nInput:\n5\n\nOutput:\n125 150",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n5\n\nOutput:\n125 150"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7004/",
+  "code": "RGB7004",
+  "scrapedAt": "2026-06-29T06:36:48.885Z"
+}

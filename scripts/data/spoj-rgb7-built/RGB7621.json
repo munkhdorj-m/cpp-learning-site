@@ -1,0 +1,95 @@
+{
+  "code": "RGB7621",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7621",
+    "title_mn": "Нэмэгдэхүүн давхцахгүй",
+    "title_en": "Non-overlapping Summands",
+    "statement_mn": "Өгөгдсөн $n$ тоог нийлбэрт задлахдаа тухайн нийлбэрт орж байгаа нэмэгдэхүүнүүд нь давхцаагүй байхаар хэдэн боломжоор задлах вэ?\n\nНэмэгдэхүүнүүд нь давхцаагүй гэдэг нь бүх нэмэгдэхүүнүүд ялгаатай байна гэсэн үг юм. Жишээ нь $6$ тоог $1+2+3$ гэж задлаж болох боловч $1+1+4$ гэж задлах боломжгүй, учир нь $1$ нь хоёр удаа давхцаж байна.\n\nНийлбэрт орж буй нэмэгдэхүүнүүдийн дараалал хамаагүй ($1+2+3$ ба $3+2+1$ нь адилхан задлалт гэж тооцогдоно).",
+    "statement_en": "Given a natural number $n$, count the number of ways to partition $n$ into distinct positive summands.\n\n\"Non-overlapping summands\" means all summands must be distinct. For example, $6$ can be partitioned as $1+2+3$, but $1+1+4$ is not allowed because $1$ appears twice.\n\nThe order of summands does not matter ($1+2+3$ and $3+2+1$ are considered the same partition).",
+    "input_format_mn": "$n$ натурал тоо өгөгдөнө.",
+    "input_format_en": "A single natural number $n$.",
+    "output_format_mn": "Боломжийн тоог хэвлэ.",
+    "output_format_en": "Print the number of ways.",
+    "constraints_mn": "$n \\le 200$",
+    "constraints_en": "$n \\le 200$",
+    "difficulty": "medium",
+    "tags": [
+      "dynamic-programming",
+      "partition",
+      "combinatorics"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 20,
+    "reference_cpp": "#include <iostream>\n#include <vector>\n\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n\n    // dp[j] = number of ways to partition j into distinct positive integers\n    // We'll use the classic DP: dp[0] = 1\n    // For each i from 1..n, for j from n down to i: dp[j] += dp[j-i]\n    vector<long long> dp(n + 1, 0);\n    dp[0] = 1;\n\n    for (int i = 1; i <= n; i++) {\n        for (int j = n; j >= i; j--) {\n            dp[j] += dp[j - i];\n        }\n    }\n\n    cout << dp[n] << \"\\n\";\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "6\n",
+        "output": "4\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n",
+      "2\n",
+      "3\n",
+      "5\n",
+      "10\n",
+      "20\n",
+      "50\n",
+      "100\n",
+      "150\n",
+      "200\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "4",
+      "got": "4"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "2\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "3\n",
+      "stdout": "2\n"
+    },
+    {
+      "stdin": "5\n",
+      "stdout": "3\n"
+    },
+    {
+      "stdin": "10\n",
+      "stdout": "10\n"
+    },
+    {
+      "stdin": "20\n",
+      "stdout": "64\n"
+    },
+    {
+      "stdin": "50\n",
+      "stdout": "3658\n"
+    },
+    {
+      "stdin": "100\n",
+      "stdout": "444793\n"
+    },
+    {
+      "stdin": "150\n",
+      "stdout": "19406016\n"
+    },
+    {
+      "stdin": "200\n",
+      "stdout": "487067746\n"
+    }
+  ]
+}

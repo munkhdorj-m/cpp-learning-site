@@ -1,0 +1,101 @@
+{
+  "code": "RGB7680",
+  "status": "ok",
+  "data": {
+    "slug": "hojor-ont-ankhny-too",
+    "title_mn": "Хоёр оронт анхны тоо",
+    "title_en": "Two-Digit Primes",
+    "statement_mn": "2 оронтой анхны тоонууд нийтдээ 21 байдаг. Үүнд: 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97.\n\nАливаа тооны дараалсан 2 цифр бүр нь анхны байх тоонуудыг **хоёр оронт анхны тоонууд** гэж нэрлэе.\n\nӨгөгдсөн N оронтой хоёр оронт анхны тоонуудын тоог ол.",
+    "statement_en": "There are 21 two-digit prime numbers: 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97.\n\nWe call a number a **two-digit prime number** if every consecutive pair of its digits forms a two-digit prime number.\n\nGiven N, find the count of N-digit two-digit prime numbers.",
+    "input_format_mn": "Ганц мөрөнд N натурал тоо өгөгдөнө.",
+    "input_format_en": "A single line containing the integer N.",
+    "output_format_mn": "N оронтой хоёр оронт анхны тоонуудын тоог хэвлэ.",
+    "output_format_en": "Print the count of N-digit two-digit prime numbers.",
+    "constraints_mn": "2 ≤ N ≤ 30",
+    "constraints_en": "2 ≤ N ≤ 30",
+    "difficulty": "medium",
+    "tags": [
+      "dynamic-programming",
+      "dp-on-digits",
+      "graph",
+      "counting"
+    ],
+    "time_limit_ms": 500,
+    "memory_limit_kb": 65536,
+    "xp_reward": 20,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nbool is_prime[100];\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    // mark all two-digit primes\n    fill(is_prime, is_prime + 100, false);\n    for (int x : {11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97}) {\n        is_prime[x] = true;\n    }\n\n    int N;\n    cin >> N;\n\n    // dp[len][last_digit] = count of numbers of given length ending with last_digit\n    // We only need two layers\n    vector<long long> dp_prev(10, 0), dp_cur(10, 0);\n\n    // length = 2\n    for (int d1 = 1; d1 <= 9; ++d1) {\n        for (int d2 = 0; d2 <= 9; ++d2) {\n            int val = d1 * 10 + d2;\n            if (is_prime[val]) {\n                dp_prev[d2]++; // actually length 2, ending with d2\n            }\n        }\n    }\n\n    if (N == 2) {\n        long long ans = 0;\n        for (int d = 0; d <= 9; ++d) ans += dp_prev[d];\n        cout << ans << '\\n';\n        return 0;\n    }\n\n    for (int len = 3; len <= N; ++len) {\n        fill(dp_cur.begin(), dp_cur.end(), 0LL);\n        for (int last = 0; last <= 9; ++last) {\n            if (dp_prev[last] == 0) continue;\n            // try to append a new digit nd\n            for (int nd = 0; nd <= 9; ++nd) {\n                int val = last * 10 + nd;\n                if (is_prime[val]) {\n                    dp_cur[nd] += dp_prev[last];\n                }\n            }\n        }\n        swap(dp_prev, dp_cur);\n    }\n\n    long long ans = 0;\n    for (int d = 0; d <= 9; ++d) ans += dp_prev[d];\n    cout << ans << '\\n';\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "4\n",
+        "output": "142\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "2\n",
+      "3\n",
+      "5\n",
+      "6\n",
+      "7\n",
+      "8\n",
+      "10\n",
+      "15\n",
+      "20\n",
+      "25\n",
+      "30\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "142",
+      "got": "142"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "2\n",
+      "stdout": "21\n"
+    },
+    {
+      "stdin": "3\n",
+      "stdout": "52\n"
+    },
+    {
+      "stdin": "5\n",
+      "stdout": "372\n"
+    },
+    {
+      "stdin": "6\n",
+      "stdout": "992\n"
+    },
+    {
+      "stdin": "7\n",
+      "stdout": "2622\n"
+    },
+    {
+      "stdin": "8\n",
+      "stdout": "6962\n"
+    },
+    {
+      "stdin": "10\n",
+      "stdout": "48912\n"
+    },
+    {
+      "stdin": "15\n",
+      "stdout": "6404362\n"
+    },
+    {
+      "stdin": "20\n",
+      "stdout": "838693872\n"
+    },
+    {
+      "stdin": "25\n",
+      "stdout": "109831907722\n"
+    },
+    {
+      "stdin": "30\n",
+      "stdout": "14383139100262\n"
+    }
+  ]
+}

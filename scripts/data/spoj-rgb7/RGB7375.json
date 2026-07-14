@@ -1,0 +1,13 @@
+{
+  "title": "Тойрог",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">2N*2N шатрын хөлгийн төв дээр 2N-1 диаметртэй тойрог татахад хичнээн нүд бүтнээрээ багтах вэ?</span></p>\n<h3><span style=\"font-size: small;\">Input</span></h3>\n<p><span style=\"font-size: small;\">N &nbsp;натурал тоо өгөгдөнө. 1&lt;N&lt;=150.</span></p>\n<h3><span style=\"font-size: small;\">Output</span></h3>\n<p><span style=\"font-size: small;\">Тойрогт бүтнээрээ багтах нүдний тоо.</span></p>\n<h3><span style=\"font-size: small;\">Example</span></h3>\n<p><strong><span style=\"font-size: small;\">Input 1 :</span></strong></p>\n<p><span style=\"font-size: small;\">3 </span></p>\n<p><strong><span style=\"font-size: small;\">Output 1 :</span></strong></p>\n<p><span style=\"font-size: small;\">12</span></p>\n<p><strong><span style=\"font-size: small;\">Input 2 :</span></strong></p>\n<p><span style=\"font-size: small;\">4</span></p>\n<p><strong><span style=\"font-size: small;\">Output 2 :</span></strong></p>\n<p><span style=\"font-size: small;\">24</span></p>",
+  "bodyText": "2N*2N шатрын хөлгийн төв дээр 2N-1 диаметртэй тойрог татахад хичнээн нүд бүтнээрээ багтах вэ?\nInput\nN  натурал тоо өгөгдөнө. 1<N<=150.\nOutput\nТойрогт бүтнээрээ багтах нүдний тоо.\nExample\nInput 1 :\n3 \nOutput 1 :\n12\nInput 2 :\n4\nOutput 2 :\n24",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7375/",
+  "code": "RGB7375",
+  "scrapedAt": "2026-06-29T06:43:24.924Z"
+}

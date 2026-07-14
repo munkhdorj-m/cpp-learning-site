@@ -1,0 +1,100 @@
+{
+  "code": "RGB7529",
+  "status": "ok",
+  "data": {
+    "slug": "saper",
+    "title_mn": "Сапер",
+    "title_en": "Minesweeper",
+    "statement_mn": "**Сапер** тоглоомын талбар өгөгдөв. **n** мөр, **m** баганатай хүснэгтэд **w** ширхэг мина байрлуулсан байна.\n\nМина байрлуулсан нүднүүдийн мэдээллийг ашиглаж хөрш нүднүүдэд байрлах минын тоог тооцоолон массивыг дүүргэж, жишээн дээрх шигээр мөр мөрөөр нь хэвлэнэ. Мина байгаа нүдийг `*` тэмдгээр тэмдэглэнэ. Хөрш гэдэгт дээр, доор, зүүн, баруун, болон диагональ чиглэлд (нийт 8 чиглэл) залгаа нүднүүд орно.",
+    "statement_en": "You are given a **Minesweeper** board. The board has **n** rows and **m** columns. There are **w** mines placed in some cells.\n\nUsing the information about the mine locations, calculate the number of mines in the neighbouring cells and fill the board accordingly. Print the board row by row as shown in the example. Cells that contain a mine should be marked with `*`. A neighbour is any cell adjacent horizontally, vertically, or diagonally (a total of 8 directions).",
+    "input_format_mn": "- Эхний мөрөнд хоёр бүхэл тоо **n** ба **m** (хүснэгтийн мөр, баганын тоо) нэг зайгаар тусгаарлагдан өгөгдөнө.\n- Хоёр дахь мөрөнд нэг бүхэл тоо **w** (минын тоо) өгөгдөнө.\n- Дараагийн **w** ширхэг мөрөнд тус бүр нэг минын байрлалыг тодорхойлох хоёр бүхэл тоо **r** ба **c** (мөр, баганын дугаар) нэг зайгаар тусгаарлагдан өгөгдөнө. Мөр, баганын дугаарлал 1-ээс эхэлнэ.",
+    "input_format_en": "- The first line contains two integers **n** and **m** (the number of rows and columns), separated by a single space.\n- The second line contains one integer **w** (the number of mines).\n- The next **w** lines each contain two integers **r** and **c** (the row and column of a mine), separated by a single space. Rows and columns are 1-indexed.",
+    "output_format_mn": "**n** мөр хэвлэнэ. Мөр бүрт **m** ширхэг утга байх бөгөөд нэг зайгаар тусгаарлагдана.\n- Хэрэв тухайн нүдэнд мина байгаа бол `*` тэмдэг хэвлэнэ.\n- Хэрэв тухайн нүдэнд мина байхгүй бол хөрш нүднүүдэд байгаа минын тоог (0-8 хооронд) хэвлэнэ.",
+    "output_format_en": "Print **n** lines. Each line contains **m** values separated by a single space.\n- If the cell contains a mine, print `*`.\n- If the cell does not contain a mine, print the number of mines in its neighbouring cells (between 0 and 8).",
+    "constraints_mn": "- 1 ≤ n, m ≤ 32\n- 0 ≤ w ≤ n·m\n- 1 ≤ r ≤ n, 1 ≤ c ≤ m",
+    "constraints_en": "- 1 ≤ n, m ≤ 32\n- 0 ≤ w ≤ n·m\n- 1 ≤ r ≤ n, 1 ≤ c ≤ m",
+    "difficulty": "easy",
+    "tags": [
+      "implementation",
+      "matrix",
+      "simulation"
+    ],
+    "time_limit_ms": 500,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <vector>\n#include <string>\n\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n, m;\n    cin >> n >> m;\n\n    int w;\n    cin >> w;\n\n    // board[r][c] = true if mine, indices 1..n, 1..m\n    vector<vector<bool>> mine(n + 2, vector<bool>(m + 2, false));\n\n    for (int i = 0; i < w; i++) {\n        int r, c;\n        cin >> r >> c;\n        mine[r][c] = true;\n    }\n\n    // 8 directions\n    int dr[8] = {-1, -1, -1, 0, 0, 1, 1, 1};\n    int dc[8] = {-1, 0, 1, -1, 1, -1, 0, 1};\n\n    for (int i = 1; i <= n; i++) {\n        for (int j = 1; j <= m; j++) {\n            if (j > 1) cout << ' ';\n            if (mine[i][j]) {\n                cout << '*';\n            } else {\n                int cnt = 0;\n                for (int d = 0; d < 8; d++) {\n                    int ni = i + dr[d];\n                    int nj = j + dc[d];\n                    if (mine[ni][nj]) cnt++;\n                }\n                cout << cnt;\n            }\n        }\n        cout << '\\n';\n    }\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "3 2\n2\n1 1\n2 2\n",
+        "output": "* 2\n2 *\n1 1\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1 1\n0\n",
+      "1 1\n1\n1 1\n",
+      "2 2\n0\n",
+      "2 2\n4\n1 1\n1 2\n2 1\n2 2\n",
+      "3 3\n1\n2 2\n",
+      "3 3\n9\n1 1\n1 2\n1 3\n2 1\n2 2\n2 3\n3 1\n3 2\n3 3\n",
+      "5 5\n8\n1 1\n1 5\n3 3\n5 1\n5 5\n2 3\n3 2\n3 4\n",
+      "10 10\n15\n1 1\n2 2\n3 3\n4 4\n5 5\n6 6\n7 7\n8 8\n9 9\n10 10\n1 10\n5 1\n8 3\n10 7\n4 9\n",
+      "32 32\n100\n1 1\n1 32\n32 1\n32 32\n5 5\n10 10\n15 15\n20 20\n25 25\n30 30\n3 7\n8 12\n14 19\n22 4\n27 31\n11 8\n16 23\n21 17\n28 2\n31 29\n6 14\n9 21\n13 28\n18 6\n24 11\n29 16\n2 20\n7 25\n12 3\n17 9\n23 27\n26 13\n30 18\n4 22\n19 26\n1 15\n5 30\n10 5\n15 10\n20 15\n25 20\n30 25\n8 28\n14 8\n19 13\n24 18\n29 23\n3 31\n9 2\n13 7\n18 12\n22 17\n27 22\n31 27\n6 9\n11 14\n16 19\n21 24\n26 29\n2 6\n7 11\n12 16\n17 21\n21 26\n26 31\n4 14\n9 19\n14 24\n19 29\n24 5\n29 10\n1 8\n5 13\n10 18\n15 23\n20 28\n25 3\n30 8\n3 16\n8 31\n13 6\n18 11\n23 16\n28 21\n33 3\n6 20\n11 25\n16 30\n21 1\n26 7\n31 12\n2 17\n7 22\n12 27\n17 15\n22 10\n27 5\n",
+      "32 1\n5\n1 1\n5 1\n10 1\n20 1\n32 1\n",
+      "1 32\n5\n1 1\n1 8\n1 16\n1 24\n1 32\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "* 2\n2 *\n1 1",
+      "got": "* 2\n2 *\n1 1"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1 1\n0\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "1 1\n1\n1 1\n",
+      "stdout": "*\n"
+    },
+    {
+      "stdin": "2 2\n0\n",
+      "stdout": "0 0\n0 0\n"
+    },
+    {
+      "stdin": "2 2\n4\n1 1\n1 2\n2 1\n2 2\n",
+      "stdout": "* *\n* *\n"
+    },
+    {
+      "stdin": "3 3\n1\n2 2\n",
+      "stdout": "1 1 1\n1 * 1\n1 1 1\n"
+    },
+    {
+      "stdin": "3 3\n9\n1 1\n1 2\n1 3\n2 1\n2 2\n2 3\n3 1\n3 2\n3 3\n",
+      "stdout": "* * *\n* * *\n* * *\n"
+    },
+    {
+      "stdin": "5 5\n8\n1 1\n1 5\n3 3\n5 1\n5 5\n2 3\n3 2\n3 4\n",
+      "stdout": "* 2 1 2 *\n2 4 * 4 2\n1 * * * 1\n2 3 3 3 2\n* 1 0 1 *\n"
+    },
+    {
+      "stdin": "10 10\n15\n1 1\n2 2\n3 3\n4 4\n5 5\n6 6\n7 7\n8 8\n9 9\n10 10\n1 10\n5 1\n8 3\n10 7\n4 9\n",
+      "stdout": "* 2 1 0 0 0 0 0 1 *\n2 * 2 1 0 0 0 0 1 1\n1 2 * 2 1 0 0 1 1 1\n1 2 2 * 2 1 0 1 * 1\n* 1 1 2 * 2 1 1 1 1\n1 1 0 1 2 * 2 1 0 0\n0 1 1 1 1 2 * 2 1 0\n0 1 * 1 0 1 2 * 2 1\n0 1 1 1 0 1 2 3 * 2\n0 0 0 0 0 1 * 2 2 *\n"
+    },
+    {
+      "stdin": "32 32\n100\n1 1\n1 32\n32 1\n32 32\n5 5\n10 10\n15 15\n20 20\n25 25\n30 30\n3 7\n8 12\n14 19\n22 4\n27 31\n11 8\n16 23\n21 17\n28 2\n31 29\n6 14\n9 21\n13 28\n18 6\n24 11\n29 16\n2 20\n7 25\n12 3\n17 9\n23 27\n26 13\n30 18\n4 22\n19 26\n1 15\n5 30\n10 5\n15 10\n20 15\n25 20\n30 25\n8 28\n14 8\n19 13\n24 18\n29 23\n3 31\n9 2\n13 7\n18 12\n22 17\n27 22\n31 27\n6 9\n11 14\n16 19\n21 24\n26 29\n2 6\n7 11\n12 16\n17 21\n21 26\n26 31\n4 14\n9 19\n14 24\n19 29\n24 5\n29 10\n1 8\n5 13\n10 18\n15 23\n20 28\n25 3\n30 8\n3 16\n8 31\n13 6\n18 11\n23 16\n28 21\n33 3\n6 20\n11 25\n16 30\n21 1\n26 7\n31 12\n2 17\n7 22\n12 27\n17 15\n22 10\n27 5\n",
+      "stdout": "* 1 0 0 1 1 2 * 1 0 0 0 0 1 * 2 1 1 1 1 1 0 0 0 0 0 0 0 0 0 1 *\n1 1 0 0 1 * 3 2 1 0 0 0 0 1 2 3 * 1 1 * 1 0 0 0 0 0 0 0 0 1 2 2\n0 0 0 0 1 2 * 1 0 0 0 0 1 1 2 * 2 1 1 1 2 1 1 0 0 0 0 0 0 1 * 1\n0 0 0 1 1 2 1 1 0 0 0 1 2 * 2 1 1 0 0 0 1 * 1 0 0 0 0 0 1 2 2 1\n0 0 0 1 * 1 0 1 1 1 0 1 * 3 2 0 0 0 1 1 2 1 1 0 0 0 0 0 1 * 1 0\n0 0 0 1 1 1 0 1 * 2 1 2 2 * 1 0 0 0 1 * 2 1 1 1 1 1 0 0 1 1 1 0\n0 0 0 0 0 0 0 1 1 2 * 2 2 1 1 0 0 0 1 1 2 * 1 1 * 1 1 1 1 1 1 1\n1 1 1 0 0 0 0 0 0 1 2 * 1 0 0 0 0 1 1 2 2 2 1 1 1 1 1 * 1 1 * 1\n1 * 1 1 1 1 0 0 1 1 2 1 1 0 0 0 1 2 * 2 * 1 0 0 0 0 1 1 1 1 1 1\n1 1 1 1 * 1 1 1 2 * 1 0 1 1 1 0 1 * 2 2 1 1 0 1 1 1 0 0 0 0 0 0\n0 1 1 2 1 1 1 * 2 1 1 0 1 * 2 1 2 1 1 0 0 0 0 1 * 2 1 1 0 0 0 0\n0 1 * 1 1 2 3 2 1 0 0 0 1 1 2 * 1 0 0 0 0 0 0 1 1 2 * 2 1 0 0 0\n0 1 1 1 1 * * 2 1 0 0 0 0 0 1 1 1 1 1 1 0 0 1 1 1 1 2 * 1 0 0 0\n0 0 0 0 1 2 3 * 2 1 1 0 0 1 1 1 0 1 * 1 0 1 2 * 1 0 1 1 1 0 0 0\n0 0 0 0 0 0 1 1 2 * 1 0 0 1 * 1 0 2 2 2 0 2 * 3 1 0 0 0 1 1 1 0\n0 0 0 0 0 0 0 1 2 2 1 0 0 2 2 2 0 1 * 2 1 3 * 2 0 0 0 0 1 * 1 0\n0 0 0 0 1 1 1 1 * 2 2 2 1 1 * 1 0 1 1 2 * 2 1 1 0 0 0 0 1 1 1 0\n0 0 0 0 1 * 1 1 1 2 * * 2 2 1 1 0 0 0 1 1 1 0 0 1 1 1 1 1 1 0 0\n0 0 0 0 1 1 1 0 0 1 2 3 * 2 1 1 0 0 1 1 1 0 0 0 1 * 2 2 * 1 0 0\n1 1 0 0 0 0 0 0 0 0 0 1 1 2 * 2 1 1 1 * 1 0 1 1 3 2 3 * 2 1 0 0\n* 1 1 1 1 0 0 0 1 1 1 0 0 1 1 3 * 2 1 1 1 0 1 * 2 * 2 1 1 0 0 0\n1 1 1 * 1 0 0 0 1 * 1 0 0 0 1 3 * 2 0 0 0 0 1 1 2 2 2 1 0 0 0 0\n0 0 1 2 2 1 0 0 1 2 2 1 0 0 1 * 3 2 1 0 0 0 0 0 0 1 * 1 0 0 0 0\n0 1 1 2 * 1 0 0 0 1 * 1 0 0 1 1 2 * 2 1 1 0 0 1 1 2 1 1 0 0 0 0\n0 1 * 2 1 2 1 1 0 1 1 2 1 1 0 0 1 1 2 * 1 0 0 1 * 1 0 1 1 2 1 1\n0 1 1 2 1 2 * 1 0 0 0 1 * 1 0 0 0 0 1 1 2 1 1 1 1 1 0 1 * 3 * 2\n1 1 1 1 * 2 1 1 0 0 0 1 1 1 0 0 0 0 0 1 2 * 1 0 0 0 0 1 1 3 * 2\n1 * 1 1 1 1 0 0 1 1 1 0 0 0 1 1 1 0 0 1 * 3 2 1 0 0 0 0 0 1 1 1\n1 1 1 0 0 0 1 1 2 * 1 0 0 0 1 * 2 1 1 1 1 2 * 2 1 1 0 0 1 1 1 0\n0 0 0 0 0 0 1 * 2 1 2 1 1 0 1 1 2 * 1 0 0 1 1 2 * 2 1 2 2 * 1 0\n1 1 0 0 0 0 1 1 1 0 1 * 1 0 0 0 1 1 1 0 0 0 0 1 1 2 * 2 * 2 2 1\n* 2 1 1 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 1 2 1 1 1 *\n"
+    },
+    {
+      "stdin": "32 1\n5\n1 1\n5 1\n10 1\n20 1\n32 1\n",
+      "stdout": "*\n1\n0\n1\n*\n1\n0\n0\n1\n*\n1\n0\n0\n0\n0\n0\n0\n0\n1\n*\n1\n0\n0\n0\n0\n0\n0\n0\n0\n0\n1\n*\n"
+    },
+    {
+      "stdin": "1 32\n5\n1 1\n1 8\n1 16\n1 24\n1 32\n",
+      "stdout": "* 1 0 0 0 0 1 * 1 0 0 0 0 0 1 * 1 0 0 0 0 0 1 * 1 0 0 0 0 0 1 *\n"
+    }
+  ]
+}

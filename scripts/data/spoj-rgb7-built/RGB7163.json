@@ -1,0 +1,104 @@
+{
+  "code": "RGB7163",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7163-card-game",
+    "title_mn": "Хөзрийн нэгэн тоглоом",
+    "title_en": "A Card Game",
+    "statement_mn": "52 карттай хөзөр нь дараах бүтэцтэй. (Diamonds — D, Clubs — C, Spades — S, Hearts — H), (2, 3, 4, 5, 6, 7, 8, 9, T, J, Q, K, A). Тоглогч азаа үзэхийн тулд багц хөзрийг хольж байгаад нэгийг ширээн дээр тавьж өөртөө 5 хөзөр авав. Хэрэв тоглогчийн гарт байгаа 5 хөзрийн аль 1 нь ширээ байгаа хөзрийн өнгө эсвэл эрэмбийн аль нэгтэй ижил бол тоглогч өөрийгөө азтай гэж үзнэ.",
+    "statement_en": "A standard 52-card deck consists of cards of four suits (Diamonds — D, Clubs — C, Spades — S, Hearts — H) and 13 ranks (2, 3, 4, 5, 6, 7, 8, 9, T, J, Q, K, A). To test his luck, a player shuffles the deck, places one card on the table, and draws 5 cards for himself. If any one of the 5 cards in his hand shares either the same rank or the same suit as the card on the table, the player considers himself lucky.",
+    "input_format_mn": "1-р мөрөнд ширээн дээр тавигдах хөзөр (2 тэмдэгт: эхний тэмдэгт — эрэмбэ {2,3,4,5,6,7,8,9,T,J,Q,K,A}, хоёр дахь тэмдэгт — өнгө {D,C,S,H}).  \n2-р мөрөнд тоглогчийн гарт байгаа 5 хөзөр, тус бүр 2 тэмдэгт, зайгаар тусгаарлагдана.",
+    "input_format_en": "Line 1: The card on the table — a string of 2 characters: rank {2,3,4,5,6,7,8,9,T,J,Q,K,A} followed by suit {D,C,S,H}.  \nLine 2: Five cards in the player's hand — each card is a 2-character string, separated by spaces.",
+    "output_format_mn": "Азтай бол YES, азгүй бол NO гэж хэвлэ.",
+    "output_format_en": "Print YES if the player is lucky (any hand card matches the table card in rank or suit), otherwise print NO.",
+    "constraints_mn": "- Оролтод өгөгдсөн бүх хөзрүүд ялгаатай (давхардалгүй) ба 52 карттай стандарт хөзрөөс сонгогдоно.",
+    "constraints_en": "- All cards in the input are distinct and chosen from a standard 52-card deck.",
+    "difficulty": "easy",
+    "tags": [
+      "strings",
+      "implementation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string table;\n    cin >> table;\n\n    char table_rank = table[0];\n    char table_suit = table[1];\n\n    bool lucky = false;\n    for (int i = 0; i < 5; ++i) {\n        string card;\n        cin >> card;\n        if (card[0] == table_rank || card[1] == table_suit) {\n            lucky = true;\n        }\n    }\n\n    cout << (lucky ? \"YES\" : \"NO\") << \"\\n\";\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "AS\n2H 4C TH JH AD\n",
+        "output": "YES\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "AS\n2H 4C TH JH AD\n",
+      "2D\n3D 4D 5D 6D 7D\n",
+      "2D\n3S 4C 5H 6C 7S\n",
+      "KC\nKD KH KS 2C 3C\n",
+      "AH\n2S 3S 4S 5S 6S\n",
+      "TH\nTS TC TD 3H 4H\n",
+      "7S\n7H 7D 7C 2S 3S\n",
+      "9C\n9D 9H 9S 8C 8S\n",
+      "QD\nQS QC QH KD KH\n",
+      "AD\n2D 3C 4H 5S 6D\n",
+      "3H\n3S 4S 5S 6S 7S\n",
+      "5C\n5D 5H 5S 2C 3C\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "YES",
+      "got": "YES"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "AS\n2H 4C TH JH AD\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "2D\n3D 4D 5D 6D 7D\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "2D\n3S 4C 5H 6C 7S\n",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "KC\nKD KH KS 2C 3C\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "AH\n2S 3S 4S 5S 6S\n",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "TH\nTS TC TD 3H 4H\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "7S\n7H 7D 7C 2S 3S\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "9C\n9D 9H 9S 8C 8S\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "QD\nQS QC QH KD KH\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "AD\n2D 3C 4H 5S 6D\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "3H\n3S 4S 5S 6S 7S\n",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "5C\n5D 5H 5S 2C 3C\n",
+      "stdout": "YES\n"
+    }
+  ]
+}

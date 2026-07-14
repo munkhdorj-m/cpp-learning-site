@@ -1,0 +1,95 @@
+{
+  "code": "RGB7799",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7799-task-scheduling",
+    "title_mn": "Ажлын хуваарь",
+    "title_en": "Task Scheduling",
+    "statement_mn": "# Ажлын хуваарь\n\nТа өөртөө $M$ ажлын жагсаалт хийсэн. Ажил бүр $i$ нь:\n\n- $d_i$ — ажлын дуусах хугацаа (өдөрөөр).\n- $t_i$ — ажлыг гүйцэтгэхэд шаардагдах цаг (өдөрөөр).\n\nТа ажлуудаа аль ч дарааллаар хийж болно, гэхдээ нэг удаад зөвхөн нэг ажлыг хийх боломжтой. Мөн ажил бүрийг тасралтгүй хийх ёстой (өөрөөр хэлбэл, нэг ажил эхэлсэн бол дуустал нь завсарлахгүй хийх).\n\nТухайн ажил $i$-г $S$ өдөр эхлүүлж, $S + t_i$ өдөр дуусгадаг. Хэрэв $S + t_i \\le d_i$ бол ажил **цагтаа хийгдсэн** гэж үзнэ. Эсвэл ажил **хоцорсон** гэж тооцогдоно.\n\nТа хамгийн ихдээ хэдэн ажлыг цагтаа хийж чадах вэ?</p>\n<h3>Оролт</h3>\n<p>Эхний мөрөнд $M$ ($1 \\le M \\le 10^5$) тоо өгөгдөнө.</p>\n<p>Дараагийн $M$ мөрөнд хоёр бүхэл тоо $d_i$, $t_i$ ($0 \\le d_i \\le 10^9$, $1 \\le t_i \\le 10^9$) өгөгдөнө.</p>\n<h3>Гаралт</h3>\n<p>Нэг мөрөнд цагтаа хийж чадах ажлуудын хамгийн их тоог хэвлэнэ.</p>\n<h3>Жишээ</h3>\n<pre><strong>Оролт:</strong>\n6\n1 2\n2 1\n3 1\n5 2\n5 2\n7 3\n\n<strong>Гаралт:</strong>\n4\n</pre>",
+    "statement_en": "# Task Scheduling\n\nYou have a list of $M$ tasks. Each task $i$ has:\n\n- $d_i$ — deadline (in days).\n- $t_i$ — time required to complete it (in days).\n\nYou can perform the tasks in any order, but at any given time you can only work on one task. Also, each task must be done continuously (once started, you cannot interrupt it).\n\nIf you start task $i$ at day $S$, you finish at $S + t_i$. If $S + t_i \\le d_i$, the task is considered **on-time**. Otherwise, it is **late**.\n\nWhat is the maximum number of tasks you can complete on time?</p>\n<h3>Input</h3>\n<p>The first line contains $M$ ($1 \\le M \\le 10^5$).</p>\n<p>The next $M$ lines each contain two integers $d_i$, $t_i$ ($0 \\le d_i \\le 10^9$, $1 \\le t_i \\le 10^9$).</p>\n<h3>Output</h3>\n<p>Print a single line containing the maximum number of tasks that can be completed on time.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n6\n1 2\n2 1\n3 1\n5 2\n5 2\n7 3\n\n<strong>Output:</strong>\n4\n</pre>",
+    "input_format_mn": "Эхний мөрөнд $M$ ($1 \\le M \\le 10^5$) тоо өгөгдөнө. Дараагийн $M$ мөрөнд хоёр бүхэл тоо $d_i$, $t_i$ ($0 \\le d_i \\le 10^9$, $1 \\le t_i \\le 10^9$) өгөгдөнө.",
+    "input_format_en": "The first line contains $M$ ($1 \\le M \\le 10^5$). The next $M$ lines each contain two integers $d_i$, $t_i$ ($0 \\le d_i \\le 10^9$, $1 \\le t_i \\le 10^9$).",
+    "output_format_mn": "Нэг мөрөнд цагтаа хийж чадах ажлуудын хамгийн их тоог хэвлэнэ.",
+    "output_format_en": "Print a single line containing the maximum number of tasks that can be completed on time.",
+    "constraints_mn": "- $1 \\le M \\le 10^5$\n- $0 \\le d_i \\le 10^9$\n- $1 \\le t_i \\le 10^9$",
+    "constraints_en": "- $1 \\le M \\le 10^5$\n- $0 \\le d_i \\le 10^9$\n- $1 \\le t_i \\le 10^9$",
+    "difficulty": "medium",
+    "tags": [
+      "greedy",
+      "scheduling",
+      "priority-queue"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 20,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int M;\n    cin >> M;\n\n    vector<pair<int, int>> tasks(M);\n    for (int i = 0; i < M; ++i) {\n        cin >> tasks[i].first >> tasks[i].second; // deadline, time\n    }\n\n    // Sort by deadline\n    sort(tasks.begin(), tasks.end());\n\n    // Max-heap of task durations (we store negative to get max with default min-heap)\n    // Actually we want to pop the largest duration when we exceed deadline.\n    // We'll store durations as positive in a max-heap using greater<int>? Use std::priority_queue which is max-heap by default.\n    priority_queue<int> durations;\n    long long total_time = 0; // sum of durations of selected tasks\n\n    for (auto &t : tasks) {\n        int deadline = t.first;\n        int duration = t.second;\n\n        // Assume we take this task\n        total_time += duration;\n        durations.push(duration);\n\n        // If we exceed the deadline, drop the longest task we've taken\n        if (total_time > deadline) {\n            total_time -= durations.top();\n            durations.pop();\n        }\n    }\n\n    cout << durations.size() << \"\\n\";\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "6\n1 2\n2 1\n3 1\n5 2\n5 2\n7 3\n",
+        "output": "4\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n0 5\n",
+      "1\n100 1\n",
+      "5\n0 1\n0 1\n0 1\n0 1\n0 1\n",
+      "3\n10 5\n10 6\n10 7\n",
+      "4\n1 10\n2 1\n3 1\n4 1\n",
+      "5\n5 3\n5 3\n5 3\n5 3\n5 3\n",
+      "7\n0 1\n1 1\n2 1\n3 1\n4 1\n5 1\n6 1\n",
+      "3\n3 3\n3 3\n3 1\n",
+      "8\n2 2\n2 2\n3 1\n4 3\n5 1\n6 1\n10 5\n10 5\n",
+      "10\n1000000000 1\n999999999 1\n999999998 1\n999999997 1\n999999996 1\n999999995 1\n999999994 1\n999999993 1\n999999992 1\n999999991 1\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "4",
+      "got": "4"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n0 5\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "1\n100 1\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "5\n0 1\n0 1\n0 1\n0 1\n0 1\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "3\n10 5\n10 6\n10 7\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "4\n1 10\n2 1\n3 1\n4 1\n",
+      "stdout": "3\n"
+    },
+    {
+      "stdin": "5\n5 3\n5 3\n5 3\n5 3\n5 3\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "7\n0 1\n1 1\n2 1\n3 1\n4 1\n5 1\n6 1\n",
+      "stdout": "6\n"
+    },
+    {
+      "stdin": "3\n3 3\n3 3\n3 1\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "8\n2 2\n2 2\n3 1\n4 3\n5 1\n6 1\n10 5\n10 5\n",
+      "stdout": "5\n"
+    },
+    {
+      "stdin": "10\n1000000000 1\n999999999 1\n999999998 1\n999999997 1\n999999996 1\n999999995 1\n999999994 1\n999999993 1\n999999992 1\n999999991 1\n",
+      "stdout": "10\n"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "code": "RGB7569",
+  "status": "ref_wrong_on_samples",
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": false,
+      "expected": "hello my\nname is\nBessie\nand this\nis my\nssay",
+      "got": "hello\nmy name\nis\nBessie\nand\nthis is\nmy\nessay"
+    }
+  ],
+  "data": {
+    "slug": "word-processor",
+    "title_mn": "Үг боловсруулагч",
+    "title_en": "Word Processor",
+    "statement_mn": "Бэсси үнээ уран зохиолын хичээлдээ зориулан эссэн дээр ажиллаж байна. Түүний бичгийн хэлбэр муу учраас тэрбээр эссэгээ үг боловсруулагч ашиглан бичихээр болжээ.\n\nЭссэ нь зайгаар тусгаарлагдсан $N$ ($1 \\le N \\le 100$) үгнүүдээс бүрдэнэ. Үг бүр нь 1-ээс 15 хүртэлх урттай том болон жижиг үсгүүдээс бүрдэх юм. Даалгаврын шаардлагын дагуу эссэ нь нэгэн хэлбэрийг дагах ёстой: мөр бүр нь хоосон зайг тооцохгүйгээр $K$-с ($1 \\le K \\le 80$) хэтрэхгүй урттай байна. Азаар Бэссигийн үг боловсруулагч нь дараах стратегиар дээрх асуудлыг шийдэж чадна:\n\n- Хэрэв Бэсси үг бичихэд тухайн мөрөнд багтаж байвал тухайн мөрөнд нь бичнэ.\n- Үгүй бол шинэ мөрнөөс эхэлж бичээд тэр мөрнөөсөө үргэлжлэх юм.\n\nМэдээж нэг мөрөнд байгаа дараалсан үгнүүд хоорондоо зайтай байх ёстой. Ямар ч мөрний төгсгөлд зай байж болохгүй.\n\nХарамсалтай нь Бэссигийн үг боловсруулагч эвдэрчихжээ. Иймд Бэссигийн эссэг дээрх хэлбэрт оруулж туслана уу.",
+    "statement_en": "Bessie the cow is working on an essay for her writing class. Since her handwriting is poor, she decides to type the essay using a word processor.\n\nThe essay consists of $N$ ($1 \\le N \\le 100$) words separated by spaces. Each word consists of uppercase and lowercase letters with length between 1 and 15. The assignment requires that the essay follows a particular format: each line may contain at most $K$ ($1 \\le K \\le 80$) characters, not counting spaces. Fortunately, Bessie's word processor can handle the formatting using the following strategy:\n\n- If Bessie types a word and it fits on the current line, she writes it on that line.\n- Otherwise, she starts a new line and writes the word on that new line.\n\nOf course, consecutive words on the same line must be separated by a single space. There should be no space at the end of any line.\n\nUnfortunately, Bessie's word processor is broken. Help her format her essay according to the given rules.",
+    "input_format_mn": "Эхний мөрөнд зайгаар тусгаарлагдсан $N$ ба $K$ тоонууд өгөгдөнө ($1 \\le N \\le 100$, $1 \\le K \\le 80$). Хоёр дахь мөрөнд зайгаар тусгаарлагдсан $N$ ширхэг үгс өгөгдөнө. Үг бүр 1-ээс 15 хүртэлх урттай том болон жижиг үсгүүдээс бүрдэнэ.",
+    "input_format_en": "The first line contains two space-separated integers $N$ and $K$ ($1 \\le N \\le 100$, $1 \\le K \\le 80$). The second line contains $N$ space-separated words. Each word consists of uppercase and lowercase letters with length between 1 and 15.",
+    "output_format_mn": "Эссэг дээрх хэлбэрт оруулан хэвлэнэ үү. Мөр бүр $K$-с хэтрэхгүй тэмдэгттэй байх ба (хоосон зайг тооцохгүйгээр) дараалсан үгнүүд нэг зайгаар тусгаарлагдана. Мөрний төгсгөлд зай байх ёсгүй.",
+    "output_format_en": "Print the formatted essay. Each line must contain at most $K$ characters (not counting spaces), and consecutive words on the same line must be separated by a single space. No line should end with a space.",
+    "constraints_mn": "- $1 \\le N \\le 100$\n- $1 \\le K \\le 80$\n- Үг бүрийн урт: 1-ээс 15 хүртэл\n- Үгс нь зөвхөн латин том (A-Z) болон жижиг (a-z) үсгүүдээс бүрдэнэ.",
+    "constraints_en": "- $1 \\le N \\le 100$\n- $1 \\le K \\le 80$\n- Each word length: between 1 and 15\n- Words consist only of Latin uppercase (A-Z) and lowercase (a-z) letters.",
+    "difficulty": "easy",
+    "tags": [
+      "simulation",
+      "strings",
+      "implementation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <string>\n#include <sstream>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    \n    int N, K;\n    cin >> N >> K;\n    \n    string current_line;\n    for (int i = 0; i < N; i++) {\n        string word;\n        cin >> word;\n        \n        if (current_line.empty()) {\n            current_line = word;\n        } else if ((int)current_line.size() + 1 + (int)word.size() <= K) {\n            current_line += \" \" + word;\n        } else {\n            cout << current_line << \"\\n\";\n            current_line = word;\n        }\n    }\n    if (!current_line.empty()) {\n        cout << current_line << \"\\n\";\n    }\n    \n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "10 7\nhello my name is Bessie and this is my essay\n",
+        "output": "hello my\nname is\nBessie\nand this\nis my\nssay\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "5 5\na bb ccc dddd eeeee\n",
+      "1 1\nx\n",
+      "1 80\nsuperlongword\n",
+      "3 10\nabc def ghi\n",
+      "3 3\naa bb cc\n",
+      "6 15\nhello world this is a test\n",
+      "8 20\na b c d e f g h\n",
+      "5 6\nabcde fghij klmno pqrst uvwxy\n",
+      "10 80\naaaaaaaaaaaaaaa bbbbbbbbbbbbbbb ccccccccccccccc ddddddddddddddd eeeeeeeeeeeeeee fffffffffffffff ggggggggggggggg hhhhhhhhhhhhhhh iiiiiiiiiiiiiii jjjjjjjjjjjjjjj\n",
+      "4 5\nabcde fghi jklm nop\n",
+      "3 4\nab cd ef\n",
+      "6 3\na bb ccc dddd e fffff\n"
+    ]
+  }
+}

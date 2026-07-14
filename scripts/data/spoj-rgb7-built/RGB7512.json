@@ -1,0 +1,94 @@
+{
+  "code": "RGB7512",
+  "status": "ok",
+  "data": {
+    "slug": "cyclic-shift-right-1",
+    "title_mn": "Хойш 1 шилжилт",
+    "title_en": "Cyclic Shift Right by 1",
+    "statement_mn": "Өгөгдсөн массивын элементүүдийг хойш нь нэг цикл шилжилт хий. Өөрөөр хэлбэл 1-рийг 2-рт, 2-рыг 3-рт, гэх мэт сүүлийн элементийг 1-рт тус тус шилжүүл.",
+    "statement_en": "Given an array, shift its elements cyclically to the right by one position. In other words, move the 1st element to the 2nd position, the 2nd to the 3rd, and so on, and move the last element to the 1st position.",
+    "input_format_mn": "Эхний мөрөнд массивын элементийн тоо $n$ ($n \\le 100$) өгөгдөнө. Хоёр дахь мөрөнд массивын $n$ ширхэг элементүүд нэг нэг зайгаар тусгаарлагдан өгөгдөнө. Элементүүд нь бүхэл тоо (int төрөл) байна.",
+    "input_format_en": "The first line contains the number of elements $n$ ($n \\le 100$). The second line contains $n$ integers separated by spaces.",
+    "output_format_mn": "Шилжилт хийсний дараах массивын элементүүдийг нэг мөрөнд зайгаар тусгаарлан хэвлэ. 1-р элементээс эхлэн хэвлэнэ.",
+    "output_format_en": "Print the array after the cyclic shift, elements separated by spaces, starting from the first element.",
+    "constraints_mn": "$1 \\le n \\le 100$",
+    "constraints_en": "$1 \\le n \\le 100$",
+    "difficulty": "easy",
+    "tags": [
+      "arrays",
+      "implementation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "samples": [
+      {
+        "input": "5\n1 2 3 4 5",
+        "output": "5 1 2 3 4"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n42",
+      "2\n10 20",
+      "3\n100 200 300",
+      "6\n-5 -4 -3 -2 -1 0",
+      "10\n0 1 2 3 4 5 6 7 8 9",
+      "7\n7 14 21 28 35 42 49",
+      "4\n1000000 -1000000 999999 -999999",
+      "8\n5 5 5 5 5 5 5 5",
+      "1\n0",
+      "2\n-1000000000 1000000000"
+    ],
+    "reference_cpp": "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n\n    vector<int> a(n);\n    for (int i = 0; i < n; ++i) {\n        cin >> a[i];\n    }\n\n    if (n > 0) {\n        int last = a[n - 1];\n        for (int i = n - 1; i > 0; --i) {\n            a[i] = a[i - 1];\n        }\n        a[0] = last;\n    }\n\n    for (int i = 0; i < n; ++i) {\n        if (i > 0) cout << ' ';\n        cout << a[i];\n    }\n    cout << endl;\n\n    return 0;\n}\n"
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "5 1 2 3 4",
+      "got": "5 1 2 3 4"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n42",
+      "stdout": "42\n"
+    },
+    {
+      "stdin": "2\n10 20",
+      "stdout": "20 10\n"
+    },
+    {
+      "stdin": "3\n100 200 300",
+      "stdout": "300 100 200\n"
+    },
+    {
+      "stdin": "6\n-5 -4 -3 -2 -1 0",
+      "stdout": "0 -5 -4 -3 -2 -1\n"
+    },
+    {
+      "stdin": "10\n0 1 2 3 4 5 6 7 8 9",
+      "stdout": "9 0 1 2 3 4 5 6 7 8\n"
+    },
+    {
+      "stdin": "7\n7 14 21 28 35 42 49",
+      "stdout": "49 7 14 21 28 35 42\n"
+    },
+    {
+      "stdin": "4\n1000000 -1000000 999999 -999999",
+      "stdout": "-999999 1000000 -1000000 999999\n"
+    },
+    {
+      "stdin": "8\n5 5 5 5 5 5 5 5",
+      "stdout": "5 5 5 5 5 5 5 5\n"
+    },
+    {
+      "stdin": "1\n0",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "2\n-1000000000 1000000000",
+      "stdout": "1000000000 -1000000000\n"
+    }
+  ]
+}

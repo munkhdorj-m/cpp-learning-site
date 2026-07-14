@@ -1,0 +1,24 @@
+{
+  "title": "Супер шилжилт",
+  "hidden": true,
+  "bodyHtml": "<p>N элементтэй бүхэл тоон дараалал болон K бүхэл тоо өгөгдөв. Хэрвээ K тоо эерэг бол хойшоогоо, сөрөг бол урагш тоон дарааллыг |K| удаа шилжилт хий.</p>\n<p style=\"font-family: Arial, Helvetica, sans-serif; font-size: 13px;\"><span style=\"font-size: 1.17em; font-family: Verdana, Arial, Helvetica, sans-serif;\">Input</span></p>\n<p>Эхний мөрөнд массивын элементийн тоо N өгөгдөнө. (1&lt;=N&lt;=100 000).</p>\n<p>Хоёр дахь мөрөнд массивын элементүүд. Int &nbsp;төрөл.</p>\n<p>Гурав дахь мөрөнд K тоо (|K|&lt;=100 000) өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Шилжилтийн дараах тоон дараалал нэг мөрөнд хоорондоо нэг зайгаар тусгаарлагдан хэвлэгдэнэ.</p>\n<h3>Example</h3>\n<pre><strong>Input 1:</strong></pre>\n<pre>5</pre>\n<pre>5 3 7 4 6</pre>\n<pre>3<br>\n<strong>Output 1:</strong>\n7 4 6 5 3</pre>\n<pre><strong>Input 2:</strong></pre>\n<pre>5</pre>\n<pre>10 20 30 40 50</pre>\n<pre>-11</pre>\n<pre><strong>Output 2:</strong></pre>\n<pre>20 30 40 50 10</pre>",
+  "bodyText": "N элементтэй бүхэл тоон дараалал болон K бүхэл тоо өгөгдөв. Хэрвээ K тоо эерэг бол хойшоогоо, сөрөг бол урагш тоон дарааллыг |K| удаа шилжилт хий.\nInput\nЭхний мөрөнд массивын элементийн тоо N өгөгдөнө. (1<=N<=100 000).\nХоёр дахь мөрөнд массивын элементүүд. Int  төрөл.\nГурав дахь мөрөнд K тоо (|K|<=100 000) өгөгдөнө.\nOutput\nШилжилтийн дараах тоон дараалал нэг мөрөнд хоорондоо нэг зайгаар тусгаарлагдан хэвлэгдэнэ.\nExample\nInput 1:\n5\n5 3 7 4 6\n3\nOutput 1:\n7 4 6 5 3\nInput 2:\n5\n10 20 30 40 50\n-11\nOutput 2:\n20 30 40 50 10",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input 1:",
+    "5",
+    "5 3 7 4 6",
+    "3\nOutput 1:\n7 4 6 5 3",
+    "Input 2:",
+    "5",
+    "10 20 30 40 50",
+    "-11",
+    "Output 2:",
+    "20 30 40 50 10"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7514/",
+  "code": "RGB7514",
+  "scrapedAt": "2026-06-29T06:41:56.597Z"
+}

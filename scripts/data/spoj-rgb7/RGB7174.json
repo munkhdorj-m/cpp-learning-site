@@ -1,0 +1,24 @@
+{
+  "title": "Хөрш нүд",
+  "hidden": true,
+  "bodyHtml": "<p>&nbsp;</p>\n<table border=\"1\" cellspacing=\"0\" cellpadding=\"0\">\n<tbody>\n<tr>\n<td width=\"22\" valign=\"top\">\n<p>1</p>\n</td>\n<td width=\"22\" valign=\"top\">\n<p>2</p>\n</td>\n<td width=\"22\" valign=\"top\">\n<p>3</p>\n</td>\n<td width=\"195\" valign=\"top\">\n<p>&nbsp;</p>\n</td>\n<td width=\"22\" valign=\"top\">\n<p>&nbsp;</p>\n</td>\n<td width=\"22\" valign=\"top\">\n<p>1</p>\n</td>\n<td width=\"22\" valign=\"top\">\n<p>&nbsp;</p>\n</td>\n</tr>\n<tr>\n<td width=\"22\" valign=\"top\">\n<p>4</p>\n</td>\n<td width=\"22\" valign=\"top\">\n<p>5</p>\n</td>\n<td width=\"22\" valign=\"top\">\n<p>6</p>\n</td>\n<td width=\"195\" valign=\"top\">\n<p>&nbsp;</p>\n</td>\n<td width=\"22\" valign=\"top\">\n<p>4</p>\n</td>\n<td width=\"22\" valign=\"top\">\n<p>&nbsp;</p>\n</td>\n<td width=\"22\" valign=\"top\">\n<p>2</p>\n</td>\n</tr>\n<tr>\n<td width=\"22\" valign=\"top\">\n<p>7</p>\n</td>\n<td width=\"22\" valign=\"top\">\n<p>8</p>\n</td>\n<td width=\"22\" valign=\"top\">\n<p>9</p>\n</td>\n<td width=\"195\" valign=\"top\">\n<p>&nbsp;</p>\n</td>\n<td width=\"22\" valign=\"top\">\n<p>&nbsp;</p>\n</td>\n<td width=\"22\" valign=\"top\">\n<p>3</p>\n</td>\n<td width=\"22\" valign=\"top\">\n<p>&nbsp;</p>\n</td>\n</tr>\n</tbody>\n</table>\n<p>Зураг 1. Хөрш нүд&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; Зураг 2. Хэвлэх дараалал</p>\n<p>N*N хэмжээтэй шатрын хөлгийг нэг өнцгөөс нь эхлэн 1-ээс N*N хүртэлх тоогоор дугаарлажээ.&nbsp;</p>\n<p>Хөлгийн 1 нүдний дугаар өгөгдөхөд тэдгээрийн хөрш нүднүүдийн дугаарыг хэвлэх &nbsp;программ зохионо уу. Хөрш нүд гэдэг нь тухайн нүдтэй талаараа нийлсэн нүднүүдийг хэлнэ. Зураг 1-т үзүүлсэн хөлгийн 5 дугаартай нүдний хөрш нүдүүд нь 2, 6, 8, 4 дугаартай нүднүүд болно.</p>\n<h3>Input</h3>\n<p>Нүдний дугаар K(1&lt;=K&lt;=N*N) тоо, хөлгийн хэмжээ N (2&lt;N&lt;=256) натурал &nbsp;тоо нэг хоосон зайтай байрлана.</p>\n<h3>Output</h3>\n<p>Тухайн нүдний хөрш нүдний дугаарууд болох 2-оос 4 ширхэг натурал тоо нэг хоосон зайтай, дээд талын нүднээс эхлэн цагийн зүүний дагуу (Зураг 2) дарааллаар гаргана.</p>\n<h3>Example</h3>\n<pre><strong>Input 1:</strong>\n5 3\n\n<strong>Output 1:</strong>\n2 6 8 4&nbsp;</pre>\n<pre><strong>Input 2:</strong></pre>\n<pre>1 3</pre>\n<pre><strong>Output 2:</strong></pre>\n<pre>2 4</pre>\n<pre><strong>Input 3:</strong></pre>\n<pre>4 3</pre>\n<pre><span style=\"font-weight: bold;\">Output 3:</span></pre>\n<pre>1 5 7</pre>\n<pre> </pre>",
+  "bodyText": "1\n\n\n2\n\n\n3\n\n\n \n\n\n \n\n\n1\n\n\n \n\n\n\n\n4\n\n\n5\n\n\n6\n\n\n \n\n\n4\n\n\n \n\n\n2\n\n\n\n\n7\n\n\n8\n\n\n9\n\n\n \n\n\n \n\n\n3\n\n\n \n\n\n\n\nЗураг 1. Хөрш нүд                              Зураг 2. Хэвлэх дараалал\nN*N хэмжээтэй шатрын хөлгийг нэг өнцгөөс нь эхлэн 1-ээс N*N хүртэлх тоогоор дугаарлажээ. \nХөлгийн 1 нүдний дугаар өгөгдөхөд тэдгээрийн хөрш нүднүүдийн дугаарыг хэвлэх  программ зохионо уу. Хөрш нүд гэдэг нь тухайн нүдтэй талаараа нийлсэн нүднүүдийг хэлнэ. Зураг 1-т үзүүлсэн хөлгийн 5 дугаартай нүдний хөрш нүдүүд нь 2, 6, 8, 4 дугаартай нүднүүд болно.\nInput\nНүдний дугаар K(1<=K<=N*N) тоо, хөлгийн хэмжээ N (2<N<=256) натурал  тоо нэг хоосон зайтай байрлана.\nOutput\nТухайн нүдний хөрш нүдний дугаарууд болох 2-оос 4 ширхэг натурал тоо нэг хоосон зайтай, дээд талын нүднээс эхлэн цагийн зүүний дагуу (Зураг 2) дарааллаар гаргана.\nExample\nInput 1:\n5 3\n\nOutput 1:\n2 6 8 4 \nInput 2:\n1 3\nOutput 2:\n2 4\nInput 3:\n4 3\nOutput 3:\n1 5 7",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input 1:\n5 3\n\nOutput 1:\n2 6 8 4",
+    "Input 2:",
+    "1 3",
+    "Output 2:",
+    "2 4",
+    "Input 3:",
+    "4 3",
+    "Output 3:",
+    "1 5 7",
+    ""
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7174/",
+  "code": "RGB7174",
+  "scrapedAt": "2026-06-29T06:42:43.967Z"
+}

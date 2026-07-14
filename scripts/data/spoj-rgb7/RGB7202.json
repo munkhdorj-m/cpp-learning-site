@@ -1,0 +1,17 @@
+{
+  "title": "IOI 3 удаа",
+  "hidden": true,
+  "bodyHtml": "<p>Дэлгэцэнд IOI гэж&nbsp;3 удаа хэвлэ.</p>\n<h3>Input</h3>\n<p>Оролт байхгүй.</p>\n<h3>Output</h3>\n<p>IOI үгийг төр тус бүрт 1,1-ээр хэвлэ.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n\n\n<strong>Output:</strong>\nIOI</pre>\n<pre>IOI</pre>\n<pre>IOI</pre>",
+  "bodyText": "Дэлгэцэнд IOI гэж 3 удаа хэвлэ.\nInput\nОролт байхгүй.\nOutput\nIOI үгийг төр тус бүрт 1,1-ээр хэвлэ.\nExample\nInput:\n\n\nOutput:\nIOI\nIOI\nIOI",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n\n\nOutput:\nIOI",
+    "IOI",
+    "IOI"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7202/",
+  "code": "RGB7202",
+  "scrapedAt": "2026-06-29T06:37:43.789Z"
+}

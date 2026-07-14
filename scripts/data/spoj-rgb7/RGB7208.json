@@ -1,0 +1,15 @@
+{
+  "title": "2-ын n зэрэг",
+  "hidden": true,
+  "bodyHtml": "<p>2-ын өгөгдсөн тоон зэргийг ол. /2-ын n зэрэг гэдэг нь 2*2*...*2. Жишээ нь 2-ын 3 зэрэг 2*2*2=8 /</p>\n<h3>Input</h3>\n<p>Int төрлийн нэг тоо өгөгдөнө. Тэр тоо нь 2-ыг хэдэн удаа үржүүлэхийг заана.</p>\n<h3>Output</h3>\n<p>2-ын өгөгдсөн тоон зэрэг.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong><br>5<br><br><strong>Output:</strong><br>32<br></pre>",
+  "bodyText": "2-ын өгөгдсөн тоон зэргийг ол. /2-ын n зэрэг гэдэг нь 2*2*...*2. Жишээ нь 2-ын 3 зэрэг 2*2*2=8 /\nInput\nInt төрлийн нэг тоо өгөгдөнө. Тэр тоо нь 2-ыг хэдэн удаа үржүүлэхийг заана.\nOutput\n2-ын өгөгдсөн тоон зэрэг.\nExample\nInput:5Output:32",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:5Output:32"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7208/",
+  "code": "RGB7208",
+  "scrapedAt": "2026-06-29T06:37:54.479Z"
+}

@@ -1,0 +1,15 @@
+{
+  "title": "3 тооны их",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн 3 тооны ихийг ол.</p>\n<h3>Input</h3>\n<p>Нэг мөрөнд Int төрлийн 3 тоо зайгаар тусгаарлагдан өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Их тоо.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n1 3 2\n<strong>Output:</strong>\n3</pre>",
+  "bodyText": "Өгөгдсөн 3 тооны ихийг ол.\nInput\nНэг мөрөнд Int төрлийн 3 тоо зайгаар тусгаарлагдан өгөгдөнө.\nOutput\nИх тоо.\nExample\nInput:\n1 3 2\nOutput:\n3",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n1 3 2\nOutput:\n3"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7103/",
+  "code": "RGB7103",
+  "scrapedAt": "2026-06-29T06:37:20.641Z"
+}

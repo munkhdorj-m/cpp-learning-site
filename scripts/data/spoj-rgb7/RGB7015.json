@@ -1,0 +1,15 @@
+{
+  "title": "Хоног цаг",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн цагийг хоног цагт шилжүүл.</p>\n<h3>Input</h3>\n<p>Цаг Int төрлөөр өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Хоног, цаг нэг мөрөнд зайгаар тусгаарлагдан хэвлэгдэнэ.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n44\n<strong>Output:</strong>\n1 20</pre>",
+  "bodyText": "Өгөгдсөн цагийг хоног цагт шилжүүл.\nInput\nЦаг Int төрлөөр өгөгдөнө.\nOutput\nХоног, цаг нэг мөрөнд зайгаар тусгаарлагдан хэвлэгдэнэ.\nExample\nInput:\n44\nOutput:\n1 20",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n44\nOutput:\n1 20"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7015/",
+  "code": "RGB7015",
+  "scrapedAt": "2026-06-29T06:37:10.118Z"
+}

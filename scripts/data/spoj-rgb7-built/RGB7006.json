@@ -1,0 +1,99 @@
+{
+  "code": "RGB7006",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7006-function-2",
+    "title_mn": "Функц 2",
+    "title_en": "Function 2",
+    "statement_mn": "y = 4x² − 3x + 5 функцын утгыг ол.\n\n**Жишээ:**\n\n| Оролт | Гаралт |\n|-------|--------|\n| -2    | 27     |",
+    "statement_en": "Find the value of the function y = 4x² − 3x + 5.\n\n**Example:**\n\n| Input | Output |\n|-------|--------|\n| -2    | 27     |",
+    "input_format_mn": "Нэг мөрөнд нэг бүхэл тоо **x** өгөгдөнө.",
+    "input_format_en": "A single line containing one integer **x**.",
+    "output_format_mn": "y-ийн утгыг бүхэл тоогоор хэвлэ.",
+    "output_format_en": "Print the value of y as an integer.",
+    "constraints_mn": "-1000 ≤ x ≤ 1000",
+    "constraints_en": "-1000 ≤ x ≤ 1000",
+    "difficulty": "easy",
+    "tags": [
+      "math",
+      "implementation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n\nusing namespace std;\n\nint main() {\n    int x;\n    cin >> x;\n    int y = 4 * x * x - 3 * x + 5;\n    cout << y << endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "-2\n",
+        "output": "27\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "0\n",
+      "1\n",
+      "-1\n",
+      "1000\n",
+      "-1000\n",
+      "500\n",
+      "-500\n",
+      "2\n",
+      "-3\n",
+      "10\n",
+      "-10\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "27",
+      "got": "27"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "0\n",
+      "stdout": "5\n"
+    },
+    {
+      "stdin": "1\n",
+      "stdout": "6\n"
+    },
+    {
+      "stdin": "-1\n",
+      "stdout": "12\n"
+    },
+    {
+      "stdin": "1000\n",
+      "stdout": "3997005\n"
+    },
+    {
+      "stdin": "-1000\n",
+      "stdout": "4003005\n"
+    },
+    {
+      "stdin": "500\n",
+      "stdout": "998505\n"
+    },
+    {
+      "stdin": "-500\n",
+      "stdout": "1001505\n"
+    },
+    {
+      "stdin": "2\n",
+      "stdout": "15\n"
+    },
+    {
+      "stdin": "-3\n",
+      "stdout": "50\n"
+    },
+    {
+      "stdin": "10\n",
+      "stdout": "375\n"
+    },
+    {
+      "stdin": "-10\n",
+      "stdout": "435\n"
+    }
+  ]
+}

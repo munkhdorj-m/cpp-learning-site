@@ -1,0 +1,13 @@
+{
+  "title": "Нэмэгдэхүүн давхцаж болно",
+  "hidden": true,
+  "bodyHtml": "<p style=\"text-align: justify;\"><span style=\"font-size: small;\">Өгөгдсөн натурал n тоог хичнээн янзаар натурал тоонуудын нийлбэрт задлах вэ? Нэмэгдэгдэхүүнүүд нь давхцаж болно.&nbsp;</span></p>\n<h3>Input</h3>\n<p><span style=\"font-size: small;\">Натурал тоо n,k зайгаар тусгаарлагдан өгөгдөнө. 1&lt;=n&lt;=2000, 2&lt;=k&lt;=1000000.</span></p>\n<h3>Output</h3>\n<p><span style=\"font-size: small;\">Боломжийн тоог k-д хувааж үлдэгдлийг хэвлэнэ.</span></p>\n<h3>Example</h3>\n<p><span style=\"font-size: small;\"><strong>Input:</strong> </span></p>\n<p><span style=\"font-size: small;\">4 100 <br><br><strong>Output:</strong> </span></p>\n<p><span style=\"font-size: small;\">5 <br><strong>Тайлбар</strong> : n=4, k=100 үед боломжийн тоо 5 тул 100 хуваасан үлдэгдэл мөн 5 болно. <br>Боломжууд нь : 4, 3+1, 2+2, 2+1+1, 1+1+1+1</span></p>",
+  "bodyText": "Өгөгдсөн натурал n тоог хичнээн янзаар натурал тоонуудын нийлбэрт задлах вэ? Нэмэгдэгдэхүүнүүд нь давхцаж болно. \nInput\nНатурал тоо n,k зайгаар тусгаарлагдан өгөгдөнө. 1<=n<=2000, 2<=k<=1000000.\nOutput\nБоломжийн тоог k-д хувааж үлдэгдлийг хэвлэнэ.\nExample\nInput: \n4 100 Output: \n5 Тайлбар : n=4, k=100 үед боломжийн тоо 5 тул 100 хуваасан үлдэгдэл мөн 5 болно. Боломжууд нь : 4, 3+1, 2+2, 2+1+1, 1+1+1+1",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7622/",
+  "code": "RGB7622",
+  "scrapedAt": "2026-06-29T06:42:58.580Z"
+}

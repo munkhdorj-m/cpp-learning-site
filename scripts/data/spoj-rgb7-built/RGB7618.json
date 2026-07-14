@@ -1,0 +1,105 @@
+{
+  "code": "RGB7618",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7618-longest-increasing-subsequence",
+    "title_mn": "Өсөх дэд дараалал",
+    "title_en": "Increasing subsequence",
+    "statement_mn": "Өгөгдсөн бүхэл тоон дараалал дотроос хамгийн олон элементтэй **эрс өсөх дэд дарааллын** элементийн тоог ол.\n\nДэд дараалал гэдэг нь анхны дарааллын зарим элементүүдийг (тэдгээрийн харьцангуй дарааллыг хадгалан) сонгохыг хэлнэ. Эрс өсөх дэд дараалал гэдэг нь дараалсан сонгосон элемент бүр өмнөхөөсөө их байх дэд дарааллыг хэлнэ.",
+    "statement_en": "Given a sequence of integers, find the length of the longest **strictly increasing subsequence**.\n\nA subsequence is obtained by selecting some elements from the original sequence while preserving their relative order. A strictly increasing subsequence is one where each selected element is greater than the previous selected element.",
+    "input_format_mn": "- Эхний мөрөнд натурал тоо $n$ өгөгдөнө ($n\\le 100$).\n- Дараагийн мөрөнд $n$ ширхэг бүхэл тоо зайгаар тусгаарлагдан өгөгдөнө. Тоонууд `int` төрөлд багтана.",
+    "input_format_en": "- The first line contains a natural number $n$ ($n\\le 100$).\n- The next line contains $n$ integers separated by spaces. The numbers fit in the `int` type.",
+    "output_format_mn": "Хамгийн олон элементтэй эрс өсөх дэд дарааллын элементийн тоог хэвлэ.",
+    "output_format_en": "Print the length of the longest strictly increasing subsequence.",
+    "constraints_mn": "- $1 \\le n \\le 100$\n- Тоонууд $32$-бит бүхэл тооны мужид ($-2^{31} \\le a_i \\le 2^{31}-1$)",
+    "constraints_en": "- $1 \\le n \\le 100$\n- Numbers are within $32$-bit integer range ($-2^{31} \\le a_i \\le 2^{31}-1$)",
+    "difficulty": "easy",
+    "tags": [
+      "dynamic-programming",
+      "lis",
+      "subsequence"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <vector>\n#include <algorithm>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n\n    vector<int> a(n);\n    for (int i = 0; i < n; ++i) {\n        cin >> a[i];\n    }\n\n    // dp[i] = length of LIS ending at index i\n    vector<int> dp(n, 1);\n    int ans = (n > 0) ? 1 : 0;\n\n    for (int i = 0; i < n; ++i) {\n        for (int j = 0; j < i; ++j) {\n            if (a[j] < a[i]) {\n                dp[i] = max(dp[i], dp[j] + 1);\n            }\n        }\n        ans = max(ans, dp[i]);\n    }\n\n    cout << ans << \"\\n\";\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5\n4 1 3 2 5",
+        "output": "3"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n0",
+      "3\n1 2 3",
+      "3\n3 2 1",
+      "4\n1 1 1 1",
+      "5\n-5 0 5 10 15",
+      "6\n5 4 3 2 1 10",
+      "7\n1 3 5 2 4 6 0",
+      "10\n100 200 1 2 3 4 5 300 400 500",
+      "2\n-1000000000 1000000000",
+      "8\n10 9 8 7 6 5 4 3",
+      "10\n1 10 2 9 3 8 4 7 5 6",
+      "7\n-5 -4 -3 -2 -1 0 1"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "3",
+      "got": "3"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n0",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "3\n1 2 3",
+      "stdout": "3\n"
+    },
+    {
+      "stdin": "3\n3 2 1",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "4\n1 1 1 1",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "5\n-5 0 5 10 15",
+      "stdout": "5\n"
+    },
+    {
+      "stdin": "6\n5 4 3 2 1 10",
+      "stdout": "2\n"
+    },
+    {
+      "stdin": "7\n1 3 5 2 4 6 0",
+      "stdout": "4\n"
+    },
+    {
+      "stdin": "10\n100 200 1 2 3 4 5 300 400 500",
+      "stdout": "8\n"
+    },
+    {
+      "stdin": "2\n-1000000000 1000000000",
+      "stdout": "2\n"
+    },
+    {
+      "stdin": "8\n10 9 8 7 6 5 4 3",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "10\n1 10 2 9 3 8 4 7 5 6",
+      "stdout": "6\n"
+    },
+    {
+      "stdin": "7\n-5 -4 -3 -2 -1 0 1",
+      "stdout": "7\n"
+    }
+  ]
+}

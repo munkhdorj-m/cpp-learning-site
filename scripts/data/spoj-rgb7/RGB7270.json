@@ -1,0 +1,13 @@
+{
+  "title": "Үлдэгдэл",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Натурал тоо N-ийг 17-д хуваахад a (0&lt;=a&lt;=16) үлдэгдэл өгдөг. Харин N-ийг 100-д хуваахад b (0&lt;=b&lt;=99) үлдэгдэл өгнө. N тоог 1700-д хуваахад гарах үлдэгдлийг ол.</span></p>\n<h3><span style=\"font-size: small;\">Input</span></h3>\n<p><span style=\"font-size: small;\">a, b тоо зайгаар тусгаарлагдан өгөгдөнө.</span></p>\n<h3><span style=\"font-size: small;\">Output</span></h3>\n<p><span style=\"font-size: small;\">N тоог 1700-д хуваахад гарах үлдэгдэл.</span></p>\n<h3><span style=\"font-size: small;\">Example</span></h3>\n<p><strong><span style=\"font-size: small;\">Input:</span></strong></p>\n<p><span style=\"font-size: small;\">2 1</span></p>\n<p><strong><span style=\"font-size: small;\">Output:</span></strong></p>\n<p><span style=\"font-size: small;\">801</span></p>",
+  "bodyText": "Натурал тоо N-ийг 17-д хуваахад a (0<=a<=16) үлдэгдэл өгдөг. Харин N-ийг 100-д хуваахад b (0<=b<=99) үлдэгдэл өгнө. N тоог 1700-д хуваахад гарах үлдэгдлийг ол.\nInput\na, b тоо зайгаар тусгаарлагдан өгөгдөнө.\nOutput\nN тоог 1700-д хуваахад гарах үлдэгдэл.\nExample\nInput:\n2 1\nOutput:\n801",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7270/",
+  "code": "RGB7270",
+  "scrapedAt": "2026-06-29T06:43:33.686Z"
+}

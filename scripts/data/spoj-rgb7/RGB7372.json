@@ -1,0 +1,13 @@
+{
+  "title": "Ялгавар",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Арифметик прогрессын эхний ба сүүлийн гишүүн мөн энэ хоёроос ялгаатай нэгэн гишүүн мэдэгдэж байв. Энэхүү арифметик прогрессыг хамгийн цөөн гишүүнтэй байлгах ялгаврыг ол.</span>&nbsp;</p>\n<h3><span style=\"font-size: small;\">Input</span></h3>\n<p><span style=\"font-size: small;\">Арифметик прогрессын гишүүд болох a,b,c 3 натурал тоо зайгаар тусгаарлагдан өгөгдөнө. </span></p>\n<p><span style=\"font-size: small;\">0&lt;a&lt;b&lt;c&lt;2<sup>31</sup>-1</span><span style=\"font-size: small;\">.</span></p>\n<h3><span style=\"font-size: small;\">Output</span></h3>\n<p><span style=\"font-size: small;\">Арифметик прогрессыг хамгийн цөөн гишүүнтэй байлгах арифметик прогрессын ялгавар.&nbsp;</span></p>\n<h3><span style=\"font-size: small;\">Example</span></h3>\n<p><span style=\"font-size: small;\"><strong>Input:</strong> </span></p>\n<p><span style=\"font-size: small;\">3 23 113</span></p>\n<p><span style=\"font-size: small;\"><strong>Output:</strong> </span></p>\n<p><span style=\"font-size: small;\">10</span></p>",
+  "bodyText": "Арифметик прогрессын эхний ба сүүлийн гишүүн мөн энэ хоёроос ялгаатай нэгэн гишүүн мэдэгдэж байв. Энэхүү арифметик прогрессыг хамгийн цөөн гишүүнтэй байлгах ялгаврыг ол. \nInput\nАрифметик прогрессын гишүүд болох a,b,c 3 натурал тоо зайгаар тусгаарлагдан өгөгдөнө. \n0<a<b<c<231-1.\nOutput\nАрифметик прогрессыг хамгийн цөөн гишүүнтэй байлгах арифметик прогрессын ялгавар. \nExample\nInput: \n3 23 113\nOutput: \n10",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7372/",
+  "code": "RGB7372",
+  "scrapedAt": "2026-06-29T06:43:14.445Z"
+}

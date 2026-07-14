@@ -1,0 +1,13 @@
+{
+  "title": "Гурван тооны ХБЕХ",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Өгөгдсөн 3 натурал тооны хамгийн бага ерөнхий хуваагдагчийг (ХБЕХ) ол.</span></p>\n<h3><span style=\"font-size: small;\">Input</span></h3>\n<p><span style=\"font-size: small;\">Нэг мөрөнд 3 натурал тоо зайгаар тусгаарлагдан өгөгдөнө. Тоонууд 1200-аас ихгүй.</span></p>\n<h3><span style=\"font-size: small;\">Output</span></h3>\n<p><span style=\"font-size: small;\">ХБЕХ</span></p>\n<h3>Example</h3>\n<p><strong><span style=\"font-size: small;\">Input:</span></strong></p>\n<p><span style=\"font-size: small;\">4 6 18</span></p>\n<p><span style=\"font-size: small;\"><strong>Output:</strong> </span></p>\n<p><span style=\"font-size: small;\">36</span></p>",
+  "bodyText": "Өгөгдсөн 3 натурал тооны хамгийн бага ерөнхий хуваагдагчийг (ХБЕХ) ол.\nInput\nНэг мөрөнд 3 натурал тоо зайгаар тусгаарлагдан өгөгдөнө. Тоонууд 1200-аас ихгүй.\nOutput\nХБЕХ\nExample\nInput:\n4 6 18\nOutput: \n36",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7316/",
+  "code": "RGB7316",
+  "scrapedAt": "2026-06-29T06:39:08.003Z"
+}

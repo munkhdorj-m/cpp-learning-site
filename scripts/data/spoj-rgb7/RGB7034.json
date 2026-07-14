@@ -1,0 +1,13 @@
+{
+  "title": "2 тооны дундаж",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Өгөгдсөн 2 бодит&nbsp; эерэг тооны арифметик болон геометр дунджийг ол.</span></p>\n<h3>Input</h3>\n<p><span style=\"font-size: small;\">2 бодит тоо зайгаар тусгаарлагдан өгөгдөнө.</span></p>\n<h3>Output</h3>\n<p><span style=\"font-size: small;\">Арифметик дундаж, геометр дундаж тоонуудыг зайгаар тусгаарлан таслалаас хойш 2 оронгийн нарийвчлалтай хэвлэ.</span></p>\n<h3>Example</h3>\n<p><span style=\"font-size: small;\"><strong>Input:</strong> </span></p>\n<p><span style=\"font-size: small;\">3.5 12.47</span></p>\n<p><span style=\"font-size: small;\"> <strong>Output:</strong> </span></p>\n<p><span style=\"font-size: small;\">7.99 6.61</span></p>\n<p><span style=\"font-size: small;\"><br></span></p>",
+  "bodyText": "Өгөгдсөн 2 бодит  эерэг тооны арифметик болон геометр дунджийг ол.\nInput\n2 бодит тоо зайгаар тусгаарлагдан өгөгдөнө.\nOutput\nАрифметик дундаж, геометр дундаж тоонуудыг зайгаар тусгаарлан таслалаас хойш 2 оронгийн нарийвчлалтай хэвлэ.\nExample\nInput: \n3.5 12.47\n Output: \n7.99 6.61",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7034/",
+  "code": "RGB7034",
+  "scrapedAt": "2026-06-29T06:39:20.201Z"
+}

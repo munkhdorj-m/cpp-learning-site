@@ -1,0 +1,95 @@
+{
+  "code": "RGB7235",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7235-inverse-square-product",
+    "title_mn": "Квадратын урвуу үржвэр",
+    "title_en": "Inverse Square Product",
+    "statement_mn": "(1+1/1²) × (1+1/2²) × ... × (1+1/n²) үржвэрийг ол.\n\n### Оролт\nНатурал тоо n өгөгдөнө.\n\n### Гаралт\nҮржвэр. Таслалаас хойш 3 оронгийн нарийвчлалтай гаргана.\n\n### Жишээ\n**Оролт:**\n```\n3\n```\n\n**Гаралт:**\n```\n2.778\n```",
+    "statement_en": "Compute the product (1+1/1²) × (1+1/2²) × ... × (1+1/n²).\n\n### Input\nA natural number n is given.\n\n### Output\nThe product, printed with 3 digits after the decimal point.\n\n### Example\n**Input:**\n```\n3\n```\n\n**Output:**\n```\n2.778\n```",
+    "input_format_mn": "Ганц мөрөнд нэг натурал тоо n өгөгдөнө.",
+    "input_format_en": "A single line containing one natural number n.",
+    "output_format_mn": "Үржвэрийг аравтын бутархай хэлбэрээр, таслалаас хойш 3 оронгийн нарийвчлалтай хэвлэнэ.",
+    "output_format_en": "Print the product as a decimal number with exactly 3 digits after the decimal point.",
+    "constraints_mn": "- 1 ≤ n ≤ 10⁶",
+    "constraints_en": "- 1 ≤ n ≤ 10⁶",
+    "difficulty": "easy",
+    "tags": [
+      "math",
+      "iteration",
+      "floating-point"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <iomanip>\n#include <cmath>\n\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n\n    double prod = 1.0;\n    for (int i = 1; i <= n; ++i) {\n        prod *= 1.0 + 1.0 / (static_cast<double>(i) * i);\n    }\n\n    cout << fixed << setprecision(3) << prod << '\\n';\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "3\n",
+        "output": "2.778\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1",
+      "2",
+      "5",
+      "10",
+      "100",
+      "1000",
+      "100000",
+      "1000000",
+      "42",
+      "999999"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "2.778",
+      "got": "2.778"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1",
+      "stdout": "2.000\n"
+    },
+    {
+      "stdin": "2",
+      "stdout": "2.500\n"
+    },
+    {
+      "stdin": "5",
+      "stdout": "3.069\n"
+    },
+    {
+      "stdin": "10",
+      "stdout": "3.343\n"
+    },
+    {
+      "stdin": "100",
+      "stdout": "3.640\n"
+    },
+    {
+      "stdin": "1000",
+      "stdout": "3.672\n"
+    },
+    {
+      "stdin": "100000",
+      "stdout": "3.676\n"
+    },
+    {
+      "stdin": "1000000",
+      "stdout": "3.676\n"
+    },
+    {
+      "stdin": "42",
+      "stdout": "3.591\n"
+    },
+    {
+      "stdin": "999999",
+      "stdout": "3.676\n"
+    }
+  ]
+}

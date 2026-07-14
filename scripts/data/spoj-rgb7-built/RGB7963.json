@@ -1,0 +1,95 @@
+{
+  "code": "RGB7963",
+  "status": "ok",
+  "data": {
+    "slug": "cow-photography",
+    "title_mn": "Үнээ гэрэл зурагт",
+    "title_en": "Cow Photography",
+    "statement_mn": "Үнээнүүд өнөөдөр онцгой дэггүй байна! Фермер Жон тэднийг дараалан зогсоож гэрэл зураг авахыг хүсч байгаа боловч тэд зураг авахын өмнөхөн хөдөлсөөр байна. Тодорхойлбол, ФЖ-ийн N (1 ≤ N ≤ 20,000) үнээ тус бүр өвөрмөц бүхэл тоон ID-тай. ФЖ үнээнүүдийг тодорхой дарааллаар зогсоож гэрэл зураг авахыг хүсч байгаа бөгөөд энэ дараалал нь A[1...N] массиваар илэрхийлэгдэнэ, энд A[j] нь j-р үнээний ID юм. Тэр үнээнүүдийг энэ дарааллаар зогсоогоод, камерын товчлуурыг дарахад яг өмнө, тэг буюу түүнээс олон үнээ (заавал зэргэлдээ бүлэг биш) шинэ байрлал руу хөдөлдөг. Илүү нарийн, тэг буюу түүнээс олон үнээ шугамаас гарч, үлдсэн үнээнүүд завсарыг хаахын тулд шилжинэ. Гарсан үнээнүүд дараа нь шугамын өөр өөр байрлалуудад дахин орно (заавал анхны байрлалдаа биш). Уурласан боловч бууж өгөхгүй, ФЖ дахин үнээнүүдийг A дарааллаар зогсоож, гэхдээ зураг авахын өмнөхөн өөр нэг бүлэг тэг буюу түүнээс олон үнээ шинэ байрлал руу хөдөлдөг. Энэ процесс нийт таван гэрэл зураг хүртэл давтагддаг. Гэрэл зургийн дарааллууд өгөгдсөнөөр, анхны зориулагдсан A дарааллыг ол. Зураг бүр A-аас ялгаатай бөгөөд зарим бүлэг үнээ хөдөлсөн байдаг. Гэхдээ үнээ бүр хамгийн ихдээ нэг гэрэл зурагт л хөдөлдөг: хэрэв үнээ нэг зураг дээр хөдөлсөн бүлэгт байсан бол бусад дөрвөн зураг дээр идэвхтэй хөдөлдөггүй (гэхдээ эргэн тойрны үнээнүүд хөдөлсний улмаас өөр индекс дээр байж болно).",
+    "statement_en": "The cows are in a particularly mischievous mood today! All Farmer John wants to do is take a photograph of the cows standing in a line, but they keep moving right before he has a chance to snap the picture. Specifically, each of FJ's N (1 ≤ N ≤ 20,000) cows has a unique integer ID number. FJ wants to take a picture of the cows standing in a line in a very specific ordering, represented by the contents of an array A[1...N], where A[j] gives the ID number of the jth cow in the ordering. He arranges the cows in this order, but just before he can press the button on his camera to snap the picture, a group of zero or more cows (not necessarily a contiguous group) moves to a set of new positions in the lineup. More precisely, a group of zero or more cows steps away from the line, with the remaining cows shifting over to close the resulting gaps in the lineup. The cows who stepped away then re-insert themselves at different positions in the lineup (not necessarily at the locations they originally occupied). Frustrated but not deterred, FJ again arranges his cows according to the ordering in A, but again, right before he can snap a picture, a different group of zero or more cows moves to a set of new positions in the lineup. The process above repeats for a total of five photographs before FJ gives up. Given the contents of each photograph, see if you can reconstruct the original intended ordering A. Each photograph shows an ordering of the cows that differs from A in that some group of zero or more cows has moved. However, a cow only moves in at most one photograph: if a cow is part of the group that moves in one photograph, she will not actively move in any of the other four photographs (although she could end up at a different index as a consequence of other cows around her moving, of course).",
+    "input_format_mn": "N (1 ≤ N ≤ 20,000) өгөгдөнө. Дараагийн 5 мөрөнд тус бүр N ширхэг бүхэл тоо (үнээний ID) байх бөгөөд эдгээр нь таван гэрэл зургийн дарааллууд юм. ID бүр 1-ээс 1,000,000,000 хүртэлх бүхэл тоо байх ба бүх ID нь ялгаатай.",
+    "input_format_en": "Line 1: N (1 ≤ N ≤ 20,000)  \nLines 2–6: Each of the next 5 lines contains N integers (cow IDs) — the orderings from the five photographs. Each ID is an integer between 1 and 1,000,000,000, and all IDs are distinct across all photographs.",
+    "output_format_mn": "Анхны зориулагдсан A дарааллын N ширхэг бүхэл тоог нэг мөрөнд зайгаар тусгаарлан хэвлэнэ.",
+    "output_format_en": "Print N integers — the original intended ordering A — on a single line separated by spaces.",
+    "constraints_mn": "- 1 ≤ N ≤ 20,000  \n- Үнээний ID бүр 1-ээс 1,000,000,000 хүртэлх бүхэл тоо, бүгд ялгаатай.  \n- Үнээ бүр хамгийн ихдээ нэг гэрэл зурагт хөдөлдөг.",
+    "constraints_en": "- 1 ≤ N ≤ 20,000  \n- Each cow ID is an integer between 1 and 1,000,000,000, all distinct.  \n- Each cow moves in at most one photograph.",
+    "difficulty": "hard",
+    "tags": [
+      "sorting",
+      "observations",
+      "ad-hoc"
+    ],
+    "time_limit_ms": 2000,
+    "memory_limit_kb": 262144,
+    "xp_reward": 35,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int N;\n    cin >> N;\n\n    // 5 photographs, each with N IDs\n    vector<vector<int>> photos(5, vector<int>(N));\n    for (int p = 0; p < 5; ++p) {\n        for (int i = 0; i < N; ++i) {\n            cin >> photos[p][i];\n        }\n    }\n\n    // For each cow, record in which positions (indices) it appears across photos\n    // Since IDs are unique, we can map ID -> vector of 5 positions\n    unordered_map<int, vector<int>> pos;\n    for (int p = 0; p < 5; ++p) {\n        for (int i = 0; i < N; ++i) {\n            int id = photos[p][i];\n            if (pos.find(id) == pos.end()) {\n                pos[id] = vector<int>(5, -1); // -1 = not present? Actually all 5 photos have all N cows\n            }\n            pos[id][p] = i;\n        }\n    }\n\n    // Now each cow has positions pos[id][0..4]\n    // The key observation: compare any two cows A and B.\n    // In the original ordering, if A comes before B, then in the 4 photos where neither of them moved,\n    // A must be before B. In the photo where one of them moved, that cow's position changed.\n    // So A is before B in the original order iff A is before B in AT LEAST 3 out of the 5 photos.\n    // Because the only photo where the order might flip is the one where one of them moved.\n    // (If both didn't move in a photo, the relative order stays as original.\n    //  The cow that moved could go anywhere, potentially flipping the order.)\n    // So we sort cows by this comparator.\n    //\n    // We'll collect all N IDs, sort them using this custom comparator.\n\n    vector<int> ids;\n    for (auto &kv : pos) {\n        ids.push_back(kv.first);\n    }\n\n    sort(ids.begin(), ids.end(), [&](int a, int b) {\n        const auto &pa = pos[a];\n        const auto &pb = pos[b];\n        int cnt = 0;\n        for (int p = 0; p < 5; ++p) {\n            if (pa[p] < pb[p]) ++cnt;\n        }\n        // If cnt >= 3, a should come before b\n        // We want strict weak ordering: return true if a < b\n        // Tie-breaking: if cnt == 2 or cnt == 3 exactly? Actually cnt == 3 means a before b in 3 photos, so a < b.\n        // cnt == 2 means a before b in 2 photos, so b before a in 3 photos => b < a.\n        // But we need to avoid inconsistent comparator (cnt == 2 => pa < pb in 2 photos, so return false).\n        // For equal? IDs are distinct so positions vectors can't be all same.\n        return cnt >= 3;\n    });\n\n    for (int i = 0; i < N; ++i) {\n        if (i > 0) cout << ' ';\n        cout << ids[i];\n    }\n    cout << '\\n';\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5\n1 2 3 4 5\n2 1 3 4 5\n3 1 2 4 5\n4 1 2 3 5\n5 1 2 3 4",
+        "output": "1 2 3 4 5"
+      }
+    ],
+    "extra_test_inputs": [
+      "6\n1 2 3 4 5 6\n1 3 2 4 5 6\n1 4 2 3 5 6\n1 5 2 3 4 6\n1 6 2 3 4 5",
+      "3\n1 2 3\n2 1 3\n3 1 2\n1 2 3\n2 3 1",
+      "4\n10 20 30 40\n10 30 20 40\n40 10 20 30\n10 20 40 30\n30 10 20 40",
+      "8\n8 7 6 5 4 3 2 1\n7 8 6 5 4 3 2 1\n6 7 8 5 4 3 2 1\n5 6 7 8 4 3 2 1\n4 5 6 7 8 3 2 1",
+      "10\n1 2 3 4 5 6 7 8 9 10\n2 1 3 4 5 6 7 8 9 10\n3 1 2 4 5 6 7 8 9 10\n4 1 2 3 5 6 7 8 9 10\n5 1 2 3 4 6 7 8 9 10",
+      "7\n100 200 300 400 500 600 700\n100 200 400 300 500 600 700\n100 200 500 300 400 600 700\n100 200 600 300 400 500 700\n100 200 700 300 400 500 600",
+      "2\n1 2\n2 1\n1 2\n2 1\n1 2",
+      "6\n1 2 3 4 5 6\n1 2 4 3 5 6\n1 2 5 3 4 6\n1 2 6 3 4 5\n2 1 3 4 5 6",
+      "5\n5 4 3 2 1\n5 3 4 2 1\n5 2 3 4 1\n5 1 2 3 4\n4 5 1 2 3",
+      "9\n9 8 7 6 5 4 3 2 1\n8 9 7 6 5 4 3 2 1\n7 8 9 6 5 4 3 2 1\n6 7 8 9 5 4 3 2 1\n5 6 7 8 9 4 3 2 1"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "1 2 3 4 5",
+      "got": "1 2 3 4 5"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "6\n1 2 3 4 5 6\n1 3 2 4 5 6\n1 4 2 3 5 6\n1 5 2 3 4 6\n1 6 2 3 4 5",
+      "stdout": "1 2 3 4 5 6\n"
+    },
+    {
+      "stdin": "3\n1 2 3\n2 1 3\n3 1 2\n1 2 3\n2 3 1",
+      "stdout": "1 2 3\n"
+    },
+    {
+      "stdin": "4\n10 20 30 40\n10 30 20 40\n40 10 20 30\n10 20 40 30\n30 10 20 40",
+      "stdout": "10 20 30 40\n"
+    },
+    {
+      "stdin": "8\n8 7 6 5 4 3 2 1\n7 8 6 5 4 3 2 1\n6 7 8 5 4 3 2 1\n5 6 7 8 4 3 2 1\n4 5 6 7 8 3 2 1",
+      "stdout": "6 7 8 5 4 3 2 1\n"
+    },
+    {
+      "stdin": "10\n1 2 3 4 5 6 7 8 9 10\n2 1 3 4 5 6 7 8 9 10\n3 1 2 4 5 6 7 8 9 10\n4 1 2 3 5 6 7 8 9 10\n5 1 2 3 4 6 7 8 9 10",
+      "stdout": "1 2 3 4 5 6 7 8 9 10\n"
+    },
+    {
+      "stdin": "7\n100 200 300 400 500 600 700\n100 200 400 300 500 600 700\n100 200 500 300 400 600 700\n100 200 600 300 400 500 700\n100 200 700 300 400 500 600",
+      "stdout": "100 200 300 400 500 600 700\n"
+    },
+    {
+      "stdin": "2\n1 2\n2 1\n1 2\n2 1\n1 2",
+      "stdout": "1 2\n"
+    },
+    {
+      "stdin": "6\n1 2 3 4 5 6\n1 2 4 3 5 6\n1 2 5 3 4 6\n1 2 6 3 4 5\n2 1 3 4 5 6",
+      "stdout": "1 2 3 4 5 6\n"
+    },
+    {
+      "stdin": "5\n5 4 3 2 1\n5 3 4 2 1\n5 2 3 4 1\n5 1 2 3 4\n4 5 1 2 3",
+      "stdout": "5 3 4 2 1\n"
+    },
+    {
+      "stdin": "9\n9 8 7 6 5 4 3 2 1\n8 9 7 6 5 4 3 2 1\n7 8 9 6 5 4 3 2 1\n6 7 8 9 5 4 3 2 1\n5 6 7 8 9 4 3 2 1",
+      "stdout": "7 8 9 6 5 4 3 2 1\n"
+    }
+  ]
+}

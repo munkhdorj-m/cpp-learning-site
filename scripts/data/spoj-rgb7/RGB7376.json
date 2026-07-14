@@ -1,0 +1,13 @@
+{
+  "title": "Тоо 1 3 7",
+  "hidden": true,
+  "bodyHtml": "<p style=\"font-size: 13px; text-align: justify; color: #000020; background-color: #f6f9e0;\">Сурагч тоог зөвхөн 1, 3, 7 цифрүүдээр үүсгээд өсөхөөр жагсаав. &nbsp;1, 3, 7, 11, 13, 17, 31, 33, 37, ... гэх мэтээр. Энэхүү өсөх тоон жагсаалтын 10 дахь 71 болно. Өгөгдсөн тоон байрлалд байх жагсаалтын тоог ол.&nbsp;</p>\n<h3><span style=\"font-size: small;\">Input</span></h3>\n<p><span style=\"color: #000020; font-size: 13px; text-align: justify; background-color: #f6f9e0;\">Натурал тоо өгөгдөнө. Long long төрөл.</span></p>\n<h3><span style=\"font-size: small;\">Output</span></h3>\n<p><span style=\"color: #000020; font-size: 13px; text-align: justify; background-color: #f6f9e0;\">Өгөгдсөн тоон байрлалд байх өсөх тоон дарааллын тоо.</span></p>\n<h3><span style=\"font-size: small;\">Example</span></h3>\n<p><span style=\"font-size: small;\"><strong>Input:</strong> </span></p>\n<p><span style=\"font-size: x-small;\">10</span></p>\n<p><span style=\"font-size: small;\"><strong>Output:</strong> </span></p>\n<p><span style=\"font-size: x-small;\">71</span></p>",
+  "bodyText": "Сурагч тоог зөвхөн 1, 3, 7 цифрүүдээр үүсгээд өсөхөөр жагсаав.  1, 3, 7, 11, 13, 17, 31, 33, 37, ... гэх мэтээр. Энэхүү өсөх тоон жагсаалтын 10 дахь 71 болно. Өгөгдсөн тоон байрлалд байх жагсаалтын тоог ол. \nInput\nНатурал тоо өгөгдөнө. Long long төрөл.\nOutput\nӨгөгдсөн тоон байрлалд байх өсөх тоон дарааллын тоо.\nExample\nInput: \n10\nOutput: \n71",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7376/",
+  "code": "RGB7376",
+  "scrapedAt": "2026-06-29T06:43:30.185Z"
+}

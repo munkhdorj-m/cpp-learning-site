@@ -1,0 +1,94 @@
+{
+  "code": "RGB7901",
+  "status": "ok",
+  "data": {
+    "slug": "contest-time-rgb7901",
+    "title_mn": "Тэмцээний цаг",
+    "title_en": "Contest Time",
+    "statement_mn": "Bessie үнээ сүүний үйлдвэрлэлээсээ залхаж, компьютер тооцооллын салбарт хүч үзэхээр шийджээ. Тэрээр USACO-гийн тэмцээнд орж, өөрийнхөө программчлалын чадвараа батлахаар шийджээ. Тэмцээн 2011 оны 11-р сарын 11-ний өдөр эхлэхийг мэдсэн үнээ хөгжилтэй байхын тулд яг 11/11/11 өдрийн 11 цаг 11 минутад бодлогуудаа татаж аваад бодохоор шийдэв.\n\nХарамсалтай нь, Bessie-ийн хувийн зохион байгуулалт нилээд муу болохоор өөртөө зориулж 3 цаг (180 минут)-аас их хугацаа үлдсэн эсэхийг мэдэх програм бичихээр шийджээ. Танд түүний ажиллаж дуусах хугацаа өгөгдөх бөгөөд, Bessie-ийн тэмцээнд зарцуулах хугацааг тооцох программ зохиоход нь тусална уу.",
+    "statement_en": "Bessie the cow got tired of the dairy industry and decided to try her hand at computer science. She entered a USACO contest to prove her programming skills. Knowing the contest starts on November 11, 2011, she decided to have fun and download the problems exactly at 11:11 on 11/11/11.\n\nUnfortunately, Bessie's time management is quite poor, so she decided to write a program to check whether she has more than 3 hours (180 minutes) left. You are given her finishing time, and you need to help her calculate the total time she spends on the contest.",
+    "input_format_mn": "Эхний мөрөнд зайгаар тусгаарлагдсан **D**, **H**, **M** гэсэн 3 бүхэл тоо өгөгдөнө. Эдгээр нь дуусах өдөр, цаг, минут юм.",
+    "input_format_en": "The first line contains three space-separated integers **D**, **H**, **M** — the finishing day, hour, and minute.",
+    "output_format_mn": "Bessie-ийн тэмцээнд зарцуулах нийт минутыг хэвлэ.",
+    "output_format_en": "Print the total number of minutes Bessie spends on the contest.",
+    "constraints_mn": "- 11 ≤ D ≤ 14  \n- 0 ≤ H ≤ 23  \n- 0 ≤ M ≤ 59  \n- Өгөгдсөн огноо/цаг нь 11-р сарын 11-ний 11 цаг 11 минутаас хэзээ ч багагүй байна.",
+    "constraints_en": "- 11 ≤ D ≤ 14  \n- 0 ≤ H ≤ 23  \n- 0 ≤ M ≤ 59  \n- The given date/time is always on or after November 11, 11:11.",
+    "difficulty": "easy",
+    "tags": [
+      "time-calculation",
+      "basic-math"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n\nusing namespace std;\n\nint main() {\n    int D, H, M;\n    cin >> D >> H >> M;\n\n    // Reference time: November 11, 11:11\n    // Total minutes from start of day 11, 00:00 to the reference point\n    int ref_total = 11 * 24 * 60 + 11 * 60 + 11;\n\n    // Total minutes from start of day 11, 00:00 to the given finish time\n    int finish_total = D * 24 * 60 + H * 60 + M;\n\n    int diff = finish_total - ref_total;\n    cout << diff << endl;\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "12 13 14\n",
+        "output": "1563\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "11 11 11\n",
+      "11 11 12\n",
+      "11 12 11\n",
+      "11 23 59\n",
+      "12 0 0\n",
+      "13 0 0\n",
+      "14 11 11\n",
+      "14 23 59\n",
+      "11 20 30\n",
+      "12 11 11\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "1563",
+      "got": "1563"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "11 11 11\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "11 11 12\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "11 12 11\n",
+      "stdout": "60\n"
+    },
+    {
+      "stdin": "11 23 59\n",
+      "stdout": "768\n"
+    },
+    {
+      "stdin": "12 0 0\n",
+      "stdout": "769\n"
+    },
+    {
+      "stdin": "13 0 0\n",
+      "stdout": "2209\n"
+    },
+    {
+      "stdin": "14 11 11\n",
+      "stdout": "4320\n"
+    },
+    {
+      "stdin": "14 23 59\n",
+      "stdout": "5088\n"
+    },
+    {
+      "stdin": "11 20 30\n",
+      "stdout": "559\n"
+    },
+    {
+      "stdin": "12 11 11\n",
+      "stdout": "1440\n"
+    }
+  ]
+}

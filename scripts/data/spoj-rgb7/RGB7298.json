@@ -1,0 +1,13 @@
+{
+  "title": "Анхны тоо",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Өгөгдсөн тоо анхны тоо бол YES үгүй бол NO гэж хэвлэ.</span></p>\n<h3><span style=\"font-size: small;\">Input</span></h3>\n<p><span style=\"font-size: small;\">Бүхэл тоо өгөгдөнө.</span></p>\n<h3><span style=\"font-size: small;\">Output</span></h3>\n<p>YES/NO</p>\n<h3><span style=\"font-size: small;\">Example<br></span>\n<p><span style=\"font-weight: normal;\"><span style=\"font-size: small;\"><strong>Input 1:<br></strong></span><span style=\"font-size: small;\">11<br></span><span style=\"font-size: small;\"><strong>Output 1:<br></strong></span><span style=\"font-size: small;\">YES<br></span><span style=\"font-size: small;\">Input 2:<br></span><span style=\"font-size: small;\">26<br></span><span style=\"font-size: small;\">Output 2:<br></span><span style=\"font-size: small;\">NO</span></span></p>\n</h3>\n<div><span style=\"font-size: small;\"><br></span></div>",
+  "bodyText": "Өгөгдсөн тоо анхны тоо бол YES үгүй бол NO гэж хэвлэ.\nInput\nБүхэл тоо өгөгдөнө.\nOutput\nYES/NO\nExample\nInput 1:11Output 1:YESInput 2:26Output 2:NO",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7298/",
+  "code": "RGB7298",
+  "scrapedAt": "2026-06-29T06:49:57.995Z"
+}

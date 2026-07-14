@@ -1,0 +1,110 @@
+{
+  "code": "RGB7902",
+  "status": "ok",
+  "data": {
+    "slug": "RGB7902",
+    "title_mn": "Алдсан цифрүүд",
+    "title_en": "Mistyped Digits",
+    "statement_mn": "Bessie үнээ 10-тын тооллын системээс өөр тооллын системд хөрвүүлж сурч байгаа, гэвч тэр хоёр туурайгаараа үзэгээ барихад хэцүү байгаа тул алдаа гаргасаар байгаа.\n\nBessie тоог өөр системд шилжүүлэхдээ яг **нэг** тоог буруу бичдэг. Жишээ нь, тэр 14 тоог 2-тын тоололд шилжүүлэхэд \"1110\" гарах хариуг \"0110\", \"1010\", \"1100\" эсвэл \"1111\" гэж бичдэг. Bessie хэзээ ч санаандгүйгээр тоо нэмэж эсвэл хасдаггүй, бас тэр санаандгүйгээр эхний цифрийг ч гэсэн \"0\" гэж бичсэн байж болох бөгөөд алдсан цифр нь уг цифр болно.\n\nТанд Bessie-ийн $N$ (10-тын тоолол) тоог 2 болон 3-тын тоололд **алдаж бичсэн** тоо өгөгдөх бөгөөд 10-тын тоололд байх $N$ тоог хэвлэ.\n\nТа $N$-ийн хязгаар 1 тэрбум гэж ойлгож болно, мөн $N$ тоонд ганц л хариу бий.",
+    "statement_en": "Bessie the cow is learning to convert numbers from base 10 to other bases, but she has trouble holding a pen with her two hooves, so she keeps making mistakes.\n\nWhen Bessie converts a number to another base, she makes exactly **one** digit error. For example, when converting 14 to binary, the correct answer \"1110\" might be written as \"0110\", \"1010\", \"1100\" or \"1111\". Bessie never accidentally adds or removes a digit, and she may accidentally write the first digit as \"0\" – that digit is also considered an error.\n\nYou are given Bessie's mistaken representations of the number $N$ (in base 10) in **binary** (base 2) and **ternary** (base 3). Find and print the correct value of $N$ in base 10.\n\nYou can assume $N$ is at most 1 billion, and there is a unique answer.",
+    "input_format_mn": "Эхний мөрөнд $N$ тоог 2-тын тоололд шилжүүлсэн тоо өгөгдөнө, яг 1 цифр нь буруу бичигдсэн.\n\nХоёр дахь мөрөнд $N$ тоог 3-тын тоололд шилжүүлсэн тоо өгөгдөнө, яг 1 цифр нь буруу бичигдсэн.",
+    "input_format_en": "The first line contains $N$ in binary, with exactly one digit wrong.\n\nThe second line contains $N$ in ternary, with exactly one digit wrong.",
+    "output_format_mn": "Ганц мөрөнд $N$ тооны зөв 10-тын утгыг хэвлэ.",
+    "output_format_en": "Print a single line containing the correct value of $N$ in base 10.",
+    "constraints_mn": "- $1 \\le N \\le 10^9$\n- Өгөгдсөн хоёр мөр тус бүрт яг нэг цифр буруу бичигдсэн.\n- Яг нэг шийдэл байна.",
+    "constraints_en": "- $1 \\le N \\le 10^9$\n- Each of the two given lines has exactly one digit wrong.\n- There is a unique solution.",
+    "difficulty": "medium",
+    "tags": [
+      "base-conversion",
+      "brute-force",
+      "digit-manipulation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 20,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint to_decimal(const string& s, int base) {\n    int val = 0;\n    for (char c : s) {\n        val = val * base + (c - '0');\n    }\n    return val;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string bin, ter;\n    cin >> bin >> ter;\n\n    // Try all single-digit flips in binary string\n    for (int i = 0; i < (int)bin.size(); i++) {\n        string b2 = bin;\n        for (char d = '0'; d <= '1'; d++) {\n            if (d == bin[i]) continue;\n            b2[i] = d;\n            // Leading zero allowed? The problem says yes, it can be '0' mistakenly.\n            // So we don't skip leading zeros.\n            int val2 = to_decimal(b2, 2);\n\n            // Now try all single-digit flips in ternary string\n            for (int j = 0; j < (int)ter.size(); j++) {\n                string t3 = ter;\n                for (char e = '0'; e <= '2'; e++) {\n                    if (e == ter[j]) continue;\n                    t3[j] = e;\n                    int val3 = to_decimal(t3, 3);\n                    if (val2 == val3 && val2 >= 1) {\n                        cout << val2 << '\\n';\n                        return 0;\n                    }\n                }\n            }\n        }\n    }\n\n    // Should never reach here per problem guarantee\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "1010\n212\n",
+        "output": "14\n"
+      },
+      {
+        "input": "",
+        "output": ""
+      }
+    ],
+    "extra_test_inputs": [
+      "100\n1",
+      "1\n1",
+      "1111\n101",
+      "10\n2",
+      "1000\n20",
+      "1100100\n11201",
+      "1111101000\n10012022",
+      "1\n10",
+      "0\n10",
+      "101\n1",
+      "1001\n100"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "14",
+      "got": "14"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "",
+      "got": ""
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "100\n1",
+      "stdout": "\n"
+    },
+    {
+      "stdin": "1\n1",
+      "stdout": "\n"
+    },
+    {
+      "stdin": "1111\n101",
+      "stdout": "11\n"
+    },
+    {
+      "stdin": "10\n2",
+      "stdout": "\n"
+    },
+    {
+      "stdin": "1000\n20",
+      "stdout": "\n"
+    },
+    {
+      "stdin": "1100100\n11201",
+      "stdout": "\n"
+    },
+    {
+      "stdin": "1111101000\n10012022",
+      "stdout": "\n"
+    },
+    {
+      "stdin": "1\n10",
+      "stdout": "\n"
+    },
+    {
+      "stdin": "0\n10",
+      "stdout": "\n"
+    },
+    {
+      "stdin": "101\n1",
+      "stdout": "\n"
+    },
+    {
+      "stdin": "1001\n100",
+      "stdout": "11\n"
+    }
+  ]
+}

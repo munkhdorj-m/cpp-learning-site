@@ -1,0 +1,115 @@
+{
+  "code": "RGB7440",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7440",
+    "title_mn": "Тэмдэгтүүд",
+    "title_en": "Characters",
+    "statement_mn": "Өгөгдсөн англи цагаан толгойн том үсгээс Z хүртэлх үсгүүдийг жишээн дээрх форматаар мөрүүдэд хэвлэ.\n\n## Жишээ\n**Оролт:**\n```\nX\n```\n**Гаралт:**\n```\nX\nXY\nXYZ\n```",
+    "statement_en": "Given an uppercase English letter, print all letters from that letter up to Z, each line containing the sequence from the given letter to a progressively larger letter, as shown in the example.\n\n## Example\n**Input:**\n```\nX\n```\n**Output:**\n```\nX\nXY\nXYZ\n```",
+    "input_format_mn": "Ганц мөрөнд англи цагаан толгойн нэг том үсэг (`A`–`Z`) өгөгдөнө.",
+    "input_format_en": "A single line containing one uppercase English letter (`A`–`Z`).",
+    "output_format_mn": "Өгөгдсөн үсгээс `Z` хүртэлх үсгүүдийг дараах байдлаар хэвлэ: эхний мөрөнд зөвхөн өгөгдсөн үсөг, хоёр дахь мөрөнд өгөгдсөн үсөг болон дараагийн үсэг, ..., сүүлийн мөрөнд өгөгдсөн үсгээс `Z` хүртэлх бүх үсгүүд. Мөр хооронд зай байхгүй, мөр бүр төгсгөлийн шинэ мөрөөр төгссөн байна.",
+    "output_format_en": "Print lines as follows: the first line contains only the given letter, the second line contains the given letter and the next letter, ..., the last line contains all letters from the given letter up to `Z`. No spaces between letters; each line ends with a newline.",
+    "constraints_mn": "- Оролт нь зөвхөн нэг том үсэг `A`–`Z` байна.",
+    "constraints_en": "- The input is a single uppercase letter `A`–`Z`.",
+    "difficulty": "easy",
+    "tags": [
+      "basic-io",
+      "ascii",
+      "loops"
+    ],
+    "time_limit_ms": 500,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <string>\n\nusing namespace std;\n\nint main() {\n    char start;\n    cin >> start;\n\n    for (char end = start; end <= 'Z'; ++end) {\n        for (char c = start; c <= end; ++c) {\n            cout << c;\n        }\n        cout << '\\n';\n    }\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "X\n",
+        "output": "X\nXY\nXYZ\n"
+      },
+      {
+        "input": "A\n",
+        "output": "A\nAB\nABC\nABCD\nABCDE\nABCDEF\nABCDEFG\nABCDEFGH\nABCDEFGHI\nABCDEFGHIJ\nABCDEFGHIJK\nABCDEFGHIJKL\nABCDEFGHIJKLM\nABCDEFGHIJKLMN\nABCDEFGHIJKLMNO\nABCDEFGHIJKLMNOP\nABCDEFGHIJKLMNOPQ\nABCDEFGHIJKLMNOPQR\nABCDEFGHIJKLMNOPQRS\nABCDEFGHIJKLMNOPQRST\nABCDEFGHIJKLMNOPQRSTU\nABCDEFGHIJKLMNOPQRSTUV\nABCDEFGHIJKLMNOPQRSTUVW\nABCDEFGHIJKLMNOPQRSTUVWX\nABCDEFGHIJKLMNOPQRSTUVWXY\nABCDEFGHIJKLMNOPQRSTUVWXYZ\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "Z\n",
+      "B\n",
+      "C\n",
+      "M\n",
+      "P\n",
+      "U\n",
+      "Y\n",
+      "E\n",
+      "H\n",
+      "O\n",
+      "T\n",
+      "Q\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "X\nXY\nXYZ",
+      "got": "X\nXY\nXYZ"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "A\nAB\nABC\nABCD\nABCDE\nABCDEF\nABCDEFG\nABCDEFGH\nABCDEFGHI\nABCDEFGHIJ\nABCDEFGHIJK\nABCDEFGHIJKL\nABCDEFGHIJKLM\nABCDEFGHIJKLMN\nABCDEFGHIJKLMNO\nABCDEFGHIJKLMNOP\nABCDEFGHIJKLMNOPQ\nABCDEFGHIJKLMNOPQR\nABCDEFGHIJKLMNOPQRS\nABCDEFGHIJKLMNOPQRST\nABCDEFGHIJKLMNOPQRSTU\nABCDEFGHIJKLMNOPQRSTUV\nABCDEFGHIJKLMNOPQRSTUVW\nABCDEFGHIJKLMNOPQRSTUVWX\nABCDEFGHIJKLMNOPQRSTUVWXY\nABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "got": "A\nAB\nABC\nABCD\nABCDE\nABCDEF\nABCDEFG\nABCDEFGH\nABCDEFGHI\nABCDEFGHIJ\nABCDEFGHIJK\nABCDEFGHIJKL\nABCDEFGHIJKLM\nABCDEFGHIJKLMN\nABCDEFGHIJKLMNO\nABCDEFGHIJKLMNOP\nABCDEFGHIJKLMNOPQ\nABCDEFGHIJKLMNOPQR\nABCDEFGHIJKLMNOPQRS\nABCDEFGHIJKLMNOPQRST\nABCDEFGHIJKLMNOPQRSTU\nABCDEFGHIJKLMNOPQRSTUV\nABCDEFGHIJKLMNOPQRSTUVW\nABCDEFGHIJKLMNOPQRSTUVWX\nABCDEFGHIJKLMNOPQRSTUVWXY\nABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "Z\n",
+      "stdout": "Z\n"
+    },
+    {
+      "stdin": "B\n",
+      "stdout": "B\nBC\nBCD\nBCDE\nBCDEF\nBCDEFG\nBCDEFGH\nBCDEFGHI\nBCDEFGHIJ\nBCDEFGHIJK\nBCDEFGHIJKL\nBCDEFGHIJKLM\nBCDEFGHIJKLMN\nBCDEFGHIJKLMNO\nBCDEFGHIJKLMNOP\nBCDEFGHIJKLMNOPQ\nBCDEFGHIJKLMNOPQR\nBCDEFGHIJKLMNOPQRS\nBCDEFGHIJKLMNOPQRST\nBCDEFGHIJKLMNOPQRSTU\nBCDEFGHIJKLMNOPQRSTUV\nBCDEFGHIJKLMNOPQRSTUVW\nBCDEFGHIJKLMNOPQRSTUVWX\nBCDEFGHIJKLMNOPQRSTUVWXY\nBCDEFGHIJKLMNOPQRSTUVWXYZ\n"
+    },
+    {
+      "stdin": "C\n",
+      "stdout": "C\nCD\nCDE\nCDEF\nCDEFG\nCDEFGH\nCDEFGHI\nCDEFGHIJ\nCDEFGHIJK\nCDEFGHIJKL\nCDEFGHIJKLM\nCDEFGHIJKLMN\nCDEFGHIJKLMNO\nCDEFGHIJKLMNOP\nCDEFGHIJKLMNOPQ\nCDEFGHIJKLMNOPQR\nCDEFGHIJKLMNOPQRS\nCDEFGHIJKLMNOPQRST\nCDEFGHIJKLMNOPQRSTU\nCDEFGHIJKLMNOPQRSTUV\nCDEFGHIJKLMNOPQRSTUVW\nCDEFGHIJKLMNOPQRSTUVWX\nCDEFGHIJKLMNOPQRSTUVWXY\nCDEFGHIJKLMNOPQRSTUVWXYZ\n"
+    },
+    {
+      "stdin": "M\n",
+      "stdout": "M\nMN\nMNO\nMNOP\nMNOPQ\nMNOPQR\nMNOPQRS\nMNOPQRST\nMNOPQRSTU\nMNOPQRSTUV\nMNOPQRSTUVW\nMNOPQRSTUVWX\nMNOPQRSTUVWXY\nMNOPQRSTUVWXYZ\n"
+    },
+    {
+      "stdin": "P\n",
+      "stdout": "P\nPQ\nPQR\nPQRS\nPQRST\nPQRSTU\nPQRSTUV\nPQRSTUVW\nPQRSTUVWX\nPQRSTUVWXY\nPQRSTUVWXYZ\n"
+    },
+    {
+      "stdin": "U\n",
+      "stdout": "U\nUV\nUVW\nUVWX\nUVWXY\nUVWXYZ\n"
+    },
+    {
+      "stdin": "Y\n",
+      "stdout": "Y\nYZ\n"
+    },
+    {
+      "stdin": "E\n",
+      "stdout": "E\nEF\nEFG\nEFGH\nEFGHI\nEFGHIJ\nEFGHIJK\nEFGHIJKL\nEFGHIJKLM\nEFGHIJKLMN\nEFGHIJKLMNO\nEFGHIJKLMNOP\nEFGHIJKLMNOPQ\nEFGHIJKLMNOPQR\nEFGHIJKLMNOPQRS\nEFGHIJKLMNOPQRST\nEFGHIJKLMNOPQRSTU\nEFGHIJKLMNOPQRSTUV\nEFGHIJKLMNOPQRSTUVW\nEFGHIJKLMNOPQRSTUVWX\nEFGHIJKLMNOPQRSTUVWXY\nEFGHIJKLMNOPQRSTUVWXYZ\n"
+    },
+    {
+      "stdin": "H\n",
+      "stdout": "H\nHI\nHIJ\nHIJK\nHIJKL\nHIJKLM\nHIJKLMN\nHIJKLMNO\nHIJKLMNOP\nHIJKLMNOPQ\nHIJKLMNOPQR\nHIJKLMNOPQRS\nHIJKLMNOPQRST\nHIJKLMNOPQRSTU\nHIJKLMNOPQRSTUV\nHIJKLMNOPQRSTUVW\nHIJKLMNOPQRSTUVWX\nHIJKLMNOPQRSTUVWXY\nHIJKLMNOPQRSTUVWXYZ\n"
+    },
+    {
+      "stdin": "O\n",
+      "stdout": "O\nOP\nOPQ\nOPQR\nOPQRS\nOPQRST\nOPQRSTU\nOPQRSTUV\nOPQRSTUVW\nOPQRSTUVWX\nOPQRSTUVWXY\nOPQRSTUVWXYZ\n"
+    },
+    {
+      "stdin": "T\n",
+      "stdout": "T\nTU\nTUV\nTUVW\nTUVWX\nTUVWXY\nTUVWXYZ\n"
+    },
+    {
+      "stdin": "Q\n",
+      "stdout": "Q\nQR\nQRS\nQRST\nQRSTU\nQRSTUV\nQRSTUVW\nQRSTUVWX\nQRSTUVWXY\nQRSTUVWXYZ\n"
+    }
+  ]
+}

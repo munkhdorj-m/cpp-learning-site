@@ -1,0 +1,105 @@
+{
+  "code": "RGB7614",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7614",
+    "title_mn": "Калькуляторын үйлдлүүд",
+    "title_en": "Calculator Operations",
+    "statement_mn": "\nСурагчийн зохиосон калькулятор нь дараах 3 үйлдлийг гүйцэтгэх чадвартай.\n\n1. X тоог 1-ээр нэмэгдүүлэх  \n2. X тоог 2-оор үржүүлэх  \n3. X тоог 3-аар үржүүлэх  \n\nСурагчийн калькуляторын дээрх 3 үйлдлийн тусламжтайгаар **1**-ийн тооноос өгөгдсөн **N** тоог гаргахад хамгийн цөөндөө хэдэн үйлдэл хийх вэ?\n\nҮйлдлүүдэд дугаарынх нь тоо 1, 2, 3 тоог харгалзуулбал:\n\n- 1 дэх үйлдэл буюу X тоог 1-ээр нэмэгдүүлсэн бол **1**\n- 2 дахь үйлдэл буюу X тоог 2-оор үржүүлсэн бол **2**\n- 3 дахь үйлдэлд **3**\n\nҮйлдлийн дарааллыг 1-ээс эхлэн N тоог гаргах хүртэлх үйлдлүүдийг харгалзах кодоор нь нэг мөрөнд зайгүй хэвлэнэ үү.\n\nХэрэв хамгийн цөөн үйлдлийн тоотой хэд хэдэн дараалал байвал үйлдлүүдийн дарааллыг *хойноос нь уншихад* аль их байгааг нь сонгоно. Жишээг сайн анхаарна уу.\n",
+    "statement_en": "\nA student designed a calculator that can perform the following three operations:\n\n1. Increase X by 1  \n2. Multiply X by 2  \n3. Multiply X by 3  \n\nUsing these three operations, starting from **1**, what is the minimum number of operations needed to obtain the given number **N**?\n\nEach operation corresponds to a code digit:\n- Operation 1 (add 1) → **1**\n- Operation 2 (multiply by 2) → **2**\n- Operation 3 (multiply by 3) → **3**\n\nPrint the sequence of operation codes (without spaces) from the start (1) to the target N.\n\nIf there are multiple sequences with the same minimum number of operations, choose the one that is *lexicographically largest when read backwards*. Pay careful attention to the example.\n",
+    "input_format_mn": "Натурал тоо N. N &lt; 10<sup>6</sup>.",
+    "input_format_en": "A single natural number N. N &lt; 10<sup>6</sup>.",
+    "output_format_mn": "Эхний мөрөнд 1-ээс N тоог гаргах хамгийн цөөн үйлдлийн тоо.  \nХоёр дахь мөрөнд үйлдлүүдийн дараалалд харгалзах 1, 2, 3 тоонууд хоорондоо хоосон зайгүйгээр хэвлэгдэнэ.",
+    "output_format_en": "The first line contains the minimum number of operations to obtain N from 1.  \nThe second line contains the sequence of operation codes (digits 1, 2, 3) without spaces.",
+    "constraints_mn": "- N &lt; 10<sup>6</sup> (N нь натурал тоо)",
+    "constraints_en": "- N &lt; 10<sup>6</sup> (N is a natural number)",
+    "difficulty": "medium",
+    "tags": [
+      "bfs",
+      "dp",
+      "shortest-path"
+    ],
+    "time_limit_ms": 500,
+    "memory_limit_kb": 65536,
+    "xp_reward": 20,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int N;\n    cin >> N;\n\n    const int INF = 1e9;\n    vector<int> dist(N + 1, INF);\n    vector<int> prev_op(N + 1, 0); // which operation led here from previous number\n\n    dist[1] = 0;\n    // BFS from 1 forward (since operations increase value)\n    queue<int> q;\n    q.push(1);\n    while (!q.empty()) {\n        int x = q.front();\n        q.pop();\n        int d = dist[x];\n        // op1: +1\n        if (x + 1 <= N && dist[x + 1] > d + 1) {\n            dist[x + 1] = d + 1;\n            prev_op[x + 1] = 1;\n            q.push(x + 1);\n        }\n        // op2: *2\n        if (x * 2 <= N && dist[x * 2] > d + 1) {\n            dist[x * 2] = d + 1;\n            prev_op[x * 2] = 2;\n            q.push(x * 2);\n        }\n        // op3: *3\n        if (x * 3 <= N && dist[x * 3] > d + 1) {\n            dist[x * 3] = d + 1;\n            prev_op[x * 3] = 3;\n            q.push(x * 3);\n        }\n    }\n\n    // Now reconstruct the sequence.\n    // However, we need to break ties correctly: among equally-short sequences,\n    // choose the one whose reversed sequence is lexicographically largest.\n    // The BFS above uses first-come-first-serve tie-breaking, which may not\n    // match the required tie-breaker. We need to re-examine.\n    //\n    // Let's compute the optimal sequence via DP with tie-breaking on reversed order.\n    // We'll store the best sequence (as string) for each number.\n    \n    vector<string> seq(N + 1);\n    vector<int> best_dist(N + 1, INF);\n    best_dist[1] = 0;\n    seq[1] = \"\";\n    \n    // We can process numbers from 1 to N, since operations increase value.\n    // For each x, try to update its successors.\n    for (int x = 1; x <= N; ++x) {\n        if (best_dist[x] == INF) continue;\n        int d = best_dist[x];\n        const string &cur = seq[x];\n        \n        // op1: +1\n        int y = x + 1;\n        if (y <= N) {\n            string cand = cur + \"1\";\n            if (d + 1 < best_dist[y]) {\n                best_dist[y] = d + 1;\n                seq[y] = cand;\n            } else if (d + 1 == best_dist[y]) {\n                // tie-break: reversed cand vs reversed seq[y], larger wins\n                string rev_cand = cand;\n                reverse(rev_cand.begin(), rev_cand.end());\n                string rev_cur = seq[y];\n                reverse(rev_cur.begin(), rev_cur.end());\n                if (rev_cand > rev_cur) {\n                    seq[y] = cand;\n                }\n            }\n        }\n        \n        // op2: *2\n        y = x * 2;\n        if (y <= N) {\n            string cand = cur + \"2\";\n            if (d + 1 < best_dist[y]) {\n                best_dist[y] = d + 1;\n                seq[y] = cand;\n            } else if (d + 1 == best_dist[y]) {\n                string rev_cand = cand;\n                reverse(rev_cand.begin(), rev_cand.end());\n                string rev_cur = seq[y];\n                reverse(rev_cur.begin(), rev_cur.end());\n                if (rev_cand > rev_cur) {\n                    seq[y] = cand;\n                }\n            }\n        }\n        \n        // op3: *3\n        y = x * 3;\n        if (y <= N) {\n            string cand = cur + \"3\";\n            if (d + 1 < best_dist[y]) {\n                best_dist[y] = d + 1;\n                seq[y] = cand;\n            } else if (d + 1 == best_dist[y]) {\n                string rev_cand = cand;\n                reverse(rev_cand.begin(), rev_cand.end());\n                string rev_cur = seq[y];\n                reverse(rev_cur.begin(), rev_cur.end());\n                if (rev_cand > rev_cur) {\n                    seq[y] = cand;\n                }\n            }\n        }\n    }\n    \n    cout << best_dist[N] << \"\\n\";\n    cout << seq[N] << \"\\n\";\n    \n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "44\n",
+        "output": "6\n331122\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n",
+      "2\n",
+      "3\n",
+      "4\n",
+      "5\n",
+      "10\n",
+      "100\n",
+      "1000\n",
+      "50000\n",
+      "999999\n",
+      "100000\n",
+      "345678\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "6\n331122",
+      "got": "6\n331122"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "2\n",
+      "stdout": "1\n2\n"
+    },
+    {
+      "stdin": "3\n",
+      "stdout": "1\n3\n"
+    },
+    {
+      "stdin": "4\n",
+      "stdout": "2\n22\n"
+    },
+    {
+      "stdin": "5\n",
+      "stdout": "3\n221\n"
+    },
+    {
+      "stdin": "10\n",
+      "stdout": "3\n331\n"
+    },
+    {
+      "stdin": "100\n",
+      "stdout": "7\n2223122\n"
+    },
+    {
+      "stdin": "1000\n",
+      "stdout": "9\n223313331\n"
+    },
+    {
+      "stdin": "50000\n",
+      "stdout": "17\n23312213313131222\n"
+    },
+    {
+      "stdin": "999999\n",
+      "stdout": "19\n2331333131231221333\n"
+    },
+    {
+      "stdin": "100000\n",
+      "stdout": "18\n233122133131312222\n"
+    },
+    {
+      "stdin": "345678\n",
+      "stdout": "19\n2223122222231223123\n"
+    }
+  ]
+}

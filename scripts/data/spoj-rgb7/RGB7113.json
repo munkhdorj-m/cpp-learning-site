@@ -1,0 +1,15 @@
+{
+  "title": "5-аас бага",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн тоо 5-аас бага бол&nbsp; YES үгүй бол NO гэж хэвлэ.</p>\n<h3>Input</h3>\n<p>Int төрлийн нэг тоо өгөгдөнө.</p>\n<h3>Output</h3>\n<p>YES&nbsp;эсвэл NO гэж хэвлэгдэнэ.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n4\n<strong>Output:</strong>\nYES</pre>",
+  "bodyText": "Өгөгдсөн тоо 5-аас бага бол  YES үгүй бол NO гэж хэвлэ.\nInput\nInt төрлийн нэг тоо өгөгдөнө.\nOutput\nYES эсвэл NO гэж хэвлэгдэнэ.\nExample\nInput:\n4\nOutput:\nYES",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n4\nOutput:\nYES"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7113/",
+  "code": "RGB7113",
+  "scrapedAt": "2026-06-29T06:37:38.331Z"
+}

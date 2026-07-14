@@ -1,0 +1,104 @@
+{
+  "code": "RGB7302",
+  "status": "ok",
+  "data": {
+    "slug": "digit-sum",
+    "title_mn": "Цифрүүдийн нийлбэр",
+    "title_en": "Sum of Digits",
+    "statement_mn": "Өгөгдсөн натурал тооны цифрүүдийн нийлбэрийг ол.",
+    "statement_en": "Find the sum of digits of a given natural number.",
+    "input_format_mn": "Нэг мөрөнд нэг натурал тоо өгөгдөнө.",
+    "input_format_en": "A single natural number on one line.",
+    "output_format_mn": "Тухайн тооны цифрүүдийн нийлбэрийг хэвлэ.",
+    "output_format_en": "Print the sum of the digits of the number.",
+    "constraints_mn": "- Тоо нь $1$ ба $10^9$-ийн хооронд байна.",
+    "constraints_en": "- The number is between $1$ and $10^9$.",
+    "difficulty": "easy",
+    "tags": [
+      "digits",
+      "math"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <string>\n\nint main() {\n    std::string s;\n    std::cin >> s;\n    int sum = 0;\n    for (char c : s) {\n        sum += c - '0';\n    }\n    std::cout << sum << std::endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "234\n",
+        "output": "9\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n",
+      "9\n",
+      "10\n",
+      "99\n",
+      "100\n",
+      "999\n",
+      "1000\n",
+      "9999\n",
+      "1000000000\n",
+      "999999999\n",
+      "123456789\n",
+      "500000000\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "9",
+      "got": "9"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "9\n",
+      "stdout": "9\n"
+    },
+    {
+      "stdin": "10\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "99\n",
+      "stdout": "18\n"
+    },
+    {
+      "stdin": "100\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "999\n",
+      "stdout": "27\n"
+    },
+    {
+      "stdin": "1000\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "9999\n",
+      "stdout": "36\n"
+    },
+    {
+      "stdin": "1000000000\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "999999999\n",
+      "stdout": "81\n"
+    },
+    {
+      "stdin": "123456789\n",
+      "stdout": "45\n"
+    },
+    {
+      "stdin": "500000000\n",
+      "stdout": "5\n"
+    }
+  ]
+}

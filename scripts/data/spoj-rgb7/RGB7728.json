@@ -1,0 +1,13 @@
+{
+  "title": "Дарааллыг ижилсүүлэх",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">N гишүүнтэй тоон дарааллын бүх гишүүн ижил байхын тулд хамгийн багадаа хэдэн элемент устгах хэрэгтэй вэ?</span></p>\n<p><span style=\"font-size: small;\"><strong>Оролт</strong></span></p>\n<p><span style=\"font-size: small;\">N тоо эхний мөрөнд өгөгдөнө. (1&lt;=N&lt;=100)</span></p>\n<p><span style=\"font-size: small;\">Дараагийн мөрөнд дарааллын гишүүд өгөгдөнө. 1 &lt;= дарааллын гишүүн &lt;= 1000.</span></p>\n<p><span style=\"font-size: small;\"><strong>Гаралт</strong></span></p>\n<p><span style=\"font-size: small;\">Устгах ёстой элементийн тоог хэвлэнэ.</span></p>\n<p><span style=\"font-size: x-small;\"><strong>Жишээ</strong></span></p>\n<p><span style=\"font-size: x-small;\"><strong>Оролт</strong></span></p>\n<p><span style=\"font-size: small;\">5</span></p>\n<p><span style=\"font-size: small;\">3 3 2 1 3</span></p>\n<p><strong><span style=\"font-size: small;\">Гаралт</span></strong></p>\n<p><span style=\"font-size: small;\">2&nbsp;&nbsp;</span></p>\n<p>&nbsp;</p>\n<p><span style=\"font-size: small;\"><span style=\"box-sizing: border-box; color: #555555; font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: small; text-align: justify; font-weight: 700;\"><em>Орчуулсан : Дархан-Уул аймгийн Монгол-Оюу сургуулийн 11.1 ангийн сурагч Э.Цэлмэг</em></span><em>&nbsp;</em></span></p>",
+  "bodyText": "N гишүүнтэй тоон дарааллын бүх гишүүн ижил байхын тулд хамгийн багадаа хэдэн элемент устгах хэрэгтэй вэ?\nОролт\nN тоо эхний мөрөнд өгөгдөнө. (1<=N<=100)\nДараагийн мөрөнд дарааллын гишүүд өгөгдөнө. 1 <= дарааллын гишүүн <= 1000.\nГаралт\nУстгах ёстой элементийн тоог хэвлэнэ.\nЖишээ\nОролт\n5\n3 3 2 1 3\nГаралт\n2  \n \nОрчуулсан : Дархан-Уул аймгийн Монгол-Оюу сургуулийн 11.1 ангийн сурагч Э.Цэлмэг",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7728/",
+  "code": "RGB7728",
+  "scrapedAt": "2026-06-29T06:52:12.954Z"
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Үлдэх нь",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Өгөгдсөн натурал тоо N хүртэлх тоонуудыг 1-ээс эхлэн N хүртэл дараалуулан бичиж 1,2,... гэж дугаарлав. Сондгой дугаартай байранд байгаа тооуудыг эхнээс нь эхлэн дарж үлдсэн тоонуудыг дахин жагсааж эхнээс дугаарлав. Шинэ жагсаалт дахь тэгш дугаартай тоонуудыг дарж үлдсэн тоонуудыг эхнээс нь жагсаан дахин дугаарлав. Сондгой дугаартай байранд байгааг дарж гэх мэтчилэн нэг тоо үлдтэл нь дээрх процессыг үргэлжлүүлэв. &nbsp;Үлдсэн тоо хэд вэ?</span></p>\n<h3><span style=\"font-size: small;\">Input</span></h3>\n<p><span style=\"font-size: small;\">Натурал тоо N өгөгдөв. N&lt;=1000000000.</span></p>\n<h3><span style=\"font-size: small;\">Output</span></h3>\n<p><span style=\"font-size: small;\">Үлдсэн тоо.</span></p>\n<h3><span style=\"font-size: small;\">Example</span></h3>\n<p><strong><span style=\"font-size: small;\">Input 1 :</span></strong></p>\n<p><span style=\"font-size: small;\">6</span></p>\n<p><span style=\"font-size: small;\"><strong>Output 1 :</strong></span></p>\n<p><span style=\"font-size: small;\">6</span></p>\n<p><strong><span style=\"font-size: small;\">Input 2 :</span></strong></p>\n<p><span style=\"font-size: small;\">100</span></p>\n<p><span style=\"font-size: small;\"><strong>Output 2 :</strong></span></p>\n<p><span style=\"font-size: small;\">86</span></p>\n<div><span style=\"font-size: small;\"><br></span></div>",
+  "bodyText": "Өгөгдсөн натурал тоо N хүртэлх тоонуудыг 1-ээс эхлэн N хүртэл дараалуулан бичиж 1,2,... гэж дугаарлав. Сондгой дугаартай байранд байгаа тооуудыг эхнээс нь эхлэн дарж үлдсэн тоонуудыг дахин жагсааж эхнээс дугаарлав. Шинэ жагсаалт дахь тэгш дугаартай тоонуудыг дарж үлдсэн тоонуудыг эхнээс нь жагсаан дахин дугаарлав. Сондгой дугаартай байранд байгааг дарж гэх мэтчилэн нэг тоо үлдтэл нь дээрх процессыг үргэлжлүүлэв.  Үлдсэн тоо хэд вэ?\nInput\nНатурал тоо N өгөгдөв. N<=1000000000.\nOutput\nҮлдсэн тоо.\nExample\nInput 1 :\n6\nOutput 1 :\n6\nInput 2 :\n100\nOutput 2 :\n86",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7677/",
+  "code": "RGB7677",
+  "scrapedAt": "2026-06-29T06:43:42.468Z"
+}

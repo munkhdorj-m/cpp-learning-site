@@ -1,0 +1,104 @@
+{
+  "code": "RGB7190",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7190-too-sergeekh",
+    "title_mn": "Тоо сэргээх",
+    "title_en": "Restore the Number",
+    "statement_mn": "Сурагч 3 оронтой тоо бичихдээ 1 тэмдэгт (цифр биш) илүү биччихжээ. Илүү бичсэн тэмдэгтийг хасч, уг 3 оронтой тооны квадратыг ол.\n\nЖишээ нь: хэрэв `12r3` гэж өгөгдсөн бол цифр биш тэмдэгт нь `r` бөгөөд үүнийг хассанаар `123` гэсэн 3 оронтой тоо гарна. Энэ тооны квадрат нь `123 * 123 = 15129` болно.",
+    "statement_en": "A student was writing a 3-digit number but accidentally typed one extra character (which is not a digit) somewhere into the number. Remove the extra non-digit character, then output the square of the resulting 3-digit number.\n\nFor example: given `12r3`, the non-digit character is `r`; removing it yields `123`, a 3-digit number. The square of 123 is `123 * 123 = 15129`.",
+    "input_format_mn": "Нэг мөрөнд 4 тэмдэгт зайгүйгээр өгөгдөнө. Яг 3 нь цифр (0-9), 1 нь цифр биш тэмдэгт байна. Цифр биш тэмдэгт нь латин үсэг, цэг таслал, эсвэл бусад тэмдэгт байж болно.",
+    "input_format_en": "A single line containing exactly 4 characters without spaces. Exactly 3 of them are digits (0-9) and exactly 1 is a non-digit character. The non-digit character can be a Latin letter, punctuation mark, or any other character.",
+    "output_format_mn": "Гарсан 3 оронтой тооны квадратыг хэвлэ. Квадрат нь бүхэл тоо байна.",
+    "output_format_en": "Output the square of the resulting 3-digit number. The square is an integer.",
+    "constraints_mn": "- Оролт нь 4 тэмдэгтээс бүрдэнэ.\n- Яг 3 тэмдэгт нь цифр (0-9), 1 тэмдэгт нь цифр биш.\n- Цифр биш тэмдэгтийг хассаны дараа үлдэх 3 цифр нь 100-аас 999 хүртэлх 3 оронтой тоо үүсгэнэ. (Удирдагч 0-ээр эхлэхгүй.)",
+    "constraints_en": "- The input is exactly 4 characters long.\n- Exactly 3 characters are digits (0-9) and 1 character is a non-digit.\n- After removing the non-digit character, the remaining 3 digits form a 3-digit number between 100 and 999 (no leading zeros).",
+    "difficulty": "easy",
+    "tags": [
+      "strings",
+      "implementation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <string>\n#include <cctype>\n\nusing namespace std;\n\nint main() {\n    string s;\n    cin >> s;\n    \n    string digits;\n    for (char c : s) {\n        if (isdigit(c)) {\n            digits += c;\n        }\n    }\n    \n    int num = stoi(digits);\n    cout << num * num << endl;\n    \n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "12r3\n",
+        "output": "15129\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "a123\n",
+      "1b23\n",
+      "12c3\n",
+      "123d\n",
+      "0a12\n",
+      "9x99\n",
+      "1@23\n",
+      "12#3\n",
+      "123$\n",
+      "5!00\n",
+      "7?77\n",
+      "3*45\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "15129",
+      "got": "15129"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "a123\n",
+      "stdout": "15129\n"
+    },
+    {
+      "stdin": "1b23\n",
+      "stdout": "15129\n"
+    },
+    {
+      "stdin": "12c3\n",
+      "stdout": "15129\n"
+    },
+    {
+      "stdin": "123d\n",
+      "stdout": "15129\n"
+    },
+    {
+      "stdin": "0a12\n",
+      "stdout": "144\n"
+    },
+    {
+      "stdin": "9x99\n",
+      "stdout": "998001\n"
+    },
+    {
+      "stdin": "1@23\n",
+      "stdout": "15129\n"
+    },
+    {
+      "stdin": "12#3\n",
+      "stdout": "15129\n"
+    },
+    {
+      "stdin": "123$\n",
+      "stdout": "15129\n"
+    },
+    {
+      "stdin": "5!00\n",
+      "stdout": "250000\n"
+    },
+    {
+      "stdin": "7?77\n",
+      "stdout": "603729\n"
+    },
+    {
+      "stdin": "3*45\n",
+      "stdout": "119025\n"
+    }
+  ]
+}

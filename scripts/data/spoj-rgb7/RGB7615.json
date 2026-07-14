@@ -1,0 +1,19 @@
+{
+  "title": "Хадааснууд",
+  "hidden": true,
+  "bodyHtml": "<pre><span style=\"font-family: arial, helvetica, sans-serif; white-space: normal;\">Шугаман саваанд хадааснууд зоов. Аливаа хоёр хадаасыг уяагаар холбож болно.&nbsp;</span></pre>\n<pre><span style=\"font-family: arial, helvetica, sans-serif; white-space: normal;\">Хадаас бүр уяануудад холбогдсон байхаар уяануудын нйилбэрийн хамгийн бага утгыг ол.&nbsp;</span><br><span style=\"white-space: normal;\">\n<h3><span style=\"font-family: arial, helvetica, sans-serif;\">Input</span></h3>\n<p><span style=\"font-family: arial, helvetica, sans-serif;\">Эхний мөрөнд хадааснуудын тоо N өгөгдөнө. (1&lt;=n&lt;=100).</span></p>\n<p><span style=\"font-family: arial, helvetica, sans-serif;\">Дараагийн мөрөнд хадааснуудын координат болох сөрөг биш 10000-аас хэтрэхгүй тоонууд зайгаар тусгаарлагдан өгөгдөнө.</span></p>\n<h3><span style=\"font-family: arial, helvetica, sans-serif;\">Output</span></h3>\n<p><span style=\"font-family: arial, helvetica, sans-serif;\">Утаснуудын хамгийн бага нийлбэр</span></p>\n<h3><span style=\"font-family: arial, helvetica, sans-serif;\">Example</span></h3>\n<pre><span style=\"font-family: arial, helvetica, sans-serif;\"><strong>Input:</strong>\n5</span></pre>\n<pre><span style=\"font-family: arial, helvetica, sans-serif;\">4 10 0 12 2</span></pre>\n<pre><span style=\"font-family: arial, helvetica, sans-serif;\"><strong>Output:</strong>\n6</span></pre>\n</span></pre>",
+  "bodyText": "Шугаман саваанд хадааснууд зоов. Аливаа хоёр хадаасыг уяагаар холбож болно. \nХадаас бүр уяануудад холбогдсон байхаар уяануудын нйилбэрийн хамгийн бага утгыг ол. \nInput\nЭхний мөрөнд хадааснуудын тоо N өгөгдөнө. (1<=n<=100).\nДараагийн мөрөнд хадааснуудын координат болох сөрөг биш 10000-аас хэтрэхгүй тоонууд зайгаар тусгаарлагдан өгөгдөнө.\nOutput\nУтаснуудын хамгийн бага нийлбэр\nExample\nInput:\n5\n4 10 0 12 2\nOutput:\n6",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Шугаман саваанд хадааснууд зоов. Аливаа хоёр хадаасыг уяагаар холбож болно.",
+    "Хадаас бүр уяануудад холбогдсон байхаар уяануудын нйилбэрийн хамгийн бага утгыг ол. \nInput\nЭхний мөрөнд хадааснуудын тоо N өгөгдөнө. (1<=n<=100).\nДараагийн мөрөнд хадааснуудын координат болох сөрөг биш 10000-аас хэтрэхгүй тоонууд зайгаар тусгаарлагдан өгөгдөнө.\nOutput\nУтаснуудын хамгийн бага нийлбэр\nExample\nInput:\n5\n4 10 0 12 2\nOutput:\n6",
+    "Input:\n5",
+    "4 10 0 12 2",
+    "Output:\n6"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7615/",
+  "code": "RGB7615",
+  "scrapedAt": "2026-06-29T06:41:42.640Z"
+}

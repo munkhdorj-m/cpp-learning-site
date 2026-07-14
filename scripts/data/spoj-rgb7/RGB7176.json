@@ -1,0 +1,13 @@
+{
+  "title": "Хиймэл зүлгэн хавтан",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Тэгш өнцөгт хөл бөмбөгийн талбайг С талтай квадрат хэлбэрийн хиймэл зүлгээр хучихдаа зүсэхгүйгээр тавих бол хичнээн ширхэг хиймэл зүлгэн хавтан хэрэгтэй вэ?&nbsp;</span></p>\n<h3><span style=\"font-size: small;\">Input</span></h3>\n<p><span style=\"font-size: small;\">Эхний мөрөнд тэгш өнцөгтийн урт, өргөний хэмжээ бүхэл тоогоор зайгаар тусгаарлагдан өгөгдөнө. </span></p>\n<p><span style=\"font-size: small;\">Хоёр дахь мөрөнд &nbsp;хиймэл зүлгэн квадрат хавтангийн хэмжээ бүхэл тоогоор өгөгдөнө.</span></p>\n<h3><span style=\"font-size: small;\">Output</span></h3>\n<p><span style=\"font-size: small;\">Хиймэл зүлгэн хавтангийн тоо.</span></p>\n<h3><span style=\"font-size: small;\">Example</span></h3>\n<p><strong><span style=\"font-size: small;\">Input:</span></strong></p>\n<p><span style=\"font-size: small;\">5 10</span></p>\n<p><span style=\"font-size: small;\">3</span></p>\n<p><span style=\"font-size: small;\"><strong>Output:</strong> </span></p>\n<p><span style=\"font-size: small;\">8</span></p>",
+  "bodyText": "Тэгш өнцөгт хөл бөмбөгийн талбайг С талтай квадрат хэлбэрийн хиймэл зүлгээр хучихдаа зүсэхгүйгээр тавих бол хичнээн ширхэг хиймэл зүлгэн хавтан хэрэгтэй вэ? \nInput\nЭхний мөрөнд тэгш өнцөгтийн урт, өргөний хэмжээ бүхэл тоогоор зайгаар тусгаарлагдан өгөгдөнө. \nХоёр дахь мөрөнд  хиймэл зүлгэн квадрат хавтангийн хэмжээ бүхэл тоогоор өгөгдөнө.\nOutput\nХиймэл зүлгэн хавтангийн тоо.\nExample\nInput:\n5 10\n3\nOutput: \n8",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7176/",
+  "code": "RGB7176",
+  "scrapedAt": "2026-06-29T06:43:03.857Z"
+}

@@ -1,0 +1,104 @@
+{
+  "code": "RGB7001",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7001-sum-of-two-integers",
+    "title_mn": "2 тооны нийлбэр",
+    "title_en": "Sum of Two Integers",
+    "statement_mn": "Өгөгдсөн бүхэл тооны нийлбэрийг ол.",
+    "statement_en": "Find the sum of the given integers.",
+    "input_format_mn": "2 бүхэл тоо зайгаар тусгаарлагдан нэг мөрөнд өгөгдөнө.",
+    "input_format_en": "Two integers separated by a space on a single line.",
+    "output_format_mn": "2 тооны нийлбэр.",
+    "output_format_en": "The sum of the two integers.",
+    "constraints_mn": "- Тоонууд $-10^9 \\le a, b \\le 10^9$ хүртэлх бүхэл тоо байна.",
+    "constraints_en": "- The integers satisfy $-10^9 \\le a, b \\le 10^9$.",
+    "difficulty": "easy",
+    "tags": [
+      "implementation",
+      "arithmetic"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    long long a, b;\n    cin >> a >> b;\n    cout << a + b << '\\n';\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "12 23\n",
+        "output": "35\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "0 0\n",
+      "1 2\n",
+      "-5 7\n",
+      "1000000000 1000000000\n",
+      "-1000000000 -1000000000\n",
+      "-1000000000 1000000000\n",
+      "123456789 987654321\n",
+      "-999999999 1\n",
+      "0 1000000000\n",
+      "-1 1\n",
+      "999999999 1\n",
+      "-500000000 -500000000\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "35",
+      "got": "35"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "0 0\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "1 2\n",
+      "stdout": "3\n"
+    },
+    {
+      "stdin": "-5 7\n",
+      "stdout": "2\n"
+    },
+    {
+      "stdin": "1000000000 1000000000\n",
+      "stdout": "2000000000\n"
+    },
+    {
+      "stdin": "-1000000000 -1000000000\n",
+      "stdout": "-2000000000\n"
+    },
+    {
+      "stdin": "-1000000000 1000000000\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "123456789 987654321\n",
+      "stdout": "1111111110\n"
+    },
+    {
+      "stdin": "-999999999 1\n",
+      "stdout": "-999999998\n"
+    },
+    {
+      "stdin": "0 1000000000\n",
+      "stdout": "1000000000\n"
+    },
+    {
+      "stdin": "-1 1\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "999999999 1\n",
+      "stdout": "1000000000\n"
+    },
+    {
+      "stdin": "-500000000 -500000000\n",
+      "stdout": "-1000000000\n"
+    }
+  ]
+}

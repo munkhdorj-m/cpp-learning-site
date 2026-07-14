@@ -1,0 +1,13 @@
+{
+  "title": "Шерлок ба квадратууд",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Ватсон Шерлокын математикын чадварыг шалгах дуртай. Тэгээд тэр [a, b] завсарт хэдэн квадрат тоо байгааг тоолуулахаар болов.</span></p>\n<p><span style=\"font-size: small;\">Квадрат тоо гэдэг нь 1, 4, 9, 16, 25, … гэх мэт.</span></p>\n<p><span style=\"font-size: small;\">[24, 49] завсарт 25, 36, 49 тоонууд байгаа тул хариу 3.</span></p>\n<p><span style=\"font-size: small;\"><strong>Оролт</strong></span></p>\n<p><span style=\"font-size: small;\">Эхний мөрөнд тестийн тоо t өгөгдөнө. (1&lt;=t&lt;=100)</span></p>\n<p><span style=\"font-size: small;\">Дараагийн t мөр бүрт a,b тоо зайгаар тусгаарлагдан өгөгдөнө. (1&lt;=a&lt;=b&lt;=10^9)</span></p>\n<p><span style=\"font-size: small;\"><strong>Гаралт</strong></span></p>\n<p><span style=\"font-size: small;\">Тест бүрт харгалзан a,b завсар байгаа квадрат тоонуудын тоог хэвлэнэ.</span></p>\n<p><strong><span style=\"font-size: small;\">Жишээ</span></strong></p>\n<p><strong><span style=\"font-size: small;\">Оролт</span></strong></p>\n<p><span style=\"font-size: small;\">2</span></p>\n<p><span style=\"font-size: small;\">3 9</span></p>\n<p><span style=\"font-size: small;\">17 24</span></p>\n<p><strong><span style=\"font-size: small;\">Гаралт</span></strong></p>\n<p><span style=\"font-size: small;\">2</span></p>\n<p><span style=\"font-size: small;\">0</span></p>\n<p>&nbsp;</p>\n<p><em><strong><span style=\"font-size: small;\">Орчуулсан : Дархан-Уул аймгийн Монгол-Оюу сургуулийн 11.1 ангийн сурагч Э.Цэлмэг</span></strong></em></p>",
+  "bodyText": "Ватсон Шерлокын математикын чадварыг шалгах дуртай. Тэгээд тэр [a, b] завсарт хэдэн квадрат тоо байгааг тоолуулахаар болов.\nКвадрат тоо гэдэг нь 1, 4, 9, 16, 25, … гэх мэт.\n[24, 49] завсарт 25, 36, 49 тоонууд байгаа тул хариу 3.\nОролт\nЭхний мөрөнд тестийн тоо t өгөгдөнө. (1<=t<=100)\nДараагийн t мөр бүрт a,b тоо зайгаар тусгаарлагдан өгөгдөнө. (1<=a<=b<=10^9)\nГаралт\nТест бүрт харгалзан a,b завсар байгаа квадрат тоонуудын тоог хэвлэнэ.\nЖишээ\nОролт\n2\n3 9\n17 24\nГаралт\n2\n0\n \nОрчуулсан : Дархан-Уул аймгийн Монгол-Оюу сургуулийн 11.1 ангийн сурагч Э.Цэлмэг",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7880/",
+  "code": "RGB7880",
+  "scrapedAt": "2026-06-29T06:51:25.716Z"
+}

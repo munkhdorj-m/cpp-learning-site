@@ -1,0 +1,13 @@
+{
+  "title": "Эрэмбэлэлт эхлэл",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">N элементтэй массивын V элемент хэд дүгээр байранд байгааг хэвлэ</span></p>\n<p><span style=\"font-size: small;\"><strong>Оролт</strong></span></p>\n<p><span style=\"font-size: small;\">Эхний мөрөнд V тоо өгөгдөнө. -1000 &lt;= V &lt;= 1000.</span></p>\n<p><span style=\"font-size: small;\">Дөрөөгийн мөрөнд N тоо өгөгдөнө. 1 &lt;= N &lt;= 1000.</span></p>\n<p><span style=\"font-size: small;\">Дараагийн мөрөнд мавссивын элементүүд зайгаар тусгаарлагдан өгөгдөнө.</span></p>\n<p><span style=\"font-size: small;\"><strong>Гаралт</strong></span></p>\n<p><span style=\"font-size: small;\">V элементийн дугаарыг хэвлэ.</span></p>\n<p><span style=\"font-size: x-small;\"><strong>Жишээ</strong></span></p>\n<p><span style=\"font-size: x-small;\"><strong>Оролт&nbsp;</strong></span></p>\n<p><span style=\"font-size: small;\">4</span></p>\n<p><span style=\"font-size: small;\">6</span></p>\n<p><span style=\"font-size: small;\">1 4 5 7 9 12</span></p>\n<p><strong><span style=\"font-size: small;\">Гаралт</span></strong></p>\n<p><span style=\"font-size: small;\">1</span></p>\n<p>&nbsp;</p>\n<p><span style=\"font-size: small;\"><strong>Орчуулсан : Монгол Оюу сургуулийн 11-р ангийн сурагч Э.Цэлмэг</strong></span></p>",
+  "bodyText": "N элементтэй массивын V элемент хэд дүгээр байранд байгааг хэвлэ\nОролт\nЭхний мөрөнд V тоо өгөгдөнө. -1000 <= V <= 1000.\nДөрөөгийн мөрөнд N тоо өгөгдөнө. 1 <= N <= 1000.\nДараагийн мөрөнд мавссивын элементүүд зайгаар тусгаарлагдан өгөгдөнө.\nГаралт\nV элементийн дугаарыг хэвлэ.\nЖишээ\nОролт \n4\n6\n1 4 5 7 9 12\nГаралт\n1\n \nОрчуулсан : Монгол Оюу сургуулийн 11-р ангийн сурагч Э.Цэлмэг",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7767/",
+  "code": "RGB7767",
+  "scrapedAt": "2026-06-29T06:53:32.109Z"
+}

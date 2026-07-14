@@ -1,0 +1,99 @@
+{
+  "code": "RGB7115",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7115-tentssen-unasan",
+    "title_mn": "Тэнцсэн, унасан",
+    "title_en": "Passed or Failed",
+    "statement_mn": "Тоон дүн 3-аас их бол тэнцсэнд тооцно. Бусад тохиолдолд унана. Өгөгдсөн тоон дүн тэнцсэн эсэхийг тогтоо.",
+    "statement_en": "A numerical grade is considered passing if it is greater than 3. Otherwise, the student fails. Determine whether the given grade is passing.",
+    "input_format_mn": "Тоон дүн зөвхөн 2, 3, 4, 5 гэсэн тоонуудын аль нэгээр өгөгдөнө.",
+    "input_format_en": "The numerical grade is given as one of the numbers 2, 3, 4, or 5.",
+    "output_format_mn": "Тэнцсэн тохиолдолд \"Tentssen\", эсрэг тохиолдолд \"Unasan\" гэж хэвлэ.",
+    "output_format_en": "If the grade is passing, print \"Tentssen\"; otherwise print \"Unasan\".",
+    "constraints_mn": "- Оролт нь 2, 3, 4, 5 гэсэн утгуудын яг нэг байх болно.",
+    "constraints_en": "- The input will be exactly one of the values 2, 3, 4, or 5.",
+    "difficulty": "easy",
+    "tags": [
+      "conditional",
+      "if-else"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    int grade;\n    cin >> grade;\n    if (grade > 3)\n        cout << \"Tentssen\" << endl;\n    else\n        cout << \"Unasan\" << endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "4\n",
+        "output": "Tentssen\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "2\n",
+      "3\n",
+      "5\n",
+      "2\n",
+      "3\n",
+      "4\n",
+      "5\n",
+      "2\n",
+      "5\n",
+      "3\n",
+      "4\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "Tentssen",
+      "got": "Tentssen"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "2\n",
+      "stdout": "Unasan\n"
+    },
+    {
+      "stdin": "3\n",
+      "stdout": "Unasan\n"
+    },
+    {
+      "stdin": "5\n",
+      "stdout": "Tentssen\n"
+    },
+    {
+      "stdin": "2\n",
+      "stdout": "Unasan\n"
+    },
+    {
+      "stdin": "3\n",
+      "stdout": "Unasan\n"
+    },
+    {
+      "stdin": "4\n",
+      "stdout": "Tentssen\n"
+    },
+    {
+      "stdin": "5\n",
+      "stdout": "Tentssen\n"
+    },
+    {
+      "stdin": "2\n",
+      "stdout": "Unasan\n"
+    },
+    {
+      "stdin": "5\n",
+      "stdout": "Tentssen\n"
+    },
+    {
+      "stdin": "3\n",
+      "stdout": "Unasan\n"
+    },
+    {
+      "stdin": "4\n",
+      "stdout": "Tentssen\n"
+    }
+  ]
+}

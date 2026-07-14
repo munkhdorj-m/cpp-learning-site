@@ -1,0 +1,85 @@
+{
+  "code": "RGB7400",
+  "status": "ok",
+  "data": {
+    "slug": "double-nested-loop-0",
+    "title_mn": "Давхар давталт 0",
+    "title_en": "Double Nested Loop 0",
+    "statement_mn": "Өгөгдсөн натурал тоо хүртэлх тоонуудыг дараах хэлбэрээр хэвлэнэ үү.\n\nЖишээ нь, `n = 5` бол гаралт нь:\n\n```\n12345\n12345\n12345\n12345\n12345\n```\n\nМөр бүрд `1`-ээс `n` хүртэлх тоонууд зайгүй бичигдэнэ. Нийт `n` мөр хэвлэгдэнэ.",
+    "statement_en": "Given a natural number n, print the numbers from 1 to n in the following pattern.\n\nFor example, if `n = 5`, the output is:\n\n```\n12345\n12345\n12345\n12345\n12345\n```\n\nEach line contains the numbers 1 through n with no spaces. There are exactly n lines.",
+    "input_format_mn": "Ганц мөрөнд `n` натурал тоо өгөгдөнө.",
+    "input_format_en": "A single line containing the natural number `n`.",
+    "output_format_mn": "Загварын дагуу `n` мөр хэвлэнэ. Мөр болгонд `1`-ээс `n` хүртэлх цифрүүд зайгүй нийлэн хэвлэгдэнэ.",
+    "output_format_en": "Print n lines according to the pattern. Each line contains the digits 1 through n concatenated without spaces.",
+    "constraints_mn": "- `1 ≤ n < 10` (n нь 1-ээс 9 хүртэлх натурал тоо)",
+    "constraints_en": "- `1 ≤ n < 10` (n is a natural number from 1 to 9)",
+    "difficulty": "easy",
+    "tags": [
+      "nested-loops",
+      "implementation",
+      "io"
+    ],
+    "time_limit_ms": 500,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n\nint main() {\n    int n;\n    std::cin >> n;\n    \n    for (int i = 0; i < n; ++i) {\n        for (int j = 1; j <= n; ++j) {\n            std::cout << j;\n        }\n        std::cout << '\\n';\n    }\n    \n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5",
+        "output": "12345\n12345\n12345\n12345\n12345"
+      }
+    ],
+    "extra_test_inputs": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "6",
+      "7",
+      "8",
+      "9"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "12345\n12345\n12345\n12345\n12345",
+      "got": "12345\n12345\n12345\n12345\n12345"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "2",
+      "stdout": "12\n12\n"
+    },
+    {
+      "stdin": "3",
+      "stdout": "123\n123\n123\n"
+    },
+    {
+      "stdin": "4",
+      "stdout": "1234\n1234\n1234\n1234\n"
+    },
+    {
+      "stdin": "6",
+      "stdout": "123456\n123456\n123456\n123456\n123456\n123456\n"
+    },
+    {
+      "stdin": "7",
+      "stdout": "1234567\n1234567\n1234567\n1234567\n1234567\n1234567\n1234567\n"
+    },
+    {
+      "stdin": "8",
+      "stdout": "12345678\n12345678\n12345678\n12345678\n12345678\n12345678\n12345678\n12345678\n"
+    },
+    {
+      "stdin": "9",
+      "stdout": "123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "title": "3-д хуваагдах",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн 4 тоон дотроос 3-д хуваагддаг тоонуудын тоог ол.&nbsp;</p>\n<h3>Input</h3>\n<p>Нэг мөрөнд Int төрлийн 4 тоо зайгаар тусгаарлагдан өгөгдөнө.</p>\n<h3>Output</h3>\n<p>3-д хуваагддаг тоонуудын тоо.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n3 12 8 9\n\n<strong>Output:</strong>\n3\n</pre>",
+  "bodyText": "Өгөгдсөн 4 тоон дотроос 3-д хуваагддаг тоонуудын тоог ол. \nInput\nНэг мөрөнд Int төрлийн 4 тоо зайгаар тусгаарлагдан өгөгдөнө.\nOutput\n3-д хуваагддаг тоонуудын тоо.\nExample\nInput:\n3 12 8 9\n\nOutput:\n3",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n3 12 8 9\n\nOutput:\n3"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7110/",
+  "code": "RGB7110",
+  "scrapedAt": "2026-06-29T06:37:33.044Z"
+}

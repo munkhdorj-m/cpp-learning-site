@@ -1,0 +1,15 @@
+{
+  "title": "Perimeter",
+  "hidden": true,
+  "bodyHtml": "<p><span id=\"probtext-text\">Farmer John has arranged N hay bales (1 &lt;= N &lt;= 10,000) in the middle of one of his fields.  If we think of the field as a 100 x 100 grid of 1 x 1 square cells, each hay bale occupies exactly one of these cells (no two hay bales occupy the same cell, of course).  FJ notices that his hay bales all form one large connected region, meaning that starting from any bale, one can reach any other bale by taking a series of steps either north, south, east, or west onto directly adjacent bales.  The connected region of hay bales may however contain \"holes\" -- empty regions that are completely surrounded by hay bales.   Please help FJ determine the perimeter of the region formed by his hay bales.  Note that holes do not contribute to the perimeter.</span></p>\n<h3>Input</h3>\n<p>Input description...</p>\n<h3>Output</h3>\n<p>Output description...</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\netc.\n\n<strong>Output:</strong>\netc.\n</pre>",
+  "bodyText": "Farmer John has arranged N hay bales (1 <= N <= 10,000) in the middle of one of his fields.  If we think of the field as a 100 x 100 grid of 1 x 1 square cells, each hay bale occupies exactly one of these cells (no two hay bales occupy the same cell, of course).  FJ notices that his hay bales all form one large connected region, meaning that starting from any bale, one can reach any other bale by taking a series of steps either north, south, east, or west onto directly adjacent bales.  The connected region of hay bales may however contain \"holes\" -- empty regions that are completely surrounded by hay bales.   Please help FJ determine the perimeter of the region formed by his hay bales.  Note that holes do not contribute to the perimeter.\nInput\nInput description...\nOutput\nOutput description...\nExample\nInput:\netc.\n\nOutput:\netc.",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\netc.\n\nOutput:\netc."
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7932/",
+  "code": "RGB7932",
+  "scrapedAt": "2026-06-29T06:45:13.597Z"
+}

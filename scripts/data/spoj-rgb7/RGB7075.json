@@ -1,0 +1,13 @@
+{
+  "title": "Нийлбэр 4",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Өгөгдсөн n тоо хүртэлх натурал тоонуудын кубуудын нийлбэрийг ол. </span></p>\n<p><span style=\"font-size: small;\">Давталт ашиглахгүй бодвол сайн.</span>&nbsp;</p>\n<p><span style=\"font-size: small;\">1<sup>3</sup>+2<sup>3</sup>+3<sup>3</sup>+...+n<sup>3</sup>.</span></p>\n<h3><span style=\"font-size: small;\">Input</span></h3>\n<p><span style=\"font-size: small;\">n натурал тоо өгөгдөнө. n&lt;=2000.</span></p>\n<h3>Output</h3>\n<p><span style=\"font-size: small;\">Нийлбэр</span></p>\n<h3>Example</h3>\n<p><span style=\"font-size: small;\"><strong>Input:</strong> </span></p>\n<p><span style=\"font-size: small;\">5 </span></p>\n<p><span style=\"font-size: small;\"> <strong>Output:</strong> </span></p>\n<p><span style=\"font-size: small;\">225</span></p>",
+  "bodyText": "Өгөгдсөн n тоо хүртэлх натурал тоонуудын кубуудын нийлбэрийг ол. \nДавталт ашиглахгүй бодвол сайн. \n13+23+33+...+n3.\nInput\nn натурал тоо өгөгдөнө. n<=2000.\nOutput\nНийлбэр\nExample\nInput: \n5 \n Output: \n225",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7075/",
+  "code": "RGB7075",
+  "scrapedAt": "2026-06-29T06:39:21.986Z"
+}

@@ -1,0 +1,105 @@
+{
+  "code": "RGB7704",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7704-party",
+    "title_mn": "Үдэшлэг",
+    "title_en": "Party",
+    "statement_mn": "Нэгэн компани $n$ тооны ажилчидтай ба тэднийг $1$-ээс $n$ хүртэл дугаарлана. Ажилтан тус бүр харьяалагдах нэг менежертэй эсвэл менежергүй байх ба менежер нь өөрөө өөр нэг менежерт харьяалагдна. Хэрэв доорх нөхцлийн дор хаяж аль нэг нь үнэн бол **A** ажилтан **B** ажилтны менежер байна.\n\n- **A** ажилтан **B** ажилтны шууд менежер бол,\n- **B** ажилтны шууд менежер нь тус компанийн **C** ажилтан бөгөөд **A** нь **C**-ийн дээд шатны менежер бол.\n\nӨөрийн харьялагдах менежерт дээд шатны ажилтан нь болох боломжгүй учир тухайн компанид менежерийн цагираг байхгүй гэж ойлгоно.\n\nӨнөөдөр тус компани нэгэн үдэшлэг зохион байгуулах гэж байна. Ингээд бүх $n$ ажилчидаа хэд хэдэн бүлэгт хуваав. Ажилтан тус бүр яг нэг л бүлэгт харьяалагдана. Нэг бүлэгт байгаа ажилчид нь дарга захиргааны холбоогүй байх ёстой (ө.х. нэг нь нөгөөгийнхөө дээд шатны менежер байж болохгүй).\n\nТухайн компанийн ажилчид хамгийн багадаа хэдэн бүлэгт хуваагдах вэ?",
+    "statement_en": "A company has $n$ employees numbered $1$ through $n$. Each employee has exactly one direct manager or no manager at all, and a manager may also be subordinate to another manager. We say that employee **A** is a manager of employee **B** if at least one of the following holds:\n\n- **A** is the direct manager of **B**, or\n- The direct manager of **B** is employee **C**, and **A** is a higher-level manager of **C**.\n\nIt is impossible for an employee to be a higher-level manager of his/her own manager, so there is no cycle of managers in the company.\n\nToday the company is going to organize a party. They want to divide all $n$ employees into several groups. Each employee belongs to exactly one group. In a group, no employee may be a manager (direct or indirect) of another employee in the same group.\n\nWhat is the **minimum** number of groups needed?",
+    "input_format_mn": "Эхний мөр нь $n$ ($1 \\\\le n \\\\le 2000$) гэсэн бүхэл тоо агуулах ба энэ нь нийт ажилчдын тоог илэрхийлнэ.\n\nДараагийн $n$ мөрүүд нь $p_i$ ($1 \\\\le p_i \\\\le n$ эсвэл $p_i = -1$) гэсэн бүхэл тоонууд агуулна. $p_i$ тус бүр нь $i$-дахь ажилтны шууд дээд шатны менежер. Хэрэв $p_i = -1$ бол $i$-дахь ажилтан дээд шатны менежергүй гэсэн үг юм.\n\n($p_i \\\\neq i$) бөгөөд энэ компанид менежерийн цикль байхгүй болохыг баталж байна.",
+    "input_format_en": "The first line contains an integer $n$ ($1 \\\\le n \\\\le 2000$) — the number of employees.\n\nEach of the next $n$ lines contains an integer $p_i$ ($1 \\\\le p_i \\\\le n$ or $p_i = -1$) — the direct manager of employee $i$. If $p_i = -1$, employee $i$ has no manager.\n\nIt is guaranteed that $p_i \\\\neq i$ and that there are no cycles in the management hierarchy.",
+    "output_format_mn": "Нэг мөрөнд ажилчдыг хуваахад шаардагдах хамгийн бага бүлгийн тоог хэвлэ.",
+    "output_format_en": "Output a single integer — the minimum number of groups required.",
+    "constraints_mn": "- $1 \\\\le n \\\\le 2000$\n- $1 \\\\le p_i \\\\le n$ эсвэл $p_i = -1$\n- $p_i \\\\neq i$\n- Менежерийн хэлхээнд цикль байхгүй.",
+    "constraints_en": "- $1 \\\\le n \\\\le 2000$\n- $1 \\\\le p_i \\\\le n$ or $p_i = -1$\n- $p_i \\\\neq i$\n- No cycles in the management hierarchy.",
+    "difficulty": "hard",
+    "tags": [
+      "tree",
+      "dfs",
+      "graph-coloring"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 35,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n    vector<int> p(n + 1);\n    for (int i = 1; i <= n; ++i) {\n        cin >> p[i];\n    }\n\n    // The management structure is a forest (collection of trees).\n    // We need the minimum number of groups such that in each group,\n    // no one is an ancestor of another. This is exactly the problem\n    // of coloring the tree such that no ancestor and descendant share\n    // the same color, minimizing the number of colors.\n    // For each tree, the answer is its depth (longest chain length).\n    // The overall answer is the maximum depth among all trees.\n\n    vector<int> depth(n + 1, 0);\n    int answer = 0;\n\n    for (int i = 1; i <= n; ++i) {\n        // Follow the chain up until we find someone with known depth or root.\n        int cur = i;\n        int steps = 0;\n        while (cur != -1 && depth[cur] == 0) {\n            cur = p[cur];\n            steps++;\n        }\n        // Now cur has known depth (or cur == -1 which has depth 0).\n        int base_depth = (cur == -1 ? 0 : depth[cur]);\n        // Now we go back down and assign depths.\n        // Actually easier: we can just compute the chain length by traversing again.\n        // But simpler: we traverse from i up to root, counting.\n        int len = 0;\n        int v = i;\n        while (v != -1) {\n            v = p[v];\n            len++;\n        }\n        answer = max(answer, len);\n    }\n\n    cout << answer << \"\\n\";\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5\n-1\n1\n2\n1\n-1\n",
+        "output": "3\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n-1\n",
+      "2\n-1\n-1\n",
+      "2\n-1\n1\n",
+      "3\n-1\n-1\n-1\n",
+      "3\n-1\n1\n2\n",
+      "6\n-1\n1\n2\n3\n4\n5\n",
+      "6\n-1\n-1\n-1\n-1\n-1\n-1\n",
+      "7\n-1\n1\n1\n2\n2\n3\n3\n",
+      "4\n2\n3\n4\n-1\n",
+      "10\n-1\n1\n2\n3\n4\n5\n6\n7\n8\n9\n",
+      "10\n2\n3\n4\n5\n6\n7\n8\n9\n10\n-1\n",
+      "3\n-1\n-1\n1\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "3",
+      "got": "3"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n-1\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "2\n-1\n-1\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "2\n-1\n1\n",
+      "stdout": "2\n"
+    },
+    {
+      "stdin": "3\n-1\n-1\n-1\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "3\n-1\n1\n2\n",
+      "stdout": "3\n"
+    },
+    {
+      "stdin": "6\n-1\n1\n2\n3\n4\n5\n",
+      "stdout": "6\n"
+    },
+    {
+      "stdin": "6\n-1\n-1\n-1\n-1\n-1\n-1\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "7\n-1\n1\n1\n2\n2\n3\n3\n",
+      "stdout": "3\n"
+    },
+    {
+      "stdin": "4\n2\n3\n4\n-1\n",
+      "stdout": "4\n"
+    },
+    {
+      "stdin": "10\n-1\n1\n2\n3\n4\n5\n6\n7\n8\n9\n",
+      "stdout": "10\n"
+    },
+    {
+      "stdin": "10\n2\n3\n4\n5\n6\n7\n8\n9\n10\n-1\n",
+      "stdout": "10\n"
+    },
+    {
+      "stdin": "3\n-1\n-1\n1\n",
+      "stdout": "2\n"
+    }
+  ]
+}

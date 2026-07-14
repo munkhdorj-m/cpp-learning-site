@@ -1,0 +1,15 @@
+{
+  "title": "Гараг",
+  "hidden": true,
+  "bodyHtml": "<p>Долоо хоногийн дугаар өгөгдөхөд харгалзах гарагийг англиар хэвлэ. Эхний үсгийг л томоор бичнэ.</p>\n<h3>Input</h3>\n<p>Натурал тоо. 1&lt;=n&lt;=7.</p>\n<h3>Output</h3>\n<p>Гараг.&nbsp;</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n5\n\n<strong>Output:</strong>\nFriday</pre>",
+  "bodyText": "Долоо хоногийн дугаар өгөгдөхөд харгалзах гарагийг англиар хэвлэ. Эхний үсгийг л томоор бичнэ.\nInput\nНатурал тоо. 1<=n<=7.\nOutput\nГараг. \nExample\nInput:\n5\n\nOutput:\nFriday",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n5\n\nOutput:\nFriday"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7118/",
+  "code": "RGB7118",
+  "scrapedAt": "2026-06-29T06:38:03.234Z"
+}

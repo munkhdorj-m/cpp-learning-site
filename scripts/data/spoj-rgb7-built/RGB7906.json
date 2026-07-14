@@ -1,0 +1,96 @@
+{
+  "code": "RGB7906",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7906-cow-photography",
+    "title_mn": "Үхрийн гэрэл зураг",
+    "title_en": "Cow Photography",
+    "statement_mn": "Үхрүүд өнөөдөр маш дэггүй байна! Тариаланчин Жон үхрүүдээ жагсааж зургаа авахуулахыг хүсч байгаа боловч тэд зураг авахын өмнөхөн байраа сольчихдог. Тодорхойлбол, ФЖ-д N (1 ≤ N ≤ 20,000) үхэр байх бөгөөд тус бүр 1...N дугаартай. ФЖ үхрүүдээ тодорхой дарааллаар жагсааж зураг авахыг хүсч байгаа бөгөөд энэ дараалал нь A[1...N] массив хэлбэрээр өгөгдөнө (A[j] = жагсаалын j-р байранд зогсох үхрийн дугаар). Тэрээр үхрүүдээ энэ дарааллаар жагсаахад, зураг авах товчлуурыг дарахаас өмнө **хамгийн ихдээ нэг** үхэр байраа сольдог. Өөрөөр хэлбэл, аль нэг үхэр одоогийн байрнаасаа гарч, жагсаалын өөр байрлалд ордог. ФЖ дахин үхрүүдээ A дарааллаар жагсаахад, зураг авахаас өмнө **хамгийн ихдээ нэг** үхэр (өмнөхөөс өөр) байраа сольдог. Энэ процесс нийт **таван** удаа давтагдсаны дараа ФЖ бууж өгдөг. Таван зургийн агуулга өгөгдсөнөөр, та А эх дарааллыг сэргээн тогтоох хэрэгтэй.\n\nЗураг бүр нь А эх дарааллаас хамгийн ихдээ нэг үхэр байраа сольсон хувилбар юм. Хэрэв нэг зураг дээр үхэр байраа солисон бол, тэр үхэр бусад зураг дээр **идэвхтэй** байраа сольдоггүй (бусад үхрийн хөдөлгөөний улмаас байрлал нь өөрчлөгдөж болно).\n\n**Даалгавар:** Таван гэрэл зургийн үхрүүдийн дараалал өгөгдсөнөөр, А эх дарааллыг сэргээн гарга.\n\nАнхны А дараалал өгөгдсөн бол таван зураг тус бүрийг дараах байдлаар үүсгэсэн: А-г хуулах ба хуулбар дээр хамгийн ихдээ нэг элементийг өөр байрлалд шилжүүлэх (remove + insert). Ингэхдээ нэг үхэр хэд хэдэн зураг дээр идэвхтэй шилжихгүй. Өгөгдсөн таван зургаас А-г сэргээ.",
+    "statement_en": "The cows are in a particularly mischievous mood today! All Farmer John wants to do is take a photograph of the cows standing in a line, but they keep moving right before he has a chance to snap the picture. Specifically, FJ's N (1 ≤ N ≤ 20,000) cows are tagged with ID numbers 1...N. FJ wants to take a picture of the cows standing in a line in a very specific ordering, represented by the contents of an array A[1...N], where A[j] gives the ID number of the jth cow in the ordering. He arranges the cows in this order, but just before he can press the button on his camera to snap the picture, **at most one cow** moves to a new position in the lineup. More precisely, either no cows move, or one cow vacates her current position and then re-inserts herself at a new position. Frustrated but not deterred, FJ again arranges his cows according to the ordering in A, but again, right before he can snap a picture, **at most one cow** (different from the first) moves to a new position. The process repeats for a total of **five** photographs before FJ gives up. Given the contents of each photograph, see if you can reconstruct the original intended ordering A.\n\nEach photograph shows an ordering of the cows in which at most one cow has moved to a new location, starting from the initial ordering A. Moreover, if a cow opts to move in one of the photographs, then she does not actively move in any of the other photographs (although she can end up at a different position due to other cows moving, of course).\n\n**Task:** Given the five photographs (each is a permutation of 1..N), reconstruct the original ordering A.\n\nThe original ordering A was used to generate each photograph by copying A and moving at most one element (remove + insert at a new position), with the constraint that a cow that actively moves in one photo does not actively move in any other photo.",
+    "input_format_mn": "Эхний мөрөнд N бүхэл тоо. Дараагийн таван мөрөнд тус бүр 1..N хүртэлх тоонуудын сэлгэлт байна. Мөр бүр нь нэг зургийн дарааллыг илэрхийлнэ.",
+    "input_format_en": "Line 1: An integer N (1 ≤ N ≤ 20,000).  \nLines 2–6: Five permutations of the integers 1..N, each on a separate line, each representing one photograph.",
+    "output_format_mn": "Нэг мөрөнд N шиг тоо хэвлэх: анхны дараалал A, тусгаарлагчаар зай ашиглана.",
+    "output_format_en": "A single line with N integers: the original ordering A, separated by spaces.",
+    "constraints_mn": "- 1 ≤ N ≤ 20,000\n- Өгөгдсөн мөр бүр нь 1..N тоонуудын сэлгэлт байна.\n- Оролт нь үргэлж дор хаяж нэг шийдэлтэй байх ба шийдэл нь өвөрмөц байна.",
+    "constraints_en": "- 1 ≤ N ≤ 20,000\n- Each of the five lines is a permutation of 1..N.\n- The input is guaranteed to have at least one valid solution, and the solution is unique.",
+    "difficulty": "hard",
+    "tags": [
+      "permutation",
+      "reconstruction",
+      "majority-vote",
+      "ad-hoc"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 262144,
+    "xp_reward": 35,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int N;\n    cin >> N;\n\n    vector<vector<int>> photos(5, vector<int>(N));\n    for (int i = 0; i < 5; i++) {\n        for (int j = 0; j < N; j++) {\n            cin >> photos[i][j];\n        }\n    }\n\n    // For each cow, collect the positions (indices) it appears in across the 5 photos\n    vector<vector<int>> pos_of(N + 1);\n    for (int p = 0; p < 5; p++) {\n        for (int idx = 0; idx < N; idx++) {\n            int cow = photos[p][idx];\n            pos_of[cow].push_back(idx);\n        }\n    }\n\n    // Determine the original order: sort cows by the median (or majority) of their positions\n    // Since at most 2 photos have this cow moved, the other >=3 photos show the correct position.\n    // So we can sort by median of the 5 positions (equivalently, sort by the middle element after sorting).\n    vector<pair<int, int>> cow_pos; // (original_position, cow_id)\n    for (int cow = 1; cow <= N; cow++) {\n        vector<int> &pos = pos_of[cow];\n        sort(pos.begin(), pos.end());\n        // The median (3rd smallest out of 5) gives the original position\n        cow_pos.emplace_back(pos[2], cow);\n    }\n\n    sort(cow_pos.begin(), cow_pos.end());\n\n    for (int i = 0; i < N; i++) {\n        if (i) cout << ' ';\n        cout << cow_pos[i].second;\n    }\n    cout << '\\n';\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5\n1 2 3 4 5\n2 1 3 4 5\n3 1 2 4 5\n4 1 2 3 5\n5 1 2 3 4",
+        "output": "1 2 3 4 5"
+      }
+    ],
+    "extra_test_inputs": [
+      "6\n1 2 3 4 5 6\n2 1 3 4 5 6\n1 3 2 4 5 6\n1 2 4 3 5 6\n1 2 3 5 4 6",
+      "3\n1 2 3\n1 2 3\n1 2 3\n1 2 3\n1 2 3",
+      "4\n4 2 3 1\n1 4 3 2\n1 2 4 3\n4 1 3 2\n1 4 2 3",
+      "7\n7 1 2 3 4 5 6\n1 7 2 3 4 5 6\n1 2 7 3 4 5 6\n1 2 3 7 4 5 6\n1 2 3 4 7 5 6",
+      "10\n10 9 8 7 6 5 4 3 2 1\n9 10 8 7 6 5 4 3 2 1\n10 8 9 7 6 5 4 3 2 1\n10 9 7 8 6 5 4 3 2 1\n10 9 8 6 7 5 4 3 2 1",
+      "8\n1 2 3 4 5 6 7 8\n2 1 3 4 5 6 7 8\n3 1 2 4 5 6 7 8\n4 1 2 3 5 6 7 8\n1 2 3 4 5 6 7 8",
+      "12\n12 11 10 9 8 7 6 5 4 3 2 1\n11 12 10 9 8 7 6 5 4 3 2 1\n12 10 11 9 8 7 6 5 4 3 2 1\n12 11 9 10 8 7 6 5 4 3 2 1\n12 11 10 8 9 7 6 5 4 3 2 1",
+      "2\n2 1\n1 2\n2 1\n1 2\n2 1",
+      "9\n5 1 2 3 4 6 7 8 9\n1 5 2 3 4 6 7 8 9\n1 2 5 3 4 6 7 8 9\n1 2 3 5 4 6 7 8 9\n1 2 3 4 5 6 7 8 9",
+      "15\n15 14 13 12 11 10 9 8 7 6 5 4 3 2 1\n14 15 13 12 11 10 9 8 7 6 5 4 3 2 1\n15 13 14 12 11 10 9 8 7 6 5 4 3 2 1\n15 14 12 13 11 10 9 8 7 6 5 4 3 2 1\n15 14 13 11 12 10 9 8 7 6 5 4 3 2 1"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "1 2 3 4 5",
+      "got": "1 2 3 4 5"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "6\n1 2 3 4 5 6\n2 1 3 4 5 6\n1 3 2 4 5 6\n1 2 4 3 5 6\n1 2 3 5 4 6",
+      "stdout": "1 2 3 4 5 6\n"
+    },
+    {
+      "stdin": "3\n1 2 3\n1 2 3\n1 2 3\n1 2 3\n1 2 3",
+      "stdout": "1 2 3\n"
+    },
+    {
+      "stdin": "4\n4 2 3 1\n1 4 3 2\n1 2 4 3\n4 1 3 2\n1 4 2 3",
+      "stdout": "1 4 2 3\n"
+    },
+    {
+      "stdin": "7\n7 1 2 3 4 5 6\n1 7 2 3 4 5 6\n1 2 7 3 4 5 6\n1 2 3 7 4 5 6\n1 2 3 4 7 5 6",
+      "stdout": "1 2 7 3 4 5 6\n"
+    },
+    {
+      "stdin": "10\n10 9 8 7 6 5 4 3 2 1\n9 10 8 7 6 5 4 3 2 1\n10 8 9 7 6 5 4 3 2 1\n10 9 7 8 6 5 4 3 2 1\n10 9 8 6 7 5 4 3 2 1",
+      "stdout": "10 9 8 7 6 5 4 3 2 1\n"
+    },
+    {
+      "stdin": "8\n1 2 3 4 5 6 7 8\n2 1 3 4 5 6 7 8\n3 1 2 4 5 6 7 8\n4 1 2 3 5 6 7 8\n1 2 3 4 5 6 7 8",
+      "stdout": "1 2 3 4 5 6 7 8\n"
+    },
+    {
+      "stdin": "12\n12 11 10 9 8 7 6 5 4 3 2 1\n11 12 10 9 8 7 6 5 4 3 2 1\n12 10 11 9 8 7 6 5 4 3 2 1\n12 11 9 10 8 7 6 5 4 3 2 1\n12 11 10 8 9 7 6 5 4 3 2 1",
+      "stdout": "12 11 10 9 8 7 6 5 4 3 2 1\n"
+    },
+    {
+      "stdin": "2\n2 1\n1 2\n2 1\n1 2\n2 1",
+      "stdout": "2 1\n"
+    },
+    {
+      "stdin": "9\n5 1 2 3 4 6 7 8 9\n1 5 2 3 4 6 7 8 9\n1 2 5 3 4 6 7 8 9\n1 2 3 5 4 6 7 8 9\n1 2 3 4 5 6 7 8 9",
+      "stdout": "1 2 5 3 4 6 7 8 9\n"
+    },
+    {
+      "stdin": "15\n15 14 13 12 11 10 9 8 7 6 5 4 3 2 1\n14 15 13 12 11 10 9 8 7 6 5 4 3 2 1\n15 13 14 12 11 10 9 8 7 6 5 4 3 2 1\n15 14 12 13 11 10 9 8 7 6 5 4 3 2 1\n15 14 13 11 12 10 9 8 7 6 5 4 3 2 1",
+      "stdout": "15 14 13 12 11 10 9 8 7 6 5 4 3 2 1\n"
+    }
+  ]
+}

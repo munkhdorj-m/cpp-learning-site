@@ -1,0 +1,94 @@
+{
+  "code": "RGB7202",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7202-ioi-3-times",
+    "title_mn": "IOI 3 удаа",
+    "title_en": "IOI 3 Times",
+    "statement_mn": "Дэлгэцэнд **IOI** гэж 3 удаа хэвлэ.",
+    "statement_en": "Print the word **IOI** three times.",
+    "input_format_mn": "Оролт байхгүй.",
+    "input_format_en": "There is no input.",
+    "output_format_mn": "**IOI** гэсэн үгийг мөр тус бүрт нэгээр 3 мөрөнд хэвлэ.",
+    "output_format_en": "Print the word **IOI** on three separate lines, one per line.",
+    "constraints_mn": "Оролт байхгүй.",
+    "constraints_en": "There is no input.",
+    "difficulty": "easy",
+    "tags": [
+      "implementation",
+      "io"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n\nint main() {\n    std::cout << \"IOI\\nIOI\\nIOI\\n\";\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "",
+        "output": "IOI\nIOI\nIOI"
+      }
+    ],
+    "extra_test_inputs": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "IOI\nIOI\nIOI",
+      "got": "IOI\nIOI\nIOI"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "",
+      "stdout": "IOI\nIOI\nIOI\n"
+    },
+    {
+      "stdin": "",
+      "stdout": "IOI\nIOI\nIOI\n"
+    },
+    {
+      "stdin": "",
+      "stdout": "IOI\nIOI\nIOI\n"
+    },
+    {
+      "stdin": "",
+      "stdout": "IOI\nIOI\nIOI\n"
+    },
+    {
+      "stdin": "",
+      "stdout": "IOI\nIOI\nIOI\n"
+    },
+    {
+      "stdin": "",
+      "stdout": "IOI\nIOI\nIOI\n"
+    },
+    {
+      "stdin": "",
+      "stdout": "IOI\nIOI\nIOI\n"
+    },
+    {
+      "stdin": "",
+      "stdout": "IOI\nIOI\nIOI\n"
+    },
+    {
+      "stdin": "",
+      "stdout": "IOI\nIOI\nIOI\n"
+    },
+    {
+      "stdin": "",
+      "stdout": "IOI\nIOI\nIOI\n"
+    }
+  ]
+}

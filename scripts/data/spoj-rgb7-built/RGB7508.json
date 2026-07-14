@@ -1,0 +1,95 @@
+{
+  "code": "RGB7508",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7508-maximum-element-and-frequency",
+    "title_mn": "Массивын их хэд",
+    "title_en": "Maximum Element and Its Frequency",
+    "statement_mn": "Өгөгдсөн нэг хэмжээст бүхэл тоон массивын хамгийн их элемент хэд байгааг ол. Нэг давталтаар олбол сайн.\n\n### Input\nЭхний мөрөнд массивын элементийн тоо.\nХоёр дахь мөрөнд массивын элементүүд зайгаар тусгаарлагдан өгөгдөнө.\n\n### Output\nХамгийн их элемент, түүний давтамж хоёрыг нэг зайгаар тусгаарлан нэг мөрөнд гаргана.\n\n### Example\n**Input:**\n```\n6\n5 8 8 6 8 7\n```\n\n**Output:**\n```\n8 3\n```",
+    "statement_en": "Given a one-dimensional integer array, find the maximum element and how many times it occurs. It is recommended to solve using a single pass.\n\n### Input\nThe first line contains the number of elements in the array.\nThe second line contains the array elements separated by spaces.\n\n### Output\nPrint the maximum element and its frequency separated by a space on a single line.\n\n### Example\n**Input:**\n```\n6\n5 8 8 6 8 7\n```\n\n**Output:**\n```\n8 3\n```",
+    "input_format_mn": "Эхний мөрөнд массивын элементийн тоо $n$ ($1 \\le n \\le 10^6$).\nХоёр дахь мөрөнд $n$ ширхэг бүхэл тоо $a_1, a_2, \\dots, a_n$ зайгаар тусгаарлагдан өгөгдөнө. $|a_i| \\le 10^9$.",
+    "input_format_en": "The first line contains the number of elements $n$ ($1 \\le n \\le 10^6$).\nThe second line contains $n$ integers $a_1, a_2, \\dots, a_n$ separated by spaces. $|a_i| \\le 10^9$.",
+    "output_format_mn": "Хамгийн их элемент ба түүний давтамжийг нэг зайгаар тусгаарлан нэг мөрөнд гаргана.",
+    "output_format_en": "Print the maximum element and its frequency separated by a space on a single line.",
+    "constraints_mn": "- $1 \\le n \\le 10^6$\n- $|a_i| \\le 10^9$",
+    "constraints_en": "- $1 \\le n \\le 10^6$\n- $|a_i| \\le 10^9$",
+    "difficulty": "easy",
+    "tags": [
+      "arrays",
+      "max-element",
+      "frequency"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <limits>\n\nusing namespace std;\n\nint main() {\n    ios_base::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n\n    int max_val = numeric_limits<int>::min();\n    int freq = 0;\n\n    for (int i = 0; i < n; ++i) {\n        int x;\n        cin >> x;\n        if (x > max_val) {\n            max_val = x;\n            freq = 1;\n        } else if (x == max_val) {\n            ++freq;\n        }\n    }\n\n    cout << max_val << ' ' << freq << '\\n';\n\n    return 0;\n}",
+    "samples": [
+      {
+        "input": "6\n5 8 8 6 8 7\n",
+        "output": "8 3\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n5",
+      "2\n-1 -1",
+      "3\n1000000000 0 -1000000000",
+      "5\n1 2 3 4 5",
+      "5\n5 5 5 5 5",
+      "10\n-10 -9 -8 -7 -6 -5 -4 -3 -2 -1",
+      "10\n-1 -2 -3 -4 -5 -5 -4 -3 -2 -1",
+      "4\n0 0 0 0",
+      "6\n7 3 7 2 7 1",
+      "2\n1000000000 1000000000"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "8 3",
+      "got": "8 3"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n5",
+      "stdout": "5 1\n"
+    },
+    {
+      "stdin": "2\n-1 -1",
+      "stdout": "-1 2\n"
+    },
+    {
+      "stdin": "3\n1000000000 0 -1000000000",
+      "stdout": "1000000000 1\n"
+    },
+    {
+      "stdin": "5\n1 2 3 4 5",
+      "stdout": "5 1\n"
+    },
+    {
+      "stdin": "5\n5 5 5 5 5",
+      "stdout": "5 5\n"
+    },
+    {
+      "stdin": "10\n-10 -9 -8 -7 -6 -5 -4 -3 -2 -1",
+      "stdout": "-1 1\n"
+    },
+    {
+      "stdin": "10\n-1 -2 -3 -4 -5 -5 -4 -3 -2 -1",
+      "stdout": "-1 2\n"
+    },
+    {
+      "stdin": "4\n0 0 0 0",
+      "stdout": "0 4\n"
+    },
+    {
+      "stdin": "6\n7 3 7 2 7 1",
+      "stdout": "7 3\n"
+    },
+    {
+      "stdin": "2\n1000000000 1000000000",
+      "stdout": "1000000000 2\n"
+    }
+  ]
+}

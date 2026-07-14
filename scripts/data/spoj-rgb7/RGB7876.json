@@ -1,0 +1,13 @@
+{
+  "title": "Сонин тоолуур",
+  "hidden": true,
+  "bodyHtml": "<p style=\"text-align: left;\"><span style=\"font-size: small;\">Боб их сонин тоолууртай. Толлуур нь эхний секунд-д 3 байх ба секунд бүрт хорогдсоор 1 хүрнэ. </span></p>\n<p style=\"text-align: left;\"><span style=\"font-size: small;\">Дараа нь 3*2=6-с эхлэн дахин 1 хүртэл хорогдоно. Дараа нь 6*2=12 оос гэх мэтээр ажиллана.</span><span style=\"font-size: small;\">&nbsp;</span></p>\n<p><span style=\"font-size: small;\">t дэх секундэд тоолуур хэдийг заахыг олоорой.</span></p>\n<p><span style=\"font-size: small;\"><strong>Оролт</strong></span></p>\n<p><span style=\"font-size: small;\">t тоо шинэ мөрөнд өгөгдөнө. (1&lt;=t&lt;=10^12)</span></p>\n<p><span style=\"font-size: small;\"><strong>Гаралт</strong></span></p>\n<p><span style=\"font-size: small;\">t дэх секундэд тоолуурын заах утгыг хэвлэнэ.</span></p>\n<p><strong><span style=\"font-size: small;\">Жишээ </span></strong></p>\n<p><strong><span style=\"font-size: small;\">Оролт</span></strong></p>\n<p><span style=\"font-size: small;\">4</span></p>\n<p><strong><span style=\"font-size: small;\">Гаралт</span></strong></p>\n<p><span style=\"font-size: small;\">6</span></p>\n<p>&nbsp;</p>\n<p><span style=\"box-sizing: border-box; color: #555555; font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; text-align: justify; font-size: small;\"><em><span style=\"box-sizing: border-box; font-weight: 700;\"><em>Орчуулсан : Дархан-Уул аймгийн Монгол-Оюу сургуулийн 11.1 ангийн сурагч Э.Цэлмэг</em></span></em></span><em><em>&nbsp;</em></em><span style=\"box-sizing: border-box; color: #555555; font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; text-align: justify; font-size: small;\">&nbsp;</span></p>",
+  "bodyText": "Боб их сонин тоолууртай. Толлуур нь эхний секунд-д 3 байх ба секунд бүрт хорогдсоор 1 хүрнэ. \nДараа нь 3*2=6-с эхлэн дахин 1 хүртэл хорогдоно. Дараа нь 6*2=12 оос гэх мэтээр ажиллана. \nt дэх секундэд тоолуур хэдийг заахыг олоорой.\nОролт\nt тоо шинэ мөрөнд өгөгдөнө. (1<=t<=10^12)\nГаралт\nt дэх секундэд тоолуурын заах утгыг хэвлэнэ.\nЖишээ \nОролт\n4\nГаралт\n6\n \nОрчуулсан : Дархан-Уул аймгийн Монгол-Оюу сургуулийн 11.1 ангийн сурагч Э.Цэлмэг",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7876/",
+  "code": "RGB7876",
+  "scrapedAt": "2026-06-29T06:51:20.458Z"
+}

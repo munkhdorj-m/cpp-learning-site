@@ -1,0 +1,104 @@
+{
+  "code": "RGB7007",
+  "status": "ok",
+  "data": {
+    "slug": "suul-tsifr",
+    "title_mn": "Сүүлийн цифр",
+    "title_en": "Last Digit",
+    "statement_mn": "Өгөгдсөн тооны сүүлийн цифрийг ол.",
+    "statement_en": "Find the last digit of the given integer.",
+    "input_format_mn": "Бүхэл тоо өгөгдөнө. Тоо нь int төрөлд багтана.",
+    "input_format_en": "A single integer is given. The number fits in the int type.",
+    "output_format_mn": "Өгөгдсөн тооны сүүлийн цифрийг хэвлэ.",
+    "output_format_en": "Print the last digit of the given integer.",
+    "constraints_mn": "-2³¹ ≤ тоо ≤ 2³¹−1 (int төрөл)",
+    "constraints_en": "-2³¹ ≤ number ≤ 2³¹−1 (int range)",
+    "difficulty": "easy",
+    "tags": [
+      "arithmetic",
+      "implementation"
+    ],
+    "time_limit_ms": 500,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <cstdlib>\n\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    int last = abs(n) % 10;\n    cout << last << endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "476\n",
+        "output": "6\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "0\n",
+      "5\n",
+      "-3\n",
+      "100\n",
+      "-100\n",
+      "2147483647\n",
+      "-2147483648\n",
+      "999999999\n",
+      "-999999999\n",
+      "123456789\n",
+      "-1\n",
+      "42\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "6",
+      "got": "6"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "0\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "5\n",
+      "stdout": "5\n"
+    },
+    {
+      "stdin": "-3\n",
+      "stdout": "3\n"
+    },
+    {
+      "stdin": "100\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "-100\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "2147483647\n",
+      "stdout": "7\n"
+    },
+    {
+      "stdin": "-2147483648\n",
+      "stdout": "-8\n"
+    },
+    {
+      "stdin": "999999999\n",
+      "stdout": "9\n"
+    },
+    {
+      "stdin": "-999999999\n",
+      "stdout": "9\n"
+    },
+    {
+      "stdin": "123456789\n",
+      "stdout": "9\n"
+    },
+    {
+      "stdin": "-1\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "42\n",
+      "stdout": "2\n"
+    }
+  ]
+}

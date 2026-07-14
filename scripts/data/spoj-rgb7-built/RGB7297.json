@@ -1,0 +1,105 @@
+{
+  "code": "RGB7297",
+  "status": "ok",
+  "data": {
+    "slug": "milk-mixing-100",
+    "title_mn": "Сүү холих",
+    "title_en": "Milk Mixing",
+    "statement_mn": "Гурван саванд сүү байгаа. Савнууд тус бүр өөрийн багтаамжтай (хэмжээтэй) ба эхэндээ тодорхой хэмжээний сүүтэй.\n\nСүүг дараах дүрмээр холино:\n\n- 1-р савнаас 2-р сав руу, 2-р савнаас 3-р сав руу, 3-р савнаас 1-р сав руу ээлжлэн юүлнэ.\n- Нэг савнаас нөгөө сав руу сүү юүлэхдээ тухайн сав **дүүрэх** эсвэл **сүү дуусах** хүртэл юүлнэ (өөрөөр хэлбэл, тухайн үед байгаа сүүний хэмжээ болон хоосон зайнаас бага нь шилжинэ).\n\n100 дахь юүлэлтийн дараа сав тус бүр хэдэн литр сүүтэй үлдсэн бэ?",
+    "statement_en": "There are three containers with milk. Each container has its own capacity and initially contains some amount of milk.\n\nThe milk is mixed according to the following rule:\n\n- Pour from container 1 to container 2, then from container 2 to container 3, then from container 3 to container 1, and repeat in this cyclic order.\n- When pouring from one container to another, pour until the receiving container is **full** or the source container is **empty** (i.e., the amount transferred is the minimum of the milk available in the source and the free space in the destination).\n\nAfter the 100th pour, how much milk (in liters) does each container contain?",
+    "input_format_mn": "Мөр тус бүрт савны хэмжээ (багтаамж) болон саван дахь сүүний хэмжээг илэрхийлэх хос эерэг бүхэл тоо өгөгдөнө.\n\n- 1-р мөрөнд 1-р савны мэдээлэл\n- 2-р мөрөнд 2-р савны мэдээлэл\n- 3-р мөрөнд 3-р савны мэдээлэл",
+    "input_format_en": "Each line contains two positive integers: the capacity of the container and the amount of milk initially in it.\n\n- Line 1: container 1 data\n- Line 2: container 2 data\n- Line 3: container 3 data",
+    "output_format_mn": "100 дахь юүлэлтийн дараах сав тус бүрт байгаа сүүний хэмжээг нэг нэг мөрөнд хэвлэ.",
+    "output_format_en": "Print the amount of milk in each container after the 100th pour, one value per line.",
+    "constraints_mn": "- Савны хэмжээ (багтаамж) $10^9$-аас бага эерэг бүхэл тоо.\n- Сүүний анхны хэмжээ нь багтаамжаас хэтрэхгүй эерэг бүхэл тоо.",
+    "constraints_en": "- Each container capacity is a positive integer less than $10^9$.\n- The initial amount of milk in each container is a positive integer not exceeding its capacity.",
+    "difficulty": "medium",
+    "tags": [
+      "simulation",
+      "implementation",
+      "math"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 20,
+    "reference_cpp": "#include <iostream>\nusing namespace std;\n\nint main() {\n    long long cap[3], milk[3];\n    for (int i = 0; i < 3; i++) {\n        cin >> cap[i] >> milk[i];\n    }\n\n    for (int step = 0; step < 100; step++) {\n        int from = step % 3;      // 0->1, 1->2, 2->0\n        int to = (step + 1) % 3;\n\n        long long space = cap[to] - milk[to];\n        long long pour = min(milk[from], space);\n        milk[from] -= pour;\n        milk[to] += pour;\n    }\n\n    for (int i = 0; i < 3; i++) {\n        cout << milk[i] << \"\\n\";\n    }\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "10 3\n11 4\n12 5",
+        "output": "0\n10\n2"
+      }
+    ],
+    "extra_test_inputs": [
+      "1 1\n1 1\n1 1",
+      "5 5\n5 5\n5 5",
+      "1000000000 1\n1000000000 1\n1000000000 1",
+      "100 50\n200 100\n300 150",
+      "7 3\n7 0\n7 7",
+      "10 9\n10 1\n10 5",
+      "1 1\n2 2\n3 3",
+      "1000000000 500000000\n1000000000 500000000\n1000000000 500000000",
+      "999999999 1\n999999999 999999998\n999999999 500000000",
+      "15 10\n20 15\n25 20",
+      "100 99\n100 1\n100 50",
+      "5 5\n10 0\n15 10"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "0\n10\n2",
+      "got": "0\n10\n2"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1 1\n1 1\n1 1",
+      "stdout": "1\n1\n1\n"
+    },
+    {
+      "stdin": "5 5\n5 5\n5 5",
+      "stdout": "5\n5\n5\n"
+    },
+    {
+      "stdin": "1000000000 1\n1000000000 1\n1000000000 1",
+      "stdout": "0\n3\n0\n"
+    },
+    {
+      "stdin": "100 50\n200 100\n300 150",
+      "stdout": "0\n100\n200\n"
+    },
+    {
+      "stdin": "7 3\n7 0\n7 7",
+      "stdout": "3\n7\n0\n"
+    },
+    {
+      "stdin": "10 9\n10 1\n10 5",
+      "stdout": "5\n10\n0\n"
+    },
+    {
+      "stdin": "1 1\n2 2\n3 3",
+      "stdout": "1\n2\n3\n"
+    },
+    {
+      "stdin": "1000000000 500000000\n1000000000 500000000\n1000000000 500000000",
+      "stdout": "500000000\n1000000000\n0\n"
+    },
+    {
+      "stdin": "999999999 1\n999999999 999999998\n999999999 500000000",
+      "stdout": "500000000\n999999999\n0\n"
+    },
+    {
+      "stdin": "15 10\n20 15\n25 20",
+      "stdout": "10\n20\n15\n"
+    },
+    {
+      "stdin": "100 99\n100 1\n100 50",
+      "stdout": "50\n100\n0\n"
+    },
+    {
+      "stdin": "5 5\n10 0\n15 10",
+      "stdout": "0\n5\n10\n"
+    }
+  ]
+}

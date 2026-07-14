@@ -1,0 +1,65 @@
+{
+  "code": "RGB7962",
+  "status": "ref_wrong_on_samples",
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": false,
+      "expected": "9",
+      "got": "32"
+    }
+  ],
+  "data": {
+    "slug": "tile-exchanging",
+    "title_mn": "Хавтанцар солих",
+    "title_en": "Tile Exchanging",
+    "statement_mn": "Фермер Жон саяхан орон нутгийн дөрвөлжин хавтанцрын дэлгүүрээс (мэдээж зөвхөн дөрвөлжин хавтанцар зардаг) худалдаж авсан дөрвөлжин хавтанцаруудаараа амбаарынхаа шалыг засахыг хүсч байна. Харамсалтай нь тэр худалдан авалт хийхээсээ өмнө амбаарынхаа хэмжээг зөв хэмжиж аваагүй тул одоо зарим хавтанцараа өөр хэмжээтэй шинэ дөрвөлжин хавтанцараар солих хэрэгтэй болжээ.\n\nФермер Жоны өмнө нь худалдаж авсан N ширхэг дөрвөлжин хавтанцарууд нь A_1...A_N хажуугийн урттай. Тэр зарим хавтанцараа шинэ дөрвөлжин хавтанцараар солихыг хүсч байгаа бөгөөд эцэст нь түүний бүх хавтанцаруудын талбайн нийлбэр яг M-тэй тэнцүү болох ёстой.\n\nДэлгүүр одоо тусгай урамшуулал зарлаж байна: A_i хажуугийн урттай хавтанцарыг B_i хажуугийн урттай шинэ хавтанцараар |A_i - B_i| * |A_i - B_i` зардлаар сольж болно. Гэхдээ энэ урамшуулал нь зөвхөн өмнө нь худалдаж авсан хавтанцаруудад хамаарах бөгөөд Фермер Жон солилцоогоор олж авсан хавтанцараа дахин сольж болохгүй.\n\nХавтанцаруудын талбайн нийлбэр M болгоход шаардагдах хамгийн бага зардлыг ол. Хэрэв M талбайтай болох боломжгүй бол -1 гэж хэвлэ.",
+    "statement_en": "Farmer John wants to remodel the floor of his barn using a collection of square tiles he recently purchased from the local square mart store (which of course, only sells square objects). Unfortunately, he didn't measure the size of the barn properly before making his purchase, so now he needs to exchange some of his tiles for new square tiles of different sizes.\n\nThe N square tiles previously purchased by FJ have side lengths A_1...A_N. He would like to exchange some of these with new square tiles so that the total sum of the areas of his tiles is exactly M.\n\nSquare mart is currently offering a special deal: a tile of side length A_i can be exchanged for a new tile of side length B_i for a cost of |A_i - B_i| * |A_i - B_i| units. However, this deal only applies to previously-purchased tiles -- FJ is not allowed to exchange a tile that he has already obtained via exchanging some other tile (i.e., a size-3 tile cannot be exchanged for a size-2 tile, which is then exchanged for a size-1 tile).\n\nPlease determine the minimum amount of money required to exchange tiles so that the sum of the areas of the tiles becomes M. Output -1 if it is impossible to obtain an area of M.",
+    "input_format_mn": "Эхний мөрөнд N ба M тоонууд зайгаар тусгаарлагдан өгөгдөнө (1 ≤ N ≤ 100, 1 ≤ M ≤ 10000).\n\nХоёр дахь мөрөнд N ширхэг эерэг бүхэл тоо A_1, A_2, ..., A_N зайгаар тусгаарлагдан өгөгдөнө (1 ≤ A_i ≤ 100).",
+    "input_format_en": "The first line contains two space-separated integers N and M (1 ≤ N ≤ 100, 1 ≤ M ≤ 10000).\n\nThe second line contains N space-separated positive integers A_1, A_2, ..., A_N (1 ≤ A_i ≤ 100).",
+    "output_format_mn": "Хавтанцаруудыг сольсны дараа талбайн нийлбэрийг M болгоход шаардагдах хамгийн бага зардлыг хэвлэ. Хэрэв боломжгүй бол -1 гэж хэвлэ.",
+    "output_format_en": "Print the minimum cost required to exchange tiles so that the sum of the areas becomes exactly M. If it is impossible, print -1.",
+    "constraints_mn": "- 1 ≤ N ≤ 100\n- 1 ≤ M ≤ 10000\n- 1 ≤ A_i ≤ 100",
+    "constraints_en": "- 1 ≤ N ≤ 100\n- 1 ≤ M ≤ 10000\n- 1 ≤ A_i ≤ 100",
+    "difficulty": "medium",
+    "tags": [
+      "dynamic-programming",
+      "knapsack",
+      "minimum-cost"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 20,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nconst int INF = 1e9;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int N, M;\n    cin >> N >> M;\n    vector<int> A(N);\n    for (int i = 0; i < N; i++) {\n        cin >> A[i];\n    }\n\n    // dp[s] = minimum cost to achieve total area s\n    vector<int> dp(M + 1, INF);\n    dp[0] = 0;\n\n    for (int i = 0; i < N; i++) {\n        vector<int> ndp(M + 1, INF);\n        int a = A[i];\n        for (int s = 0; s <= M; s++) {\n            if (dp[s] == INF) continue;\n            // try all possible new side lengths b (1..100) for this tile\n            for (int b = 1; b <= 100; b++) {\n                int area = b * b;\n                if (s + area > M) break; // since b increases, area increases\n                int cost = (a - b) * (a - b);\n                ndp[s + area] = min(ndp[s + area], dp[s] + cost);\n            }\n        }\n        dp = move(ndp);\n    }\n\n    int ans = dp[M];\n    if (ans == INF) cout << -1 << \"\\n\";\n    else cout << ans << \"\\n\";\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5 37\n5 5 5 5 5\n",
+        "output": "9\n"
+      },
+      {
+        "input": "2 18\n3 4\n",
+        "output": "4\n"
+      },
+      {
+        "input": "1 4\n3\n",
+        "output": "1\n"
+      },
+      {
+        "input": "2 50\n7 7\n",
+        "output": "-1\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1 1\n1\n",
+      "1 10000\n100\n",
+      "10 100\n10 10 10 10 10 10 10 10 10 10\n",
+      "3 29\n1 2 3\n",
+      "5 99\n5 6 7 8 9\n",
+      "1 5\n2\n",
+      "100 10000\n1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n",
+      "3 10\n5 5 5\n",
+      "5 5\n1 1 1 1 1\n",
+      "2 200\n10 10\n"
+    ]
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "code": "RGB7407",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7407-lenagin-beleg",
+    "title_mn": "Ленагийн бэлэг",
+    "title_en": "Lena's Gift",
+    "statement_mn": "Васягийн төрсөн өдөр болох дөхөж байгаа бөгөөд Лена түүнд хээтэй гарын алчуур оёж бэлэглэхээр шийджээ. Лена **0**-оос **N** хүртэлх цифрүүдийг хээ болгон сонгож авсан. Цифрүүд ромбо хэлбэртэйгээр байрлана. Хамгийн их цифр болох **N** яг голдоо байрлах ёстой мөн зах руугаа дөхөх тусам цифрүүд багасах ёстой.\n\nЖишээ нь **N = 5** үед гарын алчуурын хээ дараах байдалтай харагдана.\n\n```text\n          0\n        0 1 0\n      0 1 2 1 0\n    0 1 2 3 2 1 0\n  0 1 2 3 4 3 2 1 0\n0 1 2 3 4 5 4 3 2 1 0\n  0 1 2 3 4 3 2 1 0\n    0 1 2 3 2 1 0\n      0 1 2 1 0\n        0 1 0\n          0\n```\n\nТаны даалгавар бол өгөгдсөн **N** хээтэй гарын алчуурны харагдах байдлыг дүрслэх юм.",
+    "statement_en": "Vasya's birthday is approaching, and Lena has decided to sew him a patterned handkerchief as a gift. Lena chose the digits from **0** to **N** as the pattern. The digits are arranged in a diamond shape. The largest digit **N** must be exactly in the center, and as you move toward the edges, the digits must decrease.\n\nFor example, for **N = 5** the handkerchief pattern looks like this:\n\n```text\n          0\n        0 1 0\n      0 1 2 1 0\n    0 1 2 3 2 1 0\n  0 1 2 3 4 3 2 1 0\n0 1 2 3 4 5 4 3 2 1 0\n  0 1 2 3 4 3 2 1 0\n    0 1 2 3 2 1 0\n      0 1 2 1 0\n        0 1 0\n          0\n```\n\nYour task is to describe the appearance of the handkerchief for a given **N**.",
+    "input_format_mn": "Оролт нь **N** бүхэл тоог агуулсан нэг мөрөөс бүрдэнэ.",
+    "input_format_en": "The input consists of a single line containing the integer **N**.",
+    "output_format_mn": "Өгөгдсөн **N** хээтэй гарын алчуурын зургийг гарга. Мөр бүрийн өмнөх хоосон зайг яг жишээн дээрхийн адил гаргана. Нэг мөрөн дэх зэрэгцээ хоёр цифрийн хооронд яг нэг хоосон зай авна. Мөр бүрийн эцсийн цифрийн ард ямар ч хоосон зай байх ёсгүй.",
+    "output_format_en": "Output the picture of the handkerchief for the given **N**. Each line must have exactly the same leading spaces as shown in the example. Between two adjacent digits on the same line there must be exactly one space. There must be no spaces after the last digit on any line.",
+    "constraints_mn": "* **2 ≤ N ≤ 9**\n* **N** нь бүхэл тоо.",
+    "constraints_en": "* **2 ≤ N ≤ 9**\n* **N** is an integer.",
+    "difficulty": "easy",
+    "tags": [
+      "pattern-printing",
+      "implementation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <string>\n#include <algorithm>\n\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int N;\n    cin >> N;\n\n    // Total height of the diamond = 2*N + 1\n    int height = 2 * N + 1;\n\n    for (int row = 0; row < height; ++row) {\n        // distance from the center row (N)\n        int dist = abs(row - N);\n\n        // number of digits in this row = N - dist + 1? Let's think:\n        // For row = 0 (dist=N): digits: 0 ... that's 1 digit\n        // For row = N (dist=0): 0 1 2 ... N ... 2 1 0 => 2*N+1 digits\n        // Actually the number of elements: (N - dist)*2 + 1\n        // Check: dist=N => (0)*2+1 = 1 correct\n        // dist=0 => (N)*2+1 = 2N+1 correct\n        int count = (N - dist) * 2 + 1;\n\n        // leading spaces: (height - count) / 2? Actually from the pattern:\n        // For N=5, row0: 2 spaces before 0? Let's count.\n        // Wait, looking at N=5 output:\n        // Row0: \"          0\" -> 11 leading spaces? The maximum line is the middle:\n        // Row5: \"0 1 2 3 4 5 4 3 2 1 0\" length = 2*N+1 digits with spaces = ...\n        // Better: each digit is separated by space, so each entry takes 2 characters except last.\n        // The middle row has (2N+1) digits, so total length = 2*(2N+1)-1 = 4N+1 chars.\n        // Leading spaces before the first digit on each row = 2*(N - dist) \n        // Because each digit+space combo is 2 chars, and we need to center.\n        // Check: N=5, row0 (dist=5): lead spaces = 2*(0) = 0? But sample shows leading spaces.\n        // Wait, let's count the longest row: \"0 1 2 3 4 5 4 3 2 1 0\" (no trailing space)\n        // That's 21 characters (digits 0-5-0 => 11 digits, 10 spaces = 21).\n        // Row 0: \"          0\" => let's count: that's 11 spaces + \"0\" = 12 chars.\n        // Actually the row is \"          0\" (indentation shown in sample).\n        // Let's count precisely from the sample:\n        // For N=5, the first row is \"          0\" \n        // That's (5*2) = 10? Actually let's just count: there are 11 spaces then \"0\".\n        // The longest row has 21 chars. 21 - 1 = 20, half is 10. But we see 11 spaces.\n        // Hmm, let's just look at the sample spacing more carefully.\n        // Actually for N=5, let's compute: each \"num\" takes 1 char, and between them 1 space.\n        // Middle row: 0 1 2 3 4 5 4 3 2 1 0 = 21 chars.\n        // First row: 0 = 1 char. Leading spaces = (21 - 1)/2 = 10... but we see 11 spaces?\n        // The sample shows \"          0\" - let's count: that's really 11 spaces then 0.\n        // Hmm, maybe I'm counting wrong. Let's just count the characters in the pre:\n        // \"          0\" - let's actually count the spaces before the 0.\n        // The pre shows: \"          0\" on first line. I'll count as 11 spaces.\n        // But (21-1)/2 = 10. So maybe it's not exactly centered by character count.\n        // Let me look at the N=3 sample output more carefully:\n        // \"      0\" -> 7 spaces then 0. Middle row: \"0 1 2 3 2 1 0\" = 13 chars.\n        // (13-1)/2 = 6. But we see 7 spaces. So there's 1 extra space.\n        // Actually let's recount: \"0 1 2 3 2 1 0\" - digits: 0,1,2,3,2,1,0 = 7 digits, 6 spaces = 13.\n        // \"      0\" - let me count: that's 7 spaces then 0. Yeah 7 != 6.\n        // So the pattern is: leading_spaces = 2 * (N - dist) + 1? \n        // For N=3, row0 (dist=3): 2*(0)+1 = 1? No that's 1 space, not 7.\n        // \n        // Let me think differently. Look at the sample for N=3:\n        // Row0: \"      0\"     -> leading spaces = 6? Actually let me count char by char:\n        // The pre says: \"      0\" - I'll count 6 spaces then '0'? No let me be more careful.\n        // In HTML: \"      0\" - there are clearly 6 space characters before 0? Let me count:\n        // Actually in the pre for N=3: \"      0\" - that's 6 spaces + \"0\" = 7 chars.\n        // Wait no. Let me just count the spaces: \n        // \"      0\" - I see 6 spaces? Let me count: 1,2,3,4,5,6... hmm\n        // Actually the pre text is: \"      0\\n    0 1 0\\n  0 1 2 1 0\\n0 1 2 3 2 1 0\\n  0 1 2 1 0\\n    0 1 0\\n      0\"\n        // \n        // Let me just count from the N=5 example:\n        // Row0: \"          0\" \n        // Row1: \"        0 1 0\"\n        // Row2: \"      0 1 2 1 0\"\n        // Row3: \"    0 1 2 3 2 1 0\"\n        // Row4: \"  0 1 2 3 4 3 2 1 0\"\n        // Row5: \"0 1 2 3 4 5 4 3 2 1 0\"\n        // Row6: \"  0 1 2 3 4 3 2 1 0\"\n        // ...\n        // The number of leading spaces decreases by 2 each row until 0 at the middle.\n        // Row5 has 0 leading spaces.\n        // Row4 has 2 leading spaces.\n        // Row3 has 4 leading spaces.\n        // Row2 has 6 leading spaces.\n        // Row1 has 8 leading spaces.\n        // Row0 has 10 leading spaces.\n        // \n        // Wait, so row0 has 10 spaces? But I thought I counted 11. Let me recount:\n        // \"          0\" - let me count spaces: that's 10 spaces then \"0\"? Hmm\n        // The text shows: \"          0\" - let me count: \n        // \"          \" is 10 spaces? Let me see: \n        // Actually the pattern is clearly: leading = 2*(N-dist).\n        // For N=5, row0 dist=5: 2*(5-5)=0. That gives 0 leading spaces. But we need more.\n        // \n        // Let me think again. The total width for the middle row in characters:\n        // (2N+1) digits, (2N) spaces = 4N+1 characters.\n        // For N=5: 21 chars.\n        // For a row with 'count' digits, its length is 2*count-1.\n        // leading = (total_width - row_width) / 2\n        // row0: count=1, width=1, leading = (21-1)/2 = 10.\n        // row1: count=3, width=5, leading = (21-5)/2 = 8.\n        // That matches! leading = (4N+1 - (2*count-1)) / 2 = (4N+1-2*count+1)/2 = (4N+2-2*count)/2 = 2N+1-count\n        // And count = 2*(N-dist)+1 = 2N-2*dist+1\n        // So leading = 2N+1 - (2N-2*dist+1) = 2N+1-2N+2*dist-1 = 2*dist\n        // leading = 2*dist = 2*|row - N|\n        // Check: N=5, row0 dist=5, leading = 10 ✓\n        // N=5, row5 dist=0, leading = 0 ✓\n        // N=5, row6 dist=1, leading = 2 ✓\n        // N=3, row0 dist=3, leading = 6. Sample: \"      0\" - 6 spaces? Let's check.\n        // In the sample for N=3: \"      0\" - I'll count as 6 spaces. Yes that works!\n        \n        int leading = 2 * dist;\n\n        // Print leading spaces\n        for (int s = 0; s < leading; ++s) {\n            cout << ' ';\n        }\n\n        // Print the digits: ascending from 0 to (N-dist) then descending\n        int max_val = N - dist;\n        // ascending\n        for (int v = 0; v <= max_val; ++v) {\n            if (v > 0) cout << ' ';\n            cout << v;\n        }\n        // descending (excluding the max_val which was already printed)\n        for (int v = max_val - 1; v >= 0; --v) {\n            cout << ' ' << v;\n        }\n        cout << '\\n';\n    }\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "3\n",
+        "output": "      0\n    0 1 0\n  0 1 2 1 0\n0 1 2 3 2 1 0\n  0 1 2 1 0\n    0 1 0\n      0\n"
+      },
+      {
+        "input": "5\n",
+        "output": "          0\n        0 1 0\n      0 1 2 1 0\n    0 1 2 3 2 1 0\n  0 1 2 3 4 3 2 1 0\n0 1 2 3 4 5 4 3 2 1 0\n  0 1 2 3 4 3 2 1 0\n    0 1 2 3 2 1 0\n      0 1 2 1 0\n        0 1 0\n          0\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "2\n",
+      "4\n",
+      "6\n",
+      "7\n",
+      "8\n",
+      "9\n",
+      "1\n",
+      "0\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "      0\n    0 1 0\n  0 1 2 1 0\n0 1 2 3 2 1 0\n  0 1 2 1 0\n    0 1 0\n      0",
+      "got": "      0\n    0 1 0\n  0 1 2 1 0\n0 1 2 3 2 1 0\n  0 1 2 1 0\n    0 1 0\n      0"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "          0\n        0 1 0\n      0 1 2 1 0\n    0 1 2 3 2 1 0\n  0 1 2 3 4 3 2 1 0\n0 1 2 3 4 5 4 3 2 1 0\n  0 1 2 3 4 3 2 1 0\n    0 1 2 3 2 1 0\n      0 1 2 1 0\n        0 1 0\n          0",
+      "got": "          0\n        0 1 0\n      0 1 2 1 0\n    0 1 2 3 2 1 0\n  0 1 2 3 4 3 2 1 0\n0 1 2 3 4 5 4 3 2 1 0\n  0 1 2 3 4 3 2 1 0\n    0 1 2 3 2 1 0\n      0 1 2 1 0\n        0 1 0\n          0"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "2\n",
+      "stdout": "    0\n  0 1 0\n0 1 2 1 0\n  0 1 0\n    0\n"
+    },
+    {
+      "stdin": "4\n",
+      "stdout": "        0\n      0 1 0\n    0 1 2 1 0\n  0 1 2 3 2 1 0\n0 1 2 3 4 3 2 1 0\n  0 1 2 3 2 1 0\n    0 1 2 1 0\n      0 1 0\n        0\n"
+    },
+    {
+      "stdin": "6\n",
+      "stdout": "            0\n          0 1 0\n        0 1 2 1 0\n      0 1 2 3 2 1 0\n    0 1 2 3 4 3 2 1 0\n  0 1 2 3 4 5 4 3 2 1 0\n0 1 2 3 4 5 6 5 4 3 2 1 0\n  0 1 2 3 4 5 4 3 2 1 0\n    0 1 2 3 4 3 2 1 0\n      0 1 2 3 2 1 0\n        0 1 2 1 0\n          0 1 0\n            0\n"
+    },
+    {
+      "stdin": "7\n",
+      "stdout": "              0\n            0 1 0\n          0 1 2 1 0\n        0 1 2 3 2 1 0\n      0 1 2 3 4 3 2 1 0\n    0 1 2 3 4 5 4 3 2 1 0\n  0 1 2 3 4 5 6 5 4 3 2 1 0\n0 1 2 3 4 5 6 7 6 5 4 3 2 1 0\n  0 1 2 3 4 5 6 5 4 3 2 1 0\n    0 1 2 3 4 5 4 3 2 1 0\n      0 1 2 3 4 3 2 1 0\n        0 1 2 3 2 1 0\n          0 1 2 1 0\n            0 1 0\n              0\n"
+    },
+    {
+      "stdin": "8\n",
+      "stdout": "                0\n              0 1 0\n            0 1 2 1 0\n          0 1 2 3 2 1 0\n        0 1 2 3 4 3 2 1 0\n      0 1 2 3 4 5 4 3 2 1 0\n    0 1 2 3 4 5 6 5 4 3 2 1 0\n  0 1 2 3 4 5 6 7 6 5 4 3 2 1 0\n0 1 2 3 4 5 6 7 8 7 6 5 4 3 2 1 0\n  0 1 2 3 4 5 6 7 6 5 4 3 2 1 0\n    0 1 2 3 4 5 6 5 4 3 2 1 0\n      0 1 2 3 4 5 4 3 2 1 0\n        0 1 2 3 4 3 2 1 0\n          0 1 2 3 2 1 0\n            0 1 2 1 0\n              0 1 0\n                0\n"
+    },
+    {
+      "stdin": "9\n",
+      "stdout": "                  0\n                0 1 0\n              0 1 2 1 0\n            0 1 2 3 2 1 0\n          0 1 2 3 4 3 2 1 0\n        0 1 2 3 4 5 4 3 2 1 0\n      0 1 2 3 4 5 6 5 4 3 2 1 0\n    0 1 2 3 4 5 6 7 6 5 4 3 2 1 0\n  0 1 2 3 4 5 6 7 8 7 6 5 4 3 2 1 0\n0 1 2 3 4 5 6 7 8 9 8 7 6 5 4 3 2 1 0\n  0 1 2 3 4 5 6 7 8 7 6 5 4 3 2 1 0\n    0 1 2 3 4 5 6 7 6 5 4 3 2 1 0\n      0 1 2 3 4 5 6 5 4 3 2 1 0\n        0 1 2 3 4 5 4 3 2 1 0\n          0 1 2 3 4 3 2 1 0\n            0 1 2 3 2 1 0\n              0 1 2 1 0\n                0 1 0\n                  0\n"
+    },
+    {
+      "stdin": "1\n",
+      "stdout": "  0\n0 1 0\n  0\n"
+    },
+    {
+      "stdin": "0\n",
+      "stdout": "0\n"
+    }
+  ]
+}

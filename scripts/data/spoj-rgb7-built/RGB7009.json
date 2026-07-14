@@ -1,0 +1,94 @@
+{
+  "code": "RGB7009",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7009-2-orontoi-too",
+    "title_mn": "2 оронтой тоо",
+    "title_en": "Two-Digit Number",
+    "statement_mn": "Өгөгдсөн 2 оронтой тооны цифрүүдийн үржвэрийг ол.",
+    "statement_en": "Given a two-digit number, find the product of its digits.",
+    "input_format_mn": "2 оронтой тоо өгөгдөнө.",
+    "input_format_en": "A single two-digit number.",
+    "output_format_mn": "Нэгж ба аравтын орны цифрүүдийн үржвэр.",
+    "output_format_en": "The product of the tens digit and the units digit.",
+    "constraints_mn": "- 10 ≤ N ≤ 99",
+    "constraints_en": "- 10 ≤ N ≤ 99",
+    "difficulty": "easy",
+    "tags": [
+      "math",
+      "digits"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    int tens = n / 10;\n    int ones = n % 10;\n    cout << tens * ones << endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "27\n",
+        "output": "14\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "10\n",
+      "11\n",
+      "19\n",
+      "20\n",
+      "50\n",
+      "91\n",
+      "99\n",
+      "33\n",
+      "75\n",
+      "46\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "14",
+      "got": "14"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "10\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "11\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "19\n",
+      "stdout": "9\n"
+    },
+    {
+      "stdin": "20\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "50\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "91\n",
+      "stdout": "9\n"
+    },
+    {
+      "stdin": "99\n",
+      "stdout": "81\n"
+    },
+    {
+      "stdin": "33\n",
+      "stdout": "9\n"
+    },
+    {
+      "stdin": "75\n",
+      "stdout": "35\n"
+    },
+    {
+      "stdin": "46\n",
+      "stdout": "24\n"
+    }
+  ]
+}

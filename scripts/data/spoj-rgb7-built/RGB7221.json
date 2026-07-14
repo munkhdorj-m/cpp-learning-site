@@ -1,0 +1,52 @@
+{
+  "code": "RGB7221",
+  "status": "ref_wrong_on_samples",
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": false,
+      "expected": "0 1 2 3",
+      "got": "0 1 2 3 4"
+    }
+  ],
+  "data": {
+    "slug": "rgb7221-digits-upto",
+    "title_mn": "Цифр хүртэлх",
+    "title_en": "Digits Up To",
+    "statement_mn": "Өгөгдсөн цифр хүртэлх цифрүүдийг нэг хоосон зайгаар тусгаарлан хэвлэ. Сүүлийн цифрийн ард хоосон зай байхгүй. Мөр дуусгана.",
+    "statement_en": "Given a digit, print all digits from 0 up to that digit (inclusive), separated by a single space. There should be no trailing space after the last digit. End with a newline.",
+    "input_format_mn": "Нэг мөрөнд нэг бүхэл тоо — цифр (0-ээс 9 хүртэл).",
+    "input_format_en": "A single line containing one integer — a digit (from 0 to 9).",
+    "output_format_mn": "0-ээс өгөгдсөн цифр хүртэлх цифрүүд, нэг хоосон зайгаар тусгаарлагдаж хэвлэгдэнэ. Сүүлийн цифрийн ард хоосон зай байхгүй. Мөрийг дуусгана.",
+    "output_format_en": "Print digits from 0 up to the given digit, separated by a single space. There must be no trailing space after the last digit. End the line.",
+    "constraints_mn": "- Оролт нь 0-с 9 хүртэлх бүхэл тоо байна.",
+    "constraints_en": "- Input is a single integer between 0 and 9 inclusive.",
+    "difficulty": "easy",
+    "tags": [
+      "implementation",
+      "basics",
+      "loop"
+    ],
+    "time_limit_ms": 500,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n\nint main() {\n    int n;\n    std::cin >> n;\n    for (int i = 0; i < n; ++i) {\n        std::cout << i << ' ';\n    }\n    std::cout << n << '\\n';\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "4\n",
+        "output": "0 1 2 3\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "0\n",
+      "1\n",
+      "2\n",
+      "3\n",
+      "5\n",
+      "6\n",
+      "7\n",
+      "8\n",
+      "9\n"
+    ]
+  }
+}

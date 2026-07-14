@@ -1,0 +1,15 @@
+{
+  "title": "2 тооны нийлбэр",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн бүхэл тооны нийлбэрийг ол.</p>\n<h3>Input</h3>\n<p>2 бүхэл тоо зайгаар тусгаарлагдан нэг мөрөнд өгөгдөнө.</p>\n<h3>Output</h3>\n<p>2 тооны нийлбэр.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n12 23\n\n<strong>Output:</strong>\n35\n</pre>",
+  "bodyText": "Өгөгдсөн бүхэл тооны нийлбэрийг ол.\nInput\n2 бүхэл тоо зайгаар тусгаарлагдан нэг мөрөнд өгөгдөнө.\nOutput\n2 тооны нийлбэр.\nExample\nInput:\n12 23\n\nOutput:\n35",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n12 23\n\nOutput:\n35"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7001/",
+  "code": "RGB7001",
+  "scrapedAt": "2026-06-29T06:36:47.074Z"
+}

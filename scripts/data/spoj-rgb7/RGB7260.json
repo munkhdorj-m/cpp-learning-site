@@ -1,0 +1,13 @@
+{
+  "title": "Үсэг дахиад",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Сурагч англи цагаан толгойн жижиг үсгүүдээс бүтсэн нэгэн үгийг бичиж байхдаа тухайн бичиж байгаа үсэг нь өмнө нь орсон байвал \"дахиад\" гэж хэлж байв. Тэрхүү үгээ бичиж дуустал хэдэн удаа \"дахиад\" гэж хэлсэн бэ.</span> &nbsp;&nbsp;</p>\n<h3>Input</h3>\n<p><span style=\"font-size: small;\">20-оос ихгүй үсгээс тогтох үг өгөгдөнө. Үг зөвхөн англи цагаан жижиг үсгүүдээр өгөгдөнө.</span></p>\n<h3>Output</h3>\n<p><span style=\"font-size: small;\">\"Дахиад\" гэж хэлсэн тоо.</span></p>\n<h3>Example</h3>\n<p><strong><span style=\"font-size: small;\">Input 1 :</span></strong></p>\n<p><span style=\"font-size: small;\">apple</span></p>\n<p><strong><span style=\"font-size: small;\">Output 1 :</span></strong></p>\n<p><span style=\"font-size: small;\">1</span></p>\n<p><strong><span style=\"font-size: small;\">Input 2 :</span></strong></p>\n<p><span style=\"font-size: small;\">potato</span></p>\n<p><strong><span style=\"font-size: small;\">Output 2 :</span></strong></p>\n<p><span style=\"font-size: small;\">2</span></p>\n<div><span style=\"font-size: small;\"><br></span></div>",
+  "bodyText": "Сурагч англи цагаан толгойн жижиг үсгүүдээс бүтсэн нэгэн үгийг бичиж байхдаа тухайн бичиж байгаа үсэг нь өмнө нь орсон байвал \"дахиад\" гэж хэлж байв. Тэрхүү үгээ бичиж дуустал хэдэн удаа \"дахиад\" гэж хэлсэн бэ.   \nInput\n20-оос ихгүй үсгээс тогтох үг өгөгдөнө. Үг зөвхөн англи цагаан жижиг үсгүүдээр өгөгдөнө.\nOutput\n\"Дахиад\" гэж хэлсэн тоо.\nExample\nInput 1 :\napple\nOutput 1 :\n1\nInput 2 :\npotato\nOutput 2 :\n2",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7260/",
+  "code": "RGB7260",
+  "scrapedAt": "2026-06-29T06:43:31.944Z"
+}

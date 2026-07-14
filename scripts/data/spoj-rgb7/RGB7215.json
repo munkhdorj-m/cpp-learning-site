@@ -1,0 +1,15 @@
+{
+  "title": "Үржвэр нийлбэр 3",
+  "hidden": true,
+  "bodyHtml": "<p>1*2+3*4+5*6+...+(n-1)*n нийлбэрийг ол.</p>\n<h3>Input</h3>\n<p>Натурал тэгш тоо өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Нийлбэр.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n6\n\n<strong>Output:</strong>\n44\n</pre>",
+  "bodyText": "1*2+3*4+5*6+...+(n-1)*n нийлбэрийг ол.\nInput\nНатурал тэгш тоо өгөгдөнө.\nOutput\nНийлбэр.\nExample\nInput:\n6\n\nOutput:\n44",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n6\n\nOutput:\n44"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7215/",
+  "code": "RGB7215",
+  "scrapedAt": "2026-06-29T06:39:48.444Z"
+}

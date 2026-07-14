@@ -1,0 +1,99 @@
+{
+  "code": "RGB7560",
+  "status": "ok",
+  "data": {
+    "slug": "min-max-swap",
+    "title_mn": "Их багын байр солих",
+    "title_en": "Min-Max Swap",
+    "statement_mn": "Өгөгдсөн нэг хэмжээст бодит тоон массивын хамгийн их, хамгийн бага 2 тоог олж массив дахь байрыг соль.\n\nСолигдсоны дараах массивыг хэвлэ. Массивт тэнцүү элементүүд байхгүй болно.",
+    "statement_en": "Given a one-dimensional array of real numbers, find the maximum and minimum elements and swap their positions in the array.\n\nPrint the array after swapping. There will be no duplicate elements in the array.",
+    "input_format_mn": "Эхний мөрөнд массивын элементийн тоо $n$ ($n < 100$) өгөгдөнө. Дараагийн мөрөнд массивын $n$ ширхэг элементүүд зайгаар тусгаарлагдан өгөгдөнө. Элементүүд нь `double` төрөл.",
+    "input_format_en": "The first line contains the number of elements $n$ ($n < 100$). The next line contains $n$ array elements separated by spaces. The elements are of type `double`.",
+    "output_format_mn": "Нэг мөрөнд массивын элементүүдийг таслалаас хойш 2 оронгийн нарийвчлалтайгаар (`%.2f`) зайгаар тусгаарлан хэвлэ.",
+    "output_format_en": "Print the array elements in one line, separated by spaces, formatted with exactly 2 digits after the decimal point (`%.2f`).",
+    "constraints_mn": "- $n < 100$\n- Элементүүд нь бодит тоо (`double`)\n- Массивт тэнцүү элементүүд байхгүй",
+    "constraints_en": "- $n < 100$\n- Elements are real numbers (`double`)\n- No duplicate elements in the array",
+    "difficulty": "easy",
+    "tags": [
+      "arrays",
+      "implementation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <vector>\n#include <iomanip>\n#include <algorithm>\n#include <cmath>\n\nusing namespace std;\n\nint main() {\n    ios_base::sync_with_stdio(false);\n    cin.tie(nullptr);\n    \n    int n;\n    cin >> n;\n    \n    vector<double> a(n);\n    for (int i = 0; i < n; i++) {\n        cin >> a[i];\n    }\n    \n    int min_idx = 0, max_idx = 0;\n    for (int i = 1; i < n; i++) {\n        if (a[i] < a[min_idx]) min_idx = i;\n        if (a[i] > a[max_idx]) max_idx = i;\n    }\n    \n    swap(a[min_idx], a[max_idx]);\n    \n    cout << fixed << setprecision(2);\n    for (int i = 0; i < n; i++) {\n        if (i > 0) cout << ' ';\n        cout << a[i];\n    }\n    cout << '\\n';\n    \n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "6\n2.312 -5.12 1.1 8.9 0.0 5.2\n",
+        "output": "2.31 8.90 1.10 -5.12 0.00 5.20\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "2\n1.0 2.0\n",
+      "2\n-3.5 7.2\n",
+      "1\n5.0\n",
+      "3\n0.001 0.002 -0.001\n",
+      "5\n100.0 -100.0 50.0 -50.0 0.0\n",
+      "4\n3.14159 2.71828 1.41421 0.57721\n",
+      "5\n-1.1 -2.2 -3.3 -4.4 -5.5\n",
+      "7\n0.01 0.1 1.0 10.0 100.0 1000.0 10000.0\n",
+      "3\n9.999 0.001 5.555\n",
+      "4\n-0.5 0.5 -1.0 1.0\n",
+      "6\n1.23 4.56 7.89 2.34 5.67 8.90\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "2.31 8.90 1.10 -5.12 0.00 5.20",
+      "got": "2.31 8.90 1.10 -5.12 0.00 5.20"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "2\n1.0 2.0\n",
+      "stdout": "2.00 1.00\n"
+    },
+    {
+      "stdin": "2\n-3.5 7.2\n",
+      "stdout": "7.20 -3.50\n"
+    },
+    {
+      "stdin": "1\n5.0\n",
+      "stdout": "5.00\n"
+    },
+    {
+      "stdin": "3\n0.001 0.002 -0.001\n",
+      "stdout": "0.00 -0.00 0.00\n"
+    },
+    {
+      "stdin": "5\n100.0 -100.0 50.0 -50.0 0.0\n",
+      "stdout": "-100.00 100.00 50.00 -50.00 0.00\n"
+    },
+    {
+      "stdin": "4\n3.14159 2.71828 1.41421 0.57721\n",
+      "stdout": "0.58 2.72 1.41 3.14\n"
+    },
+    {
+      "stdin": "5\n-1.1 -2.2 -3.3 -4.4 -5.5\n",
+      "stdout": "-5.50 -2.20 -3.30 -4.40 -1.10\n"
+    },
+    {
+      "stdin": "7\n0.01 0.1 1.0 10.0 100.0 1000.0 10000.0\n",
+      "stdout": "10000.00 0.10 1.00 10.00 100.00 1000.00 0.01\n"
+    },
+    {
+      "stdin": "3\n9.999 0.001 5.555\n",
+      "stdout": "0.00 10.00 5.55\n"
+    },
+    {
+      "stdin": "4\n-0.5 0.5 -1.0 1.0\n",
+      "stdout": "-0.50 0.50 1.00 -1.00\n"
+    },
+    {
+      "stdin": "6\n1.23 4.56 7.89 2.34 5.67 8.90\n",
+      "stdout": "8.90 4.56 7.89 2.34 5.67 1.23\n"
+    }
+  ]
+}

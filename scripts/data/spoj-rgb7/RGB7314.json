@@ -1,0 +1,15 @@
+{
+  "title": "ХБЕХ",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн хоёр натурал тооны хамгийн бага ерөнхий хуваагдагчийг ол.</p>\n<h3>Input</h3>\n<p>Нэг мөрөнд хоёр натурал тоо зайгаар тусгаарлагдан өгөгдөнө.</p>\n<h3>Output</h3>\n<p>ХБЕХ</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n9 15\n\n<strong>Output:</strong>\n45\n</pre>",
+  "bodyText": "Өгөгдсөн хоёр натурал тооны хамгийн бага ерөнхий хуваагдагчийг ол.\nInput\nНэг мөрөнд хоёр натурал тоо зайгаар тусгаарлагдан өгөгдөнө.\nOutput\nХБЕХ\nExample\nInput:\n9 15\n\nOutput:\n45",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n9 15\n\nOutput:\n45"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7314/",
+  "code": "RGB7314",
+  "scrapedAt": "2026-06-29T06:38:45.216Z"
+}

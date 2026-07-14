@@ -1,0 +1,53 @@
+{
+  "code": "RGB7936",
+  "status": "ref_wrong_on_samples",
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": false,
+      "expected": "16",
+      "got": "30"
+    }
+  ],
+  "data": {
+    "slug": "rgb7936-bovine-ballet",
+    "title_mn": "Үхрийн балет",
+    "title_en": "Bovine Ballet",
+    "statement_mn": "Фермер Жонны үнээ Бесси балетын ангид бүртгүүлж, үхрүүд болхи амьтад гэх хэвшсэн ойлголтыг эсэргүүцэхийг хүсчээ. Түүний эцсийн тоглолт долоо хоногийн дараа болох тул Жон түүнд тэгш өнцөгт тайз барьж өгч, бүжиглэх явцдаа тайзнаас унахгүй байхад туслахыг хүсч байна.\n\nБессийн бүжиг нь 1×1 хэмжээтэй дөрвөлжин нүднүүдээс бүрдэх тэгш өнцөгт тайзан дээр явагдана. Бессийн дөрвөн туурайг дараах байдлаар тодорхойлно:\n\n- **FR** — Баруун урд туурай\n- **FL** — Зүүн урд туурай\n- **RR** — Баруун хойд туурай\n- **RL** — Зүүн хойд туурай\n\nЭхлээд түүний дөрвөн туурай дараах байдлаар дөрвөлжин үүсгэн байрлана (Бесси хойд зүг рүү харсан):\n\n```\nFL FR\nRL RR\n```\n\nБессийн бүжиг нь **N** ширхэг зааварчилгаанаас бүрдэнэ (1 ≤ N ≤ 1000). Зааварчилгаа бүр нь нэг туурайгаа нэг нүдээр хөдөлгөх, эсвэл 90° цагийн зүүний дагуу эргүүлэх командыг өгнө.\n\n**Туурай хөдөлгөх** зааварчилгаа нь 3 тэмдэгтээс бүрдэнэ: эхний хоёр нь туурайг, сүүлийн тэмдэгт нь хөдөлгөх чиглэлийг заана (`F` = урагш, `B` = хойш, `R` = баруун, `L` = зүүн). Жишээ нь `FRF` гэдэг нь баруун урд туурайгаа урагш (яг одоо харж буй зүг рүү) нэг нүдээр хөдөлгөнө гэсэн үг. Чиглэл нь Бессийн харж буй зүгтэй харьцуулагдана.\n\n**Эргүүлэх** зааварчилгаа нь 3 тэмдэгтээс бүрдэнэ: эхний хоёр нь туурайг (энэ туурай тогтсон байна), сүүлийн тэмдэгт нь `P` (pivot — эргүүлэх). Жишээ нь `FRP` гэдэг нь Бесси баруун урд туурайгаа тогтсон цэг болгон 90° цагийн зүүний дагуу эргэлнэ гэсэн үг. Эргэсний дараа Бессийн харж буй зүг мөн өөрчлөгдөнө.\n\nБессийн туурайнууд хэзээ нэгэн цагт нэг нүдэн дээр давхцвал бүдрээд бүжгийг дуусгаж чадахгүй. Ийм тохиолдолд **-1** гэж хэвлэнэ. Давхцахаас өөр тохиолдолд Бесси бүдрэхгүй — тэр маш уян хатан болсон тул туурайнуудаа хэдийгээр сонин байрлалд (жишээ нь хойд туурайнууд урд туурайнуудаас урагшаа байх гэх мэт) тавьж чадна.\n\nБүх зааварчилгааны дараа Бессигийн туурайнуудыг багтаах хамгийн бага тэгш өнцөгт тайзны талбайг (нүдээр) тооцоол. Хэрэв аль нэг зааварчилгааны үед давхцал үүсвэл -1 гэж хэвлэнэ.",
+    "statement_en": "In an attempt to challenge the stereotypical perception of cows as awkward creatures, Farmer John's prize cow Bessie has signed up for an introductory ballet class. Her final performance is next week, and FJ wants to help her by building a rectangular stage large enough so that she can perform her entire dance without falling off the edges.\n\nBessie's dance will take place on a rectangular stage consisting of a grid of 1×1 square cells. Bessie's four feet are described as follows:\n\n- **FR**: Front right foot\n- **FL**: Front left foot\n- **RR**: Rear right foot\n- **RL**: Rear left foot\n\nHer four feet start out in 4 adjacent cells forming a square as follows, with Bessie facing north:\n\n```\nFL FR\nRL RR\n```\n\nBessie's dance follows a series of N instructions (1 ≤ N ≤ 1000), where each instruction tells her to either move one foot by one cell or to pivot 90 degrees clockwise.\n\n**Move instructions** consist of 3 characters: the first two identify the foot to move, and the final character specifies the direction of movement (`F` = forward, `B` = back, `R` = right, `L` = left). For example, `FRF` means Bessie should move her front right foot forward one cell, and `RLR` means she should move her rear left foot right one cell. The direction of movement is relative to the direction Bessie is facing.\n\n**Pivot instructions** are also 3 characters: the first two specify the single foot that Bessie keeps planted, around which she rotates 90 degrees clockwise. The last character is `P` (for pivot). For example, `FRP` means Bessie should pivot 90 degrees clockwise about her stationary front right foot. After rotating, Bessie now faces a new direction (east if she was facing north before the pivot).\n\nIf Bessie ever moves one foot onto the same cell as another foot, she will trip and fail to complete the dance; in that case, output **-1**. Other than collision, Bessie will not trip — she is flexible enough to handle strange configurations (e.g., back feet farther forward than front feet).\n\nAfter processing all N instructions, compute the minimum area of a rectangular stage needed to contain all four feet during the entire dance (from start through all movements). Output the area (in cells).",
+    "input_format_mn": "Эхний мөрөнд N бүхэл тоо (зааварчилгааны тоо) өгөгдөнө. Дараагийн N мөр бүрт гурван тэмдэгтээс бүрдэх зааварчилгаа өгөгдөнө: эхний хоёр тэмдэгт нь `FR`, `FL`, `RR`, `RL` гэсэн туурайг, гурав дахь тэмдэгт нь `F`, `B`, `R`, `L`, эсвэл `P` гэсэн үйлдлийг заана.",
+    "input_format_en": "The first line contains an integer N — the number of instructions. Each of the next N lines contains a 3-character instruction: the first two characters identify the foot (`FR`, `FL`, `RR`, or `RL`), and the third character specifies the action (`F`, `B`, `R`, `L` for move, or `P` for pivot).",
+    "output_format_mn": "Ганц мөрөнд Бессийн туурайнуудыг багтаахад шаардагдах хамгийн бага тэгш өнцөгт тайзны талбайг (нүдээр) хэвлэнэ. Хэрэв ямар нэгэн үед туурайнууд давхцвал -1 гэж хэвлэнэ.",
+    "output_format_en": "Output a single integer — the minimum area (in cells) of a rectangular stage needed to contain all four feet during the entire dance. If at any point two feet occupy the same cell, output -1.",
+    "constraints_mn": "- 1 ≤ N ≤ 1000",
+    "constraints_en": "- 1 ≤ N ≤ 1000",
+    "difficulty": "medium",
+    "tags": [
+      "simulation",
+      "geometry",
+      "implementation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 20,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\n// foot indices: 0=FL, 1=FR, 2=RL, 3=RR  (matching initial positions)\n// direction: 0=north, 1=east, 2=south, 3=west\nint dx[] = {0, 1, 0, -1}; // forward vectors for each direction\nint dy[] = {1, 0, -1, 0}; // y increases north (up), x increases east (right)\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int N;\n    cin >> N;\n    // foot positions: (x,y). initially:\n    // FL: x=-1,y=1   FR: x=1,y=1   RL: x=-1,y=-1   RR: x=1,y=-1\n    // (facing north)\n    int x[4], y[4];\n    x[0] = -1; y[0] = 1;   // FL\n    x[1] = 1;  y[1] = 1;   // FR\n    x[2] = -1; y[2] = -1;  // RL\n    x[3] = 1;  y[3] = -1;  // RR\n\n    int dir = 0; // 0=north\n\n    // map foot name to index\n    auto footIdx = [](const string& s) -> int {\n        if (s == \"FL\") return 0;\n        if (s == \"FR\") return 1;\n        if (s == \"RL\") return 2;\n        return 3; // RR\n    };\n\n    // bounds tracking\n    int minX = -1, maxX = 1, minY = -1, maxY = 1;\n\n    auto updateBounds = [&]() {\n        for (int i = 0; i < 4; i++) {\n            minX = min(minX, x[i]);\n            maxX = max(maxX, x[i]);\n            minY = min(minY, y[i]);\n            maxY = max(maxY, y[i]);\n        }\n    };\n\n    auto checkCollision = [&]() -> bool {\n        for (int i = 0; i < 4; i++)\n            for (int j = i+1; j < 4; j++)\n                if (x[i] == x[j] && y[i] == y[j]) return true;\n        return false;\n    };\n\n    for (int i = 0; i < N; i++) {\n        string inst;\n        cin >> inst;\n        int fi = footIdx(inst.substr(0, 2));\n        char action = inst[2];\n        if (action == 'P') {\n            // pivot 90° clockwise around foot fi\n            // pivot point\n            int px = x[fi], py = y[fi];\n            // new direction\n            dir = (dir + 1) % 4;\n            // rotate all other feet around (px, py) by 90° clockwise:\n            // (x', y') = (px + (y - py), py - (x - px))\n            // Because: clockwise rotation of vector (dx,dy) gives (dy, -dx)\n            for (int j = 0; j < 4; j++) {\n                if (j == fi) continue;\n                int oldx = x[j], oldy = y[j];\n                int relx = oldx - px;\n                int rely = oldy - py;\n                // clockwise: (relx, rely) -> (rely, -relx)\n                x[j] = px + rely;\n                y[j] = py - relx;\n            }\n        } else {\n            // move the foot\n            int moveDir;\n            if (action == 'F') moveDir = dir;       // forward\n            else if (action == 'B') moveDir = (dir + 2) % 4; // back\n            else if (action == 'R') moveDir = (dir + 1) % 4; // right\n            else if (action == 'L') moveDir = (dir + 3) % 4; // left\n            else continue;\n\n            x[fi] += dx[moveDir];\n            y[fi] += dy[moveDir];\n        }\n\n        // check collision after this instruction\n        if (checkCollision()) {\n            cout << -1 << '\\n';\n            return 0;\n        }\n        updateBounds();\n    }\n\n    int width = maxX - minX + 1;\n    int height = maxY - minY + 1;\n    long long area = 1LL * width * height;\n    cout << area << '\\n';\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "3\nFRF\nFRP\nRLB\n",
+        "output": "16\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\nFLF\n",
+      "1\nFLP\n",
+      "2\nFRP\nFRP\n",
+      "4\nFRF\nFLF\nRRB\nRLB\n",
+      "8\nFRP\nFLP\nRRP\nRLP\nFRF\nFLF\nRRB\nRLB\n",
+      "1\nFRF\n",
+      "0\n",
+      "4\nFRF\nFRR\nFRL\nFRB\n",
+      "10\nFRF\nFLF\nRRF\nRLF\nFRP\nFLP\nRRP\nRLP\nFRB\nFLB\n",
+      "1\nFRF\n"
+    ]
+  }
+}

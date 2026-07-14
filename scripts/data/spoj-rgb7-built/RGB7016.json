@@ -1,0 +1,94 @@
+{
+  "code": "RGB7016",
+  "status": "ok",
+  "data": {
+    "slug": "days-hours-to-hours",
+    "title_mn": "Хоног цаг -> цаг",
+    "title_en": "Days and Hours to Hours",
+    "statement_mn": "Өгөгдсөн хоног, цагийг цагт шилжүүл.\n\n**Жишээ:** 2 хоног 5 цаг = 2 × 24 + 5 = 53 цаг.",
+    "statement_en": "Convert given days and hours into total hours.\n\n**Example:** 2 days 5 hours = 2 × 24 + 5 = 53 hours.",
+    "input_format_mn": "Хоног, цаг Int төрлөөр нэг зайгаар тусгаарлагдан өгөгдөнө.",
+    "input_format_en": "Two integers — days and hours — separated by a single space.",
+    "output_format_mn": "Цаг гарна.",
+    "output_format_en": "Output a single integer — the total number of hours.",
+    "constraints_mn": "- 0 ≤ хоног ≤ 10^9\n- 0 ≤ цаг ≤ 23",
+    "constraints_en": "- 0 ≤ days ≤ 10^9\n- 0 ≤ hours ≤ 23",
+    "difficulty": "easy",
+    "tags": [
+      "arithmetic",
+      "basic-math"
+    ],
+    "time_limit_ms": 500,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n\nint main() {\n    long long days, hours;\n    std::cin >> days >> hours;\n    std::cout << days * 24 + hours << std::endl;\n    return 0;\n}",
+    "samples": [
+      {
+        "input": "2 5\n",
+        "output": "53\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "0 0\n",
+      "1 0\n",
+      "0 23\n",
+      "1 1\n",
+      "100 0\n",
+      "1000000000 23\n",
+      "7 10\n",
+      "365 0\n",
+      "31 15\n",
+      "1000000 0\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "53",
+      "got": "53"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "0 0\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "1 0\n",
+      "stdout": "24\n"
+    },
+    {
+      "stdin": "0 23\n",
+      "stdout": "23\n"
+    },
+    {
+      "stdin": "1 1\n",
+      "stdout": "25\n"
+    },
+    {
+      "stdin": "100 0\n",
+      "stdout": "2400\n"
+    },
+    {
+      "stdin": "1000000000 23\n",
+      "stdout": "24000000023\n"
+    },
+    {
+      "stdin": "7 10\n",
+      "stdout": "178\n"
+    },
+    {
+      "stdin": "365 0\n",
+      "stdout": "8760\n"
+    },
+    {
+      "stdin": "31 15\n",
+      "stdout": "759\n"
+    },
+    {
+      "stdin": "1000000 0\n",
+      "stdout": "24000000\n"
+    }
+  ]
+}

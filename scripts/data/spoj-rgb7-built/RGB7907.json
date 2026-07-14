@@ -1,0 +1,56 @@
+{
+  "code": "RGB7907",
+  "status": "ref_wrong_on_samples",
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": false,
+      "expected": "etc.",
+      "got": "0"
+    }
+  ],
+  "data": {
+    "slug": "rgb7907-escaping-the-farm",
+    "title_mn": "Фермээс зугтах нь",
+    "title_en": "Escaping the Farm",
+    "statement_mn": "Үхрүүд фермер Жоноос зугтах зоригтой төлөвлөгөө гаргажээ. Тэд жижигхэн хийлдэг сал авч, шөнийн харанхуйд хэсэг үхрүүд сал дээр гарч, фермийн хил дээрх голыг гатлахаар болжээ. Төлөвлөгөө төгс юм шиг санагдаж байсан ч, жижиг хийлдэг сал нь тийм ч их жин даахгүй гэдгийг үхрүүд ойлгожээ!\n\nN үхэр (1 ≤ N ≤ 20) тус бүр w₁ ... w_N жинтэй. Нэг бүлэг үхэр хангалттай хөнгөн эсэхийг мэдэхийн тулд тэд бүлгийн бүх жинг нэмдэг. Харамсалтай нь, үхрүүд арифметик муутай бөгөөд хэрэв бүлгийн үхрүүдийн жинг нэмэхэд (ердийн аравтын тооллын системээр) ямар нэгэн **зэрэглэл дамжих** (carry) тохиолдолд тэд бууж өгч, тэр бүлэг сал хэрэглэхэд хэт хүнд гэж дүгнэдэг.\n\nЯмар ч зэрэглэл дамжихгүйгээр жингүүдийг нь нэмж болох бүлгийг сал дээр багтахад хангалттай хөнгөн гэж үзнэ.\n\nҮхрүүдэд сал дээр багтах хамгийн том бүлгийн хэмжээг (ө.х. жингүүдийг нь зэрэглэл дамжихгүйгээр нэмж болох хамгийн том бүлэг) олоход тусална уу.",
+    "statement_en": "The cows have decided on a daring plan to escape from the clutches of Farmer John. They have managed to procure a small inflatable raft, and during the cover of night, a group of cows will board the raft and row across the river bordering the farm. The plan seems perfect, until the cows realize that their small inflatable raft may not be able to hold much weight!\n\nThe N cows (1 ≤ N ≤ 20) have weights w₁ ... w_N. To figure out if a group of cows is light enough to avoid sinking the raft, the cows add up all of the weights in the group. Unfortunately, cows are notoriously bad at arithmetic, and if the addition of the weights of the cows in a group causes any **carries** to occur (using standard base 10 addition), then the cows give up and conclude that group must weigh too much to use the raft.\n\nAny group whose weights can be added without any carries is assumed to be light enough to fit on the raft.\n\nPlease help the cows determine the size of the largest group that they believe can fit on the raft (that is, the largest group whose weights can be added together with no carries).",
+    "input_format_mn": "- Эхний мөрөнд N бүхэл тоо агуулагдана.\n- Дараагийн мөрөнд N шиг w₁ ... w_N бүхэл тоонууд агуулагдана (1 ≤ w_i ≤ 1,000,000).",
+    "input_format_en": "- The first line contains the integer N.\n- The next line contains N integers w₁ ... w_N (1 ≤ w_i ≤ 1,000,000).",
+    "output_format_mn": "Ганц мөрөнд хамгийн том бүлгийн хэмжээг (зэрэглэл дамжихгүйгээр нэмж болох хамгийн олон тооны үхэр) хэвлэнэ.",
+    "output_format_en": "Print a single line containing the size of the largest group (the maximum number of cows whose weights can be added without any carries).",
+    "constraints_mn": "- 1 ≤ N ≤ 20\n- 1 ≤ w_i ≤ 1,000,000",
+    "constraints_en": "- 1 ≤ N ≤ 20\n- 1 ≤ w_i ≤ 1,000,000",
+    "difficulty": "medium",
+    "tags": [
+      "bitmask",
+      "carry",
+      "base-10",
+      "brute-force"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 20,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\n// Check if adding numbers in a set produces any carry in base 10\nbool no_carry(const vector<int>& nums, int mask) {\n    int carry[10] = {0}; // max 7 digits since w_i <= 1e6\n    for (int i = 0; i < (int)nums.size(); i++) {\n        if (mask & (1 << i)) {\n            int x = nums[i];\n            int pos = 0;\n            while (x > 0) {\n                int d = x % 10;\n                carry[pos] += d;\n                x /= 10;\n                pos++;\n            }\n        }\n    }\n    for (int i = 0; i < 10; i++) {\n        if (carry[i] >= 10) return false;\n    }\n    return true;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int N;\n    cin >> N;\n    vector<int> w(N);\n    for (int i = 0; i < N; i++) {\n        cin >> w[i];\n    }\n\n    int best = 0;\n    int total_masks = 1 << N;\n    for (int mask = 1; mask < total_masks; mask++) {\n        int cnt = __builtin_popcount(mask);\n        if (cnt <= best) continue;\n        if (no_carry(w, mask)) {\n            best = cnt;\n        }\n    }\n    cout << best << \"\\n\";\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "etc.\n",
+        "output": "etc.\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "5\n1 2 3 4 5\n",
+      "4\n9 99 999 9999\n",
+      "3\n5 5 5\n",
+      "6\n10 20 30 40 50 60\n",
+      "7\n123 456 789 111 222 333 444\n",
+      "1\n1000000\n",
+      "2\n999999 1\n",
+      "8\n100 200 300 400 500 600 700 800\n",
+      "10\n1 1 1 1 1 1 1 1 1 1\n",
+      "20\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20\n",
+      "3\n5000 5000 5000\n",
+      "5\n111111 222222 333333 444444 555555\n"
+    ]
+  }
+}

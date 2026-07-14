@@ -1,0 +1,94 @@
+{
+  "code": "RGB7616",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7616",
+    "title_mn": "Дараалан ижил",
+    "title_en": "Consecutive Equal",
+    "statement_mn": "Өгөгдсөн натурал тоон дарааллаас дараалан ижил тоонууд орсон хамгийн урт дэд дарааллын уртыг ол.",
+    "statement_en": "Given a sequence of natural numbers, find the length of the longest consecutive subsequence where all numbers are equal.",
+    "input_format_mn": "- Эхний мөрөнд натурал тоо **n** өгөгдөнө. (n ≤ 100)\n- Дараагийн мөрөнд **n** ширхэг натурал тоо зайгаар тусгаарлагдан өгөгдөнө. Тоо бүр 1000-гаас бага.",
+    "input_format_en": "- The first line contains a natural number **n**. (n ≤ 100)\n- The next line contains **n** natural numbers separated by spaces. Each number is less than 1000.",
+    "output_format_mn": "Дараалан ижил тоо байх дэд дарааллуудын хамгийн уртыг ганц мөрөнд хэвлэ.",
+    "output_format_en": "Print the length of the longest consecutive subsequence of equal numbers on a single line.",
+    "constraints_mn": "- 1 ≤ n ≤ 100\n- Тоо бүр 1-ээс 999 хүртэлх натурал тоо",
+    "constraints_en": "- 1 ≤ n ≤ 100\n- Each number is a natural number from 1 to 999",
+    "difficulty": "easy",
+    "tags": [
+      "implementation",
+      "arrays"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    \n    int n;\n    cin >> n;\n    \n    vector<int> a(n);\n    for (int i = 0; i < n; ++i) {\n        cin >> a[i];\n    }\n    \n    int max_len = 1;\n    int cur_len = 1;\n    \n    for (int i = 1; i < n; ++i) {\n        if (a[i] == a[i - 1]) {\n            ++cur_len;\n        } else {\n            cur_len = 1;\n        }\n        if (cur_len > max_len) {\n            max_len = cur_len;\n        }\n    }\n    \n    cout << max_len << \"\\n\";\n    \n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "10\n1 3 3 2 2 2 3 3 4 2\n",
+        "output": "3\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n5",
+      "2\n1 1",
+      "2\n1 2",
+      "5\n1 2 3 4 5",
+      "5\n1 1 1 1 1",
+      "6\n1 2 2 3 3 3",
+      "7\n3 3 3 1 2 2 2",
+      "10\n999 999 999 999 999 999 999 999 999 999",
+      "100\n1 2 2 3 3 3 4 4 4 4 5 5 5 5 5 6 6 6 6 6 6 7 7 7 7 7 7 7 8 8 8 8 8 8 8 8 9 9 9 9 9 9 9 9 9 10 10 10 10 10 10 10 10 10 10 11 11 11 11 11 11 11 11 11 11 11 12 12 12 12 12 12 12 12 12 12 12 12 13 13 13 13 13 13 13 13 13 13 13 13 13 14 14 14 14 14 14 14 14 14",
+      "4\n7 7 8 8"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "3",
+      "got": "3"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n5",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "2\n1 1",
+      "stdout": "2\n"
+    },
+    {
+      "stdin": "2\n1 2",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "5\n1 2 3 4 5",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "5\n1 1 1 1 1",
+      "stdout": "5\n"
+    },
+    {
+      "stdin": "6\n1 2 2 3 3 3",
+      "stdout": "3\n"
+    },
+    {
+      "stdin": "7\n3 3 3 1 2 2 2",
+      "stdout": "3\n"
+    },
+    {
+      "stdin": "10\n999 999 999 999 999 999 999 999 999 999",
+      "stdout": "10\n"
+    },
+    {
+      "stdin": "100\n1 2 2 3 3 3 4 4 4 4 5 5 5 5 5 6 6 6 6 6 6 7 7 7 7 7 7 7 8 8 8 8 8 8 8 8 9 9 9 9 9 9 9 9 9 10 10 10 10 10 10 10 10 10 10 11 11 11 11 11 11 11 11 11 11 11 12 12 12 12 12 12 12 12 12 12 12 12 13 13 13 13 13 13 13 13 13 13 13 13 13 14 14 14 14 14 14 14 14 14",
+      "stdout": "13\n"
+    },
+    {
+      "stdin": "4\n7 7 8 8",
+      "stdout": "2\n"
+    }
+  ]
+}

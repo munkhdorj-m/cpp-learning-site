@@ -1,0 +1,13 @@
+{
+  "title": "Массивт өгөгдсөн тоо хэд",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Өгөгдсөн нэг хэмжээст бүхэл тоон массивт өгөгдсөн тоо хэд байгааг ол.</span></p>\n<h3>Input</h3>\n<p><span style=\"font-size: small;\">Эхний мөрөнд массивын элементийн тоо. n&lt;=100;</span></p>\n<p><span style=\"font-size: small;\">Хоёр дахь мөрөнд массивын элементүүд зайгаар тусгаарлагдан өгөгдөнө.</span></p>\n<p><span style=\"font-size: small;\">Гурав дахь мөрөнд хэд байгааг олох тоо өгөгдөнө.</span></p>\n<h3>Output</h3>\n<p><span style=\"font-size: small;\">Өгөгдсөн тоо, хэд байгаа тоо 2 зайгаар тусгаарлагдан хэвлэгдэнэ.</span></p>\n<h3>Example</h3>\n<p><span style=\"font-size: small;\"><strong>Input:<br></strong></span><span style=\"font-size: small;\">6<br></span><span style=\"font-size: small;\">1 5 4 5 3 9<br></span><span style=\"font-size: small;\">5<br></span><span style=\"font-size: small;\"> </span><span style=\"font-size: small;\"><strong>Output:<br></strong></span><span style=\"font-size: small;\">5 2</span></p>",
+  "bodyText": "Өгөгдсөн нэг хэмжээст бүхэл тоон массивт өгөгдсөн тоо хэд байгааг ол.\nInput\nЭхний мөрөнд массивын элементийн тоо. n<=100;\nХоёр дахь мөрөнд массивын элементүүд зайгаар тусгаарлагдан өгөгдөнө.\nГурав дахь мөрөнд хэд байгааг олох тоо өгөгдөнө.\nOutput\nӨгөгдсөн тоо, хэд байгаа тоо 2 зайгаар тусгаарлагдан хэвлэгдэнэ.\nExample\nInput:61 5 4 5 3 95 Output:5 2",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7506/",
+  "code": "RGB7506",
+  "scrapedAt": "2026-06-29T06:39:35.921Z"
+}

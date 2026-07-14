@@ -1,0 +1,101 @@
+{
+  "code": "RGB7231",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7231-sin-sum-2",
+    "title_mn": "Синус нийлбэр 2",
+    "title_en": "Sine Sum 2",
+    "statement_mn": "sinx + sin²x + sin³x + ... + sinⁿx нийлбэрийг ол.\n\n### Input\nБодит тоо x, натурал тоо n нэг мөрөнд зайгаар тусгаарлагдан өгөгдөнө.\n\n### Output\nНийлбэр. Таслалаас хойш 3 оронгоор нарийвчлалтайгаар гарга.\n\n### Example\n**Input:**\n```\n0.5 4\n```\n\n**Output:**\n```\n0.872\n```",
+    "statement_en": "Find the sum sinx + sin²x + sin³x + ... + sinⁿx.\n\n### Input\nA real number x and a natural number n, separated by a space on a single line.\n\n### Output\nThe sum, rounded to 3 decimal places.\n\n### Example\n**Input:**\n```\n0.5 4\n```\n\n**Output:**\n```\n0.872\n```",
+    "input_format_mn": "Бодит тоо x, натурал тоо n нэг мөрөнд зайгаар тусгаарлагдан өгөгдөнө.",
+    "input_format_en": "A real number x and a natural number n, separated by a space on a single line.",
+    "output_format_mn": "Нийлбэрийг таслалаас хойш 3 оронгоор нарийвчлалтайгаар гарга.",
+    "output_format_en": "Output the sum rounded to 3 decimal places.",
+    "constraints_mn": "- x нь бодит тоо (|x| ≤ 10³)\n- n нь натурал тоо (1 ≤ n ≤ 10⁶)\n- sin(x) ≠ 1 байх (хуваагч 0-ээс зайлсхийх)",
+    "constraints_en": "- x is a real number (|x| ≤ 10³)\n- n is a natural number (1 ≤ n ≤ 10⁶)\n- sin(x) ≠ 1 (to avoid division by zero)",
+    "difficulty": "easy",
+    "tags": [
+      "geometric-series",
+      "math",
+      "trigonometry",
+      "rounding"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <iomanip>\n#include <cmath>\nusing namespace std;\n\nint main() {\n    double x;\n    int n;\n    cin >> x >> n;\n    \n    double s = sin(x);\n    \n    // Check if s == 1 to avoid division by zero (geometric series formula)\n    // For s == 1, sum would be n, but constraints say s != 1.\n    \n    // Sum of geometric series: a*(1 - r^n)/(1 - r), where a = r = s\n    // So sum = s * (1 - pow(s, n)) / (1 - s)\n    \n    double sum;\n    if (fabs(s - 1.0) < 1e-12) {\n        sum = n; // theoretical case, not expected per constraints\n    } else {\n        sum = s * (1.0 - pow(s, n)) / (1.0 - s);\n    }\n    \n    cout << fixed << setprecision(3) << sum << endl;\n    \n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "0.5 4\n",
+        "output": "0.872\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "0 10",
+      "1.57079632679 5",
+      "3.14159265359 3",
+      "-0.5 6",
+      "1000 1",
+      "-1000 1",
+      "0.1 1000000",
+      "0.01 100000",
+      "0.78539816339 10",
+      "1.0 2",
+      "0.5235987756 1000"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "0.872",
+      "got": "0.872"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "0 10",
+      "stdout": "0.000\n"
+    },
+    {
+      "stdin": "1.57079632679 5",
+      "stdout": "5.000\n"
+    },
+    {
+      "stdin": "3.14159265359 3",
+      "stdout": "-0.000\n"
+    },
+    {
+      "stdin": "-0.5 6",
+      "stdout": "-0.320\n"
+    },
+    {
+      "stdin": "1000 1",
+      "stdout": "0.827\n"
+    },
+    {
+      "stdin": "-1000 1",
+      "stdout": "-0.827\n"
+    },
+    {
+      "stdin": "0.1 1000000",
+      "stdout": "0.111\n"
+    },
+    {
+      "stdin": "0.01 100000",
+      "stdout": "0.010\n"
+    },
+    {
+      "stdin": "0.78539816339 10",
+      "stdout": "2.339\n"
+    },
+    {
+      "stdin": "1.0 2",
+      "stdout": "1.550\n"
+    },
+    {
+      "stdin": "0.5235987756 1000",
+      "stdout": "1.000\n"
+    }
+  ]
+}

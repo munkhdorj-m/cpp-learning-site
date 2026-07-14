@@ -1,0 +1,15 @@
+{
+  "title": "Цаг хувиргалт",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Өгөгдсөн 12 цагийн форматтай (AM-PM) цагийг 24 цагийн форматтай болгож өөрчил.</span></p>\n<p><span style=\"font-size: small;\"><strong>Оролт :</strong></span></p>\n<p><span style=\"font-size: small;\">Цаг минут секундыг илэрхийлэх a тэмдэгт мөр дараах байдлаар өгөгдөнө. (цц:мм:ссAM эсвэл цц:мм:ссPM)</span></p>\n<p><span style=\"font-size: small;\">01 &lt;= цц &lt;= 12, &nbsp;00 &lt;= mm,cc &lt;= 59</span></p>\n<p><span style=\"font-size: small;\"><strong>Гаралт :</strong></span></p>\n<p><span style=\"font-size: small;\">24 цагийн цц:мм:сс формат руу шилжүүлэн хэвлэнэ.</span></p>\n<p><span style=\"font-size: small;\">00 &lt;= ЦЦ &lt;= 23.</span></p>\n<p><span style=\"font-size: small;\"><strong>Жишээ</strong></span></p>\n<p><span style=\"font-size: small;\"><strong><span style=\"font-size: small;\">Оролт 1 :</span></strong></span></p>\n<p><span style=\"font-size: small;\">07:05:45PM</span></p>\n<p><span style=\"font-size: small;\"><strong>Гаралт 1 :</strong></span></p>\n<p><span style=\"font-size: small;\">19:05:45</span></p>\n<p><span style=\"font-size: small;\"><strong>Оролт 2 :</strong></span></p>\n<p><span style=\"font-size: x-small;\">12:05:39AM</span></p>\n<p><span style=\"font-size: small;\"><strong>Гаралт 2 :</strong></span></p>\n<pre style=\"border: none; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-weight: 700; font-stretch: inherit; line-height: inherit; font-family: var(--font-family-input); font-size: 14px; margin: 0px; outline: 0px; padding: 0px; vertical-align: baseline; background-color: #f3f7f7; white-space: pre-wrap; color: #0e141e;\">00:05:39</pre>\n<div><span style=\"font-size: small;\"><br></span></div>\n<p><span style=\"font-size: small;\"><br></span></p>\n<p><span style=\"color: #555555; font-weight: 700; text-align: justify;\"><span style=\"font-size: small;\">Дархан-Уул аймгийн Монгол Оюу сургуулийн 7.2 ангийн сурагч Г.Амарсанаа&nbsp;</span></span></p>",
+  "bodyText": "Өгөгдсөн 12 цагийн форматтай (AM-PM) цагийг 24 цагийн форматтай болгож өөрчил.\nОролт :\nЦаг минут секундыг илэрхийлэх a тэмдэгт мөр дараах байдлаар өгөгдөнө. (цц:мм:ссAM эсвэл цц:мм:ссPM)\n01 <= цц <= 12,  00 <= mm,cc <= 59\nГаралт :\n24 цагийн цц:мм:сс формат руу шилжүүлэн хэвлэнэ.\n00 <= ЦЦ <= 23.\nЖишээ\nОролт 1 :\n07:05:45PM\nГаралт 1 :\n19:05:45\nОролт 2 :\n12:05:39AM\nГаралт 2 :\n00:05:39\n\n\nДархан-Уул аймгийн Монгол Оюу сургуулийн 7.2 ангийн сурагч Г.Амарсанаа",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "00:05:39"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7857/",
+  "code": "RGB7857",
+  "scrapedAt": "2026-06-29T06:50:47.267Z"
+}

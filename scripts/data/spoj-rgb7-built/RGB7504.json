@@ -1,0 +1,95 @@
+{
+  "code": "RGB7504",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7504-max-of-array",
+    "title_mn": "Массивын хамгийн их элемент",
+    "title_en": "Maximum Element of Array",
+    "statement_mn": "Өгөгдсөн нэг хэмжээст бүхэл тоон массив дахь хамгийн их элементийг (тоог) ол.",
+    "statement_en": "Find the maximum element (number) in a given one-dimensional integer array.",
+    "input_format_mn": "Эхний мөрөнд массивын элементийн тоо $n$ ($1 \\le n \\le 10^5$) өгөгдөнө. Дараагийн мөрөнд $n$ ширхэг бүхэл тоо (массивын элементүүд) зайгаар тусгаарлагдан өгөгдөнө. Элементүүдийн абсолют утга $10^9$-ээс хэтрэхгүй.",
+    "input_format_en": "The first line contains an integer $n$ ($1 \\le n \\le 10^5$), the number of elements in the array. The next line contains $n$ integers (the elements of the array) separated by spaces. The absolute value of each element does not exceed $10^9$.",
+    "output_format_mn": "Хамгийн их тоог хэвлэ.",
+    "output_format_en": "Print the maximum number.",
+    "constraints_mn": "- $1 \\le n \\le 10^5$\n- Элементүүдийн абсолют утга $10^9$-ээс хэтрэхгүй.",
+    "constraints_en": "- $1 \\le n \\le 10^5$\n- The absolute value of each element does not exceed $10^9$.",
+    "difficulty": "easy",
+    "tags": [
+      "array",
+      "maximum",
+      "implementation"
+    ],
+    "time_limit_ms": 500,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <climits>\n\nusing namespace std;\n\nint main() {\n    ios_base::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n\n    int mx = INT_MIN;\n    for (int i = 0; i < n; ++i) {\n        int x;\n        cin >> x;\n        if (x > mx) mx = x;\n    }\n\n    cout << mx << '\\n';\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5\n3 -2 4 7 -6\n",
+        "output": "7\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n0\n",
+      "2\n-1000000000 1000000000\n",
+      "5\n-5 -3 -1 -10 -2\n",
+      "10\n1 2 3 4 5 6 7 8 9 10\n",
+      "10\n10 9 8 7 6 5 4 3 2 1\n",
+      "6\n0 0 0 0 0 0\n",
+      "2\n-999999999 999999999\n",
+      "3\n1000000000 1000000000 1000000000\n",
+      "4\n-1000000000 -999999999 -999999998 -999999997\n",
+      "100000\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "7",
+      "got": "7"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n0\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "2\n-1000000000 1000000000\n",
+      "stdout": "1000000000\n"
+    },
+    {
+      "stdin": "5\n-5 -3 -1 -10 -2\n",
+      "stdout": "-1\n"
+    },
+    {
+      "stdin": "10\n1 2 3 4 5 6 7 8 9 10\n",
+      "stdout": "10\n"
+    },
+    {
+      "stdin": "10\n10 9 8 7 6 5 4 3 2 1\n",
+      "stdout": "10\n"
+    },
+    {
+      "stdin": "6\n0 0 0 0 0 0\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "2\n-999999999 999999999\n",
+      "stdout": "999999999\n"
+    },
+    {
+      "stdin": "3\n1000000000 1000000000 1000000000\n",
+      "stdout": "1000000000\n"
+    },
+    {
+      "stdin": "4\n-1000000000 -999999999 -999999998 -999999997\n",
+      "stdout": "-999999997\n"
+    },
+    {
+      "stdin": "100000\n",
+      "stdout": "6422280\n"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Кенгеру",
+  "hidden": true,
+  "bodyHtml": "<p style=\"text-align: left;\"><span style=\"font-size: small;\">Чи Кенгурутэй хамт циркийн үзүүлбэр хийж байгаа бөгөөд x, x1 байрлал дээр байгаа нэг үсрэлтээрээ харгалзан </span></p>\n<p style=\"text-align: left;\"><span style=\"font-size: small;\">v, v1 метр үсэрдэг 2 кенгуруг яг зэрэг барьж авах зорилготой. Хэрвээ чи үзүүлбэрээ амжилттай хийж чадвал “YES” үгүй бол “NO” гэж хэвлэ.</span></p>\n<p><span style=\"font-size: small;\"><strong>Оролт :</strong></span></p>\n<p><span style=\"font-size: small;\">Эхний мөрөнд хувьсагчид дараах дарааллаар зайгаар тусгаарлагдан өгөгдөнө.</span></p>\n<p><span style=\"font-size: small;\">x, v, x1, v1</span></p>\n<p><span style=\"font-size: small;\">0 &lt;= x &lt;= x1 &lt;= 10000</span></p>\n<p><span style=\"font-size: small;\">0 &lt;=&nbsp; v, v1 &lt;= 10000</span></p>\n<p><span style=\"font-size: small;\"><strong>Гаралт :</strong></span></p>\n<p><span style=\"font-size: small;\">Хариуг шинэ мөрөнд хэвлэнэ.</span></p>\n<p><span style=\"font-size: small;\"><strong>Жишээ </strong><strong>&nbsp;</strong></span></p>\n<p><strong><span style=\"font-size: small;\">Оролт</span></strong></p>\n<p><span style=\"font-size: small;\">0 3 4 2</span></p>\n<p><span style=\"font-size: small;\"><strong>Гаралт</strong><strong> </strong></span></p>\n<p><span style=\"font-size: small;\">YES</span></p>\n<p>&nbsp;</p>\n<p><em><span style=\"box-sizing: border-box; font-size: small;\"><span style=\"box-sizing: border-box; font-weight: 700;\">Орчуулсан : Дархан-Уул аймгийн Монгол-Оюу сургуулийн 11.1 ангийн сурагч Э.Цэлмэг</span>&nbsp;</span></em></p>\n<p><em><span style=\"box-sizing: border-box; font-size: small;\">&nbsp;</span></em>&nbsp;</p>\n<p>&nbsp;</p>",
+  "bodyText": "Чи Кенгурутэй хамт циркийн үзүүлбэр хийж байгаа бөгөөд x, x1 байрлал дээр байгаа нэг үсрэлтээрээ харгалзан \nv, v1 метр үсэрдэг 2 кенгуруг яг зэрэг барьж авах зорилготой. Хэрвээ чи үзүүлбэрээ амжилттай хийж чадвал “YES” үгүй бол “NO” гэж хэвлэ.\nОролт :\nЭхний мөрөнд хувьсагчид дараах дарааллаар зайгаар тусгаарлагдан өгөгдөнө.\nx, v, x1, v1\n0 <= x <= x1 <= 10000\n0 <=  v, v1 <= 10000\nГаралт :\nХариуг шинэ мөрөнд хэвлэнэ.\nЖишээ  \nОролт\n0 3 4 2\nГаралт \nYES\n \nОрчуулсан : Дархан-Уул аймгийн Монгол-Оюу сургуулийн 11.1 ангийн сурагч Э.Цэлмэг",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7860/",
+  "code": "RGB7860",
+  "scrapedAt": "2026-06-29T06:50:52.473Z"
+}

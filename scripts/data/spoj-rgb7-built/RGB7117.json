@@ -1,0 +1,99 @@
+{
+  "code": "RGB7117",
+  "status": "ok",
+  "data": {
+    "slug": "toon-unelegees-useend",
+    "title_mn": "Тоон үнэлгээнээс үсгэнд",
+    "title_en": "From Numeric Grade to Letter Grade",
+    "statement_mn": "Өгөгдсөн тоон үнэлгээг үсгэн үнэлгээнд шилжүүл.\n\n**Тодорхойлолт:**\n- 89-өөс их бол **A**\n- 79-өөс их (гэхдээ 89-өөс бага буюу тэнцүү) бол **B**\n- 69-өөс их (гэхдээ 79-өөс бага буюу тэнцүү) бол **C**\n- 59-өөс их (гэхдээ 69-өөс бага буюу тэнцүү) бол **D**\n- Бусад тохиолдолд **F**",
+    "statement_en": "Convert a given numeric grade into a letter grade.\n\n**Definition:**\n- Greater than 89 → **A**\n- Greater than 79 (but ≤ 89) → **B**\n- Greater than 69 (but ≤ 79) → **C**\n- Greater than 59 (but ≤ 69) → **D**\n- Otherwise → **F**",
+    "input_format_mn": "Ганц мөрөнд **100-аас ихгүй эерэг бүхэл тоо** өгөгдөнө.",
+    "input_format_en": "A single line containing a **positive integer not greater than 100**.",
+    "output_format_mn": "Харгалзах үсгэн дүнг хэвлэнэ: **A**, **B**, **C**, **D** эсвэл **F**.",
+    "output_format_en": "Print the corresponding letter grade: **A**, **B**, **C**, **D**, or **F**.",
+    "constraints_mn": "- 1 ≤ тоон үнэлгээ ≤ 100",
+    "constraints_en": "- 1 ≤ numeric grade ≤ 100",
+    "difficulty": "easy",
+    "tags": [
+      "conditional",
+      "if-else"
+    ],
+    "time_limit_ms": 500,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int grade;\n    cin >> grade;\n\n    if (grade > 89) {\n        cout << \"A\" << endl;\n    } else if (grade > 79) {\n        cout << \"B\" << endl;\n    } else if (grade > 69) {\n        cout << \"C\" << endl;\n    } else if (grade > 59) {\n        cout << \"D\" << endl;\n    } else {\n        cout << \"F\" << endl;\n    }\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "84",
+        "output": "B"
+      }
+    ],
+    "extra_test_inputs": [
+      "1",
+      "30",
+      "59",
+      "60",
+      "69",
+      "70",
+      "79",
+      "80",
+      "89",
+      "90",
+      "100"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "B",
+      "got": "B"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1",
+      "stdout": "F\n"
+    },
+    {
+      "stdin": "30",
+      "stdout": "F\n"
+    },
+    {
+      "stdin": "59",
+      "stdout": "F\n"
+    },
+    {
+      "stdin": "60",
+      "stdout": "D\n"
+    },
+    {
+      "stdin": "69",
+      "stdout": "D\n"
+    },
+    {
+      "stdin": "70",
+      "stdout": "C\n"
+    },
+    {
+      "stdin": "79",
+      "stdout": "C\n"
+    },
+    {
+      "stdin": "80",
+      "stdout": "B\n"
+    },
+    {
+      "stdin": "89",
+      "stdout": "B\n"
+    },
+    {
+      "stdin": "90",
+      "stdout": "A\n"
+    },
+    {
+      "stdin": "100",
+      "stdout": "A\n"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "title": "Тэмдэгт мөрүүдийн зай",
+  "hidden": true,
+  "bodyHtml": "<p>Хоёр тэмдэгт мөрийн хоорондын ялгааг тэмдэгт мөрүүдийн зай гэдэг хэмжигдэхүүнээр хэмжинэ. Тэмдэгт мөрүүдийн зай гэдэг нь нэг тэмдэгт мөрийг нөгөө тэмэдгт мөр рүү хувиргах хувиргалтын (нэг тэмдэгт нэмэх, хасах, солих) хамгийн бага тоог хэлнэ. Жишээ авч үзье. Энд distance функц нь хоёр тэмдэгт мөрийн хоорондын зайг тодорхойлно.</p>\n<h3>Input</h3>\n<p>Оролтын файл нь хоёр мөрөөс тогтох ба мөр бүрт латин цагаан толгой жижиг үсгээс тогтох мөр байна. Мөрийн урт 256-аас хэтрэхгүй.</p>\n<h3>Output</h3>\n<p>Гаралтын файл нь хариуг илэрхийлэх ганц тооноос тогтоно.</p>\n<h3>Example</h3>\n<pre><strong>Input 1:</strong>\ncat</pre>\n<pre>pat\n\n<strong>Output 1:</strong>\n1</pre>\n<pre><strong>Input 2:</strong></pre>\n<pre>cat</pre>\n<pre>cpate</pre>\n<pre><strong>Output 2:</strong></pre>\n<pre>2</pre>\n<pre><strong>Input 3:</strong></pre>\n<pre>homework</pre>\n<pre>hhomwork</pre>\n<pre><strong>Output 3:</strong></pre>\n<pre>2</pre>",
+  "bodyText": "Хоёр тэмдэгт мөрийн хоорондын ялгааг тэмдэгт мөрүүдийн зай гэдэг хэмжигдэхүүнээр хэмжинэ. Тэмдэгт мөрүүдийн зай гэдэг нь нэг тэмдэгт мөрийг нөгөө тэмэдгт мөр рүү хувиргах хувиргалтын (нэг тэмдэгт нэмэх, хасах, солих) хамгийн бага тоог хэлнэ. Жишээ авч үзье. Энд distance функц нь хоёр тэмдэгт мөрийн хоорондын зайг тодорхойлно.\nInput\nОролтын файл нь хоёр мөрөөс тогтох ба мөр бүрт латин цагаан толгой жижиг үсгээс тогтох мөр байна. Мөрийн урт 256-аас хэтрэхгүй.\nOutput\nГаралтын файл нь хариуг илэрхийлэх ганц тооноос тогтоно.\nExample\nInput 1:\ncat\npat\n\nOutput 1:\n1\nInput 2:\ncat\ncpate\nOutput 2:\n2\nInput 3:\nhomework\nhhomwork\nOutput 3:\n2",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input 1:\ncat",
+    "pat\n\nOutput 1:\n1",
+    "Input 2:",
+    "cat",
+    "cpate",
+    "Output 2:",
+    "2",
+    "Input 3:",
+    "homework",
+    "hhomwork",
+    "Output 3:",
+    "2"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7627/",
+  "code": "RGB7627",
+  "scrapedAt": "2026-06-29T06:49:22.878Z"
+}

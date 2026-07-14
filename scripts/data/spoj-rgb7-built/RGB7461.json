@@ -1,0 +1,115 @@
+{
+  "code": "RGB7461",
+  "status": "ok",
+  "data": {
+    "slug": "tsifruudijn-nijlber",
+    "title_mn": "Цифрүүдийн нийлбэр",
+    "title_en": "Sum of Digits",
+    "statement_mn": "0 цифр агуулаагүй бөгөөд цифрүүдийн нийлбэр нь өгөгдсөн N-тэй тэнцүү байх тоонуудын тоог олно уу.\n\n**Жишээ:** N=5 үед цифрүүдийн нийлбэр нь 5-тай тэнцүү, 0-гүй тоонууд: 5, 14, 23, 32, 41, 113, 122, 131, 212, 221, 311, 1112, 1121, 1211, 2111, 11111. Нийт 16 тоо байна.",
+    "statement_en": "Count the numbers that do not contain the digit 0 and whose sum of digits equals the given N.\n\n**Example:** For N=5, the numbers whose digit sum is 5 and contain no zero digit are: 5, 14, 23, 32, 41, 113, 122, 131, 212, 221, 311, 1112, 1121, 1211, 2111, 11111. A total of 16 numbers.",
+    "input_format_mn": "Нэг мөрөнд N бүхэл тоо.",
+    "input_format_en": "A single line containing the integer N.",
+    "output_format_mn": "Нэг бүхэл тоо — хариу.",
+    "output_format_en": "A single integer — the answer.",
+    "constraints_mn": "0 < N < 30",
+    "constraints_en": "0 < N < 30",
+    "difficulty": "easy",
+    "tags": [
+      "combinatorics",
+      "dynamic-programming",
+      "digit-dp"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <vector>\n\nint main() {\n    int N;\n    std::cin >> N;\n\n    // dp[i] = number of ways to form sum i using digits 1..9 (any length)\n    std::vector<long long> dp(N + 1, 0);\n    dp[0] = 1; // empty sequence\n\n    for (int i = 1; i <= N; ++i) {\n        for (int d = 1; d <= 9; ++d) {\n            if (i >= d) {\n                dp[i] += dp[i - d];\n            }\n        }\n    }\n\n    std::cout << dp[N] << std::endl;\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5\n",
+        "output": "16\n"
+      },
+      {
+        "input": "2\n",
+        "output": "2\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n",
+      "3\n",
+      "4\n",
+      "6\n",
+      "7\n",
+      "8\n",
+      "9\n",
+      "10\n",
+      "15\n",
+      "20\n",
+      "25\n",
+      "29\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "16",
+      "got": "16"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "2",
+      "got": "2"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "3\n",
+      "stdout": "4\n"
+    },
+    {
+      "stdin": "4\n",
+      "stdout": "8\n"
+    },
+    {
+      "stdin": "6\n",
+      "stdout": "32\n"
+    },
+    {
+      "stdin": "7\n",
+      "stdout": "64\n"
+    },
+    {
+      "stdin": "8\n",
+      "stdout": "128\n"
+    },
+    {
+      "stdin": "9\n",
+      "stdout": "256\n"
+    },
+    {
+      "stdin": "10\n",
+      "stdout": "511\n"
+    },
+    {
+      "stdin": "15\n",
+      "stdout": "16272\n"
+    },
+    {
+      "stdin": "20\n",
+      "stdout": "518145\n"
+    },
+    {
+      "stdin": "25\n",
+      "stdout": "16499120\n"
+    },
+    {
+      "stdin": "29\n",
+      "stdout": "262947072\n"
+    }
+  ]
+}

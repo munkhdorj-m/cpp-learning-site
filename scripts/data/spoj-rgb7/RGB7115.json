@@ -1,0 +1,15 @@
+{
+  "title": "Тэнцсэн, унасан",
+  "hidden": true,
+  "bodyHtml": "<p>Тоон дүн 3-аас их бол тэнцсэнд тооцно. Бусад тохиолдолд унана. Өгөгдсөн тоон дүн тэнцсэн эсэхийг тогтоо.</p>\n<h3>Input</h3>\n<p>Тоон дүн зөвхөн 2,3,4,5 гэсэн тоонуудын аль нэгээр өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Тэнцсэн тохиолдолд \"Tentssen\", эсрэг тохиолдолд \"Unasan\" гэж хэвлэ.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n4\n<strong>Output:</strong>\nTentssen</pre>",
+  "bodyText": "Тоон дүн 3-аас их бол тэнцсэнд тооцно. Бусад тохиолдолд унана. Өгөгдсөн тоон дүн тэнцсэн эсэхийг тогтоо.\nInput\nТоон дүн зөвхөн 2,3,4,5 гэсэн тоонуудын аль нэгээр өгөгдөнө.\nOutput\nТэнцсэн тохиолдолд \"Tentssen\", эсрэг тохиолдолд \"Unasan\" гэж хэвлэ.\nExample\nInput:\n4\nOutput:\nTentssen",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n4\nOutput:\nTentssen"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7115/",
+  "code": "RGB7115",
+  "scrapedAt": "2026-06-29T06:37:57.958Z"
+}

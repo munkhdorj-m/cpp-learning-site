@@ -1,0 +1,51 @@
+{
+  "code": "RGB7549",
+  "status": "ref_wrong_on_samples",
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": false,
+      "expected": " 15 16 22 23 25\n  7 14 17 21 24\n  6  8 13 18 20\n  2  5  9 12 19\n  1  3  4 10 11",
+      "got": "  1  3  6 10 15\n  2  5  9 14 19\n  4  8 13 18 22\n  7 12 17 21 24\n 11 16 20 23 25"
+    }
+  ],
+  "data": {
+    "slug": "rgb7549",
+    "title_mn": "Квадратын диагоналиар",
+    "title_en": "Fill Square Diagonally",
+    "statement_mn": "N×N хэмжээтэй квадрат массивыг дараах загвараар дүүргэ. Доорх жишээг ажиглана уу.\n\nМассив нь баруун дээд булангаас эхлэн гол диагональтай параллель шугамуудаар (зүүн доод чиглэлд) дүүргэгдэнэ.",
+    "statement_en": "Fill an N×N square array according to the pattern shown below. Observe the example carefully.\n\nThe array is filled starting from the top-right corner, along lines parallel to the main diagonal (going towards the bottom-left).",
+    "input_format_mn": "Эхний мөрөнд квадрат массивын хэмжээ N натурал тоо өгөгдөнө.",
+    "input_format_en": "The first line contains a single natural number N — the size of the square array.",
+    "output_format_mn": "Квадрат массивын элементүүдийг мөр мөрөөр нь хэвлэнэ. Элемент бүрийг **3 тэмдэгтийн өргөнөөр** баруун тийш тэгшлэн хэвлэнэ. Жишээг сайтар ажиглана уу: 1-ийн тоо урдаа, хойноо тус бүр 2 хоосон зайтай, харин 10-ын тоо урдаа, хойноо тус бүр 1 хоосон зайтай байна.",
+    "output_format_en": "Print the array elements row by row. Each element must be printed **right-aligned in a field of width 3**. Observe the example carefully: the number 1 has 2 spaces before and after it, while the number 10 has 1 space before and after it.",
+    "constraints_mn": "- 1 ≤ N < 10 (N нь натурал тоо)",
+    "constraints_en": "- 1 ≤ N < 10 (N is a natural number)",
+    "difficulty": "easy",
+    "tags": [
+      "array",
+      "diagonal",
+      "simulation"
+    ],
+    "time_limit_ms": 100,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <iomanip>\n#include <vector>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int N;\n    cin >> N;\n\n    vector<vector<int>> a(N, vector<int>(N, 0));\n\n    int num = 1;\n    // Fill along anti-diagonals (sum i+j constant) starting from top-right\n    // The order: for each diagonal sum s from N-1 down to 0 (top-right to bottom-left),\n    // then from s=N up to 2*(N-1) (but actually let's trace the pattern)\n    //\n    // For N=5, the pattern from sample:\n    // Row 0: 15 16 22 23 25\n    // Row 1:  7 14 17 21 24\n    // Row 2:  6  8 13 18 20\n    // Row 3:  2  5  9 12 19\n    // Row 4:  1  3  4 10 11\n    //\n    // The order of filling is along diagonals (constant i+j) going from\n    // top-right (smallest i+j?) to bottom-left.\n    // Let's map:\n    // i+j = 4: (0,4)=1, (1,3)=2, (2,2)=3, (3,1)=4, (4,0)=5  -> but sample has these at end\n    // Actually need to figure out the exact pattern.\n    //\n    // Let's re-examine sample output:\n    // Row0: 15 16 22 23 25\n    // Row1:  7 14 17 21 24\n    // Row2:  6  8 13 18 20\n    // Row3:  2  5  9 12 19\n    // Row4:  1  3  4 10 11\n    //\n    // Let's map positions to values (1-indexed position in fill order):\n    // Position 1 -> (4,0) = 1\n    // Position 2 -> (3,0) = 2\n    // Position 3 -> (4,1) = 3\n    // Position 4 -> (4,2) = 4\n    // Position 5 -> (3,1) = 5\n    // Position 6 -> (2,0) = 6\n    // Position 7 -> (1,0) = 7\n    // Position 8 -> (2,1) = 8\n    // Position 9 -> (3,2) = 9\n    // Position 10 -> (4,3) = 10\n    // Position 11 -> (4,4) = 11\n    // Position 12 -> (3,3) = 12\n    // Position 13 -> (2,2) = 13\n    // Position 14 -> (1,1) = 14\n    // Position 15 -> (0,0) = 15\n    // Position 16 -> (0,1) = 16\n    // Position 17 -> (1,2) = 17\n    // Position 18 -> (2,3) = 18\n    // Position 19 -> (3,4) = 19\n    // Position 20 -> (2,4) = 20\n    // Position 21 -> (1,3) = 21\n    // Position 22 -> (0,2) = 22\n    // Position 23 -> (0,3) = 23\n    // Position 24 -> (1,4) = 24\n    // Position 25 -> (0,4) = 25\n    //\n    // The pattern: fill along diagonals from NE to SW.\n    // Let's group by (i+j) sum:\n    // sum=0: (0,0)=15   (diagonal from (0,0))\n    // sum=1: (0,1)=16, (1,0)=7\n    // sum=2: (0,2)=22, (1,1)=14, (2,0)=6\n    // sum=3: (0,3)=23, (1,2)=17, (2,1)=8, (3,0)=2\n    // sum=4: (0,4)=25, (1,3)=21, (2,2)=13, (3,1)=5, (4,0)=1\n    // sum=5: (1,4)=24, (2,3)=18, (3,2)=9, (4,1)=3\n    // sum=6: (2,4)=20, (3,3)=12, (4,2)=4\n    // sum=7: (3,4)=19, (4,3)=10\n    // sum=8: (4,4)=11\n    //\n    // So we fill diagonals (constant i+j) in order of increasing sum.\n    // Within each diagonal, we fill from bottom to top (increasing i, decreasing j).\n    // But wait - for sum=1: (1,0) then (0,1) -> that's bottom to top? i goes 1 then 0.\n    // For sum=2: (2,0), (1,1), (0,2) -> yes bottom to top.\n    //\n    // Let's verify: sum=0: (0,0)=15 - only one.\n    // sum=1: started at (1,0)=7, then (0,1)=16. Bottom to top.\n    // sum=2: (2,0)=6, (1,1)=14, (0,2)=22. Bottom to top.\n    // Yes, fill from bottom to top along each diagonal (constant i+j).\n    // Diagonals processed in increasing order of sum (0 to 2*(N-1)).\n\n    for (int sum = 0; sum <= 2 * (N - 1); ++sum) {\n        // Start from bottom: i = min(N-1, sum), j = sum - i\n        // Go while i >= 0 and j < N\n        int i_start = min(N - 1, sum);\n        int j_start = sum - i_start;\n\n        for (int i = i_start; i >= 0 && (sum - i) < N; --i) {\n            int j = sum - i;\n            a[i][j] = num++;\n        }\n    }\n\n    for (int i = 0; i < N; ++i) {\n        for (int j = 0; j < N; ++j) {\n            cout << setw(3) << a[i][j];\n        }\n        cout << '\\n';\n    }\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5\n",
+        "output": " 15 16 22 23 25\n  7 14 17 21 24\n  6  8 13 18 20\n  2  5  9 12 19\n  1  3  4 10 11\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n",
+      "2\n",
+      "3\n",
+      "4\n",
+      "6\n",
+      "7\n",
+      "8\n",
+      "9\n"
+    ]
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "code": "RGB7236",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7236-square-root-2",
+    "title_mn": "Квадрат язгуур доорх 2",
+    "title_en": "Square Root Under 2",
+    "statement_mn": "Дараах илэрхийллийн утгыг ол:\n\n$$\\\\sqrt{2 + \\\\sqrt{2 + \\\\sqrt{2 + \\\\dots + \\\\sqrt{2}}}}$$\n\nЭнд $\\\\sqrt{\\\\phantom{2}}$ буюу квадрат язгуур **n** удаа орно.\n\nӨөрөөр хэлбэл, 2-оос эхлэн n удаа дараалан квадрат язгуур авч, нэмэх үйлдлийг гүйцэтгэнэ.",
+    "statement_en": "Find the value of the following expression:\n\n$$\\\\sqrt{2 + \\\\sqrt{2 + \\\\sqrt{2 + \\\\dots + \\\\sqrt{2}}}}$$\n\nwhere the square root ($\\\\sqrt{\\\\phantom{2}}$) appears **n** times.\n\nIn other words, starting from the innermost 2, repeatedly take the square root and add 2, doing this n times total.",
+    "input_format_mn": "Натурал тоо $n$ ($1 \\\\le n \\\\le 10^9$) өгөгдөнө.",
+    "input_format_en": "A single natural number $n$ ($1 \\\\le n \\\\le 10^9$).",
+    "output_format_mn": "Илэрхийллийн утгыг аравтын бутархай хэлбэрээр **таслалаас хойш 9 оронгийн нарийвчлалтай** (10^-9 нарийвчлалтай) хэвлэ. Өөрөөр хэлбэл, `%.9f` хэлбэрээр гарга.",
+    "output_format_en": "Print the value of the expression as a floating-point number with **9 digits after the decimal point** (i.e., with `%.9f` formatting).",
+    "constraints_mn": "- $1 \\\\le n \\\\le 10^9$",
+    "constraints_en": "- $1 \\\\le n \\\\le 10^9$",
+    "difficulty": "easy",
+    "tags": [
+      "math",
+      "limit",
+      "floating-point"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <cmath>\n#include <cstdio>\n\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    long long n;\n    cin >> n;\n\n    // The expression sqrt(2 + sqrt(2 + sqrt(2 + ...))) converges very quickly to 2.\n    // If n is large enough, the value is essentially 2 for the required precision.\n    // We need to compute accurately enough for n up to maybe 30-40 iterations.\n    // For larger n, the value converges to 2 within double precision.\n    \n    // Compute from the innermost: start with x = 0, then for i from 1 to n:\n    // x = sqrt(2 + x)\n    // But n can be up to 1e9, so we cannot iterate that many times.\n    // Observe that for n >= 30, the value is 2.0 within double precision.\n    \n    long long max_iter = min(n, 60LL);\n    double x = 0.0;\n    for (long long i = 0; i < max_iter; ++i) {\n        x = sqrt(2.0 + x);\n    }\n    \n    // For n up to 1e9, if max_iter < n, the result is essentially 2.0\n    // But we already computed up to 60 iterations which gives ~2.0.\n    \n    printf(\"%.9f\\n\", x);\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "3\n",
+        "output": "1.961570561\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n",
+      "2\n",
+      "4\n",
+      "5\n",
+      "10\n",
+      "20\n",
+      "30\n",
+      "50\n",
+      "100\n",
+      "1000000000\n",
+      "7\n",
+      "15\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "1.961570561",
+      "got": "1.961570561"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n",
+      "stdout": "1.414213562\n"
+    },
+    {
+      "stdin": "2\n",
+      "stdout": "1.847759065\n"
+    },
+    {
+      "stdin": "4\n",
+      "stdout": "1.990369453\n"
+    },
+    {
+      "stdin": "5\n",
+      "stdout": "1.997590912\n"
+    },
+    {
+      "stdin": "10\n",
+      "stdout": "1.999997647\n"
+    },
+    {
+      "stdin": "20\n",
+      "stdout": "2.000000000\n"
+    },
+    {
+      "stdin": "30\n",
+      "stdout": "2.000000000\n"
+    },
+    {
+      "stdin": "50\n",
+      "stdout": "2.000000000\n"
+    },
+    {
+      "stdin": "100\n",
+      "stdout": "2.000000000\n"
+    },
+    {
+      "stdin": "1000000000\n",
+      "stdout": "2.000000000\n"
+    },
+    {
+      "stdin": "7\n",
+      "stdout": "1.999849404\n"
+    },
+    {
+      "stdin": "15\n",
+      "stdout": "1.999999998\n"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "title": "Илэрхийлэл 1",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн илэрхийллийн утгыг ол. A=B*C-D</p>\n<h3>Input</h3>\n<p>Нэг мөрөнд 3 бүхэл тоо нэг нэг зайгаар тусгаарлагдан өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Илэрхийллийн нэг мөрөнд гарна.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n2 3 4\n\n<strong>Output:</strong>\n2\n</pre>",
+  "bodyText": "Өгөгдсөн илэрхийллийн утгыг ол. A=B*C-D\nInput\nНэг мөрөнд 3 бүхэл тоо нэг нэг зайгаар тусгаарлагдан өгөгдөнө.\nOutput\nИлэрхийллийн нэг мөрөнд гарна.\nExample\nInput:\n2 3 4\n\nOutput:\n2",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n2 3 4\n\nOutput:\n2"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7019/",
+  "code": "RGB7019",
+  "scrapedAt": "2026-06-29T06:38:12.007Z"
+}

@@ -1,0 +1,16 @@
+{
+  "title": "Факториалуудын нийлбэр",
+  "hidden": true,
+  "bodyHtml": "<p>1!+2!+3!+...+n! нийлбэрийг ол.</p>\n<h3>Input</h3>\n<p>Натурал тоо n өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Факториалуудын нийлбэр.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n5\n\n<strong>Output:</strong></pre>\n<pre>153</pre>",
+  "bodyText": "1!+2!+3!+...+n! нийлбэрийг ол.\nInput\nНатурал тоо n өгөгдөнө.\nOutput\nФакториалуудын нийлбэр.\nExample\nInput:\n5\n\nOutput:\n153",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n5\n\nOutput:",
+    "153"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7219/",
+  "code": "RGB7219",
+  "scrapedAt": "2026-06-29T06:39:55.483Z"
+}

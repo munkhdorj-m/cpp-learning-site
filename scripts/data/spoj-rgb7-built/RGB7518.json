@@ -1,0 +1,100 @@
+{
+  "code": "RGB7518",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7518-peaks-and-valleys",
+    "title_mn": "Оргил ба ёроол",
+    "title_en": "Peaks and Valleys",
+    "statement_mn": "Дараалан орсон 2 элемент бүр нь ялгаатай бүхэл тоон дараалал өгөгдөнө. Тоонууд нь өгсөж яваад уруудвал тэрхүү хэсгийг **оргил**, уруудаж яваад өгсвөл **ёроол** гэе. Тоон дараалал хэдэн оргил, хэдэн ёроол үүсгэснийг ол.\n\nДарааллын хамгийн эхний болон сүүлийн тоо оргил болон ёроолд тоологдохгүй.",
+    "statement_en": "A sequence of integers is given, where every two consecutive elements are distinct. If the numbers go up and then go down, that part is called a **peak**; if they go down and then go up, that part is called a **valley**. Find how many peaks and how many valleys the sequence forms.\n\nThe first and the last numbers of the sequence are not counted as peaks or valleys.",
+    "input_format_mn": "Бүхэл тоон дараалал өгөгдөнө. Дарааллын урт 1000-аас ихгүй.",
+    "input_format_en": "A sequence of integers is given. The length of the sequence does not exceed 1000.",
+    "output_format_mn": "Оргил болон ёроолын тоо зайгаар тусгаарлагдан нэг мөрөнд хэвлэгдэнэ.",
+    "output_format_en": "Print the number of peaks and the number of valleys, separated by a space, on a single line.",
+    "constraints_mn": "- Дарааллын урт: 1 ≤ N ≤ 1000\n- Элементүүд нь бүхэл тоо, дараалан орсон 2 тоо ялгаатай.\n- Тоонууд 32-бит бүхэл тооны мужид байна.",
+    "constraints_en": "- Sequence length: 1 ≤ N ≤ 1000\n- Elements are integers, every two consecutive elements are distinct.\n- Numbers fit within a 32-bit signed integer range.",
+    "difficulty": "easy",
+    "tags": [
+      "counting",
+      "array",
+      "implementation"
+    ],
+    "time_limit_ms": 500,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <vector>\n#include <sstream>\n#include <string>\n\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    // Read all integers from stdin (space/newline separated)\n    vector<int> a;\n    int x;\n    while (cin >> x) {\n        a.push_back(x);\n    }\n\n    int n = (int)a.size();\n    int peaks = 0, valleys = 0;\n\n    for (int i = 1; i + 1 < n; ++i) {\n        if (a[i] > a[i - 1] && a[i] > a[i + 1]) {\n            ++peaks;\n        } else if (a[i] < a[i - 1] && a[i] < a[i + 1]) {\n            ++valleys;\n        }\n    }\n\n    cout << peaks << ' ' << valleys << '\\n';\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "1 2 5 4 1 9 6 5 3 4 1 -2\n",
+        "output": "3 2\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1 2 3\n",
+      "3 2 1\n",
+      "1\n",
+      "1 2\n",
+      "5 3 5\n",
+      "1 2 3 4 5 4 3 2 1\n",
+      "1 2 1 2 1 2 1 2 1\n",
+      "-5 -3 -1 -2 -4 -6 -3 0 2 4 2 0 -1\n",
+      "100 -200 300 -400 500 -600 700 -800 900 -1000\n",
+      "1 5 3 7 2 8 4 6 0 9\n",
+      "0 1 0 1 0 1 0 1 0\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "3 2",
+      "got": "3 2"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1 2 3\n",
+      "stdout": "0 0\n"
+    },
+    {
+      "stdin": "3 2 1\n",
+      "stdout": "0 0\n"
+    },
+    {
+      "stdin": "1\n",
+      "stdout": "0 0\n"
+    },
+    {
+      "stdin": "1 2\n",
+      "stdout": "0 0\n"
+    },
+    {
+      "stdin": "5 3 5\n",
+      "stdout": "0 1\n"
+    },
+    {
+      "stdin": "1 2 3 4 5 4 3 2 1\n",
+      "stdout": "1 0\n"
+    },
+    {
+      "stdin": "1 2 1 2 1 2 1 2 1\n",
+      "stdout": "4 3\n"
+    },
+    {
+      "stdin": "-5 -3 -1 -2 -4 -6 -3 0 2 4 2 0 -1\n",
+      "stdout": "2 1\n"
+    },
+    {
+      "stdin": "100 -200 300 -400 500 -600 700 -800 900 -1000\n",
+      "stdout": "4 4\n"
+    },
+    {
+      "stdin": "1 5 3 7 2 8 4 6 0 9\n",
+      "stdout": "4 4\n"
+    },
+    {
+      "stdin": "0 1 0 1 0 1 0 1 0\n",
+      "stdout": "4 3\n"
+    }
+  ]
+}

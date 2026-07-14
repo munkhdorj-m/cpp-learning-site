@@ -1,0 +1,104 @@
+{
+  "code": "RGB7307",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7307-toon-dakh-baga-tsifr",
+    "title_mn": "Тоон дахь бага цифр",
+    "title_en": "Smallest Digit in a Number",
+    "statement_mn": "Өгөгдсөн бүхэл тооны цифрүүдээс хамгийн бага цифрийг ол.",
+    "statement_en": "Find the smallest digit in the given integer.",
+    "input_format_mn": "Бүхэл тоо өгөгдөнө.",
+    "input_format_en": "A single integer is given.",
+    "output_format_mn": "Тухайн тооны цифрүүдээс хамгийн бага цифр.",
+    "output_format_en": "The smallest digit of the given number.",
+    "constraints_mn": "- 0 ≤ тоо ≤ 10⁹",
+    "constraints_en": "- 0 ≤ number ≤ 10⁹",
+    "difficulty": "easy",
+    "tags": [
+      "digits",
+      "implementation"
+    ],
+    "time_limit_ms": 500,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <string>\n#include <algorithm>\n\nint main() {\n    std::string s;\n    std::cin >> s;\n    char min_digit = '9';\n    for (char c : s) {\n        if (c >= '0' && c <= '9' && c < min_digit) {\n            min_digit = c;\n        }\n    }\n    std::cout << min_digit << \"\\n\";\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "9649\n",
+        "output": "4\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "0",
+      "1",
+      "9",
+      "10",
+      "99",
+      "111111111",
+      "987654321",
+      "1000000000",
+      "5005",
+      "123456789",
+      "97531",
+      "222222222"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "4",
+      "got": "4"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "0",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "1",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "9",
+      "stdout": "9\n"
+    },
+    {
+      "stdin": "10",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "99",
+      "stdout": "9\n"
+    },
+    {
+      "stdin": "111111111",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "987654321",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "1000000000",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "5005",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "123456789",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "97531",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "222222222",
+      "stdout": "2\n"
+    }
+  ]
+}

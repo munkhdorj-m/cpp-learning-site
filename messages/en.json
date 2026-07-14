@@ -1,0 +1,329 @@
+{
+  "app": {
+    "name": "CPP Judge",
+    "tagline": "Learn C++ programming through problem solving"
+  },
+  "nav": {
+    "problems": "Problems",
+    "leaderboard": "Leaderboard",
+    "assignments": "Assignments",
+    "contests": "Contests",
+    "game": "Game",
+    "robot": "Robot",
+    "quests": "Quests",
+    "profile": "Profile",
+    "ide": "Code Editor",
+    "login": "Log in",
+    "signup": "Sign up",
+    "logout": "Log out",
+    "teacher": "Teacher panel"
+  },
+  "robot": {
+    "title": "Robot Programmer",
+    "subtitle": "Stack instructions and run the robot. Light up every target.",
+    "progress": "Progress",
+    "level": "Level",
+    "queue": "Instructions",
+    "queue_empty": "Empty — add instructions from below",
+    "palette": "Available instructions",
+    "clear": "Clear",
+    "reset": "Reset",
+    "run": "Run",
+    "success": "Success!",
+    "fail": "Not quite",
+    "fail_hint": "Some eggs are still uncollected. Try again.",
+    "already_done": "Already solved",
+    "play_again": "Replay",
+    "next_level": "Next",
+    "try_again": "Retry",
+    "step": "Step",
+    "more_hint": "Hint +",
+    "blocks": "Blocks"
+  },
+  "game_hub": {
+    "title": "Games",
+    "subtitle": "Pick a game to play"
+  },
+  "bug_smash": {
+    "title": "Bug Smash",
+    "subtitle": "Squash the bugs — chain quick clicks for combo bonuses",
+    "score": "Score",
+    "time": "Time",
+    "best_combo": "Best combo",
+    "ready_title": "Ready?",
+    "instructions": "You have 60 seconds. Click bugs to squash them. Fast consecutive smashes build a combo for bonus points. Click empty space and the combo breaks.",
+    "start": "Start",
+    "play_again": "Play again",
+    "over_title": "Time's up!",
+    "daily_cap_hit": "Daily XP cap of {cap} reached. Beat your high score for fun!"
+  },
+  "quests": {
+    "title": "Daily Quests",
+    "subtitle": "5 quick challenges a day. Answer correctly to collect XP.",
+    "progress": "Progress",
+    "earned_today": "XP today",
+    "show_answer": "Show answer",
+    "correct": "Correct!",
+    "wrong": "Not quite",
+    "your_answer": "Your answer",
+    "correct_answer": "Correct answer",
+    "placeholder_output": "Type the exact output...",
+    "no_quests": "No quests yet",
+    "perfect_day": "Perfect day! All answers correct.",
+    "type_predict_output": "Predict output",
+    "type_bug_hunt": "Find the bug",
+    "type_multiple_choice": "Multiple choice"
+  },
+  "landing": {
+    "hero_title": "Learn C++ by solving problems",
+    "hero_subtitle": "Earn XP, climb the leaderboard, and challenge your classmates",
+    "get_started": "Get started",
+    "have_account": "Already have an account? Log in"
+  },
+  "auth": {
+    "login": {
+      "title": "Log in",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Log in",
+      "no_account": "Don't have an account?",
+      "signup_link": "Sign up",
+      "error": "Wrong email or password"
+    },
+    "signup": {
+      "title": "Sign up",
+      "invite_code": "Invite code",
+      "invite_code_hint": "Get this from your teacher",
+      "username": "Username",
+      "display_name": "Full name",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Create account",
+      "has_account": "Already have an account?",
+      "login_link": "Log in",
+      "invalid_code": "Invalid invite code",
+      "class_will_be": "You will join class {class}"
+    }
+  },
+  "problems": {
+    "title": "Problems",
+    "search_placeholder": "Search by title...",
+    "filter": "Filter",
+    "all": "All",
+    "solved": "Solved",
+    "unsolved": "Unsolved",
+    "difficulty": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    },
+    "xp_reward": "{xp} XP",
+    "no_problems": "No problems found",
+    "load_more": "Load more",
+    "remaining": "remaining"
+  },
+  "problem": {
+    "statement": "Problem statement",
+    "input_format": "Input format",
+    "output_format": "Output format",
+    "constraints": "Constraints",
+    "samples": "Examples",
+    "sample_input": "Input",
+    "sample_output": "Output",
+    "time_limit": "Time limit",
+    "memory_limit": "Memory limit",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "your_solution": "Your solution",
+    "run_samples": "Run on samples"
+  },
+  "verdict": {
+    "pending": "Pending",
+    "judging": "Judging",
+    "accepted": "Accepted",
+    "wrong_answer": "Wrong Answer",
+    "time_limit_exceeded": "Time Limit Exceeded",
+    "memory_limit_exceeded": "Memory Limit Exceeded",
+    "runtime_error": "Runtime Error",
+    "compile_error": "Compilation Error",
+    "internal_error": "Internal Error"
+  },
+  "reward": {
+    "level_up": "Level up! Lv {level}",
+    "new_badge": "New badge"
+  },
+  "ide": {
+    "title": "Online code editor",
+    "subtitle": "Write C++ and run it instantly",
+    "stdin": "Input (stdin)",
+    "stdout": "Output (stdout)",
+    "stderr": "Errors (stderr)",
+    "run": "Run",
+    "running": "Running...",
+    "clear": "Clear"
+  },
+  "leaderboard": {
+    "title": "Leaderboard",
+    "rank": "Rank",
+    "student": "Student",
+    "class": "Class",
+    "xp": "XP",
+    "problems": "Problems",
+    "filter_all": "All students",
+    "filter_class": "My class only"
+  },
+  "profile": {
+    "xp": "XP",
+    "level": "Level",
+    "streak": "Streak",
+    "streak_days": "{days} days",
+    "problems_solved": "Problems solved",
+    "badges": "Badges",
+    "recent_submissions": "Recent submissions",
+    "no_submissions": "No submissions yet"
+  },
+  "level": {
+    "1": "Newbie",
+    "2": "Pupil",
+    "5": "Coder",
+    "10": "Specialist",
+    "20": "Master",
+    "30": "Grandmaster"
+  },
+  "common": {
+    "loading": "Loading...",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous"
+  },
+  "language": {
+    "switch_to_en": "English",
+    "switch_to_mn": "Монгол"
+  },
+  "teacher": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "classes": "Classes",
+      "problems": "Problems",
+      "assignments": "Assignments",
+      "contests": "Contests",
+      "plagiarism": "Plagiarism",
+      "robot_levels": "Robot Game",
+      "analytics": "Analytics"
+    },
+    "dashboard": {
+      "title": "Teacher dashboard",
+      "subtitle": "Manage your classes, problems, and assignments",
+      "stat_classes": "Classes",
+      "stat_students": "Students",
+      "stat_problems": "Problems",
+      "stat_submissions_24h": "Submissions (24h)",
+      "quick_actions": "Quick actions",
+      "create_class": "New class",
+      "create_problem": "New problem",
+      "create_assignment": "New assignment",
+      "recent_submissions": "Recent submissions"
+    },
+    "classes": {
+      "title": "Classes",
+      "new": "New class",
+      "name": "Name",
+      "grade": "Grade (7 / 8)",
+      "invite_code": "Invite code",
+      "students": "Students",
+      "regenerate": "Regenerate",
+      "create_title": "Create a new class",
+      "create_button": "Create",
+      "no_classes": "No classes yet",
+      "copy_code": "Copy",
+      "code_copied": "Copied",
+      "regenerate_confirm": "Regenerate this invite code? The old one will stop working."
+    },
+    "problems": {
+      "title": "Problems",
+      "new": "New problem",
+      "edit": "Edit",
+      "public": "Public",
+      "private": "Hidden",
+      "create_title": "Create a new problem",
+      "edit_title": "Edit problem",
+      "save": "Save",
+      "saving": "Saving...",
+      "delete_confirm": "Delete this problem?",
+      "no_problems": "No problems yet",
+      "field": {
+        "slug": "Slug (URL)",
+        "slug_hint": "e.g. add-two-numbers (lowercase letters, digits, hyphens only)",
+        "title_mn": "Title (MN)",
+        "title_en": "Title (EN)",
+        "statement_mn": "Statement (MN)",
+        "statement_en": "Statement (EN)",
+        "input_format_mn": "Input format (MN)",
+        "input_format_en": "Input format (EN)",
+        "output_format_mn": "Output format (MN)",
+        "output_format_en": "Output format (EN)",
+        "constraints_mn": "Constraints (MN)",
+        "constraints_en": "Constraints (EN)",
+        "difficulty": "Difficulty",
+        "time_limit_ms": "Time limit (ms)",
+        "memory_limit_kb": "Memory limit (KB)",
+        "xp_reward": "XP reward",
+        "tags": "Tags (comma-separated)",
+        "is_public": "Public"
+      },
+      "test_cases": {
+        "title": "Test cases",
+        "add": "Add test",
+        "input": "Input",
+        "expected": "Expected output",
+        "is_sample": "Sample",
+        "is_sample_hint": "Visible to students",
+        "remove": "Remove",
+        "empty": "Add at least one test case"
+      }
+    },
+    "plagiarism": {
+      "title": "Plagiarism review",
+      "subtitle": "Submissions with suspiciously similar code are flagged here",
+      "similarity": "Similarity",
+      "problem": "Problem",
+      "students": "Students",
+      "compare": "Compare",
+      "mark_reviewed": "Mark reviewed",
+      "mark_unreviewed": "Unmark",
+      "reviewed_filter": "Reviewed",
+      "unreviewed_filter": "Unreviewed",
+      "no_flags": "No flagged pairs"
+    },
+    "assignments": {
+      "title": "Assignments",
+      "new": "New assignment",
+      "create_title": "Create assignment",
+      "no_assignments": "No assignments yet",
+      "field": {
+        "class": "Class",
+        "title": "Title",
+        "description": "Description",
+        "start_at": "Start at",
+        "due_at": "Due at",
+        "allow_late": "Allow late submissions",
+        "late_penalty_pct": "Late penalty (%)",
+        "problems": "Problems",
+        "add_problem": "Add problem",
+        "points": "Points"
+      },
+      "grading": {
+        "student": "Student",
+        "total": "Total",
+        "open_assignment": "Open assignment"
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "title": "5-аас онц руу",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн тоон дүнг үсгэн дүн рүү шилжүүл.</p>\n<h3>Input</h3>\n<p>Тоон дүн нь 2,3,4,5-ын зөвхөн аль нэгээр өгөгдөнө.</p>\n<h3>Output</h3>\n<p>5 байвал \"Onts\", 4 байвал \"Sain\", 3 байвал \"Dund\", 2 байвал \"Muu\" гэж хэвлэ.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n4\n<strong>Output:</strong>\nSain</pre>",
+  "bodyText": "Өгөгдсөн тоон дүнг үсгэн дүн рүү шилжүүл.\nInput\nТоон дүн нь 2,3,4,5-ын зөвхөн аль нэгээр өгөгдөнө.\nOutput\n5 байвал \"Onts\", 4 байвал \"Sain\", 3 байвал \"Dund\", 2 байвал \"Muu\" гэж хэвлэ.\nExample\nInput:\n4\nOutput:\nSain",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n4\nOutput:\nSain"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7116/",
+  "code": "RGB7116",
+  "scrapedAt": "2026-06-29T06:37:59.735Z"
+}

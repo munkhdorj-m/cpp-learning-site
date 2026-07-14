@@ -1,0 +1,13 @@
+{
+  "title": "Параллелепипед",
+  "hidden": true,
+  "bodyHtml": "<p style=\"text-align: justify;\"><span style=\"color: #222222; line-height: 19.600000381469727px;\"><span style=\"font-size: small;\"><span style=\"white-space: pre;\"> </span>Бүхэл тоон ирмэгүүдтэй тэгш өнцөгт параллелепипед өгөгдсөн. Нэг оройтой хиллэсэн гурван талын талбай мэдэгдэж байгаа бол бүх 12 ирмэгийн нийлбэрийг ол.</span></span></p>\n<h3>Input</h3>\n<p style=\"text-align: justify;\"><span style=\"color: #222222; line-height: 19.600000381469727px;\"><span style=\"font-size: small;\"><span style=\"white-space: pre;\"> </span>Эхний мөрөнд гурван бүхэл тоо эерэг тоо өгөгдөнө. Эдгээр нь параллелепипедын талуудын талбай. Дээрх нөхцлийг хангах ядаж нэг параллелепипед олдоно.</span></span></p>\n<h3>Output</h3>\n<p><span style=\"color: #222222; line-height: 19.600000381469727px;\"><span style=\"font-size: small;\">Параллелепипедын бүх ирмэгүүдийн нийлбэрийг хэвлэ.</span></span></p>\n<h3>Example</h3>\n<p><span style=\"font-size: small;\"><strong>Input 1:</strong> </span></p>\n<p><span style=\"font-size: small;\">1 1 1</span></p>\n<p><span style=\"font-size: small;\"> <strong>Output 1:</strong> </span></p>\n<p><span style=\"font-size: x-small;\">12</span></p>\n<p><span style=\"font-size: small;\"><strong>Input 2:</strong></span></p>\n<p><span style=\"font-size: small;\">4 6 6</span></p>\n<p><span style=\"font-size: small;\"><strong>Output 2:</strong></span></p>\n<p><span style=\"font-size: small;\"><span style=\"font-weight: bold;\">28</span></span></p>",
+  "bodyText": "Бүхэл тоон ирмэгүүдтэй тэгш өнцөгт параллелепипед өгөгдсөн. Нэг оройтой хиллэсэн гурван талын талбай мэдэгдэж байгаа бол бүх 12 ирмэгийн нийлбэрийг ол.\nInput\n Эхний мөрөнд гурван бүхэл тоо эерэг тоо өгөгдөнө. Эдгээр нь параллелепипедын талуудын талбай. Дээрх нөхцлийг хангах ядаж нэг параллелепипед олдоно.\nOutput\nПараллелепипедын бүх ирмэгүүдийн нийлбэрийг хэвлэ.\nExample\nInput 1: \n1 1 1\n Output 1: \n12\nInput 2:\n4 6 6\nOutput 2:\n28",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7021/",
+  "code": "RGB7021",
+  "scrapedAt": "2026-06-29T06:47:59.724Z"
+}

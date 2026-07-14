@@ -1,0 +1,104 @@
+{
+  "code": "RGB7002",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7002-gurvaljin",
+    "title_mn": "Гурвалжин",
+    "title_en": "Triangle",
+    "statement_mn": "Өгөгдсөн гурвалжны периметрийг ол.",
+    "statement_en": "Find the perimeter of the given triangle.",
+    "input_format_mn": "Гурвалжны талууд бүхэл тоогоор нэг мөрөнд зайгаар тусгаарлагдан өгөгдөнө.",
+    "input_format_en": "The sides of the triangle are given on a single line, separated by spaces, as integers.",
+    "output_format_mn": "Гурвалжны периметр.",
+    "output_format_en": "The perimeter of the triangle.",
+    "constraints_mn": "- Талууд нь бүхэл тоо байна.\\n- Талууд 1-ээс 10^9 хүртэлх утгатай байна.\\n- Гурвалжин үүсгэх нөхцөл (гурвалжны тэнцэтгэл биш) хангагдсан гэж өгөгдөнө.",
+    "constraints_en": "- The sides are integers.\\n- The side lengths are between 1 and 10^9.\\n- The triangle inequality is satisfied (valid triangle).",
+    "difficulty": "easy",
+    "tags": [
+      "math",
+      "basic-arithmetic"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\nusing namespace std;\n\nint main() {\n    long long a, b, c;\n    cin >> a >> b >> c;\n    cout << a + b + c << endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "3 4 5\n",
+        "output": "12\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1 1 1\n",
+      "1000000000 1000000000 1000000000\n",
+      "5 12 13\n",
+      "10 10 10\n",
+      "7 8 9\n",
+      "100 200 250\n",
+      "123456 789012 901234\n",
+      "999999999 999999999 999999999\n",
+      "2 3 4\n",
+      "1 2 2\n",
+      "1000000 2000000 2500000\n",
+      "500 500 500\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "12",
+      "got": "12"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1 1 1\n",
+      "stdout": "3\n"
+    },
+    {
+      "stdin": "1000000000 1000000000 1000000000\n",
+      "stdout": "3000000000\n"
+    },
+    {
+      "stdin": "5 12 13\n",
+      "stdout": "30\n"
+    },
+    {
+      "stdin": "10 10 10\n",
+      "stdout": "30\n"
+    },
+    {
+      "stdin": "7 8 9\n",
+      "stdout": "24\n"
+    },
+    {
+      "stdin": "100 200 250\n",
+      "stdout": "550\n"
+    },
+    {
+      "stdin": "123456 789012 901234\n",
+      "stdout": "1813702\n"
+    },
+    {
+      "stdin": "999999999 999999999 999999999\n",
+      "stdout": "2999999997\n"
+    },
+    {
+      "stdin": "2 3 4\n",
+      "stdout": "9\n"
+    },
+    {
+      "stdin": "1 2 2\n",
+      "stdout": "5\n"
+    },
+    {
+      "stdin": "1000000 2000000 2500000\n",
+      "stdout": "5500000\n"
+    },
+    {
+      "stdin": "500 500 500\n",
+      "stdout": "1500\n"
+    }
+  ]
+}

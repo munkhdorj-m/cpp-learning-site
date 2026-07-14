@@ -1,0 +1,95 @@
+{
+  "code": "RGB7031",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7031-gurvaljnii-talbai",
+    "title_mn": "Гурвалжны талбай",
+    "title_en": "Area of Triangle",
+    "statement_mn": "Гурвалжны гурван тал өгөгдсөн бол талбайг нь ол.",
+    "statement_en": "Given the three sides of a triangle, find its area.",
+    "input_format_mn": "Нэг мөрөнд зайгаар тусгаарлагдан гурвалжны 3 тал бодит тоогоор өгөгдөнө.",
+    "input_format_en": "Three real numbers, separated by spaces, representing the three sides of a triangle.",
+    "output_format_mn": "Гурвалжны талбайг таслалаас хойш 2 орны нарийвчлалтай дүрсэл.",
+    "output_format_en": "Print the area of the triangle with exactly 2 digits after the decimal point.",
+    "constraints_mn": "- Гурвалжны талууд эерэг бодит тоо байх ба 10^6-аас хэтрэхгүй.\\n- Өгөгдсөн гурван тоо нь гурвалжин үүсгэх баталгаатай (гурвалжны тэнцэтгэл биш биелэгдэнэ).\\n- Хүснэгтэд тохирох нарийвчлал хангагдана.",
+    "constraints_en": "- The sides are positive real numbers not exceeding 10^6.\\n- It is guaranteed that the three numbers form a valid triangle (triangle inequality holds).\\n- The input precision is sufficient for double-precision computation.",
+    "difficulty": "easy",
+    "tags": [
+      "geometry",
+      "heron-formula",
+      "basic-math"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <iomanip>\n#include <cmath>\n\nusing namespace std;\n\nint main() {\n    double a, b, c;\n    cin >> a >> b >> c;\n    \n    double s = (a + b + c) / 2.0;\n    double area = sqrt(s * (s - a) * (s - b) * (s - c));\n    \n    cout << fixed << setprecision(2) << area << endl;\n    \n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "3.0 4.0 5.0",
+        "output": "6.00"
+      }
+    ],
+    "extra_test_inputs": [
+      "1.0 1.0 1.0",
+      "5.0 5.0 8.0",
+      "6.0 8.0 10.0",
+      "0.5 0.5 0.5",
+      "1000000.0 1000000.0 1000000.0",
+      "3.0 4.0 6.0",
+      "7.0 24.0 25.0",
+      "2.5 3.5 4.5",
+      "0.1 0.1 0.15",
+      "123.456 234.567 345.678"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "6.00",
+      "got": "6.00"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1.0 1.0 1.0",
+      "stdout": "0.43\n"
+    },
+    {
+      "stdin": "5.0 5.0 8.0",
+      "stdout": "12.00\n"
+    },
+    {
+      "stdin": "6.0 8.0 10.0",
+      "stdout": "24.00\n"
+    },
+    {
+      "stdin": "0.5 0.5 0.5",
+      "stdout": "0.11\n"
+    },
+    {
+      "stdin": "1000000.0 1000000.0 1000000.0",
+      "stdout": "433012701892.22\n"
+    },
+    {
+      "stdin": "3.0 4.0 6.0",
+      "stdout": "5.33\n"
+    },
+    {
+      "stdin": "7.0 24.0 25.0",
+      "stdout": "84.00\n"
+    },
+    {
+      "stdin": "2.5 3.5 4.5",
+      "stdout": "4.35\n"
+    },
+    {
+      "stdin": "0.1 0.1 0.15",
+      "stdout": "0.00\n"
+    },
+    {
+      "stdin": "123.456 234.567 345.678",
+      "stdout": "7627.30\n"
+    }
+  ]
+}

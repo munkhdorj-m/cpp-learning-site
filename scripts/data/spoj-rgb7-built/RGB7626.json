@@ -1,0 +1,115 @@
+{
+  "code": "RGB7626",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7626-palindrome-formation",
+    "title_mn": "Палиндром үүсэхэд хэд?",
+    "title_en": "Minimum Insertions to Form a Palindrome",
+    "statement_mn": "Өгөгдсөн үгэнд хамгийн цөөндөө хэдэн үсэг нэмбэл палиндром болох вэ?\n\nПалиндром гэдэг нь аль ч талаасаа уншсан ижил уншигдах үгийг хэлнэ. Жишээ нь:\n`\"наран\"`, `\"харах\"`, `\"хадгалагдах\"` энэ үгнүүд нь палиндром юм.",
+    "statement_en": "Given a string, what is the minimum number of characters you need to insert to make it a palindrome?\n\nA **palindrome** is a string that reads the same forwards and backwards. For example:\n`\"naaran\"`, `\"kharakh\"`, `\"khadgalagdakh\"` are palindromes.",
+    "input_format_mn": "Нэг тэмдэгт мөр өгөгдөнө. Урт нь 60-аас ихгүй.",
+    "input_format_en": "A single line containing a string. The length does not exceed 60.",
+    "output_format_mn": "Палиндром үүсгэхэд шаардлагатай хамгийн цөөн тэмдэгтийн тоог хэвлэ.",
+    "output_format_en": "Print the minimum number of insertions required to make the string a palindrome.",
+    "constraints_mn": "- Тэмдэгт мөрийн урт **1**-ээс **60** хүртэл.\n- Тэмдэгт мөр нь зөвхөн жижиг латин үсгүүдээс тогтоно (`'a'` – `'z'`).",
+    "constraints_en": "- The length of the string is between **1** and **60**.\n- The string consists only of lowercase Latin letters (`'a'` – `'z'`).",
+    "difficulty": "easy",
+    "tags": [
+      "palindrome",
+      "dynamic-programming",
+      "lcs"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <string>\n#include <algorithm>\n#include <vector>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string s;\n    cin >> s;\n    int n = (int)s.size();\n\n    // dp[i][j] = minimum insertions for substring s[i..j] (inclusive)\n    vector<vector<int>> dp(n, vector<int>(n, 0));\n\n    // len = 1 -> 0 insertions already palindrome\n    // Fill increasing lengths\n    for (int len = 2; len <= n; ++len) {\n        for (int i = 0; i + len - 1 < n; ++i) {\n            int j = i + len - 1;\n            if (s[i] == s[j]) {\n                dp[i][j] = dp[i+1][j-1];\n            } else {\n                dp[i][j] = 1 + min(dp[i+1][j], dp[i][j-1]);\n            }\n        }\n    }\n\n    cout << dp[0][n-1] << '\\n';\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "abcd\n",
+        "output": "3\n"
+      },
+      {
+        "input": "abcba\n",
+        "output": "0\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "a\n",
+      "aa\n",
+      "ab\n",
+      "abc\n",
+      "aaa\n",
+      "racecar\n",
+      "abcdefghijklmnopqrstuvwxyz\n",
+      "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\n",
+      "abacaba\n",
+      "abcdefedcba\n",
+      "randomstring\n",
+      "palindrome"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "3",
+      "got": "3"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "0",
+      "got": "0"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "a\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "aa\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "ab\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "abc\n",
+      "stdout": "2\n"
+    },
+    {
+      "stdin": "aaa\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "racecar\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "abcdefghijklmnopqrstuvwxyz\n",
+      "stdout": "25\n"
+    },
+    {
+      "stdin": "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "abacaba\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "abcdefedcba\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "randomstring\n",
+      "stdout": "9\n"
+    },
+    {
+      "stdin": "palindrome",
+      "stdout": "9\n"
+    }
+  ]
+}

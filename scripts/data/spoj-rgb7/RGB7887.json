@@ -1,0 +1,13 @@
+{
+  "title": "Түмэнд сурталчлах",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">HackerLand Enterprise суртчилгааны арга нь чи яг 5 хүнд бүтээгдэхүүнээ суртчилж сурталчилгаагаа эхлүүлнэ.&nbsp;</span></p>\n<p><span style=\"font-size: small;\">Дараагийн өдөр 5 хүний хагас (5/2)-д нь таалагдаад өөрийн 3 найздаа хуваалцана. </span></p>\n<p><span style=\"font-size: small;\">Тэр 5/2*3=6 &nbsp;хүний хагас нь бас 3 найздаа дараагийн өдөр хуваалцана.</span></p>\n<p><span style=\"font-size: small;\">Таны даалгавар бол n дэх өдөр таны бараа хэдэн хүнд таалагдсан байхыг олох юм.</span></p>\n<p><span style=\"font-size: small;\"><strong>Оролт</strong></span></p>\n<p><span style=\"font-size: small;\">Шинэ мөрөнд n тоо өгөгдөнө. 1 &lt;= n &lt;= 50.</span></p>\n<p><span style=\"font-size: small;\"><strong>Гаралт</strong></span></p>\n<p><span style=\"font-size: small;\">Таалагдсан хүний тоог хэвлэнэ.</span></p>\n<p><strong><span style=\"font-size: small;\">Жишээ</span></strong></p>\n<p><strong><span style=\"font-size: small;\">Оролт</span></strong></p>\n<p><span style=\"font-size: small;\">3</span></p>\n<p><strong><span style=\"font-size: small;\">Гаралт</span></strong></p>\n<p><span style=\"font-size: small;\">9</span></p>\n<p><strong><span style=\"font-size: small;\">Тайлбар</span></strong></p>\n<p><span style=\"font-size: small;\">2+3+4=9</span></p>\n<p>&nbsp;</p>\n<p><span style=\"font-size: small;\"><span style=\"box-sizing: border-box; color: #555555; font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: small; text-align: justify; font-weight: 700;\">Орчуулсан : Дархан-Уул аймгийн Монгол-Оюу сургуулийн 11.1 ангийн сурагч Э.Цэлмэг</span><span style=\"color: #555555; font-family: &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: small; text-align: justify;\">&nbsp;</span></span></p>",
+  "bodyText": "HackerLand Enterprise суртчилгааны арга нь чи яг 5 хүнд бүтээгдэхүүнээ суртчилж сурталчилгаагаа эхлүүлнэ. \nДараагийн өдөр 5 хүний хагас (5/2)-д нь таалагдаад өөрийн 3 найздаа хуваалцана. \nТэр 5/2*3=6  хүний хагас нь бас 3 найздаа дараагийн өдөр хуваалцана.\nТаны даалгавар бол n дэх өдөр таны бараа хэдэн хүнд таалагдсан байхыг олох юм.\nОролт\nШинэ мөрөнд n тоо өгөгдөнө. 1 <= n <= 50.\nГаралт\nТаалагдсан хүний тоог хэвлэнэ.\nЖишээ\nОролт\n3\nГаралт\n9\nТайлбар\n2+3+4=9\n \nОрчуулсан : Дархан-Уул аймгийн Монгол-Оюу сургуулийн 11.1 ангийн сурагч Э.Цэлмэг",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7887/",
+  "code": "RGB7887",
+  "scrapedAt": "2026-06-29T06:51:37.846Z"
+}

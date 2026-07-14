@@ -1,0 +1,15 @@
+{
+  "title": "Тэгш тоонуудын нийлбэр",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн 3 тоон дахь тэгш тоонуудын нийлбэрийг ол. Ядаж 1 тэгш тоо бий.&nbsp;</p>\n<h3>Input</h3>\n<p>Нэг мөрөнд Int төрлийн 3 тоо зайгаар тусгаарлагдан өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Нийлбэр</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n10 3 5\n<strong>Output:</strong>\n10</pre>",
+  "bodyText": "Өгөгдсөн 3 тоон дахь тэгш тоонуудын нийлбэрийг ол. Ядаж 1 тэгш тоо бий. \nInput\nНэг мөрөнд Int төрлийн 3 тоо зайгаар тусгаарлагдан өгөгдөнө.\nOutput\nНийлбэр\nExample\nInput:\n10 3 5\nOutput:\n10",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n10 3 5\nOutput:\n10"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7107/",
+  "code": "RGB7107",
+  "scrapedAt": "2026-06-29T06:37:27.724Z"
+}

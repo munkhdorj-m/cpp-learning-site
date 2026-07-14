@@ -1,0 +1,15 @@
+{
+  "title": "Шоо",
+  "hidden": true,
+  "bodyHtml": "<p>k ширхэг шоог орхиход /хаяхад/&nbsp;буух ялгаатай буултын тоог ол. Шоо нь 1, 2, 3, 4, 5, 6 гэсэн тоонуудын аль нэгээр бууна.</p>\n<h3>Input</h3>\n<p>Шооны тоо n өгөгдөнө. n&lt;=50.</p>\n<h3>Output</h3>\n<p>Ялгаатай буултын тоо.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n6\n\n<strong>Output:</strong>\n462\n</pre>",
+  "bodyText": "k ширхэг шоог орхиход /хаяхад/ буух ялгаатай буултын тоог ол. Шоо нь 1, 2, 3, 4, 5, 6 гэсэн тоонуудын аль нэгээр бууна.\nInput\nШооны тоо n өгөгдөнө. n<=50.\nOutput\nЯлгаатай буултын тоо.\nExample\nInput:\n6\n\nOutput:\n462",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n6\n\nOutput:\n462"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7091/",
+  "code": "RGB7091",
+  "scrapedAt": "2026-06-29T06:40:44.671Z"
+}

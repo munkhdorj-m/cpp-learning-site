@@ -1,0 +1,85 @@
+{
+  "code": "RGB7501",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7501-array-positive-sum",
+    "title_mn": "Массив тэгээс их нийлбэр",
+    "title_en": "Sum of Positive Elements in Array",
+    "statement_mn": "Өгөгдсөн нэг хэмжээст массивын 0-ээс их элементүүдийн нийлбэрийг ол.",
+    "statement_en": "Given a one-dimensional array, find the sum of all elements greater than zero.",
+    "input_format_mn": "Эхний мөрөнд массивын элементийн тоо **N** өгөгдөнө.\nДараагийн **N** мөр тус бүрд массивын нэг элемент өгөгдөнө.",
+    "input_format_en": "The first line contains the number of elements **N**.\nThe next **N** lines each contain one element of the array.",
+    "output_format_mn": "0-ээс их элементүүдийн нийлбэрийг хэвлэ.",
+    "output_format_en": "Print the sum of the elements greater than zero.",
+    "constraints_mn": "- **N** нь эерэг бүхэл тоо.\n- Элементүүд нь бүхэл тоо.\n- Тодорхой хязгаарлалт өгөгдөөгүй тул **N ≤ 10^5**, элементүүдийн абсолют утга **≤ 10^6** гэж үзнэ.",
+    "constraints_en": "- **N** is a positive integer.\n- Elements are integers.\n- Since no explicit constraints are given, assume **N ≤ 10^5** and the absolute value of each element **≤ 10^6**.",
+    "difficulty": "easy",
+    "tags": [
+      "array",
+      "sum",
+      "conditional"
+    ],
+    "time_limit_ms": 500,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    long long sum = 0;\n    for (int i = 0; i < n; i++) {\n        int x;\n        cin >> x;\n        if (x > 0) sum += x;\n    }\n    cout << sum << endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "4\n5\n-3\n4\n-10\n",
+        "output": "9\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n0\n",
+      "1\n1000000\n",
+      "1\n-1000000\n",
+      "5\n-1\n-2\n-3\n-4\n-5\n",
+      "5\n1\n2\n3\n4\n5\n",
+      "3\n0\n0\n0\n",
+      "6\n10\n-5\n0\n3\n-1\n2\n",
+      "10\n100\n-200\n300\n-400\n500\n-600\n700\n-800\n900\n-1000\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "9",
+      "got": "9"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n0\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "1\n1000000\n",
+      "stdout": "1000000\n"
+    },
+    {
+      "stdin": "1\n-1000000\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "5\n-1\n-2\n-3\n-4\n-5\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "5\n1\n2\n3\n4\n5\n",
+      "stdout": "15\n"
+    },
+    {
+      "stdin": "3\n0\n0\n0\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "6\n10\n-5\n0\n3\n-1\n2\n",
+      "stdout": "15\n"
+    },
+    {
+      "stdin": "10\n100\n-200\n300\n-400\n500\n-600\n700\n-800\n900\n-1000\n",
+      "stdout": "2500\n"
+    }
+  ]
+}

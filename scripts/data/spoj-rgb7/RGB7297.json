@@ -1,0 +1,20 @@
+{
+  "title": "Сүү холих",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Гурван саванд сүү байгаа. 1-р савнаас 2-р сав руу, 2-р савнаас 3-р сав руу, 3-р савнаас 1-р сав руу ээлжлэн юүлж сүүг холино. Нэг савнаас нөгөө сав руу сүү холихдоо сав дүүрэх эсвэл сав дуустал юүлнэ.&nbsp;</span><span style=\"font-size: small;\">100 дахь юүлэлтийн дараа сав тус бүр хэдэн литр сүүтэй үлдсэн бэ?&nbsp;</span></p>\n<h3>Input</h3>\n<p><span style=\"font-size: small;\">Мөр тус бүрт савны хэмжээ, саван дахь сүүний хэмжээг илэрхийлэх хос эерэг бүхэл тоонууд өгөгдөнө. Савны хэмжээ 10^9-аас бага.</span></p>\n<p><span style=\"font-size: small;\">1-р мөрөнд 1-р савны мэдээлэл, 2-р мөрөнд 2-р савны мэдээлэл, 3-р мөрөнд 3-р савны мэдээлэл тус тус өгөгдөнө.&nbsp;&nbsp;</span></p>\n<h3><span style=\"font-size: 1.17em;\">Output</span></h3>\n<p><span style=\"font-size: small;\">100 дахь юүлэлтийн дараах сав тус бүрт байгаа сүүний хэмжээг нэг нэг мөрөнд хэвлэ.&nbsp;</span></p>\n<h3>Example</h3>\n<pre><strong><span style=\"font-size: small;\">Input:</span></strong></pre>\n<pre><span style=\"font-size: small;\">10 3</span></pre>\n<pre><span style=\"font-size: small;\">11 4</span></pre>\n<pre><span style=\"font-size: small;\">12 5\n</span>\n<strong><span style=\"font-size: small;\">Output:</span></strong>\n<span style=\"font-size: small;\">0</span></pre>\n<pre><span style=\"font-size: small;\">10</span></pre>\n<pre><span style=\"font-size: small;\">2</span></pre>\n<p>&nbsp;</p>\n<p>&nbsp;</p>",
+  "bodyText": "Гурван саванд сүү байгаа. 1-р савнаас 2-р сав руу, 2-р савнаас 3-р сав руу, 3-р савнаас 1-р сав руу ээлжлэн юүлж сүүг холино. Нэг савнаас нөгөө сав руу сүү холихдоо сав дүүрэх эсвэл сав дуустал юүлнэ. 100 дахь юүлэлтийн дараа сав тус бүр хэдэн литр сүүтэй үлдсэн бэ? \nInput\nМөр тус бүрт савны хэмжээ, саван дахь сүүний хэмжээг илэрхийлэх хос эерэг бүхэл тоонууд өгөгдөнө. Савны хэмжээ 10^9-аас бага.\n1-р мөрөнд 1-р савны мэдээлэл, 2-р мөрөнд 2-р савны мэдээлэл, 3-р мөрөнд 3-р савны мэдээлэл тус тус өгөгдөнө.  \nOutput\n100 дахь юүлэлтийн дараах сав тус бүрт байгаа сүүний хэмжээг нэг нэг мөрөнд хэвлэ. \nExample\nInput:\n10 3\n11 4\n12 5\n\nOutput:\n0\n10\n2",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:",
+    "10 3",
+    "11 4",
+    "12 5\n\nOutput:\n0",
+    "10",
+    "2"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7297/",
+  "code": "RGB7297",
+  "scrapedAt": "2026-06-29T06:49:24.649Z"
+}

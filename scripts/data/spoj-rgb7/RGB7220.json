@@ -1,0 +1,15 @@
+{
+  "title": "Цифр давталт",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн цифрийг цифрийнх нь тоогоор давтан хэвлэ.</p>\n<h3>Input</h3>\n<p>Цифр өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Цифрийг цифрийнх&nbsp;нь&nbsp;тоогоор&nbsp;залган хэвлэ.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n4\n\n<strong>Output:</strong>\n4444\n</pre>",
+  "bodyText": "Өгөгдсөн цифрийг цифрийнх нь тоогоор давтан хэвлэ.\nInput\nЦифр өгөгдөнө.\nOutput\nЦифрийг цифрийнх нь тоогоор залган хэвлэ.\nExample\nInput:\n4\n\nOutput:\n4444",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n4\n\nOutput:\n4444"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7220/",
+  "code": "RGB7220",
+  "scrapedAt": "2026-06-29T06:38:48.701Z"
+}

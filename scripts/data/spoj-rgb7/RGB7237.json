@@ -1,0 +1,13 @@
+{
+  "title": "Арифметик дундаж",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Өгөгдсөн бодит тоон дарааллын арифметик дунджийг ол.</span></p>\n<h3>Input</h3>\n<p><span style=\"font-size: small;\">Эхний мөрөнд бодит тоон дарааллын элементийн тоо n&nbsp; өгөгдөнө. n&lt;=10,000.</span></p>\n<p><span style=\"font-size: x-small;\">Дараагийн мөрөнд n ширхэг тоо зайгаар тусгаарлагдан өгөгдөнө.</span></p>\n<h3>Output</h3>\n<p><span style=\"font-size: small;\">Арифметик дунджийг таслалаас хойш 2 оронгийн нарийвчлалтайгаар хэвлэнэ.</span></p>\n<h3>Example</h3>\n<p><span style=\"font-size: small;\"><strong>Input:</strong> </span></p>\n<p><span style=\"font-size: small;\">3</span></p>\n<p><span style=\"font-size: small;\">4.2 5.3 6.24</span></p>\n<p><span style=\"font-size: small;\"> <strong>Output:</strong> </span></p>\n<p><span style=\"font-size: x-small;\">5.25</span></p>",
+  "bodyText": "Өгөгдсөн бодит тоон дарааллын арифметик дунджийг ол.\nInput\nЭхний мөрөнд бодит тоон дарааллын элементийн тоо n  өгөгдөнө. n<=10,000.\nДараагийн мөрөнд n ширхэг тоо зайгаар тусгаарлагдан өгөгдөнө.\nOutput\nАрифметик дунджийг таслалаас хойш 2 оронгийн нарийвчлалтайгаар хэвлэнэ.\nExample\nInput: \n3\n4.2 5.3 6.24\n Output: \n5.25",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7237/",
+  "code": "RGB7237",
+  "scrapedAt": "2026-06-29T06:40:09.547Z"
+}

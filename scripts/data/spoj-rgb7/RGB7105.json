@@ -1,0 +1,15 @@
+{
+  "title": "Нийлбэр 80",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн 4 тооны 80-аас их тоонуудын нийлбэрийг ол.</p>\n<h3>Input</h3>\n<p>Нэг мөрөнд Int төрлийн 4 тоо зайгаар тусгаарлагдан өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Нийлбэр.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n85 75 96 69\n<strong>Output:</strong>\n181</pre>",
+  "bodyText": "Өгөгдсөн 4 тооны 80-аас их тоонуудын нийлбэрийг ол.\nInput\nНэг мөрөнд Int төрлийн 4 тоо зайгаар тусгаарлагдан өгөгдөнө.\nOutput\nНийлбэр.\nExample\nInput:\n85 75 96 69\nOutput:\n181",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n85 75 96 69\nOutput:\n181"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7105/",
+  "code": "RGB7105",
+  "scrapedAt": "2026-06-29T06:37:24.173Z"
+}

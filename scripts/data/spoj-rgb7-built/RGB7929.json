@@ -1,0 +1,51 @@
+{
+  "code": "RGB7929",
+  "status": "compile_error",
+  "error": "C:\\Users\\MUNKHD~1\\AppData\\Local\\Temp\\ref_1782724784702_qfwfsmtzcy.cpp: In lambda function:\r\nC:\\Users\\MUNKHD~1\\AppData\\Local\\Temp\\ref_1782724784702_qfwfsmtzcy.cpp:55:14: error: expected unqualified-id before '[' token\r\n         auto [ra, pa] = find_parity(a);\r\n              ^\r\nC:\\Users\\MUNKHD~1\\AppData\\Local\\Temp\\ref_1782724784702_qfwfsmtzcy.cpp:56:14: error: expected unqualified-id before '[' token\r\n         auto [rb, pb] = find_parity(b);\r\n              ^\r\nC:\\Users\\MUNKHD~1\\AppData\\Local\\Temp\\ref_1782724784702_qfwfsmtzcy.cpp:58:13: error: 'ra' was not declared in this scope\r\n         if (ra == rb) {\r\n             ^~\r\nC:\\Users\\MUNKHD~1\\AppData\\Local\\Temp\\ref_1782724784702_qfwfsmtzcy.cpp:58:19: error: 'rb' was not declared in this scope\r\n         if (ra == rb) {\r\n                   ^~\r\nC:\\Users\\MUNKHD~1\\AppData\\Local\\Temp\\ref_1782724784702_qfwfsmtzcy.cpp:62:21: error: 'pa' was not declared in this scope\r\n             return (pa ^ pb) == relation;\r\n                     ^~\r\nC:\\Users\\MUNKH",
+  "data": {
+    "slug": "RGB7929-liars-and-truth-tellers",
+    "title_mn": "Худалч ба үнэнч ярьдаг",
+    "title_en": "Liars and Truth Tellers",
+    "statement_mn": "Фармер Жон үхрүүдийнхээ дунд маш их цаг зарцуулсны эцэст тэдний хэлийг ойлгож эхэлжээ. Түүгээр ч зогсохгүй тэрээр N үхэр (2 &le; N &le; 1000) -ийн дотор зарим нь үргэлж үнэнийг хэлдэг бол зарим нь үргэлж худлаа ярьдаг болохыг анзаарчээ. Фармер Жон үхрүүдийн M (1 &le; M &le; 10,000) мэдэгдлийг анхааралтай сонсож, тус бүр нь \"x y T\" (x үхэр y үхэр үргэлж үнэнийг хэлдэг гэж мэдэгдэж байна) эсвэл \"x y L\" (x үхэр y үхэр үргэлж худлаа ярьдаг гэж мэдэгдэж байна) хэлбэртэй байна. Мэдэгдэл бүр өөр өөр хос үхрүүдийг хамардаг бөгөөд нэг хос үхэр олон мэдэгдэлд гарч ирж болно.\n\nХарамсалтай нь Фармер Жон өөрийн жагсаалтын зарим бичлэгийг буруу тэмдэглэсэн байж болзошгүй тул M бүх мэдэгдэлтэй нийцэх байдлаар үхэр бүрийг үнэнч эсвэл худалч гэж тодорхойлох боломжгүй байж магадгүй юм. Фармер Жонд жагсаалтаа аль болох их хэмжээгээр аврахын тулд M жагсаалтын эхний A бичлэгтэй нийцэх байдлаар үхэр бүрийг үнэнч эсвэл худалч гэж тодорхойлох боломжтой хамгийн том A утгыг тооцоолно уу.",
+    "statement_en": "After spending so much time around his cows, Farmer John has started to understand their language. Moreover, he notices that among his N cows (2 &le; N &le; 1000), some always tell the truth while others always lie.\n\nFJ carefully listens to M statements (1 &le; M &le; 10,000) from his cows, each of the form \"x y T\", meaning that \"cow x claims cow y always tells the truth\" or \"x y L\", meaning that \"cow x claims cow y always tells lies\". Each statement involves a pair of different cows, and the same pair of cows may appear in multiple statements.\n\nUnfortunately, FJ believes he might have written down some entries in his list incorrectly, so there may not be a valid way to designate each cow as a truth teller or a liar that is consistent with all the M statements on FJ's list. To help FJ salvage as much of his list as possible, please compute the largest value of A such that there exists a valid way to designate each cow as a truth teller or a liar in a manner that is consistent with the first A entries in FJ's list.",
+    "input_format_mn": "* 1-р мөрөнд N ба M хоёр бүхэл тоо агуулагдана.\n* Дараагийн M мөр бүр нь \"x y T\" эсвэл \"x y L\" хэлбэртэй байна. x ба y нь үхрийн дугаарууд (1..N) бөгөөд x ≠ y.",
+    "input_format_en": "* Line 1: Two integers N and M.\n* Each of the next M lines contains either \"x y T\" or \"x y L\", where x and y are cow numbers (1..N), and x ≠ y.",
+    "output_format_mn": "Хамгийн том A утгыг хэвлэнэ.",
+    "output_format_en": "Print a single integer: the largest A (0 ≤ A ≤ M) such that the first A statements are consistent.",
+    "constraints_mn": "* 2 ≤ N ≤ 1000\n* 1 ≤ M ≤ 10,000\n* x, y нь 1..N хүртэлх бүхэл тоо, x ≠ y",
+    "constraints_en": "* 2 ≤ N ≤ 1000\n* 1 ≤ M ≤ 10,000\n* x, y are integers in 1..N, x ≠ y",
+    "difficulty": "medium",
+    "tags": [
+      "graph-coloring",
+      "bipartite",
+      "union-find",
+      "2-sat"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 262144,
+    "xp_reward": 20,
+    "samples": [
+      {
+        "input": "5 5\n1 2 T\n2 3 L\n3 4 T\n4 5 L\n5 1 T\n",
+        "output": "4\n"
+      },
+      {
+        "input": "3 3\n1 2 L\n2 3 L\n3 1 L\n",
+        "output": "3\n"
+      }
+    ],
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nstruct DSU {\n    vector<int> parent, sz;\n    DSU(int n) {\n        parent.resize(n);\n        sz.resize(n, 1);\n        for (int i = 0; i < n; ++i) parent[i] = i;\n    }\n    int find(int x) {\n        while (parent[x] != x) {\n            parent[x] = parent[parent[x]];\n            x = parent[x];\n        }\n        return x;\n    }\n    void unite(int a, int b) {\n        a = find(a);\n        b = find(b);\n        if (a == b) return;\n        if (sz[a] < sz[b]) swap(a, b);\n        parent[b] = a;\n        sz[a] += sz[b];\n    }\n};\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    \n    int N, M;\n    cin >> N >> M;\n    \n    // We'll build the graph incrementally and check bipartiteness\n    // using DSU with parity (bipartite checking with union-find).\n    // Node i (0-indexed) has \"parity\" relative to its DSU root.\n    // We maintain parity[i] = 0 means same color as root, 1 means opposite.\n    \n    DSU dsu(N);\n    vector<int> parity(N, 0);\n    \n    auto find_parity = [&](int x) -> pair<int,int> {\n        int p = 0;\n        while (dsu.parent[x] != x) {\n            p ^= parity[x];\n            x = dsu.parent[x];\n        }\n        return {dsu.find(x), p};\n    };\n    \n    auto unite_with_parity = [&](int a, int b, int relation) -> bool {\n        // relation = 0 if same type (T: both truth or both liar)\n        // relation = 1 if different type (L: one truth, one liar)\n        auto [ra, pa] = find_parity(a);\n        auto [rb, pb] = find_parity(b);\n        \n        if (ra == rb) {\n            // Check consistency\n            // The actual relation between a and b is pa ^ pb\n            // It should equal relation\n            return (pa ^ pb) == relation;\n        }\n        \n        // Merge smaller into larger\n        if (dsu.sz[ra] < dsu.sz[rb]) {\n            swap(ra, rb);\n            swap(pa, pb);\n            swap(a, b);\n        }\n        // Attach rb under ra\n        dsu.parent[rb] = ra;\n        dsu.sz[ra] += dsu.sz[rb];\n        // We need: parity[b's path to new root] = pb ^ parity[rb] == relation ^ pa\n        // So parity[rb] = pa ^ pb ^ relation\n        parity[rb] = pa ^ pb ^ relation;\n        return true;\n    };\n    \n    int answer = 0;\n    for (int i = 0; i < M; ++i) {\n        int x, y;\n        char type;\n        cin >> x >> y >> type;\n        --x; --y;\n        \n        // T -> same type (relation=0), L -> different type (relation=1)\n        int relation = (type == 'L') ? 1 : 0;\n        \n        if (unite_with_parity(x, y, relation)) {\n            answer = i + 1;\n        } else {\n            break;\n        }\n    }\n    \n    cout << answer << '\\n';\n    return 0;\n}\n",
+    "extra_test_inputs": [
+      "6 0\n",
+      "2 1\n1 2 T\n",
+      "2 1\n1 2 L\n",
+      "3 2\n1 2 T\n2 3 T\n",
+      "3 3\n1 2 T\n2 3 T\n1 3 L\n",
+      "4 8\n1 2 T\n2 3 L\n3 4 T\n4 1 L\n1 3 T\n2 4 L\n1 4 T\n2 3 L\n",
+      "10 12\n1 2 T\n2 3 T\n3 4 T\n4 5 T\n5 6 L\n6 7 L\n7 8 L\n8 9 L\n9 10 L\n1 10 T\n2 9 T\n3 8 L\n",
+      "5 4\n1 2 T\n1 3 T\n1 4 T\n1 5 T\n",
+      "5 5\n1 2 T\n2 3 T\n3 4 T\n4 5 T\n1 5 L\n",
+      "10 20\n1 2 T\n2 3 L\n3 4 T\n4 5 L\n5 6 T\n6 7 L\n7 8 T\n8 9 L\n9 10 T\n10 1 L\n1 3 T\n2 4 L\n3 5 T\n4 6 L\n5 7 T\n6 8 L\n7 9 T\n8 10 L\n9 1 T\n10 2 L\n"
+    ]
+  }
+}

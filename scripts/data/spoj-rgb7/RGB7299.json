@@ -1,0 +1,13 @@
+{
+  "title": "Төгс тоо",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Өгөгдсөн натурал тоо төгс тоо эсэхийг шалга.</span></p>\n<p><span style=\"font-size: small;\">Төгс тоо гэдэг нь өөрөөсөө ялгаатай хуваагчдынхаа нийлбэртэй тэнцүү тоог хэлнэ.</span></p>\n<p><span style=\"font-size: small;\">Жишээ нь : 6 тоо төгс тоо. Хуваагчид нь 1, 2, 3 буюу 1+2+3 = 6&nbsp;</span></p>\n<h3>Input</h3>\n<p><span style=\"font-size: small;\">10000-аас хэтрэхгүй натурал тоо өгөгдөнө.</span></p>\n<h3>Output</h3>\n<p><span style=\"font-size: small;\">Өгөгдсөн тоо натурал тоо төгс тоо бол YES үгүй бол NO гэж хэвлэнэ.</span></p>\n<h3>Example</h3>\n<p><span style=\"font-size: small;\"><strong>Input 1:</strong> </span></p>\n<p><span style=\"font-size: small;\">28</span></p>\n<p><span style=\"font-size: small;\"> <strong>Output 1:</strong> </span></p>\n<p><span style=\"font-size: x-small;\">YES</span></p>\n<p><span style=\"font-size: small;\"><strong>Input 2:</strong></span></p>\n<p><span style=\"font-size: small;\">30</span></p>\n<p><span style=\"font-size: small;\"><strong>Output 2:</strong></span></p>\n<p><span style=\"font-size: x-small;\">NO</span></p>",
+  "bodyText": "Өгөгдсөн натурал тоо төгс тоо эсэхийг шалга.\nТөгс тоо гэдэг нь өөрөөсөө ялгаатай хуваагчдынхаа нийлбэртэй тэнцүү тоог хэлнэ.\nЖишээ нь : 6 тоо төгс тоо. Хуваагчид нь 1, 2, 3 буюу 1+2+3 = 6 \nInput\n10000-аас хэтрэхгүй натурал тоо өгөгдөнө.\nOutput\nӨгөгдсөн тоо натурал тоо төгс тоо бол YES үгүй бол NO гэж хэвлэнэ.\nExample\nInput 1: \n28\n Output 1: \nYES\nInput 2:\n30\nOutput 2:\nNO",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7299/",
+  "code": "RGB7299",
+  "scrapedAt": "2026-06-29T06:50:03.265Z"
+}

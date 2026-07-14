@@ -1,0 +1,15 @@
+{
+  "title": "Квадрат язгуур доорх 2",
+  "hidden": true,
+  "bodyHtml": "<p>(2+(2+...+(2)<sup>1/2</sup>)<sup>1/2</sup>...)<sup>1/2</sup>&nbsp;илэрхийллийн утгыг ол. 1/2 буюу квадрат язгуур n удаа орно.</p>\n<h3>Input</h3>\n<p>Натурал тоо өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Илэрхийллийн утга. Таслалаас хойш 9 оронгийн нарийвчлалтай гарга.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n3\n\n<strong>Output:</strong>\n1.961570561</pre>",
+  "bodyText": "(2+(2+...+(2)1/2)1/2...)1/2 илэрхийллийн утгыг ол. 1/2 буюу квадрат язгуур n удаа орно.\nInput\nНатурал тоо өгөгдөнө.\nOutput\nИлэрхийллийн утга. Таслалаас хойш 9 оронгийн нарийвчлалтай гарга.\nExample\nInput:\n3\n\nOutput:\n1.961570561",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n3\n\nOutput:\n1.961570561"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7236/",
+  "code": "RGB7236",
+  "scrapedAt": "2026-06-29T06:40:07.796Z"
+}

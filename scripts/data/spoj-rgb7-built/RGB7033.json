@@ -1,0 +1,95 @@
+{
+  "code": "RGB7033",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7033-distance-between-points",
+    "title_mn": "Хоёр цэгийн хоорондох зай",
+    "title_en": "Distance Between Points",
+    "statement_mn": "1 хэмжээст тоон шулуун, 2 хэмжээст координатын хавтгай болон 3 хэмжээст огторгуйд координатаараа өгөгдсөн 2 цэгийн хоорондох зайг ол.\n\n**Тодорхойлолт:**\n\nХоёр цэгийн хоорондох Euclidean зайг дараах томьёогоор бодно:\n\n- 1 хэмжээст: $d = |x_1 - x_2|$\n- 2 хэмжээст: $d = \\sqrt{(x_1 - x_2)^2 + (y_1 - y_2)^2}$\n- 3 хэмжээст: $d = \\sqrt{(x_1 - x_2)^2 + (y_1 - y_2)^2 + (z_1 - z_2)^2}$",
+    "statement_en": "Given coordinates of two points in 1-dimensional number line, 2-dimensional coordinate plane, and 3-dimensional space, find the distance between them.\n\n**Definition:**\n\nThe Euclidean distance between two points is calculated by the following formulas:\n\n- 1D: $d = |x_1 - x_2|$\n- 2D: $d = \\sqrt{(x_1 - x_2)^2 + (y_1 - y_2)^2}$\n- 3D: $d = \\sqrt{(x_1 - x_2)^2 + (y_1 - y_2)^2 + (z_1 - z_2)^2}$",
+    "input_format_mn": "Гурван мөрөнд өгөгдөл өгөгдөнө.\n\n**Эхний мөрөнд:** 1 хэмжээст тоон шулуун дээрх 2 цэгийн координат. 2 бүхэл тоо зайгаар тусгаарлагдан өгөгдөнө. Эхний тоо 1-р цэгийн координат, 2 дахь тоо 2-р цэгийн координат.\n\n**Хоёр дахь мөрөнд:** 2 хэмжээст хавтгайн 2 цэгийн координат. 4 бүхэл тоо зайгаар тусгаарлагдан өгөгдөнө. Эхний 2 тоо 1-р цэгийн координат (x, y), дараагийн 2 тоо 2-р цэгийн координат (x, y).\n\n**Гурав дахь мөрөнд:** 3 хэмжээст огторгуйн 2 цэгийн координат. 6 бүхэл тоо зайгаар тусгаарлагдан өгөгдөнө. Эхний 3 тоо 1-р цэгийн координат (x, y, z), дараагийн 3 тоо 2-р цэгийн координат (x, y, z).",
+    "input_format_en": "The input consists of three lines.\n\n**First line:** Coordinates of two points on a 1D number line. Two integers separated by a space. The first number is the coordinate of the first point, the second number is the coordinate of the second point.\n\n**Second line:** Coordinates of two points on a 2D plane. Four integers separated by spaces. The first two numbers are the (x, y) coordinates of the first point, the next two numbers are the (x, y) coordinates of the second point.\n\n**Third line:** Coordinates of two points in 3D space. Six integers separated by spaces. The first three numbers are the (x, y, z) coordinates of the first point, the next three numbers are the (x, y, z) coordinates of the second point.",
+    "output_format_mn": "Гурван мөрөнд хариултыг хэвлэнэ.\n\n**Эхний мөрөнд:** 1 хэмжээст 2 цэгийн хоорондох зайг таслалаас хойш 3 оронгийн нарийвчлалтайгаар гаргана.\n\n**Хоёр дахь мөрөнд:** 2 хэмжээст 2 цэгийн хоорондох зайг таслалаас хойш 3 оронгийн нарийвчлалтайгаар гаргана.\n\n**Гурав дахь мөрөнд:** 3 хэмжээст 2 цэгийн хоорондох зайг таслалаас хойш 3 оронгийн нарийвчлалтайгаар гаргана.",
+    "output_format_en": "Print three lines.\n\n**First line:** The distance between the two 1D points, rounded to 3 decimal places.\n\n**Second line:** The distance between the two 2D points, rounded to 3 decimal places.\n\n**Third line:** The distance between the two 3D points, rounded to 3 decimal places.",
+    "constraints_mn": "- Бүх координатууд нь бүхэл тоо $-10^4 \\leq x, y, z \\leq 10^4$ мужид оршино.",
+    "constraints_en": "- All coordinates are integers in the range $-10^4 \\leq x, y, z \\leq 10^4$.",
+    "difficulty": "easy",
+    "tags": [
+      "geometry",
+      "euclidean-distance",
+      "math"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <iomanip>\n#include <cmath>\n\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    // 1D\n    int x1, x2;\n    cin >> x1 >> x2;\n    double d1 = abs(x1 - x2);\n\n    // 2D\n    int y1_1, y1_2, y2_1, y2_2;\n    cin >> y1_1 >> y1_2 >> y2_1 >> y2_2;\n    double d2 = sqrt(1.0 * (y1_1 - y2_1) * (y1_1 - y2_1) + 1.0 * (y1_2 - y2_2) * (y1_2 - y2_2));\n\n    // 3D\n    int z1_1, z1_2, z1_3, z2_1, z2_2, z2_3;\n    cin >> z1_1 >> z1_2 >> z1_3 >> z2_1 >> z2_2 >> z2_3;\n    double d3 = sqrt(1.0 * (z1_1 - z2_1) * (z1_1 - z2_1) + \n                     1.0 * (z1_2 - z2_2) * (z1_2 - z2_2) + \n                     1.0 * (z1_3 - z2_3) * (z1_3 - z2_3));\n\n    cout << fixed << setprecision(3);\n    cout << d1 << \"\\n\";\n    cout << d2 << \"\\n\";\n    cout << d3 << \"\\n\";\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5 -12\n3 4 6 8\n1 2 3 4 5 6\n",
+        "output": "17.000\n5.000\n5.196\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "0 0\n0 0 0 0\n0 0 0 0 0 0\n",
+      "10000 -10000\n10000 10000 -10000 -10000\n10000 10000 10000 -10000 -10000 -10000\n",
+      "-10000 -10000\n-10000 -10000 -10000 -10000\n-10000 -10000 -10000 -10000 -10000 -10000\n",
+      "1 1\n1 1 2 2\n1 1 1 2 2 2\n",
+      "-5 10\n3 -7 6 8\n-1 2 -3 4 -5 6\n",
+      "0 100\n0 0 100 0\n0 0 0 100 0 0\n",
+      "7 7\n3 4 7 7\n1 1 1 4 4 4\n",
+      "-3 -3\n-3 -3 3 3\n-3 -3 -3 3 3 3\n",
+      "9999 10000\n-10000 9999 10000 -10000\n-9999 0 9999 10000 -10000 0\n",
+      "0 5000\n-5000 5000 0 0\n1234 -5678 9012 -3456 7890 -1234\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "17.000\n5.000\n5.196",
+      "got": "17.000\n5.000\n5.196"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "0 0\n0 0 0 0\n0 0 0 0 0 0\n",
+      "stdout": "0.000\n0.000\n0.000\n"
+    },
+    {
+      "stdin": "10000 -10000\n10000 10000 -10000 -10000\n10000 10000 10000 -10000 -10000 -10000\n",
+      "stdout": "20000.000\n28284.271\n34641.016\n"
+    },
+    {
+      "stdin": "-10000 -10000\n-10000 -10000 -10000 -10000\n-10000 -10000 -10000 -10000 -10000 -10000\n",
+      "stdout": "0.000\n0.000\n0.000\n"
+    },
+    {
+      "stdin": "1 1\n1 1 2 2\n1 1 1 2 2 2\n",
+      "stdout": "0.000\n1.414\n1.732\n"
+    },
+    {
+      "stdin": "-5 10\n3 -7 6 8\n-1 2 -3 4 -5 6\n",
+      "stdout": "15.000\n15.297\n12.450\n"
+    },
+    {
+      "stdin": "0 100\n0 0 100 0\n0 0 0 100 0 0\n",
+      "stdout": "100.000\n100.000\n100.000\n"
+    },
+    {
+      "stdin": "7 7\n3 4 7 7\n1 1 1 4 4 4\n",
+      "stdout": "0.000\n5.000\n5.196\n"
+    },
+    {
+      "stdin": "-3 -3\n-3 -3 3 3\n-3 -3 -3 3 3 3\n",
+      "stdout": "0.000\n8.485\n10.392\n"
+    },
+    {
+      "stdin": "9999 10000\n-10000 9999 10000 -10000\n-9999 0 9999 10000 -10000 0\n",
+      "stdout": "1.000\n28283.564\n24493.673\n"
+    },
+    {
+      "stdin": "0 5000\n-5000 5000 0 0\n1234 -5678 9012 -3456 7890 -1234\n",
+      "stdout": "5000.000\n7071.068\n17637.098\n"
+    }
+  ]
+}

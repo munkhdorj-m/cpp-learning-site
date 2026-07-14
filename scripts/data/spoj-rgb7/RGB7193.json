@@ -1,0 +1,13 @@
+{
+  "title": "Ехселийн багана",
+  "hidden": true,
+  "bodyHtml": "<p>&nbsp;</p>\n<p><span style=\"font-size: small;\">Ехсел-2007 хүснэгтэн таблицын баганууд англи цагаан толгойн том үсгээр дараах маягаар дугаарлагддаг.</span></p>\n<p><span style=\"font-size: small;\">A, B,...,Z,AA, AB, ...,AZ, BA, BB, ..., BZ, ..., ZZ, AAA, AAB, ..., XVD гэх мэтээр. Харгалзах багануудыг тоогоор дугаарлавал 1, 2, ...26,27,28, ..., 52, 53, 54, ..., 78, ..., 702, 703, 704, ..., 16384 болно.</span></p>\n<p><span style=\"font-size: small;\">Үсгэн баганад харгалзах баганын тоон дугаарыг ол.</span></p>\n<h3><span style=\"font-size: small;\">Input</span></h3>\n<p><span style=\"font-size: small;\">Баганын үсгэн дугаар англи цагаан толгойн том үсгээр өгөгдөнө. Баганын дугаарын үсгүүд 3-аас ихгүй.</span></p>\n<h3><span style=\"font-size: small;\">Output</span></h3>\n<p><span style=\"font-size: small;\">Харгалзах тоон дугаар.</span></p>\n<h3><span style=\"font-size: small;\">Example</span></h3>\n<p><strong><span style=\"font-size: small;\">Input 1 :</span></strong></p>\n<p><span style=\"font-size: small;\">K </span></p>\n<p><strong><span style=\"font-size: small;\">Output 1 :</span></strong></p>\n<p><span style=\"font-size: small;\">11</span></p>\n<p><strong><span style=\"font-size: small;\">Input 2 :</span></strong></p>\n<p><span style=\"font-size: x-small;\">PC</span></p>\n<p><strong><span style=\"font-size: small;\">Output 2 :</span></strong></p>\n<p><span style=\"font-size: x-small;\">419</span></p>",
+  "bodyText": "Ехсел-2007 хүснэгтэн таблицын баганууд англи цагаан толгойн том үсгээр дараах маягаар дугаарлагддаг.\nA, B,...,Z,AA, AB, ...,AZ, BA, BB, ..., BZ, ..., ZZ, AAA, AAB, ..., XVD гэх мэтээр. Харгалзах багануудыг тоогоор дугаарлавал 1, 2, ...26,27,28, ..., 52, 53, 54, ..., 78, ..., 702, 703, 704, ..., 16384 болно.\nҮсгэн баганад харгалзах баганын тоон дугаарыг ол.\nInput\nБаганын үсгэн дугаар англи цагаан толгойн том үсгээр өгөгдөнө. Баганын дугаарын үсгүүд 3-аас ихгүй.\nOutput\nХаргалзах тоон дугаар.\nExample\nInput 1 :\nK \nOutput 1 :\n11\nInput 2 :\nPC\nOutput 2 :\n419",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7193/",
+  "code": "RGB7193",
+  "scrapedAt": "2026-06-29T06:43:28.433Z"
+}

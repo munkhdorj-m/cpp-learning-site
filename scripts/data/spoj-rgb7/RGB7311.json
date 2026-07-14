@@ -1,0 +1,13 @@
+{
+  "title": "Гуравын зэрэгтэд хураа",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн тоог 3-ын зэрэгтэд хураа.</p>\n<h3>Input</h3>\n<p>Бүхэл тоо өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Хураагдсан тоо.</p>\n<h3>Example</h3>\n<h3>Input:</h3>\n<h3>36</h3>\n<h3>Output:</h3>\n<h3>4</h3>",
+  "bodyText": "Өгөгдсөн тоог 3-ын зэрэгтэд хураа.\nInput\nБүхэл тоо өгөгдөнө.\nOutput\nХураагдсан тоо.\nExample\nInput:\n36\nOutput:\n4",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7311/",
+  "code": "RGB7311",
+  "scrapedAt": "2026-06-29T06:38:39.985Z"
+}

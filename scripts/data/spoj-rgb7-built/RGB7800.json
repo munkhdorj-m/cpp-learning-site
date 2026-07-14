@@ -1,0 +1,24 @@
+{
+  "code": "RGB7800",
+  "status": "compile_error",
+  "error": "c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../libmingw32.a(main.o):(.text.startup+0xa0): undefined reference to `WinMain@16'\r\ncollect2.exe: error: ld returned 1 exit status\r\n",
+  "data": {
+    "slug": "rgb7800-graph",
+    "title_mn": "Граф",
+    "title_en": "Graph",
+    "statement_mn": "",
+    "statement_en": "",
+    "difficulty": "medium",
+    "tags": [
+      "graph",
+      "tree",
+      "dfs"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 262144,
+    "xp_reward": 20,
+    "reference_cpp": "",
+    "samples": [],
+    "extra_test_inputs": []
+  }
+}

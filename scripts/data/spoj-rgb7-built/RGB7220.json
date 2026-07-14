@@ -1,0 +1,89 @@
+{
+  "code": "RGB7220",
+  "status": "ok",
+  "data": {
+    "slug": "tsifr-davtalt",
+    "title_mn": "Цифр давталт",
+    "title_en": "Digit Repetition",
+    "statement_mn": "Өгөгдсөн цифрийг цифрийнх нь тоогоор давтан хэвлэ.\n\n**Жишээ:**\n\n| Оролт | Гаралт |\n|-------|--------|\n| 4     | 4444   |",
+    "statement_en": "Print the given digit repeated as many times as the digit itself.\n\n**Example:**\n\n| Input | Output |\n|-------|--------|\n| 4     | 4444   |",
+    "input_format_mn": "Ганц мөрөнд нэг ширхэг цифр (`0` – `9`) өгөгдөнө.",
+    "input_format_en": "A single line containing one digit (`0` – `9`).",
+    "output_format_mn": "Цифрийг өөрөө өөртөө хэдэн удаа давтагдсаныг (цифрийн утгаар тодорхойлогдоно) залган хэвлэ. Гаралт нь нэг мөр байна.",
+    "output_format_en": "Print the digit concatenated with itself as many times as the digit's numeric value. The output must be a single line.",
+    "constraints_mn": "- Оролт нь яг нэг цифр (`0`-ээс `9` хүртэл) байна.",
+    "constraints_en": "- The input is exactly one digit (from `0` to `9`).",
+    "difficulty": "easy",
+    "tags": [
+      "strings",
+      "implementation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "samples": [
+      {
+        "input": "4\n",
+        "output": "4444\n"
+      }
+    ],
+    "reference_cpp": "#include <iostream>\n#include <string>\n\nint main() {\n    std::string digit;\n    std::cin >> digit;\n\n    int n = digit[0] - '0';\n    for (int i = 0; i < n; ++i) {\n        std::cout << digit;\n    }\n    std::cout << '\\n';\n\n    return 0;\n}\n",
+    "extra_test_inputs": [
+      "0\n",
+      "1\n",
+      "5\n",
+      "9\n",
+      "2\n",
+      "3\n",
+      "6\n",
+      "7\n",
+      "8\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "4444",
+      "got": "4444"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "0\n",
+      "stdout": "\n"
+    },
+    {
+      "stdin": "1\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "5\n",
+      "stdout": "55555\n"
+    },
+    {
+      "stdin": "9\n",
+      "stdout": "999999999\n"
+    },
+    {
+      "stdin": "2\n",
+      "stdout": "22\n"
+    },
+    {
+      "stdin": "3\n",
+      "stdout": "333\n"
+    },
+    {
+      "stdin": "6\n",
+      "stdout": "666666\n"
+    },
+    {
+      "stdin": "7\n",
+      "stdout": "7777777\n"
+    },
+    {
+      "stdin": "8\n",
+      "stdout": "88888888\n"
+    }
+  ]
+}

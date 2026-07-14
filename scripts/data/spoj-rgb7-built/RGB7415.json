@@ -1,0 +1,59 @@
+{
+  "code": "RGB7415",
+  "status": "ref_wrong_on_samples",
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": false,
+      "expected": "6\n5\n5\n4\n4",
+      "got": "5\n5\n5\n4\n4"
+    }
+  ],
+  "data": {
+    "slug": "rgb7415-uraldaan-usa",
+    "title_mn": "Уралдаан USA",
+    "title_en": "Race USA",
+    "statement_mn": "Бэсси ($1 \\\\le K \\\\le 10^9$) уралдаанд оролцож байна. Тэрбээр секундэд 0 метр хурдтайгаар эхлэнэ. Аливаа секундэд тэр хурдаа секундэд 1 метрээр ихэсгэж, эсвэл өөрчлөхгүй үлдээж, эсвэл секундэд 1 метрээр багасгаж чаддаг. Жишээ нь, эхний секундэд тэрбээр хурдаа секундэд 1 метрээр ихэсгээд 1 метр гүйж болно, эсвэл хурдаа секундэд 0 метр хурдтай үлдээгээд 0 метр гүйж болно. Бэссигийн хурд хэзээ ч 0-с доошилдоггүй.\n\nБэсси ямагт барианы зүгт гүйдэг бөгөөд яг бүхэл хурдтайгаар бариан дээр очихыг хүсч байна. Түүнчлэн тэрбээр бариан дээр хэтэрхий их хурдтай орохыг хүсэхгүй байгаа: яг $K$ метр гүйх агшинд тэрбээр секундэд $X$ метрээс ($1 \\\\le X \\\\le 10^5$) хэтрэхгүй хурдтайгаар гүйж байх ёстой.\n\nБэсси $N$ ширхэг ($1 \\\\le N \\\\le 1000$) ялгаатай $X$ бүрийн хувьд хамгийн багадаа хэр их цаг зарцуулж тэмцээнийг дуусгаж чадахыг олж өгнө үү.",
+    "statement_en": "Bessie ($1 \\\\le K \\\\le 10^9$) is participating in a race. She starts at speed 0 meters per second. At each second, she can increase her speed by 1 m/s, keep it the same, or decrease it by 1 m/s. For example, in the first second she can accelerate to 1 m/s and cover 1 meter, or stay at 0 m/s and cover 0 meters. Bessie's speed never drops below 0.\n\nBessie always runs toward the finish line and wants to cross the finish line at exactly an integer speed. Moreover, she does not want to enter the finish with too much speed: at the moment she has run exactly $K$ meters, her speed must not exceed $X$ meters per second ($1 \\\\le X \\\\le 10^5$).\n\nFor each of $N$ distinct values $X$ ($1 \\\\le N \\\\le 1000$), determine the minimum time (in seconds) Bessie needs to finish the race.",
+    "input_format_mn": "Оролт (файл race.in):\n\nЭхний мөрөнд $K$ болон $N$ тоонууд байрлана.\nДараагийн $N$ мөр бүрт ганц $X$ тоо байрлана.",
+    "input_format_en": "Input (file race.in):\n\nThe first line contains two integers $K$ and $N$.\nThe next $N$ lines each contain a single integer $X$.",
+    "output_format_mn": "Гаралт (файл race.out):\n\nГаралтад $N$ мөр байх бөгөөд мөр бүрт харгалзах $X$-ийн хамгийн бага хугацааг хэвлэнэ.",
+    "output_format_en": "Output (file race.out):\n\nThe output contains $N$ lines, each line containing the minimum time (in seconds) for the corresponding $X$.",
+    "constraints_mn": "- $1 \\\\le K \\\\le 10^9$\n- $1 \\\\le N \\\\le 1000$\n- $1 \\\\le X \\\\le 10^5$\n- $X$ утгууд нь бүхэл тоо бөгөөд ялгаатай байна.",
+    "constraints_en": "- $1 \\\\le K \\\\le 10^9$\n- $1 \\\\le N \\\\le 1000$\n- $1 \\\\le X \\\\le 10^5$\n- All $X$ values are distinct integers.",
+    "difficulty": "medium",
+    "tags": [
+      "binary-search",
+      "math",
+      "simulation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 20,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\ntypedef long long ll;\n\n// Minimum time to go distance K with max speed limit X at finish\nll min_time(ll K, ll X) {\n    // Binary search on total time t\n    ll lo = 1, hi = 2e9; // upper bound large enough\n    while (lo < hi) {\n        ll t = (lo + hi) / 2;\n        // Max distance we can cover in time t with speed limit X at finish\n        \n        // We can think of the speed profile:\n        // Accelerate for some time, maybe cruise, then decelerate to <= X at finish.\n        // The maximum distance we can cover in time t while ending at speed <= X\n        // is: we can accelerate to some peak speed V, then decelerate to at most X.\n        // The speed changes by at most 1 per second.\n        // The total distance = sum of speeds over t seconds.\n        \n        // Another approach: The minimal time to cover K with final speed <= X.\n        // We can binary search and check if distance achievable in t seconds >= K.\n        \n        // Maximum distance possible in t seconds with final speed <= X:\n        // Let's compute maximum possible distance.\n        // We can accelerate for a seconds, then cruise (optional), then decelerate for d seconds.\n        // a + d <= t, and final speed = a - d <= X (since start 0, accelerate to a, decelerate by d).\n        // Actually start 0, accelerate for a seconds -> speed = a.\n        // Then we might maintain speed for some time, but for max distance at given t and final speed <= X,\n        // we want as high speed as possible early.\n        // The optimal: accelerate as fast as possible to some peak, then decelerate to <= X at the end.\n        // Let peak = v. Then we need a seconds to reach v, d seconds to go from v down to <= X.\n        // a = v, d = max(0, v - X). So a + d = v + max(0, v - X) = max(v, 2v - X).\n        // Time spent at peak speed = t - a - d (if positive).\n        // Distance = sum_{i=1}^{a} i + (t - a - d) * v + sum_{j=1}^{d} (v - j)\n        // = a(a+1)/2 + (t - a - d) * v + d*v - d(d+1)/2\n        // = a(a+1)/2 + (t - a - d) * v + d*v - d(d+1)/2\n        \n        // But we can just simulate greedily? Let's derive a simpler formula.\n        \n        // Actually the classic \"race\" problem (USACO \"race\").\n        // The known solution: binary search on time.\n        // For a given time t, the maximum possible speed at finish limited to X,\n        // the max distance we can cover:\n        \n        // Let's think differently. We want to know if we can reach distance >= K in time t\n        // with final speed <= X.\n        \n        // Maximum distance in t seconds:\n        // If t <= X: we can accelerate for t seconds, reach speed t, distance = t(t+1)/2. Final speed = t <= X.\n        // If t > X: We can accelerate to some peak speed V, then decelerate to X at finish.\n        // Time to reach peak V from 0: V seconds.\n        // Time to decelerate from V to X: V - X seconds.\n        // So V + (V - X) = 2V - X seconds spent on acceleration/deceleration.\n        // Remaining time t - (2V - X) can be spent at speed V.\n        // To maximize distance given t, we want V as large as possible, but must have 2V - X <= t, i.e., V <= (t + X) / 2.\n        // So max peak V = (t + X) / 2 (integer division).\n        // Let V = (t + X) / 2.\n        // Then a = V (accel time), d = V - X (decel time). Time at peak = t - V - (V - X) = t - 2V + X.\n        // Distance = sum_{i=1}^{V} i + (t - 2V + X) * V + sum_{j=1}^{V-X} (V - j)\n        // = V(V+1)/2 + (t - 2V + X) * V + (V-X)*V - (V-X)(V-X+1)/2\n        \n        ll maxDist;\n        if (t <= X) {\n            maxDist = t * (t + 1) / 2;\n        } else {\n            ll V = (t + X) / 2;\n            ll a = V;\n            ll d = V - X;\n            ll peak_time = t - a - d; // time at speed V\n            // distance during acceleration: 1+2+...+V = V*(V+1)/2\n            ll acc_dist = V * (V + 1) / 2;\n            // distance during deceleration: V + (V-1) + ... + (X+1) = sum_{j=1}^{V-X} (V - j)\n            // = (V-1) + (V-2) + ... + X = sum from X+1 to V-1 = (V-1+X+1)*(V-1-X)/2 = (V+X)*(V-X-1)/2... let's compute directly:\n            // deceleration starts at speed V, ends at speed X, goes down by 1 each second.\n            // distances: V, V-1, ..., X+1. Number of terms = V - X.\n            // Sum = (V + (X+1)) * (V-X) / 2 = (V+X+1)*(V-X)/2\n            ll dec_dist = (V + X + 1) * (V - X) / 2;\n            // distance at peak\n            ll peak_dist = peak_time * V;\n            maxDist = acc_dist + peak_dist + dec_dist;\n        }\n        \n        if (maxDist >= K) {\n            hi = t;\n        } else {\n            lo = t + 1;\n        }\n    }\n    return lo;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    \n    ll K;\n    int N;\n    cin >> K >> N;\n    while (N--) {\n        ll X;\n        cin >> X;\n        cout << min_time(K, X) << \"\\n\";\n    }\n    \n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "10 5\n1\n2\n3\n4\n5\n",
+        "output": "6\n5\n5\n4\n4\n"
+      },
+      {
+        "input": "",
+        "output": ""
+      }
+    ],
+    "extra_test_inputs": [
+      "1 1\n1",
+      "2 1\n1",
+      "3 1\n2",
+      "10 1\n10",
+      "100 1\n1",
+      "100 1\n100",
+      "1000 5\n10\n50\n100\n500\n1000",
+      "100000 3\n100\n1000\n10000",
+      "1000000000 1\n100000",
+      "1000000000 5\n1\n10\n100\n1000\n100000",
+      "7 3\n1\n2\n3",
+      "20 4\n1\n5\n10\n20"
+    ]
+  }
+}

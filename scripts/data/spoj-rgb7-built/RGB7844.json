@@ -1,0 +1,100 @@
+{
+  "code": "RGB7844",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7844-highest-hourglass-sum",
+    "title_mn": "2 хэмжээст массив",
+    "title_en": "2D Array - Highest Hourglass Sum",
+    "statement_mn": "Танд $6 \\times 6$ хэмжээтэй массив өгөгдөнө.\n\nМассиваас доор өгөгдсөн **бүтэц** (hourglass – элсэн цөгц) хэлбэрийн хамгийн их нийлбэрийг олно уу.\n\n```\na b c\n  d\ne f g\n```\n\nНийлбэр нь $a + b + c + d + e + f + g$ байна.",
+    "statement_en": "You are given a $6 \\times 6$ array.\n\nFind the maximum sum of any **hourglass** shape in the array:\n\n```\na b c\n  d\ne f g\n```\n\nThe sum is $a + b + c + d + e + f + g$.",
+    "input_format_mn": "$6$ мөр тус бүрд $6$ бүхэл тоо зайгаар тусгаарлагдан өгөгдөнө. Массивын элементүүд $arr[i][j]$ $(0 \\le i,j \\le 5)$ нь $-9 \\le arr[i][j] \\le 9$ мужид орно.",
+    "input_format_en": "Six lines, each containing six space-separated integers. The array elements $arr[i][j]$ $(0 \\le i,j \\le 5)$ satisfy $-9 \\le arr[i][j] \\le 9$.",
+    "output_format_mn": "Өгөгдсөн $6 \\times 6$ массиваас олборлож болох элсэн цөгц (hourglass)-ийн хамгийн их нийлбэрийг хэвлэ.",
+    "output_format_en": "Print the maximum hourglass sum found in the $6 \\times 6$ array.",
+    "constraints_mn": "- Массив үргэлж $6 \\times 6$ хэмжээтэй.\n- Элементүүд: $-9 \\le arr[i][j] \\le 9$",
+    "constraints_en": "- The array is always $6 \\times 6$.\n- Elements: $-9 \\le arr[i][j] \\le 9$",
+    "difficulty": "easy",
+    "tags": [
+      "2d-array",
+      "brute-force",
+      "implementation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <vector>\n#include <algorithm>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    vector<vector<int>> a(6, vector<int>(6));\n    for (int i = 0; i < 6; ++i) {\n        for (int j = 0; j < 6; ++j) {\n            cin >> a[i][j];\n        }\n    }\n\n    int best = -9 * 7; // minimum possible sum: -9 * 7 = -63\n    for (int i = 0; i <= 3; ++i) {\n        for (int j = 0; j <= 3; ++j) {\n            int sum = a[i][j] + a[i][j+1] + a[i][j+2]\n                               + a[i+1][j+1]\n                    + a[i+2][j] + a[i+2][j+1] + a[i+2][j+2];\n            if (sum > best) best = sum;\n        }\n    }\n\n    cout << best << '\\n';\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "1 1 1 0 0 0\n0 1 0 0 0 0\n1 1 1 0 0 0\n0 0 2 4 4 0\n0 0 0 2 0 0\n0 0 1 2 4 0\n",
+        "output": "19\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "-9 -9 -9 -9 -9 -9\n-9 -9 -9 -9 -9 -9\n-9 -9 -9 -9 -9 -9\n-9 -9 -9 -9 -9 -9\n-9 -9 -9 -9 -9 -9\n-9 -9 -9 -9 -9 -9\n",
+      "9 9 9 9 9 9\n9 9 9 9 9 9\n9 9 9 9 9 9\n9 9 9 9 9 9\n9 9 9 9 9 9\n9 9 9 9 9 9\n",
+      "0 0 0 0 0 0\n0 0 0 0 0 0\n0 0 0 0 0 0\n0 0 0 0 0 0\n0 0 0 0 0 0\n0 0 0 0 0 0\n",
+      "1 2 3 4 5 6\n7 8 9 -1 -2 -3\n-4 -5 -6 -7 -8 -9\n9 8 7 6 5 4\n3 2 1 0 -1 -2\n-3 -4 -5 -6 -7 -8\n",
+      "5 5 5 5 5 5\n5 5 5 5 5 5\n5 5 5 5 5 5\n5 5 5 5 5 5\n5 5 5 5 5 5\n5 5 5 5 5 5\n",
+      "-1 -2 -3 -4 -5 -6\n-7 -8 -9 0 1 2\n3 4 5 6 7 8\n9 -1 -2 -3 -4 -5\n-6 -7 -8 -9 0 1\n2 3 4 5 6 7\n",
+      "0 1 2 3 4 5\n6 7 8 9 -1 -2\n-3 -4 -5 -6 -7 -8\n-9 0 1 2 3 4\n5 6 7 8 9 -1\n-2 -3 -4 -5 -6 -7\n",
+      "9 -9 9 -9 9 -9\n-9 9 -9 9 -9 9\n9 -9 9 -9 9 -9\n-9 9 -9 9 -9 9\n9 -9 9 -9 9 -9\n-9 9 -9 9 -9 9\n",
+      "1 1 1 2 2 2\n0 1 0 0 2 0\n1 1 1 2 2 2\n3 3 3 4 4 4\n0 3 0 0 4 0\n3 3 3 4 4 4\n",
+      "0 0 0 0 0 0\n0 0 0 0 0 0\n0 0 -9 0 0 0\n0 0 0 0 0 0\n0 0 0 0 0 0\n0 0 0 0 0 0\n",
+      "6 6 6 6 6 6\n6 6 6 6 6 6\n6 6 6 6 6 6\n6 6 6 6 6 6\n6 6 6 6 6 6\n6 6 6 6 6 6\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "19",
+      "got": "19"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "-9 -9 -9 -9 -9 -9\n-9 -9 -9 -9 -9 -9\n-9 -9 -9 -9 -9 -9\n-9 -9 -9 -9 -9 -9\n-9 -9 -9 -9 -9 -9\n-9 -9 -9 -9 -9 -9\n",
+      "stdout": "-63\n"
+    },
+    {
+      "stdin": "9 9 9 9 9 9\n9 9 9 9 9 9\n9 9 9 9 9 9\n9 9 9 9 9 9\n9 9 9 9 9 9\n9 9 9 9 9 9\n",
+      "stdout": "63\n"
+    },
+    {
+      "stdin": "0 0 0 0 0 0\n0 0 0 0 0 0\n0 0 0 0 0 0\n0 0 0 0 0 0\n0 0 0 0 0 0\n0 0 0 0 0 0\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "1 2 3 4 5 6\n7 8 9 -1 -2 -3\n-4 -5 -6 -7 -8 -9\n9 8 7 6 5 4\n3 2 1 0 -1 -2\n-3 -4 -5 -6 -7 -8\n",
+      "stdout": "43\n"
+    },
+    {
+      "stdin": "5 5 5 5 5 5\n5 5 5 5 5 5\n5 5 5 5 5 5\n5 5 5 5 5 5\n5 5 5 5 5 5\n5 5 5 5 5 5\n",
+      "stdout": "35\n"
+    },
+    {
+      "stdin": "-1 -2 -3 -4 -5 -6\n-7 -8 -9 0 1 2\n3 4 5 6 7 8\n9 -1 -2 -3 -4 -5\n-6 -7 -8 -9 0 1\n2 3 4 5 6 7\n",
+      "stdout": "9\n"
+    },
+    {
+      "stdin": "0 1 2 3 4 5\n6 7 8 9 -1 -2\n-3 -4 -5 -6 -7 -8\n-9 0 1 2 3 4\n5 6 7 8 9 -1\n-2 -3 -4 -5 -6 -7\n",
+      "stdout": "22\n"
+    },
+    {
+      "stdin": "9 -9 9 -9 9 -9\n-9 9 -9 9 -9 9\n9 -9 9 -9 9 -9\n-9 9 -9 9 -9 9\n9 -9 9 -9 9 -9\n-9 9 -9 9 -9 9\n",
+      "stdout": "27\n"
+    },
+    {
+      "stdin": "1 1 1 2 2 2\n0 1 0 0 2 0\n1 1 1 2 2 2\n3 3 3 4 4 4\n0 3 0 0 4 0\n3 3 3 4 4 4\n",
+      "stdout": "28\n"
+    },
+    {
+      "stdin": "0 0 0 0 0 0\n0 0 0 0 0 0\n0 0 -9 0 0 0\n0 0 0 0 0 0\n0 0 0 0 0 0\n0 0 0 0 0 0\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "6 6 6 6 6 6\n6 6 6 6 6 6\n6 6 6 6 6 6\n6 6 6 6 6 6\n6 6 6 6 6 6\n6 6 6 6 6 6\n",
+      "stdout": "42\n"
+    }
+  ]
+}

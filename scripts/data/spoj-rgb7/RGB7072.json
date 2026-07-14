@@ -1,0 +1,15 @@
+{
+  "title": "Нийлбэр 3",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн сондгой тоо n хүртэлх натурал сондгой тоонуудын нийлбэрийг ол. Давталт ашиглахгүй.</p>\n<h3>Input</h3>\n<p>Сондгой натурал тоо өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Нийлбэр.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n9\n\n<strong>Output:</strong>\n25\n</pre>",
+  "bodyText": "Өгөгдсөн сондгой тоо n хүртэлх натурал сондгой тоонуудын нийлбэрийг ол. Давталт ашиглахгүй.\nInput\nСондгой натурал тоо өгөгдөнө.\nOutput\nНийлбэр.\nExample\nInput:\n9\n\nOutput:\n25",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n9\n\nOutput:\n25"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7072/",
+  "code": "RGB7072",
+  "scrapedAt": "2026-06-29T06:38:20.769Z"
+}

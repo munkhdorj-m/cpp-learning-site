@@ -1,0 +1,15 @@
+{
+  "title": "Энгийн дараалал",
+  "hidden": true,
+  "bodyHtml": "<p><span lang=\"\\\">a<sub>0 </sub>= a<sub>1 </sub>= 1, </span><span>a</span><sub><span lang=\"\\\">2n</span></sub><span lang=\"\\\"> = a<sub>n</sub> ­+ a<sub>n-1</sub>, </span><span lang=\"\\\">a<sub>2n+1</sub> = a<sub>n</sub> – a<sub>n-1</sub> то</span>мьёогоор өгөгдсөн дарааллын n-р гишүүнийг ол.<br><span lang=\"\\\"><br></span></p>\n<h3>Input</h3>\n<p>Натурал тоо n өгөгдөнө. 1&lt;=n&lt;=1000.</p>\n<h3>Output</h3>\n<p>Дарааллын n-р гишүүн.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n11\n\n<strong>Output:</strong>\n-2\n</pre>",
+  "bodyText": "a0 = a1 = 1, a2n = an ­+ an-1, a2n+1 = an – an-1 томьёогоор өгөгдсөн дарааллын n-р гишүүнийг ол.\nInput\nНатурал тоо n өгөгдөнө. 1<=n<=1000.\nOutput\nДарааллын n-р гишүүн.\nExample\nInput:\n11\n\nOutput:\n-2",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n11\n\nOutput:\n-2"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7608/",
+  "code": "RGB7608",
+  "scrapedAt": "2026-06-29T06:40:21.813Z"
+}

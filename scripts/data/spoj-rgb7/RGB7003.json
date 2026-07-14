@@ -1,0 +1,15 @@
+{
+  "title": "Тэгш өнцөгт",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн тэгш өнцөгтийн талбай ба периметрийг ол.</p>\n<h3>Input</h3>\n<p>Тэгш өнцөгтийн урт ба өргөн нь бүхэл тоон утгаар нэг мөрөнд зайгаар тусгаарлагдан өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Талбай ба периметр зайгаар тусгаарлагдан нэг мөрөнд хэвлэгдэнэ.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n6 4\n\n<strong>Output:</strong>\n24 20\n</pre>",
+  "bodyText": "Өгөгдсөн тэгш өнцөгтийн талбай ба периметрийг ол.\nInput\nТэгш өнцөгтийн урт ба өргөн нь бүхэл тоон утгаар нэг мөрөнд зайгаар тусгаарлагдан өгөгдөнө.\nOutput\nТалбай ба периметр зайгаар тусгаарлагдан нэг мөрөнд хэвлэгдэнэ.\nExample\nInput:\n6 4\n\nOutput:\n24 20",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n6 4\n\nOutput:\n24 20"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7003/",
+  "code": "RGB7003",
+  "scrapedAt": "2026-06-29T06:36:50.658Z"
+}

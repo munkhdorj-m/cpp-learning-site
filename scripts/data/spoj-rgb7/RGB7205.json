@@ -1,0 +1,15 @@
+{
+  "title": "n!",
+  "hidden": true,
+  "bodyHtml": "<p>n! ол.</p>\n<h3>Input</h3>\n<p>Int төрлийн бүхэл тоо өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Өгөгдсөн тооны факториал.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n5\n\n<strong>Output:</strong>\n120</pre>",
+  "bodyText": "n! ол.\nInput\nInt төрлийн бүхэл тоо өгөгдөнө.\nOutput\nӨгөгдсөн тооны факториал.\nExample\nInput:\n5\n\nOutput:\n120",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n5\n\nOutput:\n120"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7205/",
+  "code": "RGB7205",
+  "scrapedAt": "2026-06-29T06:37:49.185Z"
+}

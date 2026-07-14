@@ -1,0 +1,114 @@
+{
+  "code": "RGB7849",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7849",
+    "title_mn": "Массив өөрчлөлт",
+    "title_en": "Array Modification",
+    "statement_mn": "Танд $n$ урттай 0 утгуудтай $A$ массив байгаа. Уг массив дээр $m$ удаа утга нэмж өгөх юм.\n\n$a$ $b$ $k$ ($A[a]+k, A[a+1]+k, A[a+2]+k \\dots A[b]+k$) — $a$-гаас $b$ хүртэлх массивын элементүүдийн утга дээр $k$-г нэмнэ.\n\nБүх үйлдлүүдийг гүйцэтгэсний дараа массивын хамгийн их утгыг ол.",
+    "statement_en": "You are given an array $A$ of length $n$ initially filled with zeros. Then $m$ updates are performed.\n\nEach update is given as $a$ $b$ $k$: add $k$ to every element $A[a], A[a+1], \\dots, A[b]$ (1-based indexing).\n\nAfter all updates, find the maximum value in the array.",
+    "input_format_mn": "Эхний мөрөнд $n$ ба $m$ тоонууд зайгаар тусгаарлагдан өгөгдөнө.\n\nДараагийн $m$ мөрөнд тус бүр $a$, $b$, $k$ тоонууд зайгаар тусгаарлагдан өгөгдөнө.",
+    "input_format_en": "The first line contains two integers $n$ and $m$, separated by a space.\n\nThe next $m$ lines each contain three integers $a$, $b$, $k$, separated by spaces.",
+    "output_format_mn": "Ганц мөрөнд бүх үйлдлийг гүйцэтгэсний дараах массивын хамгийн их утгыг хэвлэ.",
+    "output_format_en": "Print a single integer — the maximum value in the array after all updates.",
+    "constraints_mn": "* $3 \\le n \\le 10^7$\n* $1 \\le m \\le 2 \\cdot 10^5$\n* $1 \\le a \\le b \\le n$\n* $0 \\le k \\le 10^9$",
+    "constraints_en": "* $3 \\le n \\le 10^7$\n* $1 \\le m \\le 2 \\cdot 10^5$\n* $1 \\le a \\le b \\le n$\n* $0 \\le k \\le 10^9$",
+    "difficulty": "medium",
+    "tags": [
+      "difference-array",
+      "prefix-sum"
+    ],
+    "time_limit_ms": 2000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 20,
+    "samples": [
+      {
+        "input": "10 3\n1 5 3\n4 8 7\n6 9 1\n",
+        "output": "10\n"
+      },
+      {
+        "input": "5 3\n1 2 100\n2 5 100\n3 4 100\n",
+        "output": "200\n"
+      }
+    ],
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n, m;\n    cin >> n >> m;\n\n    // Use difference array technique: we only need two passes.\n    // Since n can be up to 1e7, we allocate a vector of int64_t.\n    vector<long long> diff(n + 2, 0);\n\n    for (int i = 0; i < m; i++) {\n        int a, b;\n        long long k;\n        cin >> a >> b >> k;\n        diff[a] += k;\n        diff[b + 1] -= k;\n    }\n\n    long long cur = 0;\n    long long ans = 0;\n    for (int i = 1; i <= n; i++) {\n        cur += diff[i];\n        if (cur > ans) ans = cur;\n    }\n\n    cout << ans << '\\n';\n\n    return 0;\n}\n",
+    "extra_test_inputs": [
+      "3 1\n1 3 5\n",
+      "10 1\n1 1 1000000000\n",
+      "10000000 1\n1 10000000 1\n",
+      "10000000 2\n1 5000000 1000000000\n5000001 10000000 1000000000\n",
+      "5 5\n1 5 1\n1 5 1\n1 5 1\n1 5 1\n1 5 1\n",
+      "10 4\n1 10 5\n1 5 10\n6 10 10\n3 8 100\n",
+      "100 1\n50 50 999999999\n",
+      "10000000 200000\n1 10000000 1\n2 9999999 2\n3 9999998 3\n4 9999997 4\n5 9999996 5\n6 9999995 6\n7 9999994 7\n8 9999993 8\n9 9999992 9\n10 9999991 10\n",
+      "7 3\n1 7 1\n3 5 2\n2 4 3\n",
+      "1000000 10\n1 1000000 500000000\n500000 500000 500000000\n1 1 1\n1000000 1000000 1\n999999 1000000 2\n500001 500002 3\n1 500000 4\n500001 1000000 5\n250000 750000 6\n500000 500001 7\n",
+      "10 6\n1 2 10\n2 3 20\n3 4 30\n4 5 40\n5 6 50\n6 7 60\n",
+      "200000 5\n1 200000 1000000000\n1 200000 1000000000\n1 200000 1000000000\n1 200000 1000000000\n1 200000 1000000000\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "10",
+      "got": "10"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "200",
+      "got": "200"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "3 1\n1 3 5\n",
+      "stdout": "5\n"
+    },
+    {
+      "stdin": "10 1\n1 1 1000000000\n",
+      "stdout": "1000000000\n"
+    },
+    {
+      "stdin": "10000000 1\n1 10000000 1\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "10000000 2\n1 5000000 1000000000\n5000001 10000000 1000000000\n",
+      "stdout": "1000000000\n"
+    },
+    {
+      "stdin": "5 5\n1 5 1\n1 5 1\n1 5 1\n1 5 1\n1 5 1\n",
+      "stdout": "5\n"
+    },
+    {
+      "stdin": "10 4\n1 10 5\n1 5 10\n6 10 10\n3 8 100\n",
+      "stdout": "115\n"
+    },
+    {
+      "stdin": "100 1\n50 50 999999999\n",
+      "stdout": "999999999\n"
+    },
+    {
+      "stdin": "10000000 200000\n1 10000000 1\n2 9999999 2\n3 9999998 3\n4 9999997 4\n5 9999996 5\n6 9999995 6\n7 9999994 7\n8 9999993 8\n9 9999992 9\n10 9999991 10\n",
+      "stdout": "1999955\n"
+    },
+    {
+      "stdin": "7 3\n1 7 1\n3 5 2\n2 4 3\n",
+      "stdout": "6\n"
+    },
+    {
+      "stdin": "1000000 10\n1 1000000 500000000\n500000 500000 500000000\n1 1 1\n1000000 1000000 1\n999999 1000000 2\n500001 500002 3\n1 500000 4\n500001 1000000 5\n250000 750000 6\n500000 500001 7\n",
+      "stdout": "1000000017\n"
+    },
+    {
+      "stdin": "10 6\n1 2 10\n2 3 20\n3 4 30\n4 5 40\n5 6 50\n6 7 60\n",
+      "stdout": "110\n"
+    },
+    {
+      "stdin": "200000 5\n1 200000 1000000000\n1 200000 1000000000\n1 200000 1000000000\n1 200000 1000000000\n1 200000 1000000000\n",
+      "stdout": "5000000000\n"
+    }
+  ]
+}

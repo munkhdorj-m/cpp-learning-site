@@ -1,0 +1,19 @@
+{
+  "title": "Хуваагч",
+  "hidden": true,
+  "bodyHtml": "<p style=\"margin: 3.25pt 0in 6.5pt; text-align: justify;\"><span style=\"font-size: x-small;\"><span lang=\"MN\">N, К натурал тоонууд өгөгдөв. Өгөгдсөн N тооны </span>сондгой<span lang=\"MN\"> дугаартай цифрүүдийн нийлбэр, тэгш дугаартай цифрүүдийн нийлбэрийн ялгавар K-д хуваагдах эсэхийг тогтоо. Цифрийг ахлах орны цифрээс эхлэн дугаарлана.</span></span></p>\n<h3>Input</h3>\n<p>Эхний мөрөнд K (0&lt;K&lt;1000) , дараагийн мөрөнд&nbsp; N&nbsp; (1 ≤ N ≤ 10<sup>100</sup>) натурал тоонууд байрлана.</p>\n<h3>Output</h3>\n<p>Даалгаврын нөхцөлийг хангах “YES”, “NO” гэсэн ганц тэмдэгт мөр байна.</p>\n<h3>Example</h3>\n<pre><strong>Input 1:</strong>\n<p>4</p>123\n\n<strong>Output 1:</strong>\nNO</pre>\n<pre><strong>Input 2:</strong></pre>\n<pre><p>3</p>12345</pre>\n<pre><strong>Output 2:</strong></pre>\n<pre>YES</pre>",
+  "bodyText": "N, К натурал тоонууд өгөгдөв. Өгөгдсөн N тооны сондгой дугаартай цифрүүдийн нийлбэр, тэгш дугаартай цифрүүдийн нийлбэрийн ялгавар K-д хуваагдах эсэхийг тогтоо. Цифрийг ахлах орны цифрээс эхлэн дугаарлана.\nInput\nЭхний мөрөнд K (0<K<1000) , дараагийн мөрөнд  N  (1 ≤ N ≤ 10100) натурал тоонууд байрлана.\nOutput\nДаалгаврын нөхцөлийг хангах “YES”, “NO” гэсэн ганц тэмдэгт мөр байна.\nExample\nInput 1:\n4123\n\nOutput 1:\nNO\nInput 2:\n312345\nOutput 2:\nYES",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input 1:\n4123\n\nOutput 1:\nNO",
+    "Input 2:",
+    "312345",
+    "Output 2:",
+    "YES"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7370/",
+  "code": "RGB7370",
+  "scrapedAt": "2026-06-29T06:42:45.709Z"
+}

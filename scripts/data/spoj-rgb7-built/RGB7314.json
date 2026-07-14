@@ -1,0 +1,105 @@
+{
+  "code": "RGB7314",
+  "status": "ok",
+  "data": {
+    "slug": "hamgiin-baga-eronthii-huuvaagdach",
+    "title_mn": "ХБЕХ",
+    "title_en": "LCM",
+    "statement_mn": "Өгөгдсөн хоёр натурал тооны **хамгийн бага ерөнхий хуваагдагч** (ХБЕХ)-ийг ол.",
+    "statement_en": "Find the **Least Common Multiple (LCM)** of two given natural numbers.",
+    "input_format_mn": "Нэг мөрөнд хоёр натурал тоо зайгаар тусгаарлагдан өгөгдөнө.",
+    "input_format_en": "A single line containing two natural numbers separated by a space.",
+    "output_format_mn": "ХБЕХ-ийг хэвлэнэ.",
+    "output_format_en": "Print the LCM of the two numbers.",
+    "constraints_mn": "- Тоонууд нь 1-ээс 10^9-ийн хооронд байна.",
+    "constraints_en": "- The numbers are between 1 and 10^9 inclusive.",
+    "difficulty": "easy",
+    "tags": [
+      "lcm",
+      "gcd",
+      "math"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <algorithm>\n\nusing namespace std;\nusing ll = long long;\n\nll gcd(ll a, ll b) {\n    while (b) {\n        a %= b;\n        swap(a, b);\n    }\n    return a;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    ll a, b;\n    cin >> a >> b;\n    ll g = gcd(a, b);\n    // a / g * b computed carefully to avoid overflow beyond 64-bit\n    // a,b <= 1e9, product up to 1e18 fits in 64-bit signed\n    ll lcm = a / g * b;\n    cout << lcm << \"\\n\";\n    return 0;\n}",
+    "samples": [
+      {
+        "input": "9 15\n",
+        "output": "45\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1 1\n",
+      "1 1000000000\n",
+      "1000000000 1\n",
+      "999999937 999999937\n",
+      "13 17\n",
+      "1000000000 1000000000\n",
+      "123456789 987654321\n",
+      "2 4\n",
+      "7 21\n",
+      "999999999 1\n",
+      "100 1000\n",
+      "999999937 999999938\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "45",
+      "got": "45"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1 1\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "1 1000000000\n",
+      "stdout": "1000000000\n"
+    },
+    {
+      "stdin": "1000000000 1\n",
+      "stdout": "1000000000\n"
+    },
+    {
+      "stdin": "999999937 999999937\n",
+      "stdout": "999999937\n"
+    },
+    {
+      "stdin": "13 17\n",
+      "stdout": "221\n"
+    },
+    {
+      "stdin": "1000000000 1000000000\n",
+      "stdout": "1000000000\n"
+    },
+    {
+      "stdin": "123456789 987654321\n",
+      "stdout": "13548070123626141\n"
+    },
+    {
+      "stdin": "2 4\n",
+      "stdout": "4\n"
+    },
+    {
+      "stdin": "7 21\n",
+      "stdout": "21\n"
+    },
+    {
+      "stdin": "999999999 1\n",
+      "stdout": "999999999\n"
+    },
+    {
+      "stdin": "100 1000\n",
+      "stdout": "1000\n"
+    },
+    {
+      "stdin": "999999937 999999938\n",
+      "stdout": "999999875000003906\n"
+    }
+  ]
+}

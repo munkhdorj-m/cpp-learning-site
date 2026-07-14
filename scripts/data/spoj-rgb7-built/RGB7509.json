@@ -1,0 +1,104 @@
+{
+  "code": "RGB7509",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7509",
+    "title_mn": "Массивт байгаа эсэх",
+    "title_en": "Check If Element Exists in Array",
+    "statement_mn": "Өгөгдсөн нэг хэмжээст бүхэл тоон массивт өгөгдсөн тоо байвал `YES`, үгүй бол `NO` гэж хэвлэ. Таарангуут давталтыг зогсоох.",
+    "statement_en": "Given a one-dimensional integer array and a target value, print `YES` if the target exists in the array, otherwise print `NO`. Stop the loop as soon as the element is found.",
+    "input_format_mn": "- Эхний мөрөнд массивын элементийн тоо `n` өгөгдөнө. (`n <= 100`)\n- Хоёр дахь мөрөнд `n` ширхэг бүхэл тоо (int төрөл) зайгаар тусгаарлагдан өгөгдөнө.\n- Гурав дахь мөрөнд хайх бүхэл тоо өгөгдөнө.",
+    "input_format_en": "- The first line contains a single integer `n` — the number of elements in the array. (`n <= 100`)\n- The second line contains `n` integers separated by spaces.\n- The third line contains the integer target value to search for.",
+    "output_format_mn": "Хэрэв тухайн тоо массивт байвал `YES`, үгүй бол `NO` гэж хэвлэнэ.",
+    "output_format_en": "Print `YES` if the target value is present in the array, otherwise print `NO`.",
+    "constraints_mn": "- `1 <= n <= 100`\n- Элементүүд нь 32 битийн бүхэл тоо (int).\n- Хайх тоо нь 32 битийн бүхэл тоо (int).",
+    "constraints_en": "- `1 <= n <= 100`\n- Array elements fit in 32-bit signed integer (int).\n- The target value fits in 32-bit signed integer (int).",
+    "difficulty": "easy",
+    "tags": [
+      "linear-search",
+      "arrays"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n\n    vector<int> a(n);\n    for (int i = 0; i < n; ++i) {\n        cin >> a[i];\n    }\n\n    int x;\n    cin >> x;\n\n    bool found = false;\n    for (int i = 0; i < n; ++i) {\n        if (a[i] == x) {\n            found = true;\n            break;\n        }\n    }\n\n    cout << (found ? \"YES\" : \"NO\") << '\\n';\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5\n1 2 3 4 5\n2",
+        "output": "YES"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n5\n5",
+      "1\n-42\n-42",
+      "1\n100\n-100",
+      "3\n1 2 3\n4",
+      "5\n10 20 30 40 50\n10",
+      "5\n10 20 30 40 50\n50",
+      "10\n-100 0 100 200 -50 33 77 99 12 5\n77",
+      "10\n-100 0 100 200 -50 33 77 99 12 5\n-1",
+      "1\n0\n0",
+      "2\n5 10\n7",
+      "3\n-5 -5 -5\n-5",
+      "3\n1 1 1\n2"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "YES",
+      "got": "YES"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n5\n5",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "1\n-42\n-42",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "1\n100\n-100",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "3\n1 2 3\n4",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "5\n10 20 30 40 50\n10",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "5\n10 20 30 40 50\n50",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "10\n-100 0 100 200 -50 33 77 99 12 5\n77",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "10\n-100 0 100 200 -50 33 77 99 12 5\n-1",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "1\n0\n0",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "2\n5 10\n7",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "3\n-5 -5 -5\n-5",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "3\n1 1 1\n2",
+      "stdout": "NO\n"
+    }
+  ]
+}

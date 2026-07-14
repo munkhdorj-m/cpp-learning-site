@@ -1,0 +1,94 @@
+{
+  "code": "RGB7104",
+  "status": "ok",
+  "data": {
+    "slug": "minimum-of-four",
+    "title_mn": "4 тооны бага",
+    "title_en": "Minimum of Four",
+    "statement_mn": "Өгөгдсөн 4 тооны багыг ол.",
+    "statement_en": "Find the minimum of the given 4 numbers.",
+    "input_format_mn": "Нэг мөрөнд Int төрлийн 4 тоо зайгаар тусгаарлагдан өгөгдөнө.",
+    "input_format_en": "One line containing 4 integers separated by spaces.",
+    "output_format_mn": "Бага тоо.",
+    "output_format_en": "The smallest number.",
+    "constraints_mn": "- \\(10^9 \\le a, b, c, d \\le 10^9\\)",
+    "constraints_en": "- \\(-10^9 \\le a, b, c, d \\le 10^9\\)",
+    "difficulty": "easy",
+    "tags": [
+      "minimum",
+      "implementation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <algorithm>\n\nint main() {\n    int a, b, c, d;\n    std::cin >> a >> b >> c >> d;\n    int ans = std::min({a, b, c, d});\n    std::cout << ans << std::endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "3 2 1  4\n",
+        "output": "1\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1 2 3 4",
+      "4 3 2 1",
+      "-5 -10 0 100",
+      "0 0 0 0",
+      "1000000000 1000000000 1000000000 1000000000",
+      "-1000000000 -1000000000 -1000000000 -1000000000",
+      "-1000000000 1000000000 0 500",
+      "42 42 42 42",
+      "10 20 30 5",
+      "-999999999 -999999998 -1000000000 -999999997"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "1",
+      "got": "1"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1 2 3 4",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "4 3 2 1",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "-5 -10 0 100",
+      "stdout": "-10\n"
+    },
+    {
+      "stdin": "0 0 0 0",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "1000000000 1000000000 1000000000 1000000000",
+      "stdout": "1000000000\n"
+    },
+    {
+      "stdin": "-1000000000 -1000000000 -1000000000 -1000000000",
+      "stdout": "-1000000000\n"
+    },
+    {
+      "stdin": "-1000000000 1000000000 0 500",
+      "stdout": "-1000000000\n"
+    },
+    {
+      "stdin": "42 42 42 42",
+      "stdout": "42\n"
+    },
+    {
+      "stdin": "10 20 30 5",
+      "stdout": "5\n"
+    },
+    {
+      "stdin": "-999999999 -999999998 -1000000000 -999999997",
+      "stdout": "-1000000000\n"
+    }
+  ]
+}

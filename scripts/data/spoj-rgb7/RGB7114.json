@@ -1,0 +1,13 @@
+{
+  "title": "Тэгш тоонууд YES",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Гурван&nbsp;тоо өгөгдөнө. Тоо тэгш бол YES үгүй бол NO гэж хэвлэ.</span></p>\n<h3>Input</h3>\n<p><span style=\"font-size: small;\">Int төрлийн 3 тоо нэг нэг мөрөнд өгөгдөнө.</span></p>\n<h3>Output</h3>\n<p><span style=\"font-size: small;\">Тоо тус бүрийг шалгаад нэг нэг мөрөнд хариуг хэвлэ.</span></p>\n<h3>Example</h3>\n<p><span style=\"font-size: small;\"><strong>Input:<br></strong>3<br> 4<br> 5<br><strong>Output:<br></strong>NO<br>YES<br>NO</span></p>",
+  "bodyText": "Гурван тоо өгөгдөнө. Тоо тэгш бол YES үгүй бол NO гэж хэвлэ.\nInput\nInt төрлийн 3 тоо нэг нэг мөрөнд өгөгдөнө.\nOutput\nТоо тус бүрийг шалгаад нэг нэг мөрөнд хариуг хэвлэ.\nExample\nInput:3 4 5Output:NOYESNO",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7114/",
+  "code": "RGB7114",
+  "scrapedAt": "2026-06-29T06:37:40.099Z"
+}

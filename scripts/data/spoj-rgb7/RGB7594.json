@@ -1,0 +1,20 @@
+{
+  "title": "Хувин",
+  "hidden": true,
+  "bodyHtml": "<p>Үхэрчин үнээгээ саахдаа 1 эгнээнд цувуулан өрсөн хувингуудын эхнээс нь хэрэгтэй тоогоороо авч хэрэглээд дуусахаараа мөн эхэнд нь буцааж өрдөг.</p>\n<p>Үхэрчин 1...N хүртэл дугаарлагдсан N (1&lt;=N&lt;=100) үхэртэй. i-р үнээг si-аас ti хугацаа хүртэл саахдаа bi ширхэг хувин ашиглан саадаг.</p>\n<p>Бүх үнээгээ ирсэн хугацааны дараалаар нь сааж дуусахад нэгэн зэрэг ашиглагдах хувингийн хамгийн их тоог ол.</p>\n<h3>Input</h3>\n<p>Эхний мөрөнд үнээний тоо N өгөгдөнө. 1&lt;=N&lt;=100.</p>\n<p>Дараагийн N мөрөнд мөр бүрт 1 үнээг саах эхлэх, дуусах хугацаа болон саахад ашиглах хувингийн тоо өгөгдөнө. si, ti, bi. 1&lt;=si&lt;=ti&lt;=1000. 1&lt;=bi&lt;=10.</p>\n<h3>Output</h3>\n<p>Хамгийн ихдээ нэгэн зэрэг ашиглагдах хувингийн тоо</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n3</pre>\n<pre>4 10 1</pre>\n<pre>8 13 3</pre>\n<pre>2 6 2\n\n<strong>Output:</strong>\n4</pre>\n<pre><span style=\"font-family: Raleway, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px;\">4 buckets: He uses buckets 1 and 2 for milking cow 3 (starting at time 2). He uses bucket 3 for milking cow 1 (starting at time 4). When cow 2 arrives at time 8, buckets 1 and 2 are now available, </span></pre>\n<pre><span style=\"font-family: Raleway, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px;\">but not bucket 3, so he uses buckets 1, 2, and 4.</span></pre>",
+  "bodyText": "Үхэрчин үнээгээ саахдаа 1 эгнээнд цувуулан өрсөн хувингуудын эхнээс нь хэрэгтэй тоогоороо авч хэрэглээд дуусахаараа мөн эхэнд нь буцааж өрдөг.\nҮхэрчин 1...N хүртэл дугаарлагдсан N (1<=N<=100) үхэртэй. i-р үнээг si-аас ti хугацаа хүртэл саахдаа bi ширхэг хувин ашиглан саадаг.\nБүх үнээгээ ирсэн хугацааны дараалаар нь сааж дуусахад нэгэн зэрэг ашиглагдах хувингийн хамгийн их тоог ол.\nInput\nЭхний мөрөнд үнээний тоо N өгөгдөнө. 1<=N<=100.\nДараагийн N мөрөнд мөр бүрт 1 үнээг саах эхлэх, дуусах хугацаа болон саахад ашиглах хувингийн тоо өгөгдөнө. si, ti, bi. 1<=si<=ti<=1000. 1<=bi<=10.\nOutput\nХамгийн ихдээ нэгэн зэрэг ашиглагдах хувингийн тоо\nExample\nInput:\n3\n4 10 1\n8 13 3\n2 6 2\n\nOutput:\n4\n4 buckets: He uses buckets 1 and 2 for milking cow 3 (starting at time 2). He uses bucket 3 for milking cow 1 (starting at time 4). When cow 2 arrives at time 8, buckets 1 and 2 are now available, \nbut not bucket 3, so he uses buckets 1, 2, and 4.",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n3",
+    "4 10 1",
+    "8 13 3",
+    "2 6 2\n\nOutput:\n4",
+    "4 buckets: He uses buckets 1 and 2 for milking cow 3 (starting at time 2). He uses bucket 3 for milking cow 1 (starting at time 4). When cow 2 arrives at time 8, buckets 1 and 2 are now available,",
+    "but not bucket 3, so he uses buckets 1, 2, and 4."
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7594/",
+  "code": "RGB7594",
+  "scrapedAt": "2026-06-29T06:49:26.397Z"
+}

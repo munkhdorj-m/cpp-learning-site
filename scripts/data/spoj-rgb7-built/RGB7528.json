@@ -1,0 +1,95 @@
+{
+  "code": "RGB7528",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7528",
+    "title_mn": "Их баганы зөрүү",
+    "title_en": "Max of Main Diagonal Minus Min of Secondary Diagonal",
+    "statement_mn": "Хоёр хэмжээст квадрат матриц өгөгдөв. Квадрат матриц гэдэг нь мөр, баганын тоо нь тэнцүү 2 хэмжээст массив. Квадрат матрицын гол диагоналын элементүүдийн хамгийн ихээс хажуу диагоналын хамгийн багыг хас.",
+    "statement_en": "Given a two-dimensional square matrix. A square matrix is a 2D array where the number of rows equals the number of columns. Subtract the smallest element of the secondary diagonal from the largest element of the main diagonal.",
+    "input_format_mn": "Эхний мөрөнд квадрат матрицын хэмжээс **n** өгөгдөнө. Дараагийн **n** мөрөнд **n** бүхэл тоо зайгаар тусгаарлагдан өгөгдөнө.",
+    "input_format_en": "The first line contains the size **n** of the square matrix. The next **n** lines each contain **n** integers separated by spaces.",
+    "output_format_mn": "Гаргах ганц мөрөнд тооцоолсон ялгаврыг хэвлэ.",
+    "output_format_en": "Print a single line containing the computed difference.",
+    "constraints_mn": "- **1 ≤ n ≤ 10**\n- Бүх элементүүд нь **int** төрөлд багтах бүхэл тоо.",
+    "constraints_en": "- **1 ≤ n ≤ 10**\n- All elements fit in the **int** type.",
+    "difficulty": "easy",
+    "tags": [
+      "matrix",
+      "diagonal",
+      "implementation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <vector>\n#include <climits>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n\n    vector<vector<int>> a(n, vector<int>(n));\n    for (int i = 0; i < n; ++i) {\n        for (int j = 0; j < n; ++j) {\n            cin >> a[i][j];\n        }\n    }\n\n    int max_main = INT_MIN;\n    int min_secondary = INT_MAX;\n\n    for (int i = 0; i < n; ++i) {\n        // main diagonal: row i, column i\n        if (a[i][i] > max_main) max_main = a[i][i];\n        // secondary diagonal: row i, column n-1-i\n        if (a[i][n - 1 - i] < min_secondary) min_secondary = a[i][n - 1 - i];\n    }\n\n    cout << max_main - min_secondary << '\\n';\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "3\n-3 20 30\n-2 -8 90\n40 -4 -5\n",
+        "output": "5\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n5",
+      "1\n-100",
+      "2\n1 2\n3 4",
+      "2\n-10 -20\n-30 -40",
+      "3\n0 0 0\n0 0 0\n0 0 0",
+      "4\n1 2 3 4\n5 6 7 8\n9 10 11 12\n13 14 15 16",
+      "4\n-1 -2 -3 -4\n-5 -6 -7 -8\n-9 -10 -11 -12\n-13 -14 -15 -16",
+      "5\n100 0 0 0 0\n0 200 0 0 0\n0 0 300 0 0\n0 0 0 400 0\n0 0 0 0 500",
+      "5\n1 2 3 4 5\n2 3 4 5 6\n3 4 5 6 7\n4 5 6 7 8\n5 6 7 8 9",
+      "10\n1 2 3 4 5 6 7 8 9 10\n11 12 13 14 15 16 17 18 19 20\n21 22 23 24 25 26 27 28 29 30\n31 32 33 34 35 36 37 38 39 40\n41 42 43 44 45 46 47 48 49 50\n51 52 53 54 55 56 57 58 59 60\n61 62 63 64 65 66 67 68 69 70\n71 72 73 74 75 76 77 78 79 80\n81 82 83 84 85 86 87 88 89 90\n91 92 93 94 95 96 97 98 99 100"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "5",
+      "got": "5"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n5",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "1\n-100",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "2\n1 2\n3 4",
+      "stdout": "2\n"
+    },
+    {
+      "stdin": "2\n-10 -20\n-30 -40",
+      "stdout": "20\n"
+    },
+    {
+      "stdin": "3\n0 0 0\n0 0 0\n0 0 0",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "4\n1 2 3 4\n5 6 7 8\n9 10 11 12\n13 14 15 16",
+      "stdout": "12\n"
+    },
+    {
+      "stdin": "4\n-1 -2 -3 -4\n-5 -6 -7 -8\n-9 -10 -11 -12\n-13 -14 -15 -16",
+      "stdout": "12\n"
+    },
+    {
+      "stdin": "5\n100 0 0 0 0\n0 200 0 0 0\n0 0 300 0 0\n0 0 0 400 0\n0 0 0 0 500",
+      "stdout": "500\n"
+    },
+    {
+      "stdin": "5\n1 2 3 4 5\n2 3 4 5 6\n3 4 5 6 7\n4 5 6 7 8\n5 6 7 8 9",
+      "stdout": "4\n"
+    },
+    {
+      "stdin": "10\n1 2 3 4 5 6 7 8 9 10\n11 12 13 14 15 16 17 18 19 20\n21 22 23 24 25 26 27 28 29 30\n31 32 33 34 35 36 37 38 39 40\n41 42 43 44 45 46 47 48 49 50\n51 52 53 54 55 56 57 58 59 60\n61 62 63 64 65 66 67 68 69 70\n71 72 73 74 75 76 77 78 79 80\n81 82 83 84 85 86 87 88 89 90\n91 92 93 94 95 96 97 98 99 100",
+      "stdout": "90\n"
+    }
+  ]
+}

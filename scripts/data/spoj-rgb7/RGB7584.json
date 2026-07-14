@@ -1,0 +1,13 @@
+{
+  "title": "Дараалал",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\"><strong>n</strong><strong>-ээс</strong><strong> m</strong>&nbsp;хүртэлх натурал тоонуудыг залгуулан бичив.&nbsp; Жишээ нь &nbsp;n=98, m=102 бол 9899100101102 болно. Энэ&nbsp; тооны цифрүүдийг буурахаар эрэмбэлэн бичээд эхнээсээ к дугаарт байгаа цифрийг ол.</span></p>\n<h3><span style=\"font-size: medium;\">Input</span></h3>\n<p><span style=\"font-size: small;\"><strong>n</strong>&nbsp;(0&lt;n&lt;10<sup>9</sup>) ,&nbsp;<strong>m</strong>&nbsp;(0&lt;m&lt;10<sup>9</sup>,m&gt;n) <strong>k</strong>&nbsp;(0&lt;k&lt;10<sup>9</sup>) тоонууд байна.</span></p>\n<h3><span style=\"font-size: medium;\">Output</span></h3>\n<p><span style=\"font-size: small;\"> </span></p>\n<p><span style=\"font-size: small;\">Хариу гарна. Боломжгүй бол-1 гэж хэвлэнэ.</span></p>\n<h3><span style=\"font-size: medium;\">Example</span></h3>\n<p><span style=\"font-size: small;\"><strong>Input 0:</strong> </span></p>\n<p><span style=\"font-size: small;\">98 102 4  <strong>&nbsp;</strong></span></p>\n<p><span style=\"font-size: small;\"><strong>Output 0:</strong> </span></p>\n<p><span style=\"font-size: small;\">8</span></p>\n<p>&nbsp;</p>\n<p><span style=\"font-size: small;\"><strong>Input 1:</strong> </span></p>\n<p><span style=\"font-size: small;\">9999 9999 5 </span></p>\n<p><span style=\"font-size: small;\"><strong>Output 1:</strong> </span></p>\n<p><span style=\"font-size: small;\">-<span class=\"AM\">1</span> </span></p>\n<p>&nbsp;</p>",
+  "bodyText": "n-ээс m хүртэлх натурал тоонуудыг залгуулан бичив.  Жишээ нь  n=98, m=102 бол 9899100101102 болно. Энэ  тооны цифрүүдийг буурахаар эрэмбэлэн бичээд эхнээсээ к дугаарт байгаа цифрийг ол.\nInput\nn (0<n<109) , m (0<m<109,m>n) k (0<k<109) тоонууд байна.\nOutput\n \nХариу гарна. Боломжгүй бол-1 гэж хэвлэнэ.\nExample\nInput 0: \n98 102 4   \nOutput 0: \n8\n \nInput 1: \n9999 9999 5 \nOutput 1: \n-1",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7584/",
+  "code": "RGB7584",
+  "scrapedAt": "2026-06-29T06:40:53.486Z"
+}

@@ -1,0 +1,100 @@
+{
+  "code": "RGB7172",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7172-gurvaljnii-khelber",
+    "title_mn": "Гурвалжны хэлбэр",
+    "title_en": "Triangle Type",
+    "statement_mn": "Гурвалжны 3 тал нь бүхэл тоогоор өгөгдсөн бол хэлбэрийг нь тодорхойл. Хэлбэр нь тэгш өнцөгт, хурц өнцөгт, мохоо өнцөгтийн аль нэг байна.",
+    "statement_en": "Given the three integer side lengths of a triangle, determine its type: right-angled, acute-angled, or obtuse-angled.",
+    "input_format_mn": "Нэг мөрөнд гурвалжны 3 тал зайгаар тусгаарлагдан натурал тоонуудаар өгөгдөнө.",
+    "input_format_en": "A single line containing three positive integers, the side lengths of the triangle, separated by spaces.",
+    "output_format_mn": "Гурвалжин нь тэгш өнцөгт бол **Right**, мохоо өнцөгт бол **Obtuse**, хурц өнцөгт бол **Acute** гэж тус тус хэвлэнэ.",
+    "output_format_en": "Output **Right** if the triangle is right-angled, **Obtuse** if it is obtuse-angled, or **Acute** if it is acute-angled.",
+    "constraints_mn": "- $1 \\le a, b, c \\le 10^9$<br>- Талууд нь гурвалжин үүсгэх нөхцөлийг хангана (гурвалжны тэнцэтгэл биш).",
+    "constraints_en": "- $1 \\le a, b, c \\le 10^9$<br>- The sides always satisfy the triangle inequality (they form a valid triangle).",
+    "difficulty": "easy",
+    "tags": [
+      "geometry",
+      "math",
+      "sorting"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <algorithm>\n\nusing namespace std;\n\nint main() {\n    ios_base::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    long long a, b, c;\n    cin >> a >> b >> c;\n\n    // Sort so that c is the largest side\n    if (a > c) swap(a, c);\n    if (b > c) swap(b, c);\n    // now a <= b <= c not strictly needed, but ensure a <= b\n    if (a > b) swap(a, b);\n\n    // Compare squared lengths\n    long long sum_sq = a * a + b * b;\n    long long c_sq = c * c;\n\n    if (sum_sq == c_sq) {\n        cout << \"Right\\n\";\n    } else if (sum_sq > c_sq) {\n        cout << \"Acute\\n\";\n    } else {\n        cout << \"Obtuse\\n\";\n    }\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "3 4 5\n",
+        "output": "Right\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1 1 1\n",
+      "2 2 3\n",
+      "5 5 7\n",
+      "5 5 8\n",
+      "10 24 26\n",
+      "7 8 9\n",
+      "1000000000 1000000000 1000000000\n",
+      "3 3 5\n",
+      "6 8 10\n",
+      "12 16 20\n",
+      "999999937 999999937 1414213562\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "Right",
+      "got": "Right"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1 1 1\n",
+      "stdout": "Acute\n"
+    },
+    {
+      "stdin": "2 2 3\n",
+      "stdout": "Obtuse\n"
+    },
+    {
+      "stdin": "5 5 7\n",
+      "stdout": "Acute\n"
+    },
+    {
+      "stdin": "5 5 8\n",
+      "stdout": "Obtuse\n"
+    },
+    {
+      "stdin": "10 24 26\n",
+      "stdout": "Right\n"
+    },
+    {
+      "stdin": "7 8 9\n",
+      "stdout": "Acute\n"
+    },
+    {
+      "stdin": "1000000000 1000000000 1000000000\n",
+      "stdout": "Acute\n"
+    },
+    {
+      "stdin": "3 3 5\n",
+      "stdout": "Obtuse\n"
+    },
+    {
+      "stdin": "6 8 10\n",
+      "stdout": "Right\n"
+    },
+    {
+      "stdin": "12 16 20\n",
+      "stdout": "Right\n"
+    },
+    {
+      "stdin": "999999937 999999937 1414213562\n",
+      "stdout": "Obtuse\n"
+    }
+  ]
+}

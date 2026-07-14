@@ -1,0 +1,15 @@
+{
+  "title": "Сондгой нь их үү",
+  "hidden": true,
+  "bodyHtml": "<p>Нэг хэмжээст массив дахь сондгой тоонууд нь тэгш тоонуудаасаа их бол YES, үгүй бол NO гэж хэвлэ.</p>\n<h3>Input</h3>\n<p>Эхний мөрөнд массив дахь элементийн тоо.</p>\n<p>Дараагийн мөрүүдэд массивын элементүүд нэг нэгээрээ өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Сондгой нь их бол YES, үгүй бол NO.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n5<br>2<br>3<br>4<br>1<br>7<br><strong>Output:</strong>\nYES\n</pre>",
+  "bodyText": "Нэг хэмжээст массив дахь сондгой тоонууд нь тэгш тоонуудаасаа их бол YES, үгүй бол NO гэж хэвлэ.\nInput\nЭхний мөрөнд массив дахь элементийн тоо.\nДараагийн мөрүүдэд массивын элементүүд нэг нэгээрээ өгөгдөнө.\nOutput\nСондгой нь их бол YES, үгүй бол NO.\nExample\nInput:\n523417Output:\nYES",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n523417Output:\nYES"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7503/",
+  "code": "RGB7503",
+  "scrapedAt": "2026-06-29T06:39:30.676Z"
+}

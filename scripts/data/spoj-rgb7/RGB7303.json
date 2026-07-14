@@ -1,0 +1,15 @@
+{
+  "title": "Тэгш цифрүүдийн нийлбэр",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн тоон дахь тэгш цифрүүдийн нийлбэрийг ол.</p>\n<h3>Input</h3>\n<p>Бүхэл тоо өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Тэгш цифрүүдийн нийлбэр.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n34567\n\n<strong>Output:</strong>\n10\n</pre>",
+  "bodyText": "Өгөгдсөн тоон дахь тэгш цифрүүдийн нийлбэрийг ол.\nInput\nБүхэл тоо өгөгдөнө.\nOutput\nТэгш цифрүүдийн нийлбэр.\nExample\nInput:\n34567\n\nOutput:\n10",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n34567\n\nOutput:\n10"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7303/",
+  "code": "RGB7303",
+  "scrapedAt": "2026-06-29T06:38:26.017Z"
+}

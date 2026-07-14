@@ -1,0 +1,114 @@
+{
+  "code": "RGB7514",
+  "status": "ok",
+  "data": {
+    "slug": "super-shilzhilt",
+    "title_mn": "Супер шилжилт",
+    "title_en": "Super Shift",
+    "statement_mn": "N элементтэй бүхэл тоон дараалал болон K бүхэл тоо өгөгдөв. Хэрэв K тоо эерэг бол дарааллыг хойшоо (баруун тийш), сөрөг бол урагш (зүүн тийш) |K| удаа шилжилт хийх ёстой.\n\nШилжилт гэдэг нь дарааллын бүх элементийг нэг байрлал хөдөлгөхийг хэлнэ. Хойшоо шилжилт хийхэд сүүлийн элемент эхний байрлалд шилжинэ. Урагш шилжилт хийхэд эхний элемент сүүлийн байрлалд шилжинэ.\n\n**Жишээ:**\n- Хэрэв дараалал `[5, 3, 7, 4, 6]` болон K = 3 өгөгдвөл 3 удаа хойшоо шилжилт хийх ба үр дүн нь `[7, 4, 6, 5, 3]` болно.\n- Хэрэв дараалал `[10, 20, 30, 40, 50]` болон K = -11 өгөгдвөл 11 удаа урагш шилжилт хийх ба үр дүн нь `[20, 30, 40, 50, 10]` болно.",
+    "statement_en": "You are given an integer array of N elements and an integer K. If K is positive, shift the array to the right (forward) |K| times. If K is negative, shift the array to the left (backward) |K| times.\n\nA shift moves every element by one position. In a right shift, the last element moves to the first position. In a left shift, the first element moves to the last position.\n\n**Example:**\n- Given the array `[5, 3, 7, 4, 6]` and K = 3, perform 3 right shifts, resulting in `[7, 4, 6, 5, 3]`.\n- Given the array `[10, 20, 30, 40, 50]` and K = -11, perform 11 left shifts, resulting in `[20, 30, 40, 50, 10]`.",
+    "input_format_mn": "Эхний мөрөнд массивын элементийн тоо N (1 ≤ N ≤ 100 000) өгөгдөнө.\nХоёр дахь мөрөнд N шиг бүхэл тоо (int төрөл, зайгаар тусгаарлагдсан) өгөгдөнө.\nГурав дахь мөрөнд K бүхэл тоо (|K| ≤ 100 000) өгөгдөнө.",
+    "input_format_en": "The first line contains an integer N (1 ≤ N ≤ 100 000) — the number of elements.\nThe second line contains N integers separated by spaces (each fits in an int).\nThe third line contains an integer K (|K| ≤ 100 000).",
+    "output_format_mn": "Шилжилтийн дараах тоон дарааллыг нэг мөрөнд, хоорондоо нэг зайгаар тусгаарлан хэвлэнэ.",
+    "output_format_en": "Print the array after performing the required shifts, elements separated by a single space on one line.",
+    "constraints_mn": "- 1 ≤ N ≤ 100 000\n- |K| ≤ 100 000\n- Бүх элементүүд 32 битийн бүхэл тооны мужид байна.",
+    "constraints_en": "- 1 ≤ N ≤ 100 000\n- |K| ≤ 100 000\n- All values fit in 32-bit signed integers.",
+    "difficulty": "easy",
+    "tags": [
+      "array-manipulation",
+      "rotation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <vector>\n#include <algorithm>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int N, K;\n    cin >> N;\n    vector<int> a(N);\n    for (int i = 0; i < N; ++i) cin >> a[i];\n    cin >> K;\n\n    if (N == 0) return 0;\n\n    // Normalize: positive K = right shift, negative K = left shift\n    // Right shift by K is equivalent to left shift by N - (K mod N)\n    // We'll handle negatives by converting to an equivalent positive rotation\n    K %= N;\n    if (K < 0) K += N;  // now K in [0, N-1], representing a right shift\n\n    // If K == 0, array is unchanged\n    // Right shift by K means: last K elements move to front\n    // Equivalently: rotate left by N-K\n    if (K > 0) {\n        // Rotate left by N-K -> bring last K elements to front\n        rotate(a.begin(), a.begin() + (N - K), a.end());\n    }\n\n    for (int i = 0; i < N; ++i) {\n        if (i > 0) cout << ' ';\n        cout << a[i];\n    }\n    cout << '\\n';\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5\n5 3 7 4 6\n3\n",
+        "output": "7 4 6 5 3\n"
+      },
+      {
+        "input": "5\n10 20 30 40 50\n-11\n",
+        "output": "20 30 40 50 10\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n42\n0\n",
+      "1\n-100\n5\n",
+      "2\n1 2\n1\n",
+      "2\n1 2\n-1\n",
+      "6\n1 2 3 4 5 6\n2\n",
+      "6\n1 2 3 4 5 6\n-2\n",
+      "6\n1 2 3 4 5 6\n8\n",
+      "6\n1 2 3 4 5 6\n-8\n",
+      "7\n10 20 30 40 50 60 70\n7\n",
+      "7\n10 20 30 40 50 60 70\n-7\n",
+      "10\n1 2 3 4 5 6 7 8 9 10\n100004\n",
+      "10\n1 2 3 4 5 6 7 8 9 10\n-100004\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "7 4 6 5 3",
+      "got": "7 4 6 5 3"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "20 30 40 50 10",
+      "got": "20 30 40 50 10"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n42\n0\n",
+      "stdout": "42\n"
+    },
+    {
+      "stdin": "1\n-100\n5\n",
+      "stdout": "-100\n"
+    },
+    {
+      "stdin": "2\n1 2\n1\n",
+      "stdout": "2 1\n"
+    },
+    {
+      "stdin": "2\n1 2\n-1\n",
+      "stdout": "2 1\n"
+    },
+    {
+      "stdin": "6\n1 2 3 4 5 6\n2\n",
+      "stdout": "5 6 1 2 3 4\n"
+    },
+    {
+      "stdin": "6\n1 2 3 4 5 6\n-2\n",
+      "stdout": "3 4 5 6 1 2\n"
+    },
+    {
+      "stdin": "6\n1 2 3 4 5 6\n8\n",
+      "stdout": "5 6 1 2 3 4\n"
+    },
+    {
+      "stdin": "6\n1 2 3 4 5 6\n-8\n",
+      "stdout": "3 4 5 6 1 2\n"
+    },
+    {
+      "stdin": "7\n10 20 30 40 50 60 70\n7\n",
+      "stdout": "10 20 30 40 50 60 70\n"
+    },
+    {
+      "stdin": "7\n10 20 30 40 50 60 70\n-7\n",
+      "stdout": "10 20 30 40 50 60 70\n"
+    },
+    {
+      "stdin": "10\n1 2 3 4 5 6 7 8 9 10\n100004\n",
+      "stdout": "7 8 9 10 1 2 3 4 5 6\n"
+    },
+    {
+      "stdin": "10\n1 2 3 4 5 6 7 8 9 10\n-100004\n",
+      "stdout": "5 6 7 8 9 10 1 2 3 4\n"
+    }
+  ]
+}

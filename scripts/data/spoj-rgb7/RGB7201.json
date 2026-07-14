@@ -1,0 +1,15 @@
+{
+  "title": "IOI",
+  "hidden": true,
+  "bodyHtml": "<p>Дэлгэцэнд IOI гэж 1 удаа хэвлэ.</p>\n<h3>Input</h3>\n<p>Оролт байхгүй.</p>\n<h3>Output</h3>\n<p>IOI</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n\n<strong>Output:</strong>\nIOI</pre>",
+  "bodyText": "Дэлгэцэнд IOI гэж 1 удаа хэвлэ.\nInput\nОролт байхгүй.\nOutput\nIOI\nExample\nInput:\n\nOutput:\nIOI",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n\nOutput:\nIOI"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7201/",
+  "code": "RGB7201",
+  "scrapedAt": "2026-06-29T06:37:41.825Z"
+}

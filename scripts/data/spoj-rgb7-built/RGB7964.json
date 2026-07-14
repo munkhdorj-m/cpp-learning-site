@@ -1,0 +1,46 @@
+{
+  "code": "RGB7964",
+  "status": "compile_error",
+  "error": "C:\\Users\\MUNKHD~1\\AppData\\Local\\Temp\\ref_1782725026594_57cf6ns6g8p.cpp: In lambda function:\r\nC:\\Users\\MUNKHD~1\\AppData\\Local\\Temp\\ref_1782725026594_57cf6ns6g8p.cpp:32:18: error: expected unqualified-id before '[' token\r\n             auto [d, u] = pq.top();\r\n                  ^\r\nC:\\Users\\MUNKHD~1\\AppData\\Local\\Temp\\ref_1782725026594_57cf6ns6g8p.cpp:34:17: error: 'd' was not declared in this scope\r\n             if (d != dist[u]) continue;\r\n                 ^\r\nC:\\Users\\MUNKHD~1\\AppData\\Local\\Temp\\ref_1782725026594_57cf6ns6g8p.cpp:34:27: error: 'u' was not declared in this scope\r\n             if (d != dist[u]) continue;\r\n                           ^\r\nC:\\Users\\MUNKHD~1\\AppData\\Local\\Temp\\ref_1782725026594_57cf6ns6g8p.cpp:35:23: error: expected unqualified-id before '[' token\r\n             for (auto [v, w] : g[u]) {\r\n                       ^\r\nC:\\Users\\MUNKHD~1\\AppData\\Local\\Temp\\ref_1782725026594_57cf6ns6g8p.cpp:35:23: error: expected ';' before '[' token\r\nC:\\Users\\MUNKHD~1\\AppData\\Local\\Tem",
+  "data": {
+    "slug": "roadblock",
+    "title_mn": "Зам хаах",
+    "title_en": "Roadblock",
+    "statement_mn": "Өглөө бүр ФЖ гэрээсээ (талбай 1) амбаар хүртэл (талбай N) фермээр явдаг. Ферм нь N талбай (1 <= N <= 100) ба M хоёр чиглэлтэй зам (1 <= M <= 10,000) -аас бүрдэх бөгөөд зам бүр урттай. ФЖ нэг талбайгаас нөгөөд хүрэхдээ нийт урт нь хамгийн бага байх замыг сонгодог. Үнээнүүд нь ФЖ-ийн өглөөний дадалд саад хийхээр шийдэж, яг нэг замын уртыг хоёр дахин нэмэгдүүлэх өвсний овоо барихаар төлөвлөжээ. Үнээнүүд ФЖ-ийн гэрээс амбаар хүртэлх зайг хамгийн ихээр нэмэгдүүлэх замыг сонгохыг хүсч байна. Үнээнүүд ФЖ-ийн замыг хэдэн нэгжээр уртасгаж болохыг тодорхойлоход тусална уу.\n",
+    "statement_en": "Every morning, FJ wakes up and walks across the farm from his house to the barn. The farm is a collection of N fields (1 <= N <= 100) connected by M bidirectional pathways (1 <= M <= 10,000), each with an associated length. FJ's house is in field 1, and the barn is in field N. No pair of fields is joined by multiple redundant pathways, and it is possible to travel between any pair of fields in the farm by walking along an appropriate sequence of pathways. When traveling from one field to another, FJ always selects a route consisting of a sequence of pathways having minimum total length. Farmer John's cows, up to no good as always, have decided to interfere with FJ's morning routine. They plan to build a pile of hay bales on exactly one of the M pathways on the farm, doubling its length. The cows wish to select a pathway to block so that they maximize the increase in FJ's distance from the house to the barn. Please help the cows determine by how much they can lengthen FJ's route.",
+    "input_format_mn": "Эхний мөрөнд N ба M хоёр бүхэл тоо агуулагдана. Дараагийн M мөрөнд тус бүрдээ гурван бүхэл тоо A, B, L агуулагдана: А ба В талбайг холбосон зам нь L урттай. (1 <= A, B <= N, 1 <= L <= 1,000,000)",
+    "input_format_en": "The first line contains two integers N and M. The next M lines each contain three integers A, B, L: a bidirectional pathway of length L connecting fields A and B. (1 <= A, B <= N, 1 <= L <= 1,000,000)",
+    "output_format_mn": "Нэг бүхэл тоо: нэг замыг хаахад ФЖ-ийн хамгийн богино замын уртын хамгийн их өөрчлөлт.",
+    "output_format_en": "A single integer: the maximum possible increase in the length of FJ's shortest route when a single pathway is blocked (its length doubled).",
+    "constraints_mn": "* 1 <= N <= 100\n* 1 <= M <= 10,000\n* 1 <= L <= 1,000,000\n* Ямар ч хоёр талбайн хооронд хамгийн олондоо нэг зам байна.\n* Граф холбоотой.",
+    "constraints_en": "* 1 <= N <= 100\n* 1 <= M <= 10,000\n* 1 <= L <= 1,000,000\n* No pair of fields is joined by multiple redundant pathways.\n* The graph is connected.",
+    "difficulty": "hard",
+    "tags": [
+      "shortest-path",
+      "dijkstra",
+      "graph-theory"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 35,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\ntypedef long long ll;\nconst ll INF = 1e18;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int N, M;\n    cin >> N >> M;\n    vector<vector<pair<int, ll>>> g(N);\n    vector<tuple<int, int, ll>> edges;\n    for (int i = 0; i < M; i++) {\n        int a, b;\n        ll l;\n        cin >> a >> b >> l;\n        a--; b--;\n        g[a].push_back({b, l});\n        g[b].push_back({a, l});\n        edges.push_back({a, b, l});\n    }\n\n    // Dijkstra from 1 to N\n    auto dijkstra = [&](int start, int forbid_a, int forbid_b, ll forbid_len) -> vector<ll> {\n        vector<ll> dist(N, INF);\n        dist[start] = 0;\n        priority_queue<pair<ll, int>, vector<pair<ll, int>>, greater<pair<ll, int>>> pq;\n        pq.push({0, start});\n        while (!pq.empty()) {\n            auto [d, u] = pq.top();\n            pq.pop();\n            if (d != dist[u]) continue;\n            for (auto [v, w] : g[u]) {\n                // If this edge is the blocked one, use doubled length\n                ll ww = w;\n                if ((u == forbid_a && v == forbid_b) || (u == forbid_b && v == forbid_a)) {\n                    if (w == forbid_len) {\n                        ww = w * 2;\n                    }\n                }\n                if (dist[v] > dist[u] + ww) {\n                    dist[v] = dist[u] + ww;\n                    pq.push({dist[v], v});\n                }\n            }\n        }\n        return dist;\n    };\n\n    // Get original shortest path\n    vector<ll> dist0 = dijkstra(0, -1, -1, -1);\n    ll orig = dist0[N-1];\n\n    // Reconstruct one shortest path tree to identify edges on some shortest path\n    // Use parent array\n    vector<int> parent(N, -1);\n    vector<ll> dist_for_parent(N, INF);\n    dist_for_parent[0] = 0;\n    priority_queue<pair<ll, int>, vector<pair<ll, int>>, greater<pair<ll, int>>> pq;\n    pq.push({0, 0});\n    while (!pq.empty()) {\n        auto [d, u] = pq.top();\n        pq.pop();\n        if (d != dist_for_parent[u]) continue;\n        for (auto [v, w] : g[u]) {\n            if (dist_for_parent[v] > dist_for_parent[u] + w) {\n                dist_for_parent[v] = dist_for_parent[u] + w;\n                parent[v] = u;\n                pq.push({dist_for_parent[v], v});\n            }\n        }\n    }\n\n    // Collect edges on shortest path from 1 to N\n    vector<pair<int,int>> path_edges;\n    {\n        int v = N-1;\n        while (v != 0) {\n            int u = parent[v];\n            path_edges.push_back({u, v});\n            v = u;\n        }\n    }\n\n    ll best = 0;\n    // Only edges on the original shortest path matter for increase\n    for (auto [a, b] : path_edges) {\n        // Find the length of this edge\n        ll len = -1;\n        for (auto [v, w] : g[a]) {\n            if (v == b) {\n                len = w;\n                break;\n            }\n        }\n        vector<ll> distb = dijkstra(0, a, b, len);\n        ll new_dist = distb[N-1];\n        best = max(best, new_dist - orig);\n    }\n\n    cout << best << \"\\n\";\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "etc.\n",
+        "output": "etc.\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "5 5\n1 2 1\n2 3 1\n3 5 10\n1 4 2\n4 5 2\n",
+      "4 4\n1 2 1\n2 4 10\n1 3 2\n3 4 2\n",
+      "6 7\n1 2 2\n1 3 3\n2 4 4\n3 4 1\n4 5 5\n5 6 1\n2 6 10\n",
+      "3 3\n1 2 5\n2 3 5\n1 3 8\n",
+      "2 1\n1 2 1000000\n",
+      "7 8\n1 2 3\n2 3 4\n3 4 5\n4 5 1\n5 6 2\n6 7 3\n1 7 100\n3 6 10\n",
+      "10 12\n1 2 1\n2 3 1\n3 4 1\n4 5 1\n5 6 1\n6 7 1\n7 8 1\n8 9 1\n9 10 1\n1 10 100\n2 10 50\n3 10 30\n",
+      "8 9\n1 2 10\n2 3 10\n3 4 10\n4 5 10\n5 6 10\n6 7 10\n7 8 10\n1 8 1\n2 6 1\n",
+      "5 8\n1 2 5\n1 3 5\n1 4 5\n1 5 5\n2 3 1\n3 4 1\n4 5 1\n2 5 1\n",
+      "4 5\n1 2 1\n2 3 1\n3 4 1\n1 4 10\n1 3 5\n"
+    ]
+  }
+}

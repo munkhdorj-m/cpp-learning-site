@@ -1,0 +1,15 @@
+{
+  "title": "Нэмэгдэхүүн давхцахгүй",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн n&nbsp; тоог нийлбэрт задлахдаа тухайн нийлбэрт орж байгаа нэмэгдэхүүнүүд нь давхцаагүй байхаар хичнээн боломжоор задлах вэ?</p>\n<h3>Input</h3>\n<p>n натурал тоо өгөгдөнө. n&lt;=200.</p>\n<h3>Output</h3>\n<p>Боломжийн тоо.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n6\n\n<strong>Output:</strong>\n4\n</pre>",
+  "bodyText": "Өгөгдсөн n  тоог нийлбэрт задлахдаа тухайн нийлбэрт орж байгаа нэмэгдэхүүнүүд нь давхцаагүй байхаар хичнээн боломжоор задлах вэ?\nInput\nn натурал тоо өгөгдөнө. n<=200.\nOutput\nБоломжийн тоо.\nExample\nInput:\n6\n\nOutput:\n4",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n6\n\nOutput:\n4"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7621/",
+  "code": "RGB7621",
+  "scrapedAt": "2026-06-29T06:42:56.806Z"
+}

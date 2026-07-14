@@ -1,0 +1,23 @@
+{
+  "title": "Өсөх эсэх",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн нэг хэмжээст массив өсөхөөр эрэмбэлэгдсэн бол YES үгүй бол NO гэж хэвлэ.</p>\n<h3>Input</h3>\n<p>Эхний мөрөнд массивын элэментийн тоо өгөгдөнө. n&lt;=100.</p>\n<p>Дараагийн мөрөнд массивын элементүүд зайгаар тусгаарлагдан өгөгдөнө. Int төрөл.</p>\n<h3>Output</h3>\n<p>Эрэмбэлэгдсэн бол YES үгүй бол NO гэж хэвлэнэ.</p>\n<h3>Example</h3>\n<pre><strong>Input 1:</strong></pre>\n<pre><strong>5</strong></pre>\n<pre><strong>2 5 100 230 999<strong><br></strong></strong>\n<strong>Output 1:</strong>\n</pre>\n<pre>YES</pre>\n<pre><strong>Input 2:</strong></pre>\n<pre>6</pre>\n<pre>2 5 100 100 230 999</pre>\n<pre><strong>Output 2:</strong></pre>\n<pre>NO</pre>",
+  "bodyText": "Өгөгдсөн нэг хэмжээст массив өсөхөөр эрэмбэлэгдсэн бол YES үгүй бол NO гэж хэвлэ.\nInput\nЭхний мөрөнд массивын элэментийн тоо өгөгдөнө. n<=100.\nДараагийн мөрөнд массивын элементүүд зайгаар тусгаарлагдан өгөгдөнө. Int төрөл.\nOutput\nЭрэмбэлэгдсэн бол YES үгүй бол NO гэж хэвлэнэ.\nExample\nInput 1:\n5\n2 5 100 230 999\nOutput 1:\n\nYES\nInput 2:\n6\n2 5 100 100 230 999\nOutput 2:\nNO",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input 1:",
+    "5",
+    "2 5 100 230 999\nOutput 1:",
+    "YES",
+    "Input 2:",
+    "6",
+    "2 5 100 100 230 999",
+    "Output 2:",
+    "NO"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7519/",
+  "code": "RGB7519",
+  "scrapedAt": "2026-06-29T06:42:05.472Z"
+}

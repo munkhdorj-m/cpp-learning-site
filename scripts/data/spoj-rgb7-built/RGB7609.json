@@ -1,0 +1,104 @@
+{
+  "code": "RGB7609",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7609-zaljkhin-daraalal",
+    "title_mn": "Зальжин дараалал",
+    "title_en": "Alternating Sequence",
+    "statement_mn": "$$a_0=1,\\ a_1=1,\\ a_{2n}=a_n+1\\ (n>0),\\ a_{2n+2}=a_{2n+1}-a_n\\ (n>0)$$ томьёогоор өгөгдсөн дарааллын $n$-р гишүүнийг ол.",
+    "statement_en": "Find the $n$-th term of the sequence defined by the formulas:\n$$a_0=1,\\ a_1=1,\\ a_{2n}=a_n+1\\ (n>0),\\ a_{2n+2}=a_{2n+1}-a_n\\ (n>0).$$",
+    "input_format_mn": "Нэг мөрөнд натурал тоо $n$ өгөгдөнө.",
+    "input_format_en": "A single line contains a natural number $n$.",
+    "output_format_mn": "Дарааллын $n$-р гишүүн болох нэг бүхэл тоог хэвлэ.",
+    "output_format_en": "Print a single integer — the $n$-th term of the sequence.",
+    "constraints_mn": "$1 \\le n \\le 1000$",
+    "constraints_en": "$1 \\le n \\le 1000$",
+    "difficulty": "easy",
+    "tags": [
+      "recursion",
+      "sequence"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <vector>\n\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n\n    // We need a up to n, allocate n+1\n    vector<int> a(n + 1);\n    a[0] = 1;\n    if (n >= 1) a[1] = 1;\n\n    for (int i = 2; i <= n; ++i) {\n        if (i % 2 == 0) {\n            // i = 2k  => a[i] = a[k] + 1\n            int k = i / 2;\n            a[i] = a[k] + 1;\n        } else {\n            // i = 2k+1  => use a[2k+2] = a[2k+1] - a[k]\n            // but we need a[i] where i is odd: i = 2k+1\n            // from the recurrence a[2k+2] = a[2k+1] - a[k]\n            // => a[i] = a[i+1] + a[(i-1)/2]  but i+1 may be > n...\n            // Let's derive directly.\n            // i = 2k+1. The recurrence for a[2k+2] involves a[2k+1].\n            // Rearranging: a[2k+1] = a[2k+2] + a[k]\n            // But a[2k+2] = a[k+1] + 1 (since 2k+2 = 2(k+1))\n            // So a[i] = a[k+1] + 1 + a[k]\n            int k = i / 2; // integer division, for i=2k+1 this gives k\n            a[i] = a[k+1] + 1 + a[k];\n        }\n    }\n\n    cout << a[n] << \"\\n\";\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "11\n",
+        "output": "13\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n",
+      "2\n",
+      "3\n",
+      "4\n",
+      "5\n",
+      "10\n",
+      "20\n",
+      "50\n",
+      "100\n",
+      "500\n",
+      "999\n",
+      "1000\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "13",
+      "got": "13"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "2\n",
+      "stdout": "2\n"
+    },
+    {
+      "stdin": "3\n",
+      "stdout": "4\n"
+    },
+    {
+      "stdin": "4\n",
+      "stdout": "3\n"
+    },
+    {
+      "stdin": "5\n",
+      "stdout": "7\n"
+    },
+    {
+      "stdin": "10\n",
+      "stdout": "8\n"
+    },
+    {
+      "stdin": "20\n",
+      "stdout": "9\n"
+    },
+    {
+      "stdin": "50\n",
+      "stdout": "22\n"
+    },
+    {
+      "stdin": "100\n",
+      "stdout": "23\n"
+    },
+    {
+      "stdin": "500\n",
+      "stdout": "49\n"
+    },
+    {
+      "stdin": "999\n",
+      "stdout": "168\n"
+    },
+    {
+      "stdin": "1000\n",
+      "stdout": "50\n"
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "code": "RGB7546",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7546-utga-olgolt-6",
+    "title_mn": "Утга олголт 6",
+    "title_en": "Value Assignment 6",
+    "statement_mn": "N×N хэмжээтэй квадрат массивыг жишээн дээрх загвараар дүүргэ.\n\nМассив нь доод мөрөөс дээш, зүүнээс баруун тийш 1-ээс эхлэн дараалсан тоогоор дүүргэгдэнэ.",
+    "statement_en": "Fill an N×N square array in the pattern shown in the example.\n\nThe array is filled with consecutive numbers starting from 1, going from bottom to top, left to right.",
+    "input_format_mn": "Квадрат массивын хэмжээ натурал тоо N өгөгдөнө.",
+    "input_format_en": "A single integer N, the size of the square array.",
+    "output_format_mn": "Квадрат массивын элементүүдийг мөр мөрөөр нь хэвлэнэ. Элемент бүрийг 3 тэмдэгтийн өргөнтэйгөөр (баруун тийш зэрэгцүүлэн) хэвлэнэ.",
+    "output_format_en": "Print the array row by row. Each element should be printed right-aligned in a field of width 3.",
+    "constraints_mn": "- 1 ≤ N < 10",
+    "constraints_en": "- 1 ≤ N < 10",
+    "difficulty": "easy",
+    "tags": [
+      "arrays",
+      "implementation",
+      "matrix"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nint main() {\n    int N;\n    cin >> N;\n    int a[10][10];\n    int num = 1;\n    for (int i = N - 1; i >= 0; i--) {\n        for (int j = 0; j < N; j++) {\n            a[i][j] = num++;\n        }\n    }\n    for (int i = 0; i < N; i++) {\n        for (int j = 0; j < N; j++) {\n            cout << setw(3) << a[i][j];\n        }\n        cout << '\\n';\n    }\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5\n",
+        "output": " 21 22 23 24 25\n 16 17 18 19 20\n 11 12 13 14 15\n  6  7  8  9 10\n  1  2  3  4  5\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "6",
+      "7",
+      "8",
+      "9"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": " 21 22 23 24 25\n 16 17 18 19 20\n 11 12 13 14 15\n  6  7  8  9 10\n  1  2  3  4  5",
+      "got": " 21 22 23 24 25\n 16 17 18 19 20\n 11 12 13 14 15\n  6  7  8  9 10\n  1  2  3  4  5"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1",
+      "stdout": "  1\n"
+    },
+    {
+      "stdin": "2",
+      "stdout": "  3  4\n  1  2\n"
+    },
+    {
+      "stdin": "3",
+      "stdout": "  7  8  9\n  4  5  6\n  1  2  3\n"
+    },
+    {
+      "stdin": "4",
+      "stdout": " 13 14 15 16\n  9 10 11 12\n  5  6  7  8\n  1  2  3  4\n"
+    },
+    {
+      "stdin": "6",
+      "stdout": " 31 32 33 34 35 36\n 25 26 27 28 29 30\n 19 20 21 22 23 24\n 13 14 15 16 17 18\n  7  8  9 10 11 12\n  1  2  3  4  5  6\n"
+    },
+    {
+      "stdin": "7",
+      "stdout": " 43 44 45 46 47 48 49\n 36 37 38 39 40 41 42\n 29 30 31 32 33 34 35\n 22 23 24 25 26 27 28\n 15 16 17 18 19 20 21\n  8  9 10 11 12 13 14\n  1  2  3  4  5  6  7\n"
+    },
+    {
+      "stdin": "8",
+      "stdout": " 57 58 59 60 61 62 63 64\n 49 50 51 52 53 54 55 56\n 41 42 43 44 45 46 47 48\n 33 34 35 36 37 38 39 40\n 25 26 27 28 29 30 31 32\n 17 18 19 20 21 22 23 24\n  9 10 11 12 13 14 15 16\n  1  2  3  4  5  6  7  8\n"
+    },
+    {
+      "stdin": "9",
+      "stdout": " 73 74 75 76 77 78 79 80 81\n 64 65 66 67 68 69 70 71 72\n 55 56 57 58 59 60 61 62 63\n 46 47 48 49 50 51 52 53 54\n 37 38 39 40 41 42 43 44 45\n 28 29 30 31 32 33 34 35 36\n 19 20 21 22 23 24 25 26 27\n 10 11 12 13 14 15 16 17 18\n  1  2  3  4  5  6  7  8  9\n"
+    }
+  ]
+}

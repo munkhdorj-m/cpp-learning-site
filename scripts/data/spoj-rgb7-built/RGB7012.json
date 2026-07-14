@@ -1,0 +1,94 @@
+{
+  "code": "RGB7012",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7012-sec-to-hms",
+    "title_mn": "Цаг минут секунд",
+    "title_en": "Hours Minutes Seconds",
+    "statement_mn": "Өгөгдсөн секундыг **цаг, минут, секунд** болгон хувирга.\n\nЖишээ нь: `3612` секунд гэдэг нь `1` цаг `0` минут `12` секунд юм.",
+    "statement_en": "Convert a given number of seconds into **hours, minutes, and seconds**.\n\nFor example: `3612` seconds is `1` hour `0` minutes `12` seconds.",
+    "input_format_mn": "Int төрлийн нэг бүхэл тоо — секунд.",
+    "input_format_en": "A single integer — seconds.",
+    "output_format_mn": "Гурван тоо: цаг, минут, секунд. Тэдгээрийг яг нэг зайгаар тусгаарлаж хэвлэнэ. Хэрэв цаг эсвэл минут 0 бол `0` гэж хэвлэнэ.",
+    "output_format_en": "Three numbers: hours, minutes, seconds. Separate them by a single space. If hours or minutes are zero, print `0`.",
+    "constraints_mn": "- `0 ≤ секунд ≤ 10^9`",
+    "constraints_en": "- `0 ≤ seconds ≤ 10^9`",
+    "difficulty": "easy",
+    "tags": [
+      "math",
+      "basics"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\nusing namespace std;\n\nint main() {\n    long long s;\n    cin >> s;\n    long long h = s / 3600;\n    long long m = (s % 3600) / 60;\n    long long sec = s % 60;\n    cout << h << \" \" << m << \" \" << sec << endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "3612\n",
+        "output": "1 0 12\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "0",
+      "1",
+      "59",
+      "60",
+      "61",
+      "3599",
+      "3600",
+      "3601",
+      "86400",
+      "1000000000"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "1 0 12",
+      "got": "1 0 12"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "0",
+      "stdout": "0 0 0\n"
+    },
+    {
+      "stdin": "1",
+      "stdout": "0 0 1\n"
+    },
+    {
+      "stdin": "59",
+      "stdout": "0 0 59\n"
+    },
+    {
+      "stdin": "60",
+      "stdout": "0 1 0\n"
+    },
+    {
+      "stdin": "61",
+      "stdout": "0 1 1\n"
+    },
+    {
+      "stdin": "3599",
+      "stdout": "0 59 59\n"
+    },
+    {
+      "stdin": "3600",
+      "stdout": "1 0 0\n"
+    },
+    {
+      "stdin": "3601",
+      "stdout": "1 0 1\n"
+    },
+    {
+      "stdin": "86400",
+      "stdout": "24 0 0\n"
+    },
+    {
+      "stdin": "1000000000",
+      "stdout": "277777 46 40\n"
+    }
+  ]
+}

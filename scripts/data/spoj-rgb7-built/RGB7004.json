@@ -1,0 +1,94 @@
+{
+  "code": "RGB7004",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7004-cube",
+    "title_mn": "Куб",
+    "title_en": "Cube",
+    "statement_mn": "Өгөгдсөн кубын эзэлхүүн ба гүйцэд гадаргуугийн талбайг ол.",
+    "statement_en": "Find the volume and total surface area of a given cube.",
+    "input_format_mn": "Кубын тал **бүхэл тоон утгатайгаар** нэг мөрөнд өгөгдөнө.",
+    "input_format_en": "The side length of the cube is given on a single line as an **integer**.",
+    "output_format_mn": "Кубын эзэлхүүн, гүйцэд гадаргуугийн талбай нэг мөрөнд зайгаар тусгаарлагдан хэвлэгдэнэ.",
+    "output_format_en": "Print the volume and total surface area of the cube on a single line, separated by a space.",
+    "constraints_mn": "- Кубын талын урт: $1 \\le a \\le 10^6$",
+    "constraints_en": "- Side length: $1 \\le a \\le 10^6$",
+    "difficulty": "easy",
+    "tags": [
+      "math",
+      "geometry"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\nusing namespace std;\n\nint main() {\n    long long a;\n    cin >> a;\n    long long volume = a * a * a;\n    long long surface = 6 * a * a;\n    cout << volume << \" \" << surface << endl;\n    return 0;\n}",
+    "samples": [
+      {
+        "input": "5\n",
+        "output": "125 150\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n",
+      "2\n",
+      "10\n",
+      "100\n",
+      "1000\n",
+      "12345\n",
+      "999999\n",
+      "1000000\n",
+      "7\n",
+      "999\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "125 150",
+      "got": "125 150"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n",
+      "stdout": "1 6\n"
+    },
+    {
+      "stdin": "2\n",
+      "stdout": "8 24\n"
+    },
+    {
+      "stdin": "10\n",
+      "stdout": "1000 600\n"
+    },
+    {
+      "stdin": "100\n",
+      "stdout": "1000000 60000\n"
+    },
+    {
+      "stdin": "1000\n",
+      "stdout": "1000000000 6000000\n"
+    },
+    {
+      "stdin": "12345\n",
+      "stdout": "1881365963625 914394150\n"
+    },
+    {
+      "stdin": "999999\n",
+      "stdout": "999997000002999999 5999988000006\n"
+    },
+    {
+      "stdin": "1000000\n",
+      "stdout": "1000000000000000000 6000000000000\n"
+    },
+    {
+      "stdin": "7\n",
+      "stdout": "343 294\n"
+    },
+    {
+      "stdin": "999\n",
+      "stdout": "997002999 5988006\n"
+    }
+  ]
+}

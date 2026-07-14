@@ -1,0 +1,135 @@
+{
+  "code": "RGB7312",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7312-toonii-faktorial",
+    "title_mn": "Тооны факториал",
+    "title_en": "Factorial of a Number",
+    "statement_mn": "Өгөгдсөн тоо ямар нэгэн тооны факториал бол тэр тоог хэвлэ. Үгүй бол `No` гэж хэвлэ.\n\nФакториал гэдэг нь n! = 1 × 2 × 3 × ... × n гэж тодорхойлогддог (n нь эерэг бүхэл тоо). Жишээ нь:\n- 1! = 1\n- 2! = 2\n- 3! = 6\n- 4! = 24\n- 5! = 120\n\nӨгөгдсөн тоо дээрх тоонуудын аль нэгтэй тэнцүү бол харгалзах n-ийг хэвлэнэ. Хэрэв аль ч n-ийн факториалтай тэнцүү биш бол `No` гэж хэвлэнэ.",
+    "statement_en": "Given an integer, if it is a factorial of some number, print that number. Otherwise, print `No`.\n\nFactorial is defined as n! = 1 × 2 × 3 × ... × n (n is a positive integer). For example:\n- 1! = 1\n- 2! = 2\n- 3! = 6\n- 4! = 24\n- 5! = 120\n\nIf the given number equals any of the above, print the corresponding n. If it is not equal to any n!, print `No`.",
+    "input_format_mn": "Ганц мөрөнд нэг бүхэл тоо өгөгдөнө.",
+    "input_format_en": "A single line containing one integer.",
+    "output_format_mn": "Өгөгдсөн тоо ямар нэгэн тооны факториал бол тэр тоог, үгүй бол `No` гэж хэвлэ.",
+    "output_format_en": "If the given number is a factorial of some number, print that number; otherwise, print `No`.",
+    "constraints_mn": "- Өгөгдсөн тоо нь 1-ээс 2,000,000,000 (2 тэрбум) хүртэлх бүхэл тоо байна.",
+    "constraints_en": "- The given number is an integer between 1 and 2,000,000,000 (2 billion) inclusive.",
+    "difficulty": "easy",
+    "tags": [
+      "factorial",
+      "math",
+      "implementation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    long long n;\n    cin >> n;\n\n    long long fact = 1;\n    for (int i = 1; ; i++) {\n        if (fact == n) {\n            cout << i << '\\n';\n            return 0;\n        }\n        if (fact > n) {\n            cout << \"No\\n\";\n            return 0;\n        }\n        fact *= (i + 1);\n    }\n}\n",
+    "samples": [
+      {
+        "input": "24\n",
+        "output": "4\n"
+      },
+      {
+        "input": "10\n",
+        "output": "No\n"
+      },
+      {
+        "input": "1\n",
+        "output": "1\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "2\n",
+      "6\n",
+      "120\n",
+      "720\n",
+      "5040\n",
+      "40320\n",
+      "362880\n",
+      "3628800\n",
+      "39916800\n",
+      "479001600\n",
+      "100\n",
+      "121\n",
+      "12345\n",
+      "2000000000\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "4",
+      "got": "4"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "No",
+      "got": "No"
+    },
+    {
+      "i": 2,
+      "ok": true,
+      "expected": "1",
+      "got": "1"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "2\n",
+      "stdout": "2\n"
+    },
+    {
+      "stdin": "6\n",
+      "stdout": "3\n"
+    },
+    {
+      "stdin": "120\n",
+      "stdout": "5\n"
+    },
+    {
+      "stdin": "720\n",
+      "stdout": "6\n"
+    },
+    {
+      "stdin": "5040\n",
+      "stdout": "7\n"
+    },
+    {
+      "stdin": "40320\n",
+      "stdout": "8\n"
+    },
+    {
+      "stdin": "362880\n",
+      "stdout": "9\n"
+    },
+    {
+      "stdin": "3628800\n",
+      "stdout": "10\n"
+    },
+    {
+      "stdin": "39916800\n",
+      "stdout": "11\n"
+    },
+    {
+      "stdin": "479001600\n",
+      "stdout": "12\n"
+    },
+    {
+      "stdin": "100\n",
+      "stdout": "No\n"
+    },
+    {
+      "stdin": "121\n",
+      "stdout": "No\n"
+    },
+    {
+      "stdin": "12345\n",
+      "stdout": "No\n"
+    },
+    {
+      "stdin": "2000000000\n",
+      "stdout": "No\n"
+    }
+  ]
+}

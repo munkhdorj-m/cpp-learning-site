@@ -1,0 +1,15 @@
+{
+  "title": "0,1,2-оос дараалан 1 ороогүй",
+  "hidden": true,
+  "bodyHtml": "<p>0, 1, 2 цифрүүдээс бүтэх N урттай тоон дараалал дахь 1 цифр дараалан ороогүй байх дарааллын тоог ол. 0 цифрээр эхэлж болно.</p>\n<h3>Input</h3>\n<p>Натурал тоо n&nbsp; өгөгдөнө. n&lt;20.</p>\n<h3>Output</h3>\n<p>Дараалан 1 цифр ороогүй n урттай дарааллын тоо.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n2\n\n<strong>Output:</strong>\n8\n</pre>",
+  "bodyText": "0, 1, 2 цифрүүдээс бүтэх N урттай тоон дараалал дахь 1 цифр дараалан ороогүй байх дарааллын тоог ол. 0 цифрээр эхэлж болно.\nInput\nНатурал тоо n  өгөгдөнө. n<20.\nOutput\nДараалан 1 цифр ороогүй n урттай дарааллын тоо.\nExample\nInput:\n2\n\nOutput:\n8",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n2\n\nOutput:\n8"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7612/",
+  "code": "RGB7612",
+  "scrapedAt": "2026-06-29T06:41:37.377Z"
+}

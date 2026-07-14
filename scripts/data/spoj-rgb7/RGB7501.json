@@ -1,0 +1,15 @@
+{
+  "title": "Массив тэгээс их нийлбэр",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн нэг хэмжээст массивын 0-ээс их элементүүдийн нийлбэрийг ол.</p>\n<h3>Input</h3>\n<p>Эхний мөрөнд массивын элементийн тоо.</p>\n<p>Дараагийн мөрүүдэд массивын элементүүд нэг нэгээрээ өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Нийлбэр.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n4\n5<br>-3<br>4<br>-10<br><br><strong>Output:</strong>\n<br>9<br></pre>",
+  "bodyText": "Өгөгдсөн нэг хэмжээст массивын 0-ээс их элементүүдийн нийлбэрийг ол.\nInput\nЭхний мөрөнд массивын элементийн тоо.\nДараагийн мөрүүдэд массивын элементүүд нэг нэгээрээ өгөгдөнө.\nOutput\nНийлбэр.\nExample\nInput:\n4\n5-34-10Output:\n9",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n4\n5-34-10Output:\n9"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7501/",
+  "code": "RGB7501",
+  "scrapedAt": "2026-06-29T06:39:27.211Z"
+}

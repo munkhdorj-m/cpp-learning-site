@@ -1,0 +1,15 @@
+{
+  "title": "Хөршийн байр солих",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн массив дахь хөрш элементүүдийн байрыг соль. 1-рийг 2-ртой, 3-рыг 4-ртай гэх мэтээр. Сонгой тоон элементтэй бол сүүлийн элемент хэвээрээ үлдэнэ.&nbsp;</p>\n<h3>Input</h3>\n<p>Эхний мөрөнд массивын элементийн тоо өгөгдөнө. n&lt;=100.</p>\n<p>Хоёр дахь мөрөнд массивын элементүүд нэг нэг зайгаар тусгаарлагдан өгөгдөнө. Int Төрөл.</p>\n<h3>Output</h3>\n<p>Хөршүүдийг сольсны дараах байрлал.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n<span style=\"font-family: 'courier new', courier, monospace; font-size: 13px;\">5</span><br style=\"font-family: 'courier new', courier, monospace; font-size: 13px;\"><span style=\"font-family: 'courier new', courier, monospace; font-size: 13px;\">1 2 3 4 5</span>\n\n<strong>Output:</strong>\n<span style=\"font-family: 'Courier New', monospace; font-size: small;\">2 1 4 3 5</span></pre>",
+  "bodyText": "Өгөгдсөн массив дахь хөрш элементүүдийн байрыг соль. 1-рийг 2-ртой, 3-рыг 4-ртай гэх мэтээр. Сонгой тоон элементтэй бол сүүлийн элемент хэвээрээ үлдэнэ. \nInput\nЭхний мөрөнд массивын элементийн тоо өгөгдөнө. n<=100.\nХоёр дахь мөрөнд массивын элементүүд нэг нэг зайгаар тусгаарлагдан өгөгдөнө. Int Төрөл.\nOutput\nХөршүүдийг сольсны дараах байрлал.\nExample\nInput:\n51 2 3 4 5\n\nOutput:\n2 1 4 3 5",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n51 2 3 4 5\n\nOutput:\n2 1 4 3 5"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7511/",
+  "code": "RGB7511",
+  "scrapedAt": "2026-06-29T06:41:51.335Z"
+}

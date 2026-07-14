@@ -1,0 +1,15 @@
+{
+  "title": "Зэрэгтүүдийн нийлбэр",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн a тооны өгөгдсөн n тоо хүртэлх зэрэгтүүдийн нийлбэрийг ол. 1+a<sup>1</sup>+a<sup>2</sup>+a<sup>3</sup>+...+a<sup>n</sup>.</p>\n<h3>Input</h3>\n<p>Нэг мөрөнд a, n натурал тоонууд зайгаар тусгаарлагдан өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Зэрэгтүүдийн нийлбэр.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n3 5\n\n<strong>Output:</strong>\n364\n</pre>",
+  "bodyText": "Өгөгдсөн a тооны өгөгдсөн n тоо хүртэлх зэрэгтүүдийн нийлбэрийг ол. 1+a1+a2+a3+...+an.\nInput\nНэг мөрөнд a, n натурал тоонууд зайгаар тусгаарлагдан өгөгдөнө.\nOutput\nЗэрэгтүүдийн нийлбэр.\nExample\nInput:\n3 5\n\nOutput:\n364",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n3 5\n\nOutput:\n364"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7218/",
+  "code": "RGB7218",
+  "scrapedAt": "2026-06-29T06:39:53.694Z"
+}

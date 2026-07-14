@@ -1,0 +1,20 @@
+{
+  "title": "Давхар давталт 3",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн тоон тусламжтайгаар жишээн дээрхтэй төстэй тоон хэлбэрийг үүсгэ.</p>\n<h3>Input</h3>\n<p>Бүхэл тоо өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Жишээн дээрхтэй төстэй тоон хэлбэрийг үүсгэ.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n5</pre>\n<pre><strong>Output:</strong>\n1 2 3 4 5</pre>\n<pre>1 2 3 4</pre>\n<pre>1 2 3</pre>\n<pre>1 2</pre>\n<pre>1</pre>",
+  "bodyText": "Өгөгдсөн тоон тусламжтайгаар жишээн дээрхтэй төстэй тоон хэлбэрийг үүсгэ.\nInput\nБүхэл тоо өгөгдөнө.\nOutput\nЖишээн дээрхтэй төстэй тоон хэлбэрийг үүсгэ.\nExample\nInput:\n5\nOutput:\n1 2 3 4 5\n1 2 3 4\n1 2 3\n1 2\n1",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n5",
+    "Output:\n1 2 3 4 5",
+    "1 2 3 4",
+    "1 2 3",
+    "1 2",
+    "1"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7403/",
+  "code": "RGB7403",
+  "scrapedAt": "2026-06-29T06:38:59.196Z"
+}

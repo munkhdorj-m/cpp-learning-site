@@ -1,0 +1,105 @@
+{
+  "code": "RGB7102",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7102-min-of-two",
+    "title_mn": "Хоёр тооны бага",
+    "title_en": "Minimum of Two Numbers",
+    "statement_mn": "Өгөгдсөн 2 тооны багыг ол.",
+    "statement_en": "Find the minimum of two given integers.",
+    "input_format_mn": "Нэг мөрөнд Int төрлийн 2 тоо зайгаар тусгаарлагдан өгөгдөнө.",
+    "input_format_en": "A single line containing two integers separated by a space.",
+    "output_format_mn": "Бага тоо.",
+    "output_format_en": "The smaller number.",
+    "constraints_mn": "- Тодорхойгүй (Int төрлийн тоонууд буюу −2,147,483,648 … 2,147,483,647 хооронд)",
+    "constraints_en": "- Unspecified (Int type, i.e., values in [−2,147,483,648 … 2,147,483,647])",
+    "difficulty": "easy",
+    "tags": [
+      "min",
+      "implementation",
+      "basics"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int a, b;\n    cin >> a >> b;\n    cout << (a < b ? a : b) << \"\\n\";\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "9 6\n",
+        "output": "6\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "-100 200\n",
+      "0 0\n",
+      "2147483647 -2147483648\n",
+      "-100 -100\n",
+      "5 5\n",
+      "1 2\n",
+      "2 1\n",
+      "-1 -2\n",
+      "0 -1\n",
+      "-1 0\n",
+      "1000000000 999999999\n",
+      "-2147483648 2147483647\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "6",
+      "got": "6"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "-100 200\n",
+      "stdout": "-100\n"
+    },
+    {
+      "stdin": "0 0\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "2147483647 -2147483648\n",
+      "stdout": "-2147483648\n"
+    },
+    {
+      "stdin": "-100 -100\n",
+      "stdout": "-100\n"
+    },
+    {
+      "stdin": "5 5\n",
+      "stdout": "5\n"
+    },
+    {
+      "stdin": "1 2\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "2 1\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "-1 -2\n",
+      "stdout": "-2\n"
+    },
+    {
+      "stdin": "0 -1\n",
+      "stdout": "-1\n"
+    },
+    {
+      "stdin": "-1 0\n",
+      "stdout": "-1\n"
+    },
+    {
+      "stdin": "1000000000 999999999\n",
+      "stdout": "999999999\n"
+    },
+    {
+      "stdin": "-2147483648 2147483647\n",
+      "stdout": "-2147483648\n"
+    }
+  ]
+}

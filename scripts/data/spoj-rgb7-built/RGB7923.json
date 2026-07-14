@@ -1,0 +1,56 @@
+{
+  "code": "RGB7923",
+  "status": "ref_wrong_on_samples",
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": false,
+      "expected": "8",
+      "got": "6"
+    }
+  ],
+  "data": {
+    "slug": "horseshoes-rgb7923",
+    "title_mn": "Морьны тах",
+    "title_en": "Horseshoes",
+    "statement_mn": "Үнээ Бесси тэнцвэртэй хаалтны ямар ч мөрийг гоо зүйн хувьд таатай гэж үздэг ч, тэр ялангуяа \"төгс\" тэнцвэртэй мөрүүдэд дуртай — энэ нь `(` тэмдэгтүүдийн араас ижил тооны `)` тэмдэгтүүд орсон мөрийг хэлнэ. Жишээ нь: `(((())))`\n\nНэг өдөр амбаарт явж байхдаа Бесси газар дээр N × N хэмжээтэй тавцан дээр морьны тахнууд байхыг олж харав. Тах бүр нь `(` эсвэл `)` хэлбэртэй чиглэлтэй байна.\n\nБесси энэ тавцангийн зүүн дээд булангаас эхлэн алхаж, морьны тахнуудыг түүж, түүний цуглуулсан тэмдэгтүүдийн мөр **төгс тэнцвэртэй** байхаар хүсч байна. Түүний авч болох хамгийн урт төгс тэнцвэртэй мөрийн уртыг олоход тусална уу.\n\nАлхам бүрт Бесси дээш, доош, зүүн, баруун тийш хөдөлж болно. Тэр зөвхөн морьны тах байгаа нүд рүү л шилжиж чадна, мөн тэр нүдэнд очоод тахыг түүснээр дараа дахин тэр нүд рүү буцаж очих боломжгүй (тах байхгүй болсон). Тэр зүүн дээд булангийн тахыг түүж эхэлнэ.\n\nБесси зөвхөн төгс тэнцвэртэй мөр үүсгэдэг цуврал тахнуудыг л түүдэг тул тавцан дээрх бүх тахыг түүж чадахгүй байж магадгүй.",
+    "statement_en": "Although Bessie the cow finds every string of balanced parentheses to be aesthetically pleasing, she particularly enjoys strings that she calls \"perfectly\" balanced — consisting of a string of `(`'s followed by a string of `)`'s having the same length. For example: `(((())))`\n\nWhile walking through the barn one day, Bessie discovers an N × N grid of horseshoes on the ground, where each horseshoe is oriented so that it looks like either `(` or `)`.\n\nStarting from the upper-left corner of this grid, Bessie wants to walk around picking up horseshoes so that the string she picks up is **perfectly balanced**. Please help her compute the length of the longest perfectly-balanced string she can obtain.\n\nIn each step, Bessie can move up, down, left, or right. She can only move onto a grid location containing a horseshoe, and when she does this, she picks up the horseshoe so that she can no longer move back to the same location (since it now lacks a horseshoe). She starts by picking up the horseshoe in the upper-left corner of the grid.\n\nBessie only picks up a series of horseshoes that forms a perfectly balanced string, and she may therefore not be able to pick up all the horseshoes in the grid.",
+    "input_format_mn": "Эхний мөрөнд N (1 ≤ N ≤ 5) бүхэл тоо агуулагдана.\n\nДараагийн N мөрөнд тус бүр N тэмдэгт (`(` эсвэл `)`) агуулагдана. Эдгээр нь тавцангийн морьны тахнуудыг дүрсэлнэ.",
+    "input_format_en": "The first line contains an integer N (1 ≤ N ≤ 5).\n\nEach of the next N lines contains N characters (either `(` or `)`), describing the horseshoes on the grid.",
+    "output_format_mn": "Бессийн цуглуулж болох төгс тэнцвэртэй мөрийн хамгийн их уртыг хэвлэ. Хэрэв тэр төгс тэнцвэртэй мөр үүсгэж чадахгүй бол 0-ийг хэвлэ.",
+    "output_format_en": "Print the maximum length of a perfectly balanced string that Bessie can obtain. If she cannot form a perfectly balanced string, print 0.",
+    "constraints_mn": "- 1 ≤ N ≤ 5",
+    "constraints_en": "- 1 ≤ N ≤ 5",
+    "difficulty": "hard",
+    "tags": [
+      "dfs",
+      "backtracking",
+      "grid",
+      "balanced-parentheses"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 35,
+    "reference_cpp": "#include <iostream>\n#include <vector>\n#include <string>\n#include <algorithm>\nusing namespace std;\n\nint N;\nvector<string> grid;\nint ans = 0;\n\n// Direction vectors: up, down, left, right\nint dr[] = {-1, 1, 0, 0};\nint dc[] = {0, 0, -1, 1};\n\nvoid dfs(int r, int c, int open, int closed, vector<vector<bool>>& visited) {\n    // Current cell char\n    char ch = grid[r][c];\n    if (ch == '(') {\n        // If we already started closing, cannot add '('\n        if (closed > 0) return;\n        open++;\n    } else { // ')'\n        closed++;\n        // More closing than open so far -> invalid\n        if (closed > open) return;\n    }\n    \n    // If we have a perfectly balanced string (open == closed)\n    if (open == closed) {\n        ans = max(ans, open + closed);\n        // Note: we can continue from here (adding more chars would break perfect balance)\n        // But we are allowed to stop early. The path must be a prefix of a valid string.\n        // Actually we can continue: after balanced, next char may be '(' starting a new sequence?\n        // No, because you can't have '(' after ')' in a perfectly balanced string.\n        // So we return after updating answer, because any continuation would break perfect balance.\n        return;\n    }\n    \n    // Try moving to neighbors\n    for (int d = 0; d < 4; d++) {\n        int nr = r + dr[d];\n        int nc = c + dc[d];\n        if (nr >= 0 && nr < N && nc >= 0 && nc < N && !visited[nr][nc]) {\n            visited[nr][nc] = true;\n            dfs(nr, nc, open, closed, visited);\n            visited[nr][nc] = false;\n        }\n    }\n}\n\nint main() {\n    cin >> N;\n    grid.resize(N);\n    for (int i = 0; i < N; i++) {\n        cin >> grid[i];\n    }\n    \n    // The starting cell must be '(' for a perfectly balanced string\n    if (grid[0][0] != '(') {\n        cout << 0 << endl;\n        return 0;\n    }\n    \n    vector<vector<bool>> visited(N, vector<bool>(N, false));\n    visited[0][0] = true;\n    dfs(0, 0, 0, 0, visited);\n    \n    cout << ans << endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "4\n(())\n()((\n()((\n()))\n",
+        "output": "8\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "2\n()\n()\n",
+      "2\n)(\n)(\n",
+      "3\n(((\n(((\n(((\n",
+      "3\n)))\n)))\n)))\n",
+      "1\n(\n",
+      "1\n)\n",
+      "3\n()(\n)()\n())\n",
+      "4\n((((\n((((\n((((\n((((\n",
+      "4\n))))\n))))\n))))\n))))\n",
+      "5\n(()()\n()()(\n()()(\n()()(\n()())\n",
+      "5\n(((((\n()()(\n()()(\n()()(\n)))))\n",
+      "3\n()(\n())\n()(\n"
+    ]
+  }
+}

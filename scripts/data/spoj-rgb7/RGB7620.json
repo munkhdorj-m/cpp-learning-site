@@ -1,0 +1,13 @@
+{
+  "title": "Жимс",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"color: #000020; text-align: justify; background-color: #f6f9e0;\"><span style=\"font-size: small;\">Бяцхан сармагчин жимс цуглуулахаар явж байв. Тэрээр байгаа чулууны баруун урд, эсвэл зүүн урд чиглэлийн чулуу уруу л шилжиж чадна. Чулуу болгонд тодорхой хэмжээний жимс байх бөгөөд эцсийн шатанд сармагчиний авч чадах хамгийн их жимсний тоог ол.&nbsp;</span></span></p>\n<p>&nbsp;</p>\n<h3>Input</h3>\n<p><span style=\"color: #000020; text-align: justify; background-color: #f6f9e0;\"><span style=\"font-size: small;\">N: Эхний мөр нийт шилжилтийн тоо. a(i,j), 1 &lt; = j &lt; = i &lt; = N&lt;=200. Чулуу болгон дээр байгаа жимсний тоо 0 &lt; =a(i,j) &lt;= 200.</span></span></p>\n<h3>Output</h3>\n<p><span style=\"color: #000020; text-align: justify; background-color: #f6f9e0;\"><span style=\"font-size: small;\">Цуглуулж чадах хамгийн их жимсний тоо</span></span></p>\n<h3>Example</h3>\n<p><span style=\"font-size: small;\"><strong>Input:</strong> </span></p>\n<p><span style=\"font-size: small;\">3 </span></p>\n<p><span style=\"font-size: small;\">0 </span></p>\n<p><span style=\"font-size: small;\">3 1 </span></p>\n<p><span style=\"font-size: small;\">1 2 2</span></p>\n<p>&nbsp;</p>\n<p><span style=\"font-size: small;\"> <strong>Output:</strong> </span></p>\n<p><span style=\"font-size: small;\">5</span></p>",
+  "bodyText": "Бяцхан сармагчин жимс цуглуулахаар явж байв. Тэрээр байгаа чулууны баруун урд, эсвэл зүүн урд чиглэлийн чулуу уруу л шилжиж чадна. Чулуу болгонд тодорхой хэмжээний жимс байх бөгөөд эцсийн шатанд сармагчиний авч чадах хамгийн их жимсний тоог ол. \n \nInput\nN: Эхний мөр нийт шилжилтийн тоо. a(i,j), 1 < = j < = i < = N<=200. Чулуу болгон дээр байгаа жимсний тоо 0 < =a(i,j) <= 200.\nOutput\nЦуглуулж чадах хамгийн их жимсний тоо\nExample\nInput: \n3 \n0 \n3 1 \n1 2 2\n \n Output: \n5",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7620/",
+  "code": "RGB7620",
+  "scrapedAt": "2026-06-29T06:42:55.066Z"
+}

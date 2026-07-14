@@ -1,0 +1,15 @@
+{
+  "title": "Эхний n тооны нийлбэр",
+  "hidden": true,
+  "bodyHtml": "<p>Эхний n тооны нийлбэрийг тодорхой давталт ашиглан ол.</p>\n<h3>Input</h3>\n<p>Int төрлийн эерэг бүхэл тоо өгөгдөнө.</p>\n<h3>Output</h3>\n<p>1-ээс n тооны нийлбэр.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n5\n\n<strong>Output:</strong>\n15</pre>",
+  "bodyText": "Эхний n тооны нийлбэрийг тодорхой давталт ашиглан ол.\nInput\nInt төрлийн эерэг бүхэл тоо өгөгдөнө.\nOutput\n1-ээс n тооны нийлбэр.\nExample\nInput:\n5\n\nOutput:\n15",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n5\n\nOutput:\n15"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7204/",
+  "code": "RGB7204",
+  "scrapedAt": "2026-06-29T06:37:47.401Z"
+}

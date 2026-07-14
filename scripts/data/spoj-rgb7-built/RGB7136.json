@@ -1,0 +1,114 @@
+{
+  "code": "RGB7136",
+  "status": "ok",
+  "data": {
+    "slug": "morin-dugaar",
+    "title_mn": "Мөрийн дугаар",
+    "title_en": "Line Number",
+    "statement_mn": "Номын нэг хуудсан дээр **k** мөр хэвлэгдсэн. 1-р хуудсан дээр 1-ээс k хүртэл мөр, 2-р хуудсан дээр k+1-ээс 2k хүртэл, гэх мэтээр хэвлэгдэнэ. Текстийн нийт мөрийн тоо **n** өгөгдсөнөөр, энэ мөр хэддүгээр хуудасны хэд дэх мөр болохыг тодорхойлоорой.",
+    "statement_en": "A book page contains **k** lines. Page 1 has lines 1 through k, page 2 has lines k+1 through 2k, and so on. Given the total line number **n**, determine which page it belongs to and which line on that page it is.",
+    "input_format_mn": "Ганц мөрөнд `k` ба `n` гэсэн хоёр эерэг бүхэл тоо зайгаар тусгаарлагдан өгөгдөнө.",
+    "input_format_en": "A single line containing two positive integers `k` and `n`, separated by a space.",
+    "output_format_mn": "Хоёр тоо: хуудасны дугаар ба тухайн хуудасны мөрийн дугаар (зайгаар тусгаарлагдсан).",
+    "output_format_en": "Two numbers: the page number and the line number on that page (separated by a space).",
+    "constraints_mn": "- 1 ≤ k ≤ 200\n- 1 ≤ n ≤ 20 000",
+    "constraints_en": "- 1 ≤ k ≤ 200\n- 1 ≤ n ≤ 20 000",
+    "difficulty": "easy",
+    "tags": [
+      "math",
+      "integer-division"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\nusing namespace std;\n\nint main() {\n    ios_base::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int k, n;\n    cin >> k >> n;\n\n    int page = (n - 1) / k + 1;\n    int line = (n - 1) % k + 1;\n\n    cout << page << \" \" << line << \"\\n\";\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "50 1\n",
+        "output": "1 1\n"
+      },
+      {
+        "input": "20 25\n",
+        "output": "2 5\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1 1\n",
+      "200 1\n",
+      "1 20000\n",
+      "200 20000\n",
+      "7 14\n",
+      "10 1\n",
+      "10 10\n",
+      "10 11\n",
+      "50 50\n",
+      "50 51\n",
+      "100 5000\n",
+      "13 260\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "1 1",
+      "got": "1 1"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "2 5",
+      "got": "2 5"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1 1\n",
+      "stdout": "1 1\n"
+    },
+    {
+      "stdin": "200 1\n",
+      "stdout": "1 1\n"
+    },
+    {
+      "stdin": "1 20000\n",
+      "stdout": "20000 1\n"
+    },
+    {
+      "stdin": "200 20000\n",
+      "stdout": "100 200\n"
+    },
+    {
+      "stdin": "7 14\n",
+      "stdout": "2 7\n"
+    },
+    {
+      "stdin": "10 1\n",
+      "stdout": "1 1\n"
+    },
+    {
+      "stdin": "10 10\n",
+      "stdout": "1 10\n"
+    },
+    {
+      "stdin": "10 11\n",
+      "stdout": "2 1\n"
+    },
+    {
+      "stdin": "50 50\n",
+      "stdout": "1 50\n"
+    },
+    {
+      "stdin": "50 51\n",
+      "stdout": "2 1\n"
+    },
+    {
+      "stdin": "100 5000\n",
+      "stdout": "50 100\n"
+    },
+    {
+      "stdin": "13 260\n",
+      "stdout": "20 13\n"
+    }
+  ]
+}

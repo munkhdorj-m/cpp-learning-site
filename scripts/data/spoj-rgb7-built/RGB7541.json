@@ -1,0 +1,85 @@
+{
+  "code": "RGB7541",
+  "status": "ok",
+  "data": {
+    "slug": "utga-olgolt-1",
+    "title_mn": "Утга олголт 1",
+    "title_en": "Value Assignment 1",
+    "statement_mn": "N×N хэмжээтэй квадрат массивыг дараах загвараар дүүргэ: мөрүүдийг дээрээс доош, сондгой мөрүүдийг зүүнээс баруун, тэгш мөрүүдийг баруунаас зүүн тийш 1-ээс эхлэн дараалсан тоогоор дүүргэ.\n\n**Жишээ:** N=5 үед массив дараах хэлбэртэй байна:\n\n```\n 1  2  3  4  5\n10  9  8  7  6\n11 12 13 14 15\n20 19 18 17 16\n21 22 23 24 25\n```",
+    "statement_en": "Fill an N×N square array in the following pattern: rows from top to bottom, odd rows from left to right, even rows from right to left, with consecutive numbers starting from 1.\n\n**Example:** For N=5 the array looks like:\n\n```\n 1  2  3  4  5\n10  9  8  7  6\n11 12 13 14 15\n20 19 18 17 16\n21 22 23 24 25\n```",
+    "input_format_mn": "Ганц мөрөнд натурал тоо N өгөгдөнө.",
+    "input_format_en": "A single line containing the natural number N.",
+    "output_format_mn": "Квадрат массивын элементүүдийг мөр мөрөөр нь хэвлэнэ. Элемент бүрийг 3 тэмдэгтийн өргөнтэйгөөр баруун тийш зэрэгцүүлэн хэвлэнэ (\"%3d\" гэх мэт).",
+    "output_format_en": "Print the array elements row by row. Each element should be printed right-aligned in a field of width 3 (like `printf(\"%3d\")` or `std::setw(3)`).",
+    "constraints_mn": "- 1 ≤ N < 10",
+    "constraints_en": "- 1 ≤ N < 10",
+    "difficulty": "easy",
+    "tags": [
+      "array",
+      "pattern-printing",
+      "implementation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <iomanip>\n#include <vector>\n\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int N;\n    cin >> N;\n\n    vector<vector<int>> a(N, vector<int>(N));\n    int num = 1;\n    for (int i = 0; i < N; ++i) {\n        if (i % 2 == 0) {\n            for (int j = 0; j < N; ++j) {\n                a[i][j] = num++;\n            }\n        } else {\n            for (int j = N - 1; j >= 0; --j) {\n                a[i][j] = num++;\n            }\n        }\n    }\n\n    for (int i = 0; i < N; ++i) {\n        for (int j = 0; j < N; ++j) {\n            cout << setw(3) << a[i][j];\n        }\n        cout << '\\n';\n    }\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5\n",
+        "output": "  1  2  3  4  5\n 10  9  8  7  6\n 11 12 13 14 15\n 20 19 18 17 16\n 21 22 23 24 25\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n",
+      "2\n",
+      "3\n",
+      "4\n",
+      "6\n",
+      "7\n",
+      "8\n",
+      "9\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "  1  2  3  4  5\n 10  9  8  7  6\n 11 12 13 14 15\n 20 19 18 17 16\n 21 22 23 24 25",
+      "got": "  1  2  3  4  5\n 10  9  8  7  6\n 11 12 13 14 15\n 20 19 18 17 16\n 21 22 23 24 25"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n",
+      "stdout": "  1\n"
+    },
+    {
+      "stdin": "2\n",
+      "stdout": "  1  2\n  4  3\n"
+    },
+    {
+      "stdin": "3\n",
+      "stdout": "  1  2  3\n  6  5  4\n  7  8  9\n"
+    },
+    {
+      "stdin": "4\n",
+      "stdout": "  1  2  3  4\n  8  7  6  5\n  9 10 11 12\n 16 15 14 13\n"
+    },
+    {
+      "stdin": "6\n",
+      "stdout": "  1  2  3  4  5  6\n 12 11 10  9  8  7\n 13 14 15 16 17 18\n 24 23 22 21 20 19\n 25 26 27 28 29 30\n 36 35 34 33 32 31\n"
+    },
+    {
+      "stdin": "7\n",
+      "stdout": "  1  2  3  4  5  6  7\n 14 13 12 11 10  9  8\n 15 16 17 18 19 20 21\n 28 27 26 25 24 23 22\n 29 30 31 32 33 34 35\n 42 41 40 39 38 37 36\n 43 44 45 46 47 48 49\n"
+    },
+    {
+      "stdin": "8\n",
+      "stdout": "  1  2  3  4  5  6  7  8\n 16 15 14 13 12 11 10  9\n 17 18 19 20 21 22 23 24\n 32 31 30 29 28 27 26 25\n 33 34 35 36 37 38 39 40\n 48 47 46 45 44 43 42 41\n 49 50 51 52 53 54 55 56\n 64 63 62 61 60 59 58 57\n"
+    },
+    {
+      "stdin": "9\n",
+      "stdout": "  1  2  3  4  5  6  7  8  9\n 18 17 16 15 14 13 12 11 10\n 19 20 21 22 23 24 25 26 27\n 36 35 34 33 32 31 30 29 28\n 37 38 39 40 41 42 43 44 45\n 54 53 52 51 50 49 48 47 46\n 55 56 57 58 59 60 61 62 63\n 72 71 70 69 68 67 66 65 64\n 73 74 75 76 77 78 79 80 81\n"
+    }
+  ]
+}

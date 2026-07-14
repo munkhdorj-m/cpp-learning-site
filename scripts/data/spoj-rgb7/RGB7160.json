@@ -1,0 +1,15 @@
+{
+  "title": "Том үсэгт шилжүүл",
+  "hidden": true,
+  "bodyHtml": "<p>Англи цагаан толгойн өгөгдсөн 3 үсгийг харгалзах том үсэгт нь шилжүүл.</p>\n<h3>Input</h3>\n<p>Нэг мөрөнд зайгаа тусгаарлагдан өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Харгалзах том үсгүүд нэг мөрөнд зайгаар тусгаарлагдан хэвлэгдэнэ.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n A n d\n\n<strong>Output:</strong>\nA N D\n</pre>",
+  "bodyText": "Англи цагаан толгойн өгөгдсөн 3 үсгийг харгалзах том үсэгт нь шилжүүл.\nInput\nНэг мөрөнд зайгаа тусгаарлагдан өгөгдөнө.\nOutput\nХаргалзах том үсгүүд нэг мөрөнд зайгаар тусгаарлагдан хэвлэгдэнэ.\nExample\nInput:\n A n d\n\nOutput:\nA N D",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n A n d\n\nOutput:\nA N D"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7160/",
+  "code": "RGB7160",
+  "scrapedAt": "2026-06-29T06:40:41.073Z"
+}

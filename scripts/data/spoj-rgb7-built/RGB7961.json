@@ -1,0 +1,49 @@
+{
+  "code": "RGB7961",
+  "status": "ref_wrong_on_samples",
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": false,
+      "expected": "3",
+      "got": "6"
+    }
+  ],
+  "data": {
+    "slug": "rgb7961-cow-lineup",
+    "title_mn": "Үхрийн эгнээ",
+    "title_en": "Cow Lineup",
+    "statement_mn": "Фармер Жон үхрүүдийнхээ зургийг авахаар мэргэжлийн гэрэл зурагчин хөлсөлжээ. ФЖ-ийн үхрүүд олон төрлийн үүлдэртэй тул тэрээр зурган дээр сүрэгт байгаа үүлдэр бүрээс дор хаяж нэг үхэр байхыг хүсч байна.\n\nФЖ-д N үхэр байх ба тэдгээр нь шугамын дагуу өөр өөр байрлалд зогсож, тус бүр нь бүхэл тоон байрлал (x координат) болон бүхэл тоон үүлдэрийн ID-ээр тодорхойлогддог. ФЖ шугамын дагуух зэргэлдээх үхрүүдийн мужийг гэрэл зурагт авахаар төлөвлөж байна. Зургийн үнэ нь түүний хэмжээтэй тэнцүү – өөрөөр хэлбэл, зургийн мужид байгаа үхрүүдийн хамгийн их ба хамгийн бага x координатын зөрүү юм.\n\nФЖ-ийн сүрэгт байгаа бүх үүлдрийн үхэр тус бүрээс дор хаяж нэг байх зургийн хамгийн бага үнийг олоход ФЖ-д тусална уу.",
+    "statement_en": "Farmer John has hired a professional photographer to take a picture of some of his cows. Since FJ's cows represent a variety of different breeds, he would like the photo to contain at least one cow from each distinct breed present in his herd.\n\nFJ's N cows are all standing at various positions along a line, each described by an integer position (i.e., its x coordinate) as well as an integer breed ID. FJ plans to take a photograph of a contiguous range of cows along the line. The cost of this photograph is equal to its size — that is, the difference between the maximum and minimum x coordinates of the cows in the range of the photograph.\n\nPlease help FJ by computing the minimum cost of a photograph in which there is at least one cow of each distinct breed appearing in FJ's herd.",
+    "input_format_mn": "Эхний мөрөнд N (үхрийн тоо) өгөгдөнө. Дараагийн N мөр тус бүрд хоёр бүхэл тоо: x_i (байрлал) ба b_i (үүлдэрийн ID) өгөгдөнө.",
+    "input_format_en": "The first line contains N, the number of cows. Each of the next N lines contains two integers: x_i (position) and b_i (breed ID).",
+    "output_format_mn": "Зургийн хамгийн бага үнийг (хамгийн их ба хамгийн бага x координатын зөрүү) илэрхийлсэн нэг бүхэл тоог хэвлэнэ. Хэрэв бүх үүлдрийг багтаах боломжгүй бол -1 гэж хэвлэнэ.",
+    "output_format_en": "Print a single integer: the minimum possible cost of a photograph that includes at least one cow of every breed. If it is impossible to include all breeds, print -1.",
+    "constraints_mn": "- 1 ≤ N ≤ 50,000\n- 0 ≤ x_i ≤ 1,000,000,000\n- 1 ≤ b_i ≤ 1,000,000,000\n- Үүлдрийн тоо (K) нь N-ээс хэтрэхгүй.",
+    "constraints_en": "- 1 ≤ N ≤ 50,000\n- 0 ≤ x_i ≤ 1,000,000,000\n- 1 ≤ b_i ≤ 1,000,000,000\n- The number of distinct breeds (K) does not exceed N.",
+    "difficulty": "medium",
+    "tags": "two-pointers,sliding-window,hashing",
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 20,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\ntypedef long long ll;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int N;\n    cin >> N;\n    vector<pair<ll, int>> cows(N);\n    for (int i = 0; i < N; i++) {\n        cin >> cows[i].first >> cows[i].second;\n    }\n\n    // Sort by position\n    sort(cows.begin(), cows.end());\n\n    // Count distinct breeds\n    unordered_set<int> breeds_set;\n    for (auto &c : cows) breeds_set.insert(c.second);\n    int K = (int)breeds_set.size();\n\n    // Sliding window to find minimum range covering all K breeds\n    unordered_map<int, int> cnt;\n    int distinct = 0;\n    ll ans = LLONG_MAX;\n    int r = 0;\n\n    for (int l = 0; l < N; l++) {\n        while (r < N && distinct < K) {\n            int b = cows[r].second;\n            if (cnt[b] == 0) distinct++;\n            cnt[b]++;\n            r++;\n        }\n        if (distinct == K) {\n            ll cost = cows[r - 1].first - cows[l].first;\n            ans = min(ans, cost);\n        }\n        // Move left pointer\n        int b = cows[l].second;\n        cnt[b]--;\n        if (cnt[b] == 0) distinct--;\n    }\n\n    if (ans == LLONG_MAX) cout << -1 << \"\\n\";\n    else cout << ans << \"\\n\";\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "6\n1 1\n2 4\n4 2\n5 3\n7 5\n9 1\n",
+        "output": "3\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "2\n0 1\n10 2\n",
+      "1\n5 1\n",
+      "3\n0 1\n2 1\n4 2\n",
+      "5\n10 1\n20 2\n30 3\n40 4\n50 5\n",
+      "6\n5 1\n5 2\n5 3\n10 4\n15 5\n20 6\n",
+      "8\n1 1\n3 2\n4 1\n5 3\n7 2\n8 3\n9 1\n10 2\n",
+      "4\n0 1\n1 2\n2 1\n3 3\n",
+      "7\n10 1\n20 1\n30 1\n40 2\n50 2\n60 3\n70 3\n",
+      "6\n100 1\n200 2\n300 3\n400 1\n500 2\n600 3\n",
+      "5\n0 1\n1 2\n2 3\n3 4\n4 5\n"
+    ]
+  }
+}

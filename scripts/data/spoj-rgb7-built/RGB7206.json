@@ -1,0 +1,95 @@
+{
+  "code": "RGB7206",
+  "status": "ok",
+  "data": {
+    "slug": "add-100-n-times",
+    "title_mn": "100-г n удаа нэм",
+    "title_en": "Add 100 n times",
+    "statement_mn": "100-гийн тоог тодорхой давталт ашиглан өгөгдсөн тоон удаа нэм.\n\n**Жишээ:**\n\nХэрэв `n = 6` гэж өгөгдвөл 100-г 6 удаа нэмэх нь:\n\n100 + 100 + 100 + 100 + 100 + 100 = 600",
+    "statement_en": "Add the number 100 a given number of times using a loop.\n\n**Example:**\n\nIf `n = 6` is given, adding 100 six times is:\n\n100 + 100 + 100 + 100 + 100 + 100 = 600",
+    "input_format_mn": "Int төрлийн эерэг тоо `n` өгөгдөнө.",
+    "input_format_en": "A single positive integer `n`.",
+    "output_format_mn": "100-г n удаа нэмсэн нийлбэрийг хэвлэ.",
+    "output_format_en": "Print the sum after adding 100 n times.",
+    "constraints_mn": "- 1 ≤ n ≤ 10⁶",
+    "constraints_en": "- 1 ≤ n ≤ 10⁶",
+    "difficulty": "easy",
+    "tags": [
+      "loop",
+      "arithmetic",
+      "basic-input-output"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n\nint main() {\n    int n;\n    std::cin >> n;\n    long long sum = 100LL * n;\n    std::cout << sum << std::endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "6\n",
+        "output": "600\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n",
+      "2\n",
+      "10\n",
+      "100\n",
+      "1000\n",
+      "10000\n",
+      "100000\n",
+      "500000\n",
+      "999999\n",
+      "1000000\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "600",
+      "got": "600"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n",
+      "stdout": "100\n"
+    },
+    {
+      "stdin": "2\n",
+      "stdout": "200\n"
+    },
+    {
+      "stdin": "10\n",
+      "stdout": "1000\n"
+    },
+    {
+      "stdin": "100\n",
+      "stdout": "10000\n"
+    },
+    {
+      "stdin": "1000\n",
+      "stdout": "100000\n"
+    },
+    {
+      "stdin": "10000\n",
+      "stdout": "1000000\n"
+    },
+    {
+      "stdin": "100000\n",
+      "stdout": "10000000\n"
+    },
+    {
+      "stdin": "500000\n",
+      "stdout": "50000000\n"
+    },
+    {
+      "stdin": "999999\n",
+      "stdout": "99999900\n"
+    },
+    {
+      "stdin": "1000000\n",
+      "stdout": "100000000\n"
+    }
+  ]
+}

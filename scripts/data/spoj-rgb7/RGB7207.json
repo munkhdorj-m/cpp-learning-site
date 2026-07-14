@@ -1,0 +1,13 @@
+{
+  "title": "a тоог n удаа нэм",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Өгөгдсөн тоог тодорхой давталт ашиглан өгөгдсөн тоон удаа нэм.</span></p>\n<h3><span style=\"font-size: small;\">Input</span></h3>\n<p><span style=\"font-size: small;\">Нэг мөрөнд Int төрлийн 2 тоо зайгаар тусгаарлагдан өгөгдөнө. Эхний тоо нь a тоо буюу тойрог тутамд нэмэгдэх тоо. 2 дахь тоо нь тойргийн тоо.</span></p>\n<h3><span style=\"font-size: small;\">Output</span></h3>\n<p><span style=\"font-size: small;\">Нийлбэр.</span></p>\n<h3><span style=\"font-size: small;\">Example</span></h3>\n<p><strong><span style=\"font-size: small;\">Input:</span></strong></p>\n<p><span style=\"font-size: small;\">50 6 </span></p>\n<p><strong><span style=\"font-size: small;\">Output:</span></strong></p>\n<p><span style=\"font-size: small;\"><strong></strong>300</span></p>",
+  "bodyText": "Өгөгдсөн тоог тодорхой давталт ашиглан өгөгдсөн тоон удаа нэм.\nInput\nНэг мөрөнд Int төрлийн 2 тоо зайгаар тусгаарлагдан өгөгдөнө. Эхний тоо нь a тоо буюу тойрог тутамд нэмэгдэх тоо. 2 дахь тоо нь тойргийн тоо.\nOutput\nНийлбэр.\nExample\nInput:\n50 6 \nOutput:\n300",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7207/",
+  "code": "RGB7207",
+  "scrapedAt": "2026-06-29T06:37:52.725Z"
+}

@@ -1,0 +1,125 @@
+{
+  "code": "RGB7107",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7107",
+    "title_mn": "Тэгш тоонуудын нийлбэр",
+    "title_en": "Sum of Even Numbers",
+    "statement_mn": "Өгөгдсөн 3 тоон дахь тэгш тоонуудын нийлбэрийг ол. Ядаж 1 тэгш тоо бий.",
+    "statement_en": "Find the sum of the even numbers among the given 3 integers. There is at least one even number.",
+    "input_format_mn": "Нэг мөрөнд Int төрлийн 3 тоо зайгаар тусгаарлагдан өгөгдөнө.",
+    "input_format_en": "One line containing three integers separated by spaces.",
+    "output_format_mn": "Тэгш тоонуудын нийлбэрийг хэвлэ.",
+    "output_format_en": "Print the sum of the even numbers.",
+    "constraints_mn": "- Гурван тоо нь Int төрлийн (32-bit signed integer) мужид байна: -2^31-с 2^31-1 хооронд.\n- Ядаж 1 тэгш тоо байна.",
+    "constraints_en": "- The three numbers are within the range of a 32-bit signed integer: -2^31 to 2^31-1.\n- There is at least one even number.",
+    "difficulty": "easy",
+    "tags": [
+      "even-numbers",
+      "sum",
+      "conditionals"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b, c;\n    cin >> a >> b >> c;\n    \n    int sum = 0;\n    if (a % 2 == 0) sum += a;\n    if (b % 2 == 0) sum += b;\n    if (c % 2 == 0) sum += c;\n    \n    cout << sum << endl;\n    \n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "10 3 5\n",
+        "output": "10\n"
+      },
+      {
+        "input": "2 4 6\n",
+        "output": "12\n"
+      },
+      {
+        "input": "7 8 9\n",
+        "output": "8\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "0 0 0\n",
+      "-2 -4 -6\n",
+      "1000000000 2000000000 3000000000\n",
+      "1 2 3\n",
+      "-1 -2 -3\n",
+      "7 5 3\n",
+      "2 1 1\n",
+      "1 2 1\n",
+      "1 1 2\n",
+      "-2147483648 1 2\n",
+      "999999999 1000000000 1000000001\n",
+      "0 1 2\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "10",
+      "got": "10"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "12",
+      "got": "12"
+    },
+    {
+      "i": 2,
+      "ok": true,
+      "expected": "8",
+      "got": "8"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "0 0 0\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "-2 -4 -6\n",
+      "stdout": "-12\n"
+    },
+    {
+      "stdin": "1000000000 2000000000 3000000000\n",
+      "stdout": "-1294967296\n"
+    },
+    {
+      "stdin": "1 2 3\n",
+      "stdout": "2\n"
+    },
+    {
+      "stdin": "-1 -2 -3\n",
+      "stdout": "-2\n"
+    },
+    {
+      "stdin": "7 5 3\n",
+      "stdout": "0\n"
+    },
+    {
+      "stdin": "2 1 1\n",
+      "stdout": "2\n"
+    },
+    {
+      "stdin": "1 2 1\n",
+      "stdout": "2\n"
+    },
+    {
+      "stdin": "1 1 2\n",
+      "stdout": "2\n"
+    },
+    {
+      "stdin": "-2147483648 1 2\n",
+      "stdout": "-2147483646\n"
+    },
+    {
+      "stdin": "999999999 1000000000 1000000001\n",
+      "stdout": "1000000000\n"
+    },
+    {
+      "stdin": "0 1 2\n",
+      "stdout": "2\n"
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "code": "RGB7062",
+  "status": "ok",
+  "data": {
+    "slug": "next-character",
+    "title_mn": "Дараагийн тэмдэгт",
+    "title_en": "Next Character",
+    "statement_mn": "Өгөгдсөн тэмдэгтийг дараагийн тэмдэгтийнх нь хамт хэвлэ.",
+    "statement_en": "Given a character, print it together with the next character (the character whose ASCII code is one greater).",
+    "input_format_mn": "Нэг мөрөнд ганц тэмдэгт өгөгдөнө. Тусгай тэмдэгт бус (хэвлэгддэг ASCII тэмдэгт).",
+    "input_format_en": "A single character on one line. It is a printable ASCII character (not a special/control character).",
+    "output_format_mn": "Тэмдэгт болон түүний дараагийн тэмдэгтийг зайгүйгээр нэг мөрөнд залган хэвлэ. ASCII кодоор дараагийн тэмдэгт.",
+    "output_format_en": "Print the character followed by the next character (the one with ASCII code +1) on a single line, with no space between them.",
+    "constraints_mn": "- Өгөгдсөн тэмдэгт нь хэвлэгддэг ASCII тэмдэгт байна (код 32-126). Дараагийн тэмдэгт нь мөн хэвлэгддэг ASCII тэмдэгт байх баталгаатай.",
+    "constraints_en": "- The input character is a printable ASCII character (code 32–126). It is guaranteed that the next character (code +1) is also a printable ASCII character.",
+    "difficulty": "easy",
+    "tags": [
+      "ascii",
+      "implementation",
+      "strings"
+    ],
+    "time_limit_ms": 100,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n\nint main() {\n    char c;\n    std::cin >> c;\n    std::cout << c << static_cast<char>(c + 1) << std::endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "c\n",
+        "output": "cd\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "a\n",
+      "z\n",
+      "A\n",
+      "Z\n",
+      "0\n",
+      "9\n",
+      "~\n",
+      " \n",
+      "M\n",
+      "d\n",
+      "p\n",
+      "!\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "cd",
+      "got": "cd"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "a\n",
+      "stdout": "ab\n"
+    },
+    {
+      "stdin": "z\n",
+      "stdout": "z{\n"
+    },
+    {
+      "stdin": "A\n",
+      "stdout": "AB\n"
+    },
+    {
+      "stdin": "Z\n",
+      "stdout": "Z[\n"
+    },
+    {
+      "stdin": "0\n",
+      "stdout": "01\n"
+    },
+    {
+      "stdin": "9\n",
+      "stdout": "9:\n"
+    },
+    {
+      "stdin": "~\n",
+      "stdout": "~\n"
+    },
+    {
+      "stdin": " \n",
+      "stdout": " !\n"
+    },
+    {
+      "stdin": "M\n",
+      "stdout": "MN\n"
+    },
+    {
+      "stdin": "d\n",
+      "stdout": "de\n"
+    },
+    {
+      "stdin": "p\n",
+      "stdout": "pq\n"
+    },
+    {
+      "stdin": "!\n",
+      "stdout": "!\"\n"
+    }
+  ]
+}

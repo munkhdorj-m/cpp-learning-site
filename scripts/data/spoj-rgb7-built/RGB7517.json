@@ -1,0 +1,99 @@
+{
+  "code": "RGB7517",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7517-array-insert-delete",
+    "title_mn": "Массиваас хас, бас нэм",
+    "title_en": "Remove from Array, and Add",
+    "statement_mn": "Өгөгдсөн бүхэл тоон массиваас өгөгдсөн дугаар байх тоог хасаад, хассаны дараах массивт өгөгдсөн дугаарт өгөдсөн тоог нэмж оруул.\n\nМассиваас тоо хасна гэдэг нь өгөгдсөн дугаараас хойшхи дугаартай бүх тоонууд урагш нэг шилжихийг хэлнэ. Үүний үр дүнд массивын элементийн тоо 1-ээр цөөрнө.\n\nНэмнэ гэдэг нь өгөгдсөн дугаар болон түүнээс хойшхи дугаартай тоонууд хойш нэг ухарна. Суларсан байранд нь шинэ утга олгогдоно.",
+    "statement_en": "Given an integer array, remove the element at a given index, then insert a given value at a given index into the resulting array.\n\nRemoving an element means that all elements after the given index shift one position forward. As a result, the number of elements decreases by 1.\n\nInserting an element means that the element at the given index and all elements after it shift one position backward. The vacated position gets the new value.",
+    "input_format_mn": "- Эхний мөрөнд массивын элементийн тоо **N** өгөгдөнө.\n- Хоёр дахь мөрөнд массивын **N** ширхэг элементүүд зайгаар тусгаарлагдан өгөгдөнө.\n- Гурав дахь мөрөнд массиваас хасагдах элементийн дугаар (1-д суурилсан индекс) өгөгдөнө.\n- Дөрөв дэх мөрөнд массивын хаана оруулахыг заасан байрлалын дугаар (1-д суурилсан индекс) болон оруулах утга өгөгдөнө.",
+    "input_format_en": "- The first line contains the number of elements **N**.\n- The second line contains **N** space-separated integers — the array elements.\n- The third line contains the index (1-based) of the element to remove.\n- The fourth line contains the index (1-based) where to insert and the value to insert.",
+    "output_format_mn": "Хасч нэмсэний дараах массивыг нэг мөрөнд, элементүүдийг зайгаар тусгаарлан хэвлэ.",
+    "output_format_en": "Print the resulting array after removal and insertion, with elements separated by spaces, on a single line.",
+    "constraints_mn": "- **1 ≤ N ≤ 100**\n- Элементүүд нь бүхэл тоо, абсолют утга нь 10⁹-ээс хэтрэхгүй.\n- Хасах индекс: 1 ≤ remove_index ≤ N\n- Оруулах индекс: 1 ≤ insert_index ≤ N−1 (хассаны дараах массивын хүрээнд)",
+    "constraints_en": "- **1 ≤ N ≤ 100**\n- The elements are integers, absolute value does not exceed 10⁹.\n- Remove index: 1 ≤ remove_index ≤ N\n- Insert index: 1 ≤ insert_index ≤ N−1 (within the array after removal)",
+    "difficulty": "easy",
+    "tags": [
+      "array-manipulation",
+      "simulation"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    ios_base::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int N;\n    cin >> N;\n\n    vector<int> a(N);\n    for (int i = 0; i < N; ++i) {\n        cin >> a[i];\n    }\n\n    int remove_idx;\n    cin >> remove_idx;\n    // convert to 0-based\n    remove_idx--;\n\n    int insert_idx, value;\n    cin >> insert_idx >> value;\n    // convert to 0-based (index in the array after removal)\n    insert_idx--;\n\n    // Remove element at remove_idx: shift left\n    for (int i = remove_idx; i < N - 1; ++i) {\n        a[i] = a[i + 1];\n    }\n    // Now array has size N-1\n    // Insert at insert_idx: shift right from the end\n    // Resize to accommodate the new element\n    a.resize(N);\n    for (int i = N - 1; i > insert_idx; --i) {\n        a[i] = a[i - 1];\n    }\n    a[insert_idx] = value;\n\n    for (int i = 0; i < N; ++i) {\n        if (i > 0) cout << ' ';\n        cout << a[i];\n    }\n    cout << '\\n';\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "9\n10 20 30 40 50 60 70 80 90\n5\n7 1000\n",
+        "output": "10 20 30 40 60 70 1000 80 90\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n5\n1\n1 99",
+      "2\n100 200\n2\n1 999",
+      "2\n100 200\n1\n2 888",
+      "3\n1 2 3\n2\n2 777",
+      "5\n-5 -4 -3 -2 -1\n5\n1 0",
+      "5\n5 4 3 2 1\n1\n5 100",
+      "10\n1 2 3 4 5 6 7 8 9 10\n10\n1 999",
+      "10\n1 2 3 4 5 6 7 8 9 10\n1\n10 111",
+      "5\n1000000000 -1000000000 0 1 -1\n3\n4 999999999",
+      "3\n10 20 30\n2\n2 15",
+      "100\n-100 -99 -98 -97 -96 -95 -94 -93 -92 -91 -90 -89 -88 -87 -86 -85 -84 -83 -82 -81 -80 -79 -78 -77 -76 -75 -74 -73 -72 -71 -70 -69 -68 -67 -66 -65 -64 -63 -62 -61 -60 -59 -58 -57 -56 -55 -54 -53 -52 -51 -50 -49 -48 -47 -46 -45 -44 -43 -42 -41 -40 -39 -38 -37 -36 -35 -34 -33 -32 -31 -30 -29 -28 -27 -26 -25 -24 -23 -22 -21 -20 -19 -18 -17 -16 -15 -14 -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 -3 -2 -1\n50\n1 0"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "10 20 30 40 60 70 1000 80 90",
+      "got": "10 20 30 40 60 70 1000 80 90"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n5\n1\n1 99",
+      "stdout": "99\n"
+    },
+    {
+      "stdin": "2\n100 200\n2\n1 999",
+      "stdout": "999 100\n"
+    },
+    {
+      "stdin": "2\n100 200\n1\n2 888",
+      "stdout": "200 888\n"
+    },
+    {
+      "stdin": "3\n1 2 3\n2\n2 777",
+      "stdout": "1 777 3\n"
+    },
+    {
+      "stdin": "5\n-5 -4 -3 -2 -1\n5\n1 0",
+      "stdout": "0 -5 -4 -3 -2\n"
+    },
+    {
+      "stdin": "5\n5 4 3 2 1\n1\n5 100",
+      "stdout": "4 3 2 1 100\n"
+    },
+    {
+      "stdin": "10\n1 2 3 4 5 6 7 8 9 10\n10\n1 999",
+      "stdout": "999 1 2 3 4 5 6 7 8 9\n"
+    },
+    {
+      "stdin": "10\n1 2 3 4 5 6 7 8 9 10\n1\n10 111",
+      "stdout": "2 3 4 5 6 7 8 9 10 111\n"
+    },
+    {
+      "stdin": "5\n1000000000 -1000000000 0 1 -1\n3\n4 999999999",
+      "stdout": "1000000000 -1000000000 1 999999999 -1\n"
+    },
+    {
+      "stdin": "3\n10 20 30\n2\n2 15",
+      "stdout": "10 15 30\n"
+    },
+    {
+      "stdin": "100\n-100 -99 -98 -97 -96 -95 -94 -93 -92 -91 -90 -89 -88 -87 -86 -85 -84 -83 -82 -81 -80 -79 -78 -77 -76 -75 -74 -73 -72 -71 -70 -69 -68 -67 -66 -65 -64 -63 -62 -61 -60 -59 -58 -57 -56 -55 -54 -53 -52 -51 -50 -49 -48 -47 -46 -45 -44 -43 -42 -41 -40 -39 -38 -37 -36 -35 -34 -33 -32 -31 -30 -29 -28 -27 -26 -25 -24 -23 -22 -21 -20 -19 -18 -17 -16 -15 -14 -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 -3 -2 -1\n50\n1 0",
+      "stdout": "0 -100 -99 -98 -97 -96 -95 -94 -93 -92 -91 -90 -89 -88 -87 -86 -85 -84 -83 -82 -81 -80 -79 -78 -77 -76 -75 -74 -73 -72 -71 -70 -69 -68 -67 -66 -65 -64 -63 -62 -61 -60 -59 -58 -57 -56 -55 -54 -53 -52 -50 -49 -48 -47 -46 -45 -44 -43 -42 -41 -40 -39 -38 -37 -36 -35 -34 -33 -32 -31 -30 -29 -28 -27 -26 -25 -24 -23 -22 -21 -20 -19 -18 -17 -16 -15 -14 -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 -3 -2 -1\n"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "title": "Нийлбэр 2",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн n тоо хүртэлх квадратуудын нийлбэрийг ол. Давталт ашиглахгүй болно.</p>\n<p>1<sup>2</sup>+2<sup>2</sup>+...+n<sup>2</sup></p>\n<h3>Input</h3>\n<p>n натурал тоо өгөгдөнө.</p>\n<h3>Output</h3>\n<p>Нийлбэр</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n5\n\n<strong>Output:</strong>\n55\n</pre>",
+  "bodyText": "Өгөгдсөн n тоо хүртэлх квадратуудын нийлбэрийг ол. Давталт ашиглахгүй болно.\n12+22+...+n2\nInput\nn натурал тоо өгөгдөнө.\nOutput\nНийлбэр\nExample\nInput:\n5\n\nOutput:\n55",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n5\n\nOutput:\n55"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7071/",
+  "code": "RGB7071",
+  "scrapedAt": "2026-06-29T06:38:19.031Z"
+}

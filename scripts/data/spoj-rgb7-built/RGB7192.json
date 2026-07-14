@@ -1,0 +1,120 @@
+{
+  "code": "RGB7192",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7192-bracket-check",
+    "title_mn": "RGB7192: Хаалт зөв эсэх",
+    "title_en": "RGB7192: Check Brackets",
+    "statement_mn": "Өгөгдсөн тэмдэгт мөрөнд байгаа нээх, хаах хаалтууд (тэгш хаалт `(` болон `)`) нь зөв орсон эсэхийг тогтоо. Зөвхөн `(` ба `)` хаалтуудыг авч үзнэ; бусад тэмдэгтүүдийг үл тооно.\n\nХаалтууд дараах нөхцөлүүдийг хангаж байвал зөв орсон гэж үзнэ:\n1. Нээх хаалт бүр өмнө нээгдээгүй байгаа зөв төрлийн хаалттай тохирч байх.\n2. Хаах хаалт бүр өмнө нээгдсэн хаалттай тохирч байх.\n3. Бүх хаалтууд хослон хаагдах.\n4. Ямар ч үед хаах хаалт нь нээх хаалтаас олон болохгүй.",
+    "statement_en": "Given a string, determine whether the opening and closing brackets (parentheses `(` and `)`) are placed correctly. Only `(` and `)` brackets are considered; all other characters are ignored.\n\nBrackets are considered correctly placed if they satisfy the following conditions:\n1. Each opening bracket must have a corresponding closing bracket of the same type later in the string.\n2. Each closing bracket must correspond to a preceding opening bracket.\n3. All brackets must be properly nested.\n4. At no point should closing brackets outnumber opening brackets.",
+    "input_format_mn": "Нэг мөрөнд тэмдэгт мөр өгөгдөнө. Тэмдэгт мөрийн урт **100-аас ихгүй** байна. Тэмдэгт мөрөнд ямар ч ASCII тэмдэгт орсон байж болно (хоосон мөр байж болно).",
+    "input_format_en": "A single line containing a string. The length of the string does **not exceed 100**. The string may contain any ASCII characters (it may be empty).",
+    "output_format_mn": "Хэрэв хаалтууд зөв орсон бол `Good`, эсрэг тохиолдолд `Bad` гэж хэвлэнэ.",
+    "output_format_en": "If the brackets are correctly placed, print `Good`; otherwise, print `Bad`.",
+    "constraints_mn": "- Тэмдэгт мөрийн урт ≤ 100\n- Тэмдэгт мөрөнд дурын ASCII тэмдэгт орсон байж болно (хоосон мөр орсон байж болно).",
+    "constraints_en": "- String length ≤ 100\n- The string may contain any ASCII characters (including empty string).",
+    "difficulty": "easy",
+    "tags": [
+      "bracket-matching",
+      "stack",
+      "strings"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <string>\n\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string s;\n    getline(cin, s);\n\n    int balance = 0;\n    for (char ch : s) {\n        if (ch == '(') {\n            balance++;\n        } else if (ch == ')') {\n            balance--;\n            if (balance < 0) {\n                cout << \"Bad\\n\";\n                return 0;\n            }\n        }\n    }\n\n    if (balance == 0) {\n        cout << \"Good\\n\";\n    } else {\n        cout << \"Bad\\n\";\n    }\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "((1)=((2)*6)-8)\n",
+        "output": "Good\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "\n",
+      "(\n",
+      ")\n",
+      "()\n",
+      "((()))\n",
+      "(()\n",
+      "())\n",
+      ")(\n",
+      "abc\n",
+      "(a+b)*(c-d)\n",
+      "((1)+2)*(3)\n",
+      "hello(world)(\n",
+      "(((())))\n",
+      "()()()()()\n",
+      "((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "Good",
+      "got": "Good"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "\n",
+      "stdout": "Good\n"
+    },
+    {
+      "stdin": "(\n",
+      "stdout": "Bad\n"
+    },
+    {
+      "stdin": ")\n",
+      "stdout": "Bad\n"
+    },
+    {
+      "stdin": "()\n",
+      "stdout": "Good\n"
+    },
+    {
+      "stdin": "((()))\n",
+      "stdout": "Good\n"
+    },
+    {
+      "stdin": "(()\n",
+      "stdout": "Bad\n"
+    },
+    {
+      "stdin": "())\n",
+      "stdout": "Bad\n"
+    },
+    {
+      "stdin": ")(\n",
+      "stdout": "Bad\n"
+    },
+    {
+      "stdin": "abc\n",
+      "stdout": "Good\n"
+    },
+    {
+      "stdin": "(a+b)*(c-d)\n",
+      "stdout": "Good\n"
+    },
+    {
+      "stdin": "((1)+2)*(3)\n",
+      "stdout": "Good\n"
+    },
+    {
+      "stdin": "hello(world)(\n",
+      "stdout": "Bad\n"
+    },
+    {
+      "stdin": "(((())))\n",
+      "stdout": "Good\n"
+    },
+    {
+      "stdin": "()()()()()\n",
+      "stdout": "Good\n"
+    },
+    {
+      "stdin": "((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((\n",
+      "stdout": "Bad\n"
+    }
+  ]
+}

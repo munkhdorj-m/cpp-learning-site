@@ -1,0 +1,120 @@
+{
+  "code": "RGB5657",
+  "status": "ok",
+  "data": {
+    "slug": "word-building-rgb5657",
+    "title_mn": "Үг бүтээх",
+    "title_en": "Word Building",
+    "statement_mn": "Латинаар бичигдсэн 3 тэмдэгт мөр өгөгдөв. 3 дахь мөрөн дэх үсгүүдийг ашиглан эхний 2 мөрөн дэх үгийг үүсгэж болох эсэхийг шалгана уу? Нэг ч үсэг шинээр нэмэх болон нэг ч үсэг илүү гарах ёсгүй. Өөрөөр хэлбэл, 3 дахь мөр нь 1 ба 2-р мөрний бүх үсгүүдийг яг агуулсан байх ёстой (зөвхөн дараалал нь өөр байж болно).",
+    "statement_en": "You are given three lines of uppercase Latin letters. Check whether the letters of the third line can be used to form the words on the first two lines. No extra letters may be added and no letters may be left over. In other words, the third line must contain exactly the same multiset of letters as the first two lines combined (only the order may differ).",
+    "input_format_mn": "Оролт нь латин том үсгээр бичигдсэн 3 мөрнөөс бүрдэнэ. Мөр тус бүрийн урт нь 100-аас хэтрэхгүй.",
+    "input_format_en": "The input consists of three lines, each containing uppercase Latin letters (A–Z). The length of each line does not exceed 100.",
+    "output_format_mn": "Хэрэв 3 дахь мөрийн үсгүүдээр эхний 2 мөрийн үгсийг бүтээж чадвал \"YES\", үгүй бол \"NO\" гэж хэвлэнэ.",
+    "output_format_en": "Print \"YES\" if the letters of the third line can form the words on the first two lines, otherwise print \"NO\".",
+    "constraints_mn": "- Мөр бүрийн урт 1-ээс 100 хүртэл.\n- Зөвхөн латин том үсэг (A–Z) хэрэглэгдэнэ.",
+    "constraints_en": "- Each line length is between 1 and 100 inclusive.\n- Only uppercase Latin letters (A–Z) are used.",
+    "difficulty": "easy",
+    "tags": [
+      "counting",
+      "string",
+      "frequency"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <string>\n#include <algorithm>\n\nint main() {\n    std::string line1, line2, line3;\n    std::getline(std::cin, line1);\n    std::getline(std::cin, line2);\n    std::getline(std::cin, line3);\n    \n    int cnt1[26] = {0}, cnt3[26] = {0};\n    \n    for (char c : line1) cnt1[c - 'A']++;\n    for (char c : line2) cnt1[c - 'A']++;\n    for (char c : line3) cnt3[c - 'A']++;\n    \n    bool ok = true;\n    for (int i = 0; i < 26; i++) {\n        if (cnt1[i] != cnt3[i]) {\n            ok = false;\n            break;\n        }\n    }\n    \n    std::cout << (ok ? \"YES\" : \"NO\") << std::endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "SANTACLAUS\nDEDMOROZ\nSANTAMOROZDEDCLAUS",
+        "output": "YES"
+      },
+      {
+        "input": "PAPAINOEL\nJOULUPUKKI\nJOULNAPAOILELUPUKKI",
+        "output": "NO"
+      }
+    ],
+    "extra_test_inputs": [
+      "A\nB\nAB",
+      "A\nB\nBA",
+      "A\nA\nAA",
+      "ABC\nDEF\nABCDEF",
+      "ABC\nDEF\nABDCEF",
+      "ABC\nDEF\nABCDFF",
+      "X\nY\nYX",
+      "XX\nYY\nXYXY",
+      "HELLO\nWORLD\nHELLOWORLD",
+      "HELLO\nWORLD\nHELOWORLDL",
+      "J\nJ\nJJ",
+      "ABCDEFGHIJ\nKLMNOPQRST\nABCDEFGHIJKLMNOPQRST",
+      "ABCDEFGHIJ\nKLMNOPQRST\nABCDEFGHIJKLMNOPQRSZ"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "YES",
+      "got": "YES"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "NO",
+      "got": "NO"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "A\nB\nAB",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "A\nB\nBA",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "A\nA\nAA",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "ABC\nDEF\nABCDEF",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "ABC\nDEF\nABDCEF",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "ABC\nDEF\nABCDFF",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "X\nY\nYX",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "XX\nYY\nXYXY",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "HELLO\nWORLD\nHELLOWORLD",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "HELLO\nWORLD\nHELOWORLDL",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "J\nJ\nJJ",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "ABCDEFGHIJ\nKLMNOPQRST\nABCDEFGHIJKLMNOPQRST",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "ABCDEFGHIJ\nKLMNOPQRST\nABCDEFGHIJKLMNOPQRSZ",
+      "stdout": "NO\n"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "code": "RGB7938",
+  "status": "ref_wrong_on_samples",
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": false,
+      "expected": "3",
+      "got": "2"
+    }
+  ],
+  "data": {
+    "slug": "photo-rgb7938",
+    "title_mn": "Фото",
+    "title_en": "Photo",
+    "statement_mn": "ФЖ үхрүүдийнхээ зургийг авахыг хүсч байна. Түүний N үхэр (2 ≤ N ≤ 1,000,000,000) дараалан зогсож, 1..N гэж дугаарлагдсан байна. Зураг бүр нь үхрүүдийн эгнээнээс дараалсан хэсгийг авах бөгөөд ФЖ үхэр бүр дор хаяж нэг зураг дээр гарч байхыг хүсч байна.\n\nХарамсалтай нь, K хос үхэр (1 ≤ K ≤ 1000) байгаа бөгөөд тэд нэг зураг дээр хамт байхаас татгалздаг (өөрөөр хэлбэл, тэдгээр хос нэг зураг дотор байж болохгүй). Эдгээр үл нийцэх хосуудын байршлууд өгөгдсөн бол ФЖ-ийн авах шаардлагатай хамгийн бага зургийн тоог тодорхойлно уу.\n\n**Тэмдэглэл:** Зураг бүр хоосон биш байх ёстой (өөрөөр хэлбэл, дор хаяж нэг үхрийг агуулсан байх), мөн зураг нь зөвхөн дараалсан үхрүүдийг агуулж болно.",
+    "statement_en": "FJ wants to take pictures of his N cows (2 ≤ N ≤ 1,000,000,000), which are standing in a line and conveniently numbered 1..N. Each photograph can capture a consecutive range of cows from the lineup, and FJ wants to make sure that each cow appears in at least one photo.\n\nUnfortunately, there are K unfriendly pairs of cows (1 ≤ K ≤ 1000) that each refuse to be in the same photograph (i.e., the two cows in a pair cannot appear together in a single photo). Given the locations of these unfriendly pairs, please determine the minimum number of photos FJ needs to take.\n\n**Note:** Each photo must be non-empty (i.e., contain at least one cow), and a photo can only contain consecutive cows.",
+    "input_format_mn": "Эхний мөрөнд N ба K хоёр бүхэл тоо агуулагдана.\n\nДараагийн K мөр тус бүрд нэг хос үл нийцэх үхрүүдийн дугаарыг илэрхийлсэн хоёр бүхэл тоо a ба b агуулагдана (a < b).",
+    "input_format_en": "The first line contains two integers N and K.\n\nEach of the next K lines contains two integers a and b (a < b) representing one unfriendly pair of cows.",
+    "output_format_mn": "Нэг мөрөнд ФЖ-ийн авах шаардлагатай хамгийн бага зургийн тоог хэвлэнэ.",
+    "output_format_en": "Print a single line containing the minimum number of photos FJ needs to take.",
+    "constraints_mn": "* 2 ≤ N ≤ 1,000,000,000\n* 1 ≤ K ≤ 1000\n* 1 ≤ a < b ≤ N\n* Хос бүр өвөрмөц байна.",
+    "constraints_en": "* 2 ≤ N ≤ 1,000,000,000\n* 1 ≤ K ≤ 1000\n* 1 ≤ a < b ≤ N\n* Each pair is distinct.",
+    "difficulty": "medium",
+    "tags": "interval-covering, greedy, sorting",
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 20,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios_base::sync_with_stdio(false);\n    cin.tie(nullptr);\n    \n    long long N;\n    int K;\n    cin >> N >> K;\n    \n    vector<pair<long long, long long>> pairs(K);\n    for (int i = 0; i < K; i++) {\n        long long a, b;\n        cin >> a >> b;\n        if (a > b) swap(a, b);\n        pairs[i] = {a, b};\n    }\n    \n    // For each cow, we only care about the leftmost conflict that starts at or after this cow.\n    // Actually, we process from left to right, maintaining the rightmost \"left endpoint\"\n    // of a conflict whose right endpoint is the current position? Let's think differently.\n    \n    // Approach: For each position i (as we sweep), we want the leftmost unfriendly pair \n    // that starts at or after i. We'll track the earliest \"right bound\" of a pair.\n    // Actually, we can think in terms of intervals: each unfriendly pair (a,b) \n    // means we cannot have both a and b in the same photo, i.e., we must cut between a and b-1 somewhere.\n    // More precisely: if a photo includes cow a, it cannot include cow b, so there must be a cut \n    // in [a, b-1] (i.e., a photo boundary somewhere between a and b-1 inclusive).\n    // We want minimum number of photos = minimum number of cuts + 1.\n    // Each cut can satisfy multiple pairs. We need to place cuts to \"hit\" all intervals [a, b-1].\n    // This is the classic \"minimum points to hit all intervals\" (greedy by right endpoint).\n    \n    vector<pair<long long, long long>> intervals;\n    for (auto &p : pairs) {\n        long long a = p.first, b = p.second;\n        // need a cut in [a, b-1]\n        intervals.push_back({b - 1, a}); // store (right, left) for sorting by right\n    }\n    \n    sort(intervals.begin(), intervals.end());\n    \n    long long cuts = 0;\n    long long last_cut = -1; // position of last cut (cuts are between cows)\n    \n    for (auto &inv : intervals) {\n        long long r = inv.first;   // right endpoint of interval\n        long long l = inv.second;  // left endpoint\n        // if last cut is not inside this interval, we need a new cut\n        if (last_cut < l || last_cut > r) {\n            // place cut at r\n            cuts++;\n            last_cut = r;\n        }\n    }\n    \n    // number of photos = cuts + 1\n    cout << cuts + 1 << \"\\n\";\n    \n    return 0;\n}",
+    "samples": [
+      {
+        "input": "10 3\n3 7\n5 8\n2 9\n",
+        "output": "3\n"
+      },
+      {
+        "input": "7 2\n1 4\n4 7\n",
+        "output": "3\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "5 0\n",
+      "5 1\n1 2\n",
+      "5 1\n1 3\n",
+      "5 1\n1 5\n",
+      "9 4\n1 3\n2 5\n4 7\n6 9\n",
+      "10 6\n1 2\n2 3\n3 4\n4 5\n5 6\n6 7\n",
+      "1000000000 1\n1 1000000000\n",
+      "1000000000 3\n100 200\n150 300\n400 500\n",
+      "8 4\n1 3\n2 4\n5 7\n6 8\n",
+      "20 5\n1 10\n5 15\n12 18\n3 8\n7 14\n"
+    ]
+  }
+}

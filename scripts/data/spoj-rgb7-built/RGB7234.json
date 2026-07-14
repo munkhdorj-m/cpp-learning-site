@@ -1,0 +1,100 @@
+{
+  "code": "RGB7234",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7234-cosine",
+    "title_mn": "Косинус",
+    "title_en": "Cosine",
+    "statement_mn": "cos(1+cos(2+...+cos((n-1)+cos(n))...) илэрхийллийг бод.\n\n**Жишээ:**  \nn=3 бол cos(1+cos(2+cos(3))) = 0.039 (0.0389...)",
+    "statement_en": "Compute the expression:\n\ncos(1 + cos(2 + ... + cos((n-1) + cos(n)) ...))\n\n**Example:**  \nFor n=3, cos(1+cos(2+cos(3))) = 0.039 (0.0389...)",
+    "input_format_mn": "Нэг мөрөнд натурал тоо **n** (1 ≤ n ≤ 30) өгөгдөнө.",
+    "input_format_en": "A single line contains a positive integer **n** (1 ≤ n ≤ 30).",
+    "output_format_mn": "Илэрхийллийн утгыг таслалаас хойш 3 оронгийн нарийвчлалтайгаар хэвлэ. Ө.х **0.xxx** хэлбэрээр гарга.",
+    "output_format_en": "Print the value of the expression rounded to 3 decimal places (format: 0.xxx).",
+    "constraints_mn": "- 1 ≤ **n** ≤ 30",
+    "constraints_en": "- 1 ≤ **n** ≤ 30",
+    "difficulty": "easy",
+    "tags": [
+      "math",
+      "recursion",
+      "trigonometry"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <iomanip>\n#include <cmath>\n\nusing namespace std;\n\ndouble compute(int n) {\n    double res = cos(n);\n    for (int i = n - 1; i >= 1; --i) {\n        res = cos(i + res);\n    }\n    return res;\n}\n\nint main() {\n    int n;\n    cin >> n;\n    double ans = compute(n);\n    cout << fixed << setprecision(3) << ans << endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "3\n",
+        "output": "0.039\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1",
+      "2",
+      "4",
+      "5",
+      "10",
+      "15",
+      "20",
+      "25",
+      "30",
+      "7",
+      "12"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "0.039",
+      "got": "0.039"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1",
+      "stdout": "0.540\n"
+    },
+    {
+      "stdin": "2",
+      "stdout": "0.834\n"
+    },
+    {
+      "stdin": "4",
+      "stdout": "0.299\n"
+    },
+    {
+      "stdin": "5",
+      "stdout": "0.163\n"
+    },
+    {
+      "stdin": "10",
+      "stdout": "0.033\n"
+    },
+    {
+      "stdin": "15",
+      "stdout": "0.035\n"
+    },
+    {
+      "stdin": "20",
+      "stdout": "0.035\n"
+    },
+    {
+      "stdin": "25",
+      "stdout": "0.035\n"
+    },
+    {
+      "stdin": "30",
+      "stdout": "0.035\n"
+    },
+    {
+      "stdin": "7",
+      "stdout": "0.032\n"
+    },
+    {
+      "stdin": "12",
+      "stdout": "0.035\n"
+    }
+  ]
+}

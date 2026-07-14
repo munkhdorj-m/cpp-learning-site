@@ -1,0 +1,94 @@
+{
+  "code": "RGB7070",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7070-niilber-1",
+    "title_mn": "Нийлбэр 1",
+    "title_en": "Sum 1",
+    "statement_mn": "Өгөгдсөн натурал тоо **n** хүртэлх натурал тоонуудын нийлбэрийг ол.\n\nДавталт ашиглахгүй болно.",
+    "statement_en": "Find the sum of all natural numbers from 1 up to the given natural number **n**.\n\nDo not use loops.",
+    "input_format_mn": "Натурал тоо **n** өгөгдөнө.",
+    "input_format_en": "A single natural number **n** is given.",
+    "output_format_mn": "Нийлбэрийг хэвлэ.",
+    "output_format_en": "Print the sum.",
+    "constraints_mn": "- 1 ≤ **n** ≤ 10^9",
+    "constraints_en": "- 1 ≤ **n** ≤ 10^9",
+    "difficulty": "easy",
+    "tags": [
+      "math",
+      "formula"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n\nint main() {\n    long long n;\n    std::cin >> n;\n    long long sum = n * (n + 1) / 2;\n    std::cout << sum << std::endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "10\n",
+        "output": "55\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n",
+      "2\n",
+      "3\n",
+      "100\n",
+      "1000\n",
+      "1000000\n",
+      "1000000000\n",
+      "500000000\n",
+      "999999999\n",
+      "123456789\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "55",
+      "got": "55"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "2\n",
+      "stdout": "3\n"
+    },
+    {
+      "stdin": "3\n",
+      "stdout": "6\n"
+    },
+    {
+      "stdin": "100\n",
+      "stdout": "5050\n"
+    },
+    {
+      "stdin": "1000\n",
+      "stdout": "500500\n"
+    },
+    {
+      "stdin": "1000000\n",
+      "stdout": "500000500000\n"
+    },
+    {
+      "stdin": "1000000000\n",
+      "stdout": "500000000500000000\n"
+    },
+    {
+      "stdin": "500000000\n",
+      "stdout": "125000000250000000\n"
+    },
+    {
+      "stdin": "999999999\n",
+      "stdout": "499999999500000000\n"
+    },
+    {
+      "stdin": "123456789\n",
+      "stdout": "7620789436823655\n"
+    }
+  ]
+}

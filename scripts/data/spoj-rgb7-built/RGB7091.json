@@ -1,0 +1,86 @@
+{
+  "code": "RGB7091",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7091-dice-rolls",
+    "title_mn": "Шоо",
+    "title_en": "Dice Rolls",
+    "statement_mn": "k ширхэг шоог орхиход (хаяхад) буух ялгаатай буултын тоог ол. Шоо нь 1, 2, 3, 4, 5, 6 гэсэн тоонуудын аль нэгээр бууна.\n\nШоонууд нь ялгагдахгүй (ижил) бөгөөд дараалал нь хамаагүй гэдгийг анхаарна уу. Өөрөөр хэлбэл, зөвхөн 1-ээс 6 хүртэлх тоо тус бүр хэдэн удаа гарч ирсэн нь л чухал юм.",
+    "statement_en": "Given k dice, find the number of distinct outcomes when they are rolled. Each die shows one of the numbers 1, 2, 3, 4, 5, 6.\n\nNote that the dice are indistinguishable (identical) and order does not matter. In other words, only the count of each number from 1 to 6 matters.",
+    "input_format_mn": "Шооны тоо n өгөгдөнө. n ≤ 50.",
+    "input_format_en": "A single integer n, the number of dice. n ≤ 50.",
+    "output_format_mn": "Ялгаатай буултын тоог илэрхийлэх ганц бүхэл тоо.",
+    "output_format_en": "A single integer representing the number of distinct outcomes.",
+    "constraints_mn": "- 0 ≤ n ≤ 50",
+    "constraints_en": "- 0 ≤ n ≤ 50",
+    "difficulty": "hard",
+    "tags": "combinatorics, stars-and-bars, dynamic-programming",
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 35,
+    "reference_cpp": "#include <iostream>\n#include <vector>\n\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    cin >> n;\n\n    // dp[i][j] = number of ways to get sum j using i dice (or rather,\n    // we want combinations with repetition: C(n+6-1, 6-1) = C(n+5, 5)\n    // But let's use DP: dp[face][count] for clarity.\n    // Use 64-bit; max n=50 => C(55,5)=3,478,761 fits in 64-bit.\n    // Actually C(55,5) = 3,478,761 fits in 32-bit too, but 64-bit is safe.\n\n    // Method: stars and bars: number of nonnegative integer solutions to\n    // x1+x2+...+x6 = n is C(n+5,5). Let's compute via DP for clarity.\n    // dp[i][s] = ways with first i faces summing to s\n    // dp[0][0] = 1\n    // dp[i][s] = sum_{t=0..min(n-s, ...)} dp[i-1][s-t] ... but easier:\n    // 1D DP: dp[s] = ways to distribute sum s among 6 faces.\n\n    vector<long long> dp(n + 1, 0);\n    dp[0] = 1;  // 0 dice -> 1 way (empty outcome)\n    for (int face = 0; face < 6; ++face) {\n        vector<long long> ndp(n + 1, 0);\n        for (int s = 0; s <= n; ++s) {\n            // for each possible count t assigned to this face\n            for (int t = 0; t <= n - s; ++t) {\n                ndp[s + t] += dp[s];\n            }\n        }\n        dp = move(ndp);\n    }\n    cout << dp[n] << \"\\n\";\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "6\n",
+        "output": "462\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "0\n",
+      "1\n",
+      "2\n",
+      "3\n",
+      "10\n",
+      "20\n",
+      "30\n",
+      "40\n",
+      "50\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "462",
+      "got": "462"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "0\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "1\n",
+      "stdout": "6\n"
+    },
+    {
+      "stdin": "2\n",
+      "stdout": "21\n"
+    },
+    {
+      "stdin": "3\n",
+      "stdout": "56\n"
+    },
+    {
+      "stdin": "10\n",
+      "stdout": "3003\n"
+    },
+    {
+      "stdin": "20\n",
+      "stdout": "53130\n"
+    },
+    {
+      "stdin": "30\n",
+      "stdout": "324632\n"
+    },
+    {
+      "stdin": "40\n",
+      "stdout": "1221759\n"
+    },
+    {
+      "stdin": "50\n",
+      "stdout": "3478761\n"
+    }
+  ]
+}

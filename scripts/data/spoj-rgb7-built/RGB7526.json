@@ -1,0 +1,115 @@
+{
+  "code": "RGB7526",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7526-symmetric-anti-diagonal",
+    "title_mn": "Тэгшхэм хажуу диагональ",
+    "title_en": "Symmetric about Anti-Diagonal",
+    "statement_mn": "Хоёр хэмжээст квадрат матриц өгөгдөв. Өгөгдсөн квадрат матриц хажуу диагоналынхаа хувьд тэгшхэмтэй бол **YES**, үгүй бол **NO** гэж хэвлэ.\n\nХажуу диагональ гэдэг нь баруун дээд булангаас зүүн доод булан хүртэлх диагональ юм. Матриц нь хажуу диагоналынхаа хувьд тэгшхэмтэй байхын тулд бүх `i, j` индексүүдэд `A[i][j] == A[n-1-j][n-1-i]` байх ёстой.",
+    "statement_en": "Given a two-dimensional square matrix. If the given square matrix is symmetric with respect to its anti-diagonal (secondary diagonal), print **YES**, otherwise print **NO**.\n\nThe anti-diagonal (secondary diagonal) runs from the top-right corner to the bottom-left corner. A matrix is symmetric with respect to its anti-diagonal if for all indices `i, j` we have `A[i][j] == A[n-1-j][n-1-i]`.",
+    "input_format_mn": "Эхний мөрөнд квадрат матрицын хэмжээс `n` өгөгдөнө.\nДараагийн `n` мөрөнд тус бүр `n` бүхэл тоо зайгаар тусгаарлагдан өгөгдөнө.",
+    "input_format_en": "The first line contains the dimension `n` of the square matrix.\nEach of the next `n` lines contains `n` integers separated by spaces.",
+    "output_format_mn": "Тэгшхэмтэй бол **YES**, үгүй бол **NO** гэж хэвлэ.",
+    "output_format_en": "If the matrix is symmetric about the anti-diagonal, print **YES**; otherwise, print **NO**.",
+    "constraints_mn": "- `1 ≤ n ≤ 10`\n- Элементүүд нь `int` төрөлд багтах хэмжээтэй.",
+    "constraints_en": "- `1 ≤ n ≤ 10`\n- Elements fit in the `int` type.",
+    "difficulty": "easy",
+    "tags": [
+      "matrix",
+      "symmetric",
+      "anti-diagonal"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 262144,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    vector<vector<int>> a(n, vector<int>(n));\n    for (int i = 0; i < n; ++i) {\n        for (int j = 0; j < n; ++j) {\n            cin >> a[i][j];\n        }\n    }\n    for (int i = 0; i < n; ++i) {\n        for (int j = 0; j < n; ++j) {\n            if (a[i][j] != a[n - 1 - j][n - 1 - i]) {\n                cout << \"NO\" << endl;\n                return 0;\n            }\n        }\n    }\n    cout << \"YES\" << endl;\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "4\n1 2 3 4\n5 1 7 3\n9 0 1 2\n3 9 5 6",
+        "output": "NO"
+      },
+      {
+        "input": "3\n1 2 3\n4 5 6\n7 8 9",
+        "output": "NO"
+      },
+      {
+        "input": "2\n5 6\n6 5",
+        "output": "YES"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n42",
+      "2\n1 2\n3 4",
+      "2\n-5 0\n0 -5",
+      "3\n1 0 0\n0 1 0\n0 0 1",
+      "3\n1 2 3\n2 4 5\n3 5 6",
+      "4\n1 2 3 4\n5 1 7 3\n9 0 1 2\n3 9 5 6",
+      "4\n0 0 0 0\n0 0 0 0\n0 0 0 0\n0 0 0 0",
+      "5\n1 0 0 0 1\n0 2 0 2 0\n0 0 3 0 0\n0 2 0 2 0\n1 0 0 0 1",
+      "5\n1 2 3 4 5\n2 6 7 8 9\n3 7 0 1 2\n4 8 1 3 4\n5 9 2 4 5",
+      "10\n10 9 8 7 6 5 4 3 2 1\n9 10 9 8 7 6 5 4 3 2\n8 9 10 9 8 7 6 5 4 3\n7 8 9 10 9 8 7 6 5 4\n6 7 8 9 10 9 8 7 6 5\n5 6 7 8 9 10 9 8 7 6\n4 5 6 7 8 9 10 9 8 7\n3 4 5 6 7 8 9 10 9 8\n2 3 4 5 6 7 8 9 10 9\n1 2 3 4 5 6 7 8 9 10"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "NO",
+      "got": "NO"
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "expected": "NO",
+      "got": "NO"
+    },
+    {
+      "i": 2,
+      "ok": true,
+      "expected": "YES",
+      "got": "YES"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n42",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "2\n1 2\n3 4",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "2\n-5 0\n0 -5",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "3\n1 0 0\n0 1 0\n0 0 1",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "3\n1 2 3\n2 4 5\n3 5 6",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "4\n1 2 3 4\n5 1 7 3\n9 0 1 2\n3 9 5 6",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "4\n0 0 0 0\n0 0 0 0\n0 0 0 0\n0 0 0 0",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "5\n1 0 0 0 1\n0 2 0 2 0\n0 0 3 0 0\n0 2 0 2 0\n1 0 0 0 1",
+      "stdout": "YES\n"
+    },
+    {
+      "stdin": "5\n1 2 3 4 5\n2 6 7 8 9\n3 7 0 1 2\n4 8 1 3 4\n5 9 2 4 5",
+      "stdout": "NO\n"
+    },
+    {
+      "stdin": "10\n10 9 8 7 6 5 4 3 2 1\n9 10 9 8 7 6 5 4 3 2\n8 9 10 9 8 7 6 5 4 3\n7 8 9 10 9 8 7 6 5 4\n6 7 8 9 10 9 8 7 6 5\n5 6 7 8 9 10 9 8 7 6\n4 5 6 7 8 9 10 9 8 7\n3 4 5 6 7 8 9 10 9 8\n2 3 4 5 6 7 8 9 10 9\n1 2 3 4 5 6 7 8 9 10",
+      "stdout": "YES\n"
+    }
+  ]
+}

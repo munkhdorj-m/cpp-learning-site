@@ -1,0 +1,15 @@
+{
+  "title": "Message Relay",
+  "hidden": true,
+  "bodyHtml": "<p><span id=\"probtext-text\">Farmer John's N cows (1 &lt;= N &lt;= 1000) are conveniently numbered from 1..N. Using an old-fashioned communicating mechanism based on tin cans and strings, the cows have figured out how to communicate between each-other without Farmer John noticing.   Each cow can forward messages to at most one other cow: for cow i, the value F(i) tells you the index of the cow to which cow i will forward any messages she receives (this number is always different from i).  If F(i)  is zero, then cow i does not forward messages.    Unfortunately, the cows have realized the possibility that messages originating at certain cows might ultimately get stuck in loops, forwarded around in a cycle forever.  A cow is said to be \"loopy\" if a message sent from that cow will ultimately get stuck in a loop.  The cows want to avoid sending messages from loopy cows.  Please help them by counting the total number of FJ's cows that are not loopy. </span></p>\n<h3>Input</h3>\n<p>Input description...</p>\n<h3>Output</h3>\n<p>Output description...</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\netc.\n\n<strong>Output:</strong>\netc.\n</pre>",
+  "bodyText": "Farmer John's N cows (1 <= N <= 1000) are conveniently numbered from 1..N. Using an old-fashioned communicating mechanism based on tin cans and strings, the cows have figured out how to communicate between each-other without Farmer John noticing.   Each cow can forward messages to at most one other cow: for cow i, the value F(i) tells you the index of the cow to which cow i will forward any messages she receives (this number is always different from i).  If F(i)  is zero, then cow i does not forward messages.    Unfortunately, the cows have realized the possibility that messages originating at certain cows might ultimately get stuck in loops, forwarded around in a cycle forever.  A cow is said to be \"loopy\" if a message sent from that cow will ultimately get stuck in a loop.  The cows want to avoid sending messages from loopy cows.  Please help them by counting the total number of FJ's cows that are not loopy. \nInput\nInput description...\nOutput\nOutput description...\nExample\nInput:\netc.\n\nOutput:\netc.",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\netc.\n\nOutput:\netc."
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7930/",
+  "code": "RGB7930",
+  "scrapedAt": "2026-06-29T06:45:10.102Z"
+}

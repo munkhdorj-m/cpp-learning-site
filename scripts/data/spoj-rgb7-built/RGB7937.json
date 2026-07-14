@@ -1,0 +1,57 @@
+{
+  "code": "RGB7937",
+  "status": "ref_wrong_on_samples",
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": false,
+      "expected": "1 1 1",
+      "got": "1 1 0"
+    }
+  ],
+  "data": {
+    "slug": "rgb7937-blink",
+    "title_mn": "Блинг",
+    "title_en": "Blink",
+    "statement_mn": "Фермер Жон саравчныхаа бүдэг гэрлэнд сэтгэл хангалуун бус байсан тул N (3 ≤ N ≤ 16) ширхэг гэрлийн чийдэнг тойрог хэлбэрээр байрлуулсан гоёмсог шинэ лааны суурь суурилуулжээ. Үхэрүүд энэхүү шинэ гэрлийн хэрэгсэлд гайхаж, дараах тоглоомыг тоглох дуртай: T үед тэд T-1 үед зүүн талын хөрш нь асаалттай байсан бол гэрлийн чийдэн бүрийн төлөвийг сольдог (0-ээс 1, 1-ээс 0). Тэд энэ тоглоомыг B нэгж хугацаанд (1 ≤ B ≤ 10^15) үргэлжлүүлнэ. B нь 32-битийн бүхэл тоонд багтахааргүй их байж болохыг анхаарна уу. Гэрлийн чийдэнгийн анхны төлөвүүд өгөгдсөн бол B нэгж хугацааны дараах эцсийн төлөвүүдийг тодорхойлно уу.\n\nГэрлийн чийдэнгүүд 0-ээс N-1 хүртэл дугаарлагдсан бөгөөд тойрог хэлбэрээр байрласан. Чийдэн бүр 0 (унтраалттай) эсвэл 1 (асаалттай) төлөвтэй байна. t үед i-р чийдэнгийн шинэ төлөв = (i-р чийдэнгийн хуучин төлөв) XOR ((i-1)-р чийдэнгийн t-1 үеийн төлөв). Энд i=0-ийн хувьд (i-1) нь N-1 гэж тооцогдоно (тойрог).",
+    "statement_en": "Unhappy with the dim lighting in his barn, Farmer John has just installed a fancy new chandelier consisting of N (3 ≤ N ≤ 16) light bulbs arranged in a circle. The cows are fascinated by this new light fixture, and enjoy playing the following game: at time T, they toggle the state of each light bulb if its neighbor to the left was turned on at time T-1. They continue this game for B units of time (1 ≤ B ≤ 10^15). Note that B might be too large to fit into a standard 32-bit integer. Given the initial states of the light bulbs, please determine their final states after B units of time have elapsed.\n\nThe bulbs are numbered 0 through N-1 arranged in a circle. Each bulb has state 0 (off) or 1 (on). At time t, the new state of bulb i = (old state of bulb i) XOR (state of bulb (i-1) at time t-1). For i=0, (i-1) is N-1 (circular).",
+    "input_format_mn": "- Эхний мөрөнд B бүхэл тоо (1 ≤ B ≤ 10^15) агуулагдана.\n- Хоёр дахь мөрөнд N (3 ≤ N ≤ 16) бүхэл тоо агуулагдана.\n- Гурав дахь мөрөнд N ширхэг зайгаар тусгаарлагдсан бүхэл тоонууд — гэрлийн чийдэнгийн анхны төлөвүүд (0 эсвэл 1) агуулагдана.",
+    "input_format_en": "- The first line contains integer B (1 ≤ B ≤ 10^15).\n- The second line contains integer N (3 ≤ N ≤ 16).\n- The third line contains N space-separated integers — the initial states of the light bulbs (each 0 or 1).",
+    "output_format_mn": "Нэг мөрөнд N ширхэг зайгаар тусгаарлагдсан бүхэл тоонууд — B нэгж хугацааны дараах чийдэнгийн төлөвүүд.",
+    "output_format_en": "A single line containing N space-separated integers — the states of the bulbs after B units of time.",
+    "constraints_mn": "- 3 ≤ N ≤ 16\n- 1 ≤ B ≤ 10^15\n- Чийдэнгийн төлөв бүр 0 эсвэл 1 байна.",
+    "constraints_en": "- 3 ≤ N ≤ 16\n- 1 ≤ B ≤ 10^15\n- Each bulb state is 0 or 1.",
+    "difficulty": "medium",
+    "tags": [
+      "matrix-exponentiation",
+      "bitmasks",
+      "linear-algebra"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 65536,
+    "xp_reward": 20,
+    "reference_cpp": "#include <bits/stdc++.h>\nusing namespace std;\n\ntypedef long long ll;\ntypedef vector<ll> vll;\n\n// Multiply two N x N matrices over GF(2)\nvector<vll> mat_mul(const vector<vll>& a, const vector<vll>& b, int n) {\n    vector<vll> c(n, vll(n, 0));\n    for (int i = 0; i < n; i++) {\n        for (int k = 0; k < n; k++) {\n            if (a[i][k] == 0) continue;\n            for (int j = 0; j < n; j++) {\n                c[i][j] ^= (a[i][k] & b[k][j]);\n            }\n        }\n    }\n    return c;\n}\n\n// Multiply matrix by vector over GF(2)\nvll mat_vec_mul(const vector<vll>& mat, const vll& vec, int n) {\n    vll res(n, 0);\n    for (int i = 0; i < n; i++) {\n        ll sum = 0;\n        for (int j = 0; j < n; j++) {\n            sum ^= (mat[i][j] & vec[j]);\n        }\n        res[i] = sum;\n    }\n    return res;\n}\n\n// Matrix exponentiation over GF(2)\nvector<vll> mat_pow(vector<vll> a, ll e, int n) {\n    vector<vll> res(n, vll(n, 0));\n    for (int i = 0; i < n; i++) res[i][i] = 1;\n    while (e > 0) {\n        if (e & 1) res = mat_mul(res, a, n);\n        a = mat_mul(a, a, n);\n        e >>= 1;\n    }\n    return res;\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    ll B;\n    int N;\n    cin >> B >> N;\n\n    vll init(N);\n    for (int i = 0; i < N; i++) {\n        cin >> init[i];\n    }\n\n    // Build transition matrix T over GF(2)\n    // new_state[i] = old_state[i] XOR old_state[(i-1) mod N]\n    // So T[i][i] = 1, T[i][(i-1+N)%N] = 1\n    vector<vll> T(N, vll(N, 0));\n    for (int i = 0; i < N; i++) {\n        T[i][i] = 1;\n        T[i][(i - 1 + N) % N] = 1;\n    }\n\n    // Compute T^B\n    vector<vll> TB = mat_pow(T, B, N);\n\n    // Multiply by initial vector\n    vll ans = mat_vec_mul(TB, init, N);\n\n    for (int i = 0; i < N; i++) {\n        if (i) cout << ' ';\n        cout << ans[i];\n    }\n    cout << '\\n';\n\n    return 0;\n}\n",
+    "samples": [
+      {
+        "input": "5\n3\n0 1 0\n",
+        "output": "1 1 1\n"
+      },
+      {
+        "input": "2\n4\n1 0 0 0\n",
+        "output": "1 0 1 0\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n3\n0 0 0\n",
+      "1\n3\n1 1 1\n",
+      "10\n5\n1 0 1 0 1\n",
+      "1000000000000000\n3\n1 1 0\n",
+      "7\n4\n0 1 1 0\n",
+      "3\n6\n1 0 0 0 0 0\n",
+      "15\n8\n0 0 0 0 0 0 0 1\n",
+      "1000000000000\n16\n1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1\n",
+      "0\n5\n0 1 0 1 0\n",
+      "10\n3\n1 0 0\n"
+    ]
+  }
+}

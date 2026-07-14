@@ -1,0 +1,105 @@
+{
+  "code": "RGB7581",
+  "status": "ok",
+  "data": {
+    "slug": "rgb7581-digit-rearrangement",
+    "title_mn": "Тооноос бага тоо",
+    "title_en": "Smaller Number from Digits",
+    "statement_mn": "Өгөгдсөн натурал тооны цифрүүдийг үүссэн тоо нь хамгийн бага байхаар сольж тавина уу.",
+    "statement_en": "Given a natural number, rearrange its digits so that the resulting number is as small as possible.",
+    "input_format_mn": "Натурал тоо өгөгдөнө. 64 битийн бүхэл тоо (long long) багтана.",
+    "input_format_en": "A single natural number is given. It fits in a 64-bit integer (long long).",
+    "output_format_mn": "Цифрүүдийг дахин цэгцлэн гаргаж болох хамгийн бага натурал тоог хэвлэнэ. Гарсан тоо 0-ээр эхлэхгүй байх ёстой (тэргүүлэгч тэг байхгүй).",
+    "output_format_en": "Print the smallest possible natural number that can be obtained by rearranging the digits. The result must not have leading zeros.",
+    "constraints_mn": "- Өгөгдсөн тоо $1 \\le N \\le 9\\,223\\,372\\,036\\,854\\,775\\,807$ (long long-ийн хязгаар) байна.",
+    "constraints_en": "- The given number satisfies $1 \\le N \\le 9\\,223\\,372\\,036\\,854\\,775\\,807$ (the range of a signed 64-bit integer, i.e., long long).",
+    "difficulty": "easy",
+    "tags": [
+      "sorting",
+      "greedy",
+      "strings"
+    ],
+    "time_limit_ms": 1000,
+    "memory_limit_kb": 16384,
+    "xp_reward": 10,
+    "reference_cpp": "#include <iostream>\n#include <string>\n#include <algorithm>\n\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    string s;\n    cin >> s;\n\n    // Sort digits in ascending order\n    sort(s.begin(), s.end());\n\n    // Find the first non-zero digit and swap it to the front\n    if (s[0] == '0') {\n        for (size_t i = 1; i < s.size(); ++i) {\n            if (s[i] != '0') {\n                swap(s[0], s[i]);\n                break;\n            }\n        }\n    }\n\n    cout << s << '\\n';\n    return 0;\n}",
+    "samples": [
+      {
+        "input": "34032\n",
+        "output": "20334\n"
+      }
+    ],
+    "extra_test_inputs": [
+      "1\n",
+      "10\n",
+      "100\n",
+      "5\n",
+      "9876543210\n",
+      "1111111111111111111\n",
+      "1000000000000000000\n",
+      "9223372036854775807\n",
+      "123456789\n",
+      "999999999999999999\n",
+      "1001\n",
+      "210\n"
+    ]
+  },
+  "sampleResults": [
+    {
+      "i": 0,
+      "ok": true,
+      "expected": "20334",
+      "got": "20334"
+    }
+  ],
+  "extraTests": [
+    {
+      "stdin": "1\n",
+      "stdout": "1\n"
+    },
+    {
+      "stdin": "10\n",
+      "stdout": "10\n"
+    },
+    {
+      "stdin": "100\n",
+      "stdout": "100\n"
+    },
+    {
+      "stdin": "5\n",
+      "stdout": "5\n"
+    },
+    {
+      "stdin": "9876543210\n",
+      "stdout": "1023456789\n"
+    },
+    {
+      "stdin": "1111111111111111111\n",
+      "stdout": "1111111111111111111\n"
+    },
+    {
+      "stdin": "1000000000000000000\n",
+      "stdout": "1000000000000000000\n"
+    },
+    {
+      "stdin": "9223372036854775807\n",
+      "stdout": "2002233345567777889\n"
+    },
+    {
+      "stdin": "123456789\n",
+      "stdout": "123456789\n"
+    },
+    {
+      "stdin": "999999999999999999\n",
+      "stdout": "999999999999999999\n"
+    },
+    {
+      "stdin": "1001\n",
+      "stdout": "1001\n"
+    },
+    {
+      "stdin": "210\n",
+      "stdout": "102\n"
+    }
+  ]
+}

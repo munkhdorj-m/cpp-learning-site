@@ -1,0 +1,13 @@
+{
+  "title": "Тэгш сондгой",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Өгөгдсөн N тоо тэгш бол 2-т хувааж, сондгой бол 3-аар үржүүлэн 1-ийг нэмэх үйлдлийг үр дүн нь 1 болтол үргэлжлүүлэхэд хийгдэх алхмын тоог олно уу.</span></p>\n<h3><span style=\"font-size: small;\">Input</span></h3>\n<p><span style=\"font-size: small;\">N&lt;2^64 тоо өгөгдөнө.</span></p>\n<h3><span style=\"font-size: small;\">Output</span></h3>\n<p><span style=\"font-size: small;\">Алхмын тоо.</span></p>\n<h3><span style=\"font-size: small;\">Example</span></h3>\n<p><strong><span style=\"font-size: small;\">Input 1 :</span></strong></p>\n<p><span style=\"font-size: small;\">1</span></p>\n<p><strong><span style=\"font-size: small;\">Output 1 :</span></strong></p>\n<p><span style=\"font-size: small;\">0</span></p>\n<p><strong><span style=\"font-size: small;\">Input 2 :</span></strong></p>\n<p><span style=\"font-size: x-small;\">6</span></p>\n<p><strong><span style=\"font-size: small;\">Output 2 :</span></strong></p>\n<p><span style=\"font-size: x-small;\">8</span></p>",
+  "bodyText": "Өгөгдсөн N тоо тэгш бол 2-т хувааж, сондгой бол 3-аар үржүүлэн 1-ийг нэмэх үйлдлийг үр дүн нь 1 болтол үргэлжлүүлэхэд хийгдэх алхмын тоог олно уу.\nInput\nN<2^64 тоо өгөгдөнө.\nOutput\nАлхмын тоо.\nExample\nInput 1 :\n1\nOutput 1 :\n0\nInput 2 :\n6\nOutput 2 :\n8",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7373/",
+  "code": "RGB7373",
+  "scrapedAt": "2026-06-29T06:43:21.406Z"
+}

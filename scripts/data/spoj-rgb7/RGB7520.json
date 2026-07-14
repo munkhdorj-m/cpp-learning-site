@@ -1,0 +1,17 @@
+{
+  "title": "Массив нийлбэр",
+  "hidden": true,
+  "bodyHtml": "<p>Өгөгдсөн хоёр хэмжээст массивын элементүүдийн нийлбэрийг ол.</p>\n<h3>Input</h3>\n<p>Эхний мөрөнд мөрийн болон баганын хэмжээсүүд (n,m) зайгаар тусгаарлагдан өгөгдөнө. 0&lt;n,m&lt;10.</p>\n<p>Дараагийн мөрүүдэд массивын элементүүд мөр мөрөөрөө өгөгдөнө. Int төрөл.</p>\n<h3>Output</h3>\n<p>Нийлбэр.</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\n2 3</pre>\n<pre>1 2 3</pre>\n<pre>4 5 6\n\n<strong>Output:</strong>\n21</pre>",
+  "bodyText": "Өгөгдсөн хоёр хэмжээст массивын элементүүдийн нийлбэрийг ол.\nInput\nЭхний мөрөнд мөрийн болон баганын хэмжээсүүд (n,m) зайгаар тусгаарлагдан өгөгдөнө. 0<n,m<10.\nДараагийн мөрүүдэд массивын элементүүд мөр мөрөөрөө өгөгдөнө. Int төрөл.\nOutput\nНийлбэр.\nExample\nInput:\n2 3\n1 2 3\n4 5 6\n\nOutput:\n21",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\n2 3",
+    "1 2 3",
+    "4 5 6\n\nOutput:\n21"
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7520/",
+  "code": "RGB7520",
+  "scrapedAt": "2026-06-29T06:42:07.232Z"
+}

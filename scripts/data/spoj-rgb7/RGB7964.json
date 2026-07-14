@@ -1,0 +1,15 @@
+{
+  "title": "Roadblock",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-family: monospace; font-size: 14px; white-space: pre-wrap;\">Every morning, FJ wakes up and walks across the farm from his house to the barn.  The farm is a collection of N fields (1 &lt;= N &lt;= 100) connected by M bidirectional pathways (1 &lt;= M &lt;= 10,000), each with an associated length.  FJ's house is in field 1, and the barn is in field N.  No pair of fields is joined by multiple redundant pathways, and it is possible to travel between any pair of fields in the farm by walking along an appropriate sequence of pathways.  When traveling from one field to another, FJ always selects a route consisting of a sequence of pathways having minimum total length.  Farmer John's cows, up to no good as always, have decided to interfere with FJ's morning routine.  They plan to build a pile of hay bales on exactly one of the M pathways on the farm, doubling its length.  The cows wish to select a pathway to block so that they maximize the increase in FJ's distance from the house to the barn.  Please help the cows determine by how much they can lengthen FJ's route. </span></p>\n<h3>Input</h3>\n<p>Input description...</p>\n<h3>Output</h3>\n<p>Output description...</p>\n<h3>Example</h3>\n<pre><strong>Input:</strong>\netc.\n\n<strong>Output:</strong>\netc.\n</pre>\n<div><span style=\"font-family: monospace; font-size: 14px; white-space: pre-wrap;\"><br></span></div>",
+  "bodyText": "Every morning, FJ wakes up and walks across the farm from his house to the barn.  The farm is a collection of N fields (1 <= N <= 100) connected by M bidirectional pathways (1 <= M <= 10,000), each with an associated length.  FJ's house is in field 1, and the barn is in field N.  No pair of fields is joined by multiple redundant pathways, and it is possible to travel between any pair of fields in the farm by walking along an appropriate sequence of pathways.  When traveling from one field to another, FJ always selects a route consisting of a sequence of pathways having minimum total length.  Farmer John's cows, up to no good as always, have decided to interfere with FJ's morning routine.  They plan to build a pile of hay bales on exactly one of the M pathways on the farm, doubling its length.  The cows wish to select a pathway to block so that they maximize the increase in FJ's distance from the house to the barn.  Please help the cows determine by how much they can lengthen FJ's route. \nInput\nInput description...\nOutput\nOutput description...\nExample\nInput:\netc.\n\nOutput:\netc.",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [
+    "Input:\netc.\n\nOutput:\netc."
+  ],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7964/",
+  "code": "RGB7964",
+  "scrapedAt": "2026-06-29T06:45:34.513Z"
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Үржигдэхүүн нийлбэр",
+  "hidden": true,
+  "bodyHtml": "<p><span style=\"font-size: small;\">Өгөгдсөн натурал тоог 2-оос багагүй үржигдэхүүнүүдийн үржвэрт олон аргаар задалж болно. Үржигдэхүүнүүдийн нийлбэрийн нь хамгийн багыг ол. Жишээ нь : 12 тоог 12*1, 6*2, 4*3, 3*2*2 гэж үржвэрүүдэд задалж болно. Задаргаа болгонд харгалзах үржигдэхүүдийн нийлбэр 12+1=13, 6+2=8, 4+3=7, 3+2+2=7. Эдгээрийн бага нь 7.</span>&nbsp;</p>\n<h3><span style=\"font-size: small;\">Input</span></h3>\n<p><span style=\"font-size: small;\">Натурал тоо өгөгдөнө. 10<sup>9</sup>-аас ихгүй.</span></p>\n<h3><span style=\"font-size: small;\">Output</span></h3>\n<p><span style=\"font-size: small;\">Үржигдэхүүнүүдийн хамгийн бага нийлбэр.</span></p>\n<h3><span style=\"font-size: small;\">Example</span></h3>\n<p><strong><span style=\"font-size: small;\">Input:</span></strong></p>\n<p><span style=\"font-size: small;\">12</span></p>\n<p><span style=\"font-size: small;\"><strong>Output:</strong> </span></p>\n<p><span style=\"font-size: small;\">7</span></p>",
+  "bodyText": "Өгөгдсөн натурал тоог 2-оос багагүй үржигдэхүүнүүдийн үржвэрт олон аргаар задалж болно. Үржигдэхүүнүүдийн нийлбэрийн нь хамгийн багыг ол. Жишээ нь : 12 тоог 12*1, 6*2, 4*3, 3*2*2 гэж үржвэрүүдэд задалж болно. Задаргаа болгонд харгалзах үржигдэхүүдийн нийлбэр 12+1=13, 6+2=8, 4+3=7, 3+2+2=7. Эдгээрийн бага нь 7. \nInput\nНатурал тоо өгөгдөнө. 109-аас ихгүй.\nOutput\nҮржигдэхүүнүүдийн хамгийн бага нийлбэр.\nExample\nInput:\n12\nOutput: \n7",
+  "timeLimit": null,
+  "memoryLimit": "1536MB",
+  "sourceLimit": null,
+  "pres": [],
+  "url": "https://www.spoj.com/RGB7/problems/RGB7350/",
+  "code": "RGB7350",
+  "scrapedAt": "2026-06-29T06:43:38.968Z"
+}
