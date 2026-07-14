@@ -1,21 +1,30 @@
-import { cache } from "react";
+﻿import { cache } from "react";
+import { headers } from "next/headers";
 
 import { createClient } from "@/lib/supabase/server";
 
 /**
- * Cached session getter — calls supabase.auth.getUser() EXACTLY ONCE per request
- * (via React cache), no matter how many components call getCachedSession().
+ * Cached session getter.
  *
- * Without cache(): layout + nav + page would each call getUser() independently,
- * causing 3-4 network round-trips to Tokyo per navigation.
+ * Fast path: Middleware verifies the JWT and sets x-user-id header.
+ *   getCachedSession() reads that header - no extra Supabase round-trip.
  *
- * We use getUser() (not getSession()) because Supabase explicitly warns that
- * getSession() returns unverified user data from cookies. getUser() verifies
- * the JWT against Supabase Auth — one secure call per request is the right
- * trade-off.
+ * Slow path (fallback): If the header is missing (e.g. direct API call
+ *   without middleware), we call supabase.auth.getUser().
+ *
+ * React cache() deduplicates - only one lookup per request.
  */
 export const getCachedSession = cache(async () => {
   try {
+    const h = await headers();
+    const userId = h.get("x-user-id");
+
+    if (userId) {
+      return { id: userId } as Awaited<
+        ReturnType<Awaited<ReturnType<typeof createClient>>["auth"]["getUser"]>
+      >["data"]["user"];
+    }
+
     const supabase = await createClient();
     const {
       data: { user },
@@ -27,8 +36,7 @@ export const getCachedSession = cache(async () => {
 });
 
 /**
- * Cached profile fetch — deduplicates profile queries across
- * components within a single request.
+ * Cached profile fetch.
  */
 export const getCachedProfile = cache(async (userId: string) => {
   const supabase = await createClient();

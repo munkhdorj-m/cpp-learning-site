@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { Search, CheckCircle2, Circle, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
@@ -27,6 +27,17 @@ interface Item {
   xp_reward: number;
   tags: string[];
   solved: boolean;
+}
+
+async function fetchSolvedIds(): Promise<Set<string>> {
+  try {
+    const res = await fetch("/api/problems/solved");
+    if (!res.ok) return new Set();
+    const data = await res.json();
+    return new Set<string>(data.solved ?? []);
+  } catch {
+    return new Set();
+  }
 }
 
 // Map any raw tag to one of the canonical topic buckets shown in the filter.
@@ -143,7 +154,7 @@ function stripLatex(s: string): string {
 
 const PAGE_SIZE = 30;
 
-export function ProblemsList({ items }: { items: Item[] }) {
+export function ProblemsList({ items: initialItems }: { items: Item[] }) {
   const t = useTranslations("problems");
   const locale = useLocale();
   const [query, setQuery] = useState("");
@@ -154,6 +165,26 @@ export function ProblemsList({ items }: { items: Item[] }) {
   >("all");
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  // Keep items in local state so we can hydrate solved status client-side
+  const [items, setItems] = useState(initialItems);
+
+  // Hydrate solved status from the server AFTER the cached page loads
+  useEffect(() => {
+    let cancelled = false;
+    fetchSolvedIds().then((ids) => {
+      if (cancelled || ids.size === 0) return;
+      setItems((prev) =>
+        prev.map((p) => ({
+          ...p,
+          solved: p.solved || ids.has(p.id),
+        })),
+      );
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // Read page from URL (?page=2), default to 1
   const [page, setPage] = useState(() => {

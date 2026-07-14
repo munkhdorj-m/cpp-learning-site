@@ -9,8 +9,8 @@ export default async function AppLayout({
 }) {
   let user = null;
   try {
-    // getCachedSession() now reads x-user-id from middleware header (fast path)
-    // instead of making a network call on every navigation
+    // Fast path: reads x-user-id from middleware header (no Supabase call).
+    // Slow path (fallback): calls supabase.auth.getUser() if header missing.
     user = await getCachedSession();
   } catch {
     // Supabase unreachable — allow access, let individual pages handle the error

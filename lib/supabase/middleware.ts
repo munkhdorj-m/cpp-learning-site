@@ -26,12 +26,17 @@ export async function updateSession(request: NextRequest) {
     },
   );
 
-  // getSession() is safe here because middleware only uses it to refresh
-  // expired cookies — it never passes the unverified user object to route
-  // handlers or server components. Auth verification is done by getUser()
-  // in getCachedSession().
+  // getSession() refreshes expired tokens and sets updated cookies.
+  // We also extract the user ID here so that getCachedSession() can use
+  // the fast path (read from header) instead of making a second network
+  // call to supabase.auth.getUser() on every page navigation.
   try {
-    await supabase.auth.getSession();
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    if (session?.user?.id) {
+      response.headers.set("x-user-id", session.user.id);
+    }
   } catch {
     // Supabase unreachable — continue without a session
   }
