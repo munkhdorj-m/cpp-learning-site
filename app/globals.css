@@ -10,6 +10,15 @@
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono:
     var(--font-mono), ui-monospace, "JetBrains Mono", Menlo, monospace;
+  --font-heading: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand neon tokens — usable as text-neon-cyan, bg-neon-lime/20, etc. */
+  --color-neon-cyan: var(--neon-cyan);
+  --color-neon-violet: var(--neon-violet);
+  --color-neon-lime: var(--neon-lime);
+  --color-neon-amber: var(--neon-amber);
+  --color-neon-pink: var(--neon-pink);
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -49,74 +58,94 @@
 }
 
 :root {
-  /* Light mode — warm paper-white, soft slate text, gentle borders */
-  --background: oklch(0.99 0.004 85);
-  --foreground: oklch(0.26 0.015 265);
+  /* ---------------------------------------------------------------
+     LIGHT — "daylight console": clean, cool white, techy but calm
+     --------------------------------------------------------------- */
+  --background: oklch(0.98 0.006 220);
+  --foreground: oklch(0.24 0.02 260);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.26 0.015 265);
+  --card-foreground: oklch(0.24 0.02 260);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.26 0.015 265);
-  --primary: oklch(0.26 0.015 265);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.965 0.008 260);
-  --secondary-foreground: oklch(0.26 0.015 265);
-  --muted: oklch(0.965 0.008 260);
-  --muted-foreground: oklch(0.52 0.015 260);
-  --accent: oklch(0.965 0.008 260);
-  --accent-foreground: oklch(0.26 0.015 265);
-  --destructive: oklch(0.62 0.21 27);
-  --border: oklch(0.92 0.008 260);
-  --input: oklch(0.92 0.008 260);
-  --ring: oklch(0.65 0.18 290);
-  --chart-1: oklch(0.65 0.18 290);
-  --chart-2: oklch(0.65 0.18 30);
-  --chart-3: oklch(0.65 0.18 150);
-  --chart-4: oklch(0.65 0.18 220);
-  --chart-5: oklch(0.65 0.18 350);
-  --radius: 0.75rem;
-  --sidebar: oklch(0.985 0.005 85);
-  --sidebar-foreground: oklch(0.26 0.015 265);
-  --sidebar-primary: oklch(0.55 0.22 290);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.965 0.008 260);
-  --sidebar-accent-foreground: oklch(0.26 0.015 265);
-  --sidebar-border: oklch(0.92 0.008 260);
-  --sidebar-ring: oklch(0.65 0.18 290);
+  --popover-foreground: oklch(0.24 0.02 260);
+  --primary: oklch(0.55 0.12 210);
+  --primary-foreground: oklch(0.99 0.005 220);
+  --secondary: oklch(0.955 0.012 230);
+  --secondary-foreground: oklch(0.28 0.02 260);
+  --muted: oklch(0.955 0.012 230);
+  --muted-foreground: oklch(0.5 0.02 240);
+  --accent: oklch(0.955 0.012 230);
+  --accent-foreground: oklch(0.28 0.02 260);
+  --destructive: oklch(0.6 0.21 25);
+  --border: oklch(0.9 0.012 235);
+  --input: oklch(0.9 0.012 235);
+  --ring: oklch(0.6 0.13 205);
+  --chart-1: oklch(0.6 0.13 205);
+  --chart-2: oklch(0.62 0.2 290);
+  --chart-3: oklch(0.68 0.16 145);
+  --chart-4: oklch(0.75 0.15 75);
+  --chart-5: oklch(0.65 0.2 350);
+  --radius: 0.7rem;
+
+  /* Brand neon — slightly toned for readability on white */
+  --neon-cyan: oklch(0.62 0.13 205);
+  --neon-violet: oklch(0.55 0.22 290);
+  --neon-lime: oklch(0.6 0.16 150);
+  --neon-amber: oklch(0.68 0.16 70);
+  --neon-pink: oklch(0.6 0.23 350);
+
+  --sidebar: oklch(0.98 0.006 220);
+  --sidebar-foreground: oklch(0.24 0.02 260);
+  --sidebar-primary: oklch(0.55 0.12 210);
+  --sidebar-primary-foreground: oklch(0.99 0.005 220);
+  --sidebar-accent: oklch(0.955 0.012 230);
+  --sidebar-accent-foreground: oklch(0.28 0.02 260);
+  --sidebar-border: oklch(0.9 0.012 235);
+  --sidebar-ring: oklch(0.6 0.13 205);
 }
 
 .dark {
-  /* Dark mode — soft midnight slate, easy on the eyes */
-  --background: oklch(0.17 0.015 265);
-  --foreground: oklch(0.93 0.01 85);
-  --card: oklch(0.21 0.018 265);
-  --card-foreground: oklch(0.93 0.01 85);
-  --popover: oklch(0.21 0.018 265);
-  --popover-foreground: oklch(0.93 0.01 85);
-  --primary: oklch(0.93 0.01 85);
-  --primary-foreground: oklch(0.21 0.018 265);
-  --secondary: oklch(0.27 0.02 265);
-  --secondary-foreground: oklch(0.93 0.01 85);
-  --muted: oklch(0.27 0.02 265);
-  --muted-foreground: oklch(0.7 0.015 260);
-  --accent: oklch(0.27 0.02 265);
-  --accent-foreground: oklch(0.93 0.01 85);
-  --destructive: oklch(0.7 0.19 22);
-  --border: oklch(1 0 0 / 9%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.65 0.18 290);
-  --chart-1: oklch(0.7 0.18 290);
-  --chart-2: oklch(0.7 0.18 30);
-  --chart-3: oklch(0.7 0.18 150);
-  --chart-4: oklch(0.7 0.18 220);
-  --chart-5: oklch(0.7 0.18 350);
-  --sidebar: oklch(0.21 0.018 265);
-  --sidebar-foreground: oklch(0.93 0.01 85);
-  --sidebar-primary: oklch(0.65 0.22 290);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.27 0.02 265);
-  --sidebar-accent-foreground: oklch(0.93 0.01 85);
-  --sidebar-border: oklch(1 0 0 / 9%);
-  --sidebar-ring: oklch(0.65 0.18 290);
+  /* ---------------------------------------------------------------
+     DARK — "the deck": deep-space navy, neon cyan HUD. The star.
+     --------------------------------------------------------------- */
+  --background: oklch(0.16 0.025 264);
+  --foreground: oklch(0.94 0.012 220);
+  --card: oklch(0.205 0.03 262);
+  --card-foreground: oklch(0.94 0.012 220);
+  --popover: oklch(0.19 0.03 262);
+  --popover-foreground: oklch(0.94 0.012 220);
+  --primary: oklch(0.82 0.13 195);
+  --primary-foreground: oklch(0.16 0.03 264);
+  --secondary: oklch(0.26 0.03 262);
+  --secondary-foreground: oklch(0.94 0.012 220);
+  --muted: oklch(0.25 0.028 262);
+  --muted-foreground: oklch(0.7 0.025 225);
+  --accent: oklch(0.28 0.035 262);
+  --accent-foreground: oklch(0.94 0.012 220);
+  --destructive: oklch(0.7 0.2 20);
+  --border: oklch(0.82 0.06 210 / 14%);
+  --input: oklch(0.82 0.06 210 / 16%);
+  --ring: oklch(0.82 0.13 195);
+  --chart-1: oklch(0.82 0.13 195);
+  --chart-2: oklch(0.7 0.2 290);
+  --chart-3: oklch(0.82 0.19 145);
+  --chart-4: oklch(0.82 0.16 75);
+  --chart-5: oklch(0.72 0.22 350);
+
+  /* Brand neon — bright, glowing */
+  --neon-cyan: oklch(0.85 0.15 195);
+  --neon-violet: oklch(0.72 0.21 290);
+  --neon-lime: oklch(0.86 0.2 145);
+  --neon-amber: oklch(0.84 0.16 78);
+  --neon-pink: oklch(0.75 0.23 350);
+
+  --sidebar: oklch(0.19 0.03 262);
+  --sidebar-foreground: oklch(0.94 0.012 220);
+  --sidebar-primary: oklch(0.82 0.13 195);
+  --sidebar-primary-foreground: oklch(0.16 0.03 264);
+  --sidebar-accent: oklch(0.28 0.035 262);
+  --sidebar-accent-foreground: oklch(0.94 0.012 220);
+  --sidebar-border: oklch(0.82 0.06 210 / 14%);
+  --sidebar-ring: oklch(0.82 0.13 195);
 }
 
 @layer base {
@@ -140,13 +169,221 @@
   h4 {
     letter-spacing: -0.01em;
   }
+  /* Neon selection */
+  ::selection {
+    background: color-mix(in oklch, var(--neon-cyan) 35%, transparent);
+    color: var(--foreground);
+  }
+  /* Techy thin scrollbars in dark */
+  .dark * {
+    scrollbar-color: color-mix(in oklch, var(--neon-cyan) 30%, transparent)
+      transparent;
+    scrollbar-width: thin;
+  }
 }
 
 /* =====================================================================
-   GAMIFICATION KEYFRAMES
+   SCI-FI HUD UTILITIES
    ===================================================================== */
 
-/* Floating blob animation for background atmosphere */
+/* Monospace uppercase micro-label:  // SECTION  ·  LEVEL 03  ·  XP */
+.hud-label {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+}
+
+.font-code {
+  font-family: var(--font-mono);
+}
+
+/* Neon text — glow follows currentColor, so pair with text-neon-* */
+.text-glow {
+  text-shadow: 0 0 0.6em color-mix(in oklch, currentColor 55%, transparent);
+}
+.text-glow-soft {
+  text-shadow: 0 0 0.5em color-mix(in oklch, currentColor 35%, transparent);
+}
+
+/* HUD panel — glowing bordered surface with a top accent seam.
+   Layer on top of a Card or use standalone. */
+.hud-panel {
+  position: relative;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in oklch, var(--neon-cyan) 5%, transparent),
+      transparent 40%
+    ),
+    var(--card);
+  border: 1px solid color-mix(in oklch, var(--neon-cyan) 22%, var(--border));
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklch, var(--neon-cyan) 12%, transparent),
+    0 0 0 1px color-mix(in oklch, var(--neon-cyan) 4%, transparent),
+    0 12px 40px -18px color-mix(in oklch, var(--neon-cyan) 40%, transparent);
+}
+
+/* Accentable border-glow on hover — sci-fi lift */
+.hud-hover {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+.hud-hover:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in oklch, var(--neon-cyan) 55%, var(--border));
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, var(--neon-cyan) 30%, transparent),
+    0 18px 50px -20px color-mix(in oklch, var(--neon-cyan) 60%, transparent);
+}
+
+/* Glow ring in a chosen accent (set --glow before use) */
+.glow-ring {
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, var(--glow, var(--neon-cyan)) 35%, transparent),
+    0 0 24px -6px color-mix(in oklch, var(--glow, var(--neon-cyan)) 60%, transparent);
+}
+
+/* L-shaped HUD corner brackets (top-left + bottom-right) */
+.hud-corners::before,
+.hud-corners::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid color-mix(in oklch, var(--neon-cyan) 55%, transparent);
+  pointer-events: none;
+}
+.hud-corners::before {
+  top: 8px;
+  left: 8px;
+  border-right: 0;
+  border-bottom: 0;
+  border-top-left-radius: 4px;
+}
+.hud-corners::after {
+  bottom: 8px;
+  right: 8px;
+  border-left: 0;
+  border-top: 0;
+  border-bottom-right-radius: 4px;
+}
+
+/* Chip / pill — mono stat readout */
+.hud-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.4rem;
+  border: 1px solid color-mix(in oklch, var(--glow, var(--neon-cyan)) 30%, transparent);
+  background: color-mix(in oklch, var(--glow, var(--neon-cyan)) 12%, transparent);
+  color: color-mix(in oklch, var(--glow, var(--neon-cyan)) 88%, var(--foreground));
+}
+
+/* Blinking terminal cursor */
+.term-cursor::after {
+  content: "▌";
+  margin-left: 0.1em;
+  color: var(--neon-cyan);
+  animation: boot-blink 1.1s steps(1) infinite;
+}
+
+/* Animated gradient text */
+.text-gradient {
+  background: linear-gradient(
+    100deg,
+    var(--neon-cyan),
+    var(--neon-violet) 55%,
+    var(--neon-pink)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* =====================================================================
+   KEYFRAMES
+   ===================================================================== */
+
+/* Holographic grid drift */
+@keyframes grid-pan {
+  0% {
+    background-position:
+      0 0,
+      0 0;
+  }
+  100% {
+    background-position:
+      0 -48px,
+      -48px 0;
+  }
+}
+
+/* Scanline sweep */
+@keyframes scan {
+  0% {
+    transform: translateY(-20%);
+    opacity: 0;
+  }
+  10%,
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(120vh);
+    opacity: 0;
+  }
+}
+
+/* Neon pulse (for active/attention) */
+@keyframes neon-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 1px
+        color-mix(in oklch, var(--neon-cyan) 30%, transparent),
+      0 0 18px -4px color-mix(in oklch, var(--neon-cyan) 50%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 1px
+        color-mix(in oklch, var(--neon-cyan) 55%, transparent),
+      0 0 30px -2px color-mix(in oklch, var(--neon-cyan) 75%, transparent);
+  }
+}
+
+/* Boot blink for cursors */
+@keyframes boot-blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Fade + rise in (content reveal) */
+@keyframes flicker-in {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Original gamification keyframes (kept — referenced by existing components) */
 @keyframes blob-float {
   0%,
   100% {
@@ -163,7 +400,6 @@
   }
 }
 
-/* Flickering flame for streak indicator */
 @keyframes flame-flicker {
   0%,
   100% {
@@ -180,22 +416,20 @@
   }
 }
 
-/* Emerald glow pulse for solved problem cards */
 @keyframes glow-solved {
   0%,
   100% {
     box-shadow:
-      0 0 8px rgba(16, 185, 129, 0.15),
-      0 0 20px rgba(16, 185, 129, 0.08);
+      0 0 8px color-mix(in oklch, var(--neon-lime) 25%, transparent),
+      0 0 20px color-mix(in oklch, var(--neon-lime) 12%, transparent);
   }
   50% {
     box-shadow:
-      0 0 16px rgba(16, 185, 129, 0.25),
-      0 0 35px rgba(16, 185, 129, 0.12);
+      0 0 16px color-mix(in oklch, var(--neon-lime) 40%, transparent),
+      0 0 35px color-mix(in oklch, var(--neon-lime) 20%, transparent);
   }
 }
 
-/* Shimmer for skeleton loading */
 @keyframes shimmer {
   0% {
     background-position: -200% 0;
@@ -205,7 +439,6 @@
   }
 }
 
-/* Gentle pulse for attention-drawing elements */
 @keyframes gentle-pulse {
   0%,
   100% {
@@ -217,74 +450,65 @@
 }
 
 /* =====================================================================
-   GRADIENT TOKENS (reusable via Tailwind arbitrary values)
+   GRADIENT TOKENS
    ===================================================================== */
 
 :root {
   --gradient-xp: linear-gradient(
     to right,
-    oklch(0.55 0.22 290),
-    oklch(0.55 0.22 330)
+    var(--neon-cyan),
+    var(--neon-violet)
   );
   --gradient-gold: linear-gradient(
     to right,
-    oklch(0.75 0.16 85),
-    oklch(0.65 0.18 55)
+    var(--neon-amber),
+    oklch(0.7 0.17 45)
   );
   --gradient-solved: linear-gradient(
     to right,
-    oklch(0.6 0.15 150),
-    oklch(0.55 0.13 165)
+    var(--neon-lime),
+    var(--neon-cyan)
   );
   --gradient-hero: linear-gradient(
     135deg,
-    oklch(0.55 0.22 290),
-    oklch(0.55 0.22 330),
-    oklch(0.6 0.18 30)
-  );
-}
-
-.dark {
-  --gradient-xp: linear-gradient(
-    to right,
-    oklch(0.7 0.2 290),
-    oklch(0.7 0.18 330)
-  );
-  --gradient-gold: linear-gradient(
-    to right,
-    oklch(0.8 0.18 85),
-    oklch(0.7 0.17 55)
-  );
-  --gradient-solved: linear-gradient(
-    to right,
-    oklch(0.65 0.13 150),
-    oklch(0.6 0.11 165)
-  );
-  --gradient-hero: linear-gradient(
-    135deg,
-    oklch(0.7 0.2 290),
-    oklch(0.7 0.18 330),
-    oklch(0.65 0.16 30)
+    var(--neon-cyan),
+    var(--neon-violet),
+    var(--neon-pink)
   );
 }
 
 /* =====================================================================
-   UTILITY CLASSES
+   UTILITY CLASSES (animation helpers)
    ===================================================================== */
 
-/* Solved card glow */
+.animate-flicker-in {
+  animation: flicker-in 0.5s ease both;
+}
+
 .glow-solved {
   animation: glow-solved 3s ease-in-out infinite;
 }
 
-/* Skeleton shimmer */
+.neon-pulse {
+  animation: neon-pulse 2.4s ease-in-out infinite;
+}
+
 .skeleton-shimmer {
   background: linear-gradient(
     90deg,
     var(--color-muted) 25%,
-    var(--color-muted-foreground) 37%,
+    color-mix(in oklch, var(--neon-cyan) 18%, var(--color-muted)) 37%,
     var(--color-muted) 63%
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neon-pulse,
+  .glow-solved,
+  .animate-flicker-in,
+  .term-cursor::after {
+    animation: none !important;
+  }
 }

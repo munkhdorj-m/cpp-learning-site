@@ -23,7 +23,7 @@ export async function Nav() {
   }
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-40 w-full border-b border-primary/20 bg-background/70 backdrop-blur-xl supports-[backdrop-filter]:bg-background/50">
       <div className="container mx-auto flex h-14 items-center gap-4 px-4">
         <SiteLogo />
         <NavLinks showAssignments={!!profile} />
@@ -56,10 +56,7 @@ export async function Nav() {
               </Link>
               <Link
                 href="/signup"
-                className={cn(
-                  buttonVariants({ size: "sm" }),
-                  "bg-violet-600 text-white hover:bg-violet-700",
-                )}
+                className={cn(buttonVariants({ size: "sm" }), "font-code")}
               >
                 {t("signup")}
               </Link>

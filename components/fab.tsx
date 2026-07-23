@@ -18,7 +18,7 @@ export function Fab() {
     >
       <Link
         href="/ide"
-        className="flex h-14 w-14 items-center justify-center rounded-full bg-violet-600 text-white shadow-lg hover:bg-violet-700 hover:scale-110 transition-all active:scale-95"
+        className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-[0_0_24px_-4px_var(--color-primary)] transition-all hover:scale-110 hover:shadow-[0_0_32px_-2px_var(--color-primary)] active:scale-95"
         aria-label="Open code editor"
       >
         <Code2 className="h-6 w-6" />

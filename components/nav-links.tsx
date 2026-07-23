@@ -36,12 +36,24 @@ export function NavLinks({ showAssignments }: NavLinksProps) {
             key={href}
             href={href}
             className={cn(
-              "px-3 py-1.5 rounded-lg text-sm font-medium transition-colors",
+              "relative px-3 py-1.5 rounded-lg font-code text-[0.8rem] font-medium tracking-wide transition-colors",
               active
-                ? "bg-violet-100 text-violet-700 dark:bg-violet-950/60 dark:text-violet-300"
-                : "text-muted-foreground hover:text-foreground hover:bg-muted",
+                ? "text-primary text-glow-soft"
+                : "text-muted-foreground hover:text-foreground",
             )}
           >
+            {active && (
+              <span
+                aria-hidden
+                className="absolute inset-0 -z-10 rounded-lg border border-primary/40 bg-primary/10"
+              />
+            )}
+            {active && (
+              <span
+                aria-hidden
+                className="absolute -bottom-[7px] left-1/2 h-0.5 w-6 -translate-x-1/2 rounded-full bg-primary shadow-[0_0_10px_1px_var(--color-primary)]"
+              />
+            )}
             {label}
           </Link>
         );

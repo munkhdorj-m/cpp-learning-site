@@ -25,36 +25,44 @@ export function XpBar({ xp, level, streakDays }: XpBarProps) {
   );
 
   return (
-    <div className="flex items-center gap-3">
-      <div className="hidden sm:flex items-center gap-1.5 px-2 py-1 rounded-full bg-amber-100 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400">
+    <div className="flex items-center gap-2.5">
+      <div
+        className="hud-chip hidden sm:inline-flex"
+        style={{ ["--glow" as string]: "var(--neon-amber)" }}
+      >
         <Trophy className="h-3.5 w-3.5" />
         <motion.span
-          className="text-xs font-semibold"
           key={level}
           initial={{ scale: 1.3 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
-          Lv {level}
+          LV{level}
         </motion.span>
       </div>
-      <div className="hidden md:flex items-center gap-2 min-w-[140px]">
-        <div className="h-2 flex-1 rounded-full bg-muted overflow-hidden">
+      <div className="hidden md:flex items-center gap-2 min-w-[150px]">
+        <div className="relative h-2 flex-1 overflow-hidden rounded-full bg-muted ring-1 ring-primary/15">
           <div
-            className="h-full bg-gradient-to-r from-violet-500 to-fuchsia-500 transition-all duration-500"
-            style={{ width: `${progress}%` }}
+            className="h-full rounded-full transition-all duration-500"
+            style={{
+              width: `${progress}%`,
+              background: "var(--gradient-xp)",
+              boxShadow: "0 0 12px -2px var(--color-primary)",
+            }}
           />
         </div>
-        <span className="text-xs font-medium text-muted-foreground tabular-nums">
-          {xp} {t("xp")}
+        <span className="font-code text-[0.7rem] font-semibold text-muted-foreground tabular-nums">
+          {xp}
+          <span className="text-primary/70"> {t("xp")}</span>
         </span>
       </div>
       {streakDays > 0 && (
-        <div className="flex items-center gap-1 px-2 py-1 rounded-full bg-orange-100 dark:bg-orange-950/40 text-orange-700 dark:text-orange-400">
+        <div
+          className="hud-chip"
+          style={{ ["--glow" as string]: "var(--neon-pink)" }}
+        >
           <StreakFlame className="h-3.5 w-3.5" />
-          <span className="text-xs font-semibold tabular-nums">
-            {streakDays}
-          </span>
+          <span className="tabular-nums">{streakDays}</span>
         </div>
       )}
     </div>

@@ -164,84 +164,98 @@ int main() {
 export default async function LearnPage() {
   const localeRaw = await getLocale();
   const locale = isLocale(localeRaw) ? localeRaw : DEFAULT_LOCALE;
+  const en = locale === "en";
 
   return (
-    <div className="space-y-6 max-w-4xl mx-auto">
-      <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-violet-100 text-violet-700 dark:bg-violet-950/40 dark:text-violet-300">
-          <BookOpen className="h-5 w-5" />
+    <div className="mx-auto max-w-4xl space-y-6">
+      <div className="space-y-2">
+        <div className="hud-label flex items-center gap-2">
+          <span className="text-primary">//</span>
+          {en ? "LEARN.INIT" : "СУРГАЛТ.ЭХЛЭЛ"}
         </div>
-        <div>
-          <h1 className="text-2xl font-bold">
-            {locale === "en" ? "Learn C++" : "C++ сурах"}
-          </h1>
-          <p className="text-sm text-muted-foreground">
-            {locale === "en"
-              ? "Start from zero — 6 beginner lessons with code examples"
-              : "Тэгээс эхэл — 6 хялбар хичээл, кодын жишээтэй"}
-          </p>
+        <div className="flex items-center gap-3">
+          <div
+            className="flex h-11 w-11 items-center justify-center rounded-xl border border-primary/35 bg-primary/10 text-primary"
+            style={{ boxShadow: "0 0 22px -8px var(--color-primary)" }}
+          >
+            <BookOpen className="h-5 w-5" />
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold">
+              {en ? "Learn C++" : "C++ сурах"}
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              {en
+                ? "Start from zero — 6 beginner lessons with code examples"
+                : "Тэгээс эхэл — 6 хялбар хичээл, кодын жишээтэй"}
+            </p>
+          </div>
         </div>
       </div>
 
       <div className="space-y-4">
-        {LESSONS.map((lesson) => (
-          <Card key={lesson.id}>
+        {LESSONS.map((lesson, i) => (
+          <Card key={lesson.id} className="hud-hover">
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-2">
-                <Code2 className="h-4 w-4 text-violet-500" />
-                {locale === "en" ? lesson.title_en : lesson.title_mn}
+              <CardTitle className="flex items-center gap-2 text-base">
+                <span className="hud-chip">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <Code2 className="h-4 w-4 text-primary" />
+                {en ? lesson.title_en : lesson.title_mn}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               <p className="text-sm text-muted-foreground">
-                {locale === "en" ? lesson.desc_en : lesson.desc_mn}
+                {en ? lesson.desc_en : lesson.desc_mn}
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div>
-                  <div className="text-xs font-semibold text-muted-foreground mb-1">
-                    {locale === "en" ? "Code:" : "Код:"}
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+                <div className="overflow-hidden rounded-lg border border-primary/15">
+                  <div className="flex items-center gap-1.5 border-b border-primary/15 bg-black/25 px-3 py-1.5">
+                    <span className="h-2 w-2 rounded-full bg-neon-pink/70" />
+                    <span className="h-2 w-2 rounded-full bg-neon-amber/70" />
+                    <span className="h-2 w-2 rounded-full bg-neon-lime/70" />
+                    <span className="ml-1 font-code text-[10px] tracking-widest text-muted-foreground">
+                      {en ? "code" : "код"}
+                    </span>
                   </div>
-                  <pre className="font-mono text-xs bg-slate-900 text-slate-100 rounded-lg p-3 overflow-x-auto whitespace-pre">
+                  <pre className="overflow-x-auto whitespace-pre bg-[oklch(0.16_0.02_264)] p-3 font-mono text-xs text-primary">
                     {lesson.code}
                   </pre>
                 </div>
-                <div>
-                  <div className="text-xs font-semibold text-muted-foreground mb-1">
-                    {locale === "en" ? "Output:" : "Гаралт:"}
+                <div className="overflow-hidden rounded-lg border border-neon-lime/25">
+                  <div className="flex items-center gap-1.5 border-b border-neon-lime/20 bg-neon-lime/[0.08] px-3 py-1.5">
+                    <span className="font-code text-[10px] tracking-widest text-neon-lime">
+                      {en ? "> output" : "> гаралт"}
+                    </span>
                   </div>
-                  <pre className="font-mono text-xs bg-emerald-950 text-emerald-100 rounded-lg p-3 whitespace-pre-wrap">
+                  <pre className="whitespace-pre-wrap bg-[oklch(0.16_0.02_264)] p-3 font-mono text-xs text-neon-lime">
                     {lesson.output}
                   </pre>
                 </div>
               </div>
-              <div className="flex items-start gap-2 text-xs text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/30 rounded-lg p-2.5">
-                <Lightbulb className="h-3.5 w-3.5 shrink-0 mt-0.5" />
-                <p>{locale === "en" ? lesson.tip_en : lesson.tip_mn}</p>
+              <div className="flex items-start gap-2 rounded-lg border border-neon-amber/25 bg-neon-amber/[0.08] p-2.5 text-xs text-neon-amber">
+                <Lightbulb className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+                <p>{en ? lesson.tip_en : lesson.tip_mn}</p>
               </div>
             </CardContent>
           </Card>
         ))}
       </div>
 
-      <Card className="border-violet-300 dark:border-violet-800 bg-violet-50/40 dark:bg-violet-950/15">
-        <CardContent className="p-6 text-center space-y-3">
+      <Card className="hud-panel">
+        <CardContent className="space-y-3 p-6 text-center">
           <h2 className="text-lg font-bold">
-            {locale === "en" ? "Ready to practice?" : "Дасгал хийх үү?"}
+            {en ? "Ready to practice?" : "Дасгал хийх үү?"}
           </h2>
           <p className="text-sm text-muted-foreground">
-            {locale === "en"
+            {en
               ? "Try solving your first problem with the online code editor"
               : "Онлайн код засварлагчтай эхний бодлогоо бодоорой"}
           </p>
-          <Link
-            href="/problems"
-            className={cn(
-              buttonVariants(),
-              "bg-violet-600 text-white hover:bg-violet-700",
-            )}
-          >
-            {locale === "en" ? "Go to Problems" : "Бодлогууд руу очих"}
-            <ArrowRight className="h-4 w-4 ml-1.5" />
+          <Link href="/problems" className={cn(buttonVariants(), "font-code")}>
+            {en ? "Go to Problems" : "Бодлогууд руу очих"}
+            <ArrowRight className="ml-1.5 h-4 w-4" />
           </Link>
         </CardContent>
       </Card>

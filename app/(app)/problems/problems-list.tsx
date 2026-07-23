@@ -261,16 +261,20 @@ export function ProblemsList({ items: initialItems }: { items: Item[] }) {
     <div className="space-y-4">
       {/* Progress strip */}
       <div className="flex items-center gap-3 text-sm">
-        <div className="flex-1 h-1.5 rounded-full bg-muted overflow-hidden">
+        <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-muted ring-1 ring-primary/10">
           <div
-            className="h-full bg-gradient-to-r from-emerald-500 to-emerald-400 transition-all"
+            className="h-full rounded-full transition-all"
             style={{
               width: `${totalCount > 0 ? (solvedCount / totalCount) * 100 : 0}%`,
+              background: "var(--gradient-solved)",
+              boxShadow: "0 0 12px -2px var(--neon-lime)",
             }}
           />
         </div>
-        <span className="text-xs text-muted-foreground tabular-nums">
-          {solvedCount} / {totalCount}
+        <span className="font-code text-xs text-muted-foreground tabular-nums">
+          {solvedCount}
+          <span className="text-neon-lime">/</span>
+          {totalCount}
         </span>
       </div>
 
@@ -367,34 +371,51 @@ export function ProblemsList({ items: initialItems }: { items: Item[] }) {
                 <Link
                   href={`/problems/${p.slug}?fromPage=${currentPage}`}
                   className={cn(
-                    "group flex items-center gap-3 px-4 py-2.5 transition-colors",
+                    "group relative flex items-center gap-3 px-4 py-2.5 transition-colors",
                     p.solved
-                      ? "bg-emerald-50/60 dark:bg-emerald-950/15 hover:bg-emerald-100/70 dark:hover:bg-emerald-950/30 glow-solved"
+                      ? "bg-neon-lime/[0.08] ring-1 ring-inset ring-neon-lime/25 hover:bg-neon-lime/[0.14]"
                       : "hover:bg-muted/60 hover:translate-x-1",
                   )}
                 >
-                  <span className="text-xs text-muted-foreground tabular-nums w-6 text-right shrink-0 hidden sm:inline">
+                  {p.solved && (
+                    <span
+                      aria-hidden
+                      className="absolute inset-y-0 left-0 w-[3px] bg-neon-lime shadow-[0_0_10px_1px_var(--neon-lime)]"
+                    />
+                  )}
+                  <span className="hidden w-6 shrink-0 text-right font-code text-xs tabular-nums text-muted-foreground sm:inline">
                     {pageOffset + idx + 1}
                   </span>
                   <span className="shrink-0">
                     {p.solved ? (
-                      <CheckCircle2 className="h-5 w-5 text-emerald-600 fill-emerald-100 dark:fill-emerald-950" />
+                      <CheckCircle2 className="h-5 w-5 text-neon-lime drop-shadow-[0_0_6px_var(--neon-lime)]" />
                     ) : (
                       <Circle className="h-5 w-5 text-muted-foreground/40 group-hover:text-muted-foreground/70 transition-colors" />
                     )}
                   </span>
 
-                  <div className="flex-1 min-w-0">
-                    <div
-                      className={cn(
-                        "font-semibold truncate leading-tight",
-                        p.solved && "text-emerald-900 dark:text-emerald-200",
+                  <div className="min-w-0 flex-1">
+                    <div className="flex min-w-0 items-center gap-2">
+                      <span
+                        className={cn(
+                          "truncate font-semibold leading-tight",
+                          p.solved && "text-neon-lime text-glow-soft",
+                        )}
+                      >
+                        {stripLatex(p.title)}
+                      </span>
+                      {p.solved && (
+                        <span
+                          className="hud-chip hidden shrink-0 sm:inline-flex"
+                          style={{ ["--glow" as string]: "var(--neon-lime)" }}
+                        >
+                          <CheckCircle2 className="h-3 w-3" />
+                          {t("solved")}
+                        </span>
                       )}
-                    >
-                      {stripLatex(p.title)}
                     </div>
                     {p.tags.length > 0 && (
-                      <div className="text-xs text-muted-foreground/70 mt-0.5 truncate">
+                      <div className="mt-0.5 truncate text-xs text-muted-foreground/70">
                         {p.tags.map((tag) => `#${tag}`).join(" ")}
                       </div>
                     )}
@@ -402,8 +423,10 @@ export function ProblemsList({ items: initialItems }: { items: Item[] }) {
 
                   <span
                     className={cn(
-                      "hidden sm:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-xs font-medium shrink-0",
-                      DIFFICULTY_STYLES[p.difficulty],
+                      "hidden shrink-0 items-center gap-1.5 rounded-md px-2 py-0.5 text-xs font-medium sm:inline-flex",
+                      p.solved
+                        ? "opacity-60"
+                        : DIFFICULTY_STYLES[p.difficulty],
                     )}
                   >
                     <span
@@ -415,7 +438,14 @@ export function ProblemsList({ items: initialItems }: { items: Item[] }) {
                     {t(`difficulty.${p.difficulty}`)}
                   </span>
 
-                  <span className="inline-flex items-center gap-1 text-amber-600 dark:text-amber-400 text-xs font-semibold tabular-nums shrink-0 min-w-[2.5rem] justify-end">
+                  <span
+                    className={cn(
+                      "inline-flex min-w-[2.5rem] shrink-0 items-center justify-end gap-1 text-xs font-semibold tabular-nums",
+                      p.solved
+                        ? "text-neon-lime"
+                        : "text-amber-600 dark:text-amber-400",
+                    )}
+                  >
                     <Sparkles className="h-3 w-3" />
                     {p.xp_reward}
                   </span>
@@ -454,10 +484,10 @@ export function ProblemsList({ items: initialItems }: { items: Item[] }) {
                     <button
                       onClick={() => goToPage(p)}
                       className={cn(
-                        "min-w-[2rem] h-8 px-2 py-1 text-sm rounded font-medium transition-colors",
+                        "h-8 min-w-[2rem] rounded px-2 py-1 font-code text-sm font-medium transition-colors",
                         p === currentPage
-                          ? "bg-violet-600 text-white"
-                          : "hover:bg-muted text-muted-foreground",
+                          ? "bg-primary text-primary-foreground shadow-[0_0_16px_-4px_var(--color-primary)]"
+                          : "text-muted-foreground hover:bg-muted",
                       )}
                     >
                       {p}

@@ -84,9 +84,13 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="max-w-md mx-auto py-8">
-      <Card>
+    <div className="mx-auto max-w-md py-8">
+      <Card className="hud-panel hud-corners">
         <CardHeader>
+          <div className="hud-label flex items-center gap-2">
+            <span className="text-primary">//</span>
+            AUTH.REGISTER
+          </div>
           <CardTitle className="text-2xl">{t("title")}</CardTitle>
         </CardHeader>
         <CardContent>
@@ -180,14 +184,14 @@ export default function SignupPage() {
 
             <Button
               type="submit"
-              className="w-full bg-violet-600 hover:bg-violet-700"
+              className="w-full font-code"
               disabled={pending || invite.status !== "valid"}
             >
               {pending ? "..." : t("submit")}
             </Button>
-            <p className="text-sm text-center text-muted-foreground">
+            <p className="text-center text-sm text-muted-foreground">
               {t("has_account")}{" "}
-              <Link href="/login" className="text-violet-600 hover:underline">
+              <Link href="/login" className="text-primary hover:underline">
                 {t("login_link")}
               </Link>
             </p>

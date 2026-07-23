@@ -6,7 +6,7 @@ import { getLocale, getMessages, getTranslations } from "next-intl/server";
 
 import { Nav } from "@/components/nav";
 import { NavSkeleton } from "@/components/nav-skeleton";
-import { BackgroundBlob } from "@/components/background-blob";
+import { GridBackground } from "@/components/grid-background";
 import { Fab } from "@/components/fab";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
@@ -52,8 +52,8 @@ export default async function RootLayout({
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
-            enableSystem
+            defaultTheme="dark"
+            enableSystem={false}
             disableTransitionOnChange
           >
             {/* Suspend Nav so the shell renders instantly while Nav fetches session/profile.
@@ -61,7 +61,7 @@ export default async function RootLayout({
             <Suspense fallback={<NavSkeleton />}>
               <Nav />
             </Suspense>
-            <BackgroundBlob />
+            <GridBackground />
             <main className="container mx-auto px-4 py-8">{children}</main>
             <Toaster richColors position="top-center" />
             <Fab />

@@ -3,37 +3,55 @@
 C++ programming practice site for 7th–8th grade students.
 Inspired by Codeforces, gamified for kids, fully bilingual (Mongolian + English).
 
-**Phase 1 (MVP) — what works today:**
+---
 
-- Student signup with class invite codes, login
-- Browse problems, see solved status, filter by difficulty
-- Solve a problem in an in-browser Monaco editor and submit
-- Judge0 grades the submission against hidden test cases
-- XP / level / streak / "problems solved" tracked automatically
-- Leaderboard (top 50 by XP)
-- Standalone online C++ IDE (write + run with stdin, no grading)
-- Mongolian / English language toggle (per-user)
-- Teacher accounts via a secret bootstrap code
+## What works today
 
-**Coming in later phases:**
+### For students
 
-- Teacher dashboard (create problems, classes, assignments through the UI)
-- Assignments with deadlines
-- Timed contests
-- Badge system wired up to events
-- Token-similarity plagiarism detection surfaced in teacher dashboard
+- Sign up with a class invite code, log in
+- **Learn** — 6 built-in beginner lessons (Hello World → variables → input → if/else → for → while), each with runnable code and a bilingual tip
+- **Problems** — browse, filter by difficulty, see solved status; solve in an in-browser Monaco editor with KaTeX-rendered statements; Judge0 grades against hidden test cases
+- **Online IDE** — standalone C++ playground: write, run with stdin, no grading
+- **Games**
+  - **Robot Programmer** — a Blockly block-coding puzzle that drives a robot through a Phaser-rendered 2D maze (courses: basics, loops, conditionals, master); levels are teacher-authorable with progressive hints
+  - **Bug Smash** — a fast daily arcade mini-game that awards XP
+- **Daily Quests** — bite-sized challenges (predict-the-output, bug hunt, multiple choice) that award XP
+- **Gamification** — XP, levels, daily streaks, "problems solved", and a badge system (first solve, streaks, milestones, first hard, first try, class champion) awarded automatically
+- **Leaderboard** — top students by XP, plus a class-vs-class weekly cup
+- **Contests** — timed contests with a live points leaderboard
+- **Assignments** — per-class problem sets with deadlines and late penalties
+- **Notifications** — in-app bell for badges, level-ups, assignment due dates, contest starts
+- **Language toggle** — Mongolian / English, remembered per user
+
+### For teachers
+
+A full teacher dashboard (`/teacher`) — no SQL required for day-to-day use:
+
+- **Classes** — create classes and hand out invite codes
+- **Problems** — create/edit problems and test cases through the UI
+- **Assignments** — build problem sets with due dates, late-submission rules
+- **Contests** — schedule timed contests and pick their problems
+- **Robot levels** — author custom maze levels for the Robot Programmer game
+- **Plagiarism** — review flagged near-duplicate submissions (token-similarity, computed automatically on each accepted submission)
+- **Analytics** — class/student progress overview
+
+Teacher accounts are created with a secret bootstrap invite code (see below).
 
 ---
 
 ## Tech stack
 
 - **Next.js 15** (App Router) + **TypeScript**
-- **Supabase** (Postgres + Auth) — free tier
+- **Supabase** (Postgres + Auth, RLS on every table) — free tier
 - **Tailwind v4** + **shadcn/ui** (`base-nova` style)
+- **Judge0** (via RapidAPI) for compiling and running C++ (GCC 9.2.0)
 - **Monaco Editor** for the code editor
-- **Framer Motion** for UI animations
+- **Blockly** (block coding) + **Phaser 4** (2D maze) + **three.js / react-three-fiber** for games
+- **Framer Motion** for UI animations, **next-themes** for dark mode
+- **react-markdown** + **KaTeX** for problem statements
 - **next-intl** for i18n
-- **Judge0** (via RapidAPI) for compiling and running C++
+- **Zod** for API input validation
 
 ---
 
@@ -52,7 +70,9 @@ Inspired by Codeforces, gamified for kids, fully bilingual (Mongolian + English)
 3. **Disable email confirmation** so kids don't need to verify email:
    - Project Settings → Authentication → Email Auth → toggle off **"Confirm email"**.
 4. Open the SQL editor (left sidebar) → **New query** → paste the entire contents of [`supabase/schema.sql`](supabase/schema.sql) → **Run**.
-   - This creates all tables, indexes, RLS policies, triggers, and seeds the badges.
+   - This creates the core tables, indexes, RLS policies, triggers, and seeds the badges.
+5. Then apply each migration in [`supabase/migrations/`](supabase/migrations) **in filename order** (002, 003, 004, …). Each is idempotent and adds a later feature (badge auto-awarding, class cup, plagiarism, contests, quests, games, robot levels, notifications).
+6. *(Optional)* Run [`supabase/seed-problems.sql`](supabase/seed-problems.sql) and [`supabase/seed-quests.sql`](supabase/seed-quests.sql) to load starter content.
 
 ### 2. Get your Supabase keys
 
@@ -75,7 +95,7 @@ cp .env.local.example .env.local
 # then edit .env.local and fill in every variable
 ```
 
-Pick `TEACHER_INVITE_CODE` carefully — anyone who knows it can sign up as a teacher. Pick something hard to guess (e.g. `teacher-orkhon-2026-9f3aXq`).
+Pick `TEACHER_INVITE_CODE` carefully — anyone who knows it can sign up as a teacher. Pick something hard to guess (e.g. `teacher-orkhon-2026-9f3aXq`) and rotate it after your teacher accounts exist.
 
 ### 5. Install and run
 
@@ -96,52 +116,30 @@ Open <http://localhost:3000>.
 2. Enter the `TEACHER_INVITE_CODE` you set in `.env.local` as the invite code.
 3. Fill out the rest of the form. You'll be signed in as a teacher.
 
-### Create classes
+### Set up classes, problems, and content
 
-For phase 1 (no teacher UI yet), create classes from the Supabase SQL editor:
+Everything below is now done through the **teacher dashboard** (`/teacher`) — no SQL needed:
 
-```sql
-insert into classes (name, grade, invite_code, teacher_id) values
-  ('7A', 7, '7A-AUTUMN26', (select id from profiles where role = 'teacher' limit 1)),
-  ('7B', 7, '7B-AUTUMN26', (select id from profiles where role = 'teacher' limit 1)),
-  ('8A', 8, '8A-AUTUMN26', (select id from profiles where role = 'teacher' limit 1));
+1. **Classes** → create your classes; each gets an invite code. Give each code to the students in that class; they use it on `/signup`.
+2. **Problems** → create problems and their test cases (mark some tests as *samples* to show students).
+3. **Assignments / Contests** → optionally group problems into deadline-bound assignments or timed contests.
+4. **Robot levels** → optionally author custom maze puzzles.
+
+Students can then find problems on `/problems`, write a solution, and submit.
+
+---
+
+## Importing problems from SPOJ
+
+`scripts/` contains a three-stage pipeline to bulk-import problems. See [`scripts/README.md`](scripts/README.md) for full details.
+
+```
+1. scrape-spoj.mjs   → statements + samples        (data/spoj-rgb7/)
+2. build-tests.mjs   → LLM reference + extra tests  (data/spoj-rgb7-built/)
+3. import-problems.mjs → Supabase bulk insert
 ```
 
-Give each invite code to the students in the matching class. They use it on `/signup`.
-
-### Create your first problem
-
-```sql
--- 1. Create the problem
-insert into problems (
-  slug, title_mn, title_en,
-  statement_mn, statement_en,
-  difficulty, xp_reward, time_limit_ms, memory_limit_kb
-) values (
-  'add-two-numbers',
-  'Хоёр тоо нэмэх',
-  'Add Two Numbers',
-  'Хоёр бүхэл тоо өгөгдсөн. Тэдгээрийн нийлбэрийг хэвлэ.',
-  'Two integers are given. Print their sum.',
-  'easy', 10, 1000, 65536
-);
-
--- 2. Add a sample test (visible to students)
-insert into test_cases (problem_id, stdin, expected_stdout, is_sample, order_idx)
-select id, '3 4', '7', true, 0 from problems where slug = 'add-two-numbers';
-
--- 3. Add hidden tests (used for grading)
-insert into test_cases (problem_id, stdin, expected_stdout, is_sample, order_idx)
-select id, stdin, expected_stdout, false, idx
-from problems, (values
-  ('10 20', '30', 1),
-  ('-5 5', '0', 2),
-  ('1000000 1000000', '2000000', 3)
-) as t(stdin, expected_stdout, idx)
-where slug = 'add-two-numbers';
-```
-
-Students can now find this problem on `/problems`, write a solution, and submit.
+Stage 2 uses an LLM to generate a reference solution and validated extra test cases, so it needs a `DEEPSEEK_API_KEY` in `.env.local`. Stage 1 opens a visible Chromium (via Playwright) so you can solve a Cloudflare challenge once if prompted.
 
 ---
 
@@ -154,7 +152,7 @@ Students can now find this problem on `/problems`, write a solution, and submit.
 | Pro       | 5000 submissions / day | Full school timetable, lots of slack |
 | Self-host | unlimited              | Best long-term; needs a small VPS    |
 
-With 32 students/class and ~5 submissions each, one class period burns ~160 submissions. **The free tier will not survive a real lesson.** Plan to upgrade before going live.
+With 32 students/class and ~5 submissions each, one class period burns ~160 submissions. **The free tier will not survive a real lesson.** Plan to upgrade before going live, or self-host — see [`docs/JUDGE0_SELF_HOST.md`](docs/JUDGE0_SELF_HOST.md).
 
 ---
 
@@ -164,36 +162,53 @@ With 32 students/class and ~5 submissions each, one class period burns ~160 subm
 app/
   (auth)/login/, (auth)/signup/    – auth pages, no auth guard
   (app)/                           – auth-guarded routes
+    learn/                         – built-in beginner lessons
     problems/                      – list and detail (with Monaco IDE)
     ide/                           – standalone C++ playground
+    game/robot/                    – Blockly + Phaser robot-maze game
+    game/bug-smash/                – arcade mini-game
+    quests/                        – daily quests
+    leaderboard/                   – XP leaderboard + class cup
+    contests/                      – timed contests
+    assignments/                   – per-class assignments
     profile/                       – own profile, XP, streak, history
-    leaderboard/                   – top 50 students by XP
-    assignments/, teacher/         – phase-2 stubs
+    teacher/                       – teacher dashboard (classes, problems,
+                                     assignments, contests, robot-levels,
+                                     plagiarism, analytics)
   api/
     auth/{signup,validate-invite}/ – signup endpoints
-    submit/                        – submit + grade a problem
+    submit/                        – submit + grade a problem (+ plagiarism scan)
     run/                           – run code with stdin (IDE)
-  actions/locale.ts                – server action to switch language
+    robot/, quests/, game/         – game progress + scoring
+    notifications/, problems/      – misc data endpoints
+  actions/                         – server actions (e.g. locale switch)
   layout.tsx, page.tsx             – root layout + landing
 
 components/
   ui/                              – shadcn primitives
-  nav.tsx, site-logo.tsx, ...      – app chrome
+  nav.tsx, nav-links.tsx, ...      – app chrome
   code-editor.tsx                  – Monaco wrapper (dynamic import, ssr: false)
+  blockly-workspace.tsx            – Blockly editor for the robot game
   verdict-badge.tsx                – colored badge for each Judge0 verdict
-  xp-bar.tsx                       – nav-bar progress widget
+  xp-bar.tsx, notification-bell.tsx, teacher-subnav.tsx, ...
 
 lib/
   supabase/                        – server, client, middleware factories
   judge0.ts                        – Judge0 wrapper (grade + runOnce)
-  i18n-helpers.ts, utils.ts        – misc helpers
+  plagiarism.ts                    – token-similarity scoring
+  robot-blocks.ts, robot-interpreter.ts, phaser-maze-scene.ts – robot game
+  quest-selection.ts               – daily quest picker
+  i18n-helpers.ts, utils.ts, ...   – misc helpers
 
 i18n/                              – next-intl config + request handler
 messages/mn.json, messages/en.json – translations
 
 types/database.ts                  – hand-authored Database type for Supabase
-supabase/schema.sql                – run this in Supabase SQL editor
-middleware.ts                      – session refresh on every request
+supabase/schema.sql                – base schema (run first)
+supabase/migrations/               – incremental feature migrations (run in order)
+supabase/seed-*.sql                – optional starter content
+scripts/                           – SPOJ scrape → build → import pipeline
+middleware.ts                      – Supabase session refresh on page routes
 ```
 
 ---
@@ -213,9 +228,11 @@ Update `NEXT_PUBLIC_SITE_URL` to your Vercel URL once deployed.
 
 ## Troubleshooting
 
-**Signup says "Database error"** — make sure you ran the full `supabase/schema.sql`. Check the Supabase logs (Project → Logs → Postgres) for the actual error.
+**Signup says "Database error"** — make sure you ran the full `supabase/schema.sql` *and* every migration in `supabase/migrations/`. Check the Supabase logs (Project → Logs → Postgres) for the actual error.
 
-**Code submission hangs forever** — Judge0 quota likely exhausted. Open the Network tab in DevTools, look for a 429 response. Upgrade the Judge0 plan, or wait until tomorrow on the free tier.
+**A feature 404s or a query fails on a missing table/column** — you likely skipped a migration. Re-apply `supabase/migrations/` in filename order; they're idempotent.
+
+**Code submission hangs forever** — Judge0 quota likely exhausted. Open the Network tab in DevTools, look for a 429 response. Upgrade the Judge0 plan, wait until tomorrow on the free tier, or self-host.
 
 **Monaco editor shows blank** — Monaco needs `ssr: false`, which is already configured. If it still doesn't load, check the browser console — usually a CSP issue if you added one.
 

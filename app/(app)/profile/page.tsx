@@ -149,10 +149,14 @@ export default async function ProfilePage() {
                   {profile.xp} / {nextLevelXp} XP
                 </span>
               </div>
-              <div className="h-2 rounded-full bg-muted overflow-hidden">
+              <div className="h-2 overflow-hidden rounded-full bg-muted ring-1 ring-primary/15">
                 <div
-                  className="h-full bg-gradient-to-r from-violet-500 to-fuchsia-500"
-                  style={{ width: `${progress}%` }}
+                  className="h-full rounded-full"
+                  style={{
+                    width: `${progress}%`,
+                    background: "var(--gradient-xp)",
+                    boxShadow: "0 0 12px -2px var(--color-primary)",
+                  }}
                 />
               </div>
             </div>

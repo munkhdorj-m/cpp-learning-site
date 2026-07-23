@@ -7,43 +7,44 @@ const CPP_CODE = [
   "using namespace std;",
   "",
   "int main() {",
-  '  cout << "Hello, World!" << endl;',
+  '  cout << "Hello, World!";',
   "  return 0;",
   "}",
 ];
 
-const OUTPUT = ["> Hello, World!"];
+const OUTPUT = ["> ./a.out", "Hello, World!"];
 
 /**
- * Animated hero component that types out C++ code and shows its output.
- * Placed above the landing page heading.
+ * Neon terminal hero: types out C++ and shows compiled output.
+ * Sci-fi HUD styling — glowing panel with a mono status bar.
  */
 export function TypewriterHero() {
   return (
-    <div className="mx-auto max-w-md rounded-xl border bg-card/80 backdrop-blur-sm overflow-hidden shadow-lg">
-      {/* macOS-style title bar */}
-      <div className="flex items-center gap-1.5 px-3 py-2 bg-muted/50 border-b">
-        <span className="h-3 w-3 rounded-full bg-rose-400" />
-        <span className="h-3 w-3 rounded-full bg-amber-400" />
-        <span className="h-3 w-3 rounded-full bg-emerald-400" />
-        <span className="flex-1 text-center text-[10px] text-muted-foreground font-medium">
+    <div className="hud-panel hud-corners mx-auto max-w-md overflow-hidden rounded-2xl backdrop-blur-sm">
+      {/* Status bar */}
+      <div className="flex items-center gap-1.5 border-b border-primary/15 bg-black/20 px-3 py-2">
+        <span className="h-2.5 w-2.5 rounded-full bg-neon-pink/80 shadow-[0_0_8px_var(--neon-pink)]" />
+        <span className="h-2.5 w-2.5 rounded-full bg-neon-amber/80 shadow-[0_0_8px_var(--neon-amber)]" />
+        <span className="h-2.5 w-2.5 rounded-full bg-neon-lime/80 shadow-[0_0_8px_var(--neon-lime)]" />
+        <span className="flex-1 text-center font-code text-[10px] tracking-widest text-muted-foreground">
           main.cpp
         </span>
+        <span className="font-code text-[10px] text-primary/70">C++</span>
       </div>
 
       {/* Code area */}
-      <div className="px-4 py-3 bg-muted/20 text-left">
+      <div className="px-4 py-3 text-left">
         <TypewriterText
           lines={CPP_CODE}
           startDelay={300}
           speed={35}
           linePause={250}
-          className="text-violet-800 dark:text-violet-300"
+          className="text-primary text-glow-soft"
         />
       </div>
 
-      {/* Output area — appears after typing is done */}
-      <div className="border-t px-4 py-2 bg-emerald-50/50 dark:bg-emerald-950/30 text-left">
+      {/* Output — appears after typing */}
+      <div className="border-t border-primary/15 bg-neon-lime/[0.06] px-4 py-2 text-left">
         <TypewriterText
           lines={OUTPUT}
           startDelay={
@@ -51,7 +52,7 @@ export function TypewriterHero() {
           }
           speed={30}
           linePause={100}
-          className="text-emerald-700 dark:text-emerald-400 text-xs"
+          className="text-neon-lime text-glow-soft text-xs"
         />
       </div>
     </div>

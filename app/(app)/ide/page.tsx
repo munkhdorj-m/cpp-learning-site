@@ -53,6 +53,10 @@ export default function IdePage() {
     <div className="space-y-4">
       <div className="flex items-end justify-between">
         <div>
+          <div className="hud-label flex items-center gap-2">
+            <span className="text-primary">//</span>
+            SANDBOX
+          </div>
           <h1 className="text-2xl font-bold">{t("title")}</h1>
           <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
         </div>
@@ -66,16 +70,16 @@ export default function IdePage() {
               setResult(null);
             }}
           >
-            <Trash2 className="h-4 w-4 mr-1.5" />
+            <Trash2 className="mr-1.5 h-4 w-4" />
             {t("clear")}
           </Button>
           <Button
             onClick={handleRun}
             disabled={pending}
-            className="bg-violet-600 hover:bg-violet-700"
+            className="font-code"
             size="sm"
           >
-            <Play className="h-4 w-4 mr-1.5" />
+            <Play className="mr-1.5 h-4 w-4" />
             {pending ? t("running") : t("run")}
           </Button>
         </div>
@@ -111,16 +115,21 @@ export default function IdePage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <pre className="font-mono text-sm bg-muted rounded p-2 min-h-[80px] whitespace-pre-wrap break-all">
+              <pre className="min-h-[80px] whitespace-pre-wrap break-all rounded border border-primary/15 bg-[oklch(0.16_0.02_264)] p-2.5 font-mono text-sm text-neon-lime">
                 {result?.compile_output && (
-                  <span className="text-purple-700 dark:text-purple-300">
+                  <span className="text-neon-violet">
                     {result.compile_output}
                   </span>
                 )}
                 {result?.stdout}
                 {result?.stderr && (
-                  <span className="text-rose-700 dark:text-rose-300">
+                  <span className="text-destructive">
                     {"\n" + result.stderr}
+                  </span>
+                )}
+                {!result && (
+                  <span className="text-muted-foreground/60">
+                    {"// " + (pending ? t("running") : t("run"))}
                   </span>
                 )}
               </pre>

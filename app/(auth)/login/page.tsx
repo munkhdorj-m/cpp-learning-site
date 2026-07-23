@@ -34,9 +34,13 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="max-w-md mx-auto py-8">
-      <Card>
+    <div className="mx-auto max-w-md py-8">
+      <Card className="hud-panel hud-corners">
         <CardHeader>
+          <div className="hud-label flex items-center gap-2">
+            <span className="text-primary">//</span>
+            AUTH.LOGIN
+          </div>
           <CardTitle className="text-2xl">{t("title")}</CardTitle>
         </CardHeader>
         <CardContent>
@@ -65,14 +69,14 @@ export default function LoginPage() {
             </div>
             <Button
               type="submit"
-              className="w-full bg-violet-600 hover:bg-violet-700"
+              className="w-full font-code"
               disabled={pending}
             >
               {pending ? "..." : t("submit")}
             </Button>
-            <p className="text-sm text-center text-muted-foreground">
+            <p className="text-center text-sm text-muted-foreground">
               {t("no_account")}{" "}
-              <Link href="/signup" className="text-violet-600 hover:underline">
+              <Link href="/signup" className="text-primary hover:underline">
                 {t("signup_link")}
               </Link>
             </p>

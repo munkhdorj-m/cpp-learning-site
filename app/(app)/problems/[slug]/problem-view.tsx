@@ -3,7 +3,14 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { Play, Sparkles, Clock, HardDrive, ArrowLeft } from "lucide-react";
+import {
+  Play,
+  Sparkles,
+  Clock,
+  HardDrive,
+  ArrowLeft,
+  CheckCircle2,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import confetti from "canvas-confetti";
@@ -14,6 +21,7 @@ import { Badge } from "@/components/ui/badge";
 import { CodeEditor, STARTER_CPP } from "@/components/code-editor";
 import { Markdown } from "@/components/markdown";
 import { VerdictBadge } from "@/components/verdict-badge";
+import { cn } from "@/lib/utils";
 import type { Difficulty, Verdict } from "@/types/database";
 
 interface Problem {
@@ -120,12 +128,18 @@ export function ProblemView({
   const tVerdict = useTranslations("verdict");
   const tCommon = useTranslations("common");
   const tReward = useTranslations("reward");
+  const tProblems = useTranslations("problems");
   const locale = useLocale();
   const router = useRouter();
 
   const [code, setCode] = useState(STARTER_CPP);
   const [result, setResult] = useState<SubmissionResult | null>(null);
   const [pending, startTransition] = useTransition();
+
+  // Solved = accepted in a past submission, or accepted just now this session.
+  const solved =
+    result?.verdict === "accepted" ||
+    pastSubmissions.some((s) => s.verdict === "accepted");
 
   const submit = () => {
     setResult(null);
@@ -186,26 +200,50 @@ export function ProblemView({
         </button>
 
         <div className="space-y-2">
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex flex-wrap items-center gap-2">
+            {solved && (
+              <span
+                className="hud-chip"
+                style={{ ["--glow" as string]: "var(--neon-lime)" }}
+              >
+                <CheckCircle2 className="h-3.5 w-3.5" />
+                {tProblems("solved")}
+              </span>
+            )}
             <Badge
               variant="outline"
               className={`${DIFFICULTY_STYLES[problem.difficulty]} border`}
             >
               {tDiff(problem.difficulty)}
             </Badge>
-            <span className="text-xs text-muted-foreground inline-flex items-center gap-1">
+            <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
               <Clock className="h-3 w-3" /> {labels.time_limit}:{" "}
               {problem.time_limit_ms}ms
             </span>
-            <span className="text-xs text-muted-foreground inline-flex items-center gap-1">
+            <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
               <HardDrive className="h-3 w-3" /> {labels.memory_limit}:{" "}
               {Math.round(problem.memory_limit_kb / 1024)}MB
             </span>
-            <span className="text-xs text-amber-600 inline-flex items-center gap-1 font-medium">
+            <span
+              className={cn(
+                "inline-flex items-center gap-1 text-xs font-medium",
+                solved ? "text-neon-lime" : "text-amber-600",
+              )}
+            >
               <Sparkles className="h-3 w-3" /> {problem.xp_reward} XP
             </span>
           </div>
-          <h1 className="text-2xl font-bold">{problem.title}</h1>
+          <h1
+            className={cn(
+              "flex items-center gap-2 text-2xl font-bold",
+              solved && "text-neon-lime text-glow-soft",
+            )}
+          >
+            {solved && (
+              <CheckCircle2 className="h-6 w-6 shrink-0 drop-shadow-[0_0_6px_var(--neon-lime)]" />
+            )}
+            {problem.title}
+          </h1>
         </div>
 
         <Section title={labels.statement} body={problem.statement} />
@@ -254,10 +292,10 @@ export function ProblemView({
           <Button
             onClick={submit}
             disabled={pending}
-            className="bg-violet-600 hover:bg-violet-700"
+            className="font-code"
             size="sm"
           >
-            <Play className="h-4 w-4 mr-1.5" />
+            <Play className="mr-1.5 h-4 w-4" />
             {pending ? labels.submitting : labels.submit}
           </Button>
         </div>

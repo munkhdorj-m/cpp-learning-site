@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 import { Trophy, Crown, Medal, Sparkles, Users } from "lucide-react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,6 +11,9 @@ export const revalidate = 300; // ISR: serve cached page for 5min — reduces To
 
 export default async function LeaderboardPage() {
   const t = await getTranslations("leaderboard");
+  const locale = await getLocale();
+  const en = locale === "en";
+  const youLabel = en ? "YOU" : "ТА";
   const supabase = await createClient();
   const user = await getCachedSession();
 
@@ -49,8 +52,14 @@ export default async function LeaderboardPage() {
   const rest = allRows.slice(3);
 
   return (
-    <div className="space-y-6 max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold">{t("title")}</h1>
+    <div className="mx-auto max-w-3xl space-y-6">
+      <div className="space-y-1">
+        <div className="hud-label flex items-center gap-2">
+          <span className="text-primary">//</span>
+          RANKING.TOP50
+        </div>
+        <h1 className="text-3xl font-bold">{t("title")}</h1>
+      </div>
 
       {topClasses.length > 0 && (
         <Card>
@@ -101,7 +110,9 @@ export default async function LeaderboardPage() {
         </Card>
       )}
 
-      {top3.length > 0 && <Podium top3={top3} />}
+      {top3.length > 0 && (
+        <Podium top3={top3} meId={user?.id} youLabel={youLabel} />
+      )}
 
       <Card>
         <div className="hidden sm:grid grid-cols-[60px_1fr_100px_100px_100px] gap-2 p-3 text-xs font-semibold text-muted-foreground uppercase tracking-wide border-b">
@@ -122,36 +133,55 @@ export default async function LeaderboardPage() {
             return (
               <div
                 key={row.id}
-                className={`grid grid-cols-[60px_1fr_60px_80px] sm:grid-cols-[60px_1fr_100px_100px_100px] gap-2 p-3 items-center hover:bg-muted/30 transition-colors ${
-                  isMe ? "bg-violet-50 dark:bg-violet-950/30" : ""
+                className={`relative grid grid-cols-[60px_1fr_60px_80px] sm:grid-cols-[60px_1fr_100px_100px_100px] gap-2 p-3 items-center transition-colors ${
+                  isMe
+                    ? "bg-primary/[0.1] ring-1 ring-inset ring-primary/35 hover:bg-primary/[0.15]"
+                    : "hover:bg-muted/30"
                 }`}
               >
+                {isMe && (
+                  <span
+                    aria-hidden
+                    className="absolute inset-y-0 left-0 w-[3px] bg-primary shadow-[0_0_10px_1px_var(--color-primary)]"
+                  />
+                )}
                 <div className="flex items-center justify-center">
                   <RankIcon rank={rank} />
                 </div>
-                <div className="flex items-center gap-2 min-w-0">
-                  <Avatar className="h-8 w-8 shrink-0">
+                <div className="flex min-w-0 items-center gap-2">
+                  <Avatar
+                    className={`h-8 w-8 shrink-0 ${isMe ? "ring-2 ring-primary/60 ring-offset-1 ring-offset-background" : ""}`}
+                  >
                     <AvatarImage src={avatarUrl} alt={row.display_name} />
                     <AvatarFallback className="bg-violet-100 text-violet-700 dark:bg-violet-950/40 dark:text-violet-300 text-xs font-bold">
                       {initials(row.display_name) || "?"}
                     </AvatarFallback>
                   </Avatar>
                   <div className="min-w-0">
-                    <div className="font-medium truncate">
-                      {row.display_name}
+                    <div className="flex items-center gap-1.5">
+                      <span
+                        className={`truncate font-medium ${isMe ? "text-primary text-glow-soft" : ""}`}
+                      >
+                        {row.display_name}
+                      </span>
+                      {isMe && (
+                        <span className="hud-chip shrink-0">{youLabel}</span>
+                      )}
                     </div>
-                    <div className="text-xs text-muted-foreground truncate sm:hidden">
+                    <div className="truncate text-xs text-muted-foreground sm:hidden">
                       Lv {row.level} · {row.xp} XP
                     </div>
                   </div>
                 </div>
-                <div className="text-sm text-center hidden sm:block">
+                <div className="hidden text-center text-sm sm:block">
                   {className}
                 </div>
-                <div className="hidden sm:block text-right tabular-nums font-semibold text-violet-600">
+                <div
+                  className={`hidden text-right font-semibold tabular-nums sm:block ${isMe ? "text-primary" : "text-violet-600 dark:text-violet-400"}`}
+                >
                   {row.xp}
                 </div>
-                <div className="text-right tabular-nums text-sm">
+                <div className="text-right text-sm tabular-nums">
                   {row.problems_solved}
                 </div>
               </div>
@@ -187,7 +217,15 @@ interface PodiumStudent {
   level: number;
 }
 
-function Podium({ top3 }: { top3: PodiumStudent[] }) {
+function Podium({
+  top3,
+  meId,
+  youLabel,
+}: {
+  top3: PodiumStudent[];
+  meId?: string;
+  youLabel: string;
+}) {
   // Reorder: [2nd, 1st, 3rd] for visual layout
   const ordered =
     top3.length >= 3
@@ -214,8 +252,10 @@ function Podium({ top3 }: { top3: PodiumStudent[] }) {
             : rank === 2
               ? "from-slate-400 to-slate-500 shadow-[0_0_15px_rgba(148,163,184,0.25)]"
               : "from-amber-700 to-amber-800 shadow-[0_0_12px_rgba(180,83,9,0.2)]";
-        const ringColor =
-          rank === 1
+        const isMe = !!meId && student.id === meId;
+        const ringColor = isMe
+          ? "ring-primary"
+          : rank === 1
             ? "ring-amber-400"
             : rank === 2
               ? "ring-slate-300"
@@ -224,9 +264,12 @@ function Podium({ top3 }: { top3: PodiumStudent[] }) {
 
         return (
           <div key={student.id} className="flex flex-col items-center gap-1.5">
+            {isMe && (
+              <span className="hud-chip -mb-0.5">{youLabel}</span>
+            )}
             <div className="relative">
               <Avatar
-                className={`h-12 w-12 sm:h-16 sm:w-16 ring-2 ring-offset-2 ring-offset-background ${ringColor}`}
+                className={`h-12 w-12 sm:h-16 sm:w-16 ring-2 ring-offset-2 ring-offset-background ${ringColor} ${isMe ? "shadow-[0_0_16px_-2px_var(--color-primary)]" : ""}`}
               >
                 <AvatarImage src={avatarUrl} alt={student.display_name} />
                 <AvatarFallback className="bg-violet-100 text-violet-700 text-sm font-bold">
