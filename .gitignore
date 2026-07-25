@@ -41,3 +41,7 @@ yarn-error.log*
 next-env.d.ts
 scripts/.chrome-profile/
 scripts/.spoj-cookies.txt
+
+# Migration data backups (contain student PII — never commit)
+migration/backup/
+migration/mysql-data.sql

@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { createClient } from "@/lib/supabase/client";
 
 export default function LoginPage() {
   const t = useTranslations("auth.login");
@@ -22,9 +21,12 @@ export default function LoginPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     startTransition(async () => {
-      const supabase = createClient();
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      if (!res.ok) {
         toast.error(t("error"));
         return;
       }

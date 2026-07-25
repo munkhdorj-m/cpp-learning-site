@@ -1,38 +1,30 @@
-import { cookies } from "next/headers";
+// NOTE: path kept as lib/supabase/server for compatibility with ~50 imports.
+// It no longer talks to Supabase — it returns a MySQL-backed client that
+// mimics the supabase-js API (.from().select()..., .rpc(), .auth.getUser()).
 
-import { createServerClient } from "@supabase/ssr";
+import { createDbClient } from "@/lib/mysql/query-builder";
+import { getUser } from "@/lib/auth";
 
-import type { Database } from "@/types/database";
-
-export async function createClient() {
-  const cookieStore = await cookies();
-  return createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll: () => cookieStore.getAll(),
-        setAll: (cookiesToSet) => {
-          try {
-            for (const { name, value, options } of cookiesToSet) {
-              cookieStore.set(name, value, options);
-            }
-          } catch {
-            // Called from a server component (read-only) — middleware handles refresh.
-          }
-        },
-      },
+function authApi() {
+  return {
+    getUser: async () => {
+      const user = await getUser();
+      return { data: { user }, error: null };
     },
-  );
+    getSession: async () => {
+      const user = await getUser();
+      return { data: { session: user ? { user } : null }, error: null };
+    },
+  };
 }
 
+// Async to preserve the previous `await createClient()` call signature.
+export async function createClient() {
+  return { ...createDbClient(), auth: authApi() };
+}
+
+// Previously the service-role (RLS-bypassing) client. With MySQL there is a
+// single privileged connection; access control now lives in the app code.
 export function createServiceClient() {
-  return createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    {
-      cookies: { getAll: () => [], setAll: () => {} },
-      auth: { autoRefreshToken: false, persistSession: false },
-    },
-  );
+  return { ...createDbClient(), auth: authApi() };
 }

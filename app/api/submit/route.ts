@@ -4,6 +4,12 @@ import { z } from "zod";
 import { Judge0RateLimitError, grade } from "@/lib/judge0";
 import { SIMILARITY_THRESHOLD, similarity } from "@/lib/plagiarism";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
+import {
+  awardProblemSolve,
+  awardBadges,
+  nextStreak,
+  utcToday,
+} from "@/lib/gamification";
 
 export const maxDuration = 60;
 
@@ -32,7 +38,7 @@ export async function POST(request: Request) {
   const admin = createServiceClient();
   const { data: problem, error: problemErr } = await admin
     .from("problems")
-    .select("id, time_limit_ms, memory_limit_kb")
+    .select("id, time_limit_ms, memory_limit_kb, difficulty, xp_reward")
     .eq("id", problem_id)
     .single();
   if (problemErr || !problem) {
@@ -109,6 +115,64 @@ export async function POST(request: Request) {
       color: string;
     }[] = [];
     if (result.verdict === "accepted") {
+      // --- gamification (previously done by Postgres triggers) ---
+      const { data: priorAc } = await admin
+        .from("submissions")
+        .select("id")
+        .eq("user_id", user.id)
+        .eq("problem_id", problem_id)
+        .eq("verdict", "accepted")
+        .neq("id", created.id)
+        .limit(1)
+        .maybeSingle();
+
+      if (!priorAc) {
+        const { data: prof } = await admin
+          .from("profiles")
+          .select("streak_days, last_solve_date")
+          .eq("id", user.id)
+          .single();
+        const today = utcToday();
+        const streak = nextStreak(
+          prof?.last_solve_date,
+          prof?.streak_days ?? 0,
+          today,
+        );
+        const xpReward = problem.xp_reward ?? 10;
+
+        await awardProblemSolve(user.id, xpReward, streak, today);
+        await admin
+          .from("submissions")
+          .update({ is_first_accepted: true, xp_awarded: xpReward })
+          .eq("id", created.id);
+
+        // Badges (mirrors the old award_badges_on_accept trigger).
+        const { data: prof2 } = await admin
+          .from("profiles")
+          .select("problems_solved, streak_days")
+          .eq("id", user.id)
+          .single();
+        const { count: otherSubs } = await admin
+          .from("submissions")
+          .select("id", { count: "exact", head: true })
+          .eq("user_id", user.id)
+          .eq("problem_id", problem_id)
+          .neq("id", created.id);
+
+        const codes = ["first_solve"];
+        const ps = prof2?.problems_solved ?? 0;
+        if (ps >= 10) codes.push("ten_solved");
+        if (ps >= 50) codes.push("fifty_solved");
+        if (ps >= 100) codes.push("hundred_solved");
+        const st = prof2?.streak_days ?? 0;
+        if (st >= 7) codes.push("streak_7");
+        if (st >= 30) codes.push("streak_30");
+        if (problem.difficulty === "hard") codes.push("first_hard");
+        if ((otherSubs ?? 0) === 0) codes.push("first_try");
+        await awardBadges(user.id, codes);
+      }
+      // --- end gamification ---
+
       const { data: afterProfile } = await admin
         .from("profiles")
         .select("level")

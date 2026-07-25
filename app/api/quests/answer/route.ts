@@ -3,6 +3,7 @@ import { z } from "zod";
 
 import { isCorrectAnswer } from "@/lib/quest-selection";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
+import { addXp } from "@/lib/gamification";
 
 const schema = z.object({
   quest_id: z.string().uuid(),
@@ -69,6 +70,9 @@ export async function POST(request: Request) {
   if (attemptErr) {
     return NextResponse.json({ error: attemptErr.message }, { status: 500 });
   }
+
+  // Award XP (was the on_quest_attempt trigger).
+  if (xp > 0) await addXp(user.id, xp);
 
   // Quest-count badges (idempotent via ON CONFLICT)
   if (correct) {

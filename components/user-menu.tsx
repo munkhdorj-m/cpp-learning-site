@@ -17,7 +17,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { createClient } from "@/lib/supabase/client";
 import { dicebearUrl, initials } from "@/lib/avatars";
 
 interface UserMenuProps {
@@ -41,8 +40,7 @@ export function UserMenu({
 
   const logout = () => {
     startTransition(async () => {
-      const supabase = createClient();
-      await supabase.auth.signOut();
+      await fetch("/api/auth/logout", { method: "POST" });
       router.refresh();
       router.push("/");
     });

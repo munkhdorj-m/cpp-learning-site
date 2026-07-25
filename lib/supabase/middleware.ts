@@ -1,44 +1,20 @@
+// Session middleware: verify the JWT session cookie and expose the user id as
+// the x-user-id header so getCachedSession() can use its fast path.
+// Edge-safe — imports only lib/session (jose), never bcrypt or the DB.
+
 import { NextResponse, type NextRequest } from "next/server";
 
-import { createServerClient } from "@supabase/ssr";
-
-import type { Database } from "@/types/database";
+import { verifySession, SESSION_COOKIE } from "@/lib/session";
 
 export async function updateSession(request: NextRequest) {
-  let response = NextResponse.next({ request });
+  const response = NextResponse.next({ request });
 
-  const supabase = createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll: () => request.cookies.getAll(),
-        setAll: (cookiesToSet) => {
-          for (const { name, value } of cookiesToSet) {
-            request.cookies.set(name, value);
-          }
-          response = NextResponse.next({ request });
-          for (const { name, value, options } of cookiesToSet) {
-            response.cookies.set(name, value, options);
-          }
-        },
-      },
-    },
-  );
-
-  // getSession() refreshes expired tokens and sets updated cookies.
-  // We also extract the user ID here so that getCachedSession() can use
-  // the fast path (read from header) instead of making a second network
-  // call to supabase.auth.getUser() on every page navigation.
-  try {
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-    if (session?.user?.id) {
-      response.headers.set("x-user-id", session.user.id);
+  const token = request.cookies.get(SESSION_COOKIE)?.value;
+  if (token) {
+    const payload = await verifySession(token);
+    if (payload?.sub) {
+      response.headers.set("x-user-id", payload.sub);
     }
-  } catch {
-    // Supabase unreachable — continue without a session
   }
 
   return response;

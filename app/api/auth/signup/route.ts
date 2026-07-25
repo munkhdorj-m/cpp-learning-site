@@ -1,7 +1,10 @@
+import { randomUUID } from "node:crypto";
+
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { createServiceClient } from "@/lib/supabase/server";
+import { hashPassword, setSession } from "@/lib/auth";
 
 const schema = z.object({
   code: z.string().min(1).max(64),
@@ -22,7 +25,7 @@ export async function POST(request: Request) {
   }
   const { code, username, displayName, email, password } = parsed.data;
 
-  const supabase = createServiceClient();
+  const db = createServiceClient();
 
   let classId: string | null = null;
   let role: "student" | "teacher" = "student";
@@ -30,7 +33,7 @@ export async function POST(request: Request) {
   if (code === process.env.TEACHER_INVITE_CODE) {
     role = "teacher";
   } else {
-    const { data } = await supabase
+    const { data } = await db
       .from("classes")
       .select("id")
       .eq("invite_code", code)
@@ -41,41 +44,41 @@ export async function POST(request: Request) {
     classId = data.id;
   }
 
-  // Reject duplicate username up front (DB constraint would also reject,
-  // but this gives a cleaner error to the client).
-  const { data: existing } = await supabase
+  // Reject duplicate username / email up front for a clean error.
+  const { data: dupUser } = await db
     .from("profiles")
     .select("id")
     .eq("username", username)
     .maybeSingle();
-  if (existing) {
+  if (dupUser) {
     return NextResponse.json({ error: "username_taken" }, { status: 409 });
   }
-
-  const { data: created, error: signupError } = await supabase.auth.admin.createUser({
-    email,
-    password,
-    email_confirm: true,
-    user_metadata: { username, display_name: displayName, role, class_id: classId },
-  });
-  if (signupError || !created.user) {
-    const msg = signupError?.message ?? "signup_failed";
-    const status = msg.toLowerCase().includes("already") ? 409 : 400;
-    return NextResponse.json({ error: msg }, { status });
+  const { data: dupEmail } = await db
+    .from("profiles")
+    .select("id")
+    .eq("email", email)
+    .maybeSingle();
+  if (dupEmail) {
+    return NextResponse.json({ error: "email_taken" }, { status: 409 });
   }
 
-  const { error: profileError } = await supabase.from("profiles").insert({
-    id: created.user.id,
+  const id = randomUUID();
+  const password_hash = await hashPassword(password);
+
+  const { error } = await db.from("profiles").insert({
+    id,
+    email,
+    password_hash,
     username,
     display_name: displayName,
     role,
     class_id: classId,
+    avatar_seed: randomUUID(),
   });
-  if (profileError) {
-    // Roll back the auth user so the next attempt isn't blocked by duplicate email.
-    await supabase.auth.admin.deleteUser(created.user.id);
-    return NextResponse.json({ error: profileError.message }, { status: 500 });
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
+  await setSession(id, email);
   return NextResponse.json({ ok: true });
 }

@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { createClient } from "@/lib/supabase/client";
 
 type InviteState =
   | { status: "idle" }
@@ -72,12 +71,7 @@ export default function SignupPage() {
         toast.error(data.error ?? tCommon("error"));
         return;
       }
-      const supabase = createClient();
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) {
-        toast.error(error.message);
-        return;
-      }
+      // The signup route already set the session cookie.
       router.push("/problems");
       router.refresh();
     });
