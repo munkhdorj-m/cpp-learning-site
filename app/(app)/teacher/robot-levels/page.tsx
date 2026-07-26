@@ -20,9 +20,8 @@ export default async function TeacherRobotLevelsPage() {
   // Fetch custom DB levels
   const { data: dbLevels } = await supabase
     .from("robot_levels")
-    .select("id, name_mn, name_en, course, xp_reward, palette")
-    .order("course", { ascending: true })
-    .order("created_at", { ascending: true });
+    .select("id, name_mn, name_en, course, xp_reward, palette, order_idx")
+    .order("order_idx", { ascending: true });
 
   // Merge by id: a DB row overrides the built-in with the same id.
   // Every level (built-in or custom) appears exactly once and is editable;
@@ -35,6 +34,7 @@ export default async function TeacherRobotLevelsPage() {
     name_en: string;
     course: string;
     xp_reward: number;
+    order_idx: number;
     isBuiltIn: boolean;
     hasOverride: boolean;
   };
@@ -48,6 +48,7 @@ export default async function TeacherRobotLevelsPage() {
       name_en: db?.name_en ?? l.name_en,
       course: db?.course ?? l.course,
       xp_reward: db?.xp_reward ?? l.xp_reward,
+      order_idx: Number(db?.order_idx) || l.order_idx,
       isBuiltIn: true,
       hasOverride: !!db,
     });
@@ -61,11 +62,16 @@ export default async function TeacherRobotLevelsPage() {
         name_en: db.name_en,
         course: db.course,
         xp_reward: db.xp_reward,
+        order_idx: Number(db.order_idx) || LEVELS.length + 1,
         isBuiltIn: false,
         hasOverride: false,
       });
     }
   }
+  // Show them in play order, the same way students see them.
+  mergedLevels.sort(
+    (a, b) => a.order_idx - b.order_idx || a.id.localeCompare(b.id),
+  );
 
   const courseLabel: Record<string, string> = {
     basics: locale === "en" ? "Basics" : "Суурь",
@@ -109,7 +115,10 @@ export default async function TeacherRobotLevelsPage() {
                 locale === "en" && l.name_en ? l.name_en : l.name_mn;
               return (
                 <div key={l.id} className="flex items-center gap-3 px-4 py-3">
-                  <span className="text-xs rounded-full px-2 py-0.5 bg-muted text-muted-foreground shrink-0">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-primary/30 bg-primary/10 font-code text-xs font-bold text-primary">
+                    {l.order_idx}
+                  </span>
+                  <span className="shrink-0 rounded-full bg-muted px-2 py-0.5 font-code text-[10px] uppercase tracking-wider text-muted-foreground">
                     {courseLabel[l.course] ?? l.course}
                   </span>
                   {l.hasOverride ? (
@@ -133,17 +142,18 @@ export default async function TeacherRobotLevelsPage() {
                   <div className="flex items-center gap-1 shrink-0">
                     <Link
                       href={`/teacher/robot-levels/${l.id}/edit`}
-                      className={buttonVariants({
-                        variant: "ghost",
-                        size: "sm",
-                      })}
+                      className={cn(
+                        buttonVariants({ variant: "outline", size: "sm" }),
+                        "font-code",
+                      )}
                       title={
                         l.isBuiltIn
                           ? "Edit / override built-in level"
                           : "Edit level"
                       }
                     >
-                      <Edit3 className="h-3.5 w-3.5" />
+                      <Edit3 className="mr-1.5 h-3.5 w-3.5" />
+                      Edit
                     </Link>
                     {l.hasOverride && <DeleteLevelButton levelId={l.id} />}
                   </div>

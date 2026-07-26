@@ -10,6 +10,9 @@ export interface MazeView {
   robotY: number;
   robotDir: number;
   litTiles: Set<string>;
+  collected?: Set<string>;
+  hasKey?: boolean;
+  movers?: { x: number; y: number }[];
 }
 
 interface Props {

@@ -20,6 +20,12 @@ import {
   X,
   CheckCircle2,
   AlertTriangle,
+  Star,
+  KeyRound,
+  DoorClosed,
+  Sparkles,
+  MoveHorizontal,
+  MoveVertical,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -37,8 +43,68 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 
-type CellType = "." | "#" | "R" | "E" | "T";
-type Tool = "path" | "wall" | "robot" | "egg" | "tnt" | "erase";
+type CellType = "." | "#" | "R" | "E" | "T" | "*" | "K" | "D" | "P" | "M" | "N";
+type Tool =
+  | "path"
+  | "wall"
+  | "robot"
+  | "egg"
+  | "tnt"
+  | "star"
+  | "key"
+  | "door"
+  | "portal"
+  | "moverH"
+  | "moverV"
+  | "erase";
+
+/** How each cell type looks in the editor grid. */
+const CELL_BG: Partial<Record<CellType, string>> = {
+  "#": "bg-slate-700",
+  E: "bg-amber-500",
+  T: "bg-rose-500",
+  "*": "bg-yellow-400",
+  K: "bg-amber-400",
+  D: "bg-orange-700",
+  P: "bg-cyan-500",
+  M: "bg-red-600",
+  N: "bg-red-600",
+};
+const CELL_GLYPH: Partial<Record<CellType, string>> = {
+  E: "🥚",
+  T: "💣",
+  "*": "⭐",
+  K: "🔑",
+  D: "🚪",
+  P: "🌀",
+  M: "↔",
+  N: "↕",
+};
+const CELL_LABEL: Partial<Record<CellType, string>> = {
+  "#": "Wall",
+  E: "Egg",
+  T: "Bomb",
+  "*": "Star",
+  K: "Key",
+  D: "Locked door",
+  P: "Portal (place two)",
+  M: "Patrol ↔",
+  N: "Patrol ↕",
+};
+
+/** Tool → layout character, and how the palette button looks. */
+const TOOL_CELL: Record<Exclude<Tool, "robot" | "erase">, CellType> = {
+  path: ".",
+  wall: "#",
+  egg: "E",
+  tnt: "T",
+  star: "*",
+  key: "K",
+  door: "D",
+  portal: "P",
+  moverH: "M",
+  moverV: "N",
+};
 
 interface GridCell {
   x: number;
@@ -230,9 +296,7 @@ export function RobotLevelEditor({
         let type: CellType = ".";
         if (initial?.layout) {
           const ch = initial.layout[y]?.[x] ?? ".";
-          if (ch === "#") type = "#";
-          else if (ch === "E") type = "E";
-          else if (ch === "T") type = "T";
+          if ("#ET*KDPMN".includes(ch)) type = ch as CellType;
         }
         row.push({ x, y, type });
       }
@@ -255,26 +319,7 @@ export function RobotLevelEditor({
           setRobotY(y);
           return next;
         }
-        let newType: CellType;
-        switch (tool) {
-          case "path":
-            newType = ".";
-            break;
-          case "wall":
-            newType = "#";
-            break;
-          case "egg":
-            newType = "E";
-            break;
-          case "tnt":
-            newType = "T";
-            break;
-          case "erase":
-          default:
-            newType = ".";
-            break;
-        }
-        next[y][x].type = newType;
+        next[y][x].type = tool === "erase" ? "." : TOOL_CELL[tool];
         return next;
       });
     },
@@ -419,7 +464,13 @@ export function RobotLevelEditor({
     { tool: "wall", Icon: Square, label: "Wall", color: "bg-slate-700" },
     { tool: "robot", Icon: Bot, label: "Robot", color: "bg-violet-500" },
     { tool: "egg", Icon: Egg, label: "Egg", color: "bg-amber-500" },
-    { tool: "tnt", Icon: Bomb, label: "TNT", color: "bg-rose-500" },
+    { tool: "tnt", Icon: Bomb, label: "Bomb", color: "bg-rose-500" },
+    { tool: "star", Icon: Star, label: "Star", color: "bg-yellow-400" },
+    { tool: "key", Icon: KeyRound, label: "Key", color: "bg-amber-400" },
+    { tool: "door", Icon: DoorClosed, label: "Door", color: "bg-orange-700" },
+    { tool: "portal", Icon: Sparkles, label: "Portal", color: "bg-cyan-500" },
+    { tool: "moverH", Icon: MoveHorizontal, label: "Patrol ↔", color: "bg-red-600" },
+    { tool: "moverV", Icon: MoveVertical, label: "Patrol ↕", color: "bg-red-600" },
     {
       tool: "erase",
       Icon: Eraser,
@@ -550,25 +601,15 @@ export function RobotLevelEditor({
                       key={`${x}-${y}`}
                       onClick={() => cellClick(x, y)}
                       className={cn(
-                        "aspect-square rounded-sm transition-colors flex items-center justify-center text-[10px] font-bold",
+                        "flex aspect-square items-center justify-center rounded-sm text-[10px] font-bold transition-colors",
                         isRobot
                           ? "bg-violet-500 text-white"
-                          : cell.type === "#"
-                            ? "bg-slate-700"
-                            : cell.type === "E"
-                              ? "bg-amber-500"
-                              : cell.type === "T"
-                                ? "bg-rose-500"
-                                : "bg-emerald-600/60 hover:bg-emerald-500/60",
+                          : CELL_BG[cell.type] ??
+                            "bg-emerald-600/60 hover:bg-emerald-500/60",
                       )}
+                      title={CELL_LABEL[cell.type]}
                     >
-                      {isRobot
-                        ? DirIcon(robotDir)
-                        : cell.type === "E"
-                          ? "🥚"
-                          : cell.type === "T"
-                            ? "💣"
-                            : ""}
+                      {isRobot ? DirIcon(robotDir) : (CELL_GLYPH[cell.type] ?? "")}
                     </button>
                   );
                 }),

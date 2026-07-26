@@ -12,6 +12,12 @@ export interface MazeView {
   /** 0=N, 1=E, 2=S, 3=W (matches our Direction type). */
   robotDir: number;
   litTiles: Set<string>;
+  /** Stars/keys already picked up — those tiles render empty. */
+  collected?: Set<string>;
+  /** Carrying a key: locked doors render open. */
+  hasKey?: boolean;
+  /** Live positions of patrolling hazards, index-matched to level.movers. */
+  movers?: { x: number; y: number }[];
 }
 
 interface ThemeColors {
@@ -150,6 +156,7 @@ export class MazeScene extends Phaser.Scene {
   private themeId: ThemeId = "jungle";
   private litTiles: Set<string> = new Set();
   private tileObjects: Phaser.GameObjects.Container[][] = [];
+  private moverObjects: Phaser.GameObjects.Container[] = [];
   private hero: Phaser.GameObjects.Container | null = null;
   private heroSprite: Phaser.GameObjects.Sprite | null = null;
   private heroTween: Phaser.Tweens.Tween | null = null;
@@ -269,6 +276,28 @@ export class MazeScene extends Phaser.Scene {
       this.refreshTileLits();
     }
 
+    // A pickup vanished, or a key changed the doors — redraw those tiles.
+    const collectedChanged =
+      (prev.collected?.size ?? 0) !== (view.collected?.size ?? 0);
+    const keyChanged = !!prev.hasKey !== !!view.hasKey;
+    if (collectedChanged || keyChanged) {
+      this.refreshPropTiles();
+    }
+
+    // Slide patrolling hazards to their new tiles.
+    (view.movers ?? []).forEach((m, i) => {
+      const obj = this.moverObjects[i];
+      if (!obj) return;
+      const [mx, my] = this.gridToPixel(m.x, m.y);
+      this.tweens.add({
+        targets: obj,
+        x: mx,
+        y: my,
+        duration: STEP_MS,
+        ease: "Cubic.easeOut",
+      });
+    });
+
     const [px, py] = this.gridToPixel(view.robotX, view.robotY);
     const isMoving =
       px !== this.hero.x || py !== this.hero.y || view.robotDir !== prev.robotDir;
@@ -359,6 +388,12 @@ export class MazeScene extends Phaser.Scene {
       this.tileObjects.push(row);
     }
 
+    // Patrolling hazards — live objects, positioned from the view each frame
+    this.moverObjects = (this.level.movers ?? []).map((m, i) => {
+      const live = this.currentView.movers?.[i];
+      return this.createMover(live?.x ?? m.x, live?.y ?? m.y);
+    });
+
     // Hero — depth 10 keeps it above any tile that gets rebuilt later
     this.hero = this.drawHero();
     this.hero.setDepth(10);
@@ -445,7 +480,194 @@ export class MazeScene extends Phaser.Scene {
       }
     }
 
+    // Props sitting on this tile. Picked-up items disappear.
+    const key = `${gx},${gy}`;
+    const taken = this.currentView.collected?.has(key) ?? false;
+    if (this.level.dangers.has(key)) this.drawBomb(container);
+    else if (this.level.stars?.has(key) && !taken) this.drawStar(container);
+    else if (this.level.keys?.has(key) && !taken) this.drawKey(container);
+    else if (this.level.doors?.has(key))
+      this.drawDoor(container, !!this.currentView.hasKey);
+    else if (this.level.portals?.some((p) => p.x === gx && p.y === gy))
+      this.drawPortal(container);
+
     return container;
+  }
+
+  // ── Interactive props ────────────────────────────────────────────────
+  // All procedural so no extra art assets are needed.
+
+  /** Bomb: dark sphere, highlight, fuse and a blinking spark. */
+  private drawBomb(container: Phaser.GameObjects.Container) {
+    container.add(this.add.ellipse(2, 13, 26, 8, 0x000000, 0.28));
+    const body = this.add.circle(0, 2, 12, 0x1f2937);
+    body.setStrokeStyle(2, 0x0b0f19);
+    container.add(body);
+    container.add(this.add.circle(-4, -2, 3.5, 0xffffff, 0.35));
+    container.add(this.add.rectangle(4, -10, 5, 7, 0x6b7280));
+    const fuse = this.add.circle(9, -17, 3, 0xfbbf24);
+    container.add(fuse);
+    const spark = this.add.circle(9, -17, 6, 0xf97316, 0.55);
+    container.add(spark);
+    this.tweens.add({
+      targets: [fuse, spark],
+      alpha: 0.25,
+      scale: 1.35,
+      yoyo: true,
+      repeat: -1,
+      duration: 380,
+      ease: "Sine.easeInOut",
+    });
+    // Menacing breathing so it reads as dangerous even when still.
+    this.tweens.add({
+      targets: body,
+      scaleX: 1.08,
+      scaleY: 0.94,
+      yoyo: true,
+      repeat: -1,
+      duration: 700,
+      ease: "Sine.easeInOut",
+    });
+  }
+
+  /** Star pickup: spinning gold star with a glow halo. */
+  private drawStar(container: Phaser.GameObjects.Container) {
+    const halo = this.add.circle(0, 0, 15, 0xfde047, 0.25);
+    container.add(halo);
+    const star = this.add.star(0, 0, 5, 5, 12, 0xfacc15);
+    star.setStrokeStyle(1.5, 0xf59e0b);
+    container.add(star);
+    this.tweens.add({
+      targets: star,
+      angle: 360,
+      repeat: -1,
+      duration: 3200,
+      ease: "Linear",
+    });
+    this.tweens.add({
+      targets: [star, halo],
+      y: -5,
+      yoyo: true,
+      repeat: -1,
+      duration: 900,
+      ease: "Sine.easeInOut",
+    });
+  }
+
+  /** Key pickup: bow ring + blade with teeth. */
+  private drawKey(container: Phaser.GameObjects.Container) {
+    const g = this.add.container(0, 0);
+    const ring = this.add.circle(-6, -2, 6, 0x000000, 0);
+    ring.setStrokeStyle(3.5, 0xfcd34d);
+    g.add(ring);
+    g.add(this.add.rectangle(3, -2, 14, 3.5, 0xfcd34d));
+    g.add(this.add.rectangle(8, 2, 3.5, 6, 0xfcd34d));
+    g.add(this.add.rectangle(12, 2, 3.5, 5, 0xfcd34d));
+    container.add(g);
+    this.tweens.add({
+      targets: g,
+      y: -5,
+      yoyo: true,
+      repeat: -1,
+      duration: 950,
+      ease: "Sine.easeInOut",
+    });
+  }
+
+  /** Door: solid slab when locked, faded and ajar once a key is held. */
+  private drawDoor(container: Phaser.GameObjects.Container, open: boolean) {
+    const frame = this.add.rectangle(0, 0, 34, 40, 0x7c3f1d);
+    frame.setStrokeStyle(2, 0x4a2410);
+    container.add(frame);
+    const panel = this.add.rectangle(0, 0, 24, 30, open ? 0x9a5b2c : 0xb45309);
+    container.add(panel);
+    const lock = this.add.circle(7, 2, 3.5, open ? 0x86efac : 0xfcd34d);
+    container.add(lock);
+    if (open) {
+      frame.setAlpha(0.45);
+      panel.setAlpha(0.35);
+      lock.setAlpha(0.8);
+    } else {
+      this.tweens.add({
+        targets: lock,
+        alpha: 0.45,
+        yoyo: true,
+        repeat: -1,
+        duration: 800,
+        ease: "Sine.easeInOut",
+      });
+    }
+  }
+
+  /** Portal: swirling ring pair. */
+  private drawPortal(container: Phaser.GameObjects.Container) {
+    const outer = this.add.circle(0, 0, 15, 0x000000, 0);
+    outer.setStrokeStyle(3, 0x22d3ee);
+    container.add(outer);
+    const inner = this.add.circle(0, 0, 8, 0x0891b2, 0.55);
+    container.add(inner);
+    const spark = this.add.circle(0, -11, 2.5, 0xa5f3fc);
+    container.add(spark);
+    this.tweens.add({
+      targets: outer,
+      scale: 1.18,
+      alpha: 0.55,
+      yoyo: true,
+      repeat: -1,
+      duration: 1000,
+      ease: "Sine.easeInOut",
+    });
+    this.tweens.add({
+      targets: spark,
+      angle: 360,
+      repeat: -1,
+      duration: 1600,
+      ease: "Linear",
+    });
+    // Orbit the spark around the ring centre.
+    this.tweens.addCounter({
+      from: 0,
+      to: Math.PI * 2,
+      repeat: -1,
+      duration: 1600,
+      onUpdate: (tw) => {
+        const a = tw.getValue() ?? 0;
+        spark.setPosition(Math.cos(a) * 11, Math.sin(a) * 11);
+      },
+    });
+  }
+
+  /** Patrolling hazard: spiked drone with a scanning eye. */
+  private createMover(gx: number, gy: number): Phaser.GameObjects.Container {
+    const [px, py] = this.gridToPixel(gx, gy);
+    const c = this.add.container(px, py);
+    c.add(this.add.ellipse(2, 14, 26, 7, 0x000000, 0.28));
+    const spikes = this.add.star(0, 0, 8, 7, 15, 0x7f1d1d);
+    c.add(spikes);
+    const body = this.add.circle(0, 0, 11, 0xdc2626);
+    body.setStrokeStyle(2, 0x7f1d1d);
+    c.add(body);
+    const eye = this.add.circle(0, 0, 4, 0xfef2f2);
+    c.add(eye);
+    const pupil = this.add.circle(0, 0, 2, 0x111827);
+    c.add(pupil);
+    this.tweens.add({
+      targets: spikes,
+      angle: 360,
+      repeat: -1,
+      duration: 2600,
+      ease: "Linear",
+    });
+    this.tweens.add({
+      targets: pupil,
+      x: 2,
+      yoyo: true,
+      repeat: -1,
+      duration: 700,
+      ease: "Sine.easeInOut",
+    });
+    c.setDepth(9); // just under the hero
+    return c;
   }
 
   private drawGrassFallback(
@@ -625,6 +847,27 @@ export class MazeScene extends Phaser.Scene {
     }
 
     return hero;
+  }
+
+  /**
+   * Redraw tiles holding stars / keys / doors after a pickup or a key change,
+   * so collected items vanish and locked doors swing open.
+   */
+  private refreshPropTiles() {
+    if (!this.tileObjects.length) return;
+    const theme = THEMES[this.themeId];
+    const propTiles = new Set<string>([
+      ...(this.level.stars ?? []),
+      ...(this.level.keys ?? []),
+      ...(this.level.doors ?? []),
+    ]);
+    for (const key of propTiles) {
+      const [x, y] = key.split(",").map(Number);
+      const old = this.tileObjects[y]?.[x];
+      if (!old) continue;
+      old.destroy();
+      this.tileObjects[y][x] = this.drawTile(x, y, theme);
+    }
   }
 
   private refreshTileLits() {

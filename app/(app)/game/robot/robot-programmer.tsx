@@ -46,6 +46,12 @@ interface MazeState {
   y: number;
   dir: Direction; // 0=N, 1=E, 2=S, 3=W
   lit: Set<string>;
+  /** Stars/keys already picked up — the renderer hides those tiles. */
+  collected?: Set<string>;
+  /** Whether the robot is carrying a key (doors render open). */
+  hasKey?: boolean;
+  /** Live positions of patrolling hazards. */
+  movers?: { x: number; y: number }[];
   flash?: { x: number; y: number; kind: "crash" | "danger" } | null;
   showSuccess?: boolean;
 }
@@ -175,6 +181,9 @@ export function RobotProgrammer({
         y: level.robot.y,
         dir: level.robot.dir,
         lit: new Set(),
+        collected: new Set(),
+        keys: 0,
+        movers: [],
       },
       {
         width: level.width,
@@ -182,6 +191,11 @@ export function RobotProgrammer({
         walls: level.walls,
         dangers: level.dangers,
         targets: new Set(level.targets.map((t) => `${t.x},${t.y}`)),
+        stars: level.stars,
+        keys: level.keys,
+        doors: level.doors,
+        portals: level.portals,
+        movers: level.movers,
       },
     );
   }, [program, level]);
@@ -194,9 +208,13 @@ export function RobotProgrammer({
     const result = interp.next();
 
     if (result.kind === "done") {
-      // Check if all targets are lit
+      // Win = every egg lit AND every star picked up.
       const lit = interp.state.lit;
-      const won = level.targets.every((tg) => lit.has(`${tg.x},${tg.y}`));
+      const allEggs = level.targets.every((tg) => lit.has(`${tg.x},${tg.y}`));
+      const allStars = [...level.stars].every((k) =>
+        interp.state.collected.has(k),
+      );
+      const won = allEggs && allStars;
       if (won) {
         setPhase("success");
         setView((v) => ({ ...v, showSuccess: true }));
@@ -204,12 +222,39 @@ export function RobotProgrammer({
         submitCompletion();
       } else {
         setPhase("idle");
-        toast.message(
-          locale === "en"
+        const msg = !allStars
+          ? locale === "en"
+            ? "You missed some stars! Try again."
+            : "Од дутуу байна! Дахин оролдоно уу."
+          : locale === "en"
             ? "Not all eggs collected! Try again."
-            : "Бүх өндөг цуглуулаагүй байна! Дахин оролдоно уу.",
-        );
+            : "Бүх өндөг цуглуулаагүй байна! Дахин оролдоно уу.";
+        toast.message(msg);
       }
+      return false;
+    }
+
+    // Door without a key — treated like a crash, with its own message.
+    if (result.kind === "locked") {
+      const [ldx, ldy] = dirVec(interp.state.dir);
+      setView((v) => ({
+        ...v,
+        flash: {
+          x: interp.state.x + ldx,
+          y: interp.state.y + ldy,
+          kind: "crash",
+        },
+      }));
+      flashTimerRef.current = setTimeout(
+        () => setView((v) => ({ ...v, flash: null })),
+        800,
+      );
+      setPhase("crash");
+      toast.message(
+        locale === "en"
+          ? "The door is locked — find the key first!"
+          : "Хаалга түгжээтэй — эхлээд түлхүүрээ ол!",
+      );
       return false;
     }
 
@@ -231,11 +276,14 @@ export function RobotProgrammer({
 
     if (result.kind === "danger") {
       // TNT explosion
-      setView((v) => ({
+      setView(() => ({
         x: interp.state.x,
         y: interp.state.y,
         dir: interp.state.dir,
         lit: new Set(interp.state.lit),
+        collected: new Set(interp.state.collected),
+        hasKey: interp.state.keys > 0,
+        movers: interp.state.movers.map((m) => ({ x: m.x, y: m.y })),
         flash: { x: interp.state.x, y: interp.state.y, kind: "danger" },
       }));
       flashTimerRef.current = setTimeout(() => {
@@ -245,12 +293,15 @@ export function RobotProgrammer({
       return false;
     }
 
-    // Normal step
-    setView((v) => ({
+    // Normal step (also covers collect / key / portal — all keep running)
+    setView(() => ({
       x: interp.state.x,
       y: interp.state.y,
       dir: interp.state.dir,
       lit: new Set(interp.state.lit),
+      collected: new Set(interp.state.collected),
+      hasKey: interp.state.keys > 0,
+      movers: interp.state.movers.map((m) => ({ x: m.x, y: m.y })),
       flash: null,
       showSuccess: false,
     }));
@@ -336,6 +387,35 @@ export function RobotProgrammer({
   const visibleExtraHints = extraHints.slice(0, hintsShown);
   const canShowMoreHints = hintsShown < extraHints.length;
 
+  // Explain only the props this level contains, so it never overwhelms.
+  const en = locale === "en";
+  const legendItems = [
+    level.dangers.size > 0 && {
+      glyph: "💣",
+      label: en ? "Bomb — avoid!" : "Бөмбөг — зайлсхий!",
+    },
+    level.stars.size > 0 && {
+      glyph: "⭐",
+      label: en ? "Collect every star" : "Бүх одыг цуглуул",
+    },
+    level.keys.size > 0 && {
+      glyph: "🔑",
+      label: en ? "Key opens doors" : "Түлхүүр хаалга нээнэ",
+    },
+    level.doors.size > 0 && {
+      glyph: "🚪",
+      label: en ? "Locked door" : "Түгжээтэй хаалга",
+    },
+    level.portals.length > 0 && {
+      glyph: "🌀",
+      label: en ? "Portal — teleports you" : "Портал — зөөнө",
+    },
+    level.movers.length > 0 && {
+      glyph: "🔴",
+      label: en ? "Moving hazard" : "Хөдөлгөөнт аюул",
+    },
+  ].filter(Boolean) as { glyph: string; label: string }[];
+
   const levelsByCourse = COURSES.map((c) => ({
     course: c,
     levels: levels
@@ -347,19 +427,35 @@ export function RobotProgrammer({
     <div className="space-y-3 max-w-7xl mx-auto">
       {/* Top header */}
       <div className="flex items-start gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-violet-100 text-violet-700 dark:bg-violet-950/40 dark:text-violet-300 shrink-0">
+        <div
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-neon-violet/40 bg-neon-violet/10 text-neon-violet"
+          style={{ boxShadow: "0 0 22px -8px var(--neon-violet)" }}
+        >
           <Bot className="h-5 w-5" />
         </div>
         <div className="flex-1">
+          <div className="hud-label flex items-center gap-2">
+            <span className="text-primary">//</span>
+            ROBOT.LAB
+          </div>
           <h1 className="text-2xl font-bold">{t("title")}</h1>
           <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
         </div>
         <div className="text-right">
-          <div className="text-xs uppercase tracking-wide text-muted-foreground">
-            {t("progress")}
+          <div className="hud-label">{t("progress")}</div>
+          <div className="font-code text-lg font-bold tabular-nums text-neon-lime text-glow-soft">
+            {completedCount}
+            <span className="text-muted-foreground">/{total}</span>
           </div>
-          <div className="font-bold tabular-nums">
-            {completedCount} / {total}
+          <div className="mt-1 h-1.5 w-24 overflow-hidden rounded-full bg-muted ring-1 ring-primary/15">
+            <div
+              className="h-full rounded-full transition-all"
+              style={{
+                width: `${total > 0 ? (completedCount / total) * 100 : 0}%`,
+                background: "var(--gradient-solved)",
+                boxShadow: "0 0 10px -2px var(--neon-lime)",
+              }}
+            />
           </div>
         </div>
       </div>
@@ -368,7 +464,7 @@ export function RobotProgrammer({
       <div className="space-y-1.5">
         {levelsByCourse.map(({ course: c, levels }) => (
           <div key={c.id} className="flex items-center gap-2">
-            <div className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground min-w-[80px] sm:min-w-[110px]">
+            <div className="hud-label min-w-[80px] sm:min-w-[110px]">
               {locale === "en" ? c.name_en : c.name_mn}
             </div>
             <div className="flex items-center gap-1 overflow-x-auto">
@@ -380,18 +476,21 @@ export function RobotProgrammer({
                     key={l.id}
                     onClick={() => setLevelIdx(l.idx)}
                     className={cn(
-                      "shrink-0 h-6 w-6 rounded-full text-[11px] font-semibold flex items-center justify-center transition-all border-2",
-                      isCurrent ? "border-violet-500" : "border-transparent",
+                      "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border font-code text-[11px] font-semibold transition-all",
+                      isCurrent
+                        ? "border-primary text-primary shadow-[0_0_14px_-3px_var(--color-primary)] scale-110"
+                        : "border-transparent",
                       isCompleted
-                        ? "bg-emerald-500 text-white"
-                        : "bg-muted text-muted-foreground hover:bg-muted-foreground/20",
+                        ? "border-neon-lime/50 bg-neon-lime/15 text-neon-lime"
+                        : !isCurrent &&
+                            "bg-muted text-muted-foreground hover:bg-muted-foreground/20",
                     )}
-                    title={locale === "en" ? l.name_en : l.name_mn}
+                    title={`${l.order_idx}. ${locale === "en" ? l.name_en : l.name_mn}`}
                   >
                     {isCompleted ? (
-                      <CheckCircle2 className="h-3 w-3" />
+                      <CheckCircle2 className="h-3.5 w-3.5" />
                     ) : (
-                      l.idx + 1
+                      l.order_idx
                     )}
                   </button>
                 );
@@ -405,14 +504,14 @@ export function RobotProgrammer({
       <Card className="overflow-hidden">
         <div className="px-4 py-2.5 flex items-start gap-3 flex-wrap">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground tabular-nums">
-              {t("level")} {levelIdx + 1}
+            <span className="hud-chip">
+              {t("level")} {level.order_idx}
             </span>
             <span className="font-semibold">{levelName}</span>
             {completed.has(level.id) && (
-              <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+              <CheckCircle2 className="h-4 w-4 text-neon-lime drop-shadow-[0_0_5px_var(--neon-lime)]" />
             )}
-            <span className="text-xs rounded-full px-2 py-0.5 bg-muted text-muted-foreground">
+            <span className="rounded-full bg-muted px-2 py-0.5 font-code text-[10px] uppercase tracking-wider text-muted-foreground">
               {locale === "en" ? course.name_en : course.name_mn}
             </span>
           </div>
@@ -429,13 +528,29 @@ export function RobotProgrammer({
             {canShowMoreHints && (
               <button
                 onClick={() => setHintsShown((n) => n + 1)}
-                className="text-xs text-violet-600 hover:underline shrink-0"
+                className="shrink-0 font-code text-xs text-primary hover:underline"
               >
                 {t("more_hint")}
               </button>
             )}
           </div>
         </div>
+
+        {/* Legend — only shows the props this level actually uses. */}
+        {legendItems.length > 0 && (
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-primary/10 px-4 py-2">
+            <span className="hud-label">{locale === "en" ? "WATCH FOR" : "АНХААР"}</span>
+            {legendItems.map((it) => (
+              <span
+                key={it.label}
+                className="inline-flex items-center gap-1 text-xs text-muted-foreground"
+              >
+                <span aria-hidden>{it.glyph}</span>
+                {it.label}
+              </span>
+            ))}
+          </div>
+        )}
       </Card>
 
       {/* Main two-column layout */}
@@ -451,6 +566,9 @@ export function RobotProgrammer({
                 robotY: view.y,
                 robotDir: view.dir,
                 litTiles: view.lit,
+                collected: view.collected,
+                hasKey: view.hasKey,
+                movers: view.movers,
               }}
             />
 

@@ -6,7 +6,13 @@
 //   '#' = wall (impassable)
 //   'R' = robot start (also walkable)
 //   'E' = egg target (also walkable)
-//   'T' = TNT hazard (walkable but triggers explosion)
+//   'T' = bomb hazard (walkable but explodes)
+//   '*' = star pickup (collect by walking over)
+//   'K' = key pickup (opens every door on the level)
+//   'D' = locked door (impassable until a key is held)
+//   'P' = portal (levels use them in pairs; entering one exits the other)
+//   'M' = patrolling hazard, moves east/west and bounces off walls
+//   'N' = patrolling hazard, moves north/south and bounces off walls
 //
 // Top row of `layout` is the HIGHEST y. y=0 is the BOTTOM.
 // max_blocks counts EVERY workspace block (including the when_run hat).
@@ -21,6 +27,13 @@ export type ThemeId = "ice" | "jungle" | "space" | "lava";
 export interface Tile {
   x: number;
   y: number;
+}
+
+/** A hazard that patrols back and forth, bouncing off walls. */
+export interface Mover {
+  x: number;
+  y: number;
+  axis: "h" | "v";
 }
 
 export interface Level {
@@ -38,9 +51,87 @@ export interface Level {
   targets: Tile[];
   walls: Set<string>;
   dangers: Set<string>;
+  /** Optional pickups / puzzle pieces — empty on the older levels. */
+  stars: Set<string>;
+  keys: Set<string>;
+  doors: Set<string>;
+  /** Portal tiles in layout order; entering one exits its partner. */
+  portals: Tile[];
+  movers: Mover[];
   xp_reward: number;
   palette: ToolboxBlock[];
   max_blocks: number;
+  /** Display order / level number. Built-ins are 1..20; new ones continue. */
+  order_idx: number;
+}
+
+/** Everything a layout grid encodes, shared by the built-in and DB parsers. */
+export interface ParsedLayout {
+  width: number;
+  height: number;
+  walls: Set<string>;
+  dangers: Set<string>;
+  stars: Set<string>;
+  keys: Set<string>;
+  doors: Set<string>;
+  portals: Tile[];
+  movers: Mover[];
+  targets: Tile[];
+  robot: { x: number; y: number };
+}
+
+/**
+ * Parse a layout grid into game entities.
+ * The first row of `layout` is the HIGHEST y — y=0 is the bottom row.
+ */
+export function parseLayout(layout: string[], widthHint?: number): ParsedLayout {
+  const height = layout.length;
+  const width = widthHint || Math.max(...layout.map((r) => r.length));
+  const walls = new Set<string>();
+  const dangers = new Set<string>();
+  const stars = new Set<string>();
+  const keys = new Set<string>();
+  const doors = new Set<string>();
+  const portals: Tile[] = [];
+  const movers: Mover[] = [];
+  const targets: Tile[] = [];
+  let robotX = 0;
+  let robotY = 0;
+
+  for (let row = 0; row < height; row++) {
+    const line = (layout[row] ?? "").padEnd(width, "#");
+    const y = height - 1 - row;
+    for (let x = 0; x < width; x++) {
+      const ch = line[x];
+      const key = `${x},${y}`;
+      if (ch === "#") walls.add(key);
+      else if (ch === "T") dangers.add(key);
+      else if (ch === "*") stars.add(key);
+      else if (ch === "K") keys.add(key);
+      else if (ch === "D") doors.add(key);
+      else if (ch === "P") portals.push({ x, y });
+      else if (ch === "M") movers.push({ x, y, axis: "h" });
+      else if (ch === "N") movers.push({ x, y, axis: "v" });
+      else if (ch === "R") {
+        robotX = x;
+        robotY = y;
+      } else if (ch === "E") targets.push({ x, y });
+    }
+  }
+
+  return {
+    width,
+    height,
+    walls,
+    dangers,
+    stars,
+    keys,
+    doors,
+    portals,
+    movers,
+    targets,
+    robot: { x: robotX, y: robotY },
+  };
 }
 
 export interface Course {
@@ -859,32 +950,8 @@ const RAW_LEVELS: RawLevel[] = [
 // Parser
 // ─────────────────────────────────────────────────────────────────────
 
-function parseRawLevel(raw: RawLevel): Level {
-  const height = raw.layout.length;
-  const width = Math.max(...raw.layout.map((r) => r.length));
-  const walls = new Set<string>();
-  const dangers = new Set<string>();
-  const targets: Tile[] = [];
-  let robotX = 0;
-  let robotY = 0;
-  for (let row = 0; row < height; row++) {
-    const line = raw.layout[row].padEnd(width, "#");
-    const y = height - 1 - row;
-    for (let col = 0; col < width; col++) {
-      const ch = line[col];
-      const key = `${col},${y}`;
-      if (ch === "#") {
-        walls.add(key);
-      } else if (ch === "T") {
-        dangers.add(key);
-      } else if (ch === "R") {
-        robotX = col;
-        robotY = y;
-      } else if (ch === "E") {
-        targets.push({ x: col, y });
-      }
-    }
-  }
+function parseRawLevel(raw: RawLevel, index = 0): Level {
+  const p = parseLayout(raw.layout);
   return {
     id: raw.id,
     course: raw.course,
@@ -894,19 +961,27 @@ function parseRawLevel(raw: RawLevel): Level {
     hint_en: raw.hint_en,
     hints_mn: raw.hints_mn,
     hints_en: raw.hints_en,
-    width,
-    height,
-    robot: { x: robotX, y: robotY, dir: raw.robotDir },
-    targets,
-    walls,
-    dangers,
+    width: p.width,
+    height: p.height,
+    robot: { x: p.robot.x, y: p.robot.y, dir: raw.robotDir },
+    targets: p.targets,
+    walls: p.walls,
+    dangers: p.dangers,
+    stars: p.stars,
+    keys: p.keys,
+    doors: p.doors,
+    portals: p.portals,
+    movers: p.movers,
     xp_reward: raw.xp_reward,
     palette: raw.palette,
     max_blocks: raw.max_blocks,
+    order_idx: index + 1, // built-ins are levels 1..20
   };
 }
 
-export const LEVELS: Level[] = RAW_LEVELS.map(parseRawLevel);
+export const LEVELS: Level[] = RAW_LEVELS.map((raw, i) =>
+  parseRawLevel(raw, i),
+);
 export const TOTAL_LEVELS = LEVELS.length;
 
 export function findLevel(id: string): Level | undefined {
@@ -934,29 +1009,12 @@ export function dbRowToLevel(row: {
   palette: string[];
   max_blocks: number;
   xp_reward: number;
+  order_idx?: number;
 }): Level {
   // Parse EVERYTHING from the layout string — same logic as parseRawLevel.
   // This ensures robot/targets/dangers use the same game coordinate system
   // (y=0 = bottom) as the walls, instead of mixing in editor-screen coords.
-  const height = row.layout.length;
-  const width = row.width || Math.max(...row.layout.map((r) => r.length));
-  const walls = new Set<string>();
-  const dangers = new Set<string>();
-  const targets: Tile[] = [];
-  let robotX = 0;
-  let robotY = 0;
-  for (let layoutRow = 0; layoutRow < height; layoutRow++) {
-    const line = row.layout[layoutRow].padEnd(width, "#");
-    const y = height - 1 - layoutRow;
-    for (let col = 0; col < width; col++) {
-      const ch = line[col];
-      const key = `${col},${y}`;
-      if (ch === "#") walls.add(key);
-      else if (ch === "T") dangers.add(key);
-      else if (ch === "R") { robotX = col; robotY = y; }
-      else if (ch === "E") targets.push({ x: col, y });
-    }
-  }
+  const p = parseLayout(row.layout, row.width);
 
   return {
     id: row.id,
@@ -967,15 +1025,26 @@ export function dbRowToLevel(row: {
     hint_en: row.hint_en,
     hints_mn: row.hints_mn,
     hints_en: row.hints_en,
-    width,
-    height,
-    robot: { x: robotX, y: robotY, dir: row.robot_dir as Direction },
-    targets,
-    walls,
-    dangers,
+    width: p.width,
+    height: p.height,
+    robot: { x: p.robot.x, y: p.robot.y, dir: row.robot_dir as Direction },
+    targets: p.targets,
+    walls: p.walls,
+    dangers: p.dangers,
+    stars: p.stars,
+    keys: p.keys,
+    doors: p.doors,
+    portals: p.portals,
+    movers: p.movers,
     xp_reward: row.xp_reward,
     palette: (row.palette ?? []) as ToolboxBlock[],
     max_blocks: row.max_blocks,
+    // A built-in override keeps the built-in's number; custom levels use
+    // their stored order (0 falls back to "after everything built-in").
+    order_idx:
+      row.order_idx ||
+      LEVELS.find((l) => l.id === row.id)?.order_idx ||
+      LEVELS.length + 1,
   };
 }
 
@@ -985,12 +1054,15 @@ export function dbRowToLevel(row: {
  */
 export function mergeLevels(dbRows: Level[]): Level[] {
   const dbMap = new Map(dbRows.map((r) => [r.id, r]));
-  const builtIn = LEVELS.map((l) => dbMap.get(l.id) ?? l);
+  const merged = LEVELS.map((l) => dbMap.get(l.id) ?? l);
   // Add any DB-only levels
   for (const row of dbRows) {
     if (!LEVELS.some((l) => l.id === row.id)) {
-      builtIn.push(row);
+      merged.push(row);
     }
   }
-  return builtIn;
+  // Level number decides play order; ties fall back to id for stability.
+  return merged.sort(
+    (a, b) => a.order_idx - b.order_idx || a.id.localeCompare(b.id),
+  );
 }
