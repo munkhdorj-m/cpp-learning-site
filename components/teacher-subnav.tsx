@@ -56,7 +56,7 @@ export function TeacherSubnav() {
   const pathname = usePathname();
 
   return (
-    <nav className="flex items-center gap-1 border-b mb-6 -mt-2 overflow-x-auto">
+    <nav className="-mt-2 mb-6 flex items-center gap-1 overflow-x-auto border-b border-primary/15">
       {ITEMS.map(({ href, labelKey, Icon, exact }) => {
         const active = exact ? pathname === href : pathname.startsWith(href);
         return (
@@ -64,10 +64,10 @@ export function TeacherSubnav() {
             key={href}
             href={href}
             className={cn(
-              "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium border-b-2 transition-colors -mb-px whitespace-nowrap",
+              "-mb-px inline-flex items-center gap-2 whitespace-nowrap border-b-2 px-3 py-2 font-code text-[0.8rem] font-medium tracking-wide transition-colors",
               active
-                ? "border-violet-600 text-violet-700 dark:text-violet-300"
-                : "border-transparent text-muted-foreground hover:text-foreground hover:border-border",
+                ? "border-primary text-primary text-glow-soft [box-shadow:0_1px_10px_-2px_var(--color-primary)]"
+                : "border-transparent text-muted-foreground hover:border-primary/30 hover:text-foreground",
             )}
           >
             <Icon className="h-4 w-4" />

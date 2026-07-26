@@ -479,7 +479,7 @@ export function RobotProgrammer({
                     <Button
                       size="sm"
                       onClick={nextLevel}
-                      className="bg-violet-600 text-white hover:bg-violet-700"
+                      className="font-code"
                     >
                       {t("next_level")}
                       <ChevronRight className="h-4 w-4 ml-1.5" />
@@ -503,7 +503,7 @@ export function RobotProgrammer({
                 <Button
                   size="sm"
                   onClick={resetState}
-                  className="bg-violet-600 text-white hover:bg-violet-700 mt-3"
+                  className="font-code mt-3"
                 >
                   <RotateCcw className="h-4 w-4 mr-1.5" />
                   {t("try_again")}
@@ -525,7 +525,7 @@ export function RobotProgrammer({
                 <Button
                   size="sm"
                   onClick={resetState}
-                  className="bg-violet-600 text-white hover:bg-violet-700 mt-3"
+                  className="font-code mt-3"
                 >
                   <RotateCcw className="h-4 w-4 mr-1.5" />
                   {t("try_again")}

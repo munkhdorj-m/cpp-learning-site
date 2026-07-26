@@ -131,7 +131,7 @@ export function ProblemForm({ initial }: { initial?: Partial<ProblemFormInitial>
         <Button
           onClick={handleSubmit}
           disabled={pending}
-          className="bg-violet-600 text-white hover:bg-violet-700"
+          className="font-code"
         >
           <Save className="h-4 w-4 mr-1.5" />
           {pending ? t("saving") : t("save")}

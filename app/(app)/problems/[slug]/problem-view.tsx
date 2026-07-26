@@ -259,23 +259,29 @@ export function ProblemView({
 
         {samples.length > 0 && (
           <div className="space-y-2">
-            <h2 className="font-semibold">{labels.samples}</h2>
+            <h2 className="hud-label flex items-center gap-2">
+              <span className="text-primary">//</span>
+              {labels.samples}
+              <span className="h-px flex-1 bg-gradient-to-r from-primary/25 to-transparent" />
+            </h2>
             {samples.map((s, i) => (
               <Card key={i}>
-                <CardContent className="p-3 grid grid-cols-2 gap-3">
+                <CardContent className="grid grid-cols-2 gap-3 p-3">
                   <div>
-                    <div className="text-xs font-medium text-muted-foreground mb-1">
+                    <div className="mb-1 font-code text-[10px] tracking-widest text-muted-foreground">
+                      {"> "}
                       {labels.sample_input}
                     </div>
-                    <pre className="font-mono text-xs bg-muted rounded p-2 whitespace-pre-wrap">
+                    <pre className="whitespace-pre-wrap rounded border border-primary/15 bg-[oklch(0.16_0.02_264)] p-2 font-mono text-xs text-primary">
                       {s.stdin}
                     </pre>
                   </div>
                   <div>
-                    <div className="text-xs font-medium text-muted-foreground mb-1">
+                    <div className="mb-1 font-code text-[10px] tracking-widest text-neon-lime">
+                      {"> "}
                       {labels.sample_output}
                     </div>
-                    <pre className="font-mono text-xs bg-muted rounded p-2 whitespace-pre-wrap">
+                    <pre className="whitespace-pre-wrap rounded border border-neon-lime/25 bg-[oklch(0.16_0.02_264)] p-2 font-mono text-xs text-neon-lime">
                       {s.expected_stdout}
                     </pre>
                   </div>
@@ -412,8 +418,10 @@ export function ProblemView({
 function Section({ title, body }: { title: string; body: string }) {
   return (
     <div className="space-y-1.5">
-      <h2 className="font-semibold text-xs uppercase tracking-wide text-muted-foreground">
+      <h2 className="hud-label flex items-center gap-2">
+        <span className="text-primary">//</span>
         {title}
+        <span className="h-px flex-1 bg-gradient-to-r from-primary/25 to-transparent" />
       </h2>
       <Markdown>{body}</Markdown>
     </div>

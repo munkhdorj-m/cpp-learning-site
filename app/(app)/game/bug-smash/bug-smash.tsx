@@ -297,7 +297,7 @@ export function BugSmash() {
             <Button
               onClick={startGame}
               size="lg"
-              className="bg-violet-600 text-white hover:bg-violet-700"
+              className="font-code"
             >
               <Play className="h-4 w-4 mr-2" />
               {t("start")}
@@ -333,7 +333,7 @@ export function BugSmash() {
             <Button
               onClick={startGame}
               size="lg"
-              className="bg-violet-600 text-white hover:bg-violet-700"
+              className="font-code"
             >
               <RotateCcw className="h-4 w-4 mr-2" />
               {t("play_again")}

@@ -158,7 +158,7 @@ export function ClassesManager({
           <DialogTrigger
             render={
               <Button
-                className="bg-violet-600 text-white hover:bg-violet-700"
+                className="font-code"
                 size="sm"
                 onClick={openCreate}
               >
@@ -201,7 +201,7 @@ export function ClassesManager({
               <Button
                 onClick={handleSubmit}
                 disabled={pending || !name.trim()}
-                className="bg-violet-600 text-white hover:bg-violet-700"
+                className="font-code"
               >
                 {mode.kind === "edit" ? "Save" : labels.create_button}
               </Button>

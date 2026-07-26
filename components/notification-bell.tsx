@@ -12,7 +12,7 @@ interface Notification {
   title: string;
   body: string | null;
   link: string | null;
-  read: boolean;
+  is_read: boolean; // column is `is_read` — `read` is reserved in MySQL
   created_at: string;
 }
 
@@ -22,7 +22,7 @@ export function NotificationBell() {
   const [loading, setLoading] = useState(true);
   const ref = useRef<HTMLDivElement>(null);
 
-  const unreadCount = notifications.filter((n) => !n.read).length;
+  const unreadCount = notifications.filter((n) => !n.is_read).length;
 
   // Lazy-load notifications only when the bell is first clicked
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -55,7 +55,7 @@ export function NotificationBell() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ action: "mark_all_read" }),
     });
-    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+    setNotifications((prev) => prev.map((n) => ({ ...n, is_read: true })));
   };
 
   const markRead = async (id: string) => {
@@ -65,7 +65,7 @@ export function NotificationBell() {
       body: JSON.stringify({ action: "mark_read", notification_id: id }),
     });
     setNotifications((prev) =>
-      prev.map((n) => (n.id === id ? { ...n, read: true } : n)),
+      prev.map((n) => (n.id === id ? { ...n, is_read: true } : n)),
     );
   };
 
@@ -81,20 +81,20 @@ export function NotificationBell() {
       >
         <Bell className="h-4 w-4" />
         {unreadCount > 0 && (
-          <span className="absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-rose-500 text-white text-[9px] font-bold px-1">
+          <span className="absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-neon-pink px-1 font-code text-[9px] font-bold text-background shadow-[0_0_8px_var(--neon-pink)]">
             {unreadCount > 9 ? "9+" : unreadCount}
           </span>
         )}
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-2 w-80 max-w-[calc(100vw-2rem)] rounded-xl border bg-popover shadow-lg z-50 overflow-hidden">
-          <div className="flex items-center justify-between px-3 py-2 border-b">
-            <span className="text-sm font-semibold">Notifications</span>
+        <div className="hud-panel absolute right-0 top-full z-50 mt-2 w-80 max-w-[calc(100vw-2rem)] overflow-hidden rounded-xl backdrop-blur-xl">
+          <div className="flex items-center justify-between border-b border-primary/15 px-3 py-2">
+            <span className="hud-label">// INBOX</span>
             {unreadCount > 0 && (
               <button
                 onClick={markAllRead}
-                className="text-xs text-violet-600 hover:underline inline-flex items-center gap-1"
+                className="inline-flex items-center gap-1 font-code text-xs text-primary hover:underline"
               >
                 <CheckCheck className="h-3 w-3" />
                 Mark all read
@@ -115,8 +115,9 @@ export function NotificationBell() {
                 <div
                   key={n.id}
                   className={cn(
-                    "px-3 py-2.5 border-b last:border-0 transition-colors",
-                    !n.read && "bg-violet-50/50 dark:bg-violet-950/20",
+                    "relative border-b border-primary/10 px-3 py-2.5 transition-colors last:border-0",
+                    !n.is_read &&
+                      "bg-primary/[0.07] before:absolute before:inset-y-0 before:left-0 before:w-[2px] before:bg-primary before:shadow-[0_0_8px_var(--color-primary)]",
                   )}
                 >
                   {n.link ? (

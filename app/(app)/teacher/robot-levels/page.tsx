@@ -87,7 +87,7 @@ export default async function TeacherRobotLevelsPage() {
           href="/teacher/robot-levels/new"
           className={cn(
             buttonVariants({ size: "sm" }),
-            "bg-violet-600 text-white hover:bg-violet-700",
+            "font-code",
           )}
         >
           <Plus className="h-4 w-4 mr-1.5" />

@@ -44,7 +44,7 @@ export default async function TeacherContestsPage() {
         <h1 className="text-2xl font-bold">Contests</h1>
         <Link
           href="/teacher/contests/new"
-          className={cn(buttonVariants({ size: "sm" }), "bg-violet-600 text-white hover:bg-violet-700")}
+          className={cn(buttonVariants({ size: "sm" }), "font-code")}
         >
           <Plus className="h-4 w-4 mr-1.5" />
           New

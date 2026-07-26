@@ -68,6 +68,10 @@ export default async function TeacherDashboardPage() {
   return (
     <div className="space-y-6">
       <div>
+        <div className="hud-label flex items-center gap-2">
+          <span className="text-primary">//</span>
+          CONTROL PANEL
+        </div>
         <h1 className="text-2xl font-bold">{t("title")}</h1>
         <p className="text-muted-foreground text-sm">{t("subtitle")}</p>
       </div>
@@ -106,7 +110,7 @@ export default async function TeacherDashboardPage() {
         <CardContent className="flex flex-wrap gap-2">
           <Link
             href="/teacher/classes"
-            className={cn(buttonVariants({ size: "sm" }), "bg-violet-600 text-white hover:bg-violet-700")}
+            className={cn(buttonVariants({ size: "sm" }), "font-code")}
           >
             <Plus className="h-4 w-4 mr-1.5" /> {t("create_class")}
           </Link>
@@ -191,19 +195,25 @@ function Stat({
   value: number;
   color: "violet" | "emerald" | "amber" | "rose";
 }) {
-  const styles = {
-    violet:
-      "bg-violet-100 text-violet-700 dark:bg-violet-950/40 dark:text-violet-300",
-    emerald:
-      "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300",
-    amber:
-      "bg-amber-100 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300",
-    rose: "bg-rose-100 text-rose-700 dark:bg-rose-950/40 dark:text-rose-300",
+  const glows = {
+    violet: "var(--neon-violet)",
+    emerald: "var(--neon-lime)",
+    amber: "var(--neon-amber)",
+    rose: "var(--neon-pink)",
   };
+  const glow = glows[color];
   return (
-    <Card>
+    <Card className="hud-hover" style={{ ["--neon-cyan" as string]: glow }}>
       <CardContent className="p-4 flex items-center gap-3">
-        <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${styles[color]}`}>
+        <div
+          className="flex h-8 w-8 items-center justify-center rounded-lg border"
+          style={{
+            color: glow,
+            borderColor: `color-mix(in oklch, ${glow} 35%, transparent)`,
+            background: `color-mix(in oklch, ${glow} 12%, transparent)`,
+            boxShadow: `0 0 18px -8px ${glow}`,
+          }}
+        >
           {icon}
         </div>
         <div className="min-w-0">

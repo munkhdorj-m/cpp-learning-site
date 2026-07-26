@@ -449,7 +449,7 @@ export function RobotLevelEditor({
         <div className="flex gap-2">
           <Button
             onClick={handleSave}
-            className="bg-violet-600 text-white hover:bg-violet-700"
+            className="font-code"
           >
             <Save className="h-4 w-4 mr-1.5" />
             Save
