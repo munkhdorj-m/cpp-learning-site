@@ -24,3 +24,13 @@ export async function requireTeacher() {
   if (profile.role !== "teacher") redirect("/problems");
   return profile;
 }
+
+/**
+ * Role check for API routes (returns a boolean instead of redirecting).
+ * Needed because Postgres RLS used to reject non-teacher writes at the DB
+ * layer; with MySQL that enforcement has to happen here.
+ */
+export async function isTeacher(): Promise<boolean> {
+  const profile = await getCurrentProfile();
+  return profile?.role === "teacher";
+}

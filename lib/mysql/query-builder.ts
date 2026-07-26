@@ -34,10 +34,21 @@ const UUID_ID_TABLES = new Set([
   "notifications",
 ]);
 
+// "2026-07-26T09:30:00.000Z" / "...+08:00" — ISO-8601 timestamps. MySQL
+// DATETIME rejects the "T" separator plus zone suffix, and a lot of call
+// sites still pass Date.toISOString() (that's what Postgres wanted), so
+// normalise them here rather than at ~10 call sites.
+const ISO_TS =
+  /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:?\d{2})$/;
+
 function toParam(v: Val): Val {
   if (v === undefined) return null;
   if (v === null) return null;
   if (v instanceof Date) return v;
+  if (typeof v === "string" && ISO_TS.test(v)) {
+    // → "YYYY-MM-DD HH:MM:SS.mmm" in UTC (pool is configured timezone:'Z')
+    return new Date(v).toISOString().slice(0, 23).replace("T", " ");
+  }
   if (Array.isArray(v) || (typeof v === "object" && !Buffer.isBuffer(v))) {
     return JSON.stringify(v);
   }
