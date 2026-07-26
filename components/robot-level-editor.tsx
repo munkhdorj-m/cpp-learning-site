@@ -653,6 +653,7 @@ export function RobotLevelEditor({
                     <SelectItem value="loops">Loops</SelectItem>
                     <SelectItem value="conditionals">Conditionals</SelectItem>
                     <SelectItem value="master">Master</SelectItem>
+                    <SelectItem value="gadgets">Gadgets &amp; Traps</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

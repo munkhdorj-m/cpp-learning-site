@@ -78,6 +78,7 @@ export default async function TeacherRobotLevelsPage() {
     loops: locale === "en" ? "Loops" : "Давталт",
     conditionals: locale === "en" ? "Conditionals" : "Нөхцөл",
     master: locale === "en" ? "Master" : "Мастер",
+    gadgets: locale === "en" ? "Gadgets" : "Төхөөрөмж",
   };
 
   return (

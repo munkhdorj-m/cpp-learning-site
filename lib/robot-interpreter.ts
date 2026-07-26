@@ -287,19 +287,29 @@ export class RobotInterpreter {
       return { kind: "ok" };
     }
 
+    // Turning and lighting also take a tick, so hazards keep patrolling and
+    // a turn can be used to wait for one to pass.
     if (p === "left") {
       this.state.dir = ((this.state.dir + 3) % 4) as Direction;
-      return { kind: "ok" };
+      this._advanceMovers();
+      return this._moverAt(this.state.x, this.state.y)
+        ? { kind: "danger" }
+        : { kind: "ok" };
     }
 
     if (p === "right") {
       this.state.dir = ((this.state.dir + 1) % 4) as Direction;
-      return { kind: "ok" };
+      this._advanceMovers();
+      return this._moverAt(this.state.x, this.state.y)
+        ? { kind: "danger" }
+        : { kind: "ok" };
     }
 
     // light
     const key = `${this.state.x},${this.state.y}`;
     this.state.lit.add(key);
+    this._advanceMovers();
+    if (this._moverAt(this.state.x, this.state.y)) return { kind: "danger" };
     return { kind: "light", key };
   }
 

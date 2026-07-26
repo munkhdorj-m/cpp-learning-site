@@ -21,7 +21,12 @@ import type { ToolboxBlock } from "@/lib/robot-blocks";
 
 export type Direction = 0 | 1 | 2 | 3;
 export type Instruction = "forward" | "left" | "right" | "light";
-export type CourseId = "basics" | "loops" | "conditionals" | "master";
+export type CourseId =
+  | "basics"
+  | "loops"
+  | "conditionals"
+  | "master"
+  | "gadgets";
 export type ThemeId = "ice" | "jungle" | "space" | "lava";
 
 export interface Tile {
@@ -175,6 +180,14 @@ export const COURSES: Course[] = [
     theme: "lava",
     blurb_mn: "Бүх мэдлэгээ нэгтгэ.",
     blurb_en: "Combine everything you know.",
+  },
+  {
+    id: "gadgets",
+    name_mn: "Төхөөрөмж",
+    name_en: "Gadgets & Traps",
+    theme: "space",
+    blurb_mn: "Од, түлхүүр, портал, бөмбөг!",
+    blurb_en: "Stars, keys, portals and bombs!",
   },
 ];
 
@@ -943,6 +956,206 @@ const RAW_LEVELS: RawLevel[] = [
     xp_reward: 100,
     palette: WITH_ALL,
     max_blocks: 14,
+  },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // COURSE 5: GADGETS & TRAPS (levels 21–26) — Space theme
+  // Introduces one new object at a time, then combines them.
+  // ═══════════════════════════════════════════════════════════════════
+
+  // Level 21 — stars: you must pick up every star, not just the egg
+  {
+    id: "maze-21",
+    course: "gadgets",
+    name_mn: "Одны зам",
+    name_en: "Star Path",
+    hint_mn: "Бүх ⭐ одыг дайрч өнгөрөөд өндгийг ав.",
+    hint_en: "Walk over every ⭐ star, then pick the egg.",
+    hints_mn: [
+      "Од дээгүүр алхахад л хангалттай — тусгай блок хэрэггүй.",
+      "Урагш 3 удаа алхаад `pick egg` дар.",
+    ],
+    hints_en: [
+      "Just walking over a star collects it — no special block needed.",
+      "Move forward 3 times, then `pick egg`.",
+    ],
+    layout: [
+      "########",
+      "########",
+      "########",
+      "########",
+      "#R**E###",
+      "########",
+      "########",
+      "########",
+    ],
+    robotDir: 1, // East
+    xp_reward: 20,
+    palette: WITH_LOOP,
+    max_blocks: 6,
+  },
+
+  // Level 22 — bombs: the direct route is mined, go around
+  {
+    id: "maze-22",
+    course: "gadgets",
+    name_mn: "Бөмбөгнөөс зайлс",
+    name_en: "Mind the Bombs",
+    hint_mn: "💣 бөмбөг дээр гишгэвэл дэлбэрнэ. Дээгүүр нь тойрч гар.",
+    hint_en: "Stepping on a 💣 bomb explodes. Go around it from above.",
+    hints_mn: [
+      "Шууд урагшаа явбал бөмбөг дээр гарна — эхлээд зүүн тийш эргэж дээшээ гар.",
+      "Дээд эгнээгээр өнгөрөөд дараа нь баруун тийш эргэж доошоо буу.",
+    ],
+    hints_en: [
+      "Going straight hits the bomb — turn left and step up first.",
+      "Cross along the top row, then turn right and come back down.",
+    ],
+    layout: [
+      "########",
+      "########",
+      "########",
+      "#.....##",
+      "#R.T.E##",
+      "########",
+      "########",
+      "########",
+    ],
+    robotDir: 1, // East
+    xp_reward: 25,
+    palette: WITH_LOOP,
+    max_blocks: 12,
+  },
+
+  // Level 23 — key + door: the key is behind you
+  {
+    id: "maze-23",
+    course: "gadgets",
+    name_mn: "Түлхүүр ба хаалга",
+    name_en: "Key and Door",
+    hint_mn: "🚪 хаалга түгжээтэй. Эхлээд ард байгаа 🔑 түлхүүрийг ав.",
+    hint_en: "The 🚪 door is locked. Fetch the 🔑 key behind you first.",
+    hints_mn: [
+      "Эргэж (2 удаа эргэх) буцаад түлхүүр рүү яв.",
+      "Түлхүүртэй болсны дараа дахин эргээд хаалгаар дамжин өндөг рүү яв.",
+    ],
+    hints_en: [
+      "Turn around (two turns) and walk back to the key.",
+      "With the key, turn around again and walk through the door to the egg.",
+    ],
+    layout: [
+      "########",
+      "########",
+      "########",
+      "########",
+      "#K.R.DE#",
+      "########",
+      "########",
+      "########",
+    ],
+    robotDir: 1, // East
+    xp_reward: 30,
+    palette: WITH_LOOP,
+    max_blocks: 14,
+  },
+
+  // Level 24 — portals: a wall you can only pass by teleporting
+  {
+    id: "maze-24",
+    course: "gadgets",
+    name_mn: "Портал",
+    name_en: "Portal Jump",
+    hint_mn: "🌀 портал дээр гарвал нөгөө порталд шилжинэ.",
+    hint_en: "Step on a 🌀 portal and you come out of the other one.",
+    hints_mn: [
+      "Хана дундуур гарах боломжгүй — порталыг ашигла.",
+      "Урагш 2 алхвал порталд орно, дараа нь дахин 1 алхаад өндгийг ав.",
+    ],
+    hints_en: [
+      "You cannot pass the wall — use the portal.",
+      "Two steps forward lands on the portal, then one more step to the egg.",
+    ],
+    layout: [
+      "########",
+      "########",
+      "########",
+      "########",
+      "#R.P#PE#",
+      "########",
+      "########",
+      "########",
+    ],
+    robotDir: 1, // East
+    xp_reward: 30,
+    palette: WITH_LOOP,
+    max_blocks: 6,
+  },
+
+  // Level 25 — patrolling hazard: turning wastes a tick, so it doubles as
+  // a "wait" while the drone slides past.
+  {
+    id: "maze-25",
+    course: "gadgets",
+    name_mn: "Хамгаалагч",
+    name_en: "The Guard",
+    hint_mn:
+      "🔴 хамгаалагч доод замаар нааш цааш явна. Дээд зам руу гарч тойр.",
+    hint_en:
+      "The 🔴 guard patrols the lower lane. Step up to the safe lane and go around.",
+    hints_mn: [
+      "Шууд урагшаа явбал хамгаалагчтай мөргөлдөнө.",
+      "Эхлээд зүүн тийш эргэж дээшээ гар, дараа нь баруун тийш яв.",
+    ],
+    hints_en: [
+      "Walking straight ahead runs into the guard.",
+      "Turn left and step up first, then head east along the top.",
+    ],
+    layout: [
+      "########",
+      "########",
+      "########",
+      "#.....E#",
+      "#R..M..#",
+      "########",
+      "########",
+      "########",
+    ],
+    robotDir: 1, // East
+    xp_reward: 35,
+    palette: WITH_ALL,
+    max_blocks: 14,
+  },
+
+  // Level 26 — finale: key, door, bomb, stars and a portal together
+  {
+    id: "maze-26",
+    course: "gadgets",
+    name_mn: "Төгсгөлийн сорилт",
+    name_en: "Gadget Master",
+    hint_mn: "Түлхүүр → хаалга → од → портал. Бөмбөгнөөс болгоомжил!",
+    hint_en: "Key → door → stars → portal. Watch out for the bomb!",
+    hints_mn: [
+      "Эхлээд түлхүүрээ ав, дараа нь хаалгаар гар.",
+      "Бүх одыг цуглуулахаа мартуузай — үгүй бол ялахгүй.",
+    ],
+    hints_en: [
+      "Grab the key first, then the door will open.",
+      "Remember every star — you cannot win while one is left.",
+    ],
+    layout: [
+      "########",
+      "########",
+      "########",
+      "#K.D*..#",
+      "#R.T...#",
+      "######.#",
+      "###P#P.#",
+      "###E####",
+    ],
+    robotDir: 0, // North
+    xp_reward: 50,
+    palette: WITH_ALL,
+    max_blocks: 20,
   },
 ];
 
