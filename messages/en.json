@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "CPP Judge",
+    "name": "ХаСү Computer Science",
     "tagline": "Learn C++ programming through problem solving"
   },
   "nav": {
@@ -8,8 +8,8 @@
     "leaderboard": "Leaderboard",
     "assignments": "Assignments",
     "contests": "Contests",
-    "game": "Game",
-    "robot": "Robot",
+    "game": "Games",
+    "robot": "Find the Egg",
     "quests": "Quests",
     "profile": "Profile",
     "ide": "Code Editor",
@@ -19,8 +19,8 @@
     "teacher": "Teacher panel"
   },
   "robot": {
-    "title": "Robot Programmer",
-    "subtitle": "Stack instructions and run the robot. Light up every target.",
+    "title": "Find the Egg",
+    "subtitle": "Stack instructions and guide the robot to every egg.",
     "progress": "Progress",
     "level": "Level",
     "queue": "Instructions",
@@ -45,7 +45,7 @@
     "subtitle": "Pick a game to play"
   },
   "bug_smash": {
-    "title": "Bug Smash",
+    "title": "Debug",
     "subtitle": "Squash the bugs — chain quick clicks for combo bonuses",
     "score": "Score",
     "time": "Time",

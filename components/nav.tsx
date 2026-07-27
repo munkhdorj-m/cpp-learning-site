@@ -32,11 +32,7 @@ export async function Nav() {
 
         <div className="ml-auto flex min-w-0 items-center gap-1 sm:gap-1.5">
           {profile && (
-            <XpBar
-              xp={profile.xp}
-              level={profile.level}
-              streakDays={profile.streak_days}
-            />
+            <XpBar xp={profile.xp} level={profile.level} />
           )}
           {/* Theme + language are secondary — keep them off small screens
               so the avatar and login button always fit. */}

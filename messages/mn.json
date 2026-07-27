@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "CPP Шүүгч",
+    "name": "ХаСү Computer Science",
     "tagline": "C++ програмчлал сурах, бодлого бодох"
   },
   "nav": {
@@ -8,8 +8,8 @@
     "leaderboard": "Шилдгүүд",
     "assignments": "Даалгаврууд",
     "contests": "Тэмцээн",
-    "game": "Тоглоом",
-    "robot": "Робот",
+    "game": "Games",
+    "robot": "Find the Egg",
     "quests": "Тэмцэл",
     "profile": "Профайл",
     "ide": "Код бичих",
@@ -19,8 +19,8 @@
     "teacher": "Багшийн хэсэг"
   },
   "robot": {
-    "title": "Робот програмчлал",
-    "subtitle": "Командууд цуглуулж роботыг алхуул. Гэрлүүдийг асаа.",
+    "title": "Find the Egg",
+    "subtitle": "Stack instructions and guide the robot to every egg.",
     "progress": "Гүйцэтгэл",
     "level": "Түвшин",
     "queue": "Заавар",
@@ -45,8 +45,8 @@
     "subtitle": "Тоглоомоо сонгож тогло"
   },
   "bug_smash": {
-    "title": "Bug Smash",
-    "subtitle": "Хорхойнуудыг товш — хурдан хийвэл цуврал нэмэгдэнэ",
+    "title": "Debug",
+    "subtitle": "Squash the bugs — chain quick clicks for combo bonuses",
     "score": "Оноо",
     "time": "Хугацаа",
     "best_combo": "Хамгийн их цуврал",

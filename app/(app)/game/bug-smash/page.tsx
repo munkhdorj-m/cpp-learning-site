@@ -1,7 +1,7 @@
 import { GameClient } from "./game-client";
 
 export const metadata = {
-  title: "Bug Smash",
+  title: "Debug",
 };
 
 export default function GamePage() {

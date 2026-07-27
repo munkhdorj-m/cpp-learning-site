@@ -1,4 +1,4 @@
-// Level data for Robot Programmer.
+// Level data for the "Find the Egg" robot game.
 // 20 levels with progressive pedagogy — each teaches a specific new concept.
 //
 // Layouts:
