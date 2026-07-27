@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { ParticleNetwork } from "@/components/particle-network";
 
 interface GridBackgroundProps {
   className?: string;
@@ -20,9 +21,9 @@ export function GridBackground({ className }: GridBackgroundProps) {
       )}
       aria-hidden="true"
     >
-      {/* Drifting grid */}
+      {/* Drifting grid — dialled back so the particle network reads clearly */}
       <div
-        className="absolute inset-0 opacity-[0.5] dark:opacity-[0.6]"
+        className="absolute inset-0 opacity-[0.25] dark:opacity-[0.3]"
         style={{
           backgroundImage:
             "linear-gradient(to right, color-mix(in oklch, var(--neon-cyan) 12%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklch, var(--neon-cyan) 12%, transparent) 1px, transparent 1px)",
@@ -60,6 +61,9 @@ export function GridBackground({ className }: GridBackgroundProps) {
           animation: "blob-float 28s ease-in-out infinite",
         }}
       />
+
+      {/* Constellation particles — sits above the glow orbs, under the vignette */}
+      <ParticleNetwork />
 
       {/* Slow scanline */}
       <div
