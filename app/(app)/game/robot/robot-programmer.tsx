@@ -467,7 +467,9 @@ export function RobotProgrammer({
             <div className="hud-label min-w-[80px] sm:min-w-[110px]">
               {locale === "en" ? c.name_en : c.name_mn}
             </div>
-            <div className="flex items-center gap-1 overflow-x-auto">
+            {/* overflow-y-hidden: the scaled-up current chip would otherwise
+                push a vertical scrollbar (with arrows) into this strip. */}
+            <div className="flex items-center gap-1 overflow-x-auto overflow-y-hidden py-1 [scrollbar-width:thin]">
               {levels.map((l) => {
                 const isCurrent = l.idx === levelIdx;
                 const isCompleted = completed.has(l.id);

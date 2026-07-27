@@ -1252,12 +1252,11 @@ export function dbRowToLevel(row: {
     xp_reward: row.xp_reward,
     palette: (row.palette ?? []) as ToolboxBlock[],
     max_blocks: row.max_blocks,
-    // A built-in override keeps the built-in's number; custom levels use
-    // their stored order (0 falls back to "after everything built-in").
+    // A built-in override keeps the built-in's number. 0 means "not numbered
+    // yet" — mergeLevels() hands those a unique number, so two old rows can't
+    // both end up as the same level number.
     order_idx:
-      row.order_idx ||
-      LEVELS.find((l) => l.id === row.id)?.order_idx ||
-      LEVELS.length + 1,
+      row.order_idx || LEVELS.find((l) => l.id === row.id)?.order_idx || 0,
   };
 }
 
@@ -1274,6 +1273,15 @@ export function mergeLevels(dbRows: Level[]): Level[] {
       merged.push(row);
     }
   }
+  // Give unnumbered levels (order_idx 0) the next free numbers, in a stable
+  // order, so two legacy rows can't both show up as the same level number.
+  let next = merged.reduce((m, l) => Math.max(m, l.order_idx), LEVELS.length);
+  for (const l of merged
+    .filter((l) => !l.order_idx)
+    .sort((a, b) => a.id.localeCompare(b.id))) {
+    l.order_idx = ++next;
+  }
+
   // Level number decides play order; ties fall back to id for stability.
   return merged.sort(
     (a, b) => a.order_idx - b.order_idx || a.id.localeCompare(b.id),

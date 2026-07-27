@@ -369,10 +369,11 @@ CREATE TABLE robot_progress (
   completed_at      DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   PRIMARY KEY (user_id, level_id),
   KEY idx_robot_progress_level (level_id),
+  -- NOTE: deliberately NO foreign key on level_id. Most levels are built into
+  -- the app code and never exist as robot_levels rows, so a FK here would
+  -- reject progress for every built-in level. (Postgres had no FK either.)
   CONSTRAINT fk_rp_user FOREIGN KEY (user_id)
-    REFERENCES profiles (id) ON DELETE CASCADE,
-  CONSTRAINT fk_rp_level FOREIGN KEY (level_id)
-    REFERENCES robot_levels (id) ON DELETE CASCADE
+    REFERENCES profiles (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ---------- notifications ----------
