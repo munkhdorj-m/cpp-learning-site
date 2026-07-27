@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { Suspense, useState, useTransition } from "react";
+import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Play, Trash2, Terminal } from "lucide-react";
 import { toast } from "sonner";
@@ -22,9 +23,21 @@ interface RunResult {
 }
 
 export default function IdePage() {
+  // useSearchParams needs a Suspense boundary in the app router.
+  return (
+    <Suspense fallback={null}>
+      <Ide />
+    </Suspense>
+  );
+}
+
+function Ide() {
   const t = useTranslations("ide");
   const tCommon = useTranslations("common");
-  const [code, setCode] = useState(STARTER_CPP);
+  // Lessons link here with ?code=… so students can run the example directly.
+  const params = useSearchParams();
+  const initialCode = params.get("code") || STARTER_CPP;
+  const [code, setCode] = useState(initialCode);
   const [stdin, setStdin] = useState("");
   const [result, setResult] = useState<RunResult | null>(null);
   const [pending, startTransition] = useTransition();
@@ -65,7 +78,7 @@ export default function IdePage() {
             variant="outline"
             size="sm"
             onClick={() => {
-              setCode(STARTER_CPP);
+              setCode(initialCode);
               setStdin("");
               setResult(null);
             }}
