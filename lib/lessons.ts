@@ -92,6 +92,20 @@ export const UNITS: Unit[] = [
     blurb_mn: "Нэг ажлыг олон удаа давтах.",
     blurb_en: "Do the same job many times.",
   },
+  {
+    id: 5,
+    title_mn: "Бичвэр ба жагсаалт",
+    title_en: "Text and Lists",
+    blurb_mn: "Үг боловсруулах, олон утгыг нэг дор хадгалах.",
+    blurb_en: "Work with words, and hold many values at once.",
+  },
+  {
+    id: 6,
+    title_mn: "Илүү том програм",
+    title_en: "Bigger Programs",
+    blurb_mn: "Давхар давталт, функц, уян хатан жагсаалт.",
+    blurb_en: "Nested loops, functions, and growable lists.",
+  },
 ];
 
 export const LESSONS: Lesson[] = [
@@ -920,6 +934,598 @@ int main() {
     challenge_en: "Change it to add the odd numbers instead.",
   },
 ];
+
+// ── Unit 5 ──────────────────────────────────────────────────────────────
+LESSONS.push(
+  {
+    slug: "strings",
+    unit: 5,
+    title_mn: "Бичвэртэй ажиллах",
+    title_en: "Working with Text",
+    goal_mn: "Үгийн уртыг олох, үгсийг наах, үсэг бүрт хандах.",
+    goal_en: "Find a word's length, join words, and reach single letters.",
+    intro_mn:
+      "`string` бол үсгүүдийн эгнээ. Үсэг бүр 0-оос эхлэн дугаарлагдана — эхний үсэг нь 1 биш, 0 дугаартай!",
+    intro_en:
+      "A `string` is a row of letters. They are numbered from 0 — the first letter is number 0, not 1!",
+    code: `#include <iostream>
+using namespace std;
+
+int main() {
+    string name = "Bat";
+
+    cout << name.length() << endl;   // 3
+    cout << name[0] << endl;         // B
+    cout << name + "aa" << endl;     // Bataa
+
+    for (int i = 0; i < name.length(); i++) {
+        cout << name[i] << "-";
+    }
+    cout << endl;
+    return 0;
+}`,
+    output: "3\nB\nBataa\nB-a-t-",
+    lines: [
+      {
+        code: "cout << name.length() << endl;   // 3",
+        note_mn:
+          "`.length()` нь хэдэн үсэгтэйг хэлнэ. Хаалт `()`-г мартаж болохгүй.",
+        note_en:
+          "`.length()` tells you how many letters there are. Don't forget the `()`.",
+      },
+      {
+        code: "cout << name[0] << endl;         // B",
+        note_mn:
+          "Дөрвөлжин хаалт `[ ]` доторх тоо нь байрлал. 0 = эхний үсэг, 1 = хоёр дахь …",
+        note_en:
+          "The number in square brackets `[ ]` is the position. 0 is the first letter, 1 the second …",
+      },
+      {
+        code: 'cout << name + "aa" << endl;     // Bataa',
+        note_mn: "`+` нь бичвэр дээр “наах” гэсэн утгатай, нэмэх биш.",
+        note_en: "On text, `+` means 'join together', not 'add up'.",
+      },
+      {
+        code: "for (int i = 0; i < name.length(); i++) {",
+        note_mn:
+          "Үсэг бүрийг эргэх стандарт хэлбэр: 0-оос эхэлж, урт хүрэхээс өмнө зогсоно.",
+        note_en:
+          "The standard way to walk every letter: start at 0, stop before the length.",
+      },
+    ],
+    terms: [
+      {
+        term: "s.length()",
+        def_mn: "Мөрийн урт (үсгийн тоо). `s.size()` ч гэж бичиж болно.",
+        def_en: "The number of letters. `s.size()` does the same thing.",
+      },
+      {
+        term: "s[i]",
+        def_mn: "`i` дугаартай үсэг. Дугаарлалт 0-оос эхэлнэ.",
+        def_en: "The letter at position `i`. Counting starts at 0.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: 'string s = "Bat";\ncout << s[3];',
+        fix: "cout << s[2];   // last letter",
+        why_mn:
+          "3 үсэгтэй мөрийн байрлалууд 0, 1, 2. `s[3]` байхгүй газар — алдаа гарна.",
+        why_en:
+          "A 3-letter string has positions 0, 1, 2. `s[3]` is past the end and misbehaves.",
+      },
+      {
+        wrong: "cout << name.length;",
+        fix: "cout << name.length();",
+        why_mn: "`length` бол функц тул хаалт `()` заавал хэрэгтэй.",
+        why_en: "`length` is a function, so it needs the brackets `()`.",
+      },
+    ],
+    quiz: {
+      question_mn: '`string s = "Hello";` бол `s[1]` юу вэ?',
+      question_en: 'With `string s = "Hello";` what is `s[1]`?',
+      choices: ["e", "H", "l"],
+      answer: 0,
+      explain_mn: "0 нь H, 1 нь e. Дугаарлалт 0-оос эхэлдгийг санаарай.",
+      explain_en: "Position 0 is H and position 1 is e — counting starts at 0.",
+    },
+    challenge_mn: "Нэрээ уншаад урвуугаар нь хэвлэ.",
+    challenge_en: "Read a name and print it backwards.",
+  },
+  {
+    slug: "getline",
+    unit: 5,
+    title_mn: "Бүтэн мөр унших",
+    title_en: "Reading a Whole Line",
+    goal_mn: "Зайтай өгүүлбэрийг бүтнээр нь унших.",
+    goal_en: "Read a whole sentence, spaces included.",
+    intro_mn:
+      "`cin >> s` нь ЗАЙ хүртэл л уншина. “Bat Erdene” гэж бичвэл зөвхөн “Bat” орно. Бүтэн мөр хэрэгтэй бол `getline` ашиглана.",
+    intro_en:
+      '`cin >> s` stops at the first SPACE. Type "Bat Erdene" and you only get "Bat". For the whole line use `getline`.',
+    code: `#include <iostream>
+using namespace std;
+
+int main() {
+    string first;
+    cin >> first;              // reads one word
+
+    string rest;
+    getline(cin, rest);        // reads the rest of the line
+
+    cout << "Word: " << first << endl;
+    cout << "Rest:" << rest << endl;
+    return 0;
+}`,
+    output: "(input: Bat Erdene Suh)\nWord: Bat\nRest: Erdene Suh",
+    lines: [
+      {
+        code: "cin >> first;              // reads one word",
+        note_mn: "Эхний зай дээр зогсоно. “Bat” л уншина.",
+        note_en: 'Stops at the first space, so it only reads "Bat".',
+      },
+      {
+        code: "getline(cin, rest);        // reads the rest of the line",
+        note_mn:
+          "Мөрийн төгсгөл хүртэл бүгдийг, зайтай нь хамт уншина. `cin` эхэнд байгааг анхаар.",
+        note_en:
+          "Reads everything to the end of the line, spaces and all. Note `cin` comes first.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "int n;\ncin >> n;\ngetline(cin, line);   // line is empty!",
+        fix: "int n;\ncin >> n;\ncin.ignore();\ngetline(cin, line);",
+        why_mn:
+          "`cin >> n` нь Enter товчийг үлдээдэг. `cin.ignore()` түүнийг цэвэрлэнэ. Энэ бол маш түгээмэл урхи.",
+        why_en:
+          "`cin >> n` leaves the Enter key behind, so getline reads an empty line. `cin.ignore()` clears it. A very common trap.",
+      },
+    ],
+    quiz: {
+      question_mn: "Зайтай өгүүлбэр унших зөв арга аль нь вэ?",
+      question_en: "Which one reads a sentence containing spaces?",
+      choices: ["getline(cin, s)", "cin >> s", "cout << s"],
+      answer: 0,
+      explain_mn: "`cin >> s` зай дээр зогсдог тул `getline` хэрэгтэй.",
+      explain_en: "`cin >> s` stops at a space, so you need `getline`.",
+    },
+  },
+  {
+    slug: "arrays",
+    unit: 5,
+    title_mn: "Массив",
+    title_en: "Arrays",
+    goal_mn: "Олон утгыг нэг нэрэн дор хадгалах.",
+    goal_en: "Store many values under one name.",
+    intro_mn:
+      "30 сурагчийн оноог хадгалахад 30 хувьсагч үүсгэх үү? Үгүй. Массив бол дугаарлагдсан хайрцгуудын эгнээ — нэг нэртэй, олон үүртэй.",
+    intro_en:
+      "Would you make 30 variables for 30 test scores? No. An array is a row of numbered boxes: one name, many slots.",
+    code: `#include <iostream>
+using namespace std;
+
+int main() {
+    int score[5] = {70, 85, 90, 60, 100};
+
+    cout << score[0] << endl;    // 70  (first)
+    cout << score[4] << endl;    // 100 (last)
+
+    score[1] = 88;               // change one slot
+
+    for (int i = 0; i < 5; i++) {
+        cout << score[i] << " ";
+    }
+    cout << endl;
+    return 0;
+}`,
+    output: "70\n100\n70 88 90 60 100",
+    lines: [
+      {
+        code: "int score[5] = {70, 85, 90, 60, 100};",
+        note_mn:
+          "`[5]` = 5 үүр гэсэн үг. Үүрнүүд нь 0, 1, 2, 3, 4 дугаартай — 5 гэж байхгүй!",
+        note_en:
+          "`[5]` means five slots, numbered 0, 1, 2, 3, 4 — there is no slot 5!",
+      },
+      {
+        code: "cout << score[4] << endl;    // 100 (last)",
+        note_mn:
+          "Сүүлийн үүрний дугаар нь ҮРГЭЛЖ хэмжээ хасах нэг. 5 үүртэй бол сүүлчийнх нь 4.",
+        note_en:
+          "The last slot is ALWAYS size minus one. With 5 slots, the last is 4.",
+      },
+      {
+        code: "score[1] = 88;               // change one slot",
+        note_mn: "Ганц үүрийг энгийн хувьсагч шиг сольж болно.",
+        note_en: "A single slot behaves just like an ordinary variable.",
+      },
+      {
+        code: "for (int i = 0; i < 5; i++) {",
+        note_mn:
+          "Массивыг эргэх стандарт давталт. `i` нь үүрний дугаарын үүрэг гүйцэтгэнэ.",
+        note_en:
+          "The standard loop for walking an array — `i` plays the part of the slot number.",
+      },
+    ],
+    terms: [
+      {
+        term: "index",
+        def_mn: "Үүрний дугаар. Үргэлж 0-оос эхэлнэ.",
+        def_en: "The slot number. Always starts at 0.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "int a[5];\na[5] = 10;",
+        fix: "a[4] = 10;   // last slot",
+        why_mn:
+          "5 үүртэй массивын сүүлчийн дугаар 4. `a[5]` нь хилээс гарсан — програм эвдэрч болно.",
+        why_en:
+          "With 5 slots the last index is 4. `a[5]` is out of bounds and can corrupt your program.",
+      },
+      {
+        wrong: "int a[5];\ncout << a[0];   // random junk",
+        fix: "int a[5] = {0};\ncout << a[0];   // 0",
+        why_mn: "Утга өгөөгүй массив хогтой байдаг. Эхлээд дүүргэ.",
+        why_en: "An array you never filled contains junk. Fill it first.",
+      },
+    ],
+    quiz: {
+      question_mn: "`int a[10];` бол зөв хамгийн том дугаар аль нь вэ?",
+      question_en: "For `int a[10];` what is the largest valid index?",
+      choices: ["9", "10", "11"],
+      answer: 0,
+      explain_mn: "10 үүр = 0-ээс 9 хүртэл дугаарлагдана.",
+      explain_en: "Ten slots are numbered 0 through 9.",
+    },
+    challenge_mn: "5 тоо уншаад массивд хийж, урвуу дарааллаар хэвлэ.",
+    challenge_en: "Read 5 numbers into an array and print them in reverse.",
+  },
+  {
+    slug: "array-loops",
+    unit: 5,
+    title_mn: "Массив дээрх бодолт",
+    title_en: "Working Through an Array",
+    goal_mn: "Нийлбэр, дундаж, хамгийн их утгыг олох.",
+    goal_en: "Find a total, an average, and the largest value.",
+    intro_mn:
+      "Массив + давталт = жинхэнэ хүч. Ихэнх бодлого яг энэ хоёрын хослол дээр тогтдог.",
+    intro_en:
+      "Array + loop is where the real power is. Most problems are built on exactly this pair.",
+    code: `#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    int a[100];
+    for (int i = 0; i < n; i++) cin >> a[i];
+
+    int sum = 0;
+    int best = a[0];
+    for (int i = 0; i < n; i++) {
+        sum = sum + a[i];
+        if (a[i] > best) best = a[i];
+    }
+
+    cout << "Sum: " << sum << endl;
+    cout << "Max: " << best << endl;
+    cout << "Avg: " << (double)sum / n << endl;
+    return 0;
+}`,
+    output: "(input: 4\\n3 9 2 6)\nSum: 20\nMax: 9\nAvg: 5",
+    lines: [
+      {
+        code: "for (int i = 0; i < n; i++) cin >> a[i];",
+        note_mn:
+          "Массивыг уншиж дүүргэх богино бичлэг. Ганц мөр бол `{ }` заавал биш.",
+        note_en:
+          "A short way to fill the array. With a single statement the `{ }` are optional.",
+      },
+      {
+        code: "int best = a[0];",
+        note_mn:
+          "Хамгийн ихийг ЭХНИЙ утгаар эхлүүлнэ, 0-оор биш! Сөрөг тоонууд байвал 0 буруу хариу өгнө.",
+        note_en:
+          "Start the maximum at the FIRST value, not 0 — with negative numbers, 0 would be wrong.",
+      },
+      {
+        code: "if (a[i] > best) best = a[i];",
+        note_mn: "Илүү том утга тааралдвал л шинэчилнэ.",
+        note_en: "Only update when you meet something bigger.",
+      },
+      {
+        code: 'cout << "Avg: " << (double)sum / n << endl;',
+        note_mn:
+          "`(double)` нь бүхэл хуваалтаас сэргийлнэ. Үгүй бол 20/4 биш 20/3 маягийн алдаа гарч болно.",
+        note_en:
+          "`(double)` avoids integer division, which would chop the decimal off the average.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "int best = 0;   // then compare",
+        fix: "int best = a[0];",
+        why_mn: "Бүх тоо сөрөг байвал хариу нь 0 гэж буруу гарна.",
+        why_en: "If every number is negative, the answer wrongly comes out as 0.",
+      },
+    ],
+    quiz: {
+      question_mn: "Хамгийн ихийг олохдоо яагаад `a[0]`-оор эхлүүлэх вэ?",
+      question_en: "Why start the maximum at `a[0]`?",
+      choices: [
+        "Бүх тоо сөрөг байж болох тул / Because every number might be negative",
+        "Илүү хурдан тул / Because it is faster",
+        "Ямар ч ялгаагүй / It makes no difference",
+      ],
+      answer: 0,
+      explain_mn: "0-оор эхлүүлбэл сөрөг тоонуудын хувьд буруу хариу гарна.",
+      explain_en: "Starting at 0 gives a wrong answer when all values are below zero.",
+    },
+    challenge_mn: "Хамгийн БАГА утгыг олж хэвлэ.",
+    challenge_en: "Find and print the smallest value instead.",
+  },
+
+  // ── Unit 6 ────────────────────────────────────────────────────────────
+  {
+    slug: "nested-loops",
+    unit: 6,
+    title_mn: "Давхар давталт",
+    title_en: "Nested Loops",
+    goal_mn: "Давталт дотор давталт ажиллуулж хүснэгт, дүрс гаргах.",
+    goal_en: "Put a loop inside a loop to build rows and shapes.",
+    intro_mn:
+      "Цагийн зүү шиг: гадна давталт нэг алхахад дотоод давталт бүтэн эргэлт хийнэ. Мөр, багана гаргахад ашиглана.",
+    intro_en:
+      "Like clock hands: for every single step of the outer loop, the inner loop runs all the way round. Perfect for rows and columns.",
+    code: `#include <iostream>
+using namespace std;
+
+int main() {
+    for (int row = 1; row <= 4; row++) {
+        for (int col = 1; col <= row; col++) {
+            cout << "*";
+        }
+        cout << endl;
+    }
+    return 0;
+}`,
+    output: "*\n**\n***\n****",
+    lines: [
+      {
+        code: "for (int row = 1; row <= 4; row++) {",
+        note_mn: "ГАДНА давталт = мөрүүд. 4 удаа ажиллана.",
+        note_en: "The OUTER loop is the rows. It runs 4 times.",
+      },
+      {
+        code: "for (int col = 1; col <= row; col++) {",
+        note_mn:
+          "ДОТООД давталт = тухайн мөрийн од. `row`-оос хамаарч байгааг анзаар — тиймээс шатлаж өснө.",
+        note_en:
+          "The INNER loop draws that row's stars. Notice it depends on `row`, which is what makes the staircase.",
+      },
+      {
+        code: "cout << endl;",
+        note_mn:
+          "Дотоод давталт дууссаны ДАРАА мөр таслана. Дотор нь тавивал бүх од тус тусдаа мөрөнд орно.",
+        note_en:
+          "Break the line AFTER the inner loop finishes. Inside, every star would land on its own line.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "for (int i = 0; i < 3; i++)\n  for (int i = 0; i < 3; i++)",
+        fix: "for (int i = 0; i < 3; i++)\n  for (int j = 0; j < 3; j++)",
+        why_mn: "Хоёр давталт ижил нэр ашиглаж болохгүй. `i` ба `j` гэж ялга.",
+        why_en: "Two loops cannot share a counter name. Use `i` and `j`.",
+      },
+    ],
+    quiz: {
+      question_mn: "3×4 давхар давталтын дотоод хэсэг нийт хэдэн удаа ажиллах вэ?",
+      question_en: "In a 3-by-4 nested loop, how many times does the inside run?",
+      choices: ["12", "7", "4"],
+      answer: 0,
+      explain_mn: "3 × 4 = 12. Гадна алхам бүрт дотоод нь бүрэн эргэнэ.",
+      explain_en: "3 × 4 = 12 — the inner loop completes fully for each outer step.",
+    },
+    challenge_mn: "Урвуу гурвалжин (4, 3, 2, 1 од) гарга.",
+    challenge_en: "Print an upside-down triangle: 4 stars, then 3, 2, 1.",
+  },
+  {
+    slug: "functions",
+    unit: 6,
+    title_mn: "Функц",
+    title_en: "Functions",
+    goal_mn: "Кодын хэсгийг нэрлээд дахин дахин ашиглах.",
+    goal_en: "Give a piece of code a name and reuse it.",
+    intro_mn:
+      "Функц бол өөрийн бүтээсэн тушаал. Нэг удаа бичээд хэдэн ч удаа дуудна. Урт програмыг жижиг ойлгомжтой хэсгүүдэд хуваана.",
+    intro_en:
+      "A function is a command you invent yourself: write it once, call it as often as you like. It breaks a long program into small, understandable pieces.",
+    code: `#include <iostream>
+using namespace std;
+
+int square(int x) {
+    return x * x;
+}
+
+void greet(string name) {
+    cout << "Hello, " << name << "!" << endl;
+}
+
+int main() {
+    cout << square(5) << endl;    // 25
+    cout << square(9) << endl;    // 81
+    greet("Saraa");
+    return 0;
+}`,
+    output: "25\n81\nHello, Saraa!",
+    lines: [
+      {
+        code: "int square(int x) {",
+        note_mn:
+          "`int` (эхний) = ямар төрлийн хариу БУЦААХ вэ. `square` = нэр. `int x` = хүлээж авах утга.",
+        note_en:
+          "The first `int` is the type it GIVES BACK. `square` is the name. `int x` is what it takes in.",
+      },
+      {
+        code: "return x * x;",
+        note_mn:
+          "`return` нь хариуг буцаагаад функцийг тэр дороо дуусгана.",
+        note_en: "`return` hands the answer back and ends the function immediately.",
+      },
+      {
+        code: "void greet(string name) {",
+        note_mn:
+          "`void` = юу ч буцаахгүй, зүгээр нэг ажил хийнэ (энд хэвлэнэ). `return` шаардлагагүй.",
+        note_en:
+          "`void` means it gives nothing back — it just does a job (printing here). No `return` needed.",
+      },
+      {
+        code: "cout << square(5) << endl;    // 25",
+        note_mn:
+          "Функцийг ДУУДАХ. 5 нь `x` болж орно, буцаж ирсэн 25 хэвлэгдэнэ.",
+        note_en:
+          "This CALLS the function: 5 goes in as `x`, and the 25 that comes back gets printed.",
+      },
+    ],
+    terms: [
+      {
+        term: "return",
+        def_mn: "Хариуг буцааж, функцийг дуусгана.",
+        def_en: "Sends the answer back and ends the function.",
+      },
+      {
+        term: "void",
+        def_mn: "Хариу буцаахгүй функцийн төрөл.",
+        def_en: "The type for a function that returns nothing.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "int square(int x) {\n    x * x;\n}",
+        fix: "int square(int x) {\n    return x * x;\n}",
+        why_mn: "`return` бичихгүй бол хариу гарч ирэхгүй.",
+        why_en: "Without `return` the answer never comes back out.",
+      },
+      {
+        wrong: "int main() {\n    cout << square(5);\n}\nint square(int x){...}",
+        fix: "int square(int x){...}\nint main() {\n    cout << square(5);\n}",
+        why_mn:
+          "Функцийг ашиглахаас ӨМНӨ бичсэн байх ёстой — `main`-ийн дээр тавь.",
+        why_en:
+          "A function must appear BEFORE it is used — put it above `main`.",
+      },
+    ],
+    quiz: {
+      question_mn: "`void` функц юу буцаах вэ?",
+      question_en: "What does a `void` function give back?",
+      choices: ["Юу ч биш / Nothing", "0", "Бичвэр / Text"],
+      answer: 0,
+      explain_mn: "`void` нь “хариу байхгүй” гэсэн үг — зөвхөн ажил хийнэ.",
+      explain_en: "`void` means 'no answer' — it only performs an action.",
+    },
+    challenge_mn: "Хоёр тооны их нь буцаадаг `maxOf` функц бич.",
+    challenge_en: "Write a `maxOf` function that returns the larger of two numbers.",
+  },
+  {
+    slug: "vectors",
+    unit: 6,
+    title_mn: "Вектор",
+    title_en: "Vectors",
+    goal_mn: "Хэмжээ нь өөрчлөгддөг жагсаалт ашиглах.",
+    goal_en: "Use a list that can grow while the program runs.",
+    intro_mn:
+      "Массивын хэмжээг эхнээс нь мэдэх ёстой. Вектор бол уян хатан массив — ажиллаж байхдаа өсч, хумигдана. Бодлого бодоход ихэвчлэн үүнийг сонгодог.",
+    intro_en:
+      "An array's size is fixed from the start. A vector is a stretchy array — it grows and shrinks while running. For contest problems this is usually the better choice.",
+    code: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    vector<int> v;
+
+    v.push_back(10);
+    v.push_back(20);
+    v.push_back(30);
+
+    cout << v.size() << endl;    // 3
+    cout << v[1] << endl;        // 20
+
+    for (int x : v) {
+        cout << x << " ";
+    }
+    cout << endl;
+    return 0;
+}`,
+    output: "3\n20\n10 20 30",
+    lines: [
+      {
+        code: "#include <vector>",
+        note_mn: "Вектор ашиглах бол энэ мөрийг нэмнэ.",
+        note_en: "You need this extra line to use vectors.",
+      },
+      {
+        code: "vector<int> v;",
+        note_mn:
+          "`<int>` дотор ямар төрлийн зүйл хадгалахыг бичнэ. Одоохондоо хоосон.",
+        note_en:
+          "Inside `< >` you say what it holds. It starts out empty.",
+      },
+      {
+        code: "v.push_back(10);",
+        note_mn: "Төгсгөлд нэг утга нэмнэ. Хэмжээ автоматаар өснө.",
+        note_en: "Adds one value at the end — the size grows by itself.",
+      },
+      {
+        code: "for (int x : v) {",
+        note_mn:
+          "“Векторын утга бүрийн хувьд” гэсэн богино давталт. Дугаар бодох шаардлагагүй.",
+        note_en:
+          "A shorter loop meaning 'for each value in v'. No index arithmetic needed.",
+      },
+    ],
+    terms: [
+      {
+        term: "push_back",
+        def_mn: "Төгсгөлд нэмэх.",
+        def_en: "Add to the end.",
+      },
+      {
+        term: "v.size()",
+        def_mn: "Одоо хэдэн утга байгаа.",
+        def_en: "How many values it holds right now.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "vector<int> v;\nv[0] = 5;",
+        fix: "vector<int> v;\nv.push_back(5);",
+        why_mn:
+          "Хоосон вектор дээр `v[0]` байхгүй үүр. Эхлээд `push_back`-аар нэм.",
+        why_en:
+          "An empty vector has no slot 0 yet — add with `push_back` first.",
+      },
+    ],
+    quiz: {
+      question_mn: "Массив, вектор хоёрын гол ялгаа юу вэ?",
+      question_en: "What is the main difference between an array and a vector?",
+      choices: [
+        "Векторын хэмжээ өөрчлөгдөнө / A vector can change size",
+        "Вектор илүү хурдан / A vector is faster",
+        "Ялгаа байхгүй / There is no difference",
+      ],
+      answer: 0,
+      explain_mn: "Массив тогтмол хэмжээтэй, вектор ажиллаж байхдаа өснө.",
+      explain_en: "An array's size is fixed; a vector grows while the program runs.",
+    },
+    challenge_mn: "n тоо уншиж вектор дүүргээд нийлбэрийг ол.",
+    challenge_en: "Read n numbers into a vector and print their sum.",
+  },
+);
 
 export function findLesson(slug: string): Lesson | undefined {
   return LESSONS.find((l) => l.slug === slug);
