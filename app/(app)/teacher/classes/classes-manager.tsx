@@ -159,7 +159,9 @@ export function ClassesManager({
   const handleDelete = (item: Item) => {
     if (
       !confirm(
-        `Delete class "${item.name}"? Students will be unassigned. This cannot be undone.`,
+        `Delete class "${item.name}"?
+
+Its students are NOT deleted — they move to "No class" at the bottom of this page, where you can reassign or remove them.`,
       )
     )
       return;

@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 
 import { createClient } from "@/lib/supabase/server";
+import { UnassignedStudents } from "@/components/unassigned-students";
 
 import { ClassesManager } from "./classes-manager";
 
@@ -29,6 +30,15 @@ export default async function TeacherClassesPage() {
 
   const items = (classes ?? []).map((c) => ({ ...c, students: counts.get(c.id) ?? 0 }));
 
+  // Students orphaned by a deleted class. Without listing them here they are
+  // invisible in the UI but still counted on the leaderboard.
+  const { data: unassigned } = await supabase
+    .from("profiles")
+    .select("id, username, display_name, xp, problems_solved")
+    .is("class_id", null)
+    .eq("role", "student")
+    .order("display_name", { ascending: true });
+
   const labels = {
     title: t("title"),
     new: t("new"),
@@ -45,5 +55,17 @@ export default async function TeacherClassesPage() {
     regenerate_confirm: t("regenerate_confirm"),
   };
 
-  return <ClassesManager items={items} labels={labels} />;
+  return (
+    <div className="space-y-4">
+      <ClassesManager items={items} labels={labels} />
+      <UnassignedStudents
+        students={unassigned ?? []}
+        classes={(classes ?? []).map((c) => ({
+          id: c.id,
+          name: c.name,
+          grade: c.grade,
+        }))}
+      />
+    </div>
+  );
 }

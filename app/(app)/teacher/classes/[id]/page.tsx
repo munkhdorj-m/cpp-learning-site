@@ -9,6 +9,7 @@ import { createServiceClient } from "@/lib/supabase/server";
 import { BulkStudentForm } from "@/components/bulk-student-form";
 import { PromoteClass } from "@/components/promote-class";
 import { ResetPasswordButton } from "@/components/reset-password-button";
+import { DeleteStudentButton } from "@/components/delete-student-button";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 
 export const dynamic = "force-dynamic";
@@ -230,7 +231,7 @@ export default async function ClassRosterPage({
               return (
                 <div
                   key={s.id}
-                  className="grid md:grid-cols-[40px_1fr_80px_80px_90px_140px_44px] gap-3 px-4 py-3 items-center"
+                  className="grid md:grid-cols-[40px_1fr_80px_80px_90px_140px_84px] gap-3 px-4 py-3 items-center"
                 >
                   <Avatar className="h-8 w-8 shrink-0">
                     <AvatarFallback className="bg-violet-100 text-violet-700 dark:bg-violet-950/40 dark:text-violet-300 text-xs font-bold">
@@ -270,10 +271,15 @@ export default async function ClassRosterPage({
                         : "—"}
                     </span>
                   </div>
-                  <div className="flex justify-end">
+                  <div className="flex justify-end gap-0.5">
                     <ResetPasswordButton
                       userId={s.id}
                       name={s.display_name}
+                    />
+                    <DeleteStudentButton
+                      userId={s.id}
+                      name={s.display_name}
+                      username={s.username}
                     />
                   </div>
                 </div>
