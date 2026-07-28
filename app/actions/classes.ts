@@ -9,7 +9,7 @@ import { createServiceClient } from "@/lib/supabase/server";
 
 const createSchema = z.object({
   name: z.string().min(1).max(20),
-  grade: z.coerce.number().int().refine((n) => n === 7 || n === 8),
+  grade: z.coerce.number().int().min(1).max(12),
 });
 
 export async function createClass(formData: FormData) {
@@ -27,7 +27,7 @@ export async function createClass(formData: FormData) {
     const code = generateInviteCode(parsed.data.name);
     const { error } = await supabase.from("classes").insert({
       name: parsed.data.name,
-      grade: parsed.data.grade as 7 | 8,
+      grade: parsed.data.grade,
       invite_code: code,
       teacher_id: teacher.id,
     });
@@ -46,7 +46,7 @@ export async function createClass(formData: FormData) {
 
 export async function updateClass(
   classId: string,
-  input: { name: string; grade: 7 | 8 },
+  input: { name: string; grade: number },
 ) {
   await requireTeacher();
   const parsed = createSchema.safeParse(input);
@@ -55,7 +55,7 @@ export async function updateClass(
   const supabase = createServiceClient();
   const { error } = await supabase
     .from("classes")
-    .update({ name: parsed.data.name, grade: parsed.data.grade as 7 | 8 })
+    .update({ name: parsed.data.name, grade: parsed.data.grade })
     .eq("id", classId);
   if (error) return { error: error.message };
 

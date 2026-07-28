@@ -33,7 +33,7 @@ CREATE TABLE classes (
   PRIMARY KEY (id),
   UNIQUE KEY uq_classes_invite (invite_code),
   KEY idx_classes_teacher (teacher_id),
-  CONSTRAINT chk_classes_grade CHECK (grade IN (7, 8))
+  CONSTRAINT chk_classes_grade CHECK (grade BETWEEN 1 AND 12)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ---------- profiles (also the auth/login table now) ----------

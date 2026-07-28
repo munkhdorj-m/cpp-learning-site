@@ -39,10 +39,14 @@ import {
   regenerateInviteCode,
 } from "@/app/actions/classes";
 
+// Grades 1-12: usernames are derived from the graduation year, so the
+// site needs to know about the senior grades too.
+const GRADES = Array.from({ length: 12 }, (_, i) => i + 1);
+
 interface Item {
   id: string;
   name: string;
-  grade: 7 | 8;
+  grade: number;
   invite_code: string;
   students: number;
 }
@@ -66,7 +70,7 @@ interface Labels {
 type DialogMode =
   | { kind: "closed" }
   | { kind: "create" }
-  | { kind: "edit"; id: string; initial: { name: string; grade: 7 | 8 } };
+  | { kind: "edit"; id: string; initial: { name: string; grade: number } };
 
 export function ClassesManager({
   items,
@@ -77,7 +81,7 @@ export function ClassesManager({
 }) {
   const [mode, setMode] = useState<DialogMode>({ kind: "closed" });
   const [name, setName] = useState("");
-  const [grade, setGrade] = useState<"7" | "8">("7");
+  const [grade, setGrade] = useState<string>("7");
   const [pending, startTransition] = useTransition();
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
@@ -88,7 +92,7 @@ export function ClassesManager({
   };
   const openEdit = (item: Item) => {
     setName(item.name);
-    setGrade(item.grade === 7 ? "7" : "8");
+    setGrade(String(item.grade));
     setMode({ kind: "edit", id: item.id, initial: { name: item.name, grade: item.grade } });
   };
   const closeDialog = () => setMode({ kind: "closed" });
@@ -99,7 +103,7 @@ export function ClassesManager({
       if (mode.kind === "edit") {
         const res = await updateClass(mode.id, {
           name: name.trim(),
-          grade: grade === "7" ? 7 : 8,
+          grade: Number(grade),
         });
         if ("error" in res) {
           toast.error(res.error);
@@ -186,13 +190,16 @@ export function ClassesManager({
               </div>
               <div className="space-y-1.5">
                 <Label>{labels.grade}</Label>
-                <Select value={grade} onValueChange={(v) => v && setGrade(v as "7" | "8")}>
+                <Select value={grade} onValueChange={(v) => v && setGrade(v)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="7">7</SelectItem>
-                    <SelectItem value="8">8</SelectItem>
+                    {GRADES.map((g) => (
+                      <SelectItem key={g} value={String(g)}>
+                        {g}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>

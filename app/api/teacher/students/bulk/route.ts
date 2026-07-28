@@ -6,7 +6,7 @@ import { z } from "zod";
 import { createServiceClient } from "@/lib/supabase/server";
 import { isTeacher } from "@/lib/auth-helpers";
 import { hashPassword } from "@/lib/auth";
-import { generateForNames, enrolmentPrefix } from "@/lib/student-accounts";
+import { generateForNames, gradePrefix } from "@/lib/student-accounts";
 
 const schema = z.object({
   class_id: z.string().uuid(),
@@ -30,7 +30,7 @@ export async function POST(request: Request) {
 
   const { data: cls } = await db
     .from("classes")
-    .select("id, name")
+    .select("id, name, grade")
     .eq("id", class_id)
     .maybeSingle();
   if (!cls) {
@@ -44,9 +44,13 @@ export async function POST(request: Request) {
     (existing ?? []).map((r: { username: string }) => r.username),
   );
 
-  // Prefix by enrolment year, not class — a username must stay correct when
-  // the student moves up a grade next year.
-  const students = generateForNames(names, enrolmentPrefix(), taken);
+  // Prefix by graduation year, worked out from the class's grade — a username
+  // must stay correct when the student moves up a grade next year.
+  const students = generateForNames(
+    names,
+    gradePrefix(Number(cls.grade)),
+    taken,
+  );
   if (students.length === 0) {
     return NextResponse.json({ error: "no_names" }, { status: 400 });
   }

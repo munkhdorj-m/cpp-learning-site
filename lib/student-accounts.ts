@@ -25,19 +25,42 @@ export function transliterate(input: string): string {
     .slice(0, 14);
 }
 
-/** Two-digit enrolment year, e.g. 2026 -> "26". */
-export function enrolmentPrefix(date = new Date()): string {
-  return String(date.getFullYear() % 100).padStart(2, "0");
+/** Final grade of school — the year a student in this grade graduates. */
+export const FINAL_GRADE = 12;
+
+/**
+ * The calendar year the current school year ENDS in.
+ * The Mongolian school year runs Sept–June, so anything from June onwards
+ * already belongs to the year that finishes next summer.
+ */
+export function academicEndYear(date = new Date()): number {
+  return date.getMonth() >= 5 ? date.getFullYear() + 1 : date.getFullYear();
 }
 
 /**
- * `26.bat` — prefixed with the year the student joined, NOT their class.
+ * The year a student currently in `grade` will graduate.
+ * In the 2026–27 school year: grade 12 → 2027, 11 → 2028, … 8 → 2031.
+ */
+export function graduationYear(grade: number, date = new Date()): number {
+  return academicEndYear(date) + (FINAL_GRADE - grade);
+}
+
+/**
+ * Two-digit graduation year used as the username prefix, e.g. 2031 -> "31".
+ * "Class of 2031" is how schools already talk about a cohort, and unlike the
+ * grade it never changes as the student moves up.
+ */
+export function gradePrefix(grade: number, date = new Date()): string {
+  return String(graduationYear(grade, date) % 100).padStart(2, "0");
+}
+
+/**
+ * `31.bat` — prefixed with the year the student GRADUATES, not their class.
  *
  * A username is permanent (it is how they log in), so it must never contain
- * something that changes. Class does change: this year's 7A is next year's
- * 8A. The enrolment year is fixed for life, still tells you which cohort a
- * login belongs to, and keeps next year's intake from colliding with this
- * one's.
+ * something that changes. Grade changes every year; the graduation year does
+ * not. It is also how schools already refer to a cohort ("class of 2031"),
+ * and it keeps each intake from colliding with the next.
  */
 export function makeUsername(
   fullName: string,
