@@ -39,9 +39,15 @@ import {
   regenerateInviteCode,
 } from "@/app/actions/classes";
 
-// Grades 1-12: usernames are derived from the graduation year, so the
-// site needs to know about the senior grades too.
-const GRADES = Array.from({ length: 12 }, (_, i) => i + 1);
+
+
+import {
+  TAUGHT_GRADES,
+  SECTIONS,
+  gradeOptionLabel,
+  stageFor,
+  suggestedClassName,
+} from "@/lib/school";
 
 interface Item {
   id: string;
@@ -82,13 +88,25 @@ export function ClassesManager({
   const [mode, setMode] = useState<DialogMode>({ kind: "closed" });
   const [name, setName] = useState("");
   const [grade, setGrade] = useState<string>("7");
+  const [section, setSection] = useState<string>("A");
   const [pending, startTransition] = useTransition();
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
   const openCreate = () => {
-    setName("");
     setGrade("7");
+    setSection("A");
+    setName(suggestedClassName(7, "A"));
     setMode({ kind: "create" });
+  };
+
+  // Grade decides the stage, so it also decides the usual class name.
+  const pickGrade = (g: string) => {
+    setGrade(g);
+    setName(suggestedClassName(Number(g), section));
+  };
+  const pickSection = (sec: string) => {
+    setSection(sec);
+    setName(suggestedClassName(Number(grade), sec));
   };
   const openEdit = (item: Item) => {
     setName(item.name);
@@ -190,19 +208,40 @@ export function ClassesManager({
               </div>
               <div className="space-y-1.5">
                 <Label>{labels.grade}</Label>
-                <Select value={grade} onValueChange={(v) => v && setGrade(v)}>
+                <Select value={grade} onValueChange={(v) => v && pickGrade(v)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {GRADES.map((g) => (
+                    {TAUGHT_GRADES.map((g) => (
                       <SelectItem key={g} value={String(g)}>
-                        {g}
+                        {gradeOptionLabel(g)}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
+              {/* Only lower secondary is split into sections. */}
+              {stageFor(Number(grade)).hasSections && (
+                <div className="space-y-1.5">
+                  <Label>Section</Label>
+                  <Select
+                    value={section}
+                    onValueChange={(v) => v && pickSection(v)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {SECTIONS.map((sec) => (
+                        <SelectItem key={sec} value={sec}>
+                          {sec}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
             </div>
             <DialogFooter>
               <Button
