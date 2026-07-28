@@ -6,6 +6,8 @@ import { ArrowLeft, Trophy, Flame, BookOpen } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { createServiceClient } from "@/lib/supabase/server";
+import { BulkStudentForm } from "@/components/bulk-student-form";
+import { ResetPasswordButton } from "@/components/reset-password-button";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 
 export const dynamic = "force-dynamic";
@@ -111,6 +113,12 @@ export default async function ClassRosterPage({
         </div>
       </div>
 
+      <BulkStudentForm
+        classId={id}
+        className={cls.name}
+        siteUrl={process.env.NEXT_PUBLIC_SITE_URL ?? "cs.ub.mn"}
+      />
+
       {/* Class analytics */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
         <Card>
@@ -207,7 +215,7 @@ export default async function ClassRosterPage({
               return (
                 <div
                   key={s.id}
-                  className="grid md:grid-cols-[40px_1fr_80px_80px_90px_140px] gap-3 px-4 py-3 items-center"
+                  className="grid md:grid-cols-[40px_1fr_80px_80px_90px_140px_44px] gap-3 px-4 py-3 items-center"
                 >
                   <Avatar className="h-8 w-8 shrink-0">
                     <AvatarFallback className="bg-violet-100 text-violet-700 dark:bg-violet-950/40 dark:text-violet-300 text-xs font-bold">
@@ -246,6 +254,12 @@ export default async function ClassRosterPage({
                           })
                         : "—"}
                     </span>
+                  </div>
+                  <div className="flex justify-end">
+                    <ResetPasswordButton
+                      userId={s.id}
+                      name={s.display_name}
+                    />
                   </div>
                 </div>
               );

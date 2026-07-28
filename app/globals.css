@@ -504,6 +504,37 @@
   animation: shimmer 1.5s ease-in-out infinite;
 }
 
+/* Printing student login slips: drop the app chrome and the dark theme so
+   they come out as plain black-on-white cards that can be cut up. */
+@media print {
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  header,
+  nav,
+  button,
+  .print-hide,
+  [aria-hidden="true"] {
+    display: none !important;
+  }
+  .print-slips {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  .print-slips > * {
+    border: 1px dashed #666 !important;
+    background: #fff !important;
+    color: #000 !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .print-slips * {
+    color: #000 !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .neon-pulse,
   .glow-solved,
