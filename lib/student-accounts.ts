@@ -25,17 +25,27 @@ export function transliterate(input: string): string {
     .slice(0, 14);
 }
 
+/** Two-digit enrolment year, e.g. 2026 -> "26". */
+export function enrolmentPrefix(date = new Date()): string {
+  return String(date.getFullYear() % 100).padStart(2, "0");
+}
+
 /**
- * `7a.bat` — class prefix keeps it unique across the school and lets a
- * teacher tell at a glance which class a login belongs to.
+ * `26.bat` — prefixed with the year the student joined, NOT their class.
+ *
+ * A username is permanent (it is how they log in), so it must never contain
+ * something that changes. Class does change: this year's 7A is next year's
+ * 8A. The enrolment year is fixed for life, still tells you which cohort a
+ * login belongs to, and keeps next year's intake from colliding with this
+ * one's.
  */
 export function makeUsername(
   fullName: string,
-  classSlug: string,
+  yearPrefix: string,
   taken: Set<string>,
 ): string {
   const first = transliterate(fullName.trim().split(/\s+/)[0] || "student");
-  const prefix = transliterate(classSlug) || "s";
+  const prefix = transliterate(yearPrefix) || "s";
   const base = `${prefix}.${first || "student"}`.slice(0, 20);
 
   if (!taken.has(base)) {
@@ -91,14 +101,14 @@ export interface GeneratedStudent {
 
 export function generateForNames(
   names: string[],
-  classSlug: string,
+  yearPrefix: string,
   taken: Set<string>,
 ): GeneratedStudent[] {
   return names
     .map((n) => n.trim())
     .filter(Boolean)
     .map((displayName) => {
-      const username = makeUsername(displayName, classSlug, taken);
+      const username = makeUsername(displayName, yearPrefix, taken);
       return {
         displayName: displayName.slice(0, 60),
         username,

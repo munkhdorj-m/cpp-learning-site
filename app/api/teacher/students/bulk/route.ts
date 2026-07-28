@@ -6,7 +6,7 @@ import { z } from "zod";
 import { createServiceClient } from "@/lib/supabase/server";
 import { isTeacher } from "@/lib/auth-helpers";
 import { hashPassword } from "@/lib/auth";
-import { generateForNames } from "@/lib/student-accounts";
+import { generateForNames, enrolmentPrefix } from "@/lib/student-accounts";
 
 const schema = z.object({
   class_id: z.string().uuid(),
@@ -44,7 +44,9 @@ export async function POST(request: Request) {
     (existing ?? []).map((r: { username: string }) => r.username),
   );
 
-  const students = generateForNames(names, cls.name, taken);
+  // Prefix by enrolment year, not class — a username must stay correct when
+  // the student moves up a grade next year.
+  const students = generateForNames(names, enrolmentPrefix(), taken);
   if (students.length === 0) {
     return NextResponse.json({ error: "no_names" }, { status: 400 });
   }

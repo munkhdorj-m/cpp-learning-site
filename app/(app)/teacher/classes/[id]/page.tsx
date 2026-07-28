@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { createServiceClient } from "@/lib/supabase/server";
 import { BulkStudentForm } from "@/components/bulk-student-form";
+import { PromoteClass } from "@/components/promote-class";
 import { ResetPasswordButton } from "@/components/reset-password-button";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 
@@ -38,6 +39,13 @@ export default async function ClassRosterPage({
     .eq("class_id", id)
     .eq("role", "student")
     .order("xp", { ascending: false });
+
+  // Needed for the end-of-year "move students to…" picker.
+  const { data: allClasses } = await supabase
+    .from("classes")
+    .select("id, name, grade")
+    .order("grade", { ascending: true })
+    .order("name", { ascending: true });
 
   const studentIds = (students ?? []).map((s) => s.id);
   const lastSubMap = new Map<string, string>();
@@ -117,6 +125,13 @@ export default async function ClassRosterPage({
         classId={id}
         className={cls.name}
         siteUrl={process.env.NEXT_PUBLIC_SITE_URL ?? "cs.ub.mn"}
+      />
+
+      <PromoteClass
+        classId={id}
+        className={cls.name}
+        studentCount={students?.length ?? 0}
+        classes={allClasses ?? []}
       />
 
       {/* Class analytics */}
