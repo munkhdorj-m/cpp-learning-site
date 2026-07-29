@@ -14,7 +14,6 @@ import {
   ListChecks,
 } from "lucide-react";
 import { toast } from "sonner";
-import confetti from "canvas-confetti";
 
 import { playCorrect, playWrong } from "@/lib/sounds";
 import { Button } from "@/components/ui/button";
@@ -22,6 +21,15 @@ import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import type { Difficulty, QuestType } from "@/types/database";
+
+// Only pulled in when the student actually succeeds, so the confetti
+// library stays out of the initial page bundle.
+async function fireConfettiLazy(
+  opts: Parameters<typeof import("canvas-confetti")["default"]>[0],
+) {
+  const { default: confetti } = await import("canvas-confetti");
+  confetti(opts);
+}
 
 interface QuestItem {
   id: string;
@@ -208,7 +216,7 @@ export function QuestsBoard({
                       // simpler — just rely on `results[q.id]` for display.
                       if (r.was_correct) {
                         playCorrect();
-                        confetti({
+                        void fireConfettiLazy({
                           particleCount: 30,
                           spread: 50,
                           origin: { y: 0.7 },

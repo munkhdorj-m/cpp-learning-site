@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, type MotionProps } from "framer-motion";
-import { Children, type ReactNode, isValidElement } from "react";
+import { Children, cloneElement, isValidElement, type ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -16,27 +15,17 @@ interface AnimatedListProps {
   className?: string;
 }
 
-const itemVariant = {
-  hidden: { opacity: 0, y: 12 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.3 } },
-};
-
-function MotionComponent({
-  tag,
-  ...props
-}: { tag: ContainerTag } & MotionProps & {
-    className?: string;
-    children?: ReactNode;
-    variants?: Record<string, unknown>;
-    initial?: string;
-    animate?: string;
-  }) {
-  const Component = motion[tag] as React.ComponentType<
-    MotionProps & { className?: string; children?: ReactNode }
-  >;
-  return <Component {...props} />;
-}
-
+/**
+ * Fades children in one after another.
+ *
+ * Done with a CSS animation and a per-child delay rather than a motion
+ * library — this renders long problem lists, and the effect is not worth
+ * shipping ~50 kB of JavaScript for.
+ *
+ * The delay is set on each child directly instead of wrapping it, so an
+ * <li> stays a direct child of its <ol> (the previous version wrapped every
+ * item in a <div>, which is invalid inside a list).
+ */
 export function AnimatedList({
   children,
   className,
@@ -44,23 +33,24 @@ export function AnimatedList({
   stagger = 0.05,
 }: AnimatedListProps) {
   return (
-    <MotionComponent
-      tag={Tag}
-      variants={{
-        hidden: { opacity: 0 },
-        show: {
-          opacity: 1,
-          transition: { staggerChildren: stagger },
-        },
-      }}
-      initial="hidden"
-      animate="show"
-      className={cn(className)}
-    >
-      {Children.map(children, (child) => {
-        if (!isValidElement(child)) return child;
-        return <motion.div variants={itemVariant}>{child}</motion.div>;
+    <Tag className={cn(className)}>
+      {Children.map(children, (child, i) => {
+        if (!isValidElement<{ style?: React.CSSProperties }>(child)) {
+          return child;
+        }
+        // Cap the delay so a long list doesn't take forever to appear.
+        const delay = Math.min(i * stagger, 1.2);
+        return cloneElement(child, {
+          style: {
+            ...(child.props.style ?? {}),
+            animationDelay: `${delay}s`,
+          },
+          className: cn(
+            "animate-flicker-in",
+            (child.props as { className?: string }).className,
+          ),
+        } as Partial<{ style: React.CSSProperties; className: string }>);
       })}
-    </MotionComponent>
+    </Tag>
   );
 }

@@ -17,15 +17,15 @@ export default async function TeacherClassesPage() {
     .order("grade", { ascending: true })
     .order("name", { ascending: true });
 
-  // Count students per class
+  // Student counts per class. One query for every class, tallied here —
+  // previously this ran a separate COUNT per class.
+  const { data: rows } = await supabase
+    .from("profiles")
+    .select("class_id")
+    .eq("role", "student");
   const counts = new Map<string, number>();
-  for (const c of classes ?? []) {
-    const { count } = await supabase
-      .from("profiles")
-      .select("id", { count: "exact", head: true })
-      .eq("class_id", c.id)
-      .eq("role", "student");
-    counts.set(c.id, count ?? 0);
+  for (const r of rows ?? []) {
+    if (r.class_id) counts.set(r.class_id, (counts.get(r.class_id) ?? 0) + 1);
   }
 
   const items = (classes ?? []).map((c) => ({ ...c, students: counts.get(c.id) ?? 0 }));

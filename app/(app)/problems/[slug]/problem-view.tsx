@@ -13,7 +13,6 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
-import confetti from "canvas-confetti";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -89,7 +88,7 @@ interface SubmissionResult {
   new_badges?: RewardedBadge[];
 }
 
-function fireConfetti() {
+async function fireConfetti() {
   // Two bursts, fired from slightly different points for a fuller spray.
   const defaults = {
     spread: 70,
@@ -100,6 +99,7 @@ function fireConfetti() {
     scalar: 1.05,
     colors: ["#a78bfa", "#f59e0b", "#10b981", "#ec4899", "#3b82f6"],
   };
+  const { default: confetti } = await import("canvas-confetti");
   confetti({ ...defaults, particleCount: 60, origin: { x: 0.3, y: 0.7 } });
   confetti({ ...defaults, particleCount: 60, origin: { x: 0.7, y: 0.7 } });
 }

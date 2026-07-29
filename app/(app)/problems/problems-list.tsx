@@ -5,7 +5,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { Search, CheckCircle2, Circle, Sparkles } from "lucide-react";
-import { motion } from "framer-motion";
 
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -352,17 +351,13 @@ export function ProblemsList({ items: initialItems }: { items: Item[] }) {
       </div>
 
       {filtered.length === 0 ? (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-        >
+        <div className="animate-flicker-in">
           <Card>
             <p className="text-center text-muted-foreground py-12">
               {t("no_problems")}
             </p>
           </Card>
-        </motion.div>
+        </div>
       ) : (
         <Card className="overflow-hidden p-0">
           <AnimatedList as="ol" className="divide-y" stagger={0.04}>

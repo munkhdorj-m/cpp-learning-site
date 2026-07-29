@@ -16,7 +16,6 @@ import {
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
-import confetti from "canvas-confetti";
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -59,6 +58,15 @@ interface MazeState {
 type RunPhase = "idle" | "running" | "success" | "crash" | "danger";
 
 import type { Level } from "./levels";
+
+// Only pulled in when the student actually succeeds, so the confetti
+// library stays out of the initial page bundle.
+async function fireConfettiLazy(
+  opts: Parameters<typeof import("canvas-confetti")["default"]>[0],
+) {
+  const { default: confetti } = await import("canvas-confetti");
+  confetti(opts);
+}
 
 export function RobotProgrammer({
   completedLevelIds,
@@ -218,7 +226,7 @@ export function RobotProgrammer({
       if (won) {
         setPhase("success");
         setView((v) => ({ ...v, showSuccess: true }));
-        confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+        void fireConfettiLazy({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
         submitCompletion();
       } else {
         setPhase("idle");

@@ -15,6 +15,8 @@ const OUT = join(homedir(), "Desktop", "cppjudge-deploy.tar.gz");
 // forward-slashed path instead — no drive letter, no ambiguity.
 const OUT_REL = relative(process.cwd(), OUT).replace(/\\/g, "/");
 
+// Anything the running server does not read. Authoring tools, scraped
+// source data and the old Postgres schema stay in git but are not shipped.
 const EXCLUDES = [
   "./node_modules",
   "./.git",
@@ -24,6 +26,10 @@ const EXCLUDES = [
   "./.claude",
   "./migration",
   "./.env.development.local",
+  "./scripts/data", // ~7 MB of scraped problem JSON, import-time only
+  "./supabase", // superseded by migration/ after the MySQL move
+  "./docs",
+  "./README.md",
 ];
 
 console.log("1/2  Building production bundle...");
