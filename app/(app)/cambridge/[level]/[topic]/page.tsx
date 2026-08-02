@@ -66,6 +66,9 @@ export default async function CambridgeTopicPage({
           </span>
         </div>
         <h1 className="text-2xl font-bold sm:text-3xl">{t.title}</h1>
+        <p className="text-[15px] leading-relaxed text-muted-foreground">
+          {t.summary}
+        </p>
       </div>
 
       {/* Objectives */}

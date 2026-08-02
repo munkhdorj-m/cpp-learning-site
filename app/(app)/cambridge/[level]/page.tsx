@@ -90,7 +90,7 @@ export default async function CambridgeLevelPage({
                           {t.title}
                         </div>
                         <div className="mt-0.5 text-xs text-muted-foreground">
-                          {t.objectives.length} learning objectives
+                          {t.summary}
                         </div>
                       </div>
                       <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
