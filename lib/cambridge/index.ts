@@ -7,8 +7,10 @@ import { IGCSE_TOPICS } from "./igcse";
 import { AS_TOPICS } from "./as";
 import { A_LEVEL_TOPICS } from "./a-level";
 import { LEVELS, type LevelId, type Topic } from "./types";
+import { QUIZZES } from "./quizzes";
 
-export { LEVELS };
+export { LEVELS, QUIZZES };
+export type { QuizQuestion } from "./quizzes";
 export type { Level, LevelId, Topic } from "./types";
 
 export const TOPICS: Topic[] = [
@@ -32,4 +34,9 @@ export function findTopic(level: string, slug: string): Topic | undefined {
 /** Unit headings in the order they appear, for grouping a level's topics. */
 export function unitsForLevel(level: LevelId): string[] {
   return [...new Set(topicsForLevel(level).map((t) => t.unit))];
+}
+
+/** Self-check questions for a topic, if it has any. */
+export function quizFor(level: string, slug: string) {
+  return QUIZZES[`${level}/${slug}`] ?? null;
 }

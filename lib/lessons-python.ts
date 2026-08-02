@@ -34,6 +34,21 @@ export const PYTHON_VARIANTS: Record<string, LessonVariant> = {
         why_en: "Python is case-sensitive — `print` is all lowercase.",
       },
     ],
+    terms: [
+      {
+        term: "print()",
+        def_mn: "Дэлгэц рүү хэвлэх функц. Хаалт дотор хэвлэх зүйлээ бичнэ.",
+        def_en: "The function that writes to the screen. What to show goes in the brackets.",
+      },
+    ],
+    quiz: {
+      question_mn: "Python дээр дэлгэц рүү хэвлэхийн тулд юу ашиглах вэ?",
+      question_en: "What do you use to print to the screen in Python?",
+      choices: ["print()", "cout <<", "echo"],
+      answer: 0,
+      explain_mn: "Python-д print() ашиглана. cout бол C++-ийнх.",
+      explain_en: "Python uses print(). cout belongs to C++.",
+    },
   },
 
   printing: {
@@ -63,6 +78,14 @@ print(2 + 3)`,
         why_en: "With quotes you get the text `2 + 3`, not the answer.",
       },
     ],
+    quiz: {
+      question_mn: "print(2 + 3) юу хэвлэх вэ?",
+      question_en: "What does print(2 + 3) print?",
+      choices: ["5", "2 + 3", "23"],
+      answer: 0,
+      explain_mn: "Хашилтгүй учир эхлээд бодоод 5 гаргана.",
+      explain_en: "There are no quotes, so it works out the sum and prints 5.",
+    },
   },
 
   comments: {
@@ -135,6 +158,26 @@ print("Later:", age)`,
           "You cannot `+` a number onto text in Python — use a comma instead.",
       },
     ],
+    terms: [
+      {
+        term: "=",
+        def_mn: "Тэнцүү гэсэн үг БИШ. Баруун талын утгыг зүүн талын нэрэнд хий гэсэн үг.",
+        def_en: "Does NOT mean equals. It means put the right-hand value into the name on the left.",
+      },
+      {
+        term: "Төрөл / Type",
+        def_mn: "Python-д төрлийг бичихгүй — утгаас нь өөрөө таана.",
+        def_en: "In Python you never write the type — it is worked out from the value.",
+      },
+    ],
+    quiz: {
+      question_mn: "x = 5 дараа нь x = x + 3 бол x хэд вэ?",
+      question_en: "After x = 5 then x = x + 3, what is x?",
+      choices: ["8", "5", "3"],
+      answer: 0,
+      explain_mn: "5 дээр 3 нэмээд буцаагаад x-д хийсэн тул 8.",
+      explain_en: "It adds 3 to 5 and puts the result back into x, so 8.",
+    },
   },
 
   types: {
@@ -177,6 +220,14 @@ print("Passed?", passed)`,
         why_en: "In Python these are capitalised: `True` and `False`.",
       },
     ],
+    quiz: {
+      question_mn: "Өндрийг (1.62) ямар төрлөөр хадгалах вэ?",
+      question_en: "Which type stores a height like 1.62?",
+      choices: ["float", "int", "str"],
+      answer: 0,
+      explain_mn: "Бутархайтай тул float.",
+      explain_en: "It has a decimal part, so float.",
+    },
   },
 
   input: {
@@ -208,6 +259,21 @@ print("Sum =", a + b)`,
           "Without `int()` the two texts get joined into '46'. This is the classic Python beginner bug.",
       },
     ],
+    terms: [
+      {
+        term: "int(input())",
+        def_mn: "input() бичвэр өгдөг тул тоо болгохын тулд int()-ээр ороож өгнө.",
+        def_en: "input() gives text, so wrap it in int() to get a number.",
+      },
+    ],
+    quiz: {
+      question_mn: "Хэрэглэгч 4 бичихэд a = input() дараа a + a юу өгөх вэ?",
+      question_en: "If the user types 4, what does a = input() then a + a give?",
+      choices: ["44 — бичвэр наалдана / text joined", "8", "Алдаа / An error"],
+      answer: 0,
+      explain_mn: "input() бичвэр өгдөг тул int()-гүй бол наалдана.",
+      explain_en: "input() returns text, so without int() the two just join.",
+    },
   },
 
   math: {
@@ -249,6 +315,14 @@ print(a ** 2)   # 49   power`,
         why_en: "Want a whole number? Use `//` — this is the opposite of C++.",
       },
     ],
+    quiz: {
+      question_mn: "Python дээр 7 / 2 юу өгөх вэ?",
+      question_en: "In Python, what does 7 / 2 give?",
+      choices: ["3.5", "3", "4"],
+      answer: 0,
+      explain_mn: "Python-д / үргэлж бутархай өгнө. Бүхэл хариу бол //.",
+      explain_en: "In Python / always gives a decimal. Use // for the whole number.",
+    },
   },
 
   "if-else": {
@@ -296,6 +370,30 @@ else:
         why_en: "Lines inside the block must be indented.",
       },
     ],
+    terms: [
+      {
+        term: ":",
+        def_mn: "if, for, while, def-ийн төгсгөлд заавал хоёр цэг тавина.",
+        def_en: "A colon must end every if, for, while and def line.",
+      },
+      {
+        term: "Догол мөр / Indentation",
+        def_mn: "Python-д зай нь блокийг заана — { } байхгүй.",
+        def_en: "Python uses spaces to mark a block — there are no braces.",
+      },
+    ],
+    quiz: {
+      question_mn: "Python-д блокийг юугаар заана вэ?",
+      question_en: "What marks a block of code in Python?",
+      choices: [
+        "Догол мөр (зай) / Indentation",
+        "{ } хаалт / Curly braces",
+        "Цэгтэй таслал / Semicolons",
+      ],
+      answer: 0,
+      explain_mn: "Зайгаар дотогшлуулснаар блок үүснэ.",
+      explain_en: "Indenting the lines is what creates the block.",
+    },
   },
 
   conditions: {
@@ -331,6 +429,14 @@ else:
         why_en: "Python does not understand `&&` or `||` — use `and` / `or`.",
       },
     ],
+    quiz: {
+      question_mn: "Python-д ба (AND)-ийг хэрхэн бичих вэ?",
+      question_en: "How do you write AND in Python?",
+      choices: ["and", "&&", "AND"],
+      answer: 0,
+      explain_mn: "Python and, or, not гэсэн үгсийг ашиглана.",
+      explain_en: "Python uses the words and, or and not.",
+    },
   },
 
   "for-loop": {
@@ -362,6 +468,21 @@ print()`,
         why_en: "`range` never includes the end value.",
       },
     ],
+    terms: [
+      {
+        term: "range(a, b)",
+        def_mn: "a-аас эхэлж b-ээс ӨМНӨ зогсоно. b орохгүй.",
+        def_en: "Starts at a and stops BEFORE b — b itself is not included.",
+      },
+    ],
+    quiz: {
+      question_mn: "for i in range(1, 4) бол i ямар утгууд авах вэ?",
+      question_en: "In for i in range(1, 4), which values does i take?",
+      choices: ["1, 2, 3", "1, 2, 3, 4", "0, 1, 2, 3"],
+      answer: 0,
+      explain_mn: "range төгсгөлийн тоог оруулдаггүй.",
+      explain_en: "range never includes the end value.",
+    },
   },
 
   "while-loop": {
@@ -393,6 +514,14 @@ print("Go!")`,
         why_en: "Python has no `--` operator.",
       },
     ],
+    quiz: {
+      question_mn: "Python-д n-ийг 1-ээр хорогдуулахын тулд юу бичих вэ?",
+      question_en: "How do you decrease n by 1 in Python?",
+      choices: ["n -= 1", "n--", "n =- 1"],
+      answer: 0,
+      explain_mn: "Python-д -- оператор байхгүй.",
+      explain_en: "Python has no -- operator.",
+    },
   },
 
   "putting-it-together": {
@@ -502,6 +631,14 @@ print("Whole line:", line)`,
           "When both values are on one line, split that line instead of reading twice.",
       },
     ],
+    quiz: {
+      question_mn: "Python-д зайтай бүтэн мөрийг юугаар унших вэ?",
+      question_en: "How do you read a whole line with spaces in Python?",
+      choices: ["input()", "getline(cin, s)", "cin >> s"],
+      answer: 0,
+      explain_mn: "input() бүтэн мөрийг зайтай нь хамт уншдаг.",
+      explain_en: "input() already reads the whole line, spaces included.",
+    },
   },
 
   arrays: {
@@ -547,6 +684,26 @@ print()`,
           "A 2-item list has indexes 0 and 1 — `score[2]` raises an error.",
       },
     ],
+    terms: [
+      {
+        term: "Жагсаалт / List",
+        def_mn: "Python-д массивыг жагсаалт гэнэ. Хэмжээг урьдчилж зарлахгүй.",
+        def_en: "Python calls an array a list. You never declare its size.",
+      },
+      {
+        term: "a[-1]",
+        def_mn: "Сөрөг дугаар ард талаас тоолно: -1 бол сүүлчийнх.",
+        def_en: "Negative indexes count from the end: -1 is the last item.",
+      },
+    ],
+    quiz: {
+      question_mn: "a = [10, 20, 30] бол a[-1] юу вэ?",
+      question_en: "For a = [10, 20, 30], what is a[-1]?",
+      choices: ["30", "10", "Алдаа / An error"],
+      answer: 0,
+      explain_mn: "-1 нь сүүлчийн утгыг өгнө.",
+      explain_en: "-1 gives the last item.",
+    },
   },
 
   "array-loops": {
@@ -715,5 +872,13 @@ print()`,
         why_en: "An empty list has no slot 0 yet — `append` first.",
       },
     ],
+    quiz: {
+      question_mn: "Python жагсаалтад утга нэмэхийн тулд юу ашиглах вэ?",
+      question_en: "How do you add a value to a Python list?",
+      choices: ["v.append(x)", "v.push_back(x)", "v.add(x)"],
+      answer: 0,
+      explain_mn: "append нь C++-ийн push_back-тэй адил.",
+      explain_en: "append is Python's version of push_back.",
+    },
   },
 };

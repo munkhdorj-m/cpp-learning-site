@@ -67,6 +67,22 @@ export default async function LessonPage({
                 fix: m.fix,
                 why: en ? m.why_en : m.why_mn,
               })),
+              terms: (lesson.python.terms ?? []).map((t) => ({
+                term: t.term,
+                def: en ? t.def_en : t.def_mn,
+              })),
+              quiz: lesson.python.quiz
+                ? {
+                    question: en
+                      ? lesson.python.quiz.question_en
+                      : lesson.python.quiz.question_mn,
+                    choices: lesson.python.quiz.choices,
+                    answer: lesson.python.quiz.answer,
+                    explain: en
+                      ? lesson.python.quiz.explain_en
+                      : lesson.python.quiz.explain_mn,
+                  }
+                : null,
             }
           : null,
         terms: (lesson.terms ?? []).map((t) => ({

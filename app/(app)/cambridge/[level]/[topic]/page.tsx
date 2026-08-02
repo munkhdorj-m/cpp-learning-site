@@ -16,8 +16,13 @@ import {
   levelById,
   findTopic,
   topicsForLevel,
+  quizFor,
   type LevelId,
 } from "@/lib/cambridge";
+import { TopicQuiz } from "@/components/cambridge/topic-quiz";
+import { TermFlashcards } from "@/components/cambridge/term-flashcards";
+import { BinaryPractice } from "@/components/cambridge/binary-practice";
+import { LogicPractice } from "@/components/cambridge/logic-practice";
 
 export function generateStaticParams() {
   return TOPICS.map((t) => ({ level: t.level, topic: t.slug }));
@@ -43,6 +48,7 @@ export default async function CambridgeTopicPage({
   const t = findTopic(level, topic);
   if (!info || !t) notFound();
 
+  const quiz = quizFor(level, topic);
   const siblings = topicsForLevel(info.id as LevelId);
   const i = siblings.findIndex((s) => s.slug === t.slug);
   const prev = i > 0 ? siblings[i - 1] : null;
@@ -89,6 +95,12 @@ export default async function CambridgeTopicPage({
         </CardContent>
       </Card>
 
+      {/* Hands-on practice for the topics that are pure skill */}
+      {t.slug === "number-systems" && <BinaryPractice />}
+      {t.slug === "information-representation" && <BinaryPractice />}
+      {t.slug === "boolean-logic" && <LogicPractice />}
+      {t.slug === "hardware-as" && <LogicPractice />}
+
       {/* Notes */}
       {(t.notes ?? []).map((n) => (
         <section key={n.heading} className="space-y-2">
@@ -108,7 +120,7 @@ export default async function CambridgeTopicPage({
         </section>
       ))}
 
-      {/* Key terms */}
+      {/* Key terms — as flashcards, so they are recalled rather than re-read */}
       {t.terms && t.terms.length > 0 && (
         <section className="space-y-2">
           <h2 className="hud-label flex items-center gap-2">
@@ -116,20 +128,7 @@ export default async function CambridgeTopicPage({
             KEY TERMS
             <span className="h-px flex-1 bg-gradient-to-r from-primary/25 to-transparent" />
           </h2>
-          <Card>
-            <CardContent className="divide-y divide-primary/10 p-0">
-              {t.terms.map((term) => (
-                <div key={term.term} className="p-3">
-                  <div className="font-code text-sm font-bold text-primary">
-                    {term.term}
-                  </div>
-                  <p className="mt-0.5 text-sm text-muted-foreground">
-                    {term.def}
-                  </p>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
+          <TermFlashcards terms={t.terms} />
         </section>
       )}
 
@@ -152,6 +151,8 @@ export default async function CambridgeTopicPage({
           </CardContent>
         </Card>
       )}
+
+      {quiz && <TopicQuiz questions={quiz} />}
 
       {/* Prev / next */}
       <div className="flex flex-wrap gap-2 border-t border-primary/15 pt-4">

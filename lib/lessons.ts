@@ -43,6 +43,13 @@ export interface LessonVariant {
   output: string;
   lines: CodeLine[];
   mistakes?: Mistake[];
+  /**
+   * Terms and quiz for this language. Needed because a lot of the C++
+   * vocabulary (cout, main, endl) simply does not exist in Python — showing
+   * it next to Python code confuses students.
+   */
+  terms?: Term[];
+  quiz?: Quiz;
 }
 
 export interface Lesson {

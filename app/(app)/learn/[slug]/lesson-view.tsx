@@ -45,6 +45,13 @@ export interface LessonViewData {
     output: string;
     lines: { code: string; note: string }[];
     mistakes: { wrong: string; fix: string; why: string }[];
+    terms: { term: string; def: string }[];
+    quiz: {
+      question: string;
+      choices: string[];
+      answer: number;
+      explain: string;
+    } | null;
   } | null;
   prev: { slug: string; title: string } | null;
   next: { slug: string; title: string } | null;
@@ -83,12 +90,19 @@ export function LessonView({ lesson, en }: { lesson: LessonViewData; en: boolean
         output: lesson.python.output,
         lines: lesson.python.lines,
         mistakes: lesson.python.mistakes,
+        // Where a lesson's terms or quiz are language-specific, the Python
+        // variant supplies its own. Where they are about the idea rather
+        // than the syntax, fall back to the shared version.
+        terms: lesson.python.terms.length ? lesson.python.terms : lesson.terms,
+        quiz: lesson.python.quiz ?? lesson.quiz,
       }
     : {
         code: lesson.code,
         output: lesson.output,
         lines: lesson.lines,
         mistakes: lesson.mistakes,
+        terms: lesson.terms,
+        quiz: lesson.quiz,
       };
 
   const toggleDone = () => {
@@ -202,7 +216,7 @@ export function LessonView({ lesson, en }: { lesson: LessonViewData; en: boolean
       </section>
 
       {/* Key words */}
-      {lesson.terms.length > 0 && (
+      {shown.terms.length > 0 && (
         <section className="space-y-2">
           <h2 className="hud-label flex items-center gap-2">
             <span className="text-primary">//</span>
@@ -211,7 +225,7 @@ export function LessonView({ lesson, en }: { lesson: LessonViewData; en: boolean
           </h2>
           <Card>
             <CardContent className="divide-y divide-primary/10 p-0">
-              {lesson.terms.map((t) => (
+              {shown.terms.map((t) => (
                 <div key={t.term} className="flex gap-3 p-3">
                   <code className="shrink-0 font-mono text-xs font-bold text-primary">
                     {t.term}
@@ -264,7 +278,7 @@ export function LessonView({ lesson, en }: { lesson: LessonViewData; en: boolean
       )}
 
       {/* Self check */}
-      {lesson.quiz && (
+      {shown.quiz && (
         <section className="space-y-2">
           <h2 className="hud-label flex items-center gap-2">
             <span className="text-primary">//</span>
@@ -275,12 +289,12 @@ export function LessonView({ lesson, en }: { lesson: LessonViewData; en: boolean
             <CardContent className="space-y-2 p-4">
               <p className="flex items-start gap-2 font-medium">
                 <HelpCircle className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                {lesson.quiz.question}
+                {shown.quiz.question}
               </p>
               <div className="space-y-1.5">
-                {lesson.quiz.choices.map((c, i) => {
+                {shown.quiz.choices.map((c, i) => {
                   const chosen = picked === i;
-                  const correct = i === lesson.quiz!.answer;
+                  const correct = i === shown.quiz!.answer;
                   const show = picked !== null;
                   return (
                     <button
@@ -304,14 +318,14 @@ export function LessonView({ lesson, en }: { lesson: LessonViewData; en: boolean
               </div>
               {picked !== null && (
                 <p className="rounded-lg bg-muted/50 p-2.5 text-sm text-muted-foreground">
-                  {picked === lesson.quiz.answer
+                  {picked === shown.quiz.answer
                     ? en
                       ? "Correct! "
                       : "Зөв! "
                     : en
                       ? "Not quite. "
                       : "Болоогүй байна. "}
-                  {lesson.quiz.explain}
+                  {shown.quiz.explain}
                 </p>
               )}
             </CardContent>
