@@ -8,6 +8,7 @@ import { Menu, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { LEVELS } from "@/lib/cambridge";
 import { LanguageToggle } from "@/components/language-toggle";
 
 interface MobileNavProps {
@@ -47,6 +48,12 @@ export function MobileNav({ showAssignments, isTeacher }: MobileNavProps) {
     { href: "/contests", label: t("contests") },
     { href: "/ide", label: t("ide") },
     ...(isTeacher ? [{ href: "/teacher", label: t("teacher") }] : []),
+  ];
+
+  // Cambridge levels get their own group rather than one flat entry.
+  const cambridge = [
+    { href: "/cambridge", label: "Overview" },
+    ...LEVELS.map((l) => ({ href: `/cambridge/${l.id}`, label: l.title })),
   ];
 
   return (
@@ -91,6 +98,31 @@ export function MobileNav({ showAssignments, isTeacher }: MobileNavProps) {
                 );
               })}
             </ul>
+            <div className="mt-3 border-t border-primary/15 pt-3">
+              <div className="hud-label mb-1 px-4">CAMBRIDGE</div>
+              <ul className="space-y-1">
+                {cambridge.map(({ href, label }) => {
+                  const active = pathname === href;
+                  return (
+                    <li key={href}>
+                      <Link
+                        href={href}
+                        className={cn(
+                          "flex items-center gap-2 rounded-lg px-4 py-3 font-code text-base transition-colors",
+                          active
+                            ? "border border-primary/40 bg-primary/10 text-primary text-glow-soft"
+                            : "text-foreground hover:bg-muted",
+                        )}
+                      >
+                        <span className="text-primary/60">/</span>
+                        {label}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+
             {/* Theme + language live here on phones — the header has no room. */}
             <div className="mt-3 flex items-center gap-2 border-t border-primary/15 pt-3">
               <ThemeToggle />
