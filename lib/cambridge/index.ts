@@ -8,8 +8,12 @@ import { AS_TOPICS } from "./as";
 import { A_LEVEL_TOPICS } from "./a-level";
 import { LEVELS, type LevelId, type Topic } from "./types";
 import { QUIZZES } from "./quizzes";
+import { QUIZZES_2 } from "./quizzes-2";
 
-export { LEVELS, QUIZZES };
+export { LEVELS };
+
+/** Every topic quiz, keyed by "level/slug". */
+export const ALL_QUIZZES = { ...QUIZZES, ...QUIZZES_2 };
 export type { QuizQuestion } from "./quizzes";
 export type { Level, LevelId, Topic } from "./types";
 
@@ -38,5 +42,5 @@ export function unitsForLevel(level: LevelId): string[] {
 
 /** Self-check questions for a topic, if it has any. */
 export function quizFor(level: string, slug: string) {
-  return QUIZZES[`${level}/${slug}`] ?? null;
+  return ALL_QUIZZES[`${level}/${slug}`] ?? null;
 }
