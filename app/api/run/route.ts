@@ -3,12 +3,14 @@ import { z } from "zod";
 
 import { Judge0RateLimitError, runOnce } from "@/lib/judge0";
 import { createClient } from "@/lib/supabase/server";
+import { toLanguage } from "@/lib/languages";
 
 export const maxDuration = 30;
 
 const schema = z.object({
   code: z.string().min(1).max(100_000),
   stdin: z.string().max(100_000).default(""),
+  language: z.string().optional(),
 });
 
 export async function POST(request: Request) {
@@ -28,6 +30,7 @@ export async function POST(request: Request) {
     const result = await runOnce({
       source: parsed.data.code,
       stdin: parsed.data.stdin,
+      language: toLanguage(parsed.data.language),
     });
     return NextResponse.json(result);
   } catch (err) {

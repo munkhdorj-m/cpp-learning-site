@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import {
@@ -17,7 +17,14 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CodeEditor, STARTER_CPP } from "@/components/code-editor";
+import { CodeEditor } from "@/components/code-editor";
+import { LanguagePicker } from "@/components/language-picker";
+import {
+  LANGUAGES,
+  DEFAULT_LANGUAGE,
+  toLanguage,
+  type LanguageId,
+} from "@/lib/languages";
 import { Markdown } from "@/components/markdown";
 import { VerdictBadge } from "@/components/verdict-badge";
 import { cn } from "@/lib/utils";
@@ -132,8 +139,33 @@ export function ProblemView({
   const locale = useLocale();
   const router = useRouter();
 
-  const [code, setCode] = useState(STARTER_CPP);
+  // Remember the language between problems so a Python student isn't reset
+  // to C++ on every page.
+  const [language, setLanguage] = useState<LanguageId>(DEFAULT_LANGUAGE);
+  const [code, setCode] = useState(LANGUAGES[DEFAULT_LANGUAGE].starter);
   const [result, setResult] = useState<SubmissionResult | null>(null);
+
+  useEffect(() => {
+    const saved = toLanguage(window.localStorage.getItem("preferred-language"));
+    setLanguage(saved);
+    setCode(LANGUAGES[saved].starter);
+  }, []);
+
+  const changeLanguage = (next: LanguageId) => {
+    // Only replace the editor contents if it is still untouched boilerplate.
+    setCode((current) =>
+      current.trim() === "" || current === LANGUAGES[language].starter
+        ? LANGUAGES[next].starter
+        : current,
+    );
+    setLanguage(next);
+    setResult(null);
+    try {
+      window.localStorage.setItem("preferred-language", next);
+    } catch {
+      // Private mode — the choice just won't be remembered.
+    }
+  };
   const [pending, startTransition] = useTransition();
 
   // Solved = accepted in a past submission, or accepted just now this session.
@@ -147,7 +179,7 @@ export function ProblemView({
       const res = await fetch("/api/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ problem_id: problem.id, code }),
+        body: JSON.stringify({ problem_id: problem.id, code, language }),
       });
       if (!res.ok) {
         if (res.status === 429) {
@@ -295,6 +327,13 @@ export function ProblemView({
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <h2 className="font-semibold">{labels.your_solution}</h2>
+          <div className="ml-auto mr-2">
+            <LanguagePicker
+              value={language}
+              onChange={changeLanguage}
+              disabled={pending}
+            />
+          </div>
           <Button
             onClick={submit}
             disabled={pending}
@@ -308,7 +347,7 @@ export function ProblemView({
 
         <Card className="overflow-hidden">
           <div className="h-[500px]">
-            <CodeEditor value={code} onChange={setCode} />
+            <CodeEditor value={code} onChange={setCode} language={language} />
           </div>
         </Card>
 

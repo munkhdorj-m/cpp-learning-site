@@ -53,6 +53,22 @@ export default async function LessonPage({
           code: l.code,
           note: en ? l.note_en : l.note_mn,
         })),
+        // Same lesson written in Python, when we have it.
+        python: lesson.python
+          ? {
+              code: lesson.python.code,
+              output: lesson.python.output,
+              lines: lesson.python.lines.map((l) => ({
+                code: l.code,
+                note: en ? l.note_en : l.note_mn,
+              })),
+              mistakes: (lesson.python.mistakes ?? []).map((m) => ({
+                wrong: m.wrong,
+                fix: m.fix,
+                why: en ? m.why_en : m.why_mn,
+              })),
+            }
+          : null,
         terms: (lesson.terms ?? []).map((t) => ({
           term: t.term,
           def: en ? t.def_en : t.def_mn,

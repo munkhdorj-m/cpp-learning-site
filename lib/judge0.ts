@@ -1,6 +1,9 @@
 import type { Verdict } from "@/types/database";
-
-export const CPP_LANGUAGE_ID = 54; // C++ (GCC 9.2.0)
+import {
+  judge0IdFor,
+  DEFAULT_LANGUAGE,
+  type LanguageId,
+} from "@/lib/languages";
 
 interface Judge0Submission {
   source_code: string;
@@ -108,7 +111,7 @@ export interface JudgeResult {
 }
 
 /**
- * Run the given C++ source against an ordered list of test cases.
+ * Run the given source against an ordered list of test cases.
  * Stops at the first failing test (short-circuit grading).
  */
 export async function grade({
@@ -116,11 +119,13 @@ export async function grade({
   tests,
   timeLimitMs,
   memoryLimitKb,
+  language = DEFAULT_LANGUAGE,
 }: {
   source: string;
   tests: TestCase[];
   timeLimitMs: number;
   memoryLimitKb: number;
+  language?: LanguageId;
 }): Promise<JudgeResult> {
   let maxRuntimeMs = 0;
   let maxMemoryKb = 0;
@@ -132,7 +137,7 @@ export async function grade({
       source_code: source,
       stdin: t.stdin,
       expected_output: t.expected_stdout,
-      language_id: CPP_LANGUAGE_ID,
+      language_id: judge0IdFor(language),
       cpu_time_limit: timeLimitMs / 1000,
       memory_limit: memoryLimitKb,
     });
@@ -173,23 +178,25 @@ export async function grade({
 }
 
 /**
- * Single run for the standalone IDE — no expected_output, returns raw stdout/stderr.
+ * Single run for the playground — no expected_output, returns raw stdout/stderr.
  */
 export async function runOnce({
   source,
   stdin,
   timeLimitMs = 5000,
   memoryLimitKb = 131072,
+  language = DEFAULT_LANGUAGE,
 }: {
   source: string;
   stdin: string;
   timeLimitMs?: number;
   memoryLimitKb?: number;
+  language?: LanguageId;
 }) {
   const result = await submitAndWait({
     source_code: source,
     stdin,
-    language_id: CPP_LANGUAGE_ID,
+    language_id: judge0IdFor(language),
     cpu_time_limit: timeLimitMs / 1000,
     memory_limit: memoryLimitKb,
   });

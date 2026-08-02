@@ -17,6 +17,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { readDone, setDone } from "@/lib/lesson-progress";
+import { LanguagePicker } from "@/components/language-picker";
+import { LANGUAGES, toLanguage, type LanguageId } from "@/lib/languages";
 
 export interface LessonViewData {
   slug: string;
@@ -37,6 +39,13 @@ export interface LessonViewData {
     explain: string;
   } | null;
   challenge: string | null;
+  /** The same lesson in Python, when available. */
+  python: {
+    code: string;
+    output: string;
+    lines: { code: string; note: string }[];
+    mistakes: { wrong: string; fix: string; why: string }[];
+  } | null;
   prev: { slug: string; title: string } | null;
   next: { slug: string; title: string } | null;
 }
@@ -44,11 +53,43 @@ export interface LessonViewData {
 export function LessonView({ lesson, en }: { lesson: LessonViewData; en: boolean }) {
   const [done, setDoneState] = useState(false);
   const [picked, setPicked] = useState<number | null>(null);
+  // Shared with the playground and problem pages, so a Python student stays
+  // in Python everywhere.
+  const [language, setLanguage] = useState<LanguageId>("cpp");
 
   useEffect(() => {
     setDoneState(readDone().has(lesson.slug));
     setPicked(null);
   }, [lesson.slug]);
+
+  useEffect(() => {
+    setLanguage(toLanguage(window.localStorage.getItem("preferred-language")));
+  }, []);
+
+  const changeLanguage = (next: LanguageId) => {
+    setLanguage(next);
+    try {
+      window.localStorage.setItem("preferred-language", next);
+    } catch {
+      // Private mode — the choice just won't be remembered.
+    }
+  };
+
+  // Fall back to C++ if this lesson has no Python version yet.
+  const usePython = language === "python" && !!lesson.python;
+  const shown = usePython && lesson.python
+    ? {
+        code: lesson.python.code,
+        output: lesson.python.output,
+        lines: lesson.python.lines,
+        mistakes: lesson.python.mistakes,
+      }
+    : {
+        code: lesson.code,
+        output: lesson.output,
+        lines: lesson.lines,
+        mistakes: lesson.mistakes,
+      };
 
   const toggleDone = () => {
     const next = !done;
@@ -56,7 +97,7 @@ export function LessonView({ lesson, en }: { lesson: LessonViewData; en: boolean
     setDoneState(next);
   };
 
-  const idePath = `/ide?code=${encodeURIComponent(lesson.code)}`;
+  const idePath = `/ide?lang=${usePython ? "python" : "cpp"}&code=${encodeURIComponent(shown.code)}`;
 
   return (
     <article className="mx-auto max-w-3xl space-y-5 pb-4">
@@ -98,6 +139,17 @@ export function LessonView({ lesson, en }: { lesson: LessonViewData; en: boolean
         {lesson.intro}
       </p>
 
+      {/* Language switch — the explanation is the same either way, only the
+          example changes. */}
+      {lesson.python && (
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="hud-label">
+            {en ? "SHOW EXAMPLE IN" : "ЖИШЭЭГ ХАРУУЛАХ"}
+          </span>
+          <LanguagePicker value={language} onChange={changeLanguage} />
+        </div>
+      )}
+
       {/* Code + output */}
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         <div className="overflow-hidden rounded-lg border border-primary/15">
@@ -106,11 +158,11 @@ export function LessonView({ lesson, en }: { lesson: LessonViewData; en: boolean
             <span className="h-2 w-2 rounded-full bg-neon-amber/70" />
             <span className="h-2 w-2 rounded-full bg-neon-lime/70" />
             <span className="ml-1 font-code text-[10px] tracking-widest text-muted-foreground">
-              main.cpp
+              {usePython ? LANGUAGES.python.filename : LANGUAGES.cpp.filename}
             </span>
           </div>
           <pre className="overflow-x-auto whitespace-pre bg-[oklch(0.16_0.02_264)] p-3 font-mono text-xs leading-relaxed text-primary">
-            {lesson.code}
+            {shown.code}
           </pre>
         </div>
         <div className="overflow-hidden rounded-lg border border-neon-lime/25">
@@ -118,7 +170,7 @@ export function LessonView({ lesson, en }: { lesson: LessonViewData; en: boolean
             {en ? "> what you see" : "> гарах хариу"}
           </div>
           <pre className="whitespace-pre-wrap bg-[oklch(0.16_0.02_264)] p-3 font-mono text-xs leading-relaxed text-neon-lime">
-            {lesson.output}
+            {shown.output}
           </pre>
         </div>
       </div>
@@ -136,7 +188,7 @@ export function LessonView({ lesson, en }: { lesson: LessonViewData; en: boolean
           <span className="h-px flex-1 bg-gradient-to-r from-primary/25 to-transparent" />
         </h2>
         <div className="space-y-2">
-          {lesson.lines.map((l, i) => (
+          {shown.lines.map((l, i) => (
             <Card key={i}>
               <CardContent className="space-y-1.5 p-3">
                 <code className="block overflow-x-auto whitespace-pre rounded bg-[oklch(0.16_0.02_264)] px-2 py-1 font-mono text-xs text-primary">
@@ -173,14 +225,14 @@ export function LessonView({ lesson, en }: { lesson: LessonViewData; en: boolean
       )}
 
       {/* Common mistakes */}
-      {lesson.mistakes.length > 0 && (
+      {shown.mistakes.length > 0 && (
         <section className="space-y-2">
           <h2 className="hud-label flex items-center gap-2">
             <span className="text-neon-amber">//</span>
             {en ? "COMMON MISTAKES" : "ТҮГЭЭМЭЛ АЛДАА"}
             <span className="h-px flex-1 bg-gradient-to-r from-neon-amber/25 to-transparent" />
           </h2>
-          {lesson.mistakes.map((m, i) => (
+          {shown.mistakes.map((m, i) => (
             <Card key={i} className="border-neon-amber/25">
               <CardContent className="space-y-2 p-3">
                 <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">

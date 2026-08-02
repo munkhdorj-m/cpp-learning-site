@@ -5,6 +5,8 @@
 // actually hit, and a self-check question. Bilingual — Mongolian first,
 // because that is the language these students think in.
 
+import { PYTHON_VARIANTS } from "./lessons-python";
+
 export interface CodeLine {
   /** Exact snippet from `code` this note is about. */
   code: string;
@@ -35,6 +37,14 @@ export interface Quiz {
   explain_en: string;
 }
 
+/** The same lesson expressed in another language. */
+export interface LessonVariant {
+  code: string;
+  output: string;
+  lines: CodeLine[];
+  mistakes?: Mistake[];
+}
+
 export interface Lesson {
   slug: string;
   unit: number;
@@ -53,6 +63,12 @@ export interface Lesson {
   /** Optional starter the student edits in the playground. */
   challenge_mn?: string;
   challenge_en?: string;
+  /**
+   * Python rendering of the same idea. When present the lesson shows a
+   * C++/Python switch; the explanation around it stays the same, because
+   * the concept being taught does not change with the language.
+   */
+  python?: LessonVariant;
 }
 
 export interface Unit {
@@ -1526,6 +1542,13 @@ int main() {
     challenge_en: "Read n numbers into a vector and print their sum.",
   },
 );
+
+// Attach the Python rendering of each lesson (kept in its own file so this
+// one stays about the curriculum rather than syntax).
+for (const lesson of LESSONS) {
+  const variant = PYTHON_VARIANTS[lesson.slug];
+  if (variant) lesson.python = variant;
+}
 
 export function findLesson(slug: string): Lesson | undefined {
   return LESSONS.find((l) => l.slug === slug);
