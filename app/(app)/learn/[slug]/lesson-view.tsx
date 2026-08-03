@@ -18,6 +18,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { readDone, setDone } from "@/lib/lesson-progress";
 import { LanguagePicker } from "@/components/language-picker";
+import { PractiseLink } from "@/components/learn/practise-link";
 import { LANGUAGES, toLanguage, type LanguageId } from "@/lib/languages";
 
 export interface LessonViewData {
@@ -356,6 +357,9 @@ export function LessonView({ lesson, en }: { lesson: LessonViewData; en: boolean
           </CardContent>
         </Card>
       )}
+
+      {/* Problems that practise this lesson, when there are any */}
+      <PractiseLink slug={lesson.slug} en={en} />
 
       {/* Footer: mark done + prev/next */}
       <div className="space-y-3 border-t border-primary/15 pt-4">
