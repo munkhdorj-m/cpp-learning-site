@@ -1,10 +1,52 @@
 import { notFound } from "next/navigation";
 import { getLocale } from "next-intl/server";
 
-import { LESSONS, findLesson, lessonIndex } from "@/lib/lessons";
+import { LESSONS, UNITS, findLesson, lessonIndex } from "@/lib/lessons";
+import type { Section } from "@/lib/lessons";
+import type {
+  ViewBlock,
+  ViewSection,
+} from "@/components/learn/lesson-blocks";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 
 import { LessonView } from "./lesson-view";
+
+/** Pick one language out of a section's bilingual content. */
+function localize(sections: Section[] | undefined, en: boolean): ViewSection[] {
+  return (sections ?? []).map((s) => ({
+    id: s.id,
+    title: en ? s.title_en : s.title_mn,
+    cppOnly: s.cppOnly,
+    blocks: s.blocks.map((b): ViewBlock => {
+      switch (b.kind) {
+        case "text":
+          return { kind: "text", text: en ? b.en : b.mn };
+        case "code":
+          return {
+            kind: "code",
+            cpp: b.cpp,
+            py: b.py,
+            output: b.output,
+            caption: en ? b.caption_en : b.caption_mn,
+          };
+        case "list":
+          return {
+            kind: "list",
+            items: en ? b.en : b.mn,
+            ordered: b.ordered,
+          };
+        case "note":
+          return { kind: "note", tone: b.tone, text: en ? b.en : b.mn };
+        case "table":
+          return {
+            kind: "table",
+            head: en ? b.head_en : b.head_mn,
+            rows: b.rows,
+          };
+      }
+    }),
+  }));
+}
 
 export function generateStaticParams() {
   return LESSONS.map((l) => ({ slug: l.slug }));
@@ -37,13 +79,22 @@ export default async function LessonPage({
   const prev = i > 0 ? LESSONS[i - 1] : null;
   const next = i < LESSONS.length - 1 ? LESSONS[i + 1] : null;
 
+  const unit = UNITS.find((u) => u.id === lesson.unit);
+
   return (
     <LessonView
       en={en}
+      lessons={LESSONS.map((l) => ({
+        slug: l.slug,
+        title: en ? l.title_en : l.title_mn,
+        unit: l.unit,
+      }))}
       lesson={{
         slug: lesson.slug,
         n: i + 1,
         total: LESSONS.length,
+        unitTitle: unit ? (en ? unit.title_en : unit.title_mn) : "",
+        sections: localize(lesson.sections, en),
         title: en ? lesson.title_en : lesson.title_mn,
         goal: en ? lesson.goal_en : lesson.goal_mn,
         intro: en ? lesson.intro_en : lesson.intro_mn,

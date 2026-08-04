@@ -6,6 +6,7 @@
 // because that is the language these students think in.
 
 import { PYTHON_VARIANTS } from "./lessons-python";
+import { LESSON_SECTIONS } from "./lesson-sections";
 
 export interface CodeLine {
   /** Exact snippet from `code` this note is about. */
@@ -37,6 +38,43 @@ export interface Quiz {
   explain_en: string;
 }
 
+/**
+ * One piece of lesson body content. Sections are built out of these, which is
+ * what turns a lesson into a readable reference page rather than a single
+ * worked example.
+ *
+ * Text is plain, except that `backticks` mark inline code.
+ */
+export type Block =
+  | { kind: "text"; mn: string; en: string }
+  | {
+      kind: "code";
+      /** C++ version — always present, it is the course's main language. */
+      cpp: string;
+      /** Python version, where the same idea exists in Python. */
+      py?: string;
+      output?: string;
+      caption_mn?: string;
+      caption_en?: string;
+    }
+  | { kind: "list"; mn: string[]; en: string[]; ordered?: boolean }
+  | { kind: "note"; tone: "tip" | "warn"; mn: string; en: string }
+  | { kind: "table"; head_mn: string[]; head_en: string[]; rows: string[][] };
+
+/**
+ * A heading-level chunk of a lesson. These are what the "on this page" rail
+ * lists, so each one should be something a student would look up by name.
+ */
+export interface Section {
+  /** Anchor in the URL, and the scroll-spy id. */
+  id: string;
+  title_mn: string;
+  title_en: string;
+  blocks: Block[];
+  /** Hidden when reading in Python — the idea does not exist there. */
+  cppOnly?: boolean;
+}
+
 /** The same lesson expressed in another language. */
 export interface LessonVariant {
   code: string;
@@ -64,6 +102,12 @@ export interface Lesson {
   code: string;
   output: string;
   lines: CodeLine[];
+  /**
+   * The reference part of the lesson: everything the worked example does not
+   * have room to say. Rendered after the example, and listed in the
+   * "on this page" rail.
+   */
+  sections?: Section[];
   terms?: Term[];
   mistakes?: Mistake[];
   quiz?: Quiz;
@@ -615,6 +659,194 @@ int main() {
     challenge_mn: "Тоо уншаад тэгш эсэхийг `% 2` ашиглан шалга.",
     challenge_en: "Read a number and use `% 2` to see if it is even.",
   },
+  {
+    slug: "operators",
+    unit: 2,
+    title_mn: "Операторууд",
+    title_en: "Operators and Expressions",
+    goal_mn: "Хувьсагчийн утгыг богино бичиглэлээр өөрчлөх.",
+    goal_en: "Change a variable's value using the short forms.",
+    intro_mn:
+      "`score = score + 5` гэж бичих нь удаан. C++ хэлэнд ижил утгатай богино бичиглэлүүд бий: `+=` нь нэмж оноох, `++` нь яг нэгээр нэмэх.",
+    intro_en:
+      "Writing `score = score + 5` gets tiring. C++ has shorter forms that mean the same thing: `+=` adds and stores, and `++` adds exactly one.",
+    code: `#include <iostream>
+using namespace std;
+
+int main() {
+    int score = 10;
+
+    score = score + 5;   // энгийн арга
+    score += 5;          // ижил утгатай, богино
+    score++;             // яг 1 нэмнэ
+
+    cout << score << endl;
+
+    int x = 1;
+    int y = x++;         // эхлээд y-д өгөөд, ДАРАА нь x өснө
+    cout << x << " " << y << endl;
+
+    return 0;
+}`,
+    output: "21\n2 1",
+    lines: [
+      {
+        code: "score += 5;",
+        note_mn:
+          "`score = score + 5;` -тэй яг ижил. `-=`, `*=`, `/=`, `%=` бас байдаг.",
+        note_en:
+          "Exactly the same as `score = score + 5;`. There are also `-=`, `*=`, `/=` and `%=`.",
+      },
+      {
+        code: "score++;",
+        note_mn: "Яг 1 нэмнэ. `score += 1;` -тэй ижил.",
+        note_en: "Adds exactly one. The same as `score += 1;`.",
+      },
+      {
+        code: "int y = x++;",
+        note_mn:
+          "**Ард** нь бичсэн тул `x`-ийн **хуучин** утга (1) `y`-д очно, дараа нь `x` 2 болно.",
+        note_en:
+          "Because `++` is **after** `x`, the **old** value (1) goes into `y`, and only then does `x` become 2.",
+      },
+    ],
+    terms: [
+      {
+        term: "+=",
+        def_mn: "«Дээр нь нэмээд буцааж хий» гэсэн богино бичиглэл.",
+        def_en: 'Shorthand for "add this on, and store the result back".',
+      },
+      {
+        term: "++",
+        def_mn: "Нэгээр нэмэх. Урд нь бичвэл шинэ утга, ард нь бичвэл хуучин утга буцаана.",
+        def_en:
+          "Add one. Written before, it gives the new value; written after, the old value.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "x =+ 5;",
+        fix: "x += 5;",
+        why_mn:
+          "`=+` гэдэг нь «x-д +5 оноо» гэсэн үг — нэмэхгүй, зүгээр 5 болгоно. Тэмдгийн дараалал чухал.",
+        why_en:
+          "`=+` means \"assign positive 5\" — it replaces instead of adding. The order of the symbols matters.",
+      },
+      {
+        wrong: "cout << x++ << x;",
+        fix: "cout << x << \" \";\nx++;",
+        why_mn:
+          "Нэг мөрөнд `x`-ийг өөрчилж, бас ашиглавал үр дүн тодорхойгүй болно. Тусад нь бич.",
+        why_en:
+          "Changing and using `x` in the same statement gives undefined results. Keep them on separate lines.",
+      },
+    ],
+    quiz: {
+      question_mn: "`int x = 1; int y = ++x;` дараа `y` хэд вэ?",
+      question_en: "After `int x = 1; int y = ++x;` what is `y`?",
+      choices: ["2", "1", "0"],
+      answer: 0,
+      explain_mn:
+        "`++` урд нь байгаа тул эхлээд `x` 2 болж, ДАРАА нь `y`-д очино.",
+      explain_en:
+        "The `++` comes first, so `x` becomes 2 and then that new value goes into `y`.",
+    },
+    challenge_mn: "Тоо уншаад `+=` ашиглан 10 нэмж хэвлэ.",
+    challenge_en: "Read a number, add 10 to it with `+=`, and print it.",
+  },
+  {
+    slug: "type-conversion",
+    unit: 2,
+    title_mn: "Төрөл хөрвүүлэх",
+    title_en: "Type Conversions",
+    goal_mn: "Бүхэл ба бутархай тоог хооронд нь зөв хөрвүүлэх.",
+    goal_en: "Move a value correctly between whole and decimal types.",
+    intro_mn:
+      "Хоёр бүхэл тоог хуваахад C++ бутархай хэсгийг хаяна. Зөв хариу авахын тулд нэгийг нь бутархай төрөл рүү хөрвүүлэх хэрэгтэй.",
+    intro_en:
+      "When you divide two whole numbers, C++ throws the fraction away. To get the real answer you must convert one of them to a decimal type first.",
+    code: `#include <iostream>
+using namespace std;
+
+int main() {
+    int total = 7;
+    int count = 2;
+
+    cout << total / count << endl;                       // 3
+    cout << (double)total / count << endl;               // 3.5
+    cout << static_cast<double>(total) / count << endl;  // 3.5
+
+    double price = 9.99;
+    int rounded = (int)price;   // таслаад хаяна, дугуйруулахгүй
+    cout << rounded << endl;
+
+    return 0;
+}`,
+    output: "3\n3.5\n3.5\n9",
+    lines: [
+      {
+        code: "cout << total / count << endl;",
+        note_mn:
+          "Хоёулаа `int` тул хариу нь `int`. 3.5 биш **3** гарна — бутархай хэсэг устана.",
+        note_en:
+          "Both are `int`, so the answer is an `int`. You get **3**, not 3.5 — the fraction is lost.",
+      },
+      {
+        code: "cout << (double)total / count << endl;",
+        note_mn:
+          "`(double)` нь `total`-ыг бутархай болгоно. Нэг тал нь бутархай болмогц хариу бүхэлдээ бутархай болно.",
+        note_en:
+          "`(double)` turns `total` into a decimal. Once one side is a decimal, the whole answer is.",
+      },
+      {
+        code: "int rounded = (int)price;",
+        note_mn:
+          "9.99 → 9. Ойролцоолохгүй, зүгээр л таслаад хаяна. Дугуйруулах бол `round()` ашигла.",
+        note_en:
+          "9.99 becomes 9. It does not round — it simply cuts. Use `round()` if you want rounding.",
+      },
+    ],
+    terms: [
+      {
+        term: "(double)x",
+        def_mn: "Хуучин загварын хөрвүүлэлт. Богино тул бодлого бодоход түгээмэл.",
+        def_en: "The old-style cast. It is short, so it is common in exercises.",
+      },
+      {
+        term: "static_cast<double>(x)",
+        def_mn: "Орчин үеийн хэлбэр. Урт ч гэсэн хайхад амархан, аюулгүй.",
+        def_en: "The modern form. Longer, but easier to find and safer.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "double avg = sum / n;",
+        fix: "double avg = (double)sum / n;",
+        why_mn:
+          "Хуваалт нь **эхлээд** бүхлээр хийгдээд дараа нь `double`-д хийгдэнэ. Хэтэрхий оройтсон — хөрвүүлэлт хуваахаас өмнө хийгдэх ёстой.",
+        why_en:
+          "The division happens **first**, in whole numbers, and only then is the result stored. Too late — convert before dividing.",
+      },
+      {
+        wrong: "int n = 3.7;   // 4 гэж бодов",
+        fix: "int n = round(3.7);",
+        why_mn: "Хөрвүүлэлт дугуйруулдаггүй, таслаад хаядаг тул 3 болно.",
+        why_en: "Conversion cuts rather than rounds, so you get 3.",
+      },
+    ],
+    quiz: {
+      question_mn: "`int a = 9, b = 2;` бол `(double)a / b` хэд вэ?",
+      question_en: "With `int a = 9, b = 2;` what does `(double)a / b` give?",
+      choices: ["4.5", "4", "5"],
+      answer: 0,
+      explain_mn:
+        "`a` бутархай болсон тул хуваалт бутархайгаар хийгдэж 4.5 гарна.",
+      explain_en:
+        "`a` becomes a decimal, so the division is done in decimals and gives 4.5.",
+    },
+    challenge_mn: "Хоёр бүхэл тоо уншаад дундажийг нь бутархайгаар хэвлэ.",
+    challenge_en: "Read two whole numbers and print their average as a decimal.",
+  },
 
   // ── Unit 3 ────────────────────────────────────────────────────────────
   {
@@ -764,6 +996,121 @@ int main() {
       explain_en: "`&&` needs both to be true, and there is no ticket.",
     },
   },
+  {
+    slug: "switch",
+    unit: 3,
+    title_mn: "switch сонголт",
+    title_en: "switch and ? :",
+    goal_mn: "Нэг утгыг олон боломжтой харьцуулахдаа цэвэрхэн бичих.",
+    goal_en: "Write a clean choice when one value is compared against many.",
+    intro_mn:
+      "Нэг л хувьсагчийг олон тодорхой утгатай харьцуулж байвал `else if` гинж урт болно. `switch` нь яг үүнд зориулагдсан.",
+    intro_en:
+      "When one variable is compared against many exact values, a chain of `else if` gets long. `switch` is made for exactly that.",
+    code: `#include <iostream>
+using namespace std;
+
+int main() {
+    int day = 7;
+
+    switch (day) {
+        case 6:
+        case 7:
+            cout << "Weekend" << endl;
+            break;
+        case 1:
+            cout << "Monday again" << endl;
+            break;
+        default:
+            cout << "School day" << endl;
+    }
+
+    int age = 20;
+    cout << (age >= 18 ? "adult" : "child") << endl;
+
+    return 0;
+}`,
+    output: "Weekend\nadult",
+    lines: [
+      {
+        code: "switch (day) {",
+        note_mn:
+          "`day`-ийн утгыг доорх `case`-үүдтэй нэг нэгээр нь тулгана.",
+        note_en: "Compares the value of `day` against each `case` below.",
+      },
+      {
+        code: "case 6:\ncase 7:",
+        note_mn:
+          "`case 6`-д `break` байхгүй тул 6 ба 7 хоёулаа адилхан үр дүнд хүрнэ.",
+        note_en:
+          "`case 6` has no `break`, so 6 and 7 both fall through to the same result.",
+      },
+      {
+        code: "break;",
+        note_mn:
+          "`switch`-ээс гарна. Мартвал доорх бүх `case` дараалан ажиллана.",
+        note_en:
+          "Leaves the `switch`. Forget it and every case below runs as well.",
+      },
+      {
+        code: "default:",
+        note_mn: "Аль ч `case` таарахгүй бол энэ ажиллана. `else`-тэй адил.",
+        note_en: "Runs when no `case` matched. It is the `else` of a `switch`.",
+      },
+      {
+        code: 'age >= 18 ? "adult" : "child"',
+        note_mn:
+          "Гурвалсан оператор: «нөхцөл ? үнэн бол энэ : худал бол энэ». Богино `if/else`.",
+        note_en:
+          'The ternary operator: "condition ? if-true : if-false". A one-line `if/else`.',
+      },
+    ],
+    terms: [
+      {
+        term: "case",
+        def_mn: "Тулгах нэг тодорхой утга. Зөвхөн тогтмол утга байж болно.",
+        def_en: "One exact value to match. It must be a constant.",
+      },
+      {
+        term: "break",
+        def_mn: "`switch`-ээс гарах тушаал. Бараг үргэлж хэрэгтэй.",
+        def_en: "Leaves the `switch`. You almost always need it.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "switch (score) {\n  case score > 90:",
+        fix: "if (score > 90) { … }",
+        why_mn:
+          "`case` дотор нөхцөл бичиж болохгүй, зөвхөн яг таарах утга. Муж шалгах бол `if` ашигла.",
+        why_en:
+          "A `case` cannot hold a condition, only an exact value. Use `if` for ranges.",
+      },
+      {
+        wrong: 'case 1:\n  cout << "one";\ncase 2:',
+        fix: 'case 1:\n  cout << "one";\n  break;\ncase 2:',
+        why_mn: "`break` мартвал доорх `case`-үүд ч ажиллаж, хоёр хариу гарна.",
+        why_en:
+          "Without `break` the cases below run too, and you get two answers.",
+      },
+    ],
+    quiz: {
+      question_mn: "`switch` дотор `break` мартвал юу болох вэ?",
+      question_en: "What happens if you forget `break` inside a `switch`?",
+      choices: [
+        "Доорх case-үүд дараалан ажиллана",
+        "Компиляцын алдаа гарна",
+        "Юу ч болохгүй",
+      ],
+      answer: 0,
+      explain_mn:
+        "Үүнийг «унаж орох» гэдэг. Заримдаа зориуд ашигладаг ч ихэвчлэн алдаа.",
+      explain_en:
+        'This is called "falling through". It is sometimes deliberate, but usually a bug.',
+    },
+    challenge_mn: "1-7 хүртэлх тоо уншаад гарагийн нэрийг `switch`-ээр хэвлэ.",
+    challenge_en: "Read a number 1–7 and print the day's name using `switch`.",
+  },
 
   // ── Unit 4 ────────────────────────────────────────────────────────────
   {
@@ -890,6 +1237,107 @@ int main() {
       explain_mn: "Давталт бүрийн өмнө шалгаад худал бол зогсоно.",
       explain_en: "It checks before each round and stops once the condition is false.",
     },
+  },
+  {
+    slug: "loop-control",
+    unit: 4,
+    title_mn: "Давталтыг удирдах",
+    title_en: "Controlling a Loop",
+    goal_mn: "Давталтыг дундаас нь зогсоох, нэг эргэлтийг алгасах.",
+    goal_en: "Stop a loop early, or skip a single turn.",
+    intro_mn:
+      "`break` нь давталтыг бүрмөсөн зогсооно. `continue` нь энэ эргэлтийг л алгасаад дараагийнх руу үсэрнэ. `do…while` нь нөхцөлөө **дараа** нь шалгадаг тул ядаж нэг удаа ажиллана.",
+    intro_en:
+      "`break` stops a loop completely. `continue` skips just this turn and jumps to the next. A `do…while` checks its condition **afterwards**, so it always runs at least once.",
+    code: `#include <iostream>
+using namespace std;
+
+int main() {
+    int i = 0;
+    do {
+        cout << "runs at least once" << endl;
+        i++;
+    } while (i < 1);
+
+    for (int n = 1; n <= 10; n++) {
+        if (n % 2 == 0) continue;   // тэгш бол алгасна
+        if (n > 7) break;           // 7-оос хойш зогсоно
+        cout << n << " ";
+    }
+    cout << endl;
+
+    return 0;
+}`,
+    output: "runs at least once\n1 3 5 7 ",
+    lines: [
+      {
+        code: "do { … } while (i < 1);",
+        note_mn:
+          "Бие нь **эхлээд** ажиллаад дараа нь нөхцөлөө шалгана. Тиймээс нөхцөл нь анхнаасаа худал байсан ч нэг удаа ажиллана.",
+        note_en:
+          "The body runs **first**, then the condition is checked. So it runs once even if the condition was false from the start.",
+      },
+      {
+        code: "if (n % 2 == 0) continue;",
+        note_mn:
+          "Тэгш тоо бол доорх мөрүүдийг алгасаад шууд дараагийн `n` рүү шилжинэ.",
+        note_en:
+          "If `n` is even, the lines below are skipped and the loop moves straight to the next `n`.",
+      },
+      {
+        code: "if (n > 7) break;",
+        note_mn: "Давталтаас бүрмөсөн гарна. `n = 9` дээр ажиллаж зогсооно.",
+        note_en: "Leaves the loop for good. It fires when `n` reaches 9.",
+      },
+    ],
+    terms: [
+      {
+        term: "break",
+        def_mn: "Давталтыг бүрмөсөн зогсооно.",
+        def_en: "Stops the loop completely.",
+      },
+      {
+        term: "continue",
+        def_mn: "Энэ эргэлтийг л дуусгаад дараагийнх руу шилжинэ.",
+        def_en: "Ends this turn only, and moves to the next one.",
+      },
+      {
+        term: "do…while",
+        def_mn: "Ядаж нэг удаа ажилладаг давталт.",
+        def_en: "A loop that always runs at least once.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "while (i < 5) {\n  if (i == 3) continue;\n  i++;\n}",
+        fix: "while (i < 5) {\n  i++;\n  if (i == 3) continue;\n}",
+        why_mn:
+          "`continue` нь `i++`-ийг алгасаад `i` үүрд 3 хэвээр үлдэнэ — төгсгөлгүй давталт. `while` дотор `continue` ашиглахдаа тоолуураа урьдчилж нэмэгтүүл.",
+        why_en:
+          "`continue` skips the `i++`, so `i` stays 3 forever — an infinite loop. Inside a `while`, advance the counter before you `continue`.",
+      },
+      {
+        wrong: "do { … } while (x > 0)",
+        fix: "do { … } while (x > 0);",
+        why_mn: "`do…while`-ийн төгсгөлд цэг таслал заавал хэрэгтэй.",
+        why_en: "A `do…while` needs a semicolon at the end.",
+      },
+    ],
+    quiz: {
+      question_mn:
+        "Нөхцөл нь анхнаасаа худал бол `do…while` хэдэн удаа ажиллах вэ?",
+      question_en:
+        "If the condition is false from the very start, how many times does a `do…while` run?",
+      choices: ["1 удаа", "0 удаа", "Үүрд"],
+      answer: 0,
+      explain_mn: "Нөхцөлөө биеэ ажиллуулсны ДАРАА шалгадаг тул нэг удаа ажиллана.",
+      explain_en:
+        "It checks the condition only after running the body, so the body runs once.",
+    },
+    challenge_mn:
+      "1-ээс 20 хүртэл тоолж, 3-д хуваагдах тоог алгасаад бусдыг хэвлэ.",
+    challenge_en:
+      "Count from 1 to 20, skipping every multiple of 3, and print the rest.",
   },
   {
     slug: "putting-it-together",
@@ -1113,6 +1561,101 @@ int main() {
       explain_mn: "`cin >> s` зай дээр зогсдог тул `getline` хэрэгтэй.",
       explain_en: "`cin >> s` stops at a space, so you need `getline`.",
     },
+  },
+  {
+    slug: "string-tools",
+    unit: 5,
+    title_mn: "Мөрийн хэрэгслүүд",
+    title_en: "String Tools",
+    goal_mn: "Мөрийн уртыг олох, хэсэг таслах, хайх, тоо руу хөрвүүлэх.",
+    goal_en: "Measure, cut, search and convert strings.",
+    intro_mn:
+      "`string` төрөл өөртөө олон бэлэн хэрэгсэлтэй. Тэдгээрийг цэгээр дуудна: `s.size()`, `s.substr(...)` гэх мэт.",
+    intro_en:
+      "The `string` type comes with tools built in. You call them with a dot: `s.size()`, `s.substr(...)` and so on.",
+    code: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string s = "Ulaanbaatar";
+
+    cout << s.size() << endl;           // 11
+    cout << s.substr(0, 5) << endl;     // Ulaan
+    cout << s.find("baatar") << endl;   // 5
+
+    string num = "42";
+    int n = stoi(num) + 1;
+    cout << n << endl;                  // 43
+
+    return 0;
+}`,
+    output: "11\nUlaan\n5\n43",
+    lines: [
+      {
+        code: "s.size()",
+        note_mn: "Хэдэн тэмдэгттэй вэ. `s.length()` гэж бичсэн ч ижил.",
+        note_en: "How many characters. `s.length()` means the same thing.",
+      },
+      {
+        code: "s.substr(0, 5)",
+        note_mn:
+          "0 дугаараас эхлээд **5 тэмдэгт** авна. Хоёр дахь тоо нь төгсгөлийн байрлал БИШ, харин урт.",
+        note_en:
+          "Starts at index 0 and takes **5 characters**. The second number is a length, not an end position.",
+      },
+      {
+        code: 's.find("baatar")',
+        note_mn:
+          "Хаанаас эхэлж таарч байгааг буцаана (энд 5). Олдохгүй бол `string::npos` буцаана.",
+        note_en:
+          "Returns where the match starts (5 here). If there is no match it returns `string::npos`.",
+      },
+      {
+        code: "stoi(num)",
+        note_mn: "«string to int» — мөрийг тоо болгоно. Бутархайд `stod` бий.",
+        note_en:
+          '"string to int" — turns text into a number. Use `stod` for decimals.',
+      },
+    ],
+    terms: [
+      {
+        term: "s.substr(a, n)",
+        def_mn: "`a` дугаараас эхэлсэн `n` тэмдэгтийг таслаж авна.",
+        def_en: "Takes `n` characters starting at index `a`.",
+      },
+      {
+        term: "stoi / to_string",
+        def_mn: "Мөр → тоо, тоо → мөр хөрвүүлэгч хос.",
+        def_en: "The pair that converts text to a number and back again.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: 'if (s.find("x") > 0) …',
+        fix: 'if (s.find("x") != string::npos) …',
+        why_mn:
+          "Олдохгүй үед `find` маш том тоо буцаадаг тул `> 0` нь үргэлж үнэн болно. Үргэлж `npos`-той харьцуул.",
+        why_en:
+          "When there is no match `find` returns a very large number, so `> 0` is always true. Always compare with `npos`.",
+      },
+      {
+        wrong: 'int n = "42" + 1;',
+        fix: 'int n = stoi("42") + 1;',
+        why_mn: "Мөр дээр шууд тоо нэмж болохгүй — эхлээд хөрвүүл.",
+        why_en: "You cannot add a number to text — convert it first.",
+      },
+    ],
+    quiz: {
+      question_mn: '`string s = "programming";` бол `s.substr(3, 4)` юу вэ?',
+      question_en: 'With `string s = "programming";` what is `s.substr(3, 4)`?',
+      choices: ["gram", "gramm", "ogra"],
+      answer: 0,
+      explain_mn: "3 дугаар нь `g`. Тэндээс 4 тэмдэгт авбал `gram`.",
+      explain_en: "Index 3 is `g`. Taking 4 characters from there gives `gram`.",
+    },
+    challenge_mn: "Үг уншаад эхний болон сүүлийн тэмдэгтийг нь хэвлэ.",
+    challenge_en: "Read a word and print its first and last character.",
   },
   {
     slug: "arrays",
@@ -1454,6 +1997,218 @@ int main() {
     challenge_en: "Write a `maxOf` function that returns the larger of two numbers.",
   },
   {
+    slug: "function-details",
+    unit: 6,
+    title_mn: "Функцийн нарийн ширийн",
+    title_en: "More About Functions",
+    goal_mn:
+      "Функц эх хувьсагчийг өөрчлөх, анхны утга авах, ижил нэртэй байх боломжийг ойлгох.",
+    goal_en:
+      "Let a function change the original variable, take default values, and share a name.",
+    intro_mn:
+      "Энгийн функц нь параметрийн **хуулбарыг** авдаг тул эх хувьсагч өөрчлөгддөггүй. `&` тэмдэг нэмбэл хуулбар биш, эх хувьсагч өөрөө дамжина.",
+    intro_en:
+      "By default a function receives a **copy** of its argument, so the original never changes. Adding `&` passes the original itself instead.",
+    code: `#include <iostream>
+using namespace std;
+
+void addTax(double& price) {   // & = эх хувьсагчийг өөрчилнө
+    price = price * 1.1;
+}
+
+int power(int base, int exp = 2) {   // exp өгөхгүй бол 2
+    int result = 1;
+    for (int i = 0; i < exp; i++) result *= base;
+    return result;
+}
+
+int main() {
+    double p = 100;
+    addTax(p);
+    cout << p << endl;             // 110
+
+    cout << power(5) << endl;      // 25
+    cout << power(2, 10) << endl;  // 1024
+
+    return 0;
+}`,
+    output: "110\n25\n1024",
+    lines: [
+      {
+        code: "void addTax(double& price)",
+        note_mn:
+          "`&` байхгүй бол `price` бол хуулбар — функц дуусахад өөрчлөлт алга болно. `&`-тэй бол `main` доторх `p` өөрөө өөрчлөгдөнө.",
+        note_en:
+          "Without `&`, `price` is a copy and the change disappears when the function ends. With `&`, the `p` inside `main` itself changes.",
+      },
+      {
+        code: "int power(int base, int exp = 2)",
+        note_mn:
+          "`exp = 2` бол анхны утга. Дуудахдаа орхивол 2 гэж үзнэ.",
+        note_en:
+          "`exp = 2` is a default. If you leave the argument out, 2 is used.",
+      },
+      {
+        code: "power(5)",
+        note_mn: "Нэг л аргумент өгсөн тул `exp` нь 2 болж 5² = 25 гарна.",
+        note_en: "Only one argument, so `exp` is 2 and you get 5² = 25.",
+      },
+    ],
+    terms: [
+      {
+        term: "&",
+        def_mn:
+          "Лавлагаа. Хуулбар биш, эх хувьсагчийг өөрийг нь дамжуулна.",
+        def_en: "A reference. Passes the original variable, not a copy.",
+      },
+      {
+        term: "default argument",
+        def_mn: "Дуудахдаа орхивол хэрэглэгдэх урьдчилан тогтоосон утга.",
+        def_en: "A value used when the caller leaves that argument out.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "void twice(int n) {\n  n = n * 2;\n}",
+        fix: "void twice(int& n) {\n  n = n * 2;\n}",
+        why_mn:
+          "`&` байхгүй тул зөвхөн хуулбар өөрчлөгдөж, дуудсан газарт нь юу ч болохгүй.",
+        why_en:
+          "Without `&` only the copy changes, and nothing happens at the call site.",
+      },
+      {
+        wrong: "int f(int a = 1, int b);",
+        fix: "int f(int a, int b = 1);",
+        why_mn:
+          "Анхны утгатай параметрүүд заавал **төгсгөлд** байх ёстой.",
+        why_en: "Parameters with defaults must come **last**.",
+      },
+    ],
+    quiz: {
+      question_mn: "`void f(int x)` дотор `x`-ийг өөрчилвөл дуудсан хувьсагч яах вэ?",
+      question_en:
+        "If `void f(int x)` changes `x`, what happens to the variable that was passed in?",
+      choices: [
+        "Огт өөрчлөгдөхгүй",
+        "Мөн адил өөрчлөгдөнө",
+        "Компиляцын алдаа гарна",
+      ],
+      answer: 0,
+      explain_mn:
+        "Хуулбар дамжсан тул эх хувьсагч хэвээрээ. Өөрчлөх бол `int& x` гэж бич.",
+      explain_en:
+        "A copy was passed, so the original is untouched. Write `int& x` if you want it changed.",
+    },
+    challenge_mn:
+      "Хоёр хувьсагчийн утгыг солидог `swapValues` функцийг `&` ашиглан бич.",
+    challenge_en:
+      "Write a `swapValues` function that swaps two variables, using `&`.",
+  },
+  {
+    slug: "structs",
+    unit: 6,
+    title_mn: "Өөрийн төрөл (struct)",
+    title_en: "Structs: Your Own Type",
+    goal_mn: "Хоорондоо холбоотой хэдэн утгыг нэг зүйл болгон нэгтгэх.",
+    goal_en: "Group several related values into one thing.",
+    intro_mn:
+      "Сурагчийн нэр, анги, дундаж оноог тус тусад нь гурван хувьсагчид хадгалах нь эмх замбараагүй. `struct` нь тэдгээрийг нэг нэрийн дор нэгтгэнэ.",
+    intro_en:
+      "Keeping a student's name, grade and average in three separate variables gets messy fast. A `struct` puts them together under one name.",
+    code: `#include <iostream>
+#include <string>
+using namespace std;
+
+struct Student {
+    string name;
+    int    grade;
+    double average;
+};
+
+int main() {
+    Student s;
+    s.name    = "Bat";
+    s.grade   = 8;
+    s.average = 92.5;
+
+    cout << s.name << " (grade " << s.grade << ") "
+         << s.average << endl;
+
+    Student best = s;   // бүх талбар нь хамт хуулагдана
+    cout << best.name << endl;
+
+    return 0;
+}`,
+    output: "Bat (grade 8) 92.5\nBat",
+    lines: [
+      {
+        code: "struct Student { … };",
+        note_mn:
+          "Шинэ төрөл **зарлаж** байна, хувьсагч үүсгээгүй хараахан. Төгсгөлийн цэг таслалыг бүү мартаарай.",
+        note_en:
+          "This **declares** a new type; it does not create a variable yet. Do not forget the semicolon at the end.",
+      },
+      {
+        code: "Student s;",
+        note_mn: "Одоо `Student` төрлийн бодит хувьсагч үүслээ.",
+        note_en: "Now an actual variable of type `Student` exists.",
+      },
+      {
+        code: 's.name = "Bat";',
+        note_mn: "Цэгээр талбар руу нь хандана: `хувьсагч.талбар`.",
+        note_en: "A dot reaches a field: `variable.field`.",
+      },
+      {
+        code: "Student best = s;",
+        note_mn:
+          "Бүтцийг хуулахад доторх бүх талбар хамт хуулагдана — гараар нэг нэгээр нь хуулах шаардлагагүй.",
+        note_en:
+          "Copying a struct copies every field with it — no need to copy them one at a time.",
+      },
+    ],
+    terms: [
+      {
+        term: "struct",
+        def_mn: "Хэдэн утгыг нэгтгэсэн өөрийн шинэ төрөл.",
+        def_en: "Your own new type, made of several values grouped together.",
+      },
+      {
+        term: "талбар / field",
+        def_mn: "Бүтцийн дотор байгаа нэг хувьсагч. Цэгээр хандана.",
+        def_en: "One variable inside a struct. You reach it with a dot.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "struct Student {\n  string name;\n}",
+        fix: "struct Student {\n  string name;\n};",
+        why_mn: "`struct`-ийн хаалтын дараа цэг таслал заавал хэрэгтэй.",
+        why_en: "A `struct` needs a semicolon after its closing brace.",
+      },
+      {
+        wrong: "Student s;\ncout << s.name;",
+        fix: 'Student s;\ns.name = "Bat";\ncout << s.name;',
+        why_mn:
+          "Талбаруудад утга оноохоос өмнө уншвал хог утга гарна.",
+        why_en: "Reading fields before you set them gives junk values.",
+      },
+    ],
+    quiz: {
+      question_mn: "`struct`-ийн талбарт хэрхэн ханддаг вэ?",
+      question_en: "How do you reach a field of a struct?",
+      choices: ["s.name", "s->name", "s[name]"],
+      answer: 0,
+      explain_mn:
+        "Энгийн хувьсагчид цэг ашиглана. Сум (`->`) нь заагчтай ажиллахад хэрэглэгдэнэ.",
+      explain_en:
+        "A plain variable uses a dot. The arrow (`->`) is for pointers.",
+    },
+    challenge_mn:
+      "`Book` бүтэц үүсгээд гарчиг, зохиогч, хуудасны тоог хадгалж хэвлэ.",
+    challenge_en:
+      "Make a `Book` struct with a title, an author and a page count, then print one.",
+  },
+  {
     slug: "vectors",
     unit: 6,
     title_mn: "Вектор",
@@ -1551,10 +2306,14 @@ int main() {
 );
 
 // Attach the Python rendering of each lesson (kept in its own file so this
-// one stays about the curriculum rather than syntax).
+// one stays about the curriculum rather than syntax), and the reference
+// sections (kept separate for the same reason — they are the longest part).
 for (const lesson of LESSONS) {
   const variant = PYTHON_VARIANTS[lesson.slug];
   if (variant) lesson.python = variant;
+
+  const sections = LESSON_SECTIONS[lesson.slug];
+  if (sections) lesson.sections = sections;
 }
 
 export function findLesson(slug: string): Lesson | undefined {
