@@ -7,26 +7,48 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
-type Mode = "den2bin" | "bin2den" | "den2hex" | "hex2den";
+type Mode =
+  | "den2bin"
+  | "bin2den"
+  | "den2hex"
+  | "hex2den"
+  | "twos"
+  | "add";
 
 const MODES: { id: Mode; label: string }[] = [
   { id: "den2bin", label: "Denary → Binary" },
   { id: "bin2den", label: "Binary → Denary" },
   { id: "den2hex", label: "Denary → Hex" },
   { id: "hex2den", label: "Hex → Denary" },
+  { id: "twos", label: "Two's complement" },
+  { id: "add", label: "Binary addition" },
 ];
+
+const bin8 = (n: number) => n.toString(2).padStart(8, "0");
 
 function newQuestion(mode: Mode) {
   const n = Math.floor(Math.random() * 255) + 1;
   switch (mode) {
     case "den2bin":
-      return { prompt: String(n), answer: n.toString(2).padStart(8, "0"), hint: "8 bits" };
+      return { prompt: String(n), answer: bin8(n), hint: "8 bits" };
     case "bin2den":
-      return { prompt: n.toString(2).padStart(8, "0"), answer: String(n), hint: "a denary number" };
+      return { prompt: bin8(n), answer: String(n), hint: "a denary number" };
     case "den2hex":
       return { prompt: String(n), answer: n.toString(16).toUpperCase(), hint: "hex digits" };
-    default:
+    case "hex2den":
       return { prompt: n.toString(16).toUpperCase(), answer: String(n), hint: "a denary number" };
+    case "twos": {
+      // A negative denary value, written as an 8-bit two's complement number.
+      const v = -(Math.floor(Math.random() * 128) + 1); // −1 … −128
+      return { prompt: String(v), answer: bin8(256 + v), hint: "8 bits" };
+    }
+    default: {
+      // Two values whose sum still fits in 8 bits, so there is no overflow to
+      // argue about — overflow gets its own treatment in the notes.
+      const a = Math.floor(Math.random() * 200) + 1;
+      const b = Math.floor(Math.random() * (255 - a)) + 1;
+      return { prompt: `${bin8(a)} + ${bin8(b)}`, answer: bin8(a + b), hint: "8 bits" };
+    }
   }
 }
 
@@ -89,7 +111,7 @@ export function BinaryPractice() {
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
-        <div className="font-mono text-2xl font-bold text-primary">
+        <div className="break-all font-mono text-lg font-bold text-primary sm:text-2xl">
           {q.prompt}
         </div>
         <span className="text-muted-foreground">→</span>

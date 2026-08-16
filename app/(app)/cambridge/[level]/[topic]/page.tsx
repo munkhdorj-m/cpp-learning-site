@@ -21,8 +21,7 @@ import {
 } from "@/lib/cambridge";
 import { TopicQuiz } from "@/components/cambridge/topic-quiz";
 import { TermFlashcards } from "@/components/cambridge/term-flashcards";
-import { BinaryPractice } from "@/components/cambridge/binary-practice";
-import { LogicPractice } from "@/components/cambridge/logic-practice";
+import { PracticeFor } from "@/components/cambridge/practice-for";
 
 export function generateStaticParams() {
   return TOPICS.map((t) => ({ level: t.level, topic: t.slug }));
@@ -95,11 +94,8 @@ export default async function CambridgeTopicPage({
         </CardContent>
       </Card>
 
-      {/* Hands-on practice for the topics that are pure skill */}
-      {t.slug === "number-systems" && <BinaryPractice />}
-      {t.slug === "information-representation" && <BinaryPractice />}
-      {t.slug === "boolean-logic" && <LogicPractice />}
-      {t.slug === "hardware-as" && <LogicPractice />}
+      {/* Hands-on practice, where the topic has a skill to practise */}
+      <PracticeFor slug={t.slug} />
 
       {/* Notes */}
       {(t.notes ?? []).map((n) => (
