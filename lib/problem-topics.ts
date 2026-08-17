@@ -31,7 +31,8 @@ assign("hello-world", ["intro", "basic"]);
 assign("printing", ["output", "printing", "io-formatting"]);
 
 // ── Unit 2 · Storing Information ────────────────────────────────────────
-assign("variables", ["swap"]);
+assign("comments", ["comments"]);
+assign("variables", ["swap", "variables"]);
 assign("types", ["floating-point", "rounding", "integer", "big-numbers"]);
 assign("input", [
   "io",
@@ -85,6 +86,11 @@ assign("math", [
   "quadrant",
 ]);
 
+// The lessons added later needed tags of their own — without one, nothing can
+// ever be filed under them.
+assign("operators", ["operators", "increment", "compound-assignment"]);
+assign("type-conversion", ["type-conversion", "cast", "casting"]);
+
 // ── Unit 3 · Making Decisions ───────────────────────────────────────────
 assign("if-else", [
   "if-else",
@@ -95,6 +101,7 @@ assign("if-else", [
   "triangle-inequality",
 ]);
 assign("conditions", ["comparison"]);
+assign("switch", ["switch", "ternary", "menu"]);
 
 // ── Unit 4 · Repeating Things ───────────────────────────────────────────
 assign("for-loop", [
@@ -107,6 +114,7 @@ assign("for-loop", [
   "fibonacci",
 ]);
 assign("while-loop", ["while-loop"]);
+assign("loop-control", ["break-continue", "do-while", "sentinel"]);
 assign("putting-it-together", [
   "implementation",
   "simulation",
@@ -129,6 +137,13 @@ assign("strings", [
   "palindrome",
   "reversal",
   "bracket-matching",
+]);
+assign("getline", ["getline", "whole-line"]);
+assign("string-tools", [
+  "substring",
+  "string-search",
+  "string-convert",
+  "string-case",
 ]);
 assign("arrays", ["array", "arrays", "array-manipulation", "indexing"]);
 assign("array-loops", [
@@ -171,7 +186,13 @@ assign("nested-loops", [
   "symmetry",
   "symmetric",
 ]);
-assign("functions", ["recursion"]);
+assign("functions", ["recursion", "function", "functions"]);
+assign("function-details", [
+  "reference-parameter",
+  "default-argument",
+  "overloading",
+]);
+assign("structs", ["struct", "structs", "record"]);
 assign("vectors", ["sets", "hash-set", "hash-map", "stack", "priority-queue"]);
 
 // ── Beyond the course ───────────────────────────────────────────────────
