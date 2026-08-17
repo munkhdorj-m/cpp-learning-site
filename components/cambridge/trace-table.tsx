@@ -145,6 +145,71 @@ export const EXERCISES: TraceExercise[] = [
   },
 ];
 
+EXERCISES.push(
+  {
+    id: "file-average",
+    title: "Reading a file to the end",
+    columns: ["Mark", "Count", "Total", "OUTPUT"],
+    code: [
+      "Count ← 0",
+      "Total ← 0",
+      "OPENFILE Marks.txt FOR READ",
+      "WHILE NOT EOF(Marks.txt)",
+      "    READFILE Marks.txt, Mark",
+      "    Count ← Count + 1",
+      "    Total ← Total + Mark",
+      "ENDWHILE",
+      "CLOSEFILE Marks.txt",
+      "OUTPUT Total DIV Count",
+    ],
+    newInput: () => randInt(0, 9999),
+    describe: (seed) =>
+      `Marks.txt contains: ${arrayFor(seed).slice(0, 5).join(", ")}`,
+    run: (seed) => {
+      const marks = arrayFor(seed).slice(0, 5);
+      const rows: string[][] = [];
+      let count = 0;
+      let total = 0;
+      for (const mark of marks) {
+        count += 1;
+        total += mark;
+        rows.push([String(mark), String(count), String(total), ""]);
+      }
+      rows.push(["", "", "", String(Math.floor(total / count))]);
+      return rows;
+    },
+  },
+  {
+    id: "recursion",
+    title: "Recursion — unwinding the calls",
+    columns: ["Call", "n", "Returns", "OUTPUT"],
+    code: [
+      "FUNCTION Factorial(n) RETURNS INTEGER",
+      "    IF n <= 1 THEN",
+      "        RETURN 1",
+      "    ELSE",
+      "        RETURN n * Factorial(n - 1)",
+      "    ENDIF",
+      "ENDFUNCTION",
+      "",
+      "OUTPUT Factorial(N)",
+    ],
+    newInput: () => randInt(3, 6),
+    describe: (n) => `N = ${n}`,
+    run: (n) => {
+      const fact = (k: number): number => (k <= 1 ? 1 : k * fact(k - 1));
+      const rows: string[][] = [];
+      // A row per call, deepest last. The Returns column only fills in on the
+      // way back up — which is the whole point of the exercise.
+      for (let k = n; k >= 1; k--) {
+        rows.push([`Factorial(${k})`, String(k), String(fact(k)), ""]);
+      }
+      rows.push(["", "", "", String(fact(n))]);
+      return rows;
+    },
+  },
+);
+
 /** Six values derived from a seed, so `describe` and `run` always agree. */
 function arrayFor(seed: number): number[] {
   const out: number[] = [];
