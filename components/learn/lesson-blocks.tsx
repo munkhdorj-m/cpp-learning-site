@@ -4,6 +4,7 @@ import { Lightbulb, AlertTriangle } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Prose } from "./prose";
+import { Figure } from "./figure";
 
 /** A lesson section, already resolved to one language of the site. */
 export interface ViewSection {
@@ -18,7 +19,8 @@ export type ViewBlock =
   | { kind: "code"; cpp: string; py?: string; output?: string; caption?: string }
   | { kind: "list"; items: string[]; ordered?: boolean }
   | { kind: "note"; tone: "tip" | "warn"; text: string }
-  | { kind: "table"; head: string[]; rows: string[][] };
+  | { kind: "table"; head: string[]; rows: string[][] }
+  | { kind: "image"; image: string; caption?: string };
 
 function CodeBlock({
   block,
@@ -92,6 +94,9 @@ export function LessonBlocks({
 
           case "code":
             return <CodeBlock key={i} block={b} python={python} en={en} />;
+
+          case "image":
+            return <Figure key={i} id={b.image} caption={b.caption} />;
 
           case "list": {
             const Tag = b.ordered ? "ol" : "ul";

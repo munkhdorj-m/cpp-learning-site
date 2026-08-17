@@ -59,7 +59,9 @@ export type Block =
     }
   | { kind: "list"; mn: string[]; en: string[]; ordered?: boolean }
   | { kind: "note"; tone: "tip" | "warn"; mn: string; en: string }
-  | { kind: "table"; head_mn: string[]; head_en: string[]; rows: string[][] };
+  | { kind: "table"; head_mn: string[]; head_en: string[]; rows: string[][] }
+  /** A photograph from lib/lesson-images, with its credit rendered under it. */
+  | { kind: "image"; image: string; caption_mn?: string; caption_en?: string };
 
 /**
  * A heading-level chunk of a lesson. These are what the "on this page" rail

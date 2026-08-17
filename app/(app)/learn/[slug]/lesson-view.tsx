@@ -21,6 +21,7 @@ import { readDone, setDone } from "@/lib/lesson-progress";
 import { LanguagePicker } from "@/components/language-picker";
 import { PractiseLink } from "@/components/learn/practise-link";
 import { Prose, plainText } from "@/components/learn/prose";
+import { Figure } from "@/components/learn/figure";
 import {
   LessonBlocks,
   type ViewSection,
@@ -252,6 +253,9 @@ export function LessonView({
             </span>
           </p>
         </div>
+
+        {/* A picture of the idea, before any code. Every lesson has one. */}
+        <Figure id={lesson.slug} priority />
 
         {/* Explanation */}
         <p className="text-[15px] leading-relaxed text-muted-foreground">

@@ -43,6 +43,12 @@ function localize(sections: Section[] | undefined, en: boolean): ViewSection[] {
             head: en ? b.head_en : b.head_mn,
             rows: b.rows,
           };
+        case "image":
+          return {
+            kind: "image",
+            image: b.image,
+            caption: en ? b.caption_en : b.caption_mn,
+          };
       }
     }),
   }));

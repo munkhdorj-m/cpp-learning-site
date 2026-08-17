@@ -22,6 +22,7 @@ import {
 import { TopicQuiz } from "@/components/cambridge/topic-quiz";
 import { TermFlashcards } from "@/components/cambridge/term-flashcards";
 import { PracticeFor } from "@/components/cambridge/practice-for";
+import { TopicImages } from "@/components/cambridge/topic-images";
 
 export function generateStaticParams() {
   return TOPICS.map((t) => ({ level: t.level, topic: t.slug }));
@@ -93,6 +94,9 @@ export default async function CambridgeTopicPage({
           </ul>
         </CardContent>
       </Card>
+
+      {/* Photographs of the hardware this topic is about */}
+      <TopicImages slug={t.slug} />
 
       {/* Hands-on practice, where the topic has a skill to practise */}
       <PracticeFor slug={t.slug} />
