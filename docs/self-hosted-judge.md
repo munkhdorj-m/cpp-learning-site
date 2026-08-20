@@ -49,12 +49,20 @@ which g++ python3      # expect /usr/bin/g++ and /usr/bin/python3
 
 ## 3. Install go-judge
 
-Take the `linux-arm64` binary from
-<https://github.com/criyle/go-judge/releases>:
+From <https://github.com/criyle/go-judge/releases>, take the asset named
+exactly **`go-judge_<version>_linux_arm64`** (or `_linux_amd64v2` on an x86
+box).
+
+Watch the name. The same release also publishes `go-judge-init_…_linux_arm64`
+and `go-judge-shell_…_linux_arm64`, which are helpers, not the server. Pattern
+matching on "linux_arm64" picks `go-judge-init` first, and it fails with a
+bare `exit status 2` and no message at all. The real binary is 10-15 MB; the
+init helper is under 3 MB, which is the quickest way to tell them apart.
 
 ```bash
-sudo mv go-judge /usr/local/bin/
-sudo chmod +x /usr/local/bin/go-judge
+curl -L https://github.com/criyle/go-judge/releases/download/v1.12.2/go-judge_1.12.2_linux_arm64 -o go-judge
+sudo install -m 755 go-judge /usr/local/bin/go-judge
+/usr/local/bin/go-judge --help | head -5   # must print flags
 ```
 
 Generate a token and keep it — the site needs the same value:
@@ -160,5 +168,6 @@ Exit code is non-zero if anything fails, so it can go in a deploy step.
 | Every submission is a compile error | `g++` is not installed, or not at `/usr/bin/g++`. |
 | Python fails, C++ works | `python3` missing, or not at `/usr/bin/python3`. |
 | `Internal Error` on every run | cgroups unavailable. go-judge needs cgroup v2 and to start as root. |
+| `exit status 2`, nothing logged | Wrong binary — you have `go-judge-init`. Check the size: under 3 MB is the helper. |
 
 Switching back is one line: set `JUDGE_BACKEND=judge0` and restart.
