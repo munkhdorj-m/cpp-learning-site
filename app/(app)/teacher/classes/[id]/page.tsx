@@ -120,6 +120,13 @@ export default async function ClassRosterPage({
             {t("teacher.classes.students")}
           </p>
         </div>
+        <Link
+          href={`/teacher/classes/${id}/progress`}
+          className="ml-auto inline-flex items-center gap-1.5 rounded-lg border border-primary/25 bg-primary/[0.06] px-3 py-1.5 font-code text-xs text-primary transition-colors hover:bg-primary/15"
+        >
+          <BookOpen className="h-3.5 w-3.5" />
+          {locale === "en" ? "Course progress" : "Хичээлийн явц"}
+        </Link>
       </div>
 
       <BulkStudentForm

@@ -7,7 +7,7 @@ import { BookOpen, CheckCircle2, Circle, ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { readDone } from "@/lib/lesson-progress";
+import { readDone, pullDone } from "@/lib/lesson-progress";
 
 export interface IndexLesson {
   slug: string;
@@ -36,6 +36,9 @@ export function LearnIndex({
   const [done, setDone] = useState<Set<string>>(new Set());
   useEffect(() => {
     setDone(readDone());
+    // Then reconcile with the server, which also uploads anything this
+    // browser recorded before progress was stored centrally.
+    void pullDone().then(setDone);
   }, []);
 
   const completed = lessons.filter((l) => done.has(l.slug)).length;

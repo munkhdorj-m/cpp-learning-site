@@ -23,6 +23,7 @@ import { TopicQuiz } from "@/components/cambridge/topic-quiz";
 import { TermFlashcards } from "@/components/cambridge/term-flashcards";
 import { PracticeFor } from "@/components/cambridge/practice-for";
 import { TopicImages } from "@/components/cambridge/topic-images";
+import { TopicDone } from "@/components/cambridge/topic-done";
 
 export function generateStaticParams() {
   return TOPICS.map((t) => ({ level: t.level, topic: t.slug }));
@@ -152,10 +153,16 @@ export default async function CambridgeTopicPage({
         </Card>
       )}
 
-      {quiz && <TopicQuiz questions={quiz} />}
+      {quiz && (
+        <TopicQuiz questions={quiz} itemPrefix={`cambridge:${level}/${topic}`} />
+      )}
+
+      <div className="border-t border-primary/15 pt-4">
+        <TopicDone slug={t.slug} />
+      </div>
 
       {/* Prev / next */}
-      <div className="flex flex-wrap gap-2 border-t border-primary/15 pt-4">
+      <div className="flex flex-wrap gap-2">
         {prev && (
           <Link
             href={`/cambridge/${info.id}/${prev.slug}`}

@@ -5,6 +5,7 @@ import { Check, X, RotateCcw, HelpCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { recordQuizAnswer } from "@/lib/progress/client";
 
 export interface QuizQuestion {
   q: string;
@@ -18,7 +19,14 @@ export interface QuizQuestion {
  * explanation immediately, because the explanation is where the learning is —
  * a score on its own teaches nothing.
  */
-export function TopicQuiz({ questions }: { questions: QuizQuestion[] }) {
+export function TopicQuiz({
+  questions,
+  /** e.g. "cambridge:igcse/number-systems" — omit and nothing is recorded. */
+  itemPrefix,
+}: {
+  questions: QuizQuestion[];
+  itemPrefix?: string;
+}) {
   const [picked, setPicked] = useState<(number | null)[]>(
     questions.map(() => null),
   );
@@ -61,11 +69,14 @@ export function TopicQuiz({ questions }: { questions: QuizQuestion[] }) {
                     <button
                       key={c}
                       disabled={revealed}
-                      onClick={() =>
+                      onClick={() => {
                         setPicked((prev) =>
                           prev.map((p, i) => (i === qi ? ci : p)),
-                        )
-                      }
+                        );
+                        if (itemPrefix) {
+                          recordQuizAnswer(`${itemPrefix}#${qi}`, ci);
+                        }
+                      }}
                       className={cn(
                         "flex w-full items-start gap-2 rounded-lg border px-3 py-2 text-left text-sm transition-colors",
                         !revealed &&

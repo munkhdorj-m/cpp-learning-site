@@ -17,7 +17,8 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { readDone, setDone } from "@/lib/lesson-progress";
+import { readDone, setDone, pullDone } from "@/lib/lesson-progress";
+import { recordQuizAnswer } from "@/lib/progress/client";
 import { LanguagePicker } from "@/components/language-picker";
 import { PractiseLink } from "@/components/learn/practise-link";
 import { Prose, plainText } from "@/components/learn/prose";
@@ -128,6 +129,7 @@ export function LessonView({
   useEffect(() => {
     setDoneState(readDone());
     setPicked(null);
+    void pullDone().then(setDoneState);
   }, [lesson.slug]);
 
   useEffect(() => {
@@ -439,7 +441,13 @@ export function LessonView({
                     return (
                       <button
                         key={i}
-                        onClick={() => setPicked(i)}
+                        onClick={() => {
+                          setPicked(i);
+                          recordQuizAnswer(
+                            `${usePython && lesson.python?.quiz ? "lessonpy" : "lesson"}:${lesson.slug}#0`,
+                            i,
+                          );
+                        }}
                         className={cn(
                           "w-full rounded-lg border px-3 py-2 text-left text-sm transition-colors",
                           !show && "hover:bg-muted",
