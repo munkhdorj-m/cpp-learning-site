@@ -1,29 +1,38 @@
+// The hosted Judge0 backend (RapidAPI, or a self-hosted Judge0 instance).
+//
+// Judge0 does the whole job in one call: it knows the language, compiles,
+// runs, compares against expected_output and returns a verdict.
+
 import type { Verdict } from "@/types/database";
+import { judge0IdFor, DEFAULT_LANGUAGE } from "@/lib/languages";
+
 import {
-  judge0IdFor,
-  DEFAULT_LANGUAGE,
-  type LanguageId,
-} from "@/lib/languages";
+  JudgeRateLimitError,
+  JudgeUnavailableError,
+  type GradeArgs,
+  type JudgeBackend,
+  type JudgeResult,
+  type RunArgs,
+  type RunResult,
+} from "./types";
 
 interface Judge0Submission {
   source_code: string;
   stdin?: string;
   expected_output?: string;
   language_id: number;
-  cpu_time_limit?: number;     // seconds (float)
-  memory_limit?: number;       // KB
-  redirect_stderr_to_stdout?: boolean;
+  cpu_time_limit?: number; // seconds (float)
+  memory_limit?: number; // KB
 }
 
 interface Judge0Result {
-  token?: string;
   status: { id: number; description: string };
   stdout: string | null;
   stderr: string | null;
   compile_output: string | null;
   message: string | null;
-  time: string | null;       // seconds, as a string
-  memory: number | null;     // KB
+  time: string | null; // seconds, as a string
+  memory: number | null; // KB
   exit_code: number | null;
 }
 
@@ -31,22 +40,9 @@ const API_URL = process.env.JUDGE0_API_URL ?? "https://judge0-ce.p.rapidapi.com"
 const API_KEY = process.env.JUDGE0_API_KEY ?? "";
 const API_HOST = process.env.JUDGE0_API_HOST ?? "judge0-ce.p.rapidapi.com";
 
-function headers() {
-  return {
-    "Content-Type": "application/json",
-    "X-RapidAPI-Key": API_KEY,
-    "X-RapidAPI-Host": API_HOST,
-  };
-}
-
-function toBase64(s: string) {
-  return Buffer.from(s, "utf-8").toString("base64");
-}
-
-function fromBase64(s: string | null): string {
-  if (!s) return "";
-  return Buffer.from(s, "base64").toString("utf-8");
-}
+const toBase64 = (s: string) => Buffer.from(s, "utf-8").toString("base64");
+const fromBase64 = (s: string | null) =>
+  s ? Buffer.from(s, "base64").toString("utf-8") : "";
 
 function statusIdToVerdict(id: number): Verdict {
   if (id === 3) return "accepted";
@@ -57,10 +53,6 @@ function statusIdToVerdict(id: number): Verdict {
   return "internal_error";
 }
 
-/**
- * Submit one source+test pair to Judge0 and wait for the verdict.
- * Used for both grading (with expected_output) and the standalone IDE (without).
- */
 async function submitAndWait(payload: Judge0Submission): Promise<Judge0Result> {
   const url = `${API_URL}/submissions?base64_encoded=true&wait=true&fields=*`;
   const body = {
@@ -71,62 +63,41 @@ async function submitAndWait(payload: Judge0Submission): Promise<Judge0Result> {
       ? toBase64(payload.expected_output)
       : undefined,
   };
-  const res = await fetch(url, {
-    method: "POST",
-    headers: headers(),
-    body: JSON.stringify(body),
-    cache: "no-store",
-  });
-  if (!res.ok) {
-    if (res.status === 429) {
-      throw new Judge0RateLimitError();
-    }
-    throw new Error(`Judge0 ${res.status}: ${await res.text()}`);
+
+  let res: Response;
+  try {
+    res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-RapidAPI-Key": API_KEY,
+        "X-RapidAPI-Host": API_HOST,
+      },
+      body: JSON.stringify(body),
+      cache: "no-store",
+    });
+  } catch (e) {
+    throw new JudgeUnavailableError(
+      `Judge0 unreachable: ${e instanceof Error ? e.message : "network error"}`,
+    );
   }
+
+  if (res.status === 429) throw new JudgeRateLimitError();
+  if (res.status >= 500) {
+    throw new JudgeUnavailableError(`Judge0 returned ${res.status}`);
+  }
+  if (!res.ok) throw new Error(`Judge0 ${res.status}: ${await res.text()}`);
+
   return (await res.json()) as Judge0Result;
 }
 
-export class Judge0RateLimitError extends Error {
-  constructor() {
-    super("Judge0 rate limit exceeded");
-    this.name = "Judge0RateLimitError";
-  }
-}
-
-export interface TestCase {
-  stdin: string;
-  expected_stdout: string;
-}
-
-export interface JudgeResult {
-  verdict: Verdict;
-  passed: number;
-  total: number;
-  failedAt: number | null;
-  runtime_ms: number | null;
-  memory_kb: number | null;
-  compile_output: string | null;
-  stderr_output: string | null;
-  raw: unknown;
-}
-
-/**
- * Run the given source against an ordered list of test cases.
- * Stops at the first failing test (short-circuit grading).
- */
-export async function grade({
+async function grade({
   source,
   tests,
   timeLimitMs,
   memoryLimitKb,
   language = DEFAULT_LANGUAGE,
-}: {
-  source: string;
-  tests: TestCase[];
-  timeLimitMs: number;
-  memoryLimitKb: number;
-  language?: LanguageId;
-}): Promise<JudgeResult> {
+}: GradeArgs): Promise<JudgeResult> {
   let maxRuntimeMs = 0;
   let maxMemoryKb = 0;
   const rawResults: unknown[] = [];
@@ -145,9 +116,8 @@ export async function grade({
 
     const verdict = statusIdToVerdict(result.status.id);
     const timeMs = result.time ? Math.round(parseFloat(result.time) * 1000) : 0;
-    const memKb = result.memory ?? 0;
     maxRuntimeMs = Math.max(maxRuntimeMs, timeMs);
-    maxMemoryKb = Math.max(maxMemoryKb, memKb);
+    maxMemoryKb = Math.max(maxMemoryKb, result.memory ?? 0);
 
     if (verdict !== "accepted") {
       return {
@@ -177,22 +147,13 @@ export async function grade({
   };
 }
 
-/**
- * Single run for the playground — no expected_output, returns raw stdout/stderr.
- */
-export async function runOnce({
+async function runOnce({
   source,
   stdin,
   timeLimitMs = 5000,
   memoryLimitKb = 131072,
   language = DEFAULT_LANGUAGE,
-}: {
-  source: string;
-  stdin: string;
-  timeLimitMs?: number;
-  memoryLimitKb?: number;
-  language?: LanguageId;
-}) {
+}: RunArgs): Promise<RunResult> {
   const result = await submitAndWait({
     source_code: source,
     stdin,
@@ -211,3 +172,5 @@ export async function runOnce({
     exit_code: result.exit_code,
   };
 }
+
+export const judge0Backend: JudgeBackend = { name: "judge0", grade, runOnce };

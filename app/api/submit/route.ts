@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-import { Judge0RateLimitError, grade } from "@/lib/judge0";
+import { JudgeRateLimitError, grade } from "@/lib/judge";
 import { SIMILARITY_THRESHOLD, similarity } from "@/lib/plagiarism";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
 import { toLanguage } from "@/lib/languages";
@@ -277,7 +277,7 @@ export async function POST(request: Request) {
       new_badges: newBadges,
     });
   } catch (err) {
-    const rateLimited = err instanceof Judge0RateLimitError;
+    const rateLimited = err instanceof JudgeRateLimitError;
     await admin
       .from("submissions")
       .update({ verdict: "internal_error" })
