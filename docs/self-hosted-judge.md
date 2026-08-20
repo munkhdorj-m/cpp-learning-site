@@ -122,9 +122,43 @@ Find the outbound IP from the cPanel side with `curl -s ifconfig.me`. On shared
 hosting it can change; if it does, the token is what still protects you, so
 treat the token as essential rather than a nicety.
 
-**Plain HTTP sends student code and the token in the clear.** If the sandbox is
-reachable over the public internet, put Caddy in front of it for automatic
-HTTPS and point `GO_JUDGE_URL` at `https://…` instead.
+### Shared hosting probably blocks the port
+
+cPanel servers usually run an egress firewall (CSF) that permits outbound
+traffic only to a short list of ports — 80, 443, 25, 53 and a few more. Port
+5050 is not on it, so the web host cannot reach the sandbox no matter how the
+Oracle side is configured.
+
+The symptom is specific enough to identify: from the web host, an outbound
+connection is **refused instantly** rather than timing out, and it is refused
+on *every* port including 22, even though 22 is open to the world in the
+security list and sshd is running. A block on Oracle's side gives a timeout,
+not a refusal. Meanwhile HTTPS calls keep working, which is the giveaway.
+
+The fix is to serve the sandbox on a port the host allows:
+
+```bash
+sudo sed -i 's/-http-addr 0.0.0.0:5050/-http-addr 0.0.0.0:443/' /etc/systemd/system/go-judge.service
+sudo systemctl daemon-reload && sudo systemctl restart go-judge
+sudo iptables -I INPUT 1 -p tcp --dport 443 -s <CPANEL_IP> -j ACCEPT
+sudo netfilter-persistent save
+```
+
+Add the matching ingress rule for 443, and set `GO_JUDGE_URL=http://<vps-ip>:443`.
+
+**This is plain HTTP on port 443** — it satisfies the port filter but student
+code and the token still cross the internet unencrypted. To finish the job
+properly, point a hostname at the box (`judge.cs.ub.mn`), open port 80 so the
+certificate can be issued, and put Caddy in front of go-judge for real TLS:
+
+```
+judge.cs.ub.mn {
+    reverse_proxy 127.0.0.1:5050
+}
+```
+
+go-judge then binds to `127.0.0.1:5050` only, and `GO_JUDGE_URL` becomes
+`https://judge.cs.ub.mn`.
 
 ## 5. Point the site at it
 
@@ -169,5 +203,6 @@ Exit code is non-zero if anything fails, so it can go in a deploy step.
 | Python fails, C++ works | `python3` missing, or not at `/usr/bin/python3`. |
 | `Internal Error` on every run | cgroups unavailable. go-judge needs cgroup v2 and to start as root. |
 | `exit status 2`, nothing logged | Wrong binary — you have `go-judge-init`. Check the size: under 3 MB is the helper. |
+| Connection *refused* instantly, on every port | The web host filters outbound ports, not Oracle. Serve on 443. |
 
 Switching back is one line: set `JUDGE_BACKEND=judge0` and restart.
