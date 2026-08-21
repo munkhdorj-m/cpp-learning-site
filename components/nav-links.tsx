@@ -21,7 +21,6 @@ export function NavLinks({ showAssignments }: NavLinksProps) {
   const items = [
     { href: "/learn", label: locale === "en" ? "Learn" : "Сурах" },
     { href: "/problems", label: t("problems") },
-    { href: "/cambridge", label: "Cambridge" },
     { href: "/game", label: t("game") },
     { href: "/leaderboard", label: t("leaderboard") },
     ...(showAssignments
@@ -29,6 +28,7 @@ export function NavLinks({ showAssignments }: NavLinksProps) {
       : []),
     { href: "/contests", label: t("contests") },
     { href: "/ide", label: t("ide") },
+    { href: "/cambridge", label: "Cambridge" },
   ];
 
   return (
