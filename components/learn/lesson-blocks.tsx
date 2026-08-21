@@ -5,6 +5,7 @@ import { Lightbulb, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Prose } from "./prose";
 import { Figure } from "./figure";
+import { CodeBlock } from "./code-block";
 
 /** A lesson section, already resolved to one language of the site. */
 export interface ViewSection {
@@ -22,7 +23,7 @@ export type ViewBlock =
   | { kind: "table"; head: string[]; rows: string[][] }
   | { kind: "image"; image: string; caption?: string };
 
-function CodeBlock({
+function SectionCode({
   block,
   python,
   en,
@@ -51,9 +52,11 @@ function CodeBlock({
             {en ? "C++ ONLY" : "ЗӨВХӨН C++"}
           </div>
         )}
-        <pre className="overflow-x-auto whitespace-pre bg-[oklch(0.16_0.02_264)] p-3 font-mono text-xs leading-relaxed text-primary">
-          {code}
-        </pre>
+        <CodeBlock
+          code={code}
+          lang={usePy ? "python" : "cpp"}
+          className="rounded-none border-0"
+        />
         {block.output && (
           <div className="border-t border-neon-lime/20 bg-neon-lime/[0.06]">
             <div className="px-3 pt-1.5 font-code text-[10px] tracking-widest text-neon-lime">
@@ -93,7 +96,7 @@ export function LessonBlocks({
             );
 
           case "code":
-            return <CodeBlock key={i} block={b} python={python} en={en} />;
+            return <SectionCode key={i} block={b} python={python} en={en} />;
 
           case "image":
             return <Figure key={i} id={b.image} caption={b.caption} />;

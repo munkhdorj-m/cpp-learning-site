@@ -23,6 +23,7 @@ import { LanguagePicker } from "@/components/language-picker";
 import { PractiseLink } from "@/components/learn/practise-link";
 import { Prose, plainText } from "@/components/learn/prose";
 import { Figure } from "@/components/learn/figure";
+import { CodeBlock } from "@/components/learn/code-block";
 import {
   LessonBlocks,
   type ViewSection,
@@ -299,21 +300,14 @@ export function LessonView({
         <section className="space-y-3">
           <Heading id="example">{en ? "THE EXAMPLE" : "ЖИШЭЭ"}</Heading>
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-            <div className="overflow-hidden rounded-lg border border-primary/15">
-              <div className="flex items-center gap-1.5 border-b border-primary/15 bg-black/25 px-3 py-1.5">
-                <span className="h-2 w-2 rounded-full bg-neon-pink/70" />
-                <span className="h-2 w-2 rounded-full bg-neon-amber/70" />
-                <span className="h-2 w-2 rounded-full bg-neon-lime/70" />
-                <span className="ml-1 font-code text-[10px] tracking-widest text-muted-foreground">
-                  {usePython
-                    ? LANGUAGES.python.filename
-                    : LANGUAGES.cpp.filename}
-                </span>
-              </div>
-              <pre className="overflow-x-auto whitespace-pre bg-[oklch(0.16_0.02_264)] p-3 font-mono text-xs leading-relaxed text-primary">
-                {shown.code}
-              </pre>
-            </div>
+            <CodeBlock
+              code={shown.code}
+              lang={usePython ? "python" : "cpp"}
+              filename={
+                usePython ? LANGUAGES.python.filename : LANGUAGES.cpp.filename
+              }
+              numbered
+            />
             <div className="overflow-hidden rounded-lg border border-neon-lime/25">
               <div className="border-b border-neon-lime/20 bg-neon-lime/[0.08] px-3 py-1.5 font-code text-[10px] tracking-widest text-neon-lime">
                 {en ? "> what you see" : "> гарах хариу"}
@@ -339,9 +333,11 @@ export function LessonView({
             {shown.lines.map((l, i) => (
               <Card key={i}>
                 <CardContent className="space-y-1.5 p-3">
-                  <code className="block overflow-x-auto whitespace-pre rounded bg-[oklch(0.16_0.02_264)] px-2 py-1 font-mono text-xs text-primary">
-                    {l.code}
-                  </code>
+                  <CodeBlock
+                    code={l.code}
+                    lang={usePython ? "python" : "cpp"}
+                    className="border-primary/10"
+                  />
                   <p className="text-sm text-muted-foreground">
                     <Prose text={l.note} />
                   </p>

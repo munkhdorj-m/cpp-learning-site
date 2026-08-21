@@ -24,6 +24,7 @@ import { TermFlashcards } from "@/components/cambridge/term-flashcards";
 import { PracticeFor } from "@/components/cambridge/practice-for";
 import { TopicImages } from "@/components/cambridge/topic-images";
 import { TopicDone } from "@/components/cambridge/topic-done";
+import { CodeBlock } from "@/components/learn/code-block";
 
 export function generateStaticParams() {
   return TOPICS.map((t) => ({ level: t.level, topic: t.slug }));
@@ -113,11 +114,7 @@ export default async function CambridgeTopicPage({
           <p className="text-[15px] leading-relaxed text-muted-foreground">
             {n.body}
           </p>
-          {n.code && (
-            <pre className="overflow-x-auto whitespace-pre rounded-lg border border-primary/15 bg-[oklch(0.16_0.02_264)] p-3 font-mono text-xs leading-relaxed text-primary">
-              {n.code}
-            </pre>
-          )}
+          {n.code && <CodeBlock code={n.code} lang="cpp" />}
         </section>
       ))}
 
