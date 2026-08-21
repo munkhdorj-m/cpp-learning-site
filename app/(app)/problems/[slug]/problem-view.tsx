@@ -28,6 +28,7 @@ import {
 import { Markdown } from "@/components/markdown";
 import { VerdictBadge } from "@/components/verdict-badge";
 import { cn } from "@/lib/utils";
+import { celebrate } from "@/lib/celebrate";
 import type { Difficulty, Verdict } from "@/types/database";
 
 interface Problem {
@@ -93,22 +94,6 @@ interface SubmissionResult {
   level_up?: boolean;
   new_level?: number;
   new_badges?: RewardedBadge[];
-}
-
-async function fireConfetti() {
-  // Two bursts, fired from slightly different points for a fuller spray.
-  const defaults = {
-    spread: 70,
-    ticks: 200,
-    gravity: 0.9,
-    startVelocity: 35,
-    decay: 0.92,
-    scalar: 1.05,
-    colors: ["#a78bfa", "#f59e0b", "#10b981", "#ec4899", "#3b82f6"],
-  };
-  const { default: confetti } = await import("canvas-confetti");
-  confetti({ ...defaults, particleCount: 60, origin: { x: 0.3, y: 0.7 } });
-  confetti({ ...defaults, particleCount: 60, origin: { x: 0.7, y: 0.7 } });
 }
 
 const DIFFICULTY_STYLES: Record<Difficulty, string> = {
@@ -192,7 +177,7 @@ export function ProblemView({
       const data = (await res.json()) as SubmissionResult;
       setResult(data);
       if (data.verdict === "accepted") {
-        fireConfetti();
+        celebrate({ intensity: 2 });
         toast.success(tVerdict("accepted"));
         // Re-render server components so the nav XP bar shows the new value
         router.refresh();

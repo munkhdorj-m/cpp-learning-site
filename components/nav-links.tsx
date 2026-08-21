@@ -33,7 +33,6 @@ export function NavLinks({ showAssignments }: NavLinksProps) {
   }, []);
 
   const items = [
-    { href: "/today", label: locale === "en" ? "Today" : "Өнөөдөр" },
     { href: "/learn", label: locale === "en" ? "Learn" : "Сурах" },
     { href: "/problems", label: t("problems") },
     { href: "/game", label: t("game") },

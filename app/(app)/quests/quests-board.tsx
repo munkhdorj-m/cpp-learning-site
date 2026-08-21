@@ -20,16 +20,8 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { celebrate } from "@/lib/celebrate";
 import type { Difficulty, QuestType } from "@/types/database";
-
-// Only pulled in when the student actually succeeds, so the confetti
-// library stays out of the initial page bundle.
-async function fireConfettiLazy(
-  opts: Parameters<typeof import("canvas-confetti")["default"]>[0],
-) {
-  const { default: confetti } = await import("canvas-confetti");
-  confetti(opts);
-}
 
 interface QuestItem {
   id: string;
@@ -216,13 +208,7 @@ export function QuestsBoard({
                       // simpler — just rely on `results[q.id]` for display.
                       if (r.was_correct) {
                         playCorrect();
-                        void fireConfettiLazy({
-                          particleCount: 30,
-                          spread: 50,
-                          origin: { y: 0.7 },
-                          scalar: 0.8,
-                          colors: ["#a78bfa", "#f59e0b", "#10b981"],
-                        });
+                        celebrate();
                         toast.success(`${labels.correct} +${r.xp_awarded} XP`);
                       } else {
                         playWrong();

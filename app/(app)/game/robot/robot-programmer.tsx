@@ -24,6 +24,7 @@ import {
   type BlocklyWorkspaceHandle,
 } from "@/components/blockly-workspace";
 import { cn } from "@/lib/utils";
+import { celebrate } from "@/lib/celebrate";
 import {
   RobotInterpreter,
   type RobotInstruction,
@@ -58,15 +59,6 @@ interface MazeState {
 type RunPhase = "idle" | "running" | "success" | "crash" | "danger";
 
 import type { Level } from "./levels";
-
-// Only pulled in when the student actually succeeds, so the confetti
-// library stays out of the initial page bundle.
-async function fireConfettiLazy(
-  opts: Parameters<typeof import("canvas-confetti")["default"]>[0],
-) {
-  const { default: confetti } = await import("canvas-confetti");
-  confetti(opts);
-}
 
 export function RobotProgrammer({
   completedLevelIds,
@@ -226,7 +218,7 @@ export function RobotProgrammer({
       if (won) {
         setPhase("success");
         setView((v) => ({ ...v, showSuccess: true }));
-        void fireConfettiLazy({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+        celebrate({ intensity: 2 });
         submitCompletion();
       } else {
         setPhase("idle");

@@ -8,7 +8,7 @@
     "leaderboard": "Шилдгүүд",
     "assignments": "Даалгаврууд",
     "contests": "Тэмцээн",
-    "game": "Games",
+    "game": "Тоглоом",
     "robot": "Find the Egg",
     "quests": "Тэмцэл",
     "profile": "Профайл",
@@ -173,7 +173,7 @@
     "filter_class": "Зөвхөн миний анги"
   },
   "profile": {
-    "xp": "Туршлага",
+    "xp": "XP",
     "level": "Түвшин",
     "streak": "Дараалал",
     "streak_days": "{days} өдөр",

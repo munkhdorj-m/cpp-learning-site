@@ -5,7 +5,6 @@ import { buttonVariants } from "@/components/ui/button";
 import { LanguageToggle } from "@/components/language-toggle";
 import { MobileNav } from "@/components/mobile-nav";
 import { NavLinks } from "@/components/nav-links";
-import { NotificationBell } from "@/components/notification-bell";
 import { SiteLogo } from "@/components/site-logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { UserMenu } from "@/components/user-menu";
@@ -39,7 +38,6 @@ export async function Nav() {
           <span className="hidden sm:inline-flex">
             <ThemeToggle />
           </span>
-          {profile && <NotificationBell />}
           <span className="hidden sm:inline-flex">
             <LanguageToggle />
           </span>
