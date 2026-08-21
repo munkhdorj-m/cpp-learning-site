@@ -1,7 +1,8 @@
 # ХаСү Computer Science
 
-C++ practice site for Orkhon School, built around an online judge.
-Gamified for school students, bilingual (Mongolian + English).
+Programming practice site for Orkhon School, built around an online judge.
+Lessons and problems in C++ and Python, gamified for school students,
+bilingual (Mongolian + English).
 
 Live at <https://cs.ub.mn>.
 

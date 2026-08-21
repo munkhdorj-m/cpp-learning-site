@@ -60,7 +60,7 @@ export function LearnIndex({
           </div>
           <div>
             <h1 className="text-2xl font-bold">
-              {en ? "Learn C++ from zero" : "C++ тэгээс сурах"}
+              {en ? "Learn programming from zero" : "Програмчлалыг тэгээс сурах"}
             </h1>
             <p className="text-sm text-muted-foreground">
               {en

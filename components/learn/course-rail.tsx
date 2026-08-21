@@ -63,7 +63,7 @@ export function CourseRail({
             </span>
             <div className="min-w-0">
               <div className="font-semibold leading-tight">
-                {en ? "C++ from Zero" : "C++ тэгээс"}
+                {en ? "Programming from Zero" : "Програмчлал тэгээс"}
               </div>
               <div className="font-code text-[10px] tracking-widest text-muted-foreground">
                 {en ? "BEGINNER COURSE" : "АНХАН ШАТ"}
@@ -73,8 +73,8 @@ export function CourseRail({
 
           <p className="text-xs leading-relaxed text-muted-foreground">
             {en
-              ? "Everything a beginner needs, one idea at a time — from your first program to functions and vectors."
-              : "Анхан шатны бүх зүйл, нэг нэгээр нь — эхний програмаас функц, вектор хүртэл."}
+              ? "Everything a beginner needs, one idea at a time — from your first program to functions and lists of values."
+              : "Анхан шатны бүх зүйл, нэг нэгээр нь — эхний програмаас функц, утгын жагсаалт хүртэл."}
           </p>
 
           <div className="space-y-1.5">

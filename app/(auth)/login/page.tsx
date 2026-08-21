@@ -62,11 +62,7 @@ export default function LoginPage() {
                 autoCapitalize="none"
                 autoCorrect="off"
                 spellCheck={false}
-                placeholder="32.anujin"
               />
-              <p className="text-xs text-muted-foreground">
-                {t("login_hint")}
-              </p>
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">{t("password")}</Label>

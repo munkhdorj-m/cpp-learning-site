@@ -1,7 +1,7 @@
 {
   "app": {
     "name": "ХаСү CS",
-    "tagline": "Learn C++ programming through problem solving"
+    "tagline": "Learn programming through problem solving"
   },
   "nav": {
     "problems": "Problems",
@@ -74,7 +74,7 @@
     "type_multiple_choice": "Multiple choice"
   },
   "landing": {
-    "hero_title": "Learn C++ by solving problems",
+    "hero_title": "Learn programming by solving problems",
     "hero_subtitle": "Earn XP, climb the leaderboard, and challenge your classmates",
     "get_started": "Get started",
     "have_account": "Already have an account? Log in"
@@ -138,7 +138,7 @@
   },
   "ide": {
     "title": "Online code editor",
-    "subtitle": "Write C++ and run it instantly",
+    "subtitle": "Write C++ or Python and run it instantly",
     "stdin": "Input (stdin)",
     "stdout": "Output (stdout)",
     "stderr": "Errors (stderr)",
