@@ -82,10 +82,11 @@
   "auth": {
     "login": {
       "title": "Log in",
-      "email": "Email",
       "password": "Password",
       "submit": "Log in",
-      "error": "Wrong email or password"
+      "error": "Wrong username or password",
+      "login": "Username",
+      "login_hint": "Teachers can sign in with their email."
     }
   },
   "problems": {

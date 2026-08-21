@@ -67,7 +67,13 @@ export function makeUsername(
   yearPrefix: string,
   taken: Set<string>,
 ): string {
-  const first = transliterate(fullName.trim().split(/\s+/)[0] || "student");
+  // Mongolian writes the father's name first and the child's own name after
+  // it, so the second word is the one a student thinks of as their name and
+  // the one that belongs in a username. "Түвшинбат Анужин" is Anujin.
+  // A single word is already the given name.
+  const parts = fullName.trim().split(/\s+/).filter(Boolean);
+  const given = parts.length > 1 ? parts[1] : parts[0];
+  const first = transliterate(given || "student");
   const prefix = transliterate(yearPrefix) || "s";
   const base = `${prefix}.${first || "student"}`.slice(0, 20);
 

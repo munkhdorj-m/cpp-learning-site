@@ -15,7 +15,7 @@ export default function LoginPage() {
   const t = useTranslations("auth.login");
   const router = useRouter();
   const [pending, startTransition] = useTransition();
-  const [email, setEmail] = useState("");
+  const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -24,7 +24,7 @@ export default function LoginPage() {
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ login, password }),
       });
       if (!res.ok) {
         toast.error(t("error"));
@@ -48,15 +48,25 @@ export default function LoginPage() {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">{t("email")}</Label>
+              <Label htmlFor="login">{t("login")}</Label>
+              {/* Deliberately not type="email": students sign in with the
+                  username from their slip, and the browser would refuse to
+                  submit one. */}
               <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                id="login"
+                type="text"
+                value={login}
+                onChange={(e) => setLogin(e.target.value)}
                 required
-                autoComplete="email"
+                autoComplete="username"
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
+                placeholder="32.anujin"
               />
+              <p className="text-xs text-muted-foreground">
+                {t("login_hint")}
+              </p>
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">{t("password")}</Label>
