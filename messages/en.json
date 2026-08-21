@@ -14,7 +14,6 @@
     "profile": "Profile",
     "ide": "Code Editor",
     "login": "Log in",
-    "signup": "Sign up",
     "logout": "Log out",
     "teacher": "Teacher panel"
   },
@@ -86,23 +85,7 @@
       "email": "Email",
       "password": "Password",
       "submit": "Log in",
-      "no_account": "Don't have an account?",
-      "signup_link": "Sign up",
       "error": "Wrong email or password"
-    },
-    "signup": {
-      "title": "Sign up",
-      "invite_code": "Invite code",
-      "invite_code_hint": "Get this from your teacher",
-      "username": "Username",
-      "display_name": "Full name",
-      "email": "Email",
-      "password": "Password",
-      "submit": "Create account",
-      "has_account": "Already have an account?",
-      "login_link": "Log in",
-      "invalid_code": "Invalid invite code",
-      "class_will_be": "You will join class {class}"
     }
   },
   "problems": {

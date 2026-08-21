@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { UserPlus, Printer, Eye, Check } from "lucide-react";
 import { toast } from "sonner";
@@ -153,33 +154,81 @@ export function BulkStudentForm({
               Print slips
             </Button>
 
-            {/* Cut-out slips. Only these show when printing. */}
-            <div className="print-slips grid grid-cols-1 gap-2 sm:grid-cols-2">
+            {/* On screen: the slips as a normal part of the card. */}
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               {created.map((s) => (
-                <div
+                <Slip
                   key={s.username}
-                  className="rounded-lg border border-primary/25 p-3"
-                >
-                  <div className="text-sm font-semibold">{s.displayName}</div>
-                  <div className="text-[11px] text-muted-foreground">
-                    {className} · {siteUrl}
-                  </div>
-                  <dl className="mt-1.5 font-mono text-sm">
-                    <div className="flex gap-2">
-                      <dt className="text-muted-foreground">user:</dt>
-                      <dd className="font-bold">{s.username}</dd>
-                    </div>
-                    <div className="flex gap-2">
-                      <dt className="text-muted-foreground">pass:</dt>
-                      <dd className="font-bold">{s.password}</dd>
-                    </div>
-                  </dl>
-                </div>
+                  student={s}
+                  className={className}
+                  siteUrl={siteUrl}
+                />
               ))}
             </div>
+
+            {/* On paper: the same slips, but attached directly to <body> so
+                the print stylesheet can hide every sibling outright. Hiding
+                them in place would leave their space behind as blank pages,
+                and an absolutely positioned sheet lands wherever the nearest
+                positioned ancestor happens to be. */}
+            <PrintSheet>
+              <div className="print-only">
+                {className} · {siteUrl} · {new Date().toLocaleDateString()}
+              </div>
+              <div className="print-slips">
+                {created.map((s) => (
+                  <Slip
+                    key={s.username}
+                    student={s}
+                    className={className}
+                    siteUrl={siteUrl}
+                  />
+                ))}
+              </div>
+            </PrintSheet>
           </div>
         )}
       </CardContent>
     </Card>
+  );
+}
+
+function Slip({
+  student,
+  className,
+  siteUrl,
+}: {
+  student: Generated;
+  className: string;
+  siteUrl: string;
+}) {
+  return (
+    <div className="rounded-lg border border-primary/25 p-3">
+      <div className="text-sm font-semibold">{student.displayName}</div>
+      <div className="text-[11px] text-muted-foreground">
+        {className} · {siteUrl}
+      </div>
+      <dl className="mt-1.5 font-mono text-sm">
+        <div className="flex gap-2">
+          <dt className="text-muted-foreground">user:</dt>
+          <dd className="font-bold">{student.username}</dd>
+        </div>
+        <div className="flex gap-2">
+          <dt className="text-muted-foreground">pass:</dt>
+          <dd className="font-bold">{student.password}</dd>
+        </div>
+      </dl>
+    </div>
+  );
+}
+
+/** Renders its children as a direct child of <body>, for printing only. */
+function PrintSheet({ children }: { children: React.ReactNode }) {
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
+  if (!ready) return null;
+  return createPortal(
+    <div className="print-sheet">{children}</div>,
+    document.body,
   );
 }

@@ -22,7 +22,7 @@ export default async function LandingPage() {
     // Supabase unreachable — show unauthenticated landing page
   }
 
-  const ctaHref = user ? "/today" : "/signup";
+  const ctaHref = user ? "/today" : "/login";
 
   return (
     <div className="space-y-20 py-8 md:py-16">

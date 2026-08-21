@@ -76,12 +76,6 @@ export default function LoginPage() {
             >
               {pending ? "..." : t("submit")}
             </Button>
-            <p className="text-center text-sm text-muted-foreground">
-              {t("no_account")}{" "}
-              <Link href="/signup" className="text-primary hover:underline">
-                {t("signup_link")}
-              </Link>
-            </p>
           </form>
         </CardContent>
       </Card>

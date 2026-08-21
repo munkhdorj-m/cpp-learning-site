@@ -59,15 +59,6 @@ export async function Nav() {
               >
                 {t("login")}
               </Link>
-              <Link
-                href="/signup"
-                className={cn(
-                  buttonVariants({ size: "sm" }),
-                  "whitespace-nowrap font-code",
-                )}
-              >
-                {t("signup")}
-              </Link>
             </div>
           )}
         </div>

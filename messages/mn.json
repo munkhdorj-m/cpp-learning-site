@@ -14,7 +14,6 @@
     "profile": "Профайл",
     "ide": "Код бичих",
     "login": "Нэвтрэх",
-    "signup": "Бүртгүүлэх",
     "logout": "Гарах",
     "teacher": "Багшийн хэсэг"
   },
@@ -86,23 +85,7 @@
       "email": "Имэйл",
       "password": "Нууц үг",
       "submit": "Нэвтрэх",
-      "no_account": "Бүртгэлгүй юу?",
-      "signup_link": "Бүртгүүлэх",
       "error": "Имэйл эсвэл нууц үг буруу байна"
-    },
-    "signup": {
-      "title": "Бүртгүүлэх",
-      "invite_code": "Урилгын код",
-      "invite_code_hint": "Багшаасаа авах",
-      "username": "Хэрэглэгчийн нэр",
-      "display_name": "Бүтэн нэр",
-      "email": "Имэйл",
-      "password": "Нууц үг",
-      "submit": "Бүртгэлээ үүсгэх",
-      "has_account": "Бүртгэлтэй юу?",
-      "login_link": "Нэвтрэх",
-      "invalid_code": "Урилгын код буруу байна",
-      "class_will_be": "Та {class} ангид нэгдэнэ"
     }
   },
   "problems": {
