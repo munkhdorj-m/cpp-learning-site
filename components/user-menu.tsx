@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { LogOut, User } from "lucide-react";
 import { useTransition } from "react";
@@ -33,7 +32,6 @@ export function UserMenu({
   avatarSeed,
 }: UserMenuProps) {
   const t = useTranslations("nav");
-  const router = useRouter();
   const [pending, startTransition] = useTransition();
 
   const avatarUrl = dicebearUrl(avatarSeed);
@@ -41,8 +39,13 @@ export function UserMenu({
   const logout = () => {
     startTransition(async () => {
       await fetch("/api/auth/logout", { method: "POST" });
-      router.refresh();
-      router.push("/");
+      // Not router.push: the avatar, the name and the XP bar all live in the
+      // layout, and a client-side navigation reuses the layout it already has
+      // — so the student who just logged out stays on screen until something
+      // forces a reload. A real page load is also the only way to be sure none
+      // of their data is left in the router cache on a shared computer.
+      // replace(), not assign(), so Back cannot return to their page.
+      window.location.replace("/");
     });
   };
 

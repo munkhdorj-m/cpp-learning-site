@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/server";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 import type { Difficulty } from "@/types/database";
+import { requireTeacher } from "@/lib/auth-helpers";
 
 export const dynamic = "force-dynamic";
 
@@ -20,6 +21,12 @@ const DIFFICULTY_STYLES: Record<Difficulty, string> = {
 };
 
 export default async function TeacherProblemsPage() {
+  // The layout calls this too, but a layout's redirect does not stop
+  // this page rendering: React renders them together, and whatever the
+  // page produced is flushed into the redirect response for anyone who
+  // reads the body instead of following the Location header.
+  await requireTeacher();
+
   const t = await getTranslations("teacher.problems");
   const tDiff = await getTranslations("problems.difficulty");
   const localeRaw = await getLocale();

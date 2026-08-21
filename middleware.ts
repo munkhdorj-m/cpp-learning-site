@@ -8,8 +8,10 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Only run middleware on actual page routes — skip API, static files, and _next internals.
-    // This avoids a Supabase call on every CSS/JS/image/API request.
-    "/((?!api|_next|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|woff2?|ttf|eot|css|js|map)$).*)",
+    // Everything but static assets and Next internals. API routes are included
+    // deliberately: they read the same x-user-id header, so they need the same
+    // header stripped, and a student who is coding rather than clicking around
+    // keeps their session alive through them.
+    "/((?!_next|.*\.(?:svg|png|jpg|jpeg|gif|webp|ico|woff2?|ttf|eot|css|js|map)$).*)",
   ],
 };

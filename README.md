@@ -67,6 +67,7 @@ Create `.env.local` from `.env.local.example` and fill in:
 | --- | --- |
 | `DB_HOST` `DB_PORT` `DB_NAME` `DB_USER` `DB_PASSWORD` | MySQL connection |
 | `AUTH_SECRET` | Long random string used to sign session cookies |
+| `SESSION_IDLE_MINUTES` | How long a session survives with no requests. Default 120. |
 | `JUDGE0_API_URL` `JUDGE0_API_KEY` `JUDGE0_API_HOST` | Judge0 |
 | `TEACHER_INVITE_CODE` | Signup code that creates a teacher account |
 | `NEXT_PUBLIC_SITE_URL` | Public URL, shown on printed login slips |
@@ -74,6 +75,26 @@ Create `.env.local` from `.env.local.example` and fill in:
 To point local development at a *copy* of the server database instead of
 production, put its credentials in `.env.development.local` — that file is
 only read by `npm run dev`.
+
+### Sessions on shared computers
+
+The classroom machines are shared, so a session cookie has no `Expires`: it
+dies when the browser closes. `SESSION_IDLE_MINUTES` is the backstop for
+browsers set to restore their tabs, which hand session cookies back after a
+restart. The window slides while a student is working — reading, submitting,
+anything that reaches the server — so it only runs out on a machine that has
+been left alone. Lower it if you want stricter behaviour; below about 45
+minutes a student could be logged out inside a single lesson.
+
+`scripts/check-auth.mts` covers all of this, plus the authorisation rules the
+teacher pages rely on. Run it against a production build pointed at the dev
+database:
+
+```
+set -a; . ./.env.development.local; set +a
+npx next start -p 3100
+npx tsx scripts/check-auth.mts
+```
 
 ### Database setup
 

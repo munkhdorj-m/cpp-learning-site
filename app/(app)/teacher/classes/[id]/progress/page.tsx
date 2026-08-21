@@ -10,6 +10,7 @@ import { TOPICS } from "@/lib/cambridge";
 import { resolveItem } from "@/lib/progress/items";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 import { cn } from "@/lib/utils";
+import { requireTeacher } from "@/lib/auth-helpers";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Class progress" };
@@ -25,6 +26,12 @@ export default async function ClassProgressPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  // The layout calls this too, but a layout's redirect does not stop
+  // this page rendering: React renders them together, and whatever the
+  // page produced is flushed into the redirect response for anyone who
+  // reads the body instead of following the Location header.
+  await requireTeacher();
+
   const { id } = await params;
   const localeRaw = await getLocale();
   const en = (isLocale(localeRaw) ? localeRaw : DEFAULT_LOCALE) === "en";

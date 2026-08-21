@@ -8,6 +8,7 @@ import { createServiceClient } from "@/lib/supabase/server";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 
 import { AssignmentActions } from "./assignment-actions";
+import { requireTeacher } from "@/lib/auth-helpers";
 
 export const dynamic = "force-dynamic";
 
@@ -16,6 +17,12 @@ export default async function AssignmentDetailPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  // The layout calls this too, but a layout's redirect does not stop
+  // this page rendering: React renders them together, and whatever the
+  // page produced is flushed into the redirect response for anyone who
+  // reads the body instead of following the Location header.
+  await requireTeacher();
+
   const { id } = await params;
   const tGrading = await getTranslations("teacher.assignments.grading");
   const localeRaw = await getLocale();

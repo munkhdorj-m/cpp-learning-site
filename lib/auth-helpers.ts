@@ -1,9 +1,12 @@
+import { cache } from "react";
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
 import type { Tables } from "@/types/database";
 
-export async function getCurrentProfile(): Promise<Tables<"profiles"> | null> {
+// Cached per request: the teacher layout and the teacher page both guard,
+// and that should cost one query, not two.
+export const getCurrentProfile = cache(async (): Promise<Tables<"profiles"> | null> => {
   const supabase = await createClient();
   const {
     data: { user },
@@ -16,7 +19,7 @@ export async function getCurrentProfile(): Promise<Tables<"profiles"> | null> {
     .eq("id", user.id)
     .single();
   return data;
-}
+});
 
 export async function requireTeacher() {
   const profile = await getCurrentProfile();

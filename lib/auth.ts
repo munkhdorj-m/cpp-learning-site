@@ -10,7 +10,7 @@ import {
   signSession,
   verifySession,
   SESSION_COOKIE,
-  SESSION_MAX_AGE,
+  SESSION_COOKIE_OPTIONS,
 } from "@/lib/session";
 
 export async function hashPassword(pw: string): Promise<string> {
@@ -38,16 +38,14 @@ export const getUser = cache(async (): Promise<{ id: string; email: string } | n
 export async function setSession(userId: string, email: string): Promise<void> {
   const token = await signSession({ sub: userId, email });
   const store = await cookies();
-  store.set(SESSION_COOKIE, token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
-    maxAge: SESSION_MAX_AGE,
-  });
+  store.set(SESSION_COOKIE, token, SESSION_COOKIE_OPTIONS);
 }
 
 export async function clearSession(): Promise<void> {
   const store = await cookies();
+  // Overwrite before deleting: the attributes have to match the ones the
+  // cookie was set with, or the browser keeps its own copy and the student
+  // stays logged in.
+  store.set(SESSION_COOKIE, "", { ...SESSION_COOKIE_OPTIONS, maxAge: 0 });
   store.delete(SESSION_COOKIE);
 }

@@ -4,17 +4,58 @@
 
 import { NextResponse, type NextRequest } from "next/server";
 
-import { verifySession, SESSION_COOKIE } from "@/lib/session";
+import {
+  verifySession,
+  signSession,
+  shouldRenew,
+  SESSION_COOKIE,
+  SESSION_COOKIE_OPTIONS,
+} from "@/lib/session";
+
+const USER_HEADER = "x-user-id";
 
 export async function updateSession(request: NextRequest) {
-  const response = NextResponse.next({ request });
+  // getCachedSession() takes x-user-id as proof of who is asking, so this
+  // header has to be ours and nothing else. A browser is free to send any
+  // header it likes, and one arriving with its own copy would be handing
+  // itself an account. Strip it first, then write only what the cookie proves.
+  const headers = new Headers(request.headers);
+  headers.delete(USER_HEADER);
 
   const token = request.cookies.get(SESSION_COOKIE)?.value;
-  if (token) {
-    const payload = await verifySession(token);
-    if (payload?.sub) {
-      response.headers.set("x-user-id", payload.sub);
+  const session = token ? await verifySession(token) : null;
+  if (session) headers.set(USER_HEADER, session.sub);
+
+  const response = NextResponse.next({ request: { headers } });
+
+  // /api/auth/* sets and clears the cookie itself. Touching it here too would
+  // put two Set-Cookie headers for the same name on one response, and logging
+  // in or out would come down to which one the browser read last.
+  const ownsTheCookie = request.nextUrl.pathname.startsWith("/api/auth/");
+
+  if (!ownsTheCookie) {
+    if (session && shouldRenew(session)) {
+      // Slide the idle window forward. A student who is working never falls
+      // out of their session; a machine left alone does.
+      const fresh = await signSession({
+        sub: session.sub,
+        email: session.email,
+      });
+      response.cookies.set(SESSION_COOKIE, fresh, SESSION_COOKIE_OPTIONS);
+    } else if (token && !session) {
+      // Expired or tampered with — clear it so the next request is honestly
+      // anonymous instead of carrying a dead token around.
+      response.cookies.set(SESSION_COOKIE, "", {
+        ...SESSION_COOKIE_OPTIONS,
+        maxAge: 0,
+      });
     }
+  }
+
+  if (session) {
+    // Shared classroom machines: after one student logs out, the back button
+    // must not paint the next student a cached page with the old name on it.
+    response.headers.set("Cache-Control", "no-store, must-revalidate");
   }
 
   return response;
