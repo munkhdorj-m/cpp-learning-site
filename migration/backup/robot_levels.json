@@ -1,0 +1,165 @@
+[
+  {
+    "id": "lvl1",
+    "course": "basics",
+    "name_mn": "asd",
+    "name_en": "asd",
+    "hint_mn": "asd",
+    "hint_en": "asd",
+    "width": 8,
+    "height": 8,
+    "layout": [
+      "..#.....",
+      "...##...",
+      "....#...",
+      "........",
+      "..#RT#..",
+      "..#.TT..",
+      "....TT..",
+      "#.EE##.."
+    ],
+    "robot_x": 3,
+    "robot_y": 4,
+    "robot_dir": 2,
+    "targets": [
+      {
+        "x": 2,
+        "y": 7
+      },
+      {
+        "x": 3,
+        "y": 7
+      }
+    ],
+    "dangers": [
+      {
+        "x": 4,
+        "y": 4
+      },
+      {
+        "x": 4,
+        "y": 5
+      },
+      {
+        "x": 5,
+        "y": 5
+      },
+      {
+        "x": 4,
+        "y": 6
+      },
+      {
+        "x": 5,
+        "y": 6
+      }
+    ],
+    "palette": [
+      "move_forward",
+      "turn_left",
+      "turn_right",
+      "light"
+    ],
+    "max_blocks": 10,
+    "xp_reward": 20,
+    "created_by": "fdfdf1fb-7f4f-47e2-90a0-0bec46880260",
+    "created_at": "2026-07-06T13:40:10.194579+00:00",
+    "updated_at": "2026-07-10T13:55:39.104+00:00",
+    "hints_mn": [],
+    "hints_en": []
+  },
+  {
+    "id": "cust2",
+    "course": "master",
+    "name_mn": "test2",
+    "name_en": "test2",
+    "hint_mn": "",
+    "hint_en": "",
+    "width": 8,
+    "height": 8,
+    "layout": [
+      "RT...#E#",
+      ".#.#.#.#",
+      ".#.#.#.#",
+      ".#.#.#.#",
+      ".#.#.#.#",
+      ".#.#.#.#",
+      ".#.#.#.#",
+      "...#...#"
+    ],
+    "robot_x": 0,
+    "robot_y": 0,
+    "robot_dir": 2,
+    "targets": [
+      {
+        "x": 6,
+        "y": 0
+      }
+    ],
+    "dangers": [
+      {
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "palette": [
+      "move_forward",
+      "turn_left",
+      "turn_right",
+      "light"
+    ],
+    "max_blocks": 10,
+    "xp_reward": 20,
+    "created_by": "fdfdf1fb-7f4f-47e2-90a0-0bec46880260",
+    "created_at": "2026-07-10T13:56:55.7705+00:00",
+    "updated_at": "2026-07-10T15:18:25.973+00:00",
+    "hints_mn": [],
+    "hints_en": []
+  },
+  {
+    "id": "maze-01",
+    "course": "basics",
+    "name_mn": "Эхний алхам",
+    "name_en": "First Step",
+    "hint_mn": "Урагшаа нэг алхаад өндөг ав.",
+    "hint_en": "Walk forward once and pick the egg.",
+    "width": 8,
+    "height": 8,
+    "layout": [
+      "########",
+      "########",
+      "########",
+      "###R####",
+      "###E####",
+      "########",
+      "########",
+      "########"
+    ],
+    "robot_x": 3,
+    "robot_y": 3,
+    "robot_dir": 2,
+    "targets": [
+      {
+        "x": 3,
+        "y": 4
+      }
+    ],
+    "dangers": [],
+    "palette": [
+      "move_forward",
+      "light"
+    ],
+    "max_blocks": 4,
+    "xp_reward": 5,
+    "created_by": "fdfdf1fb-7f4f-47e2-90a0-0bec46880260",
+    "created_at": "2026-07-12T00:49:39.535664+00:00",
+    "updated_at": "2026-07-12T00:49:39.535664+00:00",
+    "hints_mn": [
+      "Хоёр блок л хэрэгтэй: `move forward` дараа нь `pick egg`.",
+      "Робот урагшаа харсан байгаа — `move forward`-г нэг удаа тавь."
+    ],
+    "hints_en": [
+      "You only need two blocks: `move forward` then `pick egg`.",
+      "The robot already faces the egg — drop one `move forward`."
+    ]
+  }
+]

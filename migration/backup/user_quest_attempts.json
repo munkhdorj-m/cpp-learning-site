@@ -1,0 +1,26 @@
+[
+  {
+    "user_id": "fdfdf1fb-7f4f-47e2-90a0-0bec46880260",
+    "quest_id": "e9a164e1-88b3-4b94-85f5-fc18b5f64e4e",
+    "was_correct": true,
+    "user_answer": "3.5",
+    "xp_awarded": 10,
+    "answered_at": "2026-06-17T00:52:48.066896+00:00"
+  },
+  {
+    "user_id": "382d1849-f94f-45b5-beb1-d0d3961791d5",
+    "quest_id": "008f3d9c-af60-4d5e-9ab1-6acfad2c6b7a",
+    "was_correct": false,
+    "user_answer": "2",
+    "xp_awarded": 0,
+    "answered_at": "2026-06-17T00:54:13.290507+00:00"
+  },
+  {
+    "user_id": "382d1849-f94f-45b5-beb1-d0d3961791d5",
+    "quest_id": "f684e3ce-d031-480d-b4ed-22bed2bdb12e",
+    "was_correct": false,
+    "user_answer": "ddd",
+    "xp_awarded": 0,
+    "answered_at": "2026-06-17T10:51:08.146292+00:00"
+  }
+]

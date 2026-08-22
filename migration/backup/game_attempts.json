@@ -1,0 +1,20 @@
+[
+  {
+    "user_id": "382d1849-f94f-45b5-beb1-d0d3961791d5",
+    "day": "2026-06-17",
+    "score": 203,
+    "xp_awarded": 60,
+    "plays": 1,
+    "best_combo": 23,
+    "played_at": "2026-06-17T11:07:10.94511+00:00"
+  },
+  {
+    "user_id": "fdfdf1fb-7f4f-47e2-90a0-0bec46880260",
+    "day": "2026-07-06",
+    "score": 306,
+    "xp_awarded": 60,
+    "plays": 2,
+    "best_combo": 33,
+    "played_at": "2026-07-06T08:20:38.454+00:00"
+  }
+]

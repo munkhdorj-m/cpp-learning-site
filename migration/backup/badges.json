@@ -1,0 +1,200 @@
+[
+  {
+    "id": "640d1008-453c-4d3c-ad2b-7990d5360999",
+    "code": "first_solve",
+    "name_mn": "Анхны бодолт",
+    "name_en": "First Solve",
+    "description_mn": "Эхний бодлогоо шийдсэн",
+    "description_en": "Solved your first problem",
+    "icon": "Sparkles",
+    "color": "amber",
+    "created_at": "2026-06-16T12:37:01.495865+00:00"
+  },
+  {
+    "id": "cb10e407-2c96-4ee1-afad-d16eb812290f",
+    "code": "streak_7",
+    "name_mn": "7 хоног дараалан",
+    "name_en": "7-Day Streak",
+    "description_mn": "7 хоног дараалан бодлого шийдсэн",
+    "description_en": "7 days in a row",
+    "icon": "Flame",
+    "color": "orange",
+    "created_at": "2026-06-16T12:37:01.495865+00:00"
+  },
+  {
+    "id": "e783daac-bae3-47d9-83a9-9e60ae1262a1",
+    "code": "streak_30",
+    "name_mn": "30 хоног дараалан",
+    "name_en": "30-Day Streak",
+    "description_mn": "30 хоног дараалан бодлого шийдсэн",
+    "description_en": "30 days in a row",
+    "icon": "Flame",
+    "color": "red",
+    "created_at": "2026-06-16T12:37:01.495865+00:00"
+  },
+  {
+    "id": "a02b3282-c249-4b76-8891-cc6d017b5d79",
+    "code": "ten_solved",
+    "name_mn": "10 бодлого",
+    "name_en": "Ten Solved",
+    "description_mn": "10 бодлого шийдсэн",
+    "description_en": "Solved 10 problems",
+    "icon": "Trophy",
+    "color": "amber",
+    "created_at": "2026-06-16T12:37:01.495865+00:00"
+  },
+  {
+    "id": "7e21ef8c-d6a7-4787-a3d5-297aef841715",
+    "code": "fifty_solved",
+    "name_mn": "50 бодлого",
+    "name_en": "Fifty Solved",
+    "description_mn": "50 бодлого шийдсэн",
+    "description_en": "Solved 50 problems",
+    "icon": "Trophy",
+    "color": "yellow",
+    "created_at": "2026-06-16T12:37:01.495865+00:00"
+  },
+  {
+    "id": "7bdd6682-f097-4d9b-9789-ff3baa7fc280",
+    "code": "hundred_solved",
+    "name_mn": "100 бодлого",
+    "name_en": "Hundred Solved",
+    "description_mn": "100 бодлого шийдсэн",
+    "description_en": "Solved 100 problems",
+    "icon": "Crown",
+    "color": "yellow",
+    "created_at": "2026-06-16T12:37:01.495865+00:00"
+  },
+  {
+    "id": "b603a481-15af-4066-ac98-10f1ebc1a256",
+    "code": "first_hard",
+    "name_mn": "Анхны хэцүү",
+    "name_en": "First Hard",
+    "description_mn": "Эхний хэцүү бодлого шийдсэн",
+    "description_en": "Solved your first Hard problem",
+    "icon": "Mountain",
+    "color": "rose",
+    "created_at": "2026-06-16T12:37:01.495865+00:00"
+  },
+  {
+    "id": "9f54a96a-ae71-4902-b9d9-0ddfa03207e2",
+    "code": "first_try",
+    "name_mn": "Нэг л оролдлогоор",
+    "name_en": "First Try",
+    "description_mn": "Эхний илгээлтээр шийдсэн",
+    "description_en": "Accepted on first submission",
+    "icon": "Target",
+    "color": "emerald",
+    "created_at": "2026-06-16T12:37:01.495865+00:00"
+  },
+  {
+    "id": "72ef2633-69cd-4137-bd2d-8fdac7fc4924",
+    "code": "class_champion",
+    "name_mn": "Танхимын аварга",
+    "name_en": "Class Champion",
+    "description_mn": "7 хоног танхимын тэргүүлэгч байсан",
+    "description_en": "Top of class leaderboard for a week",
+    "icon": "Medal",
+    "color": "violet",
+    "created_at": "2026-06-16T12:37:01.495865+00:00"
+  },
+  {
+    "id": "03c59cea-188b-4a2b-80f3-47f91b14dba1",
+    "code": "quest_10",
+    "name_mn": "10 даалгавар",
+    "name_en": "Ten Quests",
+    "description_mn": "10 даалгавар амжилттай гүйцэтгэсэн",
+    "description_en": "Completed 10 quests",
+    "icon": "Target",
+    "color": "violet",
+    "created_at": "2026-06-17T00:46:40.825616+00:00"
+  },
+  {
+    "id": "012470fc-5fc2-46f8-a223-9ff1aae9977c",
+    "code": "quest_50",
+    "name_mn": "50 даалгавар",
+    "name_en": "Fifty Quests",
+    "description_mn": "50 даалгавар амжилттай гүйцэтгэсэн",
+    "description_en": "Completed 50 quests",
+    "icon": "Target",
+    "color": "amber",
+    "created_at": "2026-06-17T00:46:40.825616+00:00"
+  },
+  {
+    "id": "e97f0102-a99b-48b1-84ba-452a96890a71",
+    "code": "quest_perfect_day",
+    "name_mn": "Төгс өдөр",
+    "name_en": "Perfect Day",
+    "description_mn": "Өдрийн бүх даалгаврыг алдаагүй",
+    "description_en": "All daily quests correct, no mistakes",
+    "icon": "Sparkles",
+    "color": "yellow",
+    "created_at": "2026-06-17T00:46:40.825616+00:00"
+  },
+  {
+    "id": "e97a13d3-9528-46c4-af4a-38b65db1ca65",
+    "code": "first_smash",
+    "name_mn": "Анхны цохилт",
+    "name_en": "First Smash",
+    "description_mn": "Анхны Bug Smash тоглолтоо тоглосон",
+    "description_en": "Played your first Bug Smash game",
+    "icon": "Target",
+    "color": "violet",
+    "created_at": "2026-06-17T11:05:36.094046+00:00"
+  },
+  {
+    "id": "186a312d-8af4-4d69-a72a-f17f1b6c9b6c",
+    "code": "smash_100",
+    "name_mn": "100 цохилт",
+    "name_en": "Smash Master",
+    "description_mn": "Bug Smash тоглоомд 100+ XP цуглуулсан",
+    "description_en": "Earned 100+ XP from Bug Smash",
+    "icon": "Trophy",
+    "color": "amber",
+    "created_at": "2026-06-17T11:05:36.094046+00:00"
+  },
+  {
+    "id": "4dfa6261-12c6-48e1-96c1-b85323a0484c",
+    "code": "smash_combo",
+    "name_mn": "Дөрвөн дараалан",
+    "name_en": "Combo Master",
+    "description_mn": "Bug Smash тоглоомд 10+ дараалан цохисон",
+    "description_en": "10+ smash combo in Bug Smash",
+    "icon": "Sparkles",
+    "color": "rose",
+    "created_at": "2026-06-17T11:05:36.094046+00:00"
+  },
+  {
+    "id": "89eb2785-ee64-4662-bef0-f7bea80902d1",
+    "code": "robot_3",
+    "name_mn": "Эхний 3 түвшин",
+    "name_en": "Robot Apprentice",
+    "description_mn": "Robot Programmer-ийн 3 түвшинг шийдсэн",
+    "description_en": "Solved 3 robot levels",
+    "icon": "Target",
+    "color": "violet",
+    "created_at": "2026-06-17T11:21:58.615413+00:00"
+  },
+  {
+    "id": "0c6a368f-1000-413c-9b0a-0151e8928839",
+    "code": "robot_all",
+    "name_mn": "Бүх түвшин",
+    "name_en": "Robot Master",
+    "description_mn": "Robot Programmer-ийн бүх түвшинг шийдсэн",
+    "description_en": "Solved every robot level",
+    "icon": "Crown",
+    "color": "amber",
+    "created_at": "2026-06-17T11:21:58.615413+00:00"
+  },
+  {
+    "id": "694fd00b-fe6c-46fa-9989-85604c1d3ee7",
+    "code": "robot_short",
+    "name_mn": "Богино шийдэл",
+    "name_en": "Short Solution",
+    "description_mn": "5-аас цөөн зааврар түвшин шийдсэн",
+    "description_en": "Solved a level in 5 instructions or fewer",
+    "icon": "Sparkles",
+    "color": "emerald",
+    "created_at": "2026-06-17T11:21:58.615413+00:00"
+  }
+]

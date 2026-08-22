@@ -1,0 +1,34 @@
+[
+  {
+    "id": "382d1849-f94f-45b5-beb1-d0d3961791d5",
+    "username": "test1",
+    "display_name": "Test",
+    "role": "student",
+    "class_id": "87fa8647-3805-4f3f-a055-fb7661cb4769",
+    "xp": 215,
+    "level": 3,
+    "problems_solved": 4,
+    "streak_days": 2,
+    "last_solve_date": "2026-06-17",
+    "avatar_seed": "a769b5b4-ae67-4000-83c4-40587a14e8f1",
+    "preferred_locale": "mn",
+    "created_at": "2026-06-16T13:16:19.727234+00:00",
+    "updated_at": "2026-06-17T11:26:13.821653+00:00"
+  },
+  {
+    "id": "fdfdf1fb-7f4f-47e2-90a0-0bec46880260",
+    "username": "munkhdorj",
+    "display_name": "Munkhdorj Munkhbaatar",
+    "role": "teacher",
+    "class_id": null,
+    "xp": 245,
+    "level": 3,
+    "problems_solved": 1,
+    "streak_days": 1,
+    "last_solve_date": "2026-07-13",
+    "avatar_seed": "f9efdc83-5e13-49c5-ab5d-b9529fcd43f0",
+    "preferred_locale": "mn",
+    "created_at": "2026-06-16T12:43:24.489892+00:00",
+    "updated_at": "2026-07-13T16:46:16.850857+00:00"
+  }
+]

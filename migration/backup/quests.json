@@ -1,0 +1,878 @@
+[
+  {
+    "id": "2fd4a7a5-4d03-4c1e-9739-b996c74ff0c8",
+    "slug": "po-hello",
+    "type": "predict_output",
+    "prompt_mn": "Дараах код юу хэвлэх вэ?",
+    "prompt_en": "What does this code print?",
+    "code_snippet": "cout << \"Hello\" << \" \" << \"World\";",
+    "choices_mn": null,
+    "choices_en": null,
+    "correct_answer": "Hello World",
+    "explanation_mn": "``<<`` оператор нь зүүнээс баруун тийш дараалан хэвлэнэ.",
+    "explanation_en": "The << operator chains outputs left to right.",
+    "difficulty": "easy",
+    "xp_reward": 5,
+    "tags": [
+      "io"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "1f8043aa-f1da-4880-a300-f1ed945e10bc",
+    "slug": "po-add",
+    "type": "predict_output",
+    "prompt_mn": "Энэ кодын гаралт?",
+    "prompt_en": "What does this print?",
+    "code_snippet": "int a = 5, b = 3;\ncout << a + b;",
+    "choices_mn": null,
+    "choices_en": null,
+    "correct_answer": "8",
+    "explanation_mn": "a болон b-ийн нийлбэр.",
+    "explanation_en": "Sum of a and b.",
+    "difficulty": "easy",
+    "xp_reward": 5,
+    "tags": [
+      "math"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "68b8c6ec-7bc9-4dc1-a02a-8d2a641a1206",
+    "slug": "po-int-div",
+    "type": "predict_output",
+    "prompt_mn": "Энэ кодын гаралт?",
+    "prompt_en": "What does this print?",
+    "code_snippet": "cout << 7 / 2;",
+    "choices_mn": null,
+    "choices_en": null,
+    "correct_answer": "3",
+    "explanation_mn": "Бүхэл тооны хуваалт бутархайг өгөхгүй. 7 / 2 = 3 (үлдэгдэл 1).",
+    "explanation_en": "Integer division drops the fraction. 7 / 2 = 3 (remainder 1).",
+    "difficulty": "easy",
+    "xp_reward": 5,
+    "tags": [
+      "math"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "e9a164e1-88b3-4b94-85f5-fc18b5f64e4e",
+    "slug": "po-double-div",
+    "type": "predict_output",
+    "prompt_mn": "Гаралт нь?",
+    "prompt_en": "Output?",
+    "code_snippet": "cout << 7.0 / 2;",
+    "choices_mn": null,
+    "choices_en": null,
+    "correct_answer": "3.5",
+    "explanation_mn": "Хамгийн бага нэг операнд double бол үр дүн нь double.",
+    "explanation_en": "If at least one operand is double, the result is double.",
+    "difficulty": "medium",
+    "xp_reward": 10,
+    "tags": [
+      "math",
+      "types"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "ce111cb9-1292-4eeb-aa83-ca6a57ff2485",
+    "slug": "po-modulo",
+    "type": "predict_output",
+    "prompt_mn": "Гаралт нь?",
+    "prompt_en": "Output?",
+    "code_snippet": "cout << 17 % 5;",
+    "choices_mn": null,
+    "choices_en": null,
+    "correct_answer": "2",
+    "explanation_mn": "17 = 3 * 5 + 2, тиймээс үлдэгдэл нь 2.",
+    "explanation_en": "17 = 3 * 5 + 2, so the remainder is 2.",
+    "difficulty": "easy",
+    "xp_reward": 5,
+    "tags": [
+      "math"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "9c0f67c8-99b0-4f7d-b579-ef074425db85",
+    "slug": "po-postfix",
+    "type": "predict_output",
+    "prompt_mn": "Гаралт нь?",
+    "prompt_en": "Output?",
+    "code_snippet": "int x = 10;\ncout << x++;\ncout << \" \";\ncout << x;",
+    "choices_mn": null,
+    "choices_en": null,
+    "correct_answer": "10 11",
+    "explanation_mn": "Постфикс ``x++`` хуучин утгыг хэвлээд дараа нь нэмэгдүүлнэ.",
+    "explanation_en": "Postfix x++ prints the old value, then increments.",
+    "difficulty": "medium",
+    "xp_reward": 10,
+    "tags": [
+      "operators"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "03d34aa9-f705-483b-8515-95aa384c9526",
+    "slug": "po-prefix",
+    "type": "predict_output",
+    "prompt_mn": "Гаралт нь?",
+    "prompt_en": "Output?",
+    "code_snippet": "int x = 10;\ncout << ++x;\ncout << \" \";\ncout << x;",
+    "choices_mn": null,
+    "choices_en": null,
+    "correct_answer": "11 11",
+    "explanation_mn": "Префикс ``++x`` эхлээд нэмэгдүүлж дараа нь утгыг хэвлэнэ.",
+    "explanation_en": "Prefix ++x increments first, then prints the new value.",
+    "difficulty": "medium",
+    "xp_reward": 10,
+    "tags": [
+      "operators"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "6c33f6bd-fa21-42cf-86f9-ff6be4a2cf16",
+    "slug": "po-for",
+    "type": "predict_output",
+    "prompt_mn": "Гаралт нь?",
+    "prompt_en": "Output?",
+    "code_snippet": "for (int i = 0; i < 4; i++)\n    cout << i;",
+    "choices_mn": null,
+    "choices_en": null,
+    "correct_answer": "0123",
+    "explanation_mn": "0-ээс эхлээд 4-өөс бага хүртэл буюу 0,1,2,3.",
+    "explanation_en": "From 0 up to (not including) 4: 0, 1, 2, 3.",
+    "difficulty": "easy",
+    "xp_reward": 5,
+    "tags": [
+      "loops"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "95c1043a-b302-4bb0-9f74-ba2883df2cc4",
+    "slug": "po-while-sumdig",
+    "type": "predict_output",
+    "prompt_mn": "Гаралт нь?",
+    "prompt_en": "Output?",
+    "code_snippet": "int n = 1234;\nint sum = 0;\nwhile (n > 0) {\n    sum += n % 10;\n    n /= 10;\n}\ncout << sum;",
+    "choices_mn": null,
+    "choices_en": null,
+    "correct_answer": "10",
+    "explanation_mn": "1+2+3+4 = 10. Цифрүүдийн нийлбэрийг олно.",
+    "explanation_en": "1+2+3+4 = 10. Computes the digit sum.",
+    "difficulty": "medium",
+    "xp_reward": 10,
+    "tags": [
+      "loops"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "ef4cf327-6e3b-459a-bdd0-f7ed7eeb2ef1",
+    "slug": "po-string-len",
+    "type": "predict_output",
+    "prompt_mn": "Гаралт нь?",
+    "prompt_en": "Output?",
+    "code_snippet": "string s = \"merhaba\";\ncout << s.length();",
+    "choices_mn": null,
+    "choices_en": null,
+    "correct_answer": "7",
+    "explanation_mn": "merhaba нь 7 үсэгтэй.",
+    "explanation_en": "\"merhaba\" has 7 characters.",
+    "difficulty": "easy",
+    "xp_reward": 5,
+    "tags": [
+      "strings"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "f684e3ce-d031-480d-b4ed-22bed2bdb12e",
+    "slug": "po-logic",
+    "type": "predict_output",
+    "prompt_mn": "Гаралт нь?",
+    "prompt_en": "Output?",
+    "code_snippet": "cout << (5 > 3 && 2 < 1);",
+    "choices_mn": null,
+    "choices_en": null,
+    "correct_answer": "0",
+    "explanation_mn": "``&&`` нь хоёулаа үнэн байх ёстой. 2 < 1 худал тул нийт худал = 0.",
+    "explanation_en": "&& needs both sides true. 2 < 1 is false, so the whole thing is 0.",
+    "difficulty": "medium",
+    "xp_reward": 10,
+    "tags": [
+      "logic"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "17cb99a3-007b-488c-8fac-96af15cd45dc",
+    "slug": "po-char-arith",
+    "type": "predict_output",
+    "prompt_mn": "Гаралт нь?",
+    "prompt_en": "Output?",
+    "code_snippet": "char c = 'C';\ncout << (int)(c - 'A');",
+    "choices_mn": null,
+    "choices_en": null,
+    "correct_answer": "2",
+    "explanation_mn": "``'C' - 'A'`` нь ASCII кодуудын зөрөө = 2.",
+    "explanation_en": "'C' - 'A' is the difference in ASCII codes = 2.",
+    "difficulty": "medium",
+    "xp_reward": 10,
+    "tags": [
+      "types"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "63d60af2-d83a-4b87-b8a4-7095d3036288",
+    "slug": "po-nested",
+    "type": "predict_output",
+    "prompt_mn": "Гаралт нь?",
+    "prompt_en": "Output?",
+    "code_snippet": "int x = 0;\nfor (int i = 0; i < 3; i++)\n    for (int j = 0; j < 2; j++)\n        x++;\ncout << x;",
+    "choices_mn": null,
+    "choices_en": null,
+    "correct_answer": "6",
+    "explanation_mn": "3 × 2 = 6 удаа давталт явагдана.",
+    "explanation_en": "3 × 2 = 6 iterations.",
+    "difficulty": "medium",
+    "xp_reward": 10,
+    "tags": [
+      "loops"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "d255ede6-1c17-4ece-8dd7-5e980da6b867",
+    "slug": "po-array-sum",
+    "type": "predict_output",
+    "prompt_mn": "Гаралт нь?",
+    "prompt_en": "Output?",
+    "code_snippet": "int a[] = {1, 2, 3, 4, 5};\nint sum = 0;\nfor (int i = 0; i < 5; i++) sum += a[i];\ncout << sum;",
+    "choices_mn": null,
+    "choices_en": null,
+    "correct_answer": "15",
+    "explanation_mn": "1+2+3+4+5 = 15.",
+    "explanation_en": "1+2+3+4+5 = 15.",
+    "difficulty": "easy",
+    "xp_reward": 5,
+    "tags": [
+      "arrays"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "5e96f2d7-316c-4626-9ea6-3ee90124b2b3",
+    "slug": "po-ifelse",
+    "type": "predict_output",
+    "prompt_mn": "Гаралт нь?",
+    "prompt_en": "Output?",
+    "code_snippet": "int x = 10;\nif (x > 5) cout << \"big\";\nelse cout << \"small\";",
+    "choices_mn": null,
+    "choices_en": null,
+    "correct_answer": "big",
+    "explanation_mn": "10 > 5 үнэн.",
+    "explanation_en": "10 > 5 is true.",
+    "difficulty": "easy",
+    "xp_reward": 5,
+    "tags": [
+      "conditionals"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "15157ddf-e7d6-4862-9661-f09b4cbd96be",
+    "slug": "bh-semicolon",
+    "type": "bug_hunt",
+    "prompt_mn": "Аль мөрөнд алдаа байна вэ?",
+    "prompt_en": "Which line has the bug?",
+    "code_snippet": "1| int a = 5\n2| int b = 3;\n3| cout << a + b;\n4| return 0;",
+    "choices_mn": [
+      "Мөр 1",
+      "Мөр 2",
+      "Мөр 3",
+      "Мөр 4"
+    ],
+    "choices_en": [
+      "Line 1",
+      "Line 2",
+      "Line 3",
+      "Line 4"
+    ],
+    "correct_answer": "0",
+    "explanation_mn": "1-р мөрийн төгсгөлд ``;`` дутуу.",
+    "explanation_en": "Line 1 is missing a semicolon at the end.",
+    "difficulty": "easy",
+    "xp_reward": 5,
+    "tags": [
+      "syntax"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "066f66a9-23ca-4f6a-ac13-8fa5650790e7",
+    "slug": "bh-equals",
+    "type": "bug_hunt",
+    "prompt_mn": "Аль мөрөнд алдаа байна вэ?",
+    "prompt_en": "Which line has the bug?",
+    "code_snippet": "1| int x = 10;\n2| if (x = 5) {\n3|     cout << \"five\";\n4| }",
+    "choices_mn": [
+      "Мөр 1",
+      "Мөр 2",
+      "Мөр 3",
+      "Мөр 4"
+    ],
+    "choices_en": [
+      "Line 1",
+      "Line 2",
+      "Line 3",
+      "Line 4"
+    ],
+    "correct_answer": "1",
+    "explanation_mn": "2-р мөр ``=`` (оноох) гэснийг ``==`` (тэнцүү үү) гэх ёстой.",
+    "explanation_en": "Line 2 uses = (assignment) instead of == (equality check).",
+    "difficulty": "medium",
+    "xp_reward": 10,
+    "tags": [
+      "operators"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "4edc79ef-9876-4fc2-ac46-0a207e4f7a4f",
+    "slug": "bh-off-by-one",
+    "type": "bug_hunt",
+    "prompt_mn": "Аль мөрөнд алдаа байна вэ? (Массивын хэмжээ 5)",
+    "prompt_en": "Which line has the bug? (array size is 5)",
+    "code_snippet": "1| int a[5] = {1,2,3,4,5};\n2| int sum = 0;\n3| for (int i = 0; i <= 5; i++)\n4|     sum += a[i];",
+    "choices_mn": [
+      "Мөр 1",
+      "Мөр 2",
+      "Мөр 3",
+      "Мөр 4"
+    ],
+    "choices_en": [
+      "Line 1",
+      "Line 2",
+      "Line 3",
+      "Line 4"
+    ],
+    "correct_answer": "2",
+    "explanation_mn": "3-р мөрөнд ``i <= 5`` нь массивын хязгаараас гарна. ``i < 5`` байх ёстой.",
+    "explanation_en": "Line 3 uses i <= 5 which reads past the array. Should be i < 5.",
+    "difficulty": "medium",
+    "xp_reward": 10,
+    "tags": [
+      "arrays",
+      "loops"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "839f0e07-74ea-4b8b-8022-88b20b61262b",
+    "slug": "bh-missing-return",
+    "type": "bug_hunt",
+    "prompt_mn": "Аль мөрөнд алдаа байна вэ?",
+    "prompt_en": "Which line has the bug?",
+    "code_snippet": "1| int square(int n) {\n2|     int r = n * n;\n3| }\n4| int main() { cout << square(4); }",
+    "choices_mn": [
+      "Мөр 1",
+      "Мөр 2",
+      "Мөр 3",
+      "Мөр 4"
+    ],
+    "choices_en": [
+      "Line 1",
+      "Line 2",
+      "Line 3",
+      "Line 4"
+    ],
+    "correct_answer": "2",
+    "explanation_mn": "3-р мөрөнд ``return r;`` дутуу. Функц үр дүн буцаах ёстой.",
+    "explanation_en": "Line 3 is missing return r;. The function must return its result.",
+    "difficulty": "medium",
+    "xp_reward": 10,
+    "tags": [
+      "functions"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "8d8c2cd0-48f1-4a4b-9277-bc8e1a407b5b",
+    "slug": "bh-wrong-var",
+    "type": "bug_hunt",
+    "prompt_mn": "Аль мөрөнд алдаа байна вэ?",
+    "prompt_en": "Which line has the bug?",
+    "code_snippet": "1| int x = 5;\n2| int y = 10;\n3| int sum = x + z;\n4| cout << sum;",
+    "choices_mn": [
+      "Мөр 1",
+      "Мөр 2",
+      "Мөр 3",
+      "Мөр 4"
+    ],
+    "choices_en": [
+      "Line 1",
+      "Line 2",
+      "Line 3",
+      "Line 4"
+    ],
+    "correct_answer": "2",
+    "explanation_mn": "3-р мөрөнд ``z`` гэсэн хувьсагч зарлагдаагүй. ``y`` байх ёстой.",
+    "explanation_en": "Line 3 references z which was never declared. Should be y.",
+    "difficulty": "easy",
+    "xp_reward": 5,
+    "tags": [
+      "syntax"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "7094660a-04d1-478a-a58a-f0a0b66293b2",
+    "slug": "bh-include",
+    "type": "bug_hunt",
+    "prompt_mn": "Аль мөрөнд алдаа байна вэ?",
+    "prompt_en": "Which line has the bug?",
+    "code_snippet": "1| #include <iostream>\n2| using namespace std;\n3| int main() {\n4|     string s = \"hi\";\n5|     cout << s;\n6| }",
+    "choices_mn": [
+      "Мөр 1",
+      "Мөр 2",
+      "Мөр 3",
+      "Мөр 4"
+    ],
+    "choices_en": [
+      "Line 1",
+      "Line 2",
+      "Line 3",
+      "Line 4"
+    ],
+    "correct_answer": "3",
+    "explanation_mn": "``string`` ашиглахын тулд ``#include <string>`` нэмэх ёстой.",
+    "explanation_en": "Using std::string requires #include <string>.",
+    "difficulty": "hard",
+    "xp_reward": 15,
+    "tags": [
+      "headers"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "b12d186d-8d7c-4f98-ac9f-db4056eb329f",
+    "slug": "bh-while",
+    "type": "bug_hunt",
+    "prompt_mn": "Аль мөрөнд алдаа байна вэ?",
+    "prompt_en": "Which line has the bug?",
+    "code_snippet": "1| int i = 0;\n2| while (i < 5) {\n3|     cout << i;\n4| }",
+    "choices_mn": [
+      "Мөр 1",
+      "Мөр 2",
+      "Мөр 3",
+      "Мөр 4"
+    ],
+    "choices_en": [
+      "Line 1",
+      "Line 2",
+      "Line 3",
+      "Line 4"
+    ],
+    "correct_answer": "2",
+    "explanation_mn": "3-р мөрөнд ``i++`` дутсан тул мөнхийн давталт болно.",
+    "explanation_en": "Line 3 is missing i++ — this loop will never terminate.",
+    "difficulty": "medium",
+    "xp_reward": 10,
+    "tags": [
+      "loops"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "b423fc0a-8ec3-4e1e-9eb1-c96af853d33a",
+    "slug": "bh-cin",
+    "type": "bug_hunt",
+    "prompt_mn": "Аль мөрөнд алдаа байна вэ?",
+    "prompt_en": "Which line has the bug?",
+    "code_snippet": "1| int n;\n2| cin >> n;\n3| for (i = 0; i < n; i++)\n4|     cout << i;",
+    "choices_mn": [
+      "Мөр 1",
+      "Мөр 2",
+      "Мөр 3",
+      "Мөр 4"
+    ],
+    "choices_en": [
+      "Line 1",
+      "Line 2",
+      "Line 3",
+      "Line 4"
+    ],
+    "correct_answer": "2",
+    "explanation_mn": "3-р мөрөнд ``i``-г зарлаагүй. ``int i`` гэх ёстой.",
+    "explanation_en": "Line 3 uses i without declaring it. Should be int i.",
+    "difficulty": "easy",
+    "xp_reward": 5,
+    "tags": [
+      "syntax"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "c77af4b0-9458-4cfa-a81f-e4e056c7ed02",
+    "slug": "mc-header-io",
+    "type": "multiple_choice",
+    "prompt_mn": "cin ба cout-г ашиглахад аль header-ийг ``#include`` хийх вэ?",
+    "prompt_en": "Which header is needed for cin and cout?",
+    "code_snippet": null,
+    "choices_mn": [
+      "<iostream>",
+      "<cmath>",
+      "<vector>",
+      "<string>"
+    ],
+    "choices_en": [
+      "<iostream>",
+      "<cmath>",
+      "<vector>",
+      "<string>"
+    ],
+    "correct_answer": "0",
+    "explanation_mn": "``<iostream>`` нь ``cin``/``cout``-ийг агуулна.",
+    "explanation_en": "<iostream> provides cin and cout.",
+    "difficulty": "easy",
+    "xp_reward": 5,
+    "tags": [
+      "headers"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "008f3d9c-af60-4d5e-9ab1-6acfad2c6b7a",
+    "slug": "mc-bignum",
+    "type": "multiple_choice",
+    "prompt_mn": "10^18 хүртэлх бүхэл тоонд аль төрөл тохиромжтой вэ?",
+    "prompt_en": "Which type holds integers up to 10^18?",
+    "code_snippet": null,
+    "choices_mn": [
+      "int",
+      "long long",
+      "double",
+      "short"
+    ],
+    "choices_en": [
+      "int",
+      "long long",
+      "double",
+      "short"
+    ],
+    "correct_answer": "1",
+    "explanation_mn": "``int`` нь зөвхөн ~2 × 10^9 хүртэл, ``long long`` ~9 × 10^18 хүртэл.",
+    "explanation_en": "int only goes up to ~2 × 10^9; long long up to ~9 × 10^18.",
+    "difficulty": "easy",
+    "xp_reward": 5,
+    "tags": [
+      "types"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "3416b28b-6702-4166-a63b-61d4baba6182",
+    "slug": "mc-modulo-op",
+    "type": "multiple_choice",
+    "prompt_mn": "``%`` оператор юу хийдэг вэ?",
+    "prompt_en": "What does the % operator do?",
+    "code_snippet": null,
+    "choices_mn": [
+      "Хуваалт",
+      "Үржвэр",
+      "Үлдэгдэл (модуль)",
+      "Зэрэг"
+    ],
+    "choices_en": [
+      "Division",
+      "Multiplication",
+      "Remainder (modulo)",
+      "Power"
+    ],
+    "correct_answer": "2",
+    "explanation_mn": "Хуваалтын үлдэгдэл (модуль) тооцоолно.",
+    "explanation_en": "Computes the remainder of division (modulo).",
+    "difficulty": "easy",
+    "xp_reward": 5,
+    "tags": [
+      "operators"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "0e8bfb74-cc50-4f73-a8f0-34fe7a24ead2",
+    "slug": "mc-precedence",
+    "type": "multiple_choice",
+    "prompt_mn": "Аль оператор давамгай (өндөр түрүүлэх эрхтэй) вэ?",
+    "prompt_en": "Which operator has higher precedence?",
+    "code_snippet": null,
+    "choices_mn": [
+      "*",
+      "+",
+      "=",
+      "<"
+    ],
+    "choices_en": [
+      "*",
+      "+",
+      "=",
+      "<"
+    ],
+    "correct_answer": "0",
+    "explanation_mn": "``*`` нь ``+``-ээс түрүүлж бодогддог.",
+    "explanation_en": "* binds tighter than + (multiplication before addition).",
+    "difficulty": "easy",
+    "xp_reward": 5,
+    "tags": [
+      "operators"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "dcb43ae9-b62d-48a9-9a9a-e35882c5495f",
+    "slug": "mc-div-mixed",
+    "type": "multiple_choice",
+    "prompt_mn": "``int / double``-ийн үр дүн ямар төрөлд буух вэ?",
+    "prompt_en": "What is the result type of int / double?",
+    "code_snippet": null,
+    "choices_mn": [
+      "int",
+      "double",
+      "char",
+      "bool"
+    ],
+    "choices_en": [
+      "int",
+      "double",
+      "char",
+      "bool"
+    ],
+    "correct_answer": "1",
+    "explanation_mn": "Аль нэг операнд double бол үр дүн double болно.",
+    "explanation_en": "If either operand is double, the result is double.",
+    "difficulty": "medium",
+    "xp_reward": 10,
+    "tags": [
+      "types"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "f309f961-6460-4624-aa82-011ec4fd2fdb",
+    "slug": "mc-char-size",
+    "type": "multiple_choice",
+    "prompt_mn": "``char``-ийн хэмжээ хэдэн байт вэ?",
+    "prompt_en": "How many bytes is a char?",
+    "code_snippet": null,
+    "choices_mn": [
+      "1",
+      "2",
+      "4",
+      "системээс шалтгаална"
+    ],
+    "choices_en": [
+      "1",
+      "2",
+      "4",
+      "depends on system"
+    ],
+    "correct_answer": "0",
+    "explanation_mn": "Стандартаар ``char`` нь үргэлж 1 байт.",
+    "explanation_en": "A char is always 1 byte by definition.",
+    "difficulty": "easy",
+    "xp_reward": 5,
+    "tags": [
+      "types"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "5127a5bc-1ae2-4cd3-b7fb-fa1a3199f316",
+    "slug": "mc-bool",
+    "type": "multiple_choice",
+    "prompt_mn": "``bool``-ийн боломжит утгууд?",
+    "prompt_en": "Possible values of bool?",
+    "code_snippet": null,
+    "choices_mn": [
+      "Зөвхөн 0",
+      "-1, 0, 1",
+      "true, false",
+      "any integer"
+    ],
+    "choices_en": [
+      "Only 0",
+      "-1, 0, 1",
+      "true, false",
+      "any integer"
+    ],
+    "correct_answer": "2",
+    "explanation_mn": "``bool`` нь ``true`` эсвэл ``false`` хоёр л утгатай.",
+    "explanation_en": "bool has exactly two values: true and false.",
+    "difficulty": "easy",
+    "xp_reward": 5,
+    "tags": [
+      "types"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "2cf207dc-6c5f-4931-8dfd-c9129f849f8c",
+    "slug": "mc-using-ns",
+    "type": "multiple_choice",
+    "prompt_mn": "``using namespace std;`` юу хийдэг вэ?",
+    "prompt_en": "What does \"using namespace std;\" do?",
+    "code_snippet": null,
+    "choices_mn": [
+      "``std`` нэрсийн зайн агуулгыг импортолно",
+      "``std::`` угтварыг хэрэгсэхгүй болгоно",
+      "Шинэ функц нэмнэ",
+      "Кодыг хурдасгана"
+    ],
+    "choices_en": [
+      "Imports everything from the std namespace",
+      "Lets you skip the std:: prefix",
+      "Adds new functions",
+      "Makes code run faster"
+    ],
+    "correct_answer": "1",
+    "explanation_mn": "Зөвхөн ``std::`` угтварыг бичихгүй байх боломж өгнө. Шинэ функц нэмэхгүй.",
+    "explanation_en": "Lets you skip the std:: prefix. Does not add new functions.",
+    "difficulty": "medium",
+    "xp_reward": 10,
+    "tags": [
+      "syntax"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  },
+  {
+    "id": "ffde9bc7-cb9a-4950-80f6-aabace1917ab",
+    "slug": "mc-const",
+    "type": "multiple_choice",
+    "prompt_mn": "Тогтмол утга зарлахад аль түлхүүр үг хэрэгтэй вэ?",
+    "prompt_en": "Which keyword declares a constant?",
+    "code_snippet": null,
+    "choices_mn": [
+      "const",
+      "static",
+      "final",
+      "readonly"
+    ],
+    "choices_en": [
+      "const",
+      "static",
+      "final",
+      "readonly"
+    ],
+    "correct_answer": "0",
+    "explanation_mn": "``const`` нь утгыг өөрчилж болохгүй гэдгийг хорлоно.",
+    "explanation_en": "const tells the compiler the value must not be changed.",
+    "difficulty": "easy",
+    "xp_reward": 5,
+    "tags": [
+      "syntax"
+    ],
+    "is_active": true,
+    "created_by": null,
+    "created_at": "2026-06-17T00:50:38.104983+00:00",
+    "updated_at": "2026-06-17T00:50:38.104983+00:00"
+  }
+]
