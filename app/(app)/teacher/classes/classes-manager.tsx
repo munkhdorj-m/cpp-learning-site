@@ -39,10 +39,20 @@ import {
   regenerateInviteCode,
 } from "@/app/actions/classes";
 
+
+
+import {
+  TAUGHT_GRADES,
+  SECTIONS,
+  gradeOptionLabel,
+  stageFor,
+  suggestedClassName,
+} from "@/lib/school";
+
 interface Item {
   id: string;
   name: string;
-  grade: 7 | 8;
+  grade: number;
   invite_code: string;
   students: number;
 }
@@ -66,7 +76,7 @@ interface Labels {
 type DialogMode =
   | { kind: "closed" }
   | { kind: "create" }
-  | { kind: "edit"; id: string; initial: { name: string; grade: 7 | 8 } };
+  | { kind: "edit"; id: string; initial: { name: string; grade: number } };
 
 export function ClassesManager({
   items,
@@ -77,18 +87,30 @@ export function ClassesManager({
 }) {
   const [mode, setMode] = useState<DialogMode>({ kind: "closed" });
   const [name, setName] = useState("");
-  const [grade, setGrade] = useState<"7" | "8">("7");
+  const [grade, setGrade] = useState<string>("7");
+  const [section, setSection] = useState<string>("A");
   const [pending, startTransition] = useTransition();
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
   const openCreate = () => {
-    setName("");
     setGrade("7");
+    setSection("A");
+    setName(suggestedClassName(7, "A"));
     setMode({ kind: "create" });
+  };
+
+  // Grade decides the stage, so it also decides the usual class name.
+  const pickGrade = (g: string) => {
+    setGrade(g);
+    setName(suggestedClassName(Number(g), section));
+  };
+  const pickSection = (sec: string) => {
+    setSection(sec);
+    setName(suggestedClassName(Number(grade), sec));
   };
   const openEdit = (item: Item) => {
     setName(item.name);
-    setGrade(item.grade === 7 ? "7" : "8");
+    setGrade(String(item.grade));
     setMode({ kind: "edit", id: item.id, initial: { name: item.name, grade: item.grade } });
   };
   const closeDialog = () => setMode({ kind: "closed" });
@@ -99,7 +121,7 @@ export function ClassesManager({
       if (mode.kind === "edit") {
         const res = await updateClass(mode.id, {
           name: name.trim(),
-          grade: grade === "7" ? 7 : 8,
+          grade: Number(grade),
         });
         if ("error" in res) {
           toast.error(res.error);
@@ -137,7 +159,9 @@ export function ClassesManager({
   const handleDelete = (item: Item) => {
     if (
       !confirm(
-        `Delete class "${item.name}"? Students will be unassigned. This cannot be undone.`,
+        `Delete class "${item.name}"?
+
+Its students are NOT deleted — they move to "No class" at the bottom of this page, where you can reassign or remove them.`,
       )
     )
       return;
@@ -158,7 +182,7 @@ export function ClassesManager({
           <DialogTrigger
             render={
               <Button
-                className="bg-violet-600 text-white hover:bg-violet-700"
+                className="font-code"
                 size="sm"
                 onClick={openCreate}
               >
@@ -186,22 +210,46 @@ export function ClassesManager({
               </div>
               <div className="space-y-1.5">
                 <Label>{labels.grade}</Label>
-                <Select value={grade} onValueChange={(v) => v && setGrade(v as "7" | "8")}>
+                <Select value={grade} onValueChange={(v) => v && pickGrade(v)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="7">7</SelectItem>
-                    <SelectItem value="8">8</SelectItem>
+                    {TAUGHT_GRADES.map((g) => (
+                      <SelectItem key={g} value={String(g)}>
+                        {gradeOptionLabel(g)}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
+              {/* Only lower secondary is split into sections. */}
+              {stageFor(Number(grade)).hasSections && (
+                <div className="space-y-1.5">
+                  <Label>Section</Label>
+                  <Select
+                    value={section}
+                    onValueChange={(v) => v && pickSection(v)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {SECTIONS.map((sec) => (
+                        <SelectItem key={sec} value={sec}>
+                          {sec}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
             </div>
             <DialogFooter>
               <Button
                 onClick={handleSubmit}
                 disabled={pending || !name.trim()}
-                className="bg-violet-600 text-white hover:bg-violet-700"
+                className="font-code"
               >
                 {mode.kind === "edit" ? "Save" : labels.create_button}
               </Button>

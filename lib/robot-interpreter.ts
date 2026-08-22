@@ -26,12 +26,22 @@ export interface InterpreterState {
   y: number;
   dir: Direction;
   lit: Set<string>;
+  /** Stars picked up so far (tile keys). */
+  collected: Set<string>;
+  /** Keys picked up. Any key opens every door on the level. */
+  keys: number;
+  /** Live positions of patrolling hazards, index-matched to grid.movers. */
+  movers: { x: number; y: number; dx: number; dy: number }[];
 }
 
 type PrimitiveResult =
   | { kind: "ok" }
   | { kind: "blocked" }
   | { kind: "danger" }
+  | { kind: "locked" }
+  | { kind: "collect"; key: string }
+  | { kind: "key"; key: string }
+  | { kind: "portal"; key: string }
   | { kind: "light"; key: string }
   | { kind: "step"; primitive: Primitive }
   | { kind: "done" };
@@ -48,8 +58,14 @@ export interface GridContext {
   width: number;
   height: number;
   walls: Set<string>;
-  dangers: Set<string>; // TNT tiles
+  dangers: Set<string>; // bomb tiles
   targets: Set<string>; // egg tiles (used by repeat_until_target)
+  stars?: Set<string>; // collectibles
+  keys?: Set<string>; // key pickups
+  doors?: Set<string>; // locked until a key is held
+  /** Portal tile keys, paired in order: 0↔1, 2↔3, … */
+  portals?: { x: number; y: number }[];
+  movers?: { x: number; y: number; axis: "h" | "v" }[];
 }
 
 const MAX_STEPS = 500;
@@ -71,6 +87,15 @@ export class RobotInterpreter {
       y: initial.y,
       dir: initial.dir,
       lit: new Set(initial.lit),
+      collected: new Set(initial.collected ?? []),
+      keys: initial.keys ?? 0,
+      // Movers start heading right (horizontal) or up (vertical) and bounce.
+      movers: (grid.movers ?? []).map((m) => ({
+        x: m.x,
+        y: m.y,
+        dx: m.axis === "h" ? 1 : 0,
+        dy: m.axis === "v" ? 1 : 0,
+      })),
     };
     this.grid = grid;
   }
@@ -135,8 +160,12 @@ export class RobotInterpreter {
         const prim = instr.type;
         const result = this._applyPrimitive(prim);
         this.stepsRun++;
-        if (result.kind === "blocked" || result.kind === "danger") {
-          return result; // stop immediately on crash/explosion
+        if (
+          result.kind === "blocked" ||
+          result.kind === "danger" ||
+          result.kind === "locked"
+        ) {
+          return result; // stop immediately on crash / explosion / locked door
         }
         return { kind: "step", primitive: prim };
       }
@@ -198,33 +227,128 @@ export class RobotInterpreter {
         return { kind: "blocked" };
       }
 
-      // TNT hazard
+      // A locked door blocks the way until the robot is carrying a key.
+      if (this.grid.doors?.has(key) && this.state.keys <= 0) {
+        return { kind: "locked" };
+      }
+
+      // Bomb hazard
       if (this.grid.dangers.has(key)) {
         this.state.x = nx;
         this.state.y = ny;
         return { kind: "danger" };
       }
 
-      // Safe move
+      const fromX = this.state.x;
+      const fromY = this.state.y;
       this.state.x = nx;
       this.state.y = ny;
+
+      // Patrolling hazards advance on every move; touching one is fatal.
+      // Walking straight into one:
+      if (this._moverAt(nx, ny)) return { kind: "danger" };
+      const before = this.state.movers.map((m) => ({ x: m.x, y: m.y }));
+      this._advanceMovers();
+      // A hazard stepped onto the robot:
+      if (this._moverAt(nx, ny)) return { kind: "danger" };
+      // Or they swapped tiles — without this they'd slide through each other.
+      const swapped = this.state.movers.some(
+        (m, i) =>
+          before[i].x === nx &&
+          before[i].y === ny &&
+          m.x === fromX &&
+          m.y === fromY,
+      );
+      if (swapped) return { kind: "danger" };
+
+      // Portals teleport to their partner (pairs in layout order).
+      const portals = this.grid.portals ?? [];
+      const idx = portals.findIndex((p) => p.x === nx && p.y === ny);
+      if (idx >= 0) {
+        const partner = portals[idx % 2 === 0 ? idx + 1 : idx - 1];
+        if (partner) {
+          this.state.x = partner.x;
+          this.state.y = partner.y;
+          return { kind: "portal", key: `${partner.x},${partner.y}` };
+        }
+      }
+
+      // Pickups — collected by walking over them.
+      if (this.grid.keys?.has(key) && !this.state.collected.has(key)) {
+        this.state.collected.add(key);
+        this.state.keys += 1;
+        return { kind: "key", key };
+      }
+      if (this.grid.stars?.has(key) && !this.state.collected.has(key)) {
+        this.state.collected.add(key);
+        return { kind: "collect", key };
+      }
+
       return { kind: "ok" };
     }
 
+    // Turning and lighting also take a tick, so hazards keep patrolling and
+    // a turn can be used to wait for one to pass.
     if (p === "left") {
       this.state.dir = ((this.state.dir + 3) % 4) as Direction;
-      return { kind: "ok" };
+      this._advanceMovers();
+      return this._moverAt(this.state.x, this.state.y)
+        ? { kind: "danger" }
+        : { kind: "ok" };
     }
 
     if (p === "right") {
       this.state.dir = ((this.state.dir + 1) % 4) as Direction;
-      return { kind: "ok" };
+      this._advanceMovers();
+      return this._moverAt(this.state.x, this.state.y)
+        ? { kind: "danger" }
+        : { kind: "ok" };
     }
 
     // light
     const key = `${this.state.x},${this.state.y}`;
     this.state.lit.add(key);
+    this._advanceMovers();
+    if (this._moverAt(this.state.x, this.state.y)) return { kind: "danger" };
     return { kind: "light", key };
+  }
+
+  /** Step every patrolling hazard one tile, reversing at walls/edges. */
+  private _advanceMovers(): void {
+    for (const m of this.state.movers) {
+      const nx = m.x + m.dx;
+      const ny = m.y + m.dy;
+      const blocked =
+        nx < 0 ||
+        ny < 0 ||
+        nx >= this.grid.width ||
+        ny >= this.grid.height ||
+        this.grid.walls.has(`${nx},${ny}`);
+      if (blocked) {
+        // Bounce and move the other way on this same tick.
+        m.dx = -m.dx;
+        m.dy = -m.dy;
+        const bx = m.x + m.dx;
+        const by = m.y + m.dy;
+        const stillBlocked =
+          bx < 0 ||
+          by < 0 ||
+          bx >= this.grid.width ||
+          by >= this.grid.height ||
+          this.grid.walls.has(`${bx},${by}`);
+        if (!stillBlocked) {
+          m.x = bx;
+          m.y = by;
+        }
+      } else {
+        m.x = nx;
+        m.y = ny;
+      }
+    }
+  }
+
+  private _moverAt(x: number, y: number): boolean {
+    return this.state.movers.some((m) => m.x === x && m.y === y);
   }
 
   private _pathAhead(): boolean {
@@ -233,7 +357,10 @@ export class RobotInterpreter {
     const ny = this.state.y + dy;
     if (nx < 0 || ny < 0 || nx >= this.grid.width || ny >= this.grid.height)
       return false;
-    if (this.grid.walls.has(`${nx},${ny}`)) return false;
+    const key = `${nx},${ny}`;
+    if (this.grid.walls.has(key)) return false;
+    // A door the robot can't open counts as no path.
+    if (this.grid.doors?.has(key) && this.state.keys <= 0) return false;
     return true;
   }
 

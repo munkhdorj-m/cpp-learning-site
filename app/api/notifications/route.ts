@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
   if (action === "mark_read" && notification_id) {
     const { error } = await supabase
       .from("notifications")
-      .update({ read: true })
+      .update({ is_read: true })
       .eq("id", notification_id)
       .eq("user_id", user.id);
 
@@ -53,9 +53,9 @@ export async function POST(req: NextRequest) {
   if (action === "mark_all_read") {
     const { error } = await supabase
       .from("notifications")
-      .update({ read: true })
+      .update({ is_read: true })
       .eq("user_id", user.id)
-      .eq("read", false);
+      .eq("is_read", false);
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 500 });

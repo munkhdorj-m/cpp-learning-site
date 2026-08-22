@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { LogOut, User } from "lucide-react";
 import { useTransition } from "react";
@@ -17,7 +16,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { createClient } from "@/lib/supabase/client";
 import { dicebearUrl, initials } from "@/lib/avatars";
 
 interface UserMenuProps {
@@ -34,17 +32,20 @@ export function UserMenu({
   avatarSeed,
 }: UserMenuProps) {
   const t = useTranslations("nav");
-  const router = useRouter();
   const [pending, startTransition] = useTransition();
 
   const avatarUrl = dicebearUrl(avatarSeed);
 
   const logout = () => {
     startTransition(async () => {
-      const supabase = createClient();
-      await supabase.auth.signOut();
-      router.refresh();
-      router.push("/");
+      await fetch("/api/auth/logout", { method: "POST" });
+      // Not router.push: the avatar, the name and the XP bar all live in the
+      // layout, and a client-side navigation reuses the layout it already has
+      // — so the student who just logged out stays on screen until something
+      // forces a reload. A real page load is also the only way to be sure none
+      // of their data is left in the router cache on a shared computer.
+      // replace(), not assign(), so Back cannot return to their page.
+      window.location.replace("/");
     });
   };
 

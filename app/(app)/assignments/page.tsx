@@ -85,7 +85,13 @@ export default async function StudentAssignmentsPage() {
 
   return (
     <div className="space-y-6 max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold">{t("assignments")}</h1>
+      <div className="space-y-1">
+        <div className="hud-label flex items-center gap-2">
+          <span className="text-primary">//</span>
+          ASSIGNMENTS
+        </div>
+        <h1 className="text-3xl font-bold">{t("assignments")}</h1>
+      </div>
 
       <Section title="Идэвхтэй" items={live} locale={locale} progress={progress} accent />
       <Section title="Удахгүй" items={upcoming} locale={locale} progress={progress} />

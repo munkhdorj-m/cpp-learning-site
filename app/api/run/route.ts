@@ -1,14 +1,16 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-import { Judge0RateLimitError, runOnce } from "@/lib/judge0";
+import { JudgeRateLimitError, runOnce } from "@/lib/judge";
 import { createClient } from "@/lib/supabase/server";
+import { toLanguage } from "@/lib/languages";
 
 export const maxDuration = 30;
 
 const schema = z.object({
   code: z.string().min(1).max(100_000),
   stdin: z.string().max(100_000).default(""),
+  language: z.string().optional(),
 });
 
 export async function POST(request: Request) {
@@ -28,10 +30,11 @@ export async function POST(request: Request) {
     const result = await runOnce({
       source: parsed.data.code,
       stdin: parsed.data.stdin,
+      language: toLanguage(parsed.data.language),
     });
     return NextResponse.json(result);
   } catch (err) {
-    if (err instanceof Judge0RateLimitError) {
+    if (err instanceof JudgeRateLimitError) {
       return NextResponse.json({ error: "rate_limited" }, { status: 429 });
     }
     return NextResponse.json({ error: "judge_error" }, { status: 500 });

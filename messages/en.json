@@ -1,26 +1,25 @@
 {
   "app": {
-    "name": "CPP Judge",
-    "tagline": "Learn C++ programming through problem solving"
+    "name": "ХаСү CS",
+    "tagline": "Learn programming through problem solving"
   },
   "nav": {
     "problems": "Problems",
     "leaderboard": "Leaderboard",
     "assignments": "Assignments",
     "contests": "Contests",
-    "game": "Game",
-    "robot": "Robot",
+    "game": "Games",
+    "robot": "Find the Egg",
     "quests": "Quests",
     "profile": "Profile",
     "ide": "Code Editor",
     "login": "Log in",
-    "signup": "Sign up",
     "logout": "Log out",
     "teacher": "Teacher panel"
   },
   "robot": {
-    "title": "Robot Programmer",
-    "subtitle": "Stack instructions and run the robot. Light up every target.",
+    "title": "Find the Egg",
+    "subtitle": "Stack instructions and guide the robot to every egg.",
     "progress": "Progress",
     "level": "Level",
     "queue": "Instructions",
@@ -45,7 +44,7 @@
     "subtitle": "Pick a game to play"
   },
   "bug_smash": {
-    "title": "Bug Smash",
+    "title": "Debug",
     "subtitle": "Squash the bugs — chain quick clicks for combo bonuses",
     "score": "Score",
     "time": "Time",
@@ -75,7 +74,7 @@
     "type_multiple_choice": "Multiple choice"
   },
   "landing": {
-    "hero_title": "Learn C++ by solving problems",
+    "hero_title": "Learn programming by solving problems",
     "hero_subtitle": "Earn XP, climb the leaderboard, and challenge your classmates",
     "get_started": "Get started",
     "have_account": "Already have an account? Log in"
@@ -83,26 +82,11 @@
   "auth": {
     "login": {
       "title": "Log in",
-      "email": "Email",
       "password": "Password",
       "submit": "Log in",
-      "no_account": "Don't have an account?",
-      "signup_link": "Sign up",
-      "error": "Wrong email or password"
-    },
-    "signup": {
-      "title": "Sign up",
-      "invite_code": "Invite code",
-      "invite_code_hint": "Get this from your teacher",
-      "username": "Username",
-      "display_name": "Full name",
-      "email": "Email",
-      "password": "Password",
-      "submit": "Create account",
-      "has_account": "Already have an account?",
-      "login_link": "Log in",
-      "invalid_code": "Invalid invite code",
-      "class_will_be": "You will join class {class}"
+      "error": "Wrong username or password",
+      "login": "Username",
+      "login_hint": "Teachers can sign in with their email."
     }
   },
   "problems": {
@@ -154,7 +138,7 @@
   },
   "ide": {
     "title": "Online code editor",
-    "subtitle": "Write C++ and run it instantly",
+    "subtitle": "Write C++ or Python and run it instantly",
     "stdin": "Input (stdin)",
     "stdout": "Output (stdout)",
     "stderr": "Errors (stderr)",

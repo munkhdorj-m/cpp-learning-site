@@ -4,15 +4,12 @@ import { Trophy } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 
-import { StreakFlame } from "@/components/animations/streak-flame";
-
 interface XpBarProps {
   xp: number;
   level: number;
-  streakDays: number;
 }
 
-export function XpBar({ xp, level, streakDays }: XpBarProps) {
+export function XpBar({ xp, level }: XpBarProps) {
   const t = useTranslations("profile");
   const currentLevelXp = (level - 1) ** 2 * 50;
   const nextLevelXp = level ** 2 * 50;
@@ -56,15 +53,6 @@ export function XpBar({ xp, level, streakDays }: XpBarProps) {
           <span className="text-primary/70"> {t("xp")}</span>
         </span>
       </div>
-      {streakDays > 0 && (
-        <div
-          className="hud-chip"
-          style={{ ["--glow" as string]: "var(--neon-pink)" }}
-        >
-          <StreakFlame className="h-3.5 w-3.5" />
-          <span className="tabular-nums">{streakDays}</span>
-        </div>
-      )}
     </div>
   );
 }

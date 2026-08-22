@@ -7,7 +7,8 @@ import { createClient } from "@/lib/supabase/server";
 import { getCachedSession } from "@/lib/get-session";
 import { dicebearUrl, initials } from "@/lib/avatars";
 
-export const revalidate = 300; // ISR: serve cached page for 5min — reduces Tokyo round-trips
+// Render fresh from the local MySQL DB (fast — no external round-trips).
+export const dynamic = "force-dynamic";
 
 export default async function LeaderboardPage() {
   const t = await getTranslations("leaderboard");

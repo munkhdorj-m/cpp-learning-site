@@ -4,6 +4,12 @@ import dynamic from "next/dynamic";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
+import {
+  LANGUAGES,
+  DEFAULT_LANGUAGE,
+  type LanguageId,
+} from "@/lib/languages";
+
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), {
   ssr: false,
   loading: () => (
@@ -13,20 +19,13 @@ const MonacoEditor = dynamic(() => import("@monaco-editor/react"), {
   ),
 });
 
-export const STARTER_CPP = `#include <bits/stdc++.h>
-using namespace std;
-
-int main() {
-
-    return 0;
-}
-`;
-
 interface CodeEditorProps {
   value: string;
   onChange: (value: string) => void;
   height?: string | number;
   readOnly?: boolean;
+  /** Which syntax to highlight. Defaults to C++. */
+  language?: LanguageId;
 }
 
 export function CodeEditor({
@@ -34,6 +33,7 @@ export function CodeEditor({
   onChange,
   height = "100%",
   readOnly = false,
+  language = DEFAULT_LANGUAGE,
 }: CodeEditorProps) {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -45,7 +45,7 @@ export function CodeEditor({
   return (
     <MonacoEditor
       height={height}
-      language="cpp"
+      language={LANGUAGES[language].monaco}
       theme={monacoTheme}
       value={value}
       onChange={(v) => onChange(v ?? "")}

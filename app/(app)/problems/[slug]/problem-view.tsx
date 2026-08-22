@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import {
@@ -13,15 +13,22 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
-import confetti from "canvas-confetti";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CodeEditor, STARTER_CPP } from "@/components/code-editor";
+import { CodeEditor } from "@/components/code-editor";
+import { LanguagePicker } from "@/components/language-picker";
+import {
+  LANGUAGES,
+  DEFAULT_LANGUAGE,
+  toLanguage,
+  type LanguageId,
+} from "@/lib/languages";
 import { Markdown } from "@/components/markdown";
 import { VerdictBadge } from "@/components/verdict-badge";
 import { cn } from "@/lib/utils";
+import { celebrate } from "@/lib/celebrate";
 import type { Difficulty, Verdict } from "@/types/database";
 
 interface Problem {
@@ -89,21 +96,6 @@ interface SubmissionResult {
   new_badges?: RewardedBadge[];
 }
 
-function fireConfetti() {
-  // Two bursts, fired from slightly different points for a fuller spray.
-  const defaults = {
-    spread: 70,
-    ticks: 200,
-    gravity: 0.9,
-    startVelocity: 35,
-    decay: 0.92,
-    scalar: 1.05,
-    colors: ["#a78bfa", "#f59e0b", "#10b981", "#ec4899", "#3b82f6"],
-  };
-  confetti({ ...defaults, particleCount: 60, origin: { x: 0.3, y: 0.7 } });
-  confetti({ ...defaults, particleCount: 60, origin: { x: 0.7, y: 0.7 } });
-}
-
 const DIFFICULTY_STYLES: Record<Difficulty, string> = {
   easy: "bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-900",
   medium:
@@ -132,8 +124,33 @@ export function ProblemView({
   const locale = useLocale();
   const router = useRouter();
 
-  const [code, setCode] = useState(STARTER_CPP);
+  // Remember the language between problems so a Python student isn't reset
+  // to C++ on every page.
+  const [language, setLanguage] = useState<LanguageId>(DEFAULT_LANGUAGE);
+  const [code, setCode] = useState(LANGUAGES[DEFAULT_LANGUAGE].starter);
   const [result, setResult] = useState<SubmissionResult | null>(null);
+
+  useEffect(() => {
+    const saved = toLanguage(window.localStorage.getItem("preferred-language"));
+    setLanguage(saved);
+    setCode(LANGUAGES[saved].starter);
+  }, []);
+
+  const changeLanguage = (next: LanguageId) => {
+    // Only replace the editor contents if it is still untouched boilerplate.
+    setCode((current) =>
+      current.trim() === "" || current === LANGUAGES[language].starter
+        ? LANGUAGES[next].starter
+        : current,
+    );
+    setLanguage(next);
+    setResult(null);
+    try {
+      window.localStorage.setItem("preferred-language", next);
+    } catch {
+      // Private mode — the choice just won't be remembered.
+    }
+  };
   const [pending, startTransition] = useTransition();
 
   // Solved = accepted in a past submission, or accepted just now this session.
@@ -147,7 +164,7 @@ export function ProblemView({
       const res = await fetch("/api/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ problem_id: problem.id, code }),
+        body: JSON.stringify({ problem_id: problem.id, code, language }),
       });
       if (!res.ok) {
         if (res.status === 429) {
@@ -160,7 +177,7 @@ export function ProblemView({
       const data = (await res.json()) as SubmissionResult;
       setResult(data);
       if (data.verdict === "accepted") {
-        fireConfetti();
+        celebrate({ intensity: 2 });
         toast.success(tVerdict("accepted"));
         // Re-render server components so the nav XP bar shows the new value
         router.refresh();
@@ -259,23 +276,29 @@ export function ProblemView({
 
         {samples.length > 0 && (
           <div className="space-y-2">
-            <h2 className="font-semibold">{labels.samples}</h2>
+            <h2 className="hud-label flex items-center gap-2">
+              <span className="text-primary">//</span>
+              {labels.samples}
+              <span className="h-px flex-1 bg-gradient-to-r from-primary/25 to-transparent" />
+            </h2>
             {samples.map((s, i) => (
               <Card key={i}>
-                <CardContent className="p-3 grid grid-cols-2 gap-3">
+                <CardContent className="grid grid-cols-2 gap-3 p-3">
                   <div>
-                    <div className="text-xs font-medium text-muted-foreground mb-1">
+                    <div className="mb-1 font-code text-[10px] tracking-widest text-muted-foreground">
+                      {"> "}
                       {labels.sample_input}
                     </div>
-                    <pre className="font-mono text-xs bg-muted rounded p-2 whitespace-pre-wrap">
+                    <pre className="whitespace-pre-wrap rounded border border-primary/15 bg-[oklch(0.16_0.02_264)] p-2 font-mono text-xs text-primary">
                       {s.stdin}
                     </pre>
                   </div>
                   <div>
-                    <div className="text-xs font-medium text-muted-foreground mb-1">
+                    <div className="mb-1 font-code text-[10px] tracking-widest text-neon-lime">
+                      {"> "}
                       {labels.sample_output}
                     </div>
-                    <pre className="font-mono text-xs bg-muted rounded p-2 whitespace-pre-wrap">
+                    <pre className="whitespace-pre-wrap rounded border border-neon-lime/25 bg-[oklch(0.16_0.02_264)] p-2 font-mono text-xs text-neon-lime">
                       {s.expected_stdout}
                     </pre>
                   </div>
@@ -289,6 +312,13 @@ export function ProblemView({
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <h2 className="font-semibold">{labels.your_solution}</h2>
+          <div className="ml-auto mr-2">
+            <LanguagePicker
+              value={language}
+              onChange={changeLanguage}
+              disabled={pending}
+            />
+          </div>
           <Button
             onClick={submit}
             disabled={pending}
@@ -302,7 +332,7 @@ export function ProblemView({
 
         <Card className="overflow-hidden">
           <div className="h-[500px]">
-            <CodeEditor value={code} onChange={setCode} />
+            <CodeEditor value={code} onChange={setCode} language={language} />
           </div>
         </Card>
 
@@ -412,8 +442,10 @@ export function ProblemView({
 function Section({ title, body }: { title: string; body: string }) {
   return (
     <div className="space-y-1.5">
-      <h2 className="font-semibold text-xs uppercase tracking-wide text-muted-foreground">
+      <h2 className="hud-label flex items-center gap-2">
+        <span className="text-primary">//</span>
         {title}
+        <span className="h-px flex-1 bg-gradient-to-r from-primary/25 to-transparent" />
       </h2>
       <Markdown>{body}</Markdown>
     </div>

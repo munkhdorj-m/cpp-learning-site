@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { createClient, createServiceClient } from "@/lib/supabase/server";
+import { addXp } from "@/lib/gamification";
 
 // Daily cap so kids can't farm XP infinitely. The game is meant to be a
 // supplement to real problem solving, not the main XP source.
@@ -71,7 +72,7 @@ export async function POST(request: Request) {
         best_combo: newCombo,
         xp_awarded: previousXp + xpToAdd,
         plays: existing.plays + 1,
-        played_at: new Date().toISOString(),
+        played_at: new Date(),
       })
       .eq("user_id", user.id)
       .eq("day", day);
@@ -87,6 +88,9 @@ export async function POST(request: Request) {
     });
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   }
+
+  // Award XP (was the on_game_attempt trigger).
+  if (xpToAdd > 0) await addXp(user.id, xpToAdd);
 
   // Badge awards (idempotent)
   const totalEarned = previousXp + xpToAdd;

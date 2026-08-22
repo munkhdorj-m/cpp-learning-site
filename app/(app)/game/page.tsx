@@ -5,7 +5,7 @@ import { Bot, Trophy, ChevronRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata = {
-  title: "Тоглоомууд",
+  title: "Games",
 };
 
 export default async function GameHubPage() {

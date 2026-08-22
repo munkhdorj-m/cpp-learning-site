@@ -6,9 +6,9 @@ import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 
 import { ProblemsList } from "./problems-list";
 
-// Problems rarely change — cache at Vercel edge for 1 hour.
+// Render fresh from the local MySQL DB (fast — no external round-trips).
 // Solved status is fetched client-side to keep the page shareable across users.
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 // Also deduplicate within a single request via React cache.
 // Without this, if layout + page both call Supabase, each call creates

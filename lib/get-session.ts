@@ -1,43 +1,26 @@
-﻿import { cache } from "react";
+import { cache } from "react";
 import { headers } from "next/headers";
 
+import { getUser } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 
 /**
- * Cached session getter.
- *
- * Fast path: Middleware verifies the JWT and sets x-user-id header.
- *   getCachedSession() reads that header - no extra Supabase round-trip.
- *
- * Slow path (fallback): If the header is missing (e.g. direct API call
- *   without middleware), we call supabase.auth.getUser().
- *
- * React cache() deduplicates - only one lookup per request.
+ * Cached current-user getter.
+ *   Fast path: middleware verified the JWT and set x-user-id.
+ *   Fallback:  read + verify the session cookie directly (getUser).
  */
 export const getCachedSession = cache(async () => {
   try {
     const h = await headers();
     const userId = h.get("x-user-id");
-
-    if (userId) {
-      return { id: userId } as Awaited<
-        ReturnType<Awaited<ReturnType<typeof createClient>>["auth"]["getUser"]>
-      >["data"]["user"];
-    }
-
-    const supabase = await createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    return user;
+    if (userId) return { id: userId };
+    return await getUser();
   } catch {
     return null;
   }
 });
 
-/**
- * Cached profile fetch.
- */
+/** Cached profile fetch. */
 export const getCachedProfile = cache(async (userId: string) => {
   const supabase = await createClient();
   const { data } = await supabase

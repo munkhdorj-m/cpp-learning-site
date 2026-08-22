@@ -7,10 +7,17 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/server";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
+import { requireTeacher } from "@/lib/auth-helpers";
 
 export const dynamic = "force-dynamic";
 
 export default async function TeacherAssignmentsPage() {
+  // The layout calls this too, but a layout's redirect does not stop
+  // this page rendering: React renders them together, and whatever the
+  // page produced is flushed into the redirect response for anyone who
+  // reads the body instead of following the Location header.
+  await requireTeacher();
+
   const t = await getTranslations("teacher.assignments");
   const localeRaw = await getLocale();
   const locale = isLocale(localeRaw) ? localeRaw : DEFAULT_LOCALE;
@@ -39,7 +46,7 @@ export default async function TeacherAssignmentsPage() {
         <h1 className="text-2xl font-bold">{t("title")}</h1>
         <Link
           href="/teacher/assignments/new"
-          className={cn(buttonVariants({ size: "sm" }), "bg-violet-600 text-white hover:bg-violet-700")}
+          className={cn(buttonVariants({ size: "sm" }), "font-code")}
         >
           <Plus className="h-4 w-4 mr-1.5" />
           {t("new")}

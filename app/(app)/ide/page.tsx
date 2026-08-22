@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { Suspense, useState, useTransition } from "react";
+import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Play, Trash2, Terminal } from "lucide-react";
 import { toast } from "sonner";
@@ -8,7 +9,9 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { CodeEditor, STARTER_CPP } from "@/components/code-editor";
+import { CodeEditor } from "@/components/code-editor";
+import { LanguagePicker } from "@/components/language-picker";
+import { LANGUAGES, toLanguage, type LanguageId } from "@/lib/languages";
 
 interface RunResult {
   statusId: number;
@@ -22,9 +25,37 @@ interface RunResult {
 }
 
 export default function IdePage() {
+  // useSearchParams needs a Suspense boundary in the app router.
+  return (
+    <Suspense fallback={null}>
+      <Ide />
+    </Suspense>
+  );
+}
+
+function Ide() {
   const t = useTranslations("ide");
   const tCommon = useTranslations("common");
-  const [code, setCode] = useState(STARTER_CPP);
+  const params = useSearchParams();
+  // Lessons link here with ?code=… and ?lang=… so the example opens ready to run.
+  const initialLanguage = toLanguage(params.get("lang"));
+  const [language, setLanguage] = useState<LanguageId>(initialLanguage);
+  const initialCode = params.get("code") || LANGUAGES[initialLanguage].starter;
+  const [code, setCode] = useState(initialCode);
+
+  // Switching language swaps in that language's starter, unless the student
+  // has written something of their own.
+  const changeLanguage = (next: LanguageId) => {
+    setCode((current) =>
+      current.trim() === "" ||
+      current === LANGUAGES[language].starter ||
+      current === initialCode
+        ? LANGUAGES[next].starter
+        : current,
+    );
+    setLanguage(next);
+    setResult(null);
+  };
   const [stdin, setStdin] = useState("");
   const [result, setResult] = useState<RunResult | null>(null);
   const [pending, startTransition] = useTransition();
@@ -34,7 +65,7 @@ export default function IdePage() {
       const res = await fetch("/api/run", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code, stdin }),
+        body: JSON.stringify({ code, stdin, language }),
       });
       if (!res.ok) {
         if (res.status === 429) {
@@ -60,12 +91,17 @@ export default function IdePage() {
           <h1 className="text-2xl font-bold">{t("title")}</h1>
           <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <LanguagePicker
+            value={language}
+            onChange={changeLanguage}
+            disabled={pending}
+          />
           <Button
             variant="outline"
             size="sm"
             onClick={() => {
-              setCode(STARTER_CPP);
+              setCode(LANGUAGES[language].starter);
               setStdin("");
               setResult(null);
             }}
@@ -88,7 +124,7 @@ export default function IdePage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <Card className="lg:col-span-2 overflow-hidden">
           <div className="h-[500px]">
-            <CodeEditor value={code} onChange={setCode} />
+            <CodeEditor value={code} onChange={setCode} language={language} />
           </div>
         </Card>
 
@@ -129,7 +165,7 @@ export default function IdePage() {
                 )}
                 {!result && (
                   <span className="text-muted-foreground/60">
-                    {"// " + (pending ? t("running") : t("run"))}
+                    {LANGUAGES[language].comment + " " + (pending ? t("running") : t("run"))}
                   </span>
                 )}
               </pre>

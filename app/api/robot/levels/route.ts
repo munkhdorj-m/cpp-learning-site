@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { createClient } from "@/lib/supabase/server";
+import { isTeacher } from "@/lib/auth-helpers";
+import { LEVELS } from "@/app/(app)/game/robot/levels";
 
 export async function GET() {
   const supabase = await createClient();
@@ -24,6 +26,9 @@ export async function POST(req: NextRequest) {
   } = await supabase.auth.getUser();
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  if (!(await isTeacher())) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const body = await req.json();
@@ -56,6 +61,24 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  // Level number: keep an existing one, inherit a built-in's, otherwise take
+  // the next free slot after every built-in and custom level.
+  let order_idx: number = Number(body.order_idx) || 0;
+  if (!order_idx) {
+    const builtIn = LEVELS.find((l) => l.id === id);
+    if (builtIn) {
+      order_idx = builtIn.order_idx;
+    } else {
+      const { data: rows } = await supabase
+        .from("robot_levels")
+        .select("order_idx")
+        .order("order_idx", { ascending: false })
+        .limit(1);
+      const maxDb = Number(rows?.[0]?.order_idx ?? 0);
+      order_idx = Math.max(LEVELS.length, maxDb) + 1;
+    }
+  }
+
   const { data, error } = await supabase
     .from("robot_levels")
     // Upsert so that overriding a built-in level (same id) works on the
@@ -83,6 +106,7 @@ export async function POST(req: NextRequest) {
         palette: palette ?? [],
         max_blocks: max_blocks ?? 10,
         xp_reward: xp_reward ?? 20,
+        order_idx,
         created_by: user.id,
       },
       { onConflict: "id" },

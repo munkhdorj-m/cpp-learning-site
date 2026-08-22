@@ -14,13 +14,13 @@ import {
   ListChecks,
 } from "lucide-react";
 import { toast } from "sonner";
-import confetti from "canvas-confetti";
 
 import { playCorrect, playWrong } from "@/lib/sounds";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { celebrate } from "@/lib/celebrate";
 import type { Difficulty, QuestType } from "@/types/database";
 
 interface QuestItem {
@@ -125,10 +125,10 @@ export function QuestsBoard({
               "overflow-hidden p-0 transition-colors",
               done &&
                 finalCorrect &&
-                "bg-emerald-50/40 dark:bg-emerald-950/15 border-emerald-300 dark:border-emerald-800",
+                "border-neon-lime/40 bg-neon-lime/[0.07] shadow-[0_0_24px_-14px_var(--neon-lime)]",
               done &&
                 !finalCorrect &&
-                "bg-rose-50/40 dark:bg-rose-950/15 border-rose-300 dark:border-rose-900",
+                "border-destructive/40 bg-destructive/[0.07]",
             )}
           >
             <button
@@ -179,7 +179,7 @@ export function QuestsBoard({
             {isOpen && (
               <div className="px-4 pb-4 space-y-3 border-t pt-3 -mt-px">
                 {q.code_snippet && (
-                  <pre className="font-mono text-xs bg-muted rounded p-3 overflow-x-auto leading-relaxed whitespace-pre">
+                  <pre className="overflow-x-auto whitespace-pre rounded border border-primary/15 bg-[oklch(0.16_0.02_264)] p-3 font-mono text-xs leading-relaxed text-primary">
                     {q.code_snippet}
                   </pre>
                 )}
@@ -208,13 +208,7 @@ export function QuestsBoard({
                       // simpler — just rely on `results[q.id]` for display.
                       if (r.was_correct) {
                         playCorrect();
-                        confetti({
-                          particleCount: 30,
-                          spread: 50,
-                          origin: { y: 0.7 },
-                          scalar: 0.8,
-                          colors: ["#a78bfa", "#f59e0b", "#10b981"],
-                        });
+                        celebrate();
                         toast.success(`${labels.correct} +${r.xp_awarded} XP`);
                       } else {
                         playWrong();
@@ -288,7 +282,7 @@ function AnswerInput({
               "flex items-center gap-2 px-3 py-2 rounded-md border cursor-pointer transition-colors",
               disabled && "cursor-default",
               selected
-                ? "border-violet-400 bg-violet-50 dark:border-violet-700 dark:bg-violet-950/30"
+                ? "border-primary/60 bg-primary/10 text-primary shadow-[0_0_18px_-8px_var(--color-primary)]"
                 : "hover:bg-muted/50",
             )}
           >
@@ -361,7 +355,7 @@ function SubmitRow({
     <Button
       onClick={submit}
       disabled={pending || !answer.trim()}
-      className="bg-violet-600 text-white hover:bg-violet-700"
+      className="font-code"
       size="sm"
     >
       {pending ? "..." : submitLabel}

@@ -6,7 +6,7 @@ import { LEVELS, dbRowToLevel, mergeLevels, type Level } from "./levels";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Robot Programmer",
+  title: "Find the Egg",
 };
 
 export default async function RobotPage({

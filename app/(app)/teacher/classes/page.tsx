@@ -1,12 +1,20 @@
 import { getTranslations } from "next-intl/server";
 
 import { createClient } from "@/lib/supabase/server";
+import { UnassignedStudents } from "@/components/unassigned-students";
 
 import { ClassesManager } from "./classes-manager";
+import { requireTeacher } from "@/lib/auth-helpers";
 
 export const dynamic = "force-dynamic";
 
 export default async function TeacherClassesPage() {
+  // The layout calls this too, but a layout's redirect does not stop
+  // this page rendering: React renders them together, and whatever the
+  // page produced is flushed into the redirect response for anyone who
+  // reads the body instead of following the Location header.
+  await requireTeacher();
+
   const t = await getTranslations("teacher.classes");
   const supabase = await createClient();
 
@@ -16,18 +24,27 @@ export default async function TeacherClassesPage() {
     .order("grade", { ascending: true })
     .order("name", { ascending: true });
 
-  // Count students per class
+  // Student counts per class. One query for every class, tallied here —
+  // previously this ran a separate COUNT per class.
+  const { data: rows } = await supabase
+    .from("profiles")
+    .select("class_id")
+    .eq("role", "student");
   const counts = new Map<string, number>();
-  for (const c of classes ?? []) {
-    const { count } = await supabase
-      .from("profiles")
-      .select("id", { count: "exact", head: true })
-      .eq("class_id", c.id)
-      .eq("role", "student");
-    counts.set(c.id, count ?? 0);
+  for (const r of rows ?? []) {
+    if (r.class_id) counts.set(r.class_id, (counts.get(r.class_id) ?? 0) + 1);
   }
 
   const items = (classes ?? []).map((c) => ({ ...c, students: counts.get(c.id) ?? 0 }));
+
+  // Students orphaned by a deleted class. Without listing them here they are
+  // invisible in the UI but still counted on the leaderboard.
+  const { data: unassigned } = await supabase
+    .from("profiles")
+    .select("id, username, display_name, xp, problems_solved")
+    .is("class_id", null)
+    .eq("role", "student")
+    .order("display_name", { ascending: true });
 
   const labels = {
     title: t("title"),
@@ -45,5 +62,17 @@ export default async function TeacherClassesPage() {
     regenerate_confirm: t("regenerate_confirm"),
   };
 
-  return <ClassesManager items={items} labels={labels} />;
+  return (
+    <div className="space-y-4">
+      <ClassesManager items={items} labels={labels} />
+      <UnassignedStudents
+        students={unassigned ?? []}
+        classes={(classes ?? []).map((c) => ({
+          id: c.id,
+          name: c.name,
+          grade: c.grade,
+        }))}
+      />
+    </div>
+  );
 }

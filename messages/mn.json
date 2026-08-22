@@ -1,7 +1,7 @@
 {
   "app": {
-    "name": "CPP Шүүгч",
-    "tagline": "C++ програмчлал сурах, бодлого бодох"
+    "name": "ХаСү CS",
+    "tagline": "Програмчлал сурах, бодлого бодох"
   },
   "nav": {
     "problems": "Бодлогууд",
@@ -9,18 +9,17 @@
     "assignments": "Даалгаврууд",
     "contests": "Тэмцээн",
     "game": "Тоглоом",
-    "robot": "Робот",
+    "robot": "Find the Egg",
     "quests": "Тэмцэл",
     "profile": "Профайл",
     "ide": "Код бичих",
     "login": "Нэвтрэх",
-    "signup": "Бүртгүүлэх",
     "logout": "Гарах",
     "teacher": "Багшийн хэсэг"
   },
   "robot": {
-    "title": "Робот програмчлал",
-    "subtitle": "Командууд цуглуулж роботыг алхуул. Гэрлүүдийг асаа.",
+    "title": "Find the Egg",
+    "subtitle": "Stack instructions and guide the robot to every egg.",
     "progress": "Гүйцэтгэл",
     "level": "Түвшин",
     "queue": "Заавар",
@@ -45,8 +44,8 @@
     "subtitle": "Тоглоомоо сонгож тогло"
   },
   "bug_smash": {
-    "title": "Bug Smash",
-    "subtitle": "Хорхойнуудыг товш — хурдан хийвэл цуврал нэмэгдэнэ",
+    "title": "Debug",
+    "subtitle": "Squash the bugs — chain quick clicks for combo bonuses",
     "score": "Оноо",
     "time": "Хугацаа",
     "best_combo": "Хамгийн их цуврал",
@@ -75,7 +74,7 @@
     "type_multiple_choice": "Сонголт"
   },
   "landing": {
-    "hero_title": "C++ суралцаж, бодлого бод",
+    "hero_title": "Програмчлал сурч, бодлого бод",
     "hero_subtitle": "Бодлого шийдэж туршлага цуглуул, найзуудтайгаа өрсөлд",
     "get_started": "Эхлэх",
     "have_account": "Бүртгэлтэй юу? Нэвтрэх"
@@ -83,26 +82,11 @@
   "auth": {
     "login": {
       "title": "Нэвтрэх",
-      "email": "Имэйл",
       "password": "Нууц үг",
       "submit": "Нэвтрэх",
-      "no_account": "Бүртгэлгүй юу?",
-      "signup_link": "Бүртгүүлэх",
-      "error": "Имэйл эсвэл нууц үг буруу байна"
-    },
-    "signup": {
-      "title": "Бүртгүүлэх",
-      "invite_code": "Урилгын код",
-      "invite_code_hint": "Багшаасаа авах",
-      "username": "Хэрэглэгчийн нэр",
-      "display_name": "Бүтэн нэр",
-      "email": "Имэйл",
-      "password": "Нууц үг",
-      "submit": "Бүртгэлээ үүсгэх",
-      "has_account": "Бүртгэлтэй юу?",
-      "login_link": "Нэвтрэх",
-      "invalid_code": "Урилгын код буруу байна",
-      "class_will_be": "Та {class} ангид нэгдэнэ"
+      "error": "Хэрэглэгчийн нэр эсвэл нууц үг буруу байна",
+      "login": "Хэрэглэгчийн нэр",
+      "login_hint": "Багш нар имэйлээрээ нэвтэрч болно."
     }
   },
   "problems": {
@@ -154,7 +138,7 @@
   },
   "ide": {
     "title": "Онлайн код бичих",
-    "subtitle": "C++ код бичээд тэр даруй ажиллуул",
+    "subtitle": "C++ эсвэл Python код бичээд тэр даруй ажиллуул",
     "stdin": "Оролт (stdin)",
     "stdout": "Гаралт (stdout)",
     "stderr": "Алдаа (stderr)",
@@ -173,7 +157,7 @@
     "filter_class": "Зөвхөн миний анги"
   },
   "profile": {
-    "xp": "Туршлага",
+    "xp": "XP",
     "level": "Түвшин",
     "streak": "Дараалал",
     "streak_days": "{days} өдөр",

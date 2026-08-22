@@ -3,6 +3,7 @@ import { z } from "zod";
 
 import { findLevel, dbRowToLevel } from "@/app/(app)/game/robot/levels";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
+import { addXp } from "@/lib/gamification";
 
 const schema = z.object({
   level_id: z.string().min(1).max(40),
@@ -69,6 +70,9 @@ export async function POST(request: Request) {
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
+
+  // Award XP (was the on_robot_progress trigger).
+  if (xpReward > 0) await addXp(user.id, xpReward);
 
   // Badges: count solved levels for this user
   const { count } = await admin

@@ -1,4 +1,4 @@
-// Level data for Robot Programmer.
+// Level data for the "Find the Egg" robot game.
 // 20 levels with progressive pedagogy — each teaches a specific new concept.
 //
 // Layouts:
@@ -6,7 +6,13 @@
 //   '#' = wall (impassable)
 //   'R' = robot start (also walkable)
 //   'E' = egg target (also walkable)
-//   'T' = TNT hazard (walkable but triggers explosion)
+//   'T' = bomb hazard (walkable but explodes)
+//   '*' = star pickup (collect by walking over)
+//   'K' = key pickup (opens every door on the level)
+//   'D' = locked door (impassable until a key is held)
+//   'P' = portal (levels use them in pairs; entering one exits the other)
+//   'M' = patrolling hazard, moves east/west and bounces off walls
+//   'N' = patrolling hazard, moves north/south and bounces off walls
 //
 // Top row of `layout` is the HIGHEST y. y=0 is the BOTTOM.
 // max_blocks counts EVERY workspace block (including the when_run hat).
@@ -15,12 +21,24 @@ import type { ToolboxBlock } from "@/lib/robot-blocks";
 
 export type Direction = 0 | 1 | 2 | 3;
 export type Instruction = "forward" | "left" | "right" | "light";
-export type CourseId = "basics" | "loops" | "conditionals" | "master";
+export type CourseId =
+  | "basics"
+  | "loops"
+  | "conditionals"
+  | "master"
+  | "gadgets";
 export type ThemeId = "ice" | "jungle" | "space" | "lava";
 
 export interface Tile {
   x: number;
   y: number;
+}
+
+/** A hazard that patrols back and forth, bouncing off walls. */
+export interface Mover {
+  x: number;
+  y: number;
+  axis: "h" | "v";
 }
 
 export interface Level {
@@ -38,9 +56,87 @@ export interface Level {
   targets: Tile[];
   walls: Set<string>;
   dangers: Set<string>;
+  /** Optional pickups / puzzle pieces — empty on the older levels. */
+  stars: Set<string>;
+  keys: Set<string>;
+  doors: Set<string>;
+  /** Portal tiles in layout order; entering one exits its partner. */
+  portals: Tile[];
+  movers: Mover[];
   xp_reward: number;
   palette: ToolboxBlock[];
   max_blocks: number;
+  /** Display order / level number. Built-ins are 1..20; new ones continue. */
+  order_idx: number;
+}
+
+/** Everything a layout grid encodes, shared by the built-in and DB parsers. */
+export interface ParsedLayout {
+  width: number;
+  height: number;
+  walls: Set<string>;
+  dangers: Set<string>;
+  stars: Set<string>;
+  keys: Set<string>;
+  doors: Set<string>;
+  portals: Tile[];
+  movers: Mover[];
+  targets: Tile[];
+  robot: { x: number; y: number };
+}
+
+/**
+ * Parse a layout grid into game entities.
+ * The first row of `layout` is the HIGHEST y — y=0 is the bottom row.
+ */
+export function parseLayout(layout: string[], widthHint?: number): ParsedLayout {
+  const height = layout.length;
+  const width = widthHint || Math.max(...layout.map((r) => r.length));
+  const walls = new Set<string>();
+  const dangers = new Set<string>();
+  const stars = new Set<string>();
+  const keys = new Set<string>();
+  const doors = new Set<string>();
+  const portals: Tile[] = [];
+  const movers: Mover[] = [];
+  const targets: Tile[] = [];
+  let robotX = 0;
+  let robotY = 0;
+
+  for (let row = 0; row < height; row++) {
+    const line = (layout[row] ?? "").padEnd(width, "#");
+    const y = height - 1 - row;
+    for (let x = 0; x < width; x++) {
+      const ch = line[x];
+      const key = `${x},${y}`;
+      if (ch === "#") walls.add(key);
+      else if (ch === "T") dangers.add(key);
+      else if (ch === "*") stars.add(key);
+      else if (ch === "K") keys.add(key);
+      else if (ch === "D") doors.add(key);
+      else if (ch === "P") portals.push({ x, y });
+      else if (ch === "M") movers.push({ x, y, axis: "h" });
+      else if (ch === "N") movers.push({ x, y, axis: "v" });
+      else if (ch === "R") {
+        robotX = x;
+        robotY = y;
+      } else if (ch === "E") targets.push({ x, y });
+    }
+  }
+
+  return {
+    width,
+    height,
+    walls,
+    dangers,
+    stars,
+    keys,
+    doors,
+    portals,
+    movers,
+    targets,
+    robot: { x: robotX, y: robotY },
+  };
 }
 
 export interface Course {
@@ -84,6 +180,14 @@ export const COURSES: Course[] = [
     theme: "lava",
     blurb_mn: "Бүх мэдлэгээ нэгтгэ.",
     blurb_en: "Combine everything you know.",
+  },
+  {
+    id: "gadgets",
+    name_mn: "Төхөөрөмж",
+    name_en: "Gadgets & Traps",
+    theme: "space",
+    blurb_mn: "Од, түлхүүр, портал, бөмбөг!",
+    blurb_en: "Stars, keys, portals and bombs!",
   },
 ];
 
@@ -853,38 +957,214 @@ const RAW_LEVELS: RawLevel[] = [
     palette: WITH_ALL,
     max_blocks: 14,
   },
+
+  // ═══════════════════════════════════════════════════════════════════
+  // COURSE 5: GADGETS & TRAPS (levels 21–26) — Space theme
+  // Introduces one new object at a time, then combines them.
+  // ═══════════════════════════════════════════════════════════════════
+
+  // Level 21 — stars: you must pick up every star, not just the egg
+  {
+    id: "maze-21",
+    course: "gadgets",
+    name_mn: "Одны зам",
+    name_en: "Star Path",
+    hint_mn: "Бүх ⭐ одыг дайрч өнгөрөөд өндгийг ав.",
+    hint_en: "Walk over every ⭐ star, then pick the egg.",
+    hints_mn: [
+      "Од дээгүүр алхахад л хангалттай — тусгай блок хэрэггүй.",
+      "Урагш 3 удаа алхаад `pick egg` дар.",
+    ],
+    hints_en: [
+      "Just walking over a star collects it — no special block needed.",
+      "Move forward 3 times, then `pick egg`.",
+    ],
+    layout: [
+      "########",
+      "########",
+      "########",
+      "########",
+      "#R**E###",
+      "########",
+      "########",
+      "########",
+    ],
+    robotDir: 1, // East
+    xp_reward: 20,
+    palette: WITH_LOOP,
+    max_blocks: 6,
+  },
+
+  // Level 22 — bombs: the direct route is mined, go around
+  {
+    id: "maze-22",
+    course: "gadgets",
+    name_mn: "Бөмбөгнөөс зайлс",
+    name_en: "Mind the Bombs",
+    hint_mn: "💣 бөмбөг дээр гишгэвэл дэлбэрнэ. Дээгүүр нь тойрч гар.",
+    hint_en: "Stepping on a 💣 bomb explodes. Go around it from above.",
+    hints_mn: [
+      "Шууд урагшаа явбал бөмбөг дээр гарна — эхлээд зүүн тийш эргэж дээшээ гар.",
+      "Дээд эгнээгээр өнгөрөөд дараа нь баруун тийш эргэж доошоо буу.",
+    ],
+    hints_en: [
+      "Going straight hits the bomb — turn left and step up first.",
+      "Cross along the top row, then turn right and come back down.",
+    ],
+    layout: [
+      "########",
+      "########",
+      "########",
+      "#.....##",
+      "#R.T.E##",
+      "########",
+      "########",
+      "########",
+    ],
+    robotDir: 1, // East
+    xp_reward: 25,
+    palette: WITH_LOOP,
+    max_blocks: 12,
+  },
+
+  // Level 23 — key + door: the key is behind you
+  {
+    id: "maze-23",
+    course: "gadgets",
+    name_mn: "Түлхүүр ба хаалга",
+    name_en: "Key and Door",
+    hint_mn: "🚪 хаалга түгжээтэй. Эхлээд ард байгаа 🔑 түлхүүрийг ав.",
+    hint_en: "The 🚪 door is locked. Fetch the 🔑 key behind you first.",
+    hints_mn: [
+      "Эргэж (2 удаа эргэх) буцаад түлхүүр рүү яв.",
+      "Түлхүүртэй болсны дараа дахин эргээд хаалгаар дамжин өндөг рүү яв.",
+    ],
+    hints_en: [
+      "Turn around (two turns) and walk back to the key.",
+      "With the key, turn around again and walk through the door to the egg.",
+    ],
+    layout: [
+      "########",
+      "########",
+      "########",
+      "########",
+      "#K.R.DE#",
+      "########",
+      "########",
+      "########",
+    ],
+    robotDir: 1, // East
+    xp_reward: 30,
+    palette: WITH_LOOP,
+    max_blocks: 14,
+  },
+
+  // Level 24 — portals: a wall you can only pass by teleporting
+  {
+    id: "maze-24",
+    course: "gadgets",
+    name_mn: "Портал",
+    name_en: "Portal Jump",
+    hint_mn: "🌀 портал дээр гарвал нөгөө порталд шилжинэ.",
+    hint_en: "Step on a 🌀 portal and you come out of the other one.",
+    hints_mn: [
+      "Хана дундуур гарах боломжгүй — порталыг ашигла.",
+      "Урагш 2 алхвал порталд орно, дараа нь дахин 1 алхаад өндгийг ав.",
+    ],
+    hints_en: [
+      "You cannot pass the wall — use the portal.",
+      "Two steps forward lands on the portal, then one more step to the egg.",
+    ],
+    layout: [
+      "########",
+      "########",
+      "########",
+      "########",
+      "#R.P#PE#",
+      "########",
+      "########",
+      "########",
+    ],
+    robotDir: 1, // East
+    xp_reward: 30,
+    palette: WITH_LOOP,
+    max_blocks: 6,
+  },
+
+  // Level 25 — patrolling hazard: turning wastes a tick, so it doubles as
+  // a "wait" while the drone slides past.
+  {
+    id: "maze-25",
+    course: "gadgets",
+    name_mn: "Хамгаалагч",
+    name_en: "The Guard",
+    hint_mn:
+      "🔴 хамгаалагч доод замаар нааш цааш явна. Дээд зам руу гарч тойр.",
+    hint_en:
+      "The 🔴 guard patrols the lower lane. Step up to the safe lane and go around.",
+    hints_mn: [
+      "Шууд урагшаа явбал хамгаалагчтай мөргөлдөнө.",
+      "Эхлээд зүүн тийш эргэж дээшээ гар, дараа нь баруун тийш яв.",
+    ],
+    hints_en: [
+      "Walking straight ahead runs into the guard.",
+      "Turn left and step up first, then head east along the top.",
+    ],
+    layout: [
+      "########",
+      "########",
+      "########",
+      "#.....E#",
+      "#R..M..#",
+      "########",
+      "########",
+      "########",
+    ],
+    robotDir: 1, // East
+    xp_reward: 35,
+    palette: WITH_ALL,
+    max_blocks: 14,
+  },
+
+  // Level 26 — finale: key, door, bomb, stars and a portal together
+  {
+    id: "maze-26",
+    course: "gadgets",
+    name_mn: "Төгсгөлийн сорилт",
+    name_en: "Gadget Master",
+    hint_mn: "Түлхүүр → хаалга → од → портал. Бөмбөгнөөс болгоомжил!",
+    hint_en: "Key → door → stars → portal. Watch out for the bomb!",
+    hints_mn: [
+      "Эхлээд түлхүүрээ ав, дараа нь хаалгаар гар.",
+      "Бүх одыг цуглуулахаа мартуузай — үгүй бол ялахгүй.",
+    ],
+    hints_en: [
+      "Grab the key first, then the door will open.",
+      "Remember every star — you cannot win while one is left.",
+    ],
+    layout: [
+      "########",
+      "########",
+      "########",
+      "#K.D*..#",
+      "#R.T...#",
+      "######.#",
+      "###P#P.#",
+      "###E####",
+    ],
+    robotDir: 0, // North
+    xp_reward: 50,
+    palette: WITH_ALL,
+    max_blocks: 20,
+  },
 ];
 
 // ─────────────────────────────────────────────────────────────────────
 // Parser
 // ─────────────────────────────────────────────────────────────────────
 
-function parseRawLevel(raw: RawLevel): Level {
-  const height = raw.layout.length;
-  const width = Math.max(...raw.layout.map((r) => r.length));
-  const walls = new Set<string>();
-  const dangers = new Set<string>();
-  const targets: Tile[] = [];
-  let robotX = 0;
-  let robotY = 0;
-  for (let row = 0; row < height; row++) {
-    const line = raw.layout[row].padEnd(width, "#");
-    const y = height - 1 - row;
-    for (let col = 0; col < width; col++) {
-      const ch = line[col];
-      const key = `${col},${y}`;
-      if (ch === "#") {
-        walls.add(key);
-      } else if (ch === "T") {
-        dangers.add(key);
-      } else if (ch === "R") {
-        robotX = col;
-        robotY = y;
-      } else if (ch === "E") {
-        targets.push({ x: col, y });
-      }
-    }
-  }
+function parseRawLevel(raw: RawLevel, index = 0): Level {
+  const p = parseLayout(raw.layout);
   return {
     id: raw.id,
     course: raw.course,
@@ -894,19 +1174,27 @@ function parseRawLevel(raw: RawLevel): Level {
     hint_en: raw.hint_en,
     hints_mn: raw.hints_mn,
     hints_en: raw.hints_en,
-    width,
-    height,
-    robot: { x: robotX, y: robotY, dir: raw.robotDir },
-    targets,
-    walls,
-    dangers,
+    width: p.width,
+    height: p.height,
+    robot: { x: p.robot.x, y: p.robot.y, dir: raw.robotDir },
+    targets: p.targets,
+    walls: p.walls,
+    dangers: p.dangers,
+    stars: p.stars,
+    keys: p.keys,
+    doors: p.doors,
+    portals: p.portals,
+    movers: p.movers,
     xp_reward: raw.xp_reward,
     palette: raw.palette,
     max_blocks: raw.max_blocks,
+    order_idx: index + 1, // built-ins are levels 1..20
   };
 }
 
-export const LEVELS: Level[] = RAW_LEVELS.map(parseRawLevel);
+export const LEVELS: Level[] = RAW_LEVELS.map((raw, i) =>
+  parseRawLevel(raw, i),
+);
 export const TOTAL_LEVELS = LEVELS.length;
 
 export function findLevel(id: string): Level | undefined {
@@ -934,29 +1222,12 @@ export function dbRowToLevel(row: {
   palette: string[];
   max_blocks: number;
   xp_reward: number;
+  order_idx?: number;
 }): Level {
   // Parse EVERYTHING from the layout string — same logic as parseRawLevel.
   // This ensures robot/targets/dangers use the same game coordinate system
   // (y=0 = bottom) as the walls, instead of mixing in editor-screen coords.
-  const height = row.layout.length;
-  const width = row.width || Math.max(...row.layout.map((r) => r.length));
-  const walls = new Set<string>();
-  const dangers = new Set<string>();
-  const targets: Tile[] = [];
-  let robotX = 0;
-  let robotY = 0;
-  for (let layoutRow = 0; layoutRow < height; layoutRow++) {
-    const line = row.layout[layoutRow].padEnd(width, "#");
-    const y = height - 1 - layoutRow;
-    for (let col = 0; col < width; col++) {
-      const ch = line[col];
-      const key = `${col},${y}`;
-      if (ch === "#") walls.add(key);
-      else if (ch === "T") dangers.add(key);
-      else if (ch === "R") { robotX = col; robotY = y; }
-      else if (ch === "E") targets.push({ x: col, y });
-    }
-  }
+  const p = parseLayout(row.layout, row.width);
 
   return {
     id: row.id,
@@ -967,15 +1238,25 @@ export function dbRowToLevel(row: {
     hint_en: row.hint_en,
     hints_mn: row.hints_mn,
     hints_en: row.hints_en,
-    width,
-    height,
-    robot: { x: robotX, y: robotY, dir: row.robot_dir as Direction },
-    targets,
-    walls,
-    dangers,
+    width: p.width,
+    height: p.height,
+    robot: { x: p.robot.x, y: p.robot.y, dir: row.robot_dir as Direction },
+    targets: p.targets,
+    walls: p.walls,
+    dangers: p.dangers,
+    stars: p.stars,
+    keys: p.keys,
+    doors: p.doors,
+    portals: p.portals,
+    movers: p.movers,
     xp_reward: row.xp_reward,
     palette: (row.palette ?? []) as ToolboxBlock[],
     max_blocks: row.max_blocks,
+    // A built-in override keeps the built-in's number. 0 means "not numbered
+    // yet" — mergeLevels() hands those a unique number, so two old rows can't
+    // both end up as the same level number.
+    order_idx:
+      row.order_idx || LEVELS.find((l) => l.id === row.id)?.order_idx || 0,
   };
 }
 
@@ -985,12 +1266,24 @@ export function dbRowToLevel(row: {
  */
 export function mergeLevels(dbRows: Level[]): Level[] {
   const dbMap = new Map(dbRows.map((r) => [r.id, r]));
-  const builtIn = LEVELS.map((l) => dbMap.get(l.id) ?? l);
+  const merged = LEVELS.map((l) => dbMap.get(l.id) ?? l);
   // Add any DB-only levels
   for (const row of dbRows) {
     if (!LEVELS.some((l) => l.id === row.id)) {
-      builtIn.push(row);
+      merged.push(row);
     }
   }
-  return builtIn;
+  // Give unnumbered levels (order_idx 0) the next free numbers, in a stable
+  // order, so two legacy rows can't both show up as the same level number.
+  let next = merged.reduce((m, l) => Math.max(m, l.order_idx), LEVELS.length);
+  for (const l of merged
+    .filter((l) => !l.order_idx)
+    .sort((a, b) => a.id.localeCompare(b.id))) {
+    l.order_idx = ++next;
+  }
+
+  // Level number decides play order; ties fall back to id for stability.
+  return merged.sort(
+    (a, b) => a.order_idx - b.order_idx || a.id.localeCompare(b.id),
+  );
 }

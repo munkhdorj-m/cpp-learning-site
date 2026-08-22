@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { ParticleNetwork } from "@/components/particle-network";
 
 interface GridBackgroundProps {
   className?: string;
@@ -20,9 +21,9 @@ export function GridBackground({ className }: GridBackgroundProps) {
       )}
       aria-hidden="true"
     >
-      {/* Drifting grid */}
+      {/* Drifting grid — dialled back so the particle network reads clearly */}
       <div
-        className="absolute inset-0 opacity-[0.5] dark:opacity-[0.6]"
+        className="absolute inset-0 opacity-[0.25] dark:opacity-[0.3]"
         style={{
           backgroundImage:
             "linear-gradient(to right, color-mix(in oklch, var(--neon-cyan) 12%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklch, var(--neon-cyan) 12%, transparent) 1px, transparent 1px)",
@@ -35,41 +36,10 @@ export function GridBackground({ className }: GridBackgroundProps) {
         }}
       />
 
-      {/* Neon glow orbs */}
-      <div
-        className="absolute -top-1/4 left-1/2 h-[70vh] w-[70vh] -translate-x-1/2 rounded-full opacity-[0.1] dark:opacity-[0.18]"
-        style={{
-          background:
-            "radial-gradient(circle, var(--neon-cyan), transparent 70%)",
-          animation: "blob-float 24s ease-in-out infinite",
-        }}
-      />
-      <div
-        className="absolute top-1/3 -left-1/4 h-[50vh] w-[50vh] rounded-full opacity-[0.07] dark:opacity-[0.14]"
-        style={{
-          background:
-            "radial-gradient(circle, var(--neon-violet), transparent 70%)",
-          animation: "blob-float 30s ease-in-out infinite reverse",
-        }}
-      />
-      <div
-        className="absolute -bottom-1/4 right-0 h-[45vh] w-[45vh] rounded-full opacity-[0.06] dark:opacity-[0.12]"
-        style={{
-          background:
-            "radial-gradient(circle, var(--neon-pink), transparent 70%)",
-          animation: "blob-float 28s ease-in-out infinite",
-        }}
-      />
-
-      {/* Slow scanline */}
-      <div
-        className="absolute inset-x-0 top-0 h-24 opacity-40 dark:opacity-60"
-        style={{
-          background:
-            "linear-gradient(to bottom, transparent, color-mix(in oklch, var(--neon-cyan) 10%, transparent), transparent)",
-          animation: "scan 9s linear infinite",
-        }}
-      />
+      {/* The constellation is the backdrop now. The drifting glow orbs and the
+          scanline sweep used to sit here, but they washed the lines out — the
+          network needs a flat, dark field behind it to read clearly. */}
+      <ParticleNetwork />
 
       {/* Vignette to keep edges deep */}
       <div

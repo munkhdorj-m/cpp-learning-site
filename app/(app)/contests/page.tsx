@@ -33,7 +33,13 @@ export default async function ContestsListPage() {
 
   return (
     <div className="space-y-6 max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold">Тэмцээн</h1>
+      <div className="space-y-1">
+        <div className="hud-label flex items-center gap-2">
+          <span className="text-primary">//</span>
+          CONTESTS
+        </div>
+        <h1 className="text-3xl font-bold">Тэмцээн</h1>
+      </div>
 
       <Section title="Live" contests={live} locale={locale} liveAccent />
       <Section title="Upcoming" contests={upcoming} locale={locale} />

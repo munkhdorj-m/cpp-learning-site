@@ -6,7 +6,12 @@ import { ArrowLeft, Trophy, Flame, BookOpen } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { createServiceClient } from "@/lib/supabase/server";
+import { BulkStudentForm } from "@/components/bulk-student-form";
+import { PromoteClass } from "@/components/promote-class";
+import { ResetPasswordButton } from "@/components/reset-password-button";
+import { DeleteStudentButton } from "@/components/delete-student-button";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
+import { requireTeacher } from "@/lib/auth-helpers";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +20,12 @@ export default async function ClassRosterPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  // The layout calls this too, but a layout's redirect does not stop
+  // this page rendering: React renders them together, and whatever the
+  // page produced is flushed into the redirect response for anyone who
+  // reads the body instead of following the Location header.
+  await requireTeacher();
+
   const { id } = await params;
   const t = await getTranslations();
   const localeRaw = await getLocale();
@@ -36,6 +47,13 @@ export default async function ClassRosterPage({
     .eq("class_id", id)
     .eq("role", "student")
     .order("xp", { ascending: false });
+
+  // Needed for the end-of-year "move students to…" picker.
+  const { data: allClasses } = await supabase
+    .from("classes")
+    .select("id, name, grade")
+    .order("grade", { ascending: true })
+    .order("name", { ascending: true });
 
   const studentIds = (students ?? []).map((s) => s.id);
   const lastSubMap = new Map<string, string>();
@@ -109,7 +127,27 @@ export default async function ClassRosterPage({
             {t("teacher.classes.students")}
           </p>
         </div>
+        <Link
+          href={`/teacher/classes/${id}/progress`}
+          className="ml-auto inline-flex items-center gap-1.5 rounded-lg border border-primary/25 bg-primary/[0.06] px-3 py-1.5 font-code text-xs text-primary transition-colors hover:bg-primary/15"
+        >
+          <BookOpen className="h-3.5 w-3.5" />
+          {locale === "en" ? "Course progress" : "Хичээлийн явц"}
+        </Link>
       </div>
+
+      <BulkStudentForm
+        classId={id}
+        className={cls.name}
+        siteUrl={process.env.NEXT_PUBLIC_SITE_URL ?? "cs.ub.mn"}
+      />
+
+      <PromoteClass
+        classId={id}
+        className={cls.name}
+        studentCount={students?.length ?? 0}
+        classes={allClasses ?? []}
+      />
 
       {/* Class analytics */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
@@ -207,7 +245,7 @@ export default async function ClassRosterPage({
               return (
                 <div
                   key={s.id}
-                  className="grid md:grid-cols-[40px_1fr_80px_80px_90px_140px] gap-3 px-4 py-3 items-center"
+                  className="grid md:grid-cols-[40px_1fr_80px_80px_90px_140px_84px] gap-3 px-4 py-3 items-center"
                 >
                   <Avatar className="h-8 w-8 shrink-0">
                     <AvatarFallback className="bg-violet-100 text-violet-700 dark:bg-violet-950/40 dark:text-violet-300 text-xs font-bold">
@@ -246,6 +284,17 @@ export default async function ClassRosterPage({
                           })
                         : "—"}
                     </span>
+                  </div>
+                  <div className="flex justify-end gap-0.5">
+                    <ResetPasswordButton
+                      userId={s.id}
+                      name={s.display_name}
+                    />
+                    <DeleteStudentButton
+                      userId={s.id}
+                      name={s.display_name}
+                      username={s.username}
+                    />
                   </div>
                 </div>
               );

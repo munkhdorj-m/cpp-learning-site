@@ -1,15 +1,23 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-import { Judge0RateLimitError, grade } from "@/lib/judge0";
+import { JudgeRateLimitError, grade } from "@/lib/judge";
 import { SIMILARITY_THRESHOLD, similarity } from "@/lib/plagiarism";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
+import { toLanguage } from "@/lib/languages";
+import {
+  awardProblemSolve,
+  awardBadges,
+  nextStreak,
+  utcToday,
+} from "@/lib/gamification";
 
 export const maxDuration = 60;
 
 const schema = z.object({
   problem_id: z.string().uuid(),
   code: z.string().min(1).max(100_000),
+  language: z.string().optional(),
   assignment_id: z.string().uuid().optional(),
   contest_id: z.string().uuid().optional(),
 });
@@ -27,12 +35,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "bad_request" }, { status: 400 });
   }
   const { problem_id, code, assignment_id, contest_id } = parsed.data;
+  const language = toLanguage(parsed.data.language);
 
   // Fetch problem + tests via service role (test cases are not all visible to students).
   const admin = createServiceClient();
   const { data: problem, error: problemErr } = await admin
     .from("problems")
-    .select("id, time_limit_ms, memory_limit_kb")
+    .select("id, time_limit_ms, memory_limit_kb, difficulty, xp_reward")
     .eq("id", problem_id)
     .single();
   if (problemErr || !problem) {
@@ -64,7 +73,7 @@ export async function POST(request: Request) {
       user_id: user.id,
       problem_id,
       code,
-      language: "cpp",
+      language,
       verdict: "judging",
       assignment_id: assignment_id ?? null,
       contest_id: contest_id ?? null,
@@ -81,6 +90,7 @@ export async function POST(request: Request) {
       tests: tests.map((t) => ({ stdin: t.stdin, expected_stdout: t.expected_stdout })),
       timeLimitMs: problem.time_limit_ms,
       memoryLimitKb: problem.memory_limit_kb,
+      language,
     });
 
     await admin
@@ -109,6 +119,64 @@ export async function POST(request: Request) {
       color: string;
     }[] = [];
     if (result.verdict === "accepted") {
+      // --- gamification (previously done by Postgres triggers) ---
+      const { data: priorAc } = await admin
+        .from("submissions")
+        .select("id")
+        .eq("user_id", user.id)
+        .eq("problem_id", problem_id)
+        .eq("verdict", "accepted")
+        .neq("id", created.id)
+        .limit(1)
+        .maybeSingle();
+
+      if (!priorAc) {
+        const { data: prof } = await admin
+          .from("profiles")
+          .select("streak_days, last_solve_date")
+          .eq("id", user.id)
+          .single();
+        const today = utcToday();
+        const streak = nextStreak(
+          prof?.last_solve_date,
+          prof?.streak_days ?? 0,
+          today,
+        );
+        const xpReward = problem.xp_reward ?? 10;
+
+        await awardProblemSolve(user.id, xpReward, streak, today);
+        await admin
+          .from("submissions")
+          .update({ is_first_accepted: true, xp_awarded: xpReward })
+          .eq("id", created.id);
+
+        // Badges (mirrors the old award_badges_on_accept trigger).
+        const { data: prof2 } = await admin
+          .from("profiles")
+          .select("problems_solved, streak_days")
+          .eq("id", user.id)
+          .single();
+        const { count: otherSubs } = await admin
+          .from("submissions")
+          .select("id", { count: "exact", head: true })
+          .eq("user_id", user.id)
+          .eq("problem_id", problem_id)
+          .neq("id", created.id);
+
+        const codes = ["first_solve"];
+        const ps = prof2?.problems_solved ?? 0;
+        if (ps >= 10) codes.push("ten_solved");
+        if (ps >= 50) codes.push("fifty_solved");
+        if (ps >= 100) codes.push("hundred_solved");
+        const st = prof2?.streak_days ?? 0;
+        if (st >= 7) codes.push("streak_7");
+        if (st >= 30) codes.push("streak_30");
+        if (problem.difficulty === "hard") codes.push("first_hard");
+        if ((otherSubs ?? 0) === 0) codes.push("first_try");
+        await awardBadges(user.id, codes);
+      }
+      // --- end gamification ---
+
       const { data: afterProfile } = await admin
         .from("profiles")
         .select("level")
@@ -149,12 +217,15 @@ export async function POST(request: Request) {
           .neq("id", user.id);
         const classmateIds = (classmates ?? []).map((c) => c.id);
         if (classmateIds.length > 0) {
+          // Same language only — comparing C++ against Python would score
+          // near zero and tell a teacher nothing.
           const { data: otherSubs } = await admin
             .from("submissions")
             .select("id, code")
             .eq("problem_id", problem_id)
             .eq("verdict", "accepted")
             .eq("is_first_accepted", true)
+            .eq("language", language)
             .in("user_id", classmateIds);
           const pairs: {
             submission_a_id: string;
@@ -206,7 +277,7 @@ export async function POST(request: Request) {
       new_badges: newBadges,
     });
   } catch (err) {
-    const rateLimited = err instanceof Judge0RateLimitError;
+    const rateLimited = err instanceof JudgeRateLimitError;
     await admin
       .from("submissions")
       .update({ verdict: "internal_error" })

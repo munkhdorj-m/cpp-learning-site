@@ -4,19 +4,33 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { Search, CheckCircle2, Circle, Sparkles } from "lucide-react";
-import { motion } from "framer-motion";
+import {
+  Search,
+  CheckCircle2,
+  Circle,
+  Sparkles,
+  GraduationCap,
+} from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
 } from "@/components/ui/select";
 import { AnimatedList } from "@/components/animations/animated-list";
 import { cn } from "@/lib/utils";
+import {
+  TOPIC_OPTIONS,
+  primaryTopic,
+  topicOrder,
+  topicById,
+  type TopicOption,
+} from "@/lib/problem-topics";
 import type { Difficulty } from "@/types/database";
 
 interface Item {
@@ -39,100 +53,6 @@ async function fetchSolvedIds(): Promise<Set<string>> {
     return new Set();
   }
 }
-
-// Map any raw tag to one of the canonical topic buckets shown in the filter.
-const TOPIC_MAP: Record<string, string[]> = {
-  math: [
-    "math",
-    "basic-math",
-    "arithmetic",
-    "number-theory",
-    "modulo",
-    "modular",
-    "divisibility",
-    "primes",
-    "gcd",
-    "lcm",
-    "factorial",
-    "digits",
-  ],
-  conditionals: [
-    "if-else",
-    "conditional",
-    "conditionals",
-    "branching",
-    "comparison",
-  ],
-  loops: [
-    "for-loop",
-    "while-loop",
-    "loops",
-    "loop",
-    "nested-loops",
-    "iteration",
-  ],
-  strings: ["string", "strings", "char", "characters", "text"],
-  arrays: [
-    "array",
-    "arrays",
-    "matrix",
-    "matrices",
-    "2d-array",
-    "1d-array",
-    "vector",
-  ],
-  geometry: [
-    "geometry",
-    "area",
-    "perimeter",
-    "euclidean-distance",
-    "circle",
-    "triangle",
-    "rectangle",
-  ],
-  patterns: ["pattern", "patterns", "ascii-art", "printing"],
-  io: ["io", "input-output", "basics", "starter", "implementation"],
-  sequences: ["sequence", "sequences", "fibonacci", "series", "progression"],
-};
-const TOPIC_KEYS = Object.keys(TOPIC_MAP) as Array<
-  keyof typeof TOPIC_MAP & string
->;
-
-function topicsOf(tags: string[]): Set<string> {
-  const out = new Set<string>();
-  for (const t of tags) {
-    const lower = t.toLowerCase();
-    for (const topic of TOPIC_KEYS) {
-      if (TOPIC_MAP[topic].some((m) => lower === m || lower.includes(m))) {
-        out.add(topic);
-      }
-    }
-  }
-  return out;
-}
-
-const TOPIC_LABEL_MN: Record<string, string> = {
-  math: "Математик",
-  conditionals: "if/else",
-  loops: "for/while",
-  strings: "Мөр",
-  arrays: "Массив",
-  geometry: "Геометр",
-  patterns: "Загвар",
-  io: "Үндэс",
-  sequences: "Дараалал",
-};
-const TOPIC_LABEL_EN: Record<string, string> = {
-  math: "Math",
-  conditionals: "if/else",
-  loops: "for/while",
-  strings: "Strings",
-  arrays: "Arrays",
-  geometry: "Geometry",
-  patterns: "Patterns",
-  io: "Basics",
-  sequences: "Sequences",
-};
 
 const DIFFICULTY_STYLES: Record<Difficulty, string> = {
   easy: "text-emerald-700 bg-emerald-100/70 dark:text-emerald-300 dark:bg-emerald-950/40",
@@ -159,7 +79,6 @@ export function ProblemsList({ items: initialItems }: { items: Item[] }) {
   const locale = useLocale();
   const [query, setQuery] = useState("");
   const [diff, setDiff] = useState<"all" | Difficulty>("all");
-  const [topic, setTopic] = useState<string>("all");
   const [solvedFilter, setSolvedFilter] = useState<
     "all" | "solved" | "unsolved"
   >("all");
@@ -195,25 +114,46 @@ export function ProblemsList({ items: initialItems }: { items: Item[] }) {
     return p >= 1 ? p : 1;
   }, [searchParams]);
 
-  // Pre-compute topic set per item so filtering is O(1) per row
-  const itemsWithTopics = useMemo(
-    () => items.map((p) => ({ item: p, topics: topicsOf(p.tags) })),
+  // The chosen topic also lives in the URL, so /problems?topic=arrays is a
+  // shareable link — that is how each lesson links to its own practice.
+  const topic = searchParams.get("topic") ?? "all";
+
+  // File each problem under the lesson it practises, once, up front.
+  const itemsWithTopic = useMemo(
+    () => items.map((p) => ({ item: p, topic: primaryTopic(p.tags) })),
     [items],
   );
 
+  // Which topics actually have problems — empty lessons stay out of the menu.
+  const topicCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const { topic: id } of itemsWithTopic) {
+      counts[id] = (counts[id] ?? 0) + 1;
+    }
+    return counts;
+  }, [itemsWithTopic]);
+
+  const availableTopics = useMemo(
+    () => TOPIC_OPTIONS.filter((o) => (topicCounts[o.id] ?? 0) > 0),
+    [topicCounts],
+  );
+
+  // Sorted in the order the course teaches things. The server already
+  // returned easy → hard, and sort() is stable, so within one topic the
+  // problems still run from easiest to hardest.
   const filtered = useMemo(() => {
-    return itemsWithTopics
-      .filter(({ item: p, topics }) => {
+    return itemsWithTopic
+      .filter(({ item: p, topic: id }) => {
         if (diff !== "all" && p.difficulty !== diff) return false;
         if (solvedFilter === "solved" && !p.solved) return false;
         if (solvedFilter === "unsolved" && p.solved) return false;
-        if (topic !== "all" && !topics.has(topic)) return false;
+        if (topic !== "all" && id !== topic) return false;
         if (query && !p.title.toLowerCase().includes(query.toLowerCase()))
           return false;
         return true;
       })
-      .map(({ item }) => item);
-  }, [itemsWithTopics, query, diff, topic, solvedFilter]);
+      .sort((a, b) => topicOrder(a.topic) - topicOrder(b.topic));
+  }, [itemsWithTopic, query, diff, topic, solvedFilter]);
 
   // Reset to page 1 when user changes a filter.
   // Moved out of useEffect into each filter's onChange handler so it
@@ -227,6 +167,19 @@ export function ProblemsList({ items: initialItems }: { items: Item[] }) {
     const qs = params.toString();
     router.replace(qs ? `/problems?${qs}` : "/problems", { scroll: false });
   }, [router]);
+
+  // Topic lives in the URL, so changing it also drops back to page 1.
+  const selectTopic = useCallback(
+    (next: string) => {
+      const params = new URLSearchParams(window.location.search);
+      params.delete("page");
+      if (next === "all") params.delete("topic");
+      else params.set("topic", next);
+      const qs = params.toString();
+      router.replace(qs ? `/problems?${qs}` : "/problems", { scroll: false });
+    },
+    [router],
+  );
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
@@ -247,7 +200,23 @@ export function ProblemsList({ items: initialItems }: { items: Item[] }) {
     router.replace(qs ? `/problems?${qs}` : "/problems", { scroll: false });
   };
 
-  const topicLabel = locale === "en" ? TOPIC_LABEL_EN : TOPIC_LABEL_MN;
+  const en = locale === "en";
+  const labelOf = (o: TopicOption) => (en ? o.label_en : o.label_mn);
+  const unitLabelOf = (o: TopicOption) => (en ? o.unitLabel_en : o.unitLabel_mn);
+
+  const selected = topic === "all" ? null : topicById(topic);
+
+  // The picker mirrors the Learn page: one section per unit, lessons in order.
+  const topicGroups = useMemo(() => {
+    const groups: { unit: number; label: string; topics: TopicOption[] }[] = [];
+    for (const o of availableTopics) {
+      const last = groups[groups.length - 1];
+      if (last && last.unit === o.unit) last.topics.push(o);
+      else groups.push({ unit: o.unit, label: unitLabelOf(o), topics: [o] });
+    }
+    return groups;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [availableTopics, en]);
 
   const solvedCount = items.filter((p) => p.solved).length;
   const totalCount = items.length;
@@ -311,23 +280,37 @@ export function ProblemsList({ items: initialItems }: { items: Item[] }) {
             <SelectItem value="hard">{t("difficulty.hard")}</SelectItem>
           </SelectContent>
         </Select>
-        <Select value={topic} onValueChange={(v) => {
-          if (v) {
-            setTopic(v);
-            resetPageTo1();
-          }
-        }}>
-          <SelectTrigger className="w-full sm:w-[160px]">
-            <span className="text-sm">
-              {topic === "all" ? t("all") : topicLabel[topic] || topic}
+        <Select
+          value={topic}
+          onValueChange={(v) => {
+            if (v) selectTopic(v);
+          }}
+        >
+          <SelectTrigger className="w-full sm:w-[190px]">
+            <span className="truncate text-sm">
+              {selected ? labelOf(selected) : en ? "All topics" : "Бүх сэдэв"}
             </span>
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">{t("all")}</SelectItem>
-            {TOPIC_KEYS.map((k) => (
-              <SelectItem key={k} value={k}>
-                {topicLabel[k]}
-              </SelectItem>
+            <SelectItem value="all">
+              {en ? "All topics" : "Бүх сэдэв"}
+            </SelectItem>
+            {topicGroups.map((g) => (
+              <SelectGroup key={g.unit}>
+                <SelectLabel className="hud-label text-[10px]">
+                  {g.label}
+                </SelectLabel>
+                {g.topics.map((o) => (
+                  <SelectItem key={o.id} value={o.id}>
+                    <span className="flex w-full items-center gap-2">
+                      <span className="truncate">{labelOf(o)}</span>
+                      <span className="ml-auto font-code text-xs text-muted-foreground tabular-nums">
+                        {topicCounts[o.id]}
+                      </span>
+                    </span>
+                  </SelectItem>
+                ))}
+              </SelectGroup>
             ))}
           </SelectContent>
         </Select>
@@ -351,23 +334,73 @@ export function ProblemsList({ items: initialItems }: { items: Item[] }) {
         </Select>
       </div>
 
+      {/* When one topic is picked, point straight at the lesson that teaches
+          it — a student who cannot solve these needs the lesson, not a hint. */}
+      {selected && (
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 rounded-lg border border-primary/25 bg-primary/[0.06] px-3 py-2">
+          <span className="hud-label text-[10px] text-muted-foreground">
+            {unitLabelOf(selected)}
+          </span>
+          <span className="text-primary">/</span>
+          <span className="font-code text-sm font-bold text-primary">
+            {labelOf(selected)}
+          </span>
+          {selected.hasLesson && (
+            <Link
+              href={`/learn/${selected.id}`}
+              className="ml-auto inline-flex items-center gap-1.5 font-code text-xs text-muted-foreground transition-colors hover:text-primary"
+            >
+              <GraduationCap className="h-3.5 w-3.5" />
+              {en ? "Read the lesson" : "Хичээлийг унших"}
+            </Link>
+          )}
+        </div>
+      )}
+
       {filtered.length === 0 ? (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-        >
+        <div className="animate-flicker-in">
           <Card>
             <p className="text-center text-muted-foreground py-12">
               {t("no_problems")}
             </p>
           </Card>
-        </motion.div>
+        </div>
       ) : (
         <Card className="overflow-hidden p-0">
           <AnimatedList as="ol" className="divide-y" stagger={0.04}>
-            {visible.map((p, idx) => (
+            {visible.map(({ item: p, topic: id }, idx) => (
               <li key={p.id}>
+                {/* Topic heading — shown when the topic changes, and always
+                    at the top of a page so the group is never anonymous. */}
+                {(idx === 0 || visible[idx - 1].topic !== id) &&
+                  topic === "all" &&
+                  (() => {
+                    const o = topicById(id);
+                    if (!o) return null;
+                    return (
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 border-b border-primary/15 bg-primary/[0.06] px-4 py-2">
+                        <span className="hud-label text-[10px] text-muted-foreground">
+                          {unitLabelOf(o)}
+                        </span>
+                        <span className="text-primary">/</span>
+                        <span className="font-code text-sm font-bold text-primary">
+                          {labelOf(o)}
+                        </span>
+                        <span className="font-code text-xs text-muted-foreground tabular-nums">
+                          ({topicCounts[id]})
+                        </span>
+                        {o.hasLesson && (
+                          <Link
+                            href={`/learn/${o.id}`}
+                            className="ml-auto inline-flex items-center gap-1 font-code text-xs text-muted-foreground transition-colors hover:text-primary"
+                          >
+                            <GraduationCap className="h-3.5 w-3.5" />
+                            {en ? "lesson" : "хичээл"}
+                          </Link>
+                        )}
+                      </div>
+                    );
+                  })()}
                 <Link
                   href={`/problems/${p.slug}?fromPage=${currentPage}`}
                   className={cn(

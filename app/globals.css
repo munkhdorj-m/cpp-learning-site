@@ -504,6 +504,67 @@
   animation: shimmer 1.5s ease-in-out infinite;
 }
 
+/* Printing student login slips.
+   The slips are portalled to <body>, so everything else can simply be removed
+   from the page rather than hidden in place. The previous version named things
+   to hide, which left the roster, the statistics, the floating button and a
+   toast notification on the printout — the toast landing over two slips and
+   covering a username. */
+@media print {
+  @page {
+    margin: 12mm;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  /* Nothing but the slips. display, not visibility: hidden content must not
+     leave its space behind as blank pages. */
+  body > *:not(.print-sheet) {
+    display: none !important;
+  }
+
+  .print-sheet {
+    display: block !important;
+  }
+
+  /* Which class these belong to — paper only. */
+  .print-only {
+    display: block !important;
+    margin-bottom: 4mm;
+    font-size: 10pt;
+    color: #000 !important;
+  }
+
+  .print-slips {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    /* No gap, so the dashed borders meet and make one cutting grid. */
+    gap: 0 !important;
+  }
+
+  .print-slips > * {
+    border: 1px dashed #999 !important;
+    border-radius: 0 !important;
+    background: #fff !important;
+    color: #000 !important;
+    padding: 5mm !important;
+    margin: 0 !important;
+    min-height: 28mm;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .print-slips * {
+    color: #000 !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .neon-pulse,
   .glow-solved,
@@ -511,4 +572,12 @@
   .term-cursor::after {
     animation: none !important;
   }
+}
+
+/* Paper only — revealed by the print stylesheet. */
+.print-only {
+  display: none;
+}
+.print-sheet {
+  display: none;
 }
