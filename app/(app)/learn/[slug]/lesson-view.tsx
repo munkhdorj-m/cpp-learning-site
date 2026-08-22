@@ -41,6 +41,8 @@ export interface LessonViewData {
   goal: string;
   intro: string;
   code: string;
+  /** Shiki output for `code`, highlighted on the server. */
+  codeHtml: string | null;
   output: string;
   lines: { code: string; note: string }[];
   sections: ViewSection[];
@@ -56,6 +58,7 @@ export interface LessonViewData {
   /** The same lesson in Python, when available. */
   python: {
     code: string;
+    codeHtml: string | null;
     output: string;
     lines: { code: string; note: string }[];
     mistakes: { wrong: string; fix: string; why: string }[];
@@ -152,6 +155,7 @@ export function LessonView({
     usePython && lesson.python
       ? {
           code: lesson.python.code,
+          codeHtml: lesson.python.codeHtml,
           output: lesson.python.output,
           lines: lesson.python.lines,
           mistakes: lesson.python.mistakes,
@@ -165,6 +169,7 @@ export function LessonView({
         }
       : {
           code: lesson.code,
+          codeHtml: lesson.codeHtml,
           output: lesson.output,
           lines: lesson.lines,
           mistakes: lesson.mistakes,
@@ -302,6 +307,7 @@ export function LessonView({
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
             <CodeBlock
               code={shown.code}
+              html={shown.codeHtml}
               lang={usePython ? "python" : "cpp"}
               filename={
                 usePython ? LANGUAGES.python.filename : LANGUAGES.cpp.filename

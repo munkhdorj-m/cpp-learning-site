@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { Check, Copy } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { CodeThemePicker } from "@/components/learn/code-theme-picker";
 import {
   tokenize,
   TOKEN_CLASS,
@@ -33,12 +34,20 @@ export function CodeBlock({
   /** Line numbers and a copy button — for full examples, not one-liners. */
   numbered = false,
   className,
+  /**
+   * Shiki's output, highlighted on the server with every theme baked in as
+   * CSS variables. When it is present the local tokeniser is not used at all;
+   * the fallback below only runs for code Shiki never saw — a student's own
+   * program in the playground, for instance.
+   */
+  html,
 }: {
   code: string;
   lang: HighlightLang;
   filename?: string;
   numbered?: boolean;
   className?: string;
+  html?: string | null;
 }) {
   const [copied, setCopied] = useState(false);
   const lines = useMemo(() => toLines(tokenize(code, lang)), [code, lang]);
@@ -74,10 +83,12 @@ export function CodeBlock({
               </span>
             </>
           )}
+          <span className="ml-auto inline-flex items-center gap-2">
+          {html && <CodeThemePicker />}
           <button
             onClick={copy}
             aria-label="Copy code"
-            className="ml-auto inline-flex items-center gap-1 rounded px-1.5 py-0.5 font-code text-[10px] tracking-widest text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
+            className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 font-code text-[10px] tracking-widest text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
           >
             {copied ? (
               <>
@@ -91,9 +102,17 @@ export function CodeBlock({
               </>
             )}
           </button>
+          </span>
         </div>
       )}
 
+      {html ? (
+        <div
+          className={cn("shiki-host", numbered && "is-numbered-host")}
+          // Shiki output, produced on the server from our own lesson content.
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+      ) : (
       <pre className="overflow-x-auto p-3 font-mono text-xs leading-relaxed">
         <code>
           {lines.map((tokens, i) => (
@@ -116,6 +135,7 @@ export function CodeBlock({
           ))}
         </code>
       </pre>
+      )}
     </div>
   );
 }

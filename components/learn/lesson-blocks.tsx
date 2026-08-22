@@ -17,7 +17,16 @@ export interface ViewSection {
 
 export type ViewBlock =
   | { kind: "text"; text: string }
-  | { kind: "code"; cpp: string; py?: string; output?: string; caption?: string }
+  | {
+      kind: "code";
+      cpp: string;
+      py?: string;
+      output?: string;
+      caption?: string;
+      /** Shiki output for each language, highlighted on the server. */
+      cppHtml?: string | null;
+      pyHtml?: string | null;
+    }
   | { kind: "list"; items: string[]; ordered?: boolean }
   | { kind: "note"; tone: "tip" | "warn"; text: string }
   | { kind: "table"; head: string[]; rows: string[][] }
@@ -37,6 +46,7 @@ function SectionCode({
   // the last time round.
   const usePy = python && !!block.py;
   const code = usePy ? block.py! : block.cpp;
+  const html = usePy ? block.pyHtml : block.cppHtml;
   const fallback = python && !block.py;
 
   return (
@@ -54,6 +64,7 @@ function SectionCode({
         )}
         <CodeBlock
           code={code}
+          html={html}
           lang={usePy ? "python" : "cpp"}
           className="rounded-none border-0"
         />

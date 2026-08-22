@@ -25,6 +25,7 @@ import { PracticeFor } from "@/components/cambridge/practice-for";
 import { TopicImages } from "@/components/cambridge/topic-images";
 import { TopicDone } from "@/components/cambridge/topic-done";
 import { CodeBlock } from "@/components/learn/code-block";
+import { highlightCode } from "@/lib/shiki";
 
 export function generateStaticParams() {
   return TOPICS.map((t) => ({ level: t.level, topic: t.slug }));
@@ -104,7 +105,7 @@ export default async function CambridgeTopicPage({
       <PracticeFor slug={t.slug} />
 
       {/* Notes */}
-      {(t.notes ?? []).map((n) => (
+      {await Promise.all((t.notes ?? []).map(async (n) => (
         <section key={n.heading} className="space-y-2">
           <h2 className="hud-label flex items-center gap-2">
             <span className="text-primary">//</span>
@@ -114,9 +115,15 @@ export default async function CambridgeTopicPage({
           <p className="text-[15px] leading-relaxed text-muted-foreground">
             {n.body}
           </p>
-          {n.code && <CodeBlock code={n.code} lang="cpp" />}
+          {n.code && (
+            <CodeBlock
+              code={n.code}
+              html={await highlightCode(n.code, "cpp")}
+              lang="cpp"
+            />
+          )}
         </section>
-      ))}
+      )))}
 
       {/* Key terms — as flashcards, so they are recalled rather than re-read */}
       {t.terms && t.terms.length > 0 && (

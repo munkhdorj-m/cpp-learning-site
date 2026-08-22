@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { IBM_Plex_Mono } from "next/font/google";
+import { cookies } from "next/headers";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 
@@ -10,6 +11,12 @@ import { GridBackground } from "@/components/grid-background";
 import { Fab } from "@/components/fab";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+
+import {
+  CODE_THEME_COOKIE,
+  DEFAULT_CODE_THEME,
+  isCodeTheme,
+} from "@/lib/shiki";
 
 import "./globals.css";
 
@@ -40,10 +47,18 @@ export default async function RootLayout({
   const locale = await getLocale();
   const messages = await getMessages();
 
+  // The student's code theme, read server-side so <html> carries it in the
+  // very first byte. Doing this on the client instead would paint one theme
+  // and then swap it.
+  const store = await cookies();
+  const saved = store.get(CODE_THEME_COOKIE)?.value;
+  const codeTheme = isCodeTheme(saved) ? saved : DEFAULT_CODE_THEME;
+
   return (
     <html
       lang={locale}
       className={mono.variable}
+      data-code-theme={codeTheme}
       suppressHydrationWarning
     >
       <body className="antialiased min-h-screen bg-background text-foreground font-mono">

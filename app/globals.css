@@ -263,6 +263,98 @@
 }
 
 /* =====================================================================
+   SHIKI — student-switchable code themes
+   ---------------------------------------------------------------------
+   Every token carries one custom property per theme (--s-t0 … --s-t5) and
+   no colour of its own, so choosing a theme is one attribute on <html>.
+   No re-highlighting, no JavaScript in the render path, no flash: the
+   server writes data-code-theme from a cookie before the page is sent.
+   ===================================================================== */
+
+.shiki,
+.shiki span {
+  color: var(--s-t0);
+  font-style: var(--s-t0-font-style, inherit);
+}
+.shiki {
+  background: var(--s-t0-bg);
+}
+
+[data-code-theme="t1"] .shiki,
+[data-code-theme="t1"] .shiki span {
+  color: var(--s-t1);
+  font-style: var(--s-t1-font-style, inherit);
+}
+[data-code-theme="t1"] .shiki {
+  background: var(--s-t1-bg);
+}
+
+[data-code-theme="t2"] .shiki,
+[data-code-theme="t2"] .shiki span {
+  color: var(--s-t2);
+  font-style: var(--s-t2-font-style, inherit);
+}
+[data-code-theme="t2"] .shiki {
+  background: var(--s-t2-bg);
+}
+
+[data-code-theme="t3"] .shiki,
+[data-code-theme="t3"] .shiki span {
+  color: var(--s-t3);
+  font-style: var(--s-t3-font-style, inherit);
+}
+[data-code-theme="t3"] .shiki {
+  background: var(--s-t3-bg);
+}
+
+[data-code-theme="t4"] .shiki,
+[data-code-theme="t4"] .shiki span {
+  color: var(--s-t4);
+  font-style: var(--s-t4-font-style, inherit);
+}
+[data-code-theme="t4"] .shiki {
+  background: var(--s-t4-bg);
+}
+
+[data-code-theme="t5"] .shiki,
+[data-code-theme="t5"] .shiki span {
+  color: var(--s-t5);
+  font-style: var(--s-t5-font-style, inherit);
+}
+[data-code-theme="t5"] .shiki {
+  background: var(--s-t5-bg);
+}
+
+/* Shiki ships its own <pre> padding; the site frames the block instead. */
+.shiki {
+  margin: 0;
+  padding: 0.875rem 1rem;
+  overflow-x: auto;
+  font-size: 0.8125rem;
+  line-height: 1.75;
+  tab-size: 4;
+}
+.shiki code {
+  display: block;
+  width: max-content;
+  min-width: 100%;
+}
+/* Line numbers, drawn by CSS so they cannot be selected or copied. */
+.shiki.is-numbered code {
+  counter-reset: shiki-line;
+}
+.shiki.is-numbered .line::before {
+  counter-increment: shiki-line;
+  content: counter(shiki-line);
+  display: inline-block;
+  width: 2ch;
+  margin-right: 1.25ch;
+  text-align: right;
+  opacity: 0.45;
+  user-select: none;
+}
+
+/* =====================================================================
    TERMINAL UTILITIES
    The class names are unchanged from the previous design so that every
    component keeps working; what they draw is now hard-edged phosphor.

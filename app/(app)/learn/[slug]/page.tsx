@@ -9,15 +9,25 @@ import type {
 } from "@/components/learn/lesson-blocks";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 
+import { highlightCode } from "@/lib/shiki";
 import { LessonView } from "./lesson-view";
 
-/** Pick one language out of a section's bilingual content. */
-function localize(sections: Section[] | undefined, en: boolean): ViewSection[] {
-  return (sections ?? []).map((s) => ({
+/**
+ * Pick one language out of a section's bilingual content, and highlight any
+ * code in it. Async because Shiki is — the alternative is highlighting in the
+ * browser, which means shipping the grammars and the WASM engine to a student
+ * on a school connection.
+ */
+async function localize(
+  sections: Section[] | undefined,
+  en: boolean,
+): Promise<ViewSection[]> {
+  return Promise.all((sections ?? []).map(async (s) => ({
     id: s.id,
     title: en ? s.title_en : s.title_mn,
     cppOnly: s.cppOnly,
-    blocks: s.blocks.map((b): ViewBlock => {
+    blocks: await Promise.all(
+      s.blocks.map(async (b): Promise<ViewBlock> => {
       switch (b.kind) {
         case "text":
           return { kind: "text", text: en ? b.en : b.mn };
@@ -26,6 +36,8 @@ function localize(sections: Section[] | undefined, en: boolean): ViewSection[] {
             kind: "code",
             cpp: b.cpp,
             py: b.py,
+            cppHtml: await highlightCode(b.cpp, "cpp"),
+            pyHtml: b.py ? await highlightCode(b.py, "python") : null,
             output: b.output,
             caption: en ? b.caption_en : b.caption_mn,
           };
@@ -51,7 +63,8 @@ function localize(sections: Section[] | undefined, en: boolean): ViewSection[] {
           };
       }
     }),
-  }));
+    ),
+  })));
 }
 
 export function generateStaticParams() {
@@ -100,11 +113,12 @@ export default async function LessonPage({
         n: i + 1,
         total: LESSONS.length,
         unitTitle: unit ? (en ? unit.title_en : unit.title_mn) : "",
-        sections: localize(lesson.sections, en),
+        sections: await localize(lesson.sections, en),
         title: en ? lesson.title_en : lesson.title_mn,
         goal: en ? lesson.goal_en : lesson.goal_mn,
         intro: en ? lesson.intro_en : lesson.intro_mn,
         code: lesson.code,
+        codeHtml: await highlightCode(lesson.code, "cpp"),
         output: lesson.output,
         lines: lesson.lines.map((l) => ({
           code: l.code,
@@ -114,6 +128,7 @@ export default async function LessonPage({
         python: lesson.python
           ? {
               code: lesson.python.code,
+              codeHtml: await highlightCode(lesson.python.code, "python"),
               output: lesson.python.output,
               lines: lesson.python.lines.map((l) => ({
                 code: l.code,
