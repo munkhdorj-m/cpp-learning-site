@@ -21,14 +21,14 @@ export function GridBackground({ className }: GridBackgroundProps) {
       )}
       aria-hidden="true"
     >
-      {/* Drifting grid — dialled back so the particle network reads clearly */}
+      {/* Drifting grid. Weaker than it was: it is a backdrop behind a solid
+          content slab now, not a texture under the text. */}
       <div
-        className="absolute inset-0 opacity-[0.25] dark:opacity-[0.3]"
+        className="absolute inset-0 opacity-[0.18] dark:opacity-[0.16]"
         style={{
           backgroundImage:
-            "linear-gradient(to right, color-mix(in oklch, var(--neon-cyan) 12%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklch, var(--neon-cyan) 12%, transparent) 1px, transparent 1px)",
+            "linear-gradient(to right, color-mix(in srgb, var(--amber-mid) 14%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, var(--amber-mid) 14%, transparent) 1px, transparent 1px)",
           backgroundSize: "48px 48px",
-          animation: "grid-pan 18s linear infinite",
           maskImage:
             "radial-gradient(ellipse 80% 60% at 50% 0%, black 20%, transparent 75%)",
           WebkitMaskImage:
@@ -46,7 +46,7 @@ export function GridBackground({ className }: GridBackgroundProps) {
         className="absolute inset-0 hidden dark:block"
         style={{
           background:
-            "radial-gradient(ellipse 100% 100% at 50% 0%, transparent 55%, oklch(0.12 0.02 264 / 0.55) 100%)",
+            "radial-gradient(ellipse 100% 100% at 50% 0%, transparent 55%, rgb(0 0 0 / 0.6) 100%)",
         }}
       />
     </div>

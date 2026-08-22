@@ -209,24 +209,22 @@ export function tokenize(src: string, lang: HighlightLang): Token[] {
 }
 
 /**
- * Highlighting on the amber ramp, because the four signal hues mean
- * something everywhere else on the site — a red keyword would be wearing the
- * colour of a wrong answer, and a violet `#include` the colour of a compile
- * error. An amber monitor never had syntax colour anyway; it had brightness.
+ * Highlighting has its own palette, scoped to the inside of a code block.
  *
- * Brightness groups the code by what a token IS:
- *   hot   language structure — keywords and types
- *   mid   values and calls — strings, numbers, functions
- *   soft  everything else
- *   dim   meta — comments and preprocessor lines
+ * The site rule is that a hue means a state — but no verdict, progress bar or
+ * next-lesson marker is ever rendered inside a <pre>, so nothing in here can
+ * be mistaken for one. Colour in code is information about the code, and a
+ * single-hue listing turned out to be genuinely harder to read.
+ *
+ * Every tone is measured against --surface-code in both themes.
  */
 export const TOKEN_CLASS: Record<TokenKind, string> = {
-  plain: "text-amber-soft",
-  comment: "text-amber-dim italic",
-  string: "text-amber-mid",
-  number: "text-amber-mid",
-  keyword: "text-amber-hot font-semibold",
-  type: "text-amber-hot",
-  preproc: "text-amber-dim",
-  func: "text-amber-mid font-semibold",
+  plain: "text-[var(--code-plain)]",
+  comment: "text-[var(--code-comment)] italic",
+  string: "text-[var(--code-string)]",
+  number: "text-[var(--code-number)]",
+  keyword: "text-[var(--code-keyword)] font-semibold",
+  type: "text-[var(--code-type)]",
+  preproc: "text-[var(--code-preproc)]",
+  func: "text-[var(--code-func)] font-semibold",
 };

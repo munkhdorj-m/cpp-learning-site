@@ -257,7 +257,7 @@ export function ParticleNetwork() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 h-full w-full opacity-60 dark:opacity-100"
+      className="pointer-events-none absolute inset-0 h-full w-full opacity-40 dark:opacity-50"
     />
   );
 }

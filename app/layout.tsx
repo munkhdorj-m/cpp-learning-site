@@ -60,7 +60,13 @@ export default async function RootLayout({
               <Nav />
             </Suspense>
             <GridBackground />
-            <main className="container mx-auto px-4 py-8">{children}</main>
+            {/* An opaque slab. The ambient network is a backdrop, and it was
+                showing straight through every panel and behind running text,
+                which is exactly where it cannot be. It now frames the content
+                rather than sitting under it. */}
+            <main className="container mx-auto my-6 max-w-6xl border border-border bg-background px-4 py-8 sm:px-6">
+              {children}
+            </main>
             <Toaster richColors position="top-center" />
             <Fab />
           </ThemeProvider>

@@ -104,6 +104,19 @@
   /* Code sits a shade off the page so a listing reads as a listing. */
   --surface-code: #EDEAE0;
 
+  /* Syntax colours are scoped to a code block, where none of the four site
+     signals can appear — no verdict, no progress, no next-lesson marker is
+     ever rendered inside a <pre>. Highlighting is information about the
+     code, so it earns real hues; every one is measured on --surface-code. */
+  --code-plain: #3A2E14;
+  --code-comment: #665938;
+  --code-string: #1F6B33;
+  --code-number: #8A5A00;
+  --code-keyword: #A8410A;
+  --code-type: #0B5C74;
+  --code-preproc: #5B3AA6;
+  --code-func: #1C1608;
+
   --signal-ok: #146B32;   /*  6.0:1  ✓ it worked             */
   --signal-no: #A3231C;   /*  6.7:1  ✗ ran, and was wrong    */
   --signal-dead: #5B21B6; /*  8.1:1  ⚠ never ran             */
@@ -133,8 +146,6 @@
   --chart-4: var(--signal-dead);
   --chart-5: var(--signal-no);
   --radius: 0rem;
-  /* Scanlines belong to the phosphor screen, not to paper. */
-  --scanline: 0;
 
   --sidebar: #F5F3EC;
   --sidebar-foreground: var(--amber-mid);
@@ -156,6 +167,16 @@
   --amber-dim: #C9922B;   /*  7.2:1  numbers, tags, labels   */
   --rail: #5C4208;        /*  2.1:1  RULES ONLY, never text  */
   --surface-code: #070604;
+
+  /* Warm-leaning so a listing still reads as an amber terminal. */
+  --code-plain: #E4D5B7;
+  --code-comment: #9C8A62;
+  --code-string: #9BD98C;
+  --code-number: #F5C86B;
+  --code-keyword: #FF9E5E;
+  --code-type: #7FC9E8;
+  --code-preproc: #CBA6F7;
+  --code-func: #FFE3AE;
 
   --signal-ok: #5BD75B;   /* 10.7:1  ✓ it worked             */
   --signal-no: #FF6B6B;   /*  7.1:1  ✗ ran, and was wrong    */
@@ -185,8 +206,6 @@
   --chart-3: var(--signal-ok);
   --chart-4: var(--signal-dead);
   --chart-5: var(--signal-no);
-  /* Dial the CRT down to 0 or up to ~0.5 here — it is one number. */
-  --scanline: 0.22;
 
   --sidebar: #0B0A07;
   --sidebar-foreground: var(--amber-soft);
@@ -231,20 +250,6 @@
     scrollbar-width: thin;
   }
 
-  /* The CRT. A hard 1px line every 3px — a scanline, not a blur. Sits
-     above the page and ignores pointer events. */
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    pointer-events: none;
-    background: repeating-linear-gradient(
-      to bottom,
-      rgb(0 0 0 / var(--scanline)) 0 1px,
-      transparent 1px 3px
-    );
-  }
 }
 
 /* Hard edges are the design. The --radius-* scale already resolves to 0, but
@@ -572,12 +577,6 @@
     color: #000 !important;
     text-shadow: none !important;
     box-shadow: none !important;
-  }
-
-  /* The CRT overlay is a pseudo-element, so hiding body's children does not
-     remove it — it would print as grey stripes across every slip. */
-  body::after {
-    display: none !important;
   }
 }
 
