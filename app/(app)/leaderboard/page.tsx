@@ -199,7 +199,7 @@ export default async function LeaderboardPage() {
 
 function RankIcon({ rank }: { rank: number }) {
   if (rank === 1) return <Crown className="h-5 w-5 text-amber-500" />;
-  if (rank === 2) return <Medal className="h-5 w-5 text-slate-400" />;
+  if (rank === 2) return <Medal className="h-5 w-5 text-amber-soft" />;
   if (rank === 3) return <Trophy className="h-5 w-5 text-amber-700" />;
   return (
     <span className="text-sm font-semibold text-muted-foreground tabular-nums">

@@ -58,7 +58,7 @@ export function CodeBlock({
   return (
     <div
       className={cn(
-        "group relative overflow-hidden rounded-lg border border-primary/15 bg-[oklch(0.16_0.02_264)]",
+        "group relative overflow-hidden rounded-lg border border-primary/15 bg-[var(--surface-code)]",
         className,
       )}
     >
@@ -101,7 +101,7 @@ export function CodeBlock({
               {numbered && (
                 <span
                   aria-hidden
-                  className="mr-3 inline-block select-none text-right text-slate-600"
+                  className="mr-3 inline-block select-none text-right text-amber-dim/60"
                   style={{ width: `${gutterWidth}ch` }}
                 >
                   {i + 1}

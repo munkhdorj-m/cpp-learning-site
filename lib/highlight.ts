@@ -208,14 +208,25 @@ export function tokenize(src: string, lang: HighlightLang): Token[] {
   return out;
 }
 
-/** Tailwind classes per token kind, using the site's own accent colours. */
+/**
+ * Highlighting on the amber ramp, because the four signal hues mean
+ * something everywhere else on the site — a red keyword would be wearing the
+ * colour of a wrong answer, and a violet `#include` the colour of a compile
+ * error. An amber monitor never had syntax colour anyway; it had brightness.
+ *
+ * Brightness groups the code by what a token IS:
+ *   hot   language structure — keywords and types
+ *   mid   values and calls — strings, numbers, functions
+ *   soft  everything else
+ *   dim   meta — comments and preprocessor lines
+ */
 export const TOKEN_CLASS: Record<TokenKind, string> = {
-  plain: "text-slate-200",
-  comment: "text-slate-500 italic",
-  string: "text-neon-lime",
-  number: "text-neon-amber",
-  keyword: "text-neon-pink",
-  type: "text-neon-cyan",
-  preproc: "text-neon-violet",
-  func: "text-sky-300",
+  plain: "text-amber-soft",
+  comment: "text-amber-dim italic",
+  string: "text-amber-mid",
+  number: "text-amber-mid",
+  keyword: "text-amber-hot font-semibold",
+  type: "text-amber-hot",
+  preproc: "text-amber-dim",
+  func: "text-amber-mid font-semibold",
 };

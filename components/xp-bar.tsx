@@ -44,8 +44,7 @@ export function XpBar({ xp, level }: XpBarProps) {
             style={{
               width: `${progress}%`,
               background: "var(--gradient-xp)",
-              boxShadow: "0 0 12px -2px var(--color-primary)",
-            }}
+              }}
           />
         </div>
         <span className="font-code text-[0.7rem] font-semibold text-muted-foreground tabular-nums">

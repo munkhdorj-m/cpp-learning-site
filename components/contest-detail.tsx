@@ -233,7 +233,7 @@ function StatusPill({ status }: { status: "live" | "upcoming" | "past" }) {
 
 function RankIcon({ rank }: { rank: number }) {
   if (rank === 1) return <Crown className="h-4 w-4 text-amber-500" />;
-  if (rank === 2) return <Medal className="h-4 w-4 text-slate-400" />;
+  if (rank === 2) return <Medal className="h-4 w-4 text-amber-soft" />;
   if (rank === 3) return <Trophy className="h-4 w-4 text-amber-700" />;
   return <span className="text-xs font-semibold text-muted-foreground tabular-nums">{rank}</span>;
 }

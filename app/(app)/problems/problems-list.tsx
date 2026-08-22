@@ -236,8 +236,7 @@ export function ProblemsList({ items: initialItems }: { items: Item[] }) {
             style={{
               width: `${totalCount > 0 ? (solvedCount / totalCount) * 100 : 0}%`,
               background: "var(--gradient-solved)",
-              boxShadow: "0 0 12px -2px var(--neon-lime)",
-            }}
+              }}
           />
         </div>
         <span className="font-code text-xs text-muted-foreground tabular-nums">

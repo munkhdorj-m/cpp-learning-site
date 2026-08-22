@@ -295,7 +295,7 @@ export function TraceTable() {
       </div>
 
       <div className="grid gap-3 md:grid-cols-2">
-        <pre className="overflow-x-auto whitespace-pre rounded-lg border border-primary/15 bg-[oklch(0.16_0.02_264)] p-3 font-mono text-xs leading-relaxed text-primary">
+        <pre className="overflow-x-auto whitespace-pre rounded-lg border border-primary/15 bg-[var(--surface-code)] p-3 font-mono text-xs leading-relaxed text-primary">
           {ex.code.join("\n")}
         </pre>
 

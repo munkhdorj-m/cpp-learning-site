@@ -152,7 +152,7 @@ export function SqlPractice() {
         spellCheck={false}
         placeholder="SELECT … FROM Student WHERE …"
         aria-label="Your SQL query"
-        className="w-full rounded-lg border border-primary/20 bg-[oklch(0.16_0.02_264)] p-2.5 font-mono text-xs text-primary outline-none focus:border-primary/40"
+        className="w-full rounded-lg border border-primary/20 bg-[var(--surface-code)] p-2.5 font-mono text-xs text-primary outline-none focus:border-primary/40"
       />
 
       <div className="flex flex-wrap gap-2">

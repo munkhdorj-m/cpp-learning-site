@@ -4,20 +4,51 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* =====================================================================
+   AMBER PHOSPHOR
+   ---------------------------------------------------------------------
+   One hue is the voice of the site: amber, at four brightnesses, carries
+   every neutral thing. Four more hues are SIGNALS — they appear only
+   where a real state exists, and each is paired with a glyph, because a
+   deuteranope sees green and red at 1.24:1, i.e. as the same colour.
+
+   Rules, in order of importance:
+     1. A hue means a state, never a decoration.
+     2. Every signal is a glyph first and a colour second.
+     3. Anything that is not a state (difficulty, XP, tags) uses the
+        amber ramp.
+
+   Every text tone below is measured against its own ground and passes
+   WCAG AA. --rail is the one exception and is for rules/borders only.
+   ===================================================================== */
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono:
-    var(--font-mono), ui-monospace, "JetBrains Mono", Menlo, monospace;
-  --font-heading: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-mono), ui-monospace, "Cascadia Mono", Menlo, monospace;
+  --font-mono: var(--font-mono), ui-monospace, "Cascadia Mono", Menlo, monospace;
+  --font-heading: var(--font-mono), ui-monospace, Menlo, monospace;
 
-  /* Brand neon tokens — usable as text-neon-cyan, bg-neon-lime/20, etc. */
-  --color-neon-cyan: var(--neon-cyan);
-  --color-neon-violet: var(--neon-violet);
-  --color-neon-lime: var(--neon-lime);
-  --color-neon-amber: var(--neon-amber);
-  --color-neon-pink: var(--neon-pink);
+  /* Signals — the only four hues allowed besides amber. */
+  --color-signal-ok: var(--signal-ok);
+  --color-signal-no: var(--signal-no);
+  --color-signal-dead: var(--signal-dead);
+  --color-signal-go: var(--signal-go);
+
+  /* The amber ramp, addressable as text-amber-hot / bg-amber-rail etc. */
+  --color-amber-hot: var(--amber-hot);
+  --color-amber-mid: var(--amber-mid);
+  --color-amber-soft: var(--amber-soft);
+  --color-amber-dim: var(--amber-dim);
+  --color-amber-rail: var(--rail);
+
+  /* Legacy neon names, remapped onto the signals so existing components
+     pick up the new palette without being rewritten one by one. */
+  --color-neon-cyan: var(--signal-go);
+  --color-neon-violet: var(--signal-dead);
+  --color-neon-lime: var(--signal-ok);
+  --color-neon-amber: var(--amber-mid);
+  --color-neon-pink: var(--signal-no);
 
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -48,104 +79,123 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Hard edges everywhere. The radius scale is kept so shadcn components
+     keep compiling, but every step resolves to a square corner. */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-3xl: 0px;
+  --radius-4xl: 0px;
 }
 
 :root {
   /* ---------------------------------------------------------------
-     LIGHT — "daylight console": clean, cool white, techy but calm
+     LIGHT — "paper terminal": the same structure printed on paper.
+     Ink on #F5F3EC, all measured.
      --------------------------------------------------------------- */
-  --background: oklch(0.98 0.006 220);
-  --foreground: oklch(0.24 0.02 260);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.24 0.02 260);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.24 0.02 260);
-  --primary: oklch(0.55 0.12 210);
-  --primary-foreground: oklch(0.99 0.005 220);
-  --secondary: oklch(0.955 0.012 230);
-  --secondary-foreground: oklch(0.28 0.02 260);
-  --muted: oklch(0.955 0.012 230);
-  --muted-foreground: oklch(0.5 0.02 240);
-  --accent: oklch(0.955 0.012 230);
-  --accent-foreground: oklch(0.28 0.02 260);
-  --destructive: oklch(0.6 0.21 25);
-  --border: oklch(0.9 0.012 235);
-  --input: oklch(0.9 0.012 235);
-  --ring: oklch(0.6 0.13 205);
-  --chart-1: oklch(0.6 0.13 205);
-  --chart-2: oklch(0.62 0.2 290);
-  --chart-3: oklch(0.68 0.16 145);
-  --chart-4: oklch(0.75 0.15 75);
-  --chart-5: oklch(0.65 0.2 350);
-  --radius: 0.7rem;
+  --amber-hot: #1C1608;   /* 16.2:1  headings                */
+  --amber-mid: #2E2410;   /* 13.8:1  body text               */
+  --amber-soft: #6B5A38;  /*  6.0:1  secondary text          */
+  --amber-dim: #8A5A00;   /*  5.3:1  accents, numbers        */
+  --rail: #D8D2C0;        /*  1.4:1  RULES ONLY, never text  */
+  /* Code sits a shade off the page so a listing reads as a listing. */
+  --surface-code: #EDEAE0;
 
-  /* Brand neon — slightly toned for readability on white */
-  --neon-cyan: oklch(0.62 0.13 205);
-  --neon-violet: oklch(0.55 0.22 290);
-  --neon-lime: oklch(0.6 0.16 150);
-  --neon-amber: oklch(0.68 0.16 70);
-  --neon-pink: oklch(0.6 0.23 350);
+  --signal-ok: #146B32;   /*  6.0:1  ✓ it worked             */
+  --signal-no: #A3231C;   /*  6.7:1  ✗ ran, and was wrong    */
+  --signal-dead: #5B21B6; /*  8.1:1  ⚠ never ran             */
+  --signal-go: #0B6570;   /*  6.1:1  ▸ in progress / go here */
 
-  --sidebar: oklch(0.98 0.006 220);
-  --sidebar-foreground: oklch(0.24 0.02 260);
-  --sidebar-primary: oklch(0.55 0.12 210);
-  --sidebar-primary-foreground: oklch(0.99 0.005 220);
-  --sidebar-accent: oklch(0.955 0.012 230);
-  --sidebar-accent-foreground: oklch(0.28 0.02 260);
-  --sidebar-border: oklch(0.9 0.012 235);
-  --sidebar-ring: oklch(0.6 0.13 205);
+  --background: #F5F3EC;
+  --foreground: var(--amber-mid);
+  --card: #FBFAF5;
+  --card-foreground: var(--amber-mid);
+  --popover: #FBFAF5;
+  --popover-foreground: var(--amber-mid);
+  --primary: var(--amber-dim);
+  --primary-foreground: #FBFAF5;
+  --secondary: #E9E5D8;
+  --secondary-foreground: var(--amber-mid);
+  --muted: #E9E5D8;
+  --muted-foreground: var(--amber-soft);
+  --accent: #E9E5D8;
+  --accent-foreground: var(--amber-mid);
+  --destructive: var(--signal-no);
+  --border: var(--rail);
+  --input: var(--rail);
+  --ring: var(--amber-dim);
+  --chart-1: var(--amber-dim);
+  --chart-2: var(--signal-go);
+  --chart-3: var(--signal-ok);
+  --chart-4: var(--signal-dead);
+  --chart-5: var(--signal-no);
+  --radius: 0rem;
+  /* Scanlines belong to the phosphor screen, not to paper. */
+  --scanline: 0;
+
+  --sidebar: #F5F3EC;
+  --sidebar-foreground: var(--amber-mid);
+  --sidebar-primary: var(--amber-dim);
+  --sidebar-primary-foreground: #FBFAF5;
+  --sidebar-accent: #E9E5D8;
+  --sidebar-accent-foreground: var(--amber-mid);
+  --sidebar-border: var(--rail);
+  --sidebar-ring: var(--amber-dim);
 }
 
 .dark {
   /* ---------------------------------------------------------------
-     DARK — "the deck": deep-space navy, neon cyan HUD. The star.
+     DARK — the P3 amber monitor. The default, and the real design.
      --------------------------------------------------------------- */
-  --background: oklch(0.16 0.025 264);
-  --foreground: oklch(0.94 0.012 220);
-  --card: oklch(0.205 0.03 262);
-  --card-foreground: oklch(0.94 0.012 220);
-  --popover: oklch(0.19 0.03 262);
-  --popover-foreground: oklch(0.94 0.012 220);
-  --primary: oklch(0.82 0.13 195);
-  --primary-foreground: oklch(0.16 0.03 264);
-  --secondary: oklch(0.26 0.03 262);
-  --secondary-foreground: oklch(0.94 0.012 220);
-  --muted: oklch(0.25 0.028 262);
-  --muted-foreground: oklch(0.7 0.025 225);
-  --accent: oklch(0.28 0.035 262);
-  --accent-foreground: oklch(0.94 0.012 220);
-  --destructive: oklch(0.7 0.2 20);
-  --border: oklch(0.82 0.06 210 / 14%);
-  --input: oklch(0.82 0.06 210 / 16%);
-  --ring: oklch(0.82 0.13 195);
-  --chart-1: oklch(0.82 0.13 195);
-  --chart-2: oklch(0.7 0.2 290);
-  --chart-3: oklch(0.82 0.19 145);
-  --chart-4: oklch(0.82 0.16 75);
-  --chart-5: oklch(0.72 0.22 350);
+  --amber-hot: #FFE3AE;   /* 15.9:1  headings, current item  */
+  --amber-mid: #FFB000;   /* 10.8:1  titles — the voice      */
+  --amber-soft: #D2A04A;  /*  8.4:1  body and goal text      */
+  --amber-dim: #C9922B;   /*  7.2:1  numbers, tags, labels   */
+  --rail: #5C4208;        /*  2.1:1  RULES ONLY, never text  */
+  --surface-code: #070604;
 
-  /* Brand neon — bright, glowing */
-  --neon-cyan: oklch(0.85 0.15 195);
-  --neon-violet: oklch(0.72 0.21 290);
-  --neon-lime: oklch(0.86 0.2 145);
-  --neon-amber: oklch(0.84 0.16 78);
-  --neon-pink: oklch(0.75 0.23 350);
+  --signal-ok: #5BD75B;   /* 10.7:1  ✓ it worked             */
+  --signal-no: #FF6B6B;   /*  7.1:1  ✗ ran, and was wrong    */
+  --signal-dead: #C4B5FD; /* 10.7:1  ⚠ never ran             */
+  --signal-go: #56D4DD;   /* 11.2:1  ▸ in progress / go here */
 
-  --sidebar: oklch(0.19 0.03 262);
-  --sidebar-foreground: oklch(0.94 0.012 220);
-  --sidebar-primary: oklch(0.82 0.13 195);
-  --sidebar-primary-foreground: oklch(0.16 0.03 264);
-  --sidebar-accent: oklch(0.28 0.035 262);
-  --sidebar-accent-foreground: oklch(0.94 0.012 220);
-  --sidebar-border: oklch(0.82 0.06 210 / 14%);
-  --sidebar-ring: oklch(0.82 0.13 195);
+  --background: #0B0A07;
+  --foreground: var(--amber-soft);
+  --card: #100E09;
+  --card-foreground: var(--amber-soft);
+  --popover: #13100A;
+  --popover-foreground: var(--amber-soft);
+  --primary: var(--amber-mid);
+  --primary-foreground: #0B0A07;
+  --secondary: #1A150C;
+  --secondary-foreground: var(--amber-soft);
+  --muted: #17130B;
+  --muted-foreground: var(--amber-dim);
+  --accent: #1F1810;
+  --accent-foreground: var(--amber-hot);
+  --destructive: var(--signal-no);
+  --border: var(--rail);
+  --input: var(--rail);
+  --ring: var(--amber-mid);
+  --chart-1: var(--amber-mid);
+  --chart-2: var(--signal-go);
+  --chart-3: var(--signal-ok);
+  --chart-4: var(--signal-dead);
+  --chart-5: var(--signal-no);
+  /* Dial the CRT down to 0 or up to ~0.5 here — it is one number. */
+  --scanline: 0.22;
+
+  --sidebar: #0B0A07;
+  --sidebar-foreground: var(--amber-soft);
+  --sidebar-primary: var(--amber-mid);
+  --sidebar-primary-foreground: #0B0A07;
+  --sidebar-accent: #1F1810;
+  --sidebar-accent-foreground: var(--amber-hot);
+  --sidebar-border: var(--rail);
+  --sidebar-ring: var(--amber-mid);
 }
 
 @layer base {
@@ -154,126 +204,136 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "ss01", "cv11";
-    line-height: 1.55;
+    line-height: 1.7;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
   html {
-    @apply font-sans;
+    @apply font-mono;
   }
+  /* Headings are the brightest step of the ramp — that is the whole
+     hierarchy, since there is only one typeface. */
   h1,
   h2,
   h3,
   h4 {
-    letter-spacing: -0.01em;
+    color: var(--amber-hot);
+    letter-spacing: 0;
+    line-height: 1.25;
   }
-  /* Neon selection */
   ::selection {
-    background: color-mix(in oklch, var(--neon-cyan) 35%, transparent);
-    color: var(--foreground);
+    background: var(--amber-mid);
+    color: var(--background);
   }
-  /* Techy thin scrollbars in dark */
   .dark * {
-    scrollbar-color: color-mix(in oklch, var(--neon-cyan) 30%, transparent)
-      transparent;
+    scrollbar-color: var(--rail) transparent;
     scrollbar-width: thin;
+  }
+
+  /* The CRT. A hard 1px line every 3px — a scanline, not a blur. Sits
+     above the page and ignores pointer events. */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgb(0 0 0 / var(--scanline)) 0 1px,
+      transparent 1px 3px
+    );
   }
 }
 
+/* Hard edges are the design. The --radius-* scale already resolves to 0, but
+   Tailwind's rounded-full hardcodes a pill radius that no token reaches — it
+   is on avatars, status dots, progress fills and the floating button. Squared
+   here rather than in 46 separate components. Unlayered, so it beats the
+   utility layer without !important. */
+.rounded-full,
+.rounded {
+  border-radius: 0;
+}
+
 /* =====================================================================
-   SCI-FI HUD UTILITIES
+   TERMINAL UTILITIES
+   The class names are unchanged from the previous design so that every
+   component keeps working; what they draw is now hard-edged phosphor.
    ===================================================================== */
 
-/* Monospace uppercase micro-label:  // SECTION  ·  LEVEL 03  ·  XP */
+/* Monospace micro-label:  // SECTION  ·  LEVEL 03  ·  XP */
 .hud-label {
   font-family: var(--font-mono);
   text-transform: uppercase;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   font-size: 0.7rem;
   font-weight: 600;
-  color: var(--muted-foreground);
+  color: var(--amber-dim);
 }
 
 .font-code {
   font-family: var(--font-mono);
 }
 
-/* Neon text — glow follows currentColor, so pair with text-neon-* */
-.text-glow {
-  text-shadow: 0 0 0.6em color-mix(in oklch, currentColor 55%, transparent);
-}
+/* Glow is gone. These are kept as no-ops so the classes scattered
+   through the components do not have to be hunted down, and so nothing
+   re-introduces a text-shadow by accident. */
+.text-glow,
 .text-glow-soft {
-  text-shadow: 0 0 0.5em color-mix(in oklch, currentColor 35%, transparent);
+  text-shadow: none;
 }
 
-/* HUD panel — glowing bordered surface with a top accent seam.
-   Layer on top of a Card or use standalone. */
+/* A panel is a hairline box on the ground. No gradient, no lift, no
+   shadow — the border and the space around it do the work. */
 .hud-panel {
   position: relative;
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in oklch, var(--neon-cyan) 5%, transparent),
-      transparent 40%
-    ),
-    var(--card);
-  border: 1px solid color-mix(in oklch, var(--neon-cyan) 22%, var(--border));
-  box-shadow:
-    inset 0 1px 0 color-mix(in oklch, var(--neon-cyan) 12%, transparent),
-    0 0 0 1px color-mix(in oklch, var(--neon-cyan) 4%, transparent),
-    0 12px 40px -18px color-mix(in oklch, var(--neon-cyan) 40%, transparent);
+  background: var(--card);
+  border: 1px solid var(--rail);
+  box-shadow: none;
 }
 
-/* Accentable border-glow on hover — sci-fi lift */
+/* Hover marks the row rather than lifting it off the page. */
 .hud-hover {
   transition:
-    transform 0.2s ease,
-    box-shadow 0.25s ease,
-    border-color 0.25s ease;
+    background-color 0.12s linear,
+    border-color 0.12s linear;
 }
 .hud-hover:hover {
-  transform: translateY(-2px);
-  border-color: color-mix(in oklch, var(--neon-cyan) 55%, var(--border));
-  box-shadow:
-    0 0 0 1px color-mix(in oklch, var(--neon-cyan) 30%, transparent),
-    0 18px 50px -20px color-mix(in oklch, var(--neon-cyan) 60%, transparent);
+  border-color: var(--amber-mid);
+  background: color-mix(in srgb, var(--amber-mid) 8%, transparent);
 }
 
-/* Glow ring in a chosen accent (set --glow before use) */
+/* Was a glow ring; now a solid 1px rule in the chosen accent. */
 .glow-ring {
-  box-shadow:
-    0 0 0 1px color-mix(in oklch, var(--glow, var(--neon-cyan)) 35%, transparent),
-    0 0 24px -6px color-mix(in oklch, var(--glow, var(--neon-cyan)) 60%, transparent);
+  box-shadow: 0 0 0 1px var(--glow, var(--amber-mid));
 }
 
-/* L-shaped HUD corner brackets (top-left + bottom-right) */
+/* Corner brackets, squared off. */
 .hud-corners::before,
 .hud-corners::after {
   content: "";
   position: absolute;
-  width: 14px;
-  height: 14px;
-  border: 2px solid color-mix(in oklch, var(--neon-cyan) 55%, transparent);
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--amber-mid);
   pointer-events: none;
 }
 .hud-corners::before {
-  top: 8px;
-  left: 8px;
+  top: 0;
+  left: 0;
   border-right: 0;
   border-bottom: 0;
-  border-top-left-radius: 4px;
 }
 .hud-corners::after {
-  bottom: 8px;
-  right: 8px;
+  bottom: 0;
+  right: 0;
   border-left: 0;
   border-top: 0;
-  border-bottom-right-radius: 4px;
 }
 
-/* Chip / pill — mono stat readout */
+/* Chip — a mono readout in a square box. */
 .hud-chip {
   display: inline-flex;
   align-items: center;
@@ -282,84 +342,34 @@
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  padding: 0.15rem 0.5rem;
-  border-radius: 0.4rem;
-  border: 1px solid color-mix(in oklch, var(--glow, var(--neon-cyan)) 30%, transparent);
-  background: color-mix(in oklch, var(--glow, var(--neon-cyan)) 12%, transparent);
-  color: color-mix(in oklch, var(--glow, var(--neon-cyan)) 88%, var(--foreground));
+  padding: 0.1rem 0.45rem;
+  border-radius: 0;
+  border: 1px solid color-mix(in srgb, var(--glow, var(--amber-mid)) 45%, transparent);
+  background: transparent;
+  color: var(--glow, var(--amber-mid));
 }
 
-/* Blinking terminal cursor */
+/* Blinking block cursor */
 .term-cursor::after {
-  content: "▌";
+  content: "█";
   margin-left: 0.1em;
-  color: var(--neon-cyan);
+  color: var(--amber-mid);
   animation: boot-blink 1.1s steps(1) infinite;
 }
 
-/* Animated gradient text */
+/* Was an animated three-colour gradient. A single hue now — the display
+   face of the site is amber, not a rainbow. */
 .text-gradient {
-  background: linear-gradient(
-    100deg,
-    var(--neon-cyan),
-    var(--neon-violet) 55%,
-    var(--neon-pink)
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: var(--amber-hot);
 }
 
 /* =====================================================================
    KEYFRAMES
    ===================================================================== */
 
-/* Holographic grid drift */
-@keyframes grid-pan {
-  0% {
-    background-position:
-      0 0,
-      0 0;
-  }
-  100% {
-    background-position:
-      0 -48px,
-      -48px 0;
-  }
-}
-
-/* Scanline sweep */
-@keyframes scan {
-  0% {
-    transform: translateY(-20%);
-    opacity: 0;
-  }
-  10%,
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(120vh);
-    opacity: 0;
-  }
-}
-
-/* Neon pulse (for active/attention) */
-@keyframes neon-pulse {
-  0%,
-  100% {
-    box-shadow: 0 0 0 1px
-        color-mix(in oklch, var(--neon-cyan) 30%, transparent),
-      0 0 18px -4px color-mix(in oklch, var(--neon-cyan) 50%, transparent);
-  }
-  50% {
-    box-shadow: 0 0 0 1px
-        color-mix(in oklch, var(--neon-cyan) 55%, transparent),
-      0 0 30px -2px color-mix(in oklch, var(--neon-cyan) 75%, transparent);
-  }
-}
-
-/* Boot blink for cursors */
 @keyframes boot-blink {
   0%,
   50% {
@@ -371,19 +381,16 @@
   }
 }
 
-/* Fade + rise in (content reveal) */
+/* Content reveal — no vertical drift, just a fade. */
 @keyframes flicker-in {
   0% {
     opacity: 0;
-    transform: translateY(6px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
-/* Original gamification keyframes (kept — referenced by existing components) */
 @keyframes blob-float {
   0%,
   100% {
@@ -416,17 +423,24 @@
   }
 }
 
+/* Attention without glow: the border blinks between two solid tones. */
+@keyframes neon-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 1px var(--amber-mid);
+  }
+  50% {
+    box-shadow: 0 0 0 1px var(--rail);
+  }
+}
+
 @keyframes glow-solved {
   0%,
   100% {
-    box-shadow:
-      0 0 8px color-mix(in oklch, var(--neon-lime) 25%, transparent),
-      0 0 20px color-mix(in oklch, var(--neon-lime) 12%, transparent);
+    box-shadow: 0 0 0 1px var(--signal-ok);
   }
   50% {
-    box-shadow:
-      0 0 16px color-mix(in oklch, var(--neon-lime) 40%, transparent),
-      0 0 35px color-mix(in oklch, var(--neon-lime) 20%, transparent);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--signal-ok) 40%, transparent);
   }
 }
 
@@ -450,59 +464,55 @@
 }
 
 /* =====================================================================
-   GRADIENT TOKENS
+   BAR / FILL TOKENS
+   These are consumed as `background: var(--gradient-*)` by existing
+   components. They are flat colours now — a gradient reads as a glow.
    ===================================================================== */
 
 :root {
-  --gradient-xp: linear-gradient(
-    to right,
-    var(--neon-cyan),
-    var(--neon-violet)
-  );
-  --gradient-gold: linear-gradient(
-    to right,
-    var(--neon-amber),
-    oklch(0.7 0.17 45)
-  );
-  --gradient-solved: linear-gradient(
-    to right,
-    var(--neon-lime),
-    var(--neon-cyan)
-  );
-  --gradient-hero: linear-gradient(
-    135deg,
-    var(--neon-cyan),
-    var(--neon-violet),
-    var(--neon-pink)
-  );
+  --gradient-xp: var(--amber-mid);
+  --gradient-gold: var(--amber-hot);
+  --gradient-solved: var(--signal-ok);
+  --gradient-hero: var(--amber-mid);
 }
 
 /* =====================================================================
-   UTILITY CLASSES (animation helpers)
+   ANIMATION HELPERS
    ===================================================================== */
 
 .animate-flicker-in {
-  animation: flicker-in 0.5s ease both;
+  animation: flicker-in 0.35s linear both;
 }
 
 .glow-solved {
-  animation: glow-solved 3s ease-in-out infinite;
+  animation: glow-solved 3s steps(2, end) infinite;
 }
 
 .neon-pulse {
-  animation: neon-pulse 2.4s ease-in-out infinite;
+  animation: neon-pulse 2.4s steps(2, end) infinite;
 }
 
 .skeleton-shimmer {
   background: linear-gradient(
     90deg,
     var(--color-muted) 25%,
-    color-mix(in oklch, var(--neon-cyan) 18%, var(--color-muted)) 37%,
+    color-mix(in srgb, var(--amber-mid) 18%, var(--color-muted)) 37%,
     var(--color-muted) 63%
   );
   background-size: 200% 100%;
-  animation: shimmer 1.5s ease-in-out infinite;
+  animation: shimmer 1.5s linear infinite;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .neon-pulse,
+  .glow-solved,
+  .animate-flicker-in,
+  .skeleton-shimmer,
+  .term-cursor::after {
+    animation: none !important;
+  }
+}
+
 
 /* Printing student login slips.
    The slips are portalled to <body>, so everything else can simply be removed
@@ -562,6 +572,12 @@
     color: #000 !important;
     text-shadow: none !important;
     box-shadow: none !important;
+  }
+
+  /* The CRT overlay is a pseudo-element, so hiding body's children does not
+     remove it — it would print as grey stripes across every slip. */
+  body::after {
+    display: none !important;
   }
 }
 

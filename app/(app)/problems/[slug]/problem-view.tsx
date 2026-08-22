@@ -289,7 +289,7 @@ export function ProblemView({
                       {"> "}
                       {labels.sample_input}
                     </div>
-                    <pre className="whitespace-pre-wrap rounded border border-primary/15 bg-[oklch(0.16_0.02_264)] p-2 font-mono text-xs text-primary">
+                    <pre className="whitespace-pre-wrap rounded border border-primary/15 bg-[var(--surface-code)] p-2 font-mono text-xs text-primary">
                       {s.stdin}
                     </pre>
                   </div>
@@ -298,7 +298,7 @@ export function ProblemView({
                       {"> "}
                       {labels.sample_output}
                     </div>
-                    <pre className="whitespace-pre-wrap rounded border border-neon-lime/25 bg-[oklch(0.16_0.02_264)] p-2 font-mono text-xs text-neon-lime">
+                    <pre className="whitespace-pre-wrap rounded border border-neon-lime/25 bg-[var(--surface-code)] p-2 font-mono text-xs text-neon-lime">
                       {s.expected_stdout}
                     </pre>
                   </div>

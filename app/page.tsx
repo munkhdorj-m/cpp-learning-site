@@ -178,8 +178,7 @@ function FeatureCard({
                 color: glow,
                 borderColor: `color-mix(in oklch, ${glow} 35%, transparent)`,
                 background: `color-mix(in oklch, ${glow} 12%, transparent)`,
-                boxShadow: `0 0 20px -8px ${glow}`,
-              }}
+                }}
             >
               {icon}
             </div>

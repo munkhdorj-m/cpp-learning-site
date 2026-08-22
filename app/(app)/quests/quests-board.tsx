@@ -179,7 +179,7 @@ export function QuestsBoard({
             {isOpen && (
               <div className="px-4 pb-4 space-y-3 border-t pt-3 -mt-px">
                 {q.code_snippet && (
-                  <pre className="overflow-x-auto whitespace-pre rounded border border-primary/15 bg-[oklch(0.16_0.02_264)] p-3 font-mono text-xs leading-relaxed text-primary">
+                  <pre className="overflow-x-auto whitespace-pre rounded border border-primary/15 bg-[var(--surface-code)] p-3 font-mono text-xs leading-relaxed text-primary">
                     {q.code_snippet}
                   </pre>
                 )}

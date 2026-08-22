@@ -155,8 +155,7 @@ export default async function ProfilePage() {
                   style={{
                     width: `${progress}%`,
                     background: "var(--gradient-xp)",
-                    boxShadow: "0 0 12px -2px var(--color-primary)",
-                  }}
+                    }}
                 />
               </div>
             </div>

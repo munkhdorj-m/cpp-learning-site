@@ -151,7 +151,7 @@ function Ide() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <pre className="min-h-[80px] whitespace-pre-wrap break-all rounded border border-primary/15 bg-[oklch(0.16_0.02_264)] p-2.5 font-mono text-sm text-neon-lime">
+              <pre className="min-h-[80px] whitespace-pre-wrap break-all rounded border border-primary/15 bg-[var(--surface-code)] p-2.5 font-mono text-sm text-neon-lime">
                 {result?.compile_output && (
                   <span className="text-neon-violet">
                     {result.compile_output}

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Rubik, JetBrains_Mono } from "next/font/google";
+import { IBM_Plex_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 
@@ -13,16 +13,14 @@ import { Toaster } from "@/components/ui/sonner";
 
 import "./globals.css";
 
-const sans = Rubik({
-  variable: "--font-sans",
-  subsets: ["latin", "cyrillic", "cyrillic-ext"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-  display: "swap",
-});
-
-const mono = JetBrains_Mono({
+// One typeface for the whole site. The design is a terminal, so prose and
+// code are set in the same face — and IBM Plex Mono covers Cyrillic, which
+// most monospace and every pixel face except Press Start 2P does not, and
+// Mongolian is the default locale.
+const mono = IBM_Plex_Mono({
   variable: "--font-mono",
-  subsets: ["latin", "cyrillic"],
+  subsets: ["latin", "latin-ext", "cyrillic"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -45,10 +43,10 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      className={`${sans.variable} ${mono.variable}`}
+      className={mono.variable}
       suppressHydrationWarning
     >
-      <body className="antialiased min-h-screen bg-background text-foreground font-sans">
+      <body className="antialiased min-h-screen bg-background text-foreground font-mono">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider
             attribute="class"

@@ -2,10 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { BookOpen, CheckCircle2, Circle, ArrowRight } from "lucide-react";
-
-import { Card, CardContent } from "@/components/ui/card";
-import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { readDone, pullDone } from "@/lib/lesson-progress";
 
@@ -44,132 +40,122 @@ export function LearnIndex({
   const completed = lessons.filter((l) => done.has(l.slug)).length;
   const next = lessons.find((l) => !done.has(l.slug)) ?? lessons[0];
 
+  // A character bar rather than a div — the whole design is a terminal, and a
+  // rounded gradient pill was the most out-of-place thing on the page.
+  const filled = Math.round((completed / lessons.length) * 24);
+  const bar = "█".repeat(filled) + "░".repeat(24 - filled);
+
   return (
-    <div className="mx-auto max-w-4xl space-y-6">
-      <div className="space-y-2">
-        <div className="hud-label flex items-center gap-2">
-          <span className="text-primary">//</span>
-          {en ? "LEARN.PATH" : "СУРАЛЦАХ ЗАМ"}
-        </div>
-        <div className="flex items-center gap-3">
-          <div
-            className="flex h-11 w-11 items-center justify-center rounded-xl border border-primary/35 bg-primary/10 text-primary"
-            style={{ boxShadow: "0 0 22px -8px var(--color-primary)" }}
-          >
-            <BookOpen className="h-5 w-5" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold">
-              {en ? "Learn programming from zero" : "Програмчлалыг тэгээс сурах"}
-            </h1>
-            <p className="text-sm text-muted-foreground">
-              {en
-                ? "One small idea per lesson. Read it, try it, then move on."
-                : "Хичээл бүр нэг л ойлголт. Уншаад, туршаад, дараагийнх руу яв."}
-            </p>
-          </div>
-        </div>
+    <div className="mx-auto max-w-4xl">
+      {/* Where am I */}
+      <div className="hud-label mb-3">
+        {en ? "// LEARN.PATH" : "// СУРАЛЦАХ ЗАМ"}
+      </div>
+      <h1 className="text-2xl font-semibold sm:text-3xl">
+        {en ? "Learn programming from zero" : "Програмчлалыг тэгээс сурах"}
+      </h1>
+      <p className="mt-1 max-w-[54ch] text-muted-foreground">
+        {en
+          ? "One small idea per lesson. Read it, try it, then move on."
+          : "Хичээл бүр нэг л ойлголт. Уншаад, туршаад, дараагийнх руу яв."}
+      </p>
+
+      {/* How far along am I */}
+      <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 border border-amber-rail px-4 py-3">
+        <span className="hud-label">{en ? "PROGRESS" : "ЯВЦ"}</span>
+        <span
+          aria-hidden
+          className="font-code tracking-[-0.05em] text-signal-ok"
+        >
+          {bar}
+        </span>
+        <span className="font-code font-semibold tabular-nums text-amber-hot">
+          {completed} / {lessons.length}
+        </span>
+        <span className="text-sm text-muted-foreground">
+          {en ? "next — " : "дараагийнх — "}
+          {next.title}
+        </span>
+        <Link
+          href={`/learn/${next.slug}`}
+          className="ml-auto bg-signal-go px-3 py-0.5 font-code font-semibold text-background transition-opacity hover:opacity-80"
+        >
+          {completed === 0
+            ? en
+              ? "START"
+              : "ЭХЛЭХ"
+            : completed === lessons.length
+              ? en
+                ? "REVIEW"
+                : "ДАХИН ҮЗЭХ"
+              : en
+                ? "CONTINUE"
+                : "ҮРГЭЛЖЛҮҮЛЭХ"}{" "}
+          →
+        </Link>
       </div>
 
-      {/* Progress + continue */}
-      <Card className="hud-panel">
-        <CardContent className="flex flex-wrap items-center gap-4 p-5">
-          <div className="min-w-[140px] flex-1">
-            <div className="hud-label mb-1">
-              {en ? "YOUR PROGRESS" : "ТАНЫ ЯВЦ"}
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted ring-1 ring-primary/15">
-                <div
-                  className="h-full rounded-full transition-all"
-                  style={{
-                    width: `${(completed / lessons.length) * 100}%`,
-                    background: "var(--gradient-solved)",
-                    boxShadow: "0 0 10px -2px var(--neon-lime)",
-                  }}
-                />
-              </div>
-              <span className="font-code text-sm font-bold tabular-nums text-neon-lime">
-                {completed}
-                <span className="text-muted-foreground">/{lessons.length}</span>
-              </span>
-            </div>
-          </div>
-          <Link
-            href={`/learn/${next.slug}`}
-            className={cn(buttonVariants(), "font-code")}
-          >
-            {completed === 0
-              ? en
-                ? "Start"
-                : "Эхлэх"
-              : completed === lessons.length
-                ? en
-                  ? "Review"
-                  : "Дахин үзэх"
-                : en
-                  ? "Continue"
-                  : "Үргэлжлүүлэх"}
-            <ArrowRight className="ml-1.5 h-4 w-4" />
-          </Link>
-        </CardContent>
-      </Card>
-
-      {/* Units */}
+      {/* Which chapter, then the lessons */}
       {units.map((u) => {
         const items = lessons.filter((l) => l.unit === u.id);
         return (
-          <section key={u.id} className="space-y-2">
-            <div className="hud-label flex items-center gap-2">
-              <span className="text-primary">//</span>
+          <section key={u.id} className="mt-10">
+            <p className="hud-label">
               {en ? `UNIT ${u.id}` : `БҮЛЭГ ${u.id}`}
-              <span className="h-px flex-1 bg-gradient-to-r from-primary/25 to-transparent" />
-            </div>
-            <div>
-              <h2 className="font-semibold">{u.title}</h2>
-              <p className="text-sm text-muted-foreground">{u.blurb}</p>
-            </div>
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-              {items.map((l) => {
-                const isDone = done.has(l.slug);
-                return (
-                  <Link key={l.slug} href={`/learn/${l.slug}`} className="group">
-                    <Card
-                      className={cn(
-                        "hud-hover h-full",
-                        isDone && "border-neon-lime/35 bg-neon-lime/[0.05]",
-                      )}
-                    >
-                      <CardContent className="flex items-start gap-3 p-4">
-                        <span
-                          className={cn(
-                            "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border font-code text-xs font-bold",
-                            isDone
-                              ? "border-neon-lime/50 bg-neon-lime/15 text-neon-lime"
-                              : "border-primary/30 bg-primary/10 text-primary",
-                          )}
-                        >
-                          {isDone ? (
-                            <CheckCircle2 className="h-4 w-4" />
-                          ) : (
-                            l.n
-                          )}
-                        </span>
-                        <div className="min-w-0">
-                          <div className="font-semibold leading-tight">
-                            {l.title}
-                          </div>
-                          <div className="mt-0.5 text-xs text-muted-foreground">
-                            {l.goal}
-                          </div>
-                        </div>
-                        <Circle className="ml-auto hidden h-0 w-0" />
-                      </CardContent>
-                    </Card>
-                  </Link>
-                );
-              })}
-            </div>
+            </p>
+            <h2 className="text-lg font-semibold">{u.title}</h2>
+            <p className="mt-0.5 text-sm text-muted-foreground">{u.blurb}</p>
+            <hr className="mt-3 border-amber-rail" />
+
+            {items.map((l) => {
+              const isDone = done.has(l.slug);
+              const isNext = l.slug === next.slug && !isDone;
+              return (
+                <Link
+                  key={l.slug}
+                  href={`/learn/${l.slug}`}
+                  className={cn(
+                    "grid grid-cols-[1.75rem_2.25rem_1fr] items-baseline gap-x-3 gap-y-0.5 border-b border-amber-rail/45 py-2.5 pr-2 hover:bg-primary/[0.07]",
+                    isNext && "-ml-3 border-l-[3px] border-l-signal-go bg-signal-go/10 pl-3",
+                  )}
+                >
+                  {/* Shape first, colour second: simulated for deuteranopia the
+                      done green and the go cyan are the same tone. */}
+                  <span
+                    aria-hidden
+                    className={cn(
+                      "font-code",
+                      isDone
+                        ? "text-signal-ok"
+                        : isNext
+                          ? "text-signal-go"
+                          : "text-amber-dim",
+                    )}
+                  >
+                    {isDone ? "✓" : isNext ? "▸" : "□"}
+                  </span>
+                  <span className="text-right font-code tabular-nums text-amber-dim">
+                    {String(l.n).padStart(2, "0")}
+                  </span>
+                  <span
+                    className={cn(
+                      "font-semibold leading-snug",
+                      isDone
+                        ? "font-normal text-muted-foreground"
+                        : isNext
+                          ? "text-amber-hot"
+                          : "text-primary",
+                    )}
+                  >
+                    {l.title}
+                  </span>
+                  {/* The goal gets its own line and wraps — never truncated. */}
+                  <span className="col-start-3 max-w-[62ch] text-sm leading-relaxed text-muted-foreground">
+                    {l.goal}
+                  </span>
+                </Link>
+              );
+            })}
           </section>
         );
       })}

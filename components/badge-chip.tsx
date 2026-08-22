@@ -63,8 +63,7 @@ export function BadgeChip({
         color: glow,
         borderColor: `color-mix(in oklch, ${glow} 38%, transparent)`,
         background: `color-mix(in oklch, ${glow} 12%, transparent)`,
-        boxShadow: `0 0 16px -6px ${glow}`,
-      }}
+        }}
       title={badge.description}
     >
       <Icon className={iconSize} />

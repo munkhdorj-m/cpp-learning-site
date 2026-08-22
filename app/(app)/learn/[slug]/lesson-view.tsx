@@ -312,7 +312,7 @@ export function LessonView({
               <div className="border-b border-neon-lime/20 bg-neon-lime/[0.08] px-3 py-1.5 font-code text-[10px] tracking-widest text-neon-lime">
                 {en ? "> what you see" : "> гарах хариу"}
               </div>
-              <pre className="whitespace-pre-wrap bg-[oklch(0.16_0.02_264)] p-3 font-mono text-xs leading-relaxed text-neon-lime">
+              <pre className="whitespace-pre-wrap bg-[var(--surface-code)] p-3 font-mono text-xs leading-relaxed text-neon-lime">
                 {shown.output}
               </pre>
             </div>

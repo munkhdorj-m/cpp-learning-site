@@ -1,11 +1,11 @@
 import {
-  CheckCircle2,
-  XCircle,
+  Check,
+  X,
   Clock,
   AlertTriangle,
   HardDrive,
   Bug,
-  HelpCircle,
+  Minus,
   Loader2,
 } from "lucide-react";
 
@@ -18,42 +18,52 @@ interface VerdictBadgeProps {
   size?: "sm" | "md" | "lg";
 }
 
-// Each verdict maps to a neon accent; the chip is tinted + ringed in it.
-const STYLES: Record<Verdict, { glow: string; Icon: typeof CheckCircle2 }> = {
-  pending: { glow: "var(--muted-foreground)", Icon: HelpCircle },
-  judging: { glow: "var(--neon-cyan)", Icon: Loader2 },
-  accepted: { glow: "var(--neon-lime)", Icon: CheckCircle2 },
-  wrong_answer: { glow: "var(--destructive)", Icon: XCircle },
-  time_limit_exceeded: { glow: "var(--neon-amber)", Icon: Clock },
-  memory_limit_exceeded: { glow: "var(--neon-amber)", Icon: HardDrive },
-  runtime_error: { glow: "var(--neon-pink)", Icon: Bug },
-  compile_error: { glow: "var(--neon-violet)", Icon: AlertTriangle },
-  internal_error: { glow: "var(--muted-foreground)", Icon: AlertTriangle },
+/**
+ * Colour here is a signal, not decoration, and it is always the second thing
+ * a student reads — the icon carries the state on its own. That is deliberate:
+ * simulated for deuteranopia, the ok green and the failed red come out at
+ * 1.24:1, which is to say identical. Around one boy in twelve is affected.
+ *
+ * Three classes of outcome, because they need three different reactions:
+ *   ok    it worked
+ *   no    it ran and was wrong — fix the logic
+ *   dead  it never ran — fix the syntax, or tell the teacher
+ */
+const STYLES: Record<
+  Verdict,
+  { tone: string; Icon: typeof Check }
+> = {
+  pending: { tone: "var(--amber-dim)", Icon: Minus },
+  judging: { tone: "var(--signal-go)", Icon: Loader2 },
+  accepted: { tone: "var(--signal-ok)", Icon: Check },
+  wrong_answer: { tone: "var(--signal-no)", Icon: X },
+  time_limit_exceeded: { tone: "var(--signal-no)", Icon: Clock },
+  memory_limit_exceeded: { tone: "var(--signal-no)", Icon: HardDrive },
+  runtime_error: { tone: "var(--signal-no)", Icon: Bug },
+  compile_error: { tone: "var(--signal-dead)", Icon: AlertTriangle },
+  internal_error: { tone: "var(--signal-dead)", Icon: AlertTriangle },
 };
 
 export function VerdictBadge({ verdict, label, size = "md" }: VerdictBadgeProps) {
-  const { glow, Icon } = STYLES[verdict];
+  const { tone, Icon } = STYLES[verdict];
   const sizeClasses = {
     sm: "text-xs px-2 py-0.5",
-    md: "text-sm px-2.5 py-1",
-    lg: "text-base px-3 py-1.5",
+    md: "text-sm px-2.5 py-0.5",
+    lg: "text-base px-3 py-1",
   };
-  const animate = verdict === "judging" ? "animate-spin" : "";
-  const accepted = verdict === "accepted";
   return (
     <Badge
       variant="outline"
-      className={`${sizeClasses[size]} gap-1.5 border font-code font-semibold tracking-wide ${
-        accepted ? "text-glow-soft" : ""
-      }`}
+      className={`${sizeClasses[size]} gap-1.5 rounded-none border font-code font-semibold tracking-wide`}
       style={{
-        color: glow,
-        borderColor: `color-mix(in oklch, ${glow} 40%, transparent)`,
-        background: `color-mix(in oklch, ${glow} 12%, transparent)`,
-        boxShadow: accepted ? `0 0 18px -6px ${glow}` : undefined,
+        color: tone,
+        borderColor: tone,
+        background: "transparent",
       }}
     >
-      <Icon className={`h-3.5 w-3.5 ${animate}`} />
+      <Icon
+        className={`h-3.5 w-3.5 ${verdict === "judging" ? "animate-spin" : ""}`}
+      />
       {label}
     </Badge>
   );

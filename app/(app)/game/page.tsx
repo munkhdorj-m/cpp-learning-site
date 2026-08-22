@@ -61,8 +61,7 @@ export default async function GameHubPage() {
                       color: g.glow,
                       borderColor: `color-mix(in oklch, ${g.glow} 35%, transparent)`,
                       background: `color-mix(in oklch, ${g.glow} 12%, transparent)`,
-                      boxShadow: `0 0 26px -8px ${g.glow}`,
-                    }}
+                      }}
                   >
                     <g.Icon className="h-7 w-7" />
                   </div>

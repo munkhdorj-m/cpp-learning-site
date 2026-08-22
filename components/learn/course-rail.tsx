@@ -57,7 +57,6 @@ export function CourseRail({
           <div className="flex items-center gap-2.5">
             <span
               className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-primary/35 bg-primary/10 text-primary"
-              style={{ boxShadow: "0 0 18px -8px var(--color-primary)" }}
             >
               <GraduationCap className="h-4.5 w-4.5" />
             </span>
@@ -95,8 +94,7 @@ export function CourseRail({
                 style={{
                   width: `${pct}%`,
                   background: "var(--gradient-solved)",
-                  boxShadow: "0 0 10px -2px var(--neon-lime)",
-                }}
+                  }}
               />
             </div>
           </div>

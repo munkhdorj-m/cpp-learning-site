@@ -429,7 +429,6 @@ export function RobotProgrammer({
       <div className="flex items-start gap-3">
         <div
           className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-neon-violet/40 bg-neon-violet/10 text-neon-violet"
-          style={{ boxShadow: "0 0 22px -8px var(--neon-violet)" }}
         >
           <Bot className="h-5 w-5" />
         </div>
@@ -453,8 +452,7 @@ export function RobotProgrammer({
               style={{
                 width: `${total > 0 ? (completedCount / total) * 100 : 0}%`,
                 background: "var(--gradient-solved)",
-                boxShadow: "0 0 10px -2px var(--neon-lime)",
-              }}
+                }}
             />
           </div>
         </div>
