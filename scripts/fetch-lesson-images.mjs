@@ -57,6 +57,32 @@ for (const item of manifest) {
   }
 }
 
+// Merge, do not replace. This used to rebuild the module from the manifest
+// alone, so running it with a handful of new pictures silently deleted the
+// credits — and therefore the images — for every lesson not mentioned. The
+// existing entries are parsed back out and kept unless the manifest supersedes
+// one. Attribution is a licence condition, not a nicety: losing it is the one
+// failure here that actually matters.
+if (fs.existsSync(MODULE)) {
+  const prev = fs.readFileSync(MODULE, "utf8");
+  const entries = [
+    ...prev.matchAll(
+      /"([^"]+)": \{\s*src: "([^"]*)",\s*width: (\d+),\s*height: (\d+),\s*title: "((?:[^"\\]|\\.)*)",\s*creator: "((?:[^"\\]|\\.)*)",\s*license: "((?:[^"\\]|\\.)*)",\s*source: "((?:[^"\\]|\\.)*)",/g,
+    ),
+  ];
+  const fresh = new Set(done.map((d) => d.id));
+  let kept = 0;
+  for (const m of entries) {
+    if (fresh.has(m[1])) continue;
+    done.push({
+      id: m[1], file: m[2], width: Number(m[3]), height: Number(m[4]),
+      title: m[5], creator: m[6], license: m[7], source: m[8], bytes: 0,
+    });
+    kept++;
+  }
+  console.log(`\nkept ${kept} existing image(s) already in ${MODULE}`);
+}
+
 done.sort((a, b) => a.id.localeCompare(b.id));
 
 const esc = (s) => (s ?? "").replace(/\\/g, "\\\\").replace(/"/g, '\\"').trim();

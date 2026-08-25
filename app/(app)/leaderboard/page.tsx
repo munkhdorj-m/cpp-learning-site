@@ -6,11 +6,17 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { createClient } from "@/lib/supabase/server";
 import { getCachedSession } from "@/lib/get-session";
 import { dicebearUrl, initials } from "@/lib/avatars";
+import { requireAuth } from "@/lib/auth-helpers";
 
 // Render fresh from the local MySQL DB (fast — no external round-trips).
+import { buildDivisions, type ClassRow } from "@/lib/class-cup";
+
 export const dynamic = "force-dynamic";
 
 export default async function LeaderboardPage() {
+  // 50 students' names, class and XP — verified high-severity leak
+  await requireAuth();
+
   const t = await getTranslations("leaderboard");
   const locale = await getLocale();
   const en = locale === "en";
@@ -45,8 +51,9 @@ export default async function LeaderboardPage() {
     for (const c of classes ?? []) classMap.set(c.id, c.name);
   }
 
-  const topClasses = (classCup ?? []).filter((c) => c.student_count > 0);
-  const topWeekXp = topClasses[0]?.week_xp ?? 0;
+  // Ranked by XP per student, inside a division of comparable years — see
+  // lib/class-cup.ts for why total XP in one table was the wrong measure.
+  const divisions = buildDivisions((classCup ?? []) as ClassRow[]);
 
   const allRows = rows ?? [];
   const top3 = allRows.slice(0, 3);
@@ -56,63 +63,92 @@ export default async function LeaderboardPage() {
     <div className="mx-auto max-w-3xl space-y-6">
       <div className="space-y-1">
         <div className="hud-label flex items-center gap-2">
-          <span className="text-primary">//</span>
+          <span className="text-primary">{"//"}</span>
           RANKING.TOP50
         </div>
         <h1 className="text-3xl font-bold">{t("title")}</h1>
       </div>
 
-      {topClasses.length > 0 && (
+      {divisions.length > 0 && (
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-base flex items-center gap-2">
-              <Trophy className="h-4 w-4 text-amber-500" />7 хоногийн анги —
-              Class Cup
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Trophy className="h-4 w-4 text-arcade-yellow" />
+              {t("class_cup")}
             </CardTitle>
+            <p className="text-xs text-muted-foreground">
+              {t("class_cup_note")}
+            </p>
           </CardHeader>
-          <CardContent className="space-y-2">
-            {topClasses.map((c, i) => {
-              const rank = i + 1;
-              const pct = topWeekXp > 0 ? (c.week_xp / topWeekXp) * 100 : 0;
-              return (
-                <div key={c.class_id} className="space-y-1">
-                  <div className="flex items-center gap-2.5 text-sm">
-                    <span className="flex h-6 w-6 items-center justify-center shrink-0">
-                      <RankIcon rank={rank} />
-                    </span>
-                    <span className="font-semibold flex-1">{c.class_name}</span>
-                    <span className="text-xs text-muted-foreground inline-flex items-center gap-1">
-                      <Users className="h-3 w-3" />
-                      {c.student_count}
-                    </span>
-                    <span className="inline-flex items-center gap-1 font-semibold text-violet-600 dark:text-violet-400 tabular-nums min-w-[60px] justify-end">
-                      <Sparkles className="h-3 w-3" />
-                      {c.week_xp}
-                    </span>
-                  </div>
-                  <div className="h-1.5 rounded-full bg-muted overflow-hidden">
-                    <div
-                      className={`h-full transition-all ${
-                        rank === 1
-                          ? "bg-gradient-to-r from-amber-400 to-amber-500"
-                          : rank === 2
-                            ? "bg-gradient-to-r from-slate-400 to-slate-500"
-                            : rank === 3
-                              ? "bg-gradient-to-r from-amber-700 to-amber-800"
-                              : "bg-gradient-to-r from-violet-400 to-violet-500"
-                      }`}
-                      style={{ width: `${pct}%` }}
-                    />
-                  </div>
+          <CardContent className="space-y-5">
+            {divisions.map((div) => (
+              <div key={div.key} className="space-y-2">
+                <div className="hud-label flex items-center gap-2">
+                  {div.key === "senior"
+                    ? t("division_senior", {
+                        from: div.grades[0] ?? 9,
+                        to: div.grades[div.grades.length - 1] ?? 12,
+                      })
+                    : t("division_grade", { grade: div.grades[0] ?? 0 })}
+                  <span className="h-px flex-1 bg-gradient-to-r from-primary/25 to-transparent" />
                 </div>
-              );
-            })}
+
+                {div.classes.map((c) => (
+                  <div key={c.class_id} className="space-y-1">
+                    <div className="flex items-center gap-2.5 text-sm">
+                      <span className="flex h-6 w-6 shrink-0 items-center justify-center">
+                        <RankIcon rank={c.rank} />
+                      </span>
+                      <span className="flex-1 font-semibold">
+                        {c.class_name}
+                      </span>
+                      <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
+                        <Users className="h-3 w-3" />
+                        {c.student_count}
+                      </span>
+                      {/* The average is what the table is ordered by, so it is
+                          the number that gets the emphasis; the total is kept
+                          beside it because a class still wants to see it. */}
+                      <span className="inline-flex min-w-[92px] items-center justify-end gap-1 font-semibold tabular-nums text-primary">
+                        <Sparkles className="h-3 w-3" />
+                        {c.average}
+                        <span className="font-code text-[10px] font-normal text-muted-foreground">
+                          {t("xp_each")}
+                        </span>
+                      </span>
+                      <span className="hidden min-w-[64px] justify-end font-code text-[11px] tabular-nums text-muted-foreground sm:inline-flex">
+                        {c.week_xp} {t("xp_total")}
+                      </span>
+                    </div>
+                    <div className="h-1.5 overflow-hidden rounded-full bg-muted">
+                      <div
+                        className={`h-full transition-all ${
+                          c.rank === 1
+                            ? "bg-arcade-yellow"
+                            : c.rank === 2
+                              ? "bg-arcade-cyan"
+                              : c.rank === 3
+                                ? "bg-arcade-mag"
+                                : "bg-primary/50"
+                        }`}
+                        style={{ width: `${c.share}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
           </CardContent>
         </Card>
       )}
 
       {top3.length > 0 && (
-        <Podium top3={top3} meId={user?.id} youLabel={youLabel} />
+        <Podium
+          top3={top3}
+          meId={user?.id}
+          youLabel={youLabel}
+          classMap={classMap}
+        />
       )}
 
       <Card>
@@ -216,16 +252,53 @@ interface PodiumStudent {
   avatar_seed: string;
   xp: number;
   level: number;
+  class_id: string | null;
+}
+
+/**
+ * Pixel flames for first place.
+ *
+ * Stepped polygons rather than curves, so the fire belongs to the same world
+ * as the rest of the cabinet. Three tongues, each flickering on its own clock
+ * (see .flame-tongue in globals.css) — one shared animation would look like a
+ * single shape wobbling rather than something burning.
+ */
+function Flames() {
+  return (
+    <svg
+      viewBox="0 0 48 34"
+      className="pointer-events-none absolute -top-[26px] left-1/2 h-[34px] w-12 -translate-x-1/2"
+      aria-hidden="true"
+    >
+      <polygon
+        className="flame-tongue"
+        fill="var(--fire-edge)"
+        points="24,0 30,8 28,12 34,14 32,22 38,26 36,34 12,34 10,26 16,22 14,14 20,12 18,8"
+      />
+      <polygon
+        className="flame-tongue"
+        fill="var(--fire-mid)"
+        points="24,6 29,14 27,18 31,22 29,34 19,34 17,22 21,18 19,14"
+      />
+      <polygon
+        className="flame-tongue"
+        fill="var(--fire-core)"
+        points="24,14 27,20 25,24 27,28 25,34 21,34 21,28 23,24 21,20"
+      />
+    </svg>
+  );
 }
 
 function Podium({
   top3,
   meId,
   youLabel,
+  classMap,
 }: {
   top3: PodiumStudent[];
   meId?: string;
   youLabel: string;
+  classMap: Map<string, string>;
 }) {
   // Reorder: [2nd, 1st, 3rd] for visual layout
   const ordered =
@@ -236,59 +309,103 @@ function Podium({
         : [top3[0]];
 
   return (
-    <div className="flex items-end justify-center gap-3 sm:gap-5 pt-4 pb-2">
-      {ordered.map((student, i) => {
+    <div className="flex items-end justify-center gap-2 pt-10 pb-2 sm:gap-4">
+      {ordered.map((student) => {
         // original rank: if 3 entries, ordered = [2nd, 1st, 3rd]; if 2 entries, [2nd, 1st]; if 1, [1st]
-        const originalIndex = top3.indexOf(student);
-        const rank = originalIndex + 1;
-        const heightClass =
-          rank === 1
-            ? "h-28 sm:h-36"
-            : rank === 2
-              ? "h-20 sm:h-28"
-              : "h-16 sm:h-20";
-        const bgClass =
-          rank === 1
-            ? "from-amber-400 to-amber-500 shadow-[0_0_20px_rgba(251,191,36,0.3)]"
-            : rank === 2
-              ? "from-slate-400 to-slate-500 shadow-[0_0_15px_rgba(148,163,184,0.25)]"
-              : "from-amber-700 to-amber-800 shadow-[0_0_12px_rgba(180,83,9,0.2)]";
+        const rank = top3.indexOf(student) + 1;
+        const first = rank === 1;
         const isMe = !!meId && student.id === meId;
-        const ringColor = isMe
-          ? "ring-primary"
-          : rank === 1
-            ? "ring-amber-400"
-            : rank === 2
-              ? "ring-slate-300"
-              : "ring-amber-600";
         const avatarUrl = dicebearUrl(student.avatar_seed);
+        const grade = student.class_id
+          ? (classMap.get(student.class_id) ?? null)
+          : null;
+
+        // One hue per place, straight from the arcade palette. The pedestal
+        // text is --background, which inverts with the theme exactly as the
+        // pedestal does, so it stays readable in both.
+        const hue =
+          rank === 1
+            ? "var(--arcade-yellow)"
+            : rank === 2
+              ? "var(--arcade-cyan)"
+              : "var(--arcade-mag)";
+
+        const plinth = first
+          ? "h-24 sm:h-32"
+          : rank === 2
+            ? "h-16 sm:h-24"
+            : "h-12 sm:h-16";
 
         return (
-          <div key={student.id} className="flex flex-col items-center gap-1.5">
-            {isMe && (
-              <span className="hud-chip -mb-0.5">{youLabel}</span>
-            )}
-            <div className="relative">
-              <Avatar
-                className={`h-12 w-12 sm:h-16 sm:w-16 ring-2 ring-offset-2 ring-offset-background ${ringColor} ${isMe ? "shadow-[0_0_16px_-2px_var(--color-primary)]" : ""}`}
-              >
-                <AvatarImage src={avatarUrl} alt={student.display_name} />
-                <AvatarFallback className="bg-violet-100 text-violet-700 text-sm font-bold">
-                  {initials(student.display_name) || "?"}
-                </AvatarFallback>
-              </Avatar>
-              <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-background border text-[10px] font-bold">
-                {rank}
-              </span>
+          <div
+            key={student.id}
+            /* Wide enough for a full Mongolian name on two lines. The old
+               fixed w-20 with truncate is what cut "Гэрэлтуяа Т…" short. */
+            className="flex w-[104px] flex-col items-center sm:w-[148px]"
+          >
+            <div className={first ? "podium-bob" : undefined}>
+              <div className="relative flex justify-center">
+                {first && <Flames />}
+                {first && (
+                  <Crown
+                    className="absolute -top-[9px] left-1/2 h-4 w-4 -translate-x-1/2 text-[var(--fire-core)]"
+                    aria-hidden
+                  />
+                )}
+                <Avatar
+                  className="rounded-none"
+                  style={{
+                    width: first ? 68 : 52,
+                    height: first ? 68 : 52,
+                    border: `${first ? 4 : 3}px solid ${hue}`,
+                    boxShadow: `${first ? 6 : 4}px ${first ? 6 : 4}px 0 0 var(--drop)`,
+                  }}
+                >
+                  <AvatarImage src={avatarUrl} alt={student.display_name} />
+                  <AvatarFallback className="rounded-none text-sm font-bold">
+                    {initials(student.display_name) || "?"}
+                  </AvatarFallback>
+                </Avatar>
+                <span
+                  className="hud-label absolute -bottom-2 left-1/2 -translate-x-1/2 px-1.5"
+                  style={{ background: hue, color: "var(--background)" }}
+                >
+                  {rank}
+                </span>
+              </div>
             </div>
+
+            {/* Full name: wraps, never truncates. */}
+            <p className="mt-4 text-center text-[13px] font-semibold leading-tight text-balance sm:text-sm">
+              {student.display_name}
+            </p>
+
+            <div className="mt-1 flex flex-wrap items-center justify-center gap-1">
+              {grade && (
+                <span
+                  className="hud-chip"
+                  style={{ ["--glow" as string]: hue }}
+                >
+                  {grade}
+                </span>
+              )}
+              {isMe && <span className="hud-chip">{youLabel}</span>}
+            </div>
+
+            <p className="mt-1 font-code text-[11px] text-muted-foreground tabular-nums">
+              Lv{student.level} · {student.xp} XP
+            </p>
+
             <div
-              className={`w-20 sm:w-24 ${heightClass} rounded-t-lg bg-gradient-to-b ${bgClass} flex flex-col items-center justify-end pb-2 text-white`}
+              className={`mt-2 flex w-full ${plinth} items-start justify-center pt-1.5`}
+              style={{
+                background: hue,
+                color: "var(--background)",
+                boxShadow: "6px 6px 0 0 var(--drop)",
+              }}
             >
-              <span className="text-[10px] sm:text-xs font-semibold leading-tight text-center px-1 truncate max-w-full">
-                {student.display_name}
-              </span>
-              <span className="text-[10px] sm:text-xs opacity-80">
-                Lv{student.level} · {student.xp} XP
+              <span className="font-heading text-lg leading-none sm:text-2xl">
+                {rank}
               </span>
             </div>
           </div>

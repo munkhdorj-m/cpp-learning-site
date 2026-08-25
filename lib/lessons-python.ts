@@ -526,10 +526,10 @@ print("Go!")`,
 
   "putting-it-together": {
     code: `n = int(input())
+nums = list(map(int, input().split()))
 
 total = 0
-for _ in range(n):
-    x = int(input())
+for x in nums:
     if x % 2 == 0:
         total += x
 
@@ -880,5 +880,1602 @@ print()`,
       explain_mn: "append нь C++-ийн push_back-тэй адил.",
       explain_en: "append is Python's version of push_back.",
     },
+  },
+  operators: {
+    code: `score = 10
+
+score = score + 5     # the long way
+score += 5            # same thing, shorter
+score += 1            # Python has NO ++
+
+print(score)
+
+x = 1
+y = x
+x += 1
+print(x, y)`,
+    output: "21\n2 1",
+    lines: [
+      {
+        code: "score += 5",
+        note_mn:
+          "`+=`, `-=`, `*=`, `//=` бүгд ажиллана. Энэ хэсэг C++-тэй яг адилхан.",
+        note_en:
+          "`+=`, `-=`, `*=`, `//=` all work. This part is identical to C++.",
+      },
+      {
+        code: "score += 1            # Python has NO ++",
+        note_mn:
+          "Python-д `++` БАЙХГҮЙ. `score++` гэж бичвэл `SyntaxError` гарна. Нэг нэмэхийн тулд `+= 1`.",
+        note_en:
+          "Python has NO `++`. Writing `score++` is a `SyntaxError`. To add one, use `+= 1`.",
+      },
+      {
+        code: "y = x",
+        note_mn:
+          "C++-ийн `y = x++` шиг «эхлээд өг, дараа нь өсгө» гэсэн заль Python-д байхгүй. Хоёр мөрөнд тусад нь бич — уншихад ч ойлгомжтой.",
+        note_en:
+          "Python has no `y = x++` trick that assigns then increments. Write the two steps separately — it reads better anyway.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "score++",
+        fix: "score += 1",
+        why_mn: "`++` нь Python-д огт байхгүй тул `SyntaxError` шидэнэ.",
+        why_en: "`++` simply does not exist in Python, so it is a `SyntaxError`.",
+      },
+    ],
+    terms: [
+      {
+        term: "+=",
+        def_mn: "Одоогийн утга дээр нэмж, буцаан онооно.",
+        def_en: "Adds to the current value and stores it back.",
+      },
+    ],
+  },
+  "type-conversion": {
+    code: `total = 7
+count = 2
+
+print(total // count)        # 3   — whole-number division
+print(total / count)         # 3.5 — Python's / always divides fully
+print(float(total) / count)  # 3.5 — same, said explicitly
+
+price = 9.99
+print(int(price))            # 9 — cuts, does not round
+print(round(price))          # 10 — this one rounds`,
+    output: "3\n3.5\n3.5\n9\n10",
+    lines: [
+      {
+        code: "print(total / count)",
+        note_mn:
+          "Энд C++-ээс хамгийн их ялгаатай: Python-д `/` нь ямар ч тохиолдолд бутархай өгнө. Хөрвүүлэх шаардлагагүй.",
+        note_en:
+          "The biggest difference from C++: in Python `/` always divides fully. No cast is needed.",
+      },
+      {
+        code: "print(int(price))",
+        note_mn:
+          "`int()` нь таслаад хаяна, дугуйруулахгүй — C++-ийн `(int)` -тэй адил.",
+        note_en:
+          "`int()` cuts and throws away, it does not round — exactly like C++'s `(int)`.",
+      },
+      {
+        code: "print(round(price))",
+        note_mn: "Дугуйруулах бол `round()`. C++-д `<cmath>`-аас `round` авдаг.",
+        note_en: "To round, use `round()`. C++ takes `round` from `<cmath>`.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: 'n = int("3.7")',
+        fix: 'n = int(float("3.7"))',
+        why_mn:
+          "`int()` бутархай БИЧВЭРийг шууд авахгүй — `ValueError` шидэнэ. Эхлээд `float` болго.",
+        why_en:
+          "`int()` will not take decimal TEXT — it raises `ValueError`. Turn it into a `float` first.",
+      },
+    ],
+    terms: [
+      {
+        term: "int(x)",
+        def_mn: "Бүхэл тоо болгоно. Бутархайг таслаад хаяна.",
+        def_en: "Turns it into a whole number, cutting the fraction away.",
+      },
+    ],
+  },
+  switch: {
+    code: `day = 3
+
+if day == 1:
+    print("Monday")
+elif day == 2:
+    print("Tuesday")
+elif day == 3:
+    print("Wednesday")
+else:
+    print("another day")
+
+age = 20
+label = "adult" if age >= 18 else "child"
+print(label)`,
+    output: "Wednesday\nadult",
+    lines: [
+      {
+        code: "elif day == 2:",
+        note_mn:
+          "Python-д `switch` БАЙХГҮЙ. `elif` гинжээр орлуулна — `else if`-ийн богино хэлбэр.",
+        note_en:
+          "Python has NO `switch`. A chain of `elif` replaces it — short for `else if`.",
+      },
+      {
+        code: 'label = "adult" if age >= 18 else "child"',
+        note_mn:
+          "C++-ийн `? :`-ийн оронд ингэж бичнэ. Нөхцөл ДУНДАА байгаа нь өгүүлбэр шиг уншигдана.",
+        note_en:
+          "This replaces C++'s `? :`. The condition sits in the MIDDLE, which reads like a sentence.",
+      },
+      {
+        code: "if day == 1:",
+        note_mn:
+          "`break` шаардлагагүй — нэг салаа ажиллаад л дуусна. C++-ийн `switch`-ийн уналт энд байхгүй.",
+        note_en:
+          "No `break` needed — one branch runs and that is it. There is no fall-through to forget.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: 'label = age >= 18 ? "adult" : "child"',
+        fix: 'label = "adult" if age >= 18 else "child"',
+        why_mn: "Python-д `? :` байхгүй. `SyntaxError` гарна.",
+        why_en: "Python has no `? :`. It is a `SyntaxError`.",
+      },
+    ],
+    terms: [
+      {
+        term: "elif",
+        def_mn: "`else if`-ийн богино хэлбэр. Хэдэн ч удаа давтаж болно.",
+        def_en: "Short for `else if`. Chain as many as you like.",
+      },
+    ],
+  },
+  "loop-control": {
+    code: `# Python has no do-while; this is the usual stand-in
+while True:
+    print("runs at least once")
+    break
+
+for n in range(1, 11):
+    if n % 2 == 0:
+        continue          # skip the evens
+    if n > 7:
+        break             # stop after 7
+    print(n, end=" ")
+print()`,
+    output: "runs at least once\n1 3 5 7",
+    lines: [
+      {
+        code: "while True:",
+        note_mn:
+          "Python-д `do…while` БАЙХГҮЙ. «Дор хаяж нэг удаа» гэдгийг `while True` + `break`-ээр хийдэг.",
+        note_en:
+          "Python has NO `do…while`. \"At least once\" is written as `while True` with a `break`.",
+      },
+      {
+        code: "continue          # skip the evens",
+        note_mn: "`continue` ба `break` хоёул C++-тэй яг адилхан ажиллана.",
+        note_en: "`continue` and `break` behave exactly as they do in C++.",
+      },
+      {
+        code: 'print(n, end=" ")',
+        note_mn:
+          "`end=\" \"` нь мөр таслахын оронд зай тавина. `print()` дараа нь мөрийг таслана.",
+        note_en:
+          "`end=\" \"` puts a space instead of a line break. The bare `print()` afterwards ends the line.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "do:\n    ...\nwhile i < 1",
+        fix: "while True:\n    ...\n    if i >= 1: break",
+        why_mn: "`do` гэдэг түлхүүр үг Python-д байхгүй — `SyntaxError`.",
+        why_en: "There is no `do` keyword in Python — it is a `SyntaxError`.",
+      },
+    ],
+    terms: [
+      {
+        term: "while True",
+        def_mn: "Төгсгөлгүй давталт. Дотроос нь `break`-ээр гарна.",
+        def_en: "A loop with no end. You leave it with `break`.",
+      },
+    ],
+  },
+  "string-tools": {
+    code: `s = "Ulaanbaatar"
+
+print(len(s))          # 11
+print(s[0:5])          # Ulaan
+print(s.find("baatar"))# 5
+
+num = "42"
+n = int(num) + 1
+print(n)               # 43`,
+    output: "11\nUlaan\n5\n43",
+    lines: [
+      {
+        code: "print(len(s))",
+        note_mn: "`s.size()` биш `len(s)`. Python-д урт нь функц.",
+        note_en: "`len(s)`, not `s.size()`. In Python the length is a function.",
+      },
+      {
+        code: "print(s[0:5])",
+        note_mn:
+          "`substr(0, 5)` биш зүсэлт `s[0:5]`. ЭХЛЭЛ орно, ТӨГСГӨЛ ОРОХГҮЙ — 0,1,2,3,4.",
+        note_en:
+          "A slice `s[0:5]`, not `substr(0, 5)`. The start is included, the end is NOT — 0,1,2,3,4.",
+      },
+      {
+        code: "n = int(num) + 1",
+        note_mn: "`stoi` биш `int()`. Хөрвүүлж чадахгүй бол `ValueError` шидэнэ.",
+        note_en: "`int()`, not `stoi`. If it cannot convert, it raises `ValueError`.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "s[0:5] нь 6 тэмдэгт гэж бодох / expecting s[0:5] to give 6 characters",
+        fix: "s[0:5] нь 5 тэмдэгт / s[0:5] gives 5 characters",
+        why_mn:
+          "Зүсэлтийн төгсгөл ОРОХГҮЙ. Энэ бол Python-ы хамгийн түгээмэл нэгээр алдах алдаа.",
+        why_en:
+          "The end of a slice is EXCLUDED. This is the most common off-by-one in Python.",
+      },
+    ],
+    terms: [
+      {
+        term: "slice",
+        def_mn: "`s[a:b]` — a-аас b-1 хүртэлх хэсэг.",
+        def_en: "`s[a:b]` — the piece from a up to b-1.",
+      },
+    ],
+  },
+  "function-details": {
+    code: `def add_tax(price):
+    return price * 1.1        # numbers cannot be changed in place
+
+def power(base, exp=2):       # exp is 2 if you omit it
+    result = 1
+    for _ in range(exp):
+        result *= base
+    return result
+
+p = 100
+p = add_tax(p)                # take the answer back
+print(round(p))
+
+print(power(5))
+print(power(2, 10))`,
+    output: "110\n25\n1024",
+    lines: [
+      {
+        code: "def add_tax(price):",
+        note_mn:
+          "Python-д `&` байхгүй. Тоо, мөр зэрэг нь ӨӨРЧЛӨГДӨХГҮЙ тул функц дотроос нь солих боломжгүй — хариуг нь буцааж авах ёстой.",
+        note_en:
+          "There is no `&` in Python. Numbers and strings cannot be changed in place, so you must take the answer back.",
+      },
+      {
+        code: "def power(base, exp=2):",
+        note_mn:
+          "Анхдагч утга C++-тэй яг адилхан ажиллана. `power(5)` гэвэл `exp` нь 2 болно.",
+        note_en:
+          "Default arguments work exactly as in C++. `power(5)` gets `exp` as 2.",
+      },
+      {
+        code: "for _ in range(exp):",
+        note_mn:
+          "`_` нь «энэ утга надад хэрэггүй» гэсэн заншилтай нэр.",
+        note_en:
+          "`_` is the conventional name for \"I do not need this value\".",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "add_tax(p)\nprint(p)",
+        fix: "p = add_tax(p)\nprint(p)",
+        why_mn:
+          "Тоо өөрчлөгдөхгүй тул `p` хэвээрээ үлдэнэ. Алдаа заахгүй — зүгээр л юу ч болохгүй.",
+        why_en:
+          "Numbers do not change in place, so `p` is untouched. Nothing errors — nothing simply happens.",
+      },
+    ],
+    terms: [
+      {
+        term: "immutable",
+        def_mn: "Өөрчлөгдөхгүй. Тоо, мөр, кортеж ийм байдаг.",
+        def_en: "Cannot be changed. Numbers, strings and tuples are like this.",
+      },
+    ],
+  },
+  structs: {
+    code: `class Student:
+    def __init__(self, name, grade):
+        self.name = name
+        self.grade = grade
+
+s = Student("Bat", 9)
+print(s.name, s.grade)
+
+best = s                 # NOT a copy — both names point at the same object
+best.grade = 10
+print(s.grade)`,
+    output: "Bat 9\n10",
+    lines: [
+      {
+        code: "class Student:",
+        note_mn:
+          "Python-д `struct` байхгүй. Хамгийн ойрхон нь жижиг класс.",
+        note_en:
+          "Python has no `struct`. The nearest thing is a small class.",
+      },
+      {
+        code: "self.name = name",
+        note_mn:
+          "`self` бол «энэ обьект». Талбар бүрийн өмнө заавал бичнэ.",
+        note_en:
+          "`self` means \"this object\". Every field is written with it in front.",
+      },
+      {
+        code: "best = s",
+        note_mn:
+          "C++-ЭЭС ЯЛГААТАЙ. C++-д бүх талбар хуулагдана; Python-д хоёр нэр НЭГ обьектыг заана. `best`-ийг өөрчлөхөд `s` бас өөрчлөгдөнө.",
+        note_en:
+          "DIFFERENT FROM C++. C++ copies every field; Python makes both names point at the SAME object. Change `best` and `s` changes too.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "best = s   # хуулбар гэж бодов / expecting a copy",
+        fix: "import copy\nbest = copy.copy(s)",
+        why_mn:
+          "Python-д оноолт хуулбарладаггүй. Жинхэнэ хуулбар хэрэгтэй бол `copy` модулийг ашигла.",
+        why_en:
+          "Assignment does not copy in Python. For a real copy, use the `copy` module.",
+      },
+    ],
+    terms: [
+      {
+        term: "self",
+        def_mn: "Метод доторх «энэ обьект».",
+        def_en: "\"This object\", inside a method.",
+      },
+    ],
+  },
+  complexity: {
+    code: `v = [4, 8, 15, 16, 23, 42]
+n = len(v)
+
+steps = 0
+for i in range(n):
+    steps += 1
+print("one loop:", steps)
+
+steps = 0
+for i in range(n):
+    for j in range(n):
+        steps += 1
+print("two loops:", steps)`,
+    output: "one loop: 6\ntwo loops: 36",
+    lines: [
+      {
+        code: "for i in range(n):",
+        note_mn: "Нэг давталт — n удаа. Үүнийг O(n) гэдэг.",
+        note_en: "One loop runs n times. We call that O(n).",
+      },
+      {
+        code: "    for j in range(n):",
+        note_mn:
+          "Давталт дотор давталт — n × n удаа, O(n²). n=1000 бол нэг сая алхам.",
+        note_en:
+          "A loop inside a loop is n × n — O(n²). With n=1000 that is a million steps.",
+      },
+      {
+        code: "steps = 0",
+        note_mn:
+          "Python-д тоолуур хэтрэхээс айх шаардлагагүй — бүхэл тоо хязгааргүй өснө.",
+        note_en:
+          "No overflow to worry about here — Python integers grow without limit.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "n = 100000 дээр хоёр давхар давталт / a double loop when n = 100000",
+        fix: "Нэг давталт эсвэл эрэмбэлэлт / one pass, or a sort",
+        why_mn:
+          "Python нь C++-ээс УДААН. C++ дээр багтдаг O(n²) энд ихэвчлэн багтахгүй.",
+        why_en:
+          "Python is SLOWER than C++. An O(n²) that fits in C++ often will not fit here.",
+      },
+    ],
+    terms: [
+      {
+        term: "O(n²)",
+        def_mn: "Хоёр давхар давталт. n хоёр дахин ихсэхэд ажил дөрөв дахин нэмэгдэнэ.",
+        def_en: "Two nested loops. Double n and the work goes up four times.",
+      },
+    ],
+  },
+  "arrays-in-functions": {
+    code: `def add_one(v):
+    for i in range(len(v)):
+        v[i] = v[i] + 1        # changes the caller's list
+
+def total(v):
+    s = 0
+    for x in v:
+        s += x
+    return s
+
+nums = [1, 2, 3]
+add_one(nums)
+print(nums[0], nums[1], nums[2])
+print(total(nums))`,
+    output: "2 3 4\n9",
+    lines: [
+      {
+        code: "def add_one(v):",
+        note_mn:
+          "Python-д `&` бичих шаардлагагүй — жагсаалт анхнаасаа хуулагдахгүй дамждаг.",
+        note_en:
+          "No `&` is needed in Python — a list is handed over without being copied.",
+      },
+      {
+        code: "        v[i] = v[i] + 1",
+        note_mn:
+          "Нүдийг ШУУД өөрчилж байна. Функцээс гарсны дараа ч өөрчлөлт үлдэнэ.",
+        note_en:
+          "This changes the cell itself, and the change survives the function returning.",
+      },
+      {
+        code: "    for x in v:",
+        note_mn:
+          "Зөвхөн уншиж байгаа тул `x` нүдний хуулбар байх нь асуудалгүй.",
+        note_en:
+          "Here we only read, so `x` being a copy of the value does not matter.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "for x in v:\n    x = x + 1",
+        fix: "for i in range(len(v)):\n    v[i] = v[i] + 1",
+        why_mn:
+          "`x` бол нүдний хуулбар. Түүнийг өөрчлөхөд жагсаалт хэвээрээ үлдэнэ — C++-ийн `int&`-гүй давталттай яг ижил алдаа.",
+        why_en:
+          "`x` is a copy of the value. Changing it leaves the list untouched — the same trap as a C++ loop without `int&`.",
+      },
+    ],
+    terms: [
+      {
+        term: "by reference",
+        def_mn: "Жагсаалт, толь бичиг ингэж дамждаг — хуулбар үүсэхгүй.",
+        def_en: "How lists and dictionaries are handed over — no copy is made.",
+      },
+    ],
+  },
+  "fast-io": {
+    code: `import sys
+
+nums = []
+for line in sys.stdin:
+    for word in line.split():
+        nums.append(int(word))
+
+print(len(nums), sum(nums))`,
+    output: "(input: 10 20 5 15 10)\n5 60",
+    lines: [
+      {
+        code: "import sys",
+        note_mn:
+          "`sys.stdin` нь оролтыг бүхэлд нь уншихад хэрэгтэй. Импортоо мартвал `NameError` гарна.",
+        note_en:
+          "`sys.stdin` is what you read the whole input through. Forget the import and you get `NameError`.",
+      },
+      {
+        code: "for line in sys.stdin:",
+        note_mn:
+          "Оролт дуустал мөр мөрөөр уншина. C++-ийн `while (cin >> x)` -тэй ижил үүрэгтэй.",
+        note_en:
+          "Reads line by line until the input ends — the job C++ gives to `while (cin >> x)`.",
+      },
+      {
+        code: "print(len(nums), sum(nums))",
+        note_mn:
+          "`sum` нь бэлэн байдаг. Python-д давталт бичихээсээ өмнө бэлэн функц байгаа эсэхийг хараарай.",
+        note_en:
+          "`sum` is built in. In Python, check for a ready-made function before writing the loop.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "for line in sys.stdin:   # import sys алга / no import sys",
+        fix: "import sys",
+        why_mn: "`sys` импортгүй бол эхний мөрөнд л `NameError` шидэнэ.",
+        why_en: "Without importing `sys` it raises `NameError` on the very first line.",
+      },
+    ],
+    terms: [
+      {
+        term: "sys.stdin",
+        def_mn: "Оролтын урсгал. Мөр мөрөөр нь эргэж болно.",
+        def_en: "The input stream. You can loop over it line by line.",
+      },
+    ],
+  },
+  "sorting-tools": {
+    code: `v = [5, 2, 9, 1]
+v.sort()
+print(v)
+
+students = [("Bat", 70), ("Suvd", 95), ("Tuul", 82)]
+students.sort(key=lambda s: -s[1])
+for name, score in students:
+    print(name, end=" ")
+print()`,
+    output: "[1, 2, 5, 9]\nSuvd Tuul Bat",
+    lines: [
+      {
+        code: "v.sort()",
+        note_mn:
+          "Жагсаалтыг ӨӨРИЙГ нь эрэмбэлнэ. Шинэ жагсаалт хэрэгтэй бол `sorted(v)`.",
+        note_en:
+          "Sorts the list in place. If you want a new list instead, use `sorted(v)`.",
+      },
+      {
+        code: "students.sort(key=lambda s: -s[1])",
+        note_mn:
+          "Python-д харьцуулагч биш ТҮЛХҮҮР өгнө: «юугаар нь эрэмбэлэх вэ». Буурахаар бол хасах тэмдэг тавина.",
+        note_en:
+          "Python takes a KEY, not a comparator: \"sort by what?\". A minus sign flips it to descending.",
+      },
+      {
+        code: "for name, score in students:",
+        note_mn: "Кортежийг шууд задалж авч болно — C++-д илүү бичлэг шаардана.",
+        note_en: "A tuple can be unpacked straight into two names, which C++ makes you spell out.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "v = v.sort()",
+        fix: "v.sort()",
+        why_mn:
+          "`sort()` юу ч буцаадаггүй тул `v` нь `None` болно. Дараагийн мөрөнд `TypeError` гарна.",
+        why_en:
+          "`sort()` returns nothing, so `v` becomes `None`, and the next line raises `TypeError`.",
+      },
+    ],
+    terms: [
+      {
+        term: "key=",
+        def_mn: "Юугаар эрэмбэлэхийг хэлдэг функц.",
+        def_en: "A function saying what to sort by.",
+      },
+    ],
+  },
+  "binary-search": {
+    code: `def bsearch(v, target):
+    lo, hi = 0, len(v) - 1
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        if v[mid] == target:
+            return mid
+        if v[mid] < target:
+            lo = mid + 1
+        else:
+            hi = mid - 1
+    return -1
+
+v = [4, 8, 15, 16, 23, 42]
+print(bsearch(v, 23))
+print(bsearch(v, 5))`,
+    output: "4\n-1",
+    lines: [
+      {
+        code: "mid = (lo + hi) // 2",
+        note_mn:
+          "`//` заавал хэрэгтэй. `/` бичвэл `mid` бутархай болж, индекс болгон ашиглахад `TypeError` гарна.",
+        note_en:
+          "The `//` is essential. With `/`, `mid` becomes a fraction and using it as an index raises `TypeError`.",
+      },
+      {
+        code: "        lo = mid + 1",
+        note_mn: "`mid` шалгагдсан тул давхар оруулахгүй. C++-тэй ижил логик.",
+        note_en: "`mid` has been checked, so it is left out. Same logic as in C++.",
+      },
+      {
+        code: "    while lo <= hi:",
+        note_mn: "`<=` — ганц элемент үлдсэн ч шалгах ёстой.",
+        note_en: "`<=` because a range of one still needs checking.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "mid = (lo + hi) / 2",
+        fix: "mid = (lo + hi) // 2",
+        why_mn:
+          "Python-д `/` үргэлж бутархай өгнө. `v[2.5]` гэж хандаж болохгүй.",
+        why_en:
+          "In Python `/` always gives a fraction, and `v[2.5]` is not a valid index.",
+      },
+    ],
+    terms: [
+      {
+        term: "bisect",
+        def_mn:
+          "Python-д бэлэн модуль бий: `bisect.bisect_left(v, x)`. Тэмцээнд ашиглаж болно.",
+        def_en:
+          "Python ships a module for this: `bisect.bisect_left(v, x)`. It is contest-legal.",
+      },
+    ],
+  },
+  "binary-search-answer": {
+    code: `def enough(boards, length, k):
+    pieces = 0
+    for b in boards:
+        pieces += b // length
+    return pieces >= k
+
+boards = [8, 12, 5]
+k = 4
+
+lo, hi, best = 1, 12, 0
+while lo <= hi:
+    mid = (lo + hi) // 2
+    if enough(boards, mid, k):
+        best = mid
+        lo = mid + 1
+    else:
+        hi = mid - 1
+
+print(best)`,
+    output: "5",
+    lines: [
+      {
+        code: "        pieces += b // length",
+        note_mn: "Бүхэл хуваалт `//`. Үлдэгдэл нь хаягдана.",
+        note_en: "Whole-number division with `//`. The remainder is scrap.",
+      },
+      {
+        code: "        best = mid",
+        note_mn: "Болж байвал санаж аваад илүү ихийг оролдоно.",
+        note_en: "If it works, remember it and try for more.",
+      },
+      {
+        code: "lo, hi, best = 1, 12, 0",
+        note_mn:
+          "Python-д хэд хэдэн хувьсагчийг нэг мөрөнд онооно. `lo = 1` — 0 урттай хэсэг гэж байхгүй.",
+        note_en:
+          "Python assigns several names on one line. `lo = 1` because a piece of length 0 makes no sense.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "lo = 0",
+        fix: "lo = 1",
+        why_mn: "`b // 0` нь `ZeroDivisionError` шидэж програмыг зогсооно.",
+        why_en: "`b // 0` raises `ZeroDivisionError` and stops the program.",
+      },
+    ],
+    terms: [
+      {
+        term: "monotonic",
+        def_mn: "Нэг чигт өөрчлөгдөх. Энэ арга ажиллах болзол.",
+        def_en: "Changing in one direction only — the condition this method needs.",
+      },
+    ],
+  },
+  "prefix-sums": {
+    code: `v = [3, 1, 4, 1, 5, 9]
+n = len(v)
+
+p = [0] * (n + 1)
+for i in range(n):
+    p[i + 1] = p[i] + v[i]
+
+print(p[4] - p[1])     # v[1..3] = 1 + 4 + 1
+print(p[6] - p[0])     # everything`,
+    output: "6\n23",
+    lines: [
+      {
+        code: "p = [0] * (n + 1)",
+        note_mn:
+          "Нэгээр урт. `p[0] = 0` нь «юу ч аваагүй» — хасалтыг цэвэрхэн болгоно.",
+        note_en:
+          "One longer than the list. `p[0] = 0` means \"nothing yet\", which keeps the subtraction clean.",
+      },
+      {
+        code: "    p[i + 1] = p[i] + v[i]",
+        note_mn: "Өмнөх нийлбэр дээр энэ элементийг нэмнэ.",
+        note_en: "The previous total plus this element.",
+      },
+      {
+        code: "print(p[4] - p[1])",
+        note_mn:
+          "Дүрэм: v[a..b] = p[b+1] - p[a]. Python-д нийлбэр хэтрэх аюул байхгүй.",
+        note_en:
+          "The rule: v[a..b] is p[b+1] - p[a]. In Python there is no overflow to fear.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "p[b] - p[a]",
+        fix: "p[b + 1] - p[a]",
+        why_mn: "b дугаар элементийг өөрийг нь оруулах ёстой.",
+        why_en: "Element b itself has to be included.",
+      },
+    ],
+    terms: [
+      {
+        term: "prefix sum",
+        def_mn: "Эхнээс тухайн байрлал хүртэлх нийлбэр.",
+        def_en: "The total from the start up to a position.",
+      },
+    ],
+  },
+  "stack-queue": {
+    code: `from collections import deque
+
+def balanced(s):
+    st = []
+    for c in s:
+        if c == "(":
+            st.append(c)
+        elif c == ")":
+            if not st:
+                return False
+            st.pop()
+    return len(st) == 0
+
+print("yes" if balanced("(()())") else "no")
+print("yes" if balanced("(()") else "no")
+
+line = deque()
+line.append("Bat")
+line.append("Suvd")
+print(line[0])
+line.popleft()
+print(line[0])`,
+    output: "yes\nno\nBat\nSuvd",
+    lines: [
+      {
+        code: "st.append(c)",
+        note_mn:
+          "Python-д тусдаа стек байхгүй — энгийн жагсаалт `append`/`pop`-той нь стек болно.",
+        note_en:
+          "Python has no separate stack — a plain list with `append` and `pop` is one.",
+      },
+      {
+        code: "st.pop()",
+        note_mn:
+          "C++-ЭЭС ЯЛГААТАЙ: Python-ы `pop()` утгыг БУЦААНА, зөвхөн хаядаггүй.",
+        note_en:
+          "DIFFERENT FROM C++: Python's `pop()` RETURNS the value, it does not only remove it.",
+      },
+      {
+        code: "line.popleft()",
+        note_mn:
+          "Дараалалд `deque` хэрэглэ. Жагсаалтын `pop(0)` нь бүх зүйлийг шилжүүлдэг тул удаан.",
+        note_en:
+          "Use a `deque` for a queue. A list's `pop(0)` shifts everything along and is slow.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "line.pop(0)",
+        fix: "line.popleft()   # deque",
+        why_mn:
+          "Жагсаалтаас эхний элементийг авах нь O(n). Том дараалал дээр програм удаашрана.",
+        why_en:
+          "Taking the front of a list is O(n). On a big queue that is what makes the program too slow.",
+      },
+    ],
+    terms: [
+      {
+        term: "deque",
+        def_mn: "Хоёр захаас нь хурдан нэмж хасдаг дараалал.",
+        def_en: "A queue you can add to and take from at both ends, quickly.",
+      },
+    ],
+  },
+  "priority-queue": {
+    code: `import heapq
+
+big = []
+heapq.heappush(big, -5)
+heapq.heappush(big, -1)
+heapq.heappush(big, -9)
+print(-big[0])
+heapq.heappop(big)
+print(-big[0])
+
+small = []
+for x in (5, 1, 9):
+    heapq.heappush(small, x)
+print(small[0])`,
+    output: "9\n5\n1",
+    lines: [
+      {
+        code: "import heapq",
+        note_mn:
+          "Python-ы эрэмбэтэй дараалал. Энгийн жагсаалтыг овоолго болгон ажиллуулна.",
+        note_en:
+          "Python's priority queue. It works a plain list as a heap.",
+      },
+      {
+        code: "heapq.heappush(big, -5)",
+        note_mn:
+          "ЭСРЭГЭЭР: `heapq` нь ҮРГЭЛЖ ХАМГИЙН БАГЫГ дээрээ барина. Хамгийн ихийг авахын тулд утгыг сөрөг болгож хийдэг заншилтай.",
+        note_en:
+          "THE OPPOSITE OF C++: `heapq` always keeps the SMALLEST on top. To get the largest, the trick is to store negatives.",
+      },
+      {
+        code: "print(small[0])",
+        note_mn: "`small[0]` бол дээд тал. `top()` гэсэн функц байхгүй.",
+        note_en: "`small[0]` is the top. There is no `top()` function.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "heapq нь хамгийн ихийг өгнө гэж бодох / expecting heapq to give the largest",
+        fix: "Сөрөг болгож хий / push negatives",
+        why_mn:
+          "C++-ийн `priority_queue` анхдагчаараа хамгийн их, Python-ы `heapq` хамгийн бага. Яг эсрэг.",
+        why_en:
+          "C++'s `priority_queue` defaults to largest, Python's `heapq` to smallest. Exactly opposite.",
+      },
+    ],
+    terms: [
+      {
+        term: "heapq",
+        def_mn: "Хамгийн БАГА нь дээрээ байдаг овоолго.",
+        def_en: "A heap that keeps the SMALLEST on top.",
+      },
+    ],
+  },
+  "two-pointers": {
+    code: `v = [1, 3, 4, 7, 11]
+target = 10
+
+lo, hi = 0, len(v) - 1
+found = False
+while lo < hi:
+    s = v[lo] + v[hi]
+    if s == target:
+        print(v[lo], v[hi])
+        found = True
+        break
+    if s < target:
+        lo += 1
+    else:
+        hi -= 1
+
+if not found:
+    print("none")`,
+    output: "3 7",
+    lines: [
+      {
+        code: "lo, hi = 0, len(v) - 1",
+        note_mn: "Хоёр заагч — хамгийн бага ба хамгийн их дээр.",
+        note_en: "Two pointers — one on the smallest, one on the largest.",
+      },
+      {
+        code: "    if s < target:",
+        note_mn: "Бага байвал зүүн заагчийг баруун тийш зөөнө.",
+        note_en: "Too small, so move the left pointer right.",
+      },
+      {
+        code: "while lo < hi:",
+        note_mn: "`<` — нэг элементийг өөртэй нь хослуулж болохгүй.",
+        note_en: "`<`, so an element is never paired with itself.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "Эрэмбэлэгдээгүй жагсаалт дээр / on an unsorted list",
+        fix: "v.sort() эхлээд / v.sort() first",
+        why_mn: "Эрэмбэгүй бол «их байвал багасга» гэсэн шийдвэр утгагүй.",
+        why_en: "Unsorted, \"too big, shrink it\" is not a valid move.",
+      },
+    ],
+    terms: [
+      {
+        term: "two pointers",
+        def_mn: "Хоёр индекс нэг жагсаалт дээр зэрэг хөдлөх арга.",
+        def_en: "Two indices moving along one list together.",
+      },
+    ],
+  },
+  greedy: {
+    code: `def coins(amount, values):
+    used = 0
+    for v in values:
+        while amount >= v:
+            amount -= v
+            used += 1
+    return used
+
+mnt = [500, 100, 50, 10]
+print(coins(680, mnt))
+
+odd = [4, 3, 1]
+print(coins(6, odd))        # greedy: 4+1+1 = 3 coins
+print("best is 2 (3+3)")`,
+    output: "6\n3\nbest is 2 (3+3)",
+    lines: [
+      {
+        code: "    for v in values:",
+        note_mn: "Утгууд ИХЭЭС БАГА руу эрэмбэлэгдсэн байх ёстой.",
+        note_en: "The values must be in order, largest first.",
+      },
+      {
+        code: "            amount -= v",
+        note_mn: "`amount = amount - v`-ийн богино хэлбэр.",
+        note_en: "Short for `amount = amount - v`.",
+      },
+      {
+        code: "print(coins(6, odd))",
+        note_mn:
+          "4, 3, 1 дэвсгэртээр 6-г шуналтаар 3 зоос болгоно. Гэтэл 3 + 3 = 2 зоос хангалттай.",
+        note_en:
+          "With coins 4, 3, 1 greedy makes 6 from three coins. But 3 + 3 needs only two.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "Шуналт арга үргэлж зөв гэж үзэх / assuming greedy is always right",
+        fix: "Эсрэг жишээ хайх / hunt for a counterexample",
+        why_mn: "Монголын дэвсгэрт дээр ажиллана, {4,3,1} дээр ажиллахгүй.",
+        why_en: "It works for real money and fails on coins {4,3,1}.",
+      },
+    ],
+    terms: [
+      {
+        term: "greedy",
+        def_mn: "Одоогийн хамгийн сайныг сонгож, эргэж эргэлзэхгүй арга.",
+        def_en: "Taking the locally best option and never reconsidering.",
+      },
+    ],
+  },
+  backtracking: {
+    code: `def permute(v, used, cur):
+    if len(cur) == len(v):
+        print("".join(str(x) for x in cur), end=" ")
+        return
+    for i in range(len(v)):
+        if used[i]:
+            continue
+        used[i] = True
+        cur.append(v[i])
+
+        permute(v, used, cur)
+
+        cur.pop()
+        used[i] = False
+
+permute([1, 2, 3], [False] * 3, [])
+print()`,
+    output: "123 132 213 231 312 321",
+    lines: [
+      {
+        code: "        cur.append(v[i])",
+        note_mn: "Сонголт хийж байна.",
+        note_en: "Making a choice.",
+      },
+      {
+        code: "        cur.pop()",
+        note_mn:
+          "БУЦААЖ АВЧ БАЙНА. Үүнийг мартвал дараагийн салаа буруу төлөвөөс эхэлнэ.",
+        note_en:
+          "UNDOING it. Forget this and the next branch starts from a wrong state.",
+      },
+      {
+        code: 'print("".join(str(x) for x in cur), end=" ")',
+        note_mn:
+          "`join` нь жагсаалтыг нэг мөр болгоно. Эхлээд `str()`-ээр тоо бүрийг бичвэр болгох ёстой.",
+        note_en:
+          "`join` glues a list into one string. Each number has to be made text with `str()` first.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "permute(v, used, cur)   # cur.pop() алга / no cur.pop()",
+        fix: "cur.pop() after the call",
+        why_mn: "Буцааж авахгүй бол `cur` уртсаад л явна.",
+        why_en: "Without the undo, `cur` only ever grows.",
+      },
+    ],
+    terms: [
+      {
+        term: "backtracking",
+        def_mn: "Сонго → гүнзгийр → буцааж ав.",
+        def_en: "Choose, go deeper, then undo.",
+      },
+    ],
+  },
+  "dp-intro": {
+    code: `calls = 0
+memo = {}
+
+def fib(n):
+    global calls
+    calls += 1
+    if n <= 1:
+        return n
+    if n in memo:
+        return memo[n]
+    memo[n] = fib(n - 1) + fib(n - 2)
+    return memo[n]
+
+print(fib(30))
+print(calls)`,
+    output: "832040\n59",
+    lines: [
+      {
+        code: "memo = {}",
+        note_mn:
+          "Python-д толь бичиг хэрэглэхэд амар: `-1`-ээр дүүргэх шаардлагагүй, `in`-ээр шалгана.",
+        note_en:
+          "A dictionary is easier here: no filling with `-1`, you just ask `in`.",
+      },
+      {
+        code: "    if n in memo:",
+        note_mn:
+          "Өмнө бодсон бол шууд буцаана. Энэ ГАНЦ шалгалт 1.6 сая дуудалтыг 59 болгож байна.",
+        note_en:
+          "Already known, so return it. This ONE check turns 1.6 million calls into 59.",
+      },
+      {
+        code: "    global calls",
+        note_mn:
+          "Функц доторх гадаад хувьсагчийг ӨӨРЧЛӨХ гэж байвал `global` гэж зарлана. Зөвхөн уншихад хэрэггүй.",
+        note_en:
+          "To CHANGE an outside variable from inside a function you must declare it `global`. Reading it needs nothing.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "calls += 1   # global алга / no global",
+        fix: "global calls",
+        why_mn:
+          "`global`-гүй бол Python шинэ дотоод хувьсагч гэж үзээд `UnboundLocalError` шидэнэ.",
+        why_en:
+          "Without `global`, Python treats it as a new local and raises `UnboundLocalError`.",
+      },
+    ],
+    terms: [
+      {
+        term: "memoization",
+        def_mn: "Бодсон хариугаа санаж хадгалах.",
+        def_en: "Remembering an answer you already worked out.",
+      },
+      {
+        term: "lru_cache",
+        def_mn:
+          "Python-д `functools.lru_cache` нь үүнийг автоматаар хийдэг.",
+        def_en: "Python's `functools.lru_cache` does all of this for you.",
+      },
+    ],
+  },
+  "dp-1d": {
+    code: `n = 6
+ways = [0] * (n + 1)
+
+ways[0] = 1
+ways[1] = 1
+for i in range(2, n + 1):
+    ways[i] = ways[i - 1] + ways[i - 2]
+
+print(*ways)
+print(ways[n])`,
+    output: "1 1 2 3 5 8 13\n13",
+    lines: [
+      {
+        code: "ways[0] = 1",
+        note_mn: "Хамгийн жижиг тохиолдол: 0 шат гарах ганц арга бий.",
+        note_en: "The smallest case: exactly one way to climb no stairs.",
+      },
+      {
+        code: "    ways[i] = ways[i - 1] + ways[i - 2]",
+        note_mn: "i-р шатанд i-1 эсвэл i-2-оос ирнэ.",
+        note_en: "You reach stair i from i-1 or from i-2.",
+      },
+      {
+        code: "print(*ways)",
+        note_mn:
+          "`*` нь жагсаалтыг задалж, элемент бүрийг тусад нь дамжуулна — хооронд нь зай тавьж хэвлэнэ.",
+        note_en:
+          "The `*` unpacks the list into separate arguments, so they print space-separated.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "ways = [0] * n",
+        fix: "ways = [0] * (n + 1)",
+        why_mn:
+          "`ways[n]` рүү хандах тул n+1 нүд хэрэгтэй. Үгүй бол `IndexError`.",
+        why_en:
+          "You index `ways[n]`, so you need n+1 cells. Otherwise `IndexError`.",
+      },
+    ],
+    terms: [
+      {
+        term: "bottom-up",
+        def_mn: "Жижигээс нь эхэлж хүснэгт дүүргэх арга.",
+        def_en: "Filling the table from the smallest case upwards.",
+      },
+    ],
+  },
+  "dp-grid": {
+    code: `rows, cols = 3, 4
+paths = [[0] * cols for _ in range(rows)]
+
+for r in range(rows):
+    for c in range(cols):
+        if r == 0 and c == 0:
+            paths[r][c] = 1
+        else:
+            from_up = paths[r - 1][c] if r > 0 else 0
+            from_left = paths[r][c - 1] if c > 0 else 0
+            paths[r][c] = from_up + from_left
+
+for row in paths:
+    print(*row)`,
+    output: "1 1 1 1\n1 2 3 4\n1 3 6 10",
+    lines: [
+      {
+        code: "paths = [[0] * cols for _ in range(rows)]",
+        note_mn:
+          "Мөр бүрийг ТУСАД нь үүсгэнэ. `[[0]*cols]*rows` гэвэл бүх мөр нэг л жагсаалт болно.",
+        note_en:
+          "Each row is built SEPARATELY. `[[0]*cols]*rows` would make every row the same list.",
+      },
+      {
+        code: "            from_up = paths[r - 1][c] if r > 0 else 0",
+        note_mn:
+          "Python-д `paths[-1]` нь СҮҮЛИЙН мөрийг өгнө — алдаа заахгүй, чимээгүй буруу хариу гарна. Тийм учраас `if r > 0` заавал хэрэгтэй.",
+        note_en:
+          "In Python `paths[-1]` is the LAST row — no error, just a silently wrong answer. That is why the `if r > 0` guard matters more here than in C++.",
+      },
+      {
+        code: "    print(*row)",
+        note_mn: "Мөр бүрийг зайгаар тусгаарлан хэвлэнэ.",
+        note_en: "Prints one row, space-separated.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "paths[r - 1][c]   # шалгалтгүй / unguarded",
+        fix: "paths[r - 1][c] if r > 0 else 0",
+        why_mn:
+          "r = 0 үед сөрөг индекс сүүлийн мөрийг уншиж, буруу хариуг чимээгүйхэн өгнө.",
+        why_en:
+          "At r = 0 the negative index reads the last row and quietly produces a wrong answer.",
+      },
+    ],
+    terms: [
+      {
+        term: "negative index",
+        def_mn: "Python-д `a[-1]` бол сүүлийн элемент. Алдаа биш.",
+        def_en: "In Python `a[-1]` is the last element. It is not an error.",
+      },
+    ],
+  },
+  "graphs-intro": {
+    code: `n = 5
+adj = [[] for _ in range(n)]
+
+adj[0].append(1); adj[1].append(0)
+adj[0].append(2); adj[2].append(0)
+adj[1].append(3); adj[3].append(1)
+
+for v in range(n):
+    print(str(v) + ":", *adj[v])`,
+    output: "0: 1 2\n1: 0 3\n2: 0\n3: 1\n4:",
+    lines: [
+      {
+        code: "adj = [[] for _ in range(n)]",
+        note_mn:
+          "Цэг бүрд ТУСДАА хоосон жагсаалт. `[[]] * n` гэвэл бүгд нэг жагсаалт болно.",
+        note_en:
+          "A SEPARATE empty list per node. `[[]] * n` would make them all the same list.",
+      },
+      {
+        code: "adj[0].append(1); adj[1].append(0)",
+        note_mn: "Чиглэлгүй холбоосыг хоёр талд нь бичнэ.",
+        note_en: "An undirected edge is written on both sides.",
+      },
+      {
+        code: 'print(str(v) + ":", *adj[v])',
+        note_mn: "Хоосон жагсаалтыг задлахад юу ч хэвлэгдэхгүй — 4-р цэг хоосон гарна.",
+        note_en: "Unpacking an empty list prints nothing, which is why node 4 comes out bare.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "adj = [[]] * n",
+        fix: "adj = [[] for _ in range(n)]",
+        why_mn:
+          "Эхнийх нь БҮХ цэгт нэг жагсаалт өгнө. Нэг холбоос нэмэхэд бүх цэгт нэмэгдэнэ.",
+        why_en:
+          "The first gives EVERY node the same list. Add one edge and every node gets it.",
+      },
+    ],
+    terms: [
+      {
+        term: "adjacency list",
+        def_mn: "Цэг бүрд хөршүүдийг нь жагсаасан бүтэц.",
+        def_en: "The structure listing each node's neighbours.",
+      },
+    ],
+  },
+  dfs: {
+    code: `import sys
+sys.setrecursionlimit(10000)
+
+n = 6
+adj = [[] for _ in range(n)]
+seen = [False] * n
+
+adj[0].append(1); adj[1].append(0)
+adj[1].append(2); adj[2].append(1)
+adj[3].append(4); adj[4].append(3)
+
+def dfs(v):
+    seen[v] = True
+    for to in adj[v]:
+        if not seen[to]:
+            dfs(to)
+
+groups = 0
+for v in range(n):
+    if not seen[v]:
+        groups += 1
+        dfs(v)
+
+print(groups)`,
+    output: "3",
+    lines: [
+      {
+        code: "sys.setrecursionlimit(10000)",
+        note_mn:
+          "Python-ы рекурсийн анхдагч хязгаар ойролцоогоор 1000. Граф том бол үүнийг нэмэх ёстой — C++-д ийм тохиргоо байхгүй.",
+        note_en:
+          "Python's recursion limit is about 1000 by default. On a larger graph you must raise it — C++ has no such setting.",
+      },
+      {
+        code: "    seen[v] = True",
+        note_mn: "ХАМГИЙН ЭХЭНД тэмдэглэнэ, эс бөгөөс мөчлөг дээр эргэлдэнэ.",
+        note_en: "Mark it FIRST, or a cycle sends it round forever.",
+      },
+      {
+        code: "        groups += 1",
+        note_mn: "Шинэ эхлэл цэг = шинэ бүлэг. 0-1-2, 3-4, 5 — нийт 3.",
+        note_en: "A fresh start means a new group. 0-1-2, then 3-4, then 5 — three.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "setrecursionlimit алга / no setrecursionlimit",
+        fix: "sys.setrecursionlimit(300000)",
+        why_mn:
+          "Гүн граф дээр `RecursionError` гарна. C++-д ийм асуудал ховор тул амархан мартдаг.",
+        why_en:
+          "A deep graph raises `RecursionError`. It is easy to forget because C++ rarely hits it.",
+      },
+    ],
+    terms: [
+      {
+        term: "recursion limit",
+        def_mn: "Python-ы дуудалтын гүний хязгаар. Анхдагчаар ~1000.",
+        def_en: "Python's cap on call depth. About 1000 by default.",
+      },
+    ],
+  },
+  bfs: {
+    code: `from collections import deque
+
+rows, cols = 3, 4
+dist = [[-1] * cols for _ in range(rows)]
+
+q = deque()
+dist[0][0] = 0
+q.append((0, 0))
+
+dr = [-1, 1, 0, 0]
+dc = [0, 0, -1, 1]
+
+while q:
+    r, c = q.popleft()
+    for k in range(4):
+        nr, nc = r + dr[k], c + dc[k]
+        if nr < 0 or nr >= rows or nc < 0 or nc >= cols:
+            continue
+        if dist[nr][nc] != -1:
+            continue
+        dist[nr][nc] = dist[r][c] + 1
+        q.append((nr, nc))
+
+print(dist[2][3])`,
+    output: "5",
+    lines: [
+      {
+        code: "q = deque()",
+        note_mn:
+          "Жагсаалт биш `deque`. `pop(0)` нь O(n) тул том хүснэгт дээр програм удаашрана.",
+        note_en:
+          "A `deque`, not a list. A list's `pop(0)` is O(n) and will make a big grid too slow.",
+      },
+      {
+        code: "    r, c = q.popleft()",
+        note_mn: "Кортежийг шууд хоёр нэр рүү задална.",
+        note_en: "The tuple unpacks straight into two names.",
+      },
+      {
+        code: "        if nr < 0 or nr >= rows or nc < 0 or nc >= cols:",
+        note_mn:
+          "Хязгаарыг ЭХЛЭЭД шалгана. Python-д сөрөг индекс алдаа заахгүй тул энэ шалгалт бүр ч чухал.",
+        note_en:
+          "Check the bounds FIRST. It matters even more in Python, where a negative index does not error.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "q = []  ...  q.pop(0)",
+        fix: "from collections import deque",
+        why_mn: "Жагсаалтын эхнээс авах нь удаан. Том хүснэгт дээр TLE гарна.",
+        why_en: "Taking from the front of a list is slow, and gives TLE on a big grid.",
+      },
+    ],
+    terms: [
+      {
+        term: "deque",
+        def_mn: "Хоёр захаас нь хурдан нэмж хасдаг дараалал.",
+        def_en: "A queue that is fast at both ends.",
+      },
+    ],
+  },
+  dijkstra: {
+    code: `import heapq
+
+n = 4
+adj = [[] for _ in range(n)]
+adj[0].append((1, 1))
+adj[0].append((2, 8))
+adj[1].append((2, 2))
+adj[2].append((3, 3))
+
+INF = float("inf")
+dist = [INF] * n
+dist[0] = 0
+
+pq = [(0, 0)]
+while pq:
+    d, v = heapq.heappop(pq)
+    if d > dist[v]:
+        continue
+    for to, cost in adj[v]:
+        if dist[v] + cost < dist[to]:
+            dist[to] = dist[v] + cost
+            heapq.heappush(pq, (dist[to], to))
+
+print(dist[3])`,
+    output: "6",
+    lines: [
+      {
+        code: 'INF = float("inf")',
+        note_mn:
+          "Python-д жинхэнэ хязгааргүй бий. Том тоо сонгох шаардлагагүй бөгөөд нэмэхэд хэтрэхгүй.",
+        note_en:
+          "Python has a real infinity. No need to pick a big number, and adding to it never overflows.",
+      },
+      {
+        code: "pq = [(0, 0)]",
+        note_mn:
+          "Кортежийн ЭХНИЙ утга нь зай. `heapq` эхний утгаар нь эрэмбэлдэг.",
+        note_en:
+          "Distance goes FIRST in the tuple, because `heapq` orders on the first value.",
+      },
+      {
+        code: "    if d > dist[v]:",
+        note_mn: "Хуучирсан бичлэгийг алгасна.",
+        note_en: "Skip a stale entry.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "heapq.heappush(pq, (to, dist[to]))",
+        fix: "heapq.heappush(pq, (dist[to], to))",
+        why_mn: "Солиод бичвэл цэгийн дугаараар эрэмбэлж, алгоритм утгагүй болно.",
+        why_en: "Swapped, it orders by node number and the algorithm means nothing.",
+      },
+    ],
+    terms: [
+      {
+        term: "float(\"inf\")",
+        def_mn: "Хязгааргүй их. Аль ч тооноос том.",
+        def_en: "Infinity. Larger than any number.",
+      },
+    ],
+  },
+  classes: {
+    code: `class Student:
+    def __init__(self):
+        self._name = ""
+        self._score = 0
+
+    def set(self, n, s):
+        self._name = n
+        if s < 0:
+            s = 0
+        if s > 100:
+            s = 100
+        self._score = s
+
+    def get(self):
+        return self._score
+
+a = Student()
+a.set("Bat", 150)
+print(a.get())
+
+a.set("Bat", 72)
+print(a.get())`,
+    output: "100\n72",
+    lines: [
+      {
+        code: "        self._score = 0",
+        note_mn:
+          "Доогуур зураас нь «гаднаас бүү хүр» гэсэн ЗАНШИЛ. Python үүнийг албадан хориглодоггүй — C++-ийн `private`-ээс ялгаатай.",
+        note_en:
+          "The underscore is a CONVENTION meaning \"do not touch from outside\". Python does not enforce it — unlike C++'s `private`.",
+      },
+      {
+        code: "        if s > 100:",
+        note_mn: "Дүрэм нь ижилхэн ажиллана. Утга үргэлж 0-100 хооронд байна.",
+        note_en: "The rule works the same. The value always lands between 0 and 100.",
+      },
+      {
+        code: "    def set(self, n, s):",
+        note_mn: "Метод бүрийн эхний параметр нь `self` байх ёстой.",
+        note_en: "Every method takes `self` as its first parameter.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "a._score = 150",
+        fix: "a.set(\"Bat\", 150)",
+        why_mn:
+          "Python үүнийг ЗӨВШӨӨРНӨ — дүрмийг тойрч гарна. Хамгаалалт нь зөвхөн заншил.",
+        why_en:
+          "Python ALLOWS this, bypassing the rule. The protection is only a convention.",
+      },
+    ],
+    terms: [
+      {
+        term: "_name",
+        def_mn: "«Дотоод» гэсэн заншлын тэмдэг. Албадлага биш.",
+        def_en: "A conventional mark for \"internal\". Not enforced.",
+      },
+    ],
+  },
+  "class-methods": {
+    code: `class Rect:
+    def __init__(self, width, height):
+        self.w = width
+        self.h = height
+
+    def area(self):
+        return self.w * self.h
+
+    def perimeter(self):
+        return 2 * (self.w + self.h)
+
+r = Rect(3, 4)
+print(r.area())
+print(r.perimeter())
+
+small = Rect(2, 2)
+print(small.area())`,
+    output: "12\n14\n4",
+    lines: [
+      {
+        code: "    def __init__(self, width, height):",
+        note_mn:
+          "`__init__` бол Python-ы байгуулагч. Нэр нь классын нэртэй ижил БИШ — үргэлж `__init__`.",
+        note_en:
+          "`__init__` is Python's constructor. It is NOT named after the class — always `__init__`.",
+      },
+      {
+        code: "        self.w = width",
+        note_mn: "Талбарыг `self.` -ээр үүсгэнэ. Урьдчилж зарлах шаардлагагүй.",
+        note_en: "Fields are made with `self.`. You never declare them ahead of time.",
+      },
+      {
+        code: "print(r.area())",
+        note_mn:
+          "Дуудахдаа `self` бичихгүй — Python өөрөө дамжуулна.",
+        note_en:
+          "You do not pass `self` when calling — Python supplies it.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "def area():",
+        fix: "def area(self):",
+        why_mn:
+          "`self` -ийг мартвал `TypeError: area() takes 0 positional arguments but 1 was given`.",
+        why_en:
+          "Forget `self` and you get `TypeError: area() takes 0 positional arguments but 1 was given`.",
+      },
+    ],
+    terms: [
+      {
+        term: "__init__",
+        def_mn: "Обьект үүсэх үед автоматаар ажиллах метод.",
+        def_en: "The method that runs automatically when an object is made.",
+      },
+    ],
+  },
+  "operator-overload": {
+    code: `class Student:
+    def __init__(self, name, score):
+        self.name = name
+        self.score = score
+
+    def __lt__(self, other):
+        return self.score > other.score
+
+v = [Student("Bat", 70), Student("Suvd", 95), Student("Tuul", 82)]
+v.sort()
+for s in v:
+    print(s.name, s.score)`,
+    output: "Suvd 95\nTuul 82\nBat 70",
+    lines: [
+      {
+        code: "    def __lt__(self, other):",
+        note_mn:
+          "`__lt__` бол Python-ы `operator<`. `sort()` үүнийг өөрөө олж хэрэглэнэ.",
+        note_en:
+          "`__lt__` is Python's `operator<`. `sort()` finds and uses it by itself.",
+      },
+      {
+        code: "        return self.score > other.score",
+        note_mn: "`>` тул өндөр оноо түрүүлнэ. C++-тэй яг ижил заль.",
+        note_en: "A `>` puts higher scores first — the same trick as in C++.",
+      },
+      {
+        code: "v.sort()",
+        note_mn:
+          "Practice: Python-д ихэвчлэн `v.sort(key=lambda s: -s.score)` гэж бичдэг. `__lt__` нь эрэмбэ обьектын ӨӨРИЙНХ нь шинж чанар үед тохиромжтой.",
+        note_en:
+          "In practice Python usually writes `v.sort(key=lambda s: -s.score)`. `__lt__` fits when the ordering is a property of the object itself.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "def __lt__(self, other): return self.score >= other.score",
+        fix: "return self.score > other.score",
+        why_mn:
+          "Тэнцүү үед `True` буцаах нь эрэмбийг тодорхойгүй болгоно. C++-ийн адил дүрэм.",
+        why_en:
+          "Returning True for equals makes the order undefined — the same rule as in C++.",
+      },
+    ],
+    terms: [
+      {
+        term: "__lt__",
+        def_mn: "«Бага уу?» гэсэн асуултад хариулах тусгай метод.",
+        def_en: "The special method answering \"is this less than that?\".",
+      },
+    ],
   },
 };

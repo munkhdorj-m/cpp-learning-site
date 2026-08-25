@@ -25,7 +25,7 @@ export default async function PlagiarismPage() {
   const { data: pairs } = await supabase
     .from("code_similarity")
     .select(
-      "id, submission_a_id, submission_b_id, problem_id, class_id, similarity, reviewed, created_at",
+      "id, submission_a_id, submission_b_id, problem_id, class_id, similarity, jaccard, contained, longest_run, tokens, reviewed, created_at",
     )
     .order("reviewed", { ascending: true })
     .order("similarity", { ascending: false })
@@ -85,6 +85,11 @@ export default async function PlagiarismPage() {
     return {
       id: p.id,
       similarity: p.similarity,
+      // Why it was flagged, not just how much. See lib/plagiarism.ts.
+      jaccard: p.jaccard,
+      contained: p.contained,
+      longest_run: p.longest_run,
+      tokens: p.tokens,
       reviewed: p.reviewed,
       created_at: p.created_at,
       problem_slug: probInfo?.slug ?? null,

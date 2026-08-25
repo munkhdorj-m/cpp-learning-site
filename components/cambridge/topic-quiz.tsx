@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Check, X, RotateCcw, HelpCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { recordQuizAnswer } from "@/lib/progress/client";
+import { shuffleQuiz } from "@/lib/quiz-shuffle";
 
 export interface QuizQuestion {
   q: string;
@@ -29,6 +30,18 @@ export function TopicQuiz({
 }) {
   const [picked, setPicked] = useState<(number | null)[]>(
     questions.map(() => null),
+  );
+
+  // Every question in both Cambridge banks was authored with answer: 0, and
+  // this list used to render in source order — so the right button was always
+  // the first one. Seeded on the question text, so the arrangement is stable
+  // for a student across visits and devices, and a re-render cannot move a
+  // button under their finger. `picked` still stores the SOURCE index, which
+  // keeps the scoring below and the recorded review data unchanged.
+  const orders = useMemo(
+    () =>
+      questions.map((q) => shuffleQuiz(q.q, q.choices.length, q.answer).order),
+    [questions],
   );
 
   const answered = picked.filter((p) => p !== null).length;
@@ -62,7 +75,8 @@ export function TopicQuiz({
                 {question.q}
               </p>
               <div className="space-y-1.5">
-                {question.choices.map((c, ci) => {
+                {orders[qi].map((ci) => {
+                  const c = question.choices[ci];
                   const isAnswer = ci === question.answer;
                   const isChosen = chosen === ci;
                   return (

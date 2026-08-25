@@ -47,7 +47,7 @@ export default async function ProblemsPage() {
     <div className="space-y-6">
       <div className="space-y-1">
         <div className="hud-label flex items-center gap-2">
-          <span className="text-primary">//</span>
+          <span className="text-primary">{"//"}</span>
           {locale === "en" ? "PROBLEM.SET" : "БОДЛОГЫН САН"}
         </div>
         <h1 className="text-3xl font-bold">{t("title")}</h1>

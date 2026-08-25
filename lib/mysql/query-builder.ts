@@ -307,15 +307,36 @@ async function rpc(name: string, args?: Record<string, unknown>): Promise<Result
   const pool = getPool();
   try {
     if (name === "class_week_xp") {
+      // Every source of XP a student can earn, over the last seven days.
+      //
+      // This used to count solved problems only, so a class grinding robot
+      // levels showed as doing nothing. The two sources are summed in
+      // SEPARATE subqueries rather than joined: joining both to profiles
+      // multiplies the rows (five solves x three robot levels = each counted
+      // fifteen times), which is the classic fan-out and it inflates by
+      // whichever factor happens to apply that week.
+      //
+      // Bug Smash is deliberately absent — it pays no XP at all now. Quests
+      // are gone. If another source appears, it belongs here.
       const [rows] = await pool.query(
         `SELECT c.id AS class_id, c.name AS class_name, c.grade,
-                COALESCE(SUM(s.xp_awarded), 0) AS week_xp,
-                COUNT(DISTINCT p.id) AS student_count
+                COUNT(DISTINCT p.id) AS student_count,
+                COALESCE((
+                  SELECT SUM(s.xp_awarded)
+                    FROM submissions s
+                    JOIN profiles sp ON sp.id = s.user_id
+                   WHERE sp.class_id = c.id AND sp.role = 'student'
+                     AND s.verdict = 'accepted' AND s.is_first_accepted = TRUE
+                     AND s.created_at >= (UTC_TIMESTAMP() - INTERVAL 7 DAY)
+                ), 0) + COALESCE((
+                  SELECT SUM(rp.xp_awarded)
+                    FROM robot_progress rp
+                    JOIN profiles rpp ON rpp.id = rp.user_id
+                   WHERE rpp.class_id = c.id AND rpp.role = 'student'
+                     AND rp.completed_at >= (UTC_TIMESTAMP() - INTERVAL 7 DAY)
+                ), 0) AS week_xp
            FROM classes c
            LEFT JOIN profiles p ON p.class_id = c.id AND p.role = 'student'
-           LEFT JOIN submissions s ON s.user_id = p.id
-                 AND s.verdict = 'accepted' AND s.is_first_accepted = TRUE
-                 AND s.created_at >= (UTC_TIMESTAMP() - INTERVAL 7 DAY)
           GROUP BY c.id, c.name, c.grade
           ORDER BY week_xp DESC, c.name ASC`,
       );

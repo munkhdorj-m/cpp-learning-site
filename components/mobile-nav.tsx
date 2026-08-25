@@ -14,13 +14,19 @@ import { LanguageToggle } from "@/components/language-toggle";
 interface MobileNavProps {
   showAssignments: boolean;
   isTeacher?: boolean;
+  /** Drives the log-in row at the foot of the panel. */
+  signedIn?: boolean;
 }
 
 /**
  * Hamburger menu for phones. The desktop <NavLinks> is hidden below md,
  * so without this there is no way to reach any section on a phone.
  */
-export function MobileNav({ showAssignments, isTeacher }: MobileNavProps) {
+export function MobileNav({
+  showAssignments,
+  isTeacher,
+  signedIn,
+}: MobileNavProps) {
   const t = useTranslations("nav");
   const pathname = usePathname();
   const locale = useLocale();
@@ -127,6 +133,16 @@ export function MobileNav({ showAssignments, isTeacher }: MobileNavProps) {
             <div className="mt-3 flex items-center gap-2 border-t border-primary/15 pt-3">
               <ThemeToggle />
               <LanguageToggle />
+              {/* A second way in, for a student who opened the menu looking
+                  for one. The header button is the first. */}
+              {!signedIn && (
+                <Link
+                  href="/login"
+                  className="ml-auto rounded-lg border border-primary/40 bg-primary/10 px-4 py-2 font-code text-base text-primary"
+                >
+                  {t("login")}
+                </Link>
+              )}
             </div>
           </nav>
         </>

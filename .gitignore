@@ -17,6 +17,14 @@
 /.next/
 /out/
 
+# Self-hosted Monaco, copied out of node_modules by scripts/copy-monaco.mjs on
+# every dev/build. 6 MB of vendor output — regenerated, never committed.
+/public/monaco/
+
+# Self-hosted SQLite (sql.js), copied by scripts/copy-sqljs.mjs on every
+# build. Vendor output, same reasoning as Monaco above.
+/public/sql-wasm/
+
 # production
 /build
 
@@ -45,3 +53,7 @@ scripts/.spoj-cookies.txt
 # Migration data backups (contain student PII — never commit)
 migration/backup/
 migration/mysql-data.sql
+
+# Locally uploaded assignment files. On the server these live under
+# UPLOAD_DIR, outside the application directory.
+/var/

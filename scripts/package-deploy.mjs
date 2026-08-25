@@ -21,6 +21,8 @@ const EXCLUDES = [
   "./node_modules",
   "./.git",
   "./.next/cache",
+  "./.next/trace", // build telemetry, ~2 MB, never read at runtime
+  "./var", // locally uploaded files; the server keeps its own under UPLOAD_DIR
   "./tsconfig.tsbuildinfo",
   "./levels",
   "./.claude",

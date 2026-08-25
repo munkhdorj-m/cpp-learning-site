@@ -3,6 +3,7 @@ import { getTranslations, getLocale } from "next-intl/server";
 
 import { createClient } from "@/lib/supabase/server";
 import { getCachedSession } from "@/lib/get-session";
+import { query } from "@/lib/mysql/pool";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 
 import { ProblemView } from "./problem-view";
@@ -14,11 +15,16 @@ export default async function ProblemPage({
   searchParams,
 }: {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ fromPage?: string }>;
+  searchParams: Promise<{ fromPage?: string; assignment?: string }>;
 }) {
   const { slug } = await params;
   const sp = await searchParams;
   const fromPage = sp.fromPage ? parseInt(sp.fromPage, 10) : 1;
+  // Working on this problem for homework? The id is student-supplied, so it is
+  // only a hint to the UI here — the submit route re-checks it before letting
+  // anything into the assignment track. See lib/assignment-track.ts.
+  const assignmentId = sp.assignment ?? null;
+
   const t = await getTranslations("problem");
   const localeRaw = await getLocale();
   const locale = isLocale(localeRaw) ? localeRaw : DEFAULT_LOCALE;
@@ -26,11 +32,17 @@ export default async function ProblemPage({
   // Uses x-user-id header from middleware (fast path) — no network call
   const user = await getCachedSession();
 
-  const { data: problem } = await supabase
-    .from("problems")
-    .select("*")
-    .eq("slug", slug)
-    .maybeSingle();
+  // The list at /problems filters on is_public; this page never did. That was
+  // invisible while the whole app sat behind a login, but the moment a visitor
+  // can reach this route, an unreleased assignment or contest problem is
+  // readable by guessing its slug.
+  //
+  // Anonymous readers get public problems only. Signed-in users keep exactly
+  // the access they had before — narrowing that as well would 404 the problems
+  // a student reaches from their own assignment.
+  const problemQuery = supabase.from("problems").select("*").eq("slug", slug);
+  if (!user) problemQuery.eq("is_public", true);
+  const { data: problem } = await problemQuery.maybeSingle();
 
   if (!problem) notFound();
 
@@ -69,6 +81,30 @@ export default async function ProblemPage({
     submitting: t("submitting"),
   };
 
+  // The banner needs a title and the points, and doubles as the check that the
+  // assignment is genuinely this student's — a made-up id simply shows nothing.
+  let homework: { id: string; title: string; points: number } | null = null;
+  if (assignmentId && user) {
+    const found = await query<{ id: string; title: string; points: number }>(
+      `SELECT a.id, a.title, ap.points
+         FROM assignments a
+         JOIN assignment_problems ap
+           ON ap.assignment_id = a.id AND ap.problem_id = ?
+         JOIN profiles p ON p.id = ? AND p.class_id = a.class_id
+        WHERE a.id = ?
+          AND NOW() >= a.start_at
+          AND (NOW() <= a.due_at OR a.allow_late = TRUE)`,
+      [problem.id, user.id, assignmentId],
+    );
+    if (found[0]) {
+      homework = {
+        id: found[0].id,
+        title: found[0].title,
+        points: Number(found[0].points),
+      };
+    }
+  }
+
   const pickField = (mn: string | null, en: string | null) =>
     locale === "en" ? (en ?? mn ?? "") : (mn ?? "");
 
@@ -96,6 +132,7 @@ export default async function ProblemPage({
       samples={samples ?? []}
       labels={labels}
       fromPage={fromPage}
+      homework={homework}
       pastSubmissions={(mySubmissions ?? []).map((s) => ({
         id: s.id,
         verdict: s.verdict,

@@ -3,6 +3,7 @@
 import { BinaryPractice } from "./binary-practice";
 import { LogicPractice } from "./logic-practice";
 import { TraceTable } from "./trace-table";
+import { PseudocodeRunner } from "./pseudocode-runner";
 import { FileSizePractice } from "./file-size-practice";
 import { StepOrder, type Sequence } from "./step-order";
 import { SqlPractice } from "./sql-practice";
@@ -175,16 +176,61 @@ const WIDGETS: Record<string, () => React.ReactNode> = {
   "software-development": () => <StepOrder sequences={[LIFECYCLE, TRANSLATION]} />,
 
   // ── Tracing an algorithm ───────────────────────────────────────────────
-  pseudocode: () => <TraceTable />,
-  "programming-concepts": () => <TraceTable />,
-  "algorithm-design": () => <TraceTable />,
-  "computational-thinking": () => <TraceTable />,
+  pseudocode: () => (
+    <>
+      <PseudocodeRunner />
+      <TraceTable />
+    </>
+  ),
+  "programming-concepts": () => (
+    <>
+      <PseudocodeRunner />
+      <TraceTable />
+    </>
+  ),
+  "algorithm-design": () => (
+    <>
+      <PseudocodeRunner />
+      <TraceTable />
+    </>
+  ),
+  "computational-thinking": () => (
+    <>
+      <PseudocodeRunner />
+      <TraceTable />
+    </>
+  ),
   decomposition: () => <TraceTable />,
-  "programming-as": () => <TraceTable />,
-  arrays: () => <TraceTable />,
-  "data-types-structures": () => <TraceTable />,
-  "file-handling": () => <TraceTable />,
-  "further-programming": () => <TraceTable />,
+  "programming-as": () => (
+    <>
+      <PseudocodeRunner />
+      <TraceTable />
+    </>
+  ),
+  arrays: () => (
+    <>
+      <PseudocodeRunner />
+      <TraceTable />
+    </>
+  ),
+  "data-types-structures": () => (
+    <>
+      <PseudocodeRunner />
+      <TraceTable />
+    </>
+  ),
+  "file-handling": () => (
+    <>
+      <PseudocodeRunner />
+      <TraceTable />
+    </>
+  ),
+  "further-programming": () => (
+    <>
+      <PseudocodeRunner />
+      <TraceTable />
+    </>
+  ),
 
   // ── Databases ──────────────────────────────────────────────────────────
   databases: () => <SqlPractice />,

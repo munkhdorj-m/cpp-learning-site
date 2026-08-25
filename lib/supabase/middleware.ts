@@ -13,6 +13,10 @@ import {
 } from "@/lib/session";
 
 const USER_HEADER = "x-user-id";
+// Server components cannot see the request path. The pages that still require
+// an account read this to build /login?next=… so a visitor sent away lands
+// back where they were instead of on the problems list.
+const PATH_HEADER = "x-pathname";
 
 export async function updateSession(request: NextRequest) {
   // getCachedSession() takes x-user-id as proof of who is asking, so this
@@ -21,6 +25,13 @@ export async function updateSession(request: NextRequest) {
   // itself an account. Strip it first, then write only what the cookie proves.
   const headers = new Headers(request.headers);
   headers.delete(USER_HEADER);
+  // Same reasoning as x-user-id: a browser may send anything, so overwrite
+  // rather than trust. This one is not a credential, but a forged path would
+  // still steer the post-login redirect.
+  headers.set(
+    PATH_HEADER,
+    request.nextUrl.pathname + (request.nextUrl.search || ""),
+  );
 
   const token = request.cookies.get(SESSION_COOKIE)?.value;
   const session = token ? await verifySession(token) : null;

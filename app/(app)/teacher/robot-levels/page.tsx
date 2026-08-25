@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getTranslations, getLocale } from "next-intl/server";
+import { getLocale } from "next-intl/server";
 import { Plus, Edit3 } from "lucide-react";
 
 import { Card } from "@/components/ui/card";
@@ -24,17 +24,31 @@ export default async function TeacherRobotLevelsPage() {
   const locale = isLocale(localeRaw) ? localeRaw : DEFAULT_LOCALE;
   const supabase = await createClient();
 
-  // Fetch custom DB levels
-  const { data: dbLevels } = await supabase
-    .from("robot_levels")
-    .select("id, name_mn, name_en, course, xp_reward, palette, order_idx")
-    .order("order_idx", { ascending: true });
+  const [{ data: dbLevels }, { data: hiddenRows }] = await Promise.all([
+    supabase
+      .from("robot_levels")
+      .select("id, name_mn, name_en, course, xp_reward, palette, order_idx")
+      .order("order_idx", { ascending: true }),
+    supabase.from("robot_hidden_levels").select("level_id"),
+  ]);
 
   // Merge by id: a DB row overrides the built-in with the same id.
-  // Every level (built-in or custom) appears exactly once and is editable;
-  // a DB override can be deleted to revert to the built-in original.
-  const dbRows = dbLevels ?? [];
+  // Every level (built-in or custom) appears exactly once and is editable.
+  // The MySQL shim hands back loosely-typed rows; name the shape once here
+  // rather than casting at every use.
+  type DbLevelRow = {
+    id: string;
+    name_mn: string;
+    name_en: string;
+    course: string;
+    xp_reward: number;
+    order_idx: number | string | null;
+  };
+  const dbRows = (dbLevels ?? []) as DbLevelRow[];
   const dbMap = new Map(dbRows.map((l) => [l.id, l]));
+  const hidden = new Set(
+    ((hiddenRows ?? []) as { level_id: string }[]).map((r) => r.level_id),
+  );
   type MergedLevel = {
     id: string;
     name_mn: string;
@@ -44,6 +58,7 @@ export default async function TeacherRobotLevelsPage() {
     order_idx: number;
     isBuiltIn: boolean;
     hasOverride: boolean;
+    isHidden: boolean;
   };
   const mergedLevels: MergedLevel[] = [];
   const seen = new Set<string>();
@@ -58,6 +73,7 @@ export default async function TeacherRobotLevelsPage() {
       order_idx: Number(db?.order_idx) || l.order_idx,
       isBuiltIn: true,
       hasOverride: !!db,
+      isHidden: hidden.has(l.id),
     });
     seen.add(l.id);
   }
@@ -70,8 +86,13 @@ export default async function TeacherRobotLevelsPage() {
         course: db.course,
         xp_reward: db.xp_reward,
         order_idx: Number(db.order_idx) || LEVELS.length + 1,
+        // A level that exists only in the database is not a built-in and has
+        // nothing to override. Both of these were hardcoded the other way
+        // round, which labelled every teacher-made level "built-in" and — since
+        // the delete button keyed off hasOverride — left it undeletable too.
         isBuiltIn: false,
-        hasOverride: false,
+        hasOverride: true,
+        isHidden: hidden.has(db.id),
       });
     }
   }
@@ -94,7 +115,8 @@ export default async function TeacherRobotLevelsPage() {
         <div>
           <h1 className="text-2xl font-bold">Robot Game Levels</h1>
           <p className="text-sm text-muted-foreground">
-            Built-in levels + custom DB levels
+            Built-in levels + custom DB levels. Removing a built-in hides it
+            from students; it can be restored.
           </p>
         </div>
         <Link
@@ -122,14 +144,24 @@ export default async function TeacherRobotLevelsPage() {
               const title =
                 locale === "en" && l.name_en ? l.name_en : l.name_mn;
               return (
-                <div key={l.id} className="flex items-center gap-3 px-4 py-3">
+                <div
+                  key={l.id}
+                  className={cn(
+                    "flex items-center gap-3 px-4 py-3",
+                    l.isHidden && "opacity-55",
+                  )}
+                >
                   <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-primary/30 bg-primary/10 font-code text-xs font-bold text-primary">
                     {l.order_idx}
                   </span>
                   <span className="shrink-0 rounded-full bg-muted px-2 py-0.5 font-code text-[10px] uppercase tracking-wider text-muted-foreground">
                     {courseLabel[l.course] ?? l.course}
                   </span>
-                  {l.hasOverride ? (
+                  {l.isHidden ? (
+                    <span className="shrink-0 rounded-full bg-destructive/15 px-1.5 py-0.5 text-[10px] text-destructive">
+                      REMOVED
+                    </span>
+                  ) : l.hasOverride ? (
                     <span className="text-[10px] rounded-full px-1.5 py-0.5 bg-amber-100 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300 shrink-0">
                       {l.isBuiltIn ? "OVERRIDE" : "CUSTOM"}
                     </span>
@@ -163,7 +195,12 @@ export default async function TeacherRobotLevelsPage() {
                       <Edit3 className="mr-1.5 h-3.5 w-3.5" />
                       Edit
                     </Link>
-                    {l.hasOverride && <DeleteLevelButton levelId={l.id} />}
+                    <DeleteLevelButton
+                      levelId={l.id}
+                      levelName={title}
+                      isBuiltIn={l.isBuiltIn}
+                      isHidden={l.isHidden}
+                    />
                   </div>
                   <PlayLevelLink levelId={l.id} />
                 </div>

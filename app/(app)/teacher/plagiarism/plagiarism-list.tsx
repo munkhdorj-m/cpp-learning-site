@@ -14,6 +14,11 @@ import { cn } from "@/lib/utils";
 interface Item {
   id: string;
   similarity: number;
+  /** The three measures behind the score. Null on rows flagged before they existed. */
+  jaccard: number | null;
+  contained: number | null;
+  longest_run: number | null;
+  tokens: number | null;
   reviewed: boolean;
   created_at: string;
   problem_slug: string | null;
@@ -43,6 +48,20 @@ export function PlagiarismList({ items }: { items: Item[] }) {
         {items.map((item) => {
           const isOpen = expanded === item.id;
           const simPct = Math.round(item.similarity * 100);
+          // Say which shape of copying this is: "the whole thing" and "one
+          // block pasted in" are different conversations with a student.
+          const pct = (v: number | null) => (v === null ? 0 : Math.round(v * 100));
+          const reason =
+            item.jaccard === null
+              ? null
+              : pct(item.jaccard) >= 80
+                ? "the whole program matches"
+                : pct(item.contained) >= 90
+                  ? "one program contains the other"
+                  : pct(item.longest_run) >= 70
+                    ? "a long identical block"
+                    : "structurally alike";
+          const thin = item.tokens !== null && item.tokens < 60;
           const simColor =
             simPct >= 95
               ? "bg-rose-100 text-rose-700 dark:bg-rose-950/40 dark:text-rose-300"
@@ -75,6 +94,11 @@ export function PlagiarismList({ items }: { items: Item[] }) {
                   </span>
                   <span className="text-sm text-muted-foreground truncate">
                     {item.problem_title} · {item.class_name}
+                    {reason && ` · ${reason}`}
+                    {/* A 96% match on a very short program is boilerplate
+                        agreeing with itself, and a teacher should see that
+                        before opening the code. */}
+                    {thin && " · short program, treat with care"}
                   </span>
                 </div>
                 {item.reviewed && (

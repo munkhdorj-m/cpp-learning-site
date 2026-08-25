@@ -1263,13 +1263,21 @@ export function dbRowToLevel(row: {
 /**
  * Merge built-in levels with DB custom levels.
  * If a DB level has the same ID as a built-in level, the DB version overrides.
+ *
+ * `hiddenIds` are level ids a teacher has taken out of the game
+ * (robot_hidden_levels). They are dropped AFTER the override merge, which is
+ * the only order that works: a built-in is a code constant, so filtering the
+ * DB rows first would just let the built-in fall back into place.
  */
-export function mergeLevels(dbRows: Level[]): Level[] {
+export function mergeLevels(dbRows: Level[], hiddenIds: string[] = []): Level[] {
+  const hidden = new Set(hiddenIds);
   const dbMap = new Map(dbRows.map((r) => [r.id, r]));
-  const merged = LEVELS.map((l) => dbMap.get(l.id) ?? l);
+  const merged = LEVELS.map((l) => dbMap.get(l.id) ?? l).filter(
+    (l) => !hidden.has(l.id),
+  );
   // Add any DB-only levels
   for (const row of dbRows) {
-    if (!LEVELS.some((l) => l.id === row.id)) {
+    if (!LEVELS.some((l) => l.id === row.id) && !hidden.has(row.id)) {
       merged.push(row);
     }
   }

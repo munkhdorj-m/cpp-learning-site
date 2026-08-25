@@ -15,7 +15,8 @@
     "ide": "Code Editor",
     "login": "Log in",
     "logout": "Log out",
-    "teacher": "Teacher panel"
+    "teacher": "Teacher panel",
+    "messages": "Messages"
   },
   "robot": {
     "title": "Find the Egg",
@@ -54,7 +55,9 @@
     "start": "Start",
     "play_again": "Play again",
     "over_title": "Time's up!",
-    "daily_cap_hit": "Daily XP cap of {cap} reached. Beat your high score for fun!"
+    "plays_left": "Rounds left today",
+    "no_plays_left": "That is your {limit} rounds for today. Come back tomorrow!",
+    "come_back_tomorrow": "That is your rounds for today. Come back tomorrow!"
   },
   "quests": {
     "title": "Daily Quests",
@@ -86,7 +89,8 @@
       "submit": "Log in",
       "error": "Wrong username or password",
       "login": "Username",
-      "login_hint": "Teachers can sign in with their email."
+      "subtitle": "Your teacher gives you your username and password",
+      "browse": "Look around without logging in"
     }
   },
   "problems": {
@@ -104,7 +108,8 @@
     "xp_reward": "{xp} XP",
     "no_problems": "No problems found",
     "load_more": "Load more",
-    "remaining": "remaining"
+    "remaining": "remaining",
+    "for_assignment": "Homework:"
   },
   "problem": {
     "statement": "Problem statement",
@@ -144,7 +149,19 @@
     "stderr": "Errors (stderr)",
     "run": "Run",
     "running": "Running...",
-    "clear": "Clear"
+    "clear": "Clear",
+    "projects": "My work",
+    "save": "Save",
+    "saving": "Saving...",
+    "saved": "Saved",
+    "new_project": "New",
+    "name_placeholder": "File name",
+    "name_needed": "Give it a name first",
+    "no_projects": "Nothing saved yet",
+    "delete": "Delete",
+    "delete_confirm": "Delete this file?",
+    "limit_reached": "Too many files. Delete an old one and try again.",
+    "save_failed": "Could not save"
   },
   "leaderboard": {
     "title": "Leaderboard",
@@ -154,7 +171,13 @@
     "xp": "XP",
     "problems": "Problems",
     "filter_all": "All students",
-    "filter_class": "My class only"
+    "filter_class": "My class only",
+    "class_cup": "Class Cup — this week",
+    "class_cup_note": "Ranked by XP per student, so a small class competes on equal terms. Each year is ranked against its own; grades 9–12 share one table.",
+    "division_grade": "Grade {grade}",
+    "division_senior": "Grades {from}–{to}",
+    "xp_each": "each",
+    "xp_total": "total"
   },
   "profile": {
     "xp": "XP",
@@ -164,7 +187,24 @@
     "problems_solved": "Problems solved",
     "badges": "Badges",
     "recent_submissions": "Recent submissions",
-    "no_submissions": "No submissions yet"
+    "no_submissions": "No submissions yet",
+    "password": {
+      "title": "Change your password",
+      "current": "Current password",
+      "new": "New password",
+      "confirm": "Repeat the new password",
+      "hint": "At least {min} characters",
+      "submit": "Change password",
+      "changed": "Password changed",
+      "err_current_required": "Enter your current password",
+      "err_wrong": "That is not your current password",
+      "err_too_short": "The new password must be at least {min} characters",
+      "err_confirm": "The two passwords do not match",
+      "err_same": "The new password is the same as the old one",
+      "err_throttled": "Too many wrong attempts. Try again in {minutes} minutes.",
+      "err_failed": "Could not change the password"
+    },
+    "badges_hint": "Hover or tab onto a badge to see what it takes."
   },
   "level": {
     "1": "Newbie",
@@ -200,7 +240,9 @@
       "contests": "Contests",
       "plagiarism": "Plagiarism",
       "robot_levels": "Robot Game",
-      "analytics": "Analytics"
+      "analytics": "Analytics",
+      "teachers": "Teachers",
+      "messages": "Messages"
     },
     "dashboard": {
       "title": "Teacher dashboard",
@@ -307,7 +349,110 @@
         "student": "Student",
         "total": "Total",
         "open_assignment": "Open assignment"
+      },
+      "browse": {
+        "search": "Search by title",
+        "all_classes": "All classes",
+        "to_mark": "to mark",
+        "no_match": "Nothing matches that.",
+        "bucket_overdue": "Closed recently",
+        "bucket_week": "Due this week",
+        "bucket_later": "Due later",
+        "bucket_upcoming": "Not open yet",
+        "bucket_past": "Older",
+        "problems_n": "problems",
+        "problem_1": "problem",
+        "tasks_n": "tasks",
+        "task_1": "task"
       }
+    },
+    "teachers": {
+      "title": "Teacher accounts",
+      "subtitle": "Add a teacher and see who already has access",
+      "existing": "Teachers ({count})",
+      "you": "YOU",
+      "add_title": "Add a teacher",
+      "add_button": "Add teacher",
+      "warning": "A teacher account is powerful: it sees every class, resets any student's password and reads the plagiarism report. Only give one to someone you trust.",
+      "name": "Name",
+      "email": "Email",
+      "username": "Username",
+      "username_hint": "3-20 characters: lower-case letters, digits, underscore",
+      "password": "Password",
+      "password_hint": "At least {min} characters",
+      "confirm": "Repeat the password",
+      "created": "Created the account for {name}",
+      "err_name": "Enter a name",
+      "err_email": "That does not look like an email address",
+      "err_username": "Username must be 3-20 lower-case letters, digits or underscore",
+      "err_password": "That password is too short",
+      "err_confirm": "The two passwords do not match",
+      "err_email_taken": "An account already uses that email",
+      "err_username_taken": "That username is already taken",
+      "err_forbidden": "You do not have permission to do that",
+      "err_failed": "Could not create the account"
     }
+  },
+  "assignments": {
+    "title": "Assignments",
+    "none": "No assignments yet",
+    "no_match": "Nothing here",
+    "group_todo": "To do",
+    "group_turned_in": "Turned in",
+    "group_upcoming": "Upcoming",
+    "group_missed": "Missed",
+    "group_done": "Finished",
+    "due": "Due",
+    "points": "points",
+    "pts_short": "pts",
+    "solved_of": "{solved} of {total} solved",
+    "progress": "Progress",
+    "materials": "Materials",
+    "work_to_hand_in": "Work to hand in",
+    "status_active": "Active",
+    "status_upcoming": "Upcoming",
+    "status_past": "Past",
+    "closed": "Closed",
+    "late_penalty": "Late: -{pct}%",
+    "turn_in": "Turn in",
+    "turned_in": "Turned in",
+    "unsubmit": "Take it back",
+    "taken_back": "Taken back",
+    "late": "LATE",
+    "ready_to_turn_in": "Finished?",
+    "turn_in_hint": "Tell your teacher you are done. You can take it back while the assignment is open.",
+    "not_open_yet": "This is not open yet.",
+    "closed_no_turn_in": "The deadline has passed and late work is not accepted.",
+    "done_count": "{done} of {total} done",
+    "points_count": "{earned} / {total} pts"
+  },
+  "messages": {
+    "title": "Ask your teacher",
+    "subtitle": "Stuck on something? Send a question and your teacher will reply here.",
+    "ask_title": "NEW QUESTION",
+    "subject": "Subject",
+    "subject_placeholder": "What is it about?",
+    "your_question": "Your question",
+    "body_placeholder": "Explain what you are stuck on…",
+    "send": "Send",
+    "sent": "Sent",
+    "none": "You have not asked anything yet.",
+    "your_questions": "Your questions",
+    "not_ready": "Messages are not switched on yet. Ask your teacher.",
+    "back": "Back",
+    "you": "You",
+    "teacher": "Teacher",
+    "answered": "Answered",
+    "reply": "Reply",
+    "reply_placeholder": "Write a reply…",
+    "closed_note": "This question is marked answered. Ask a new one if you are still stuck.",
+    "mark_answered": "Mark answered",
+    "reopen": "Reopen",
+    "teacher_title": "Questions from students",
+    "teacher_subtitle": "Everything students have asked, unanswered first.",
+    "teacher_none": "No questions yet.",
+    "group_needs_reply": "Needs a reply",
+    "group_open": "Open",
+    "group_answered": "Answered"
   }
 }

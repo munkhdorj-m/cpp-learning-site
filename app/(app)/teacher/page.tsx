@@ -76,7 +76,7 @@ export default async function TeacherDashboardPage() {
     <div className="space-y-6">
       <div>
         <div className="hud-label flex items-center gap-2">
-          <span className="text-primary">//</span>
+          <span className="text-primary">{"//"}</span>
           CONTROL PANEL
         </div>
         <h1 className="text-2xl font-bold">{t("title")}</h1>

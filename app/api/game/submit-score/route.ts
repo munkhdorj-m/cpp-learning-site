@@ -2,32 +2,29 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { createClient, createServiceClient } from "@/lib/supabase/server";
-import { addXp } from "@/lib/gamification";
+import { MAX_DAILY_PLAYS, ulaanbaatarToday } from "@/lib/bug-smash";
 
-// Daily cap so kids can't farm XP infinitely. The game is meant to be a
-// supplement to real problem solving, not the main XP source.
-const MAX_DAILY_XP = 60;
-// Score-to-XP conversion. With ~3 XP per smash and the cap, ~20 smashes
-// earn full daily XP. Above that the game is just for fun.
-const XP_PER_SCORE_POINT = 1;
+/**
+ * Bug Smash is for fun, and it is not worth any XP.
+ *
+ * It used to pay 1 XP per point up to 60 a day, which made clicking bugs a
+ * faster way up the leaderboard than solving a problem — the opposite of what
+ * the leaderboard is for. XP now comes only from work: problems, quests and
+ * the robot. The score is still recorded, so the badges and the high score
+ * survive; only the XP is gone.
+ *
+ * Three rounds a day. The point is that it stops being something a student
+ * can sit and do for an hour instead of the course.
+ */
+
+/** A score worth a badge. Reachable: a good round is well past this. */
+const SMASH_100_SCORE = 100;
 
 const schema = z.object({
   score: z.coerce.number().int().min(0).max(10_000),
   best_combo: z.coerce.number().int().min(0).max(1_000),
 });
 
-function ulaanbaatarToday(): string {
-  const parts = new Intl.DateTimeFormat("en-CA", {
-    timeZone: "Asia/Ulaanbaatar",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }).formatToParts(new Date());
-  const y = parts.find((p) => p.type === "year")?.value ?? "0000";
-  const m = parts.find((p) => p.type === "month")?.value ?? "01";
-  const d = parts.find((p) => p.type === "day")?.value ?? "01";
-  return `${y}-${m}-${d}`;
-}
 
 export async function POST(request: Request) {
   const supabase = await createClient();
@@ -47,7 +44,6 @@ export async function POST(request: Request) {
   const day = ulaanbaatarToday();
   const admin = createServiceClient();
 
-  // Look up today's existing attempt (if any)
   const { data: existing } = await admin
     .from("game_attempts")
     .select("score, xp_awarded, plays, best_combo")
@@ -55,23 +51,32 @@ export async function POST(request: Request) {
     .eq("day", day)
     .maybeSingle();
 
-  // XP rule: only the BEST score of the day counts toward XP.
-  // If today's new score beats the previous one, top up XP to match;
-  // otherwise return XP earned so far without awarding more.
-  const targetXp = Math.min(score * XP_PER_SCORE_POINT, MAX_DAILY_XP);
-  const previousXp = existing?.xp_awarded ?? 0;
-  const xpToAdd = Math.max(0, targetXp - previousXp);
+  const playsBefore = existing?.plays ?? 0;
+
+  // The client hides the button, but the button is not the rule. A round that
+  // is over the limit is not recorded at all — no score, no badge, no play
+  // count — so replaying past the limit cannot improve anything.
+  if (playsBefore >= MAX_DAILY_PLAYS) {
+    return NextResponse.json(
+      {
+        error: "daily_limit",
+        plays_used: playsBefore,
+        plays_left: 0,
+        limit: MAX_DAILY_PLAYS,
+      },
+      { status: 429 },
+    );
+  }
+
+  const playsAfter = playsBefore + 1;
 
   if (existing) {
-    const newBest = Math.max(existing.score, score);
-    const newCombo = Math.max(existing.best_combo, best_combo);
     const { error } = await admin
       .from("game_attempts")
       .update({
-        score: newBest,
-        best_combo: newCombo,
-        xp_awarded: previousXp + xpToAdd,
-        plays: existing.plays + 1,
+        score: Math.max(existing.score, score),
+        best_combo: Math.max(existing.best_combo, best_combo),
+        plays: playsAfter,
         played_at: new Date(),
       })
       .eq("user_id", user.id)
@@ -83,20 +88,23 @@ export async function POST(request: Request) {
       day,
       score,
       best_combo,
-      xp_awarded: xpToAdd,
+      xp_awarded: 0,
       plays: 1,
     });
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  // Award XP (was the on_game_attempt trigger).
-  if (xpToAdd > 0) await addXp(user.id, xpToAdd);
-
-  // Badge awards (idempotent)
-  const totalEarned = previousXp + xpToAdd;
+  // Badge awards (idempotent).
+  //
+  // smash_100 was "earn 100 XP from Bug Smash", which no student could ever
+  // do: the daily XP cap was 60, and the check compared against today's total.
+  // It is a score now — the same number, actually reachable, and it still
+  // means the same thing to a student.
+  const bestToday = Math.max(existing?.score ?? 0, score);
+  const bestComboToday = Math.max(existing?.best_combo ?? 0, best_combo);
   const earnedCodes: string[] = ["first_smash"];
-  if (totalEarned >= 100) earnedCodes.push("smash_100");
-  if (best_combo >= 10) earnedCodes.push("smash_combo");
+  if (bestToday >= SMASH_100_SCORE) earnedCodes.push("smash_100");
+  if (bestComboToday >= 10) earnedCodes.push("smash_combo");
   const { data: badges } = await admin
     .from("badges")
     .select("id, code")
@@ -110,9 +118,9 @@ export async function POST(request: Request) {
 
   return NextResponse.json({
     score,
-    xp_awarded: xpToAdd,
-    xp_total_today: totalEarned,
-    daily_cap: MAX_DAILY_XP,
-    capped: totalEarned >= MAX_DAILY_XP,
+    best_today: bestToday,
+    plays_used: playsAfter,
+    plays_left: MAX_DAILY_PLAYS - playsAfter,
+    limit: MAX_DAILY_PLAYS,
   });
 }

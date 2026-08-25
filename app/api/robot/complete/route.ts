@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-import { findLevel, dbRowToLevel } from "@/app/(app)/game/robot/levels";
+import {
+  findLevel,
+  dbRowToLevel,
+  mergeLevels,
+} from "@/app/(app)/game/robot/levels";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
 import { addXp } from "@/lib/gamification";
 
@@ -74,22 +78,45 @@ export async function POST(request: Request) {
   // Award XP (was the on_robot_progress trigger).
   if (xpReward > 0) await addXp(user.id, xpReward);
 
-  // Badges: count solved levels for this user
-  const { count } = await admin
-    .from("robot_progress")
-    .select("level_id", { count: "exact", head: true })
-    .eq("user_id", user.id);
-  const solved = count ?? 0;
+  // Badges.
+  //
+  // "Finish every level" is counted against the levels a student can actually
+  // play. It used to be LEVELS.length + (rows in robot_levels), which
+  // double-counted every override — an override is the SAME level, not an
+  // extra one — so the target sat above the real number of levels and the
+  // badge could not be earned by anybody. Both sides of the comparison now
+  // come from the merged, de-duplicated, not-hidden set: exactly what the
+  // game shows.
+  const [progressRes, dbRes, hiddenRes] = await Promise.all([
+    admin.from("robot_progress").select("level_id").eq("user_id", user.id),
+    admin.from("robot_levels").select("*"),
+    admin.from("robot_hidden_levels").select("level_id"),
+  ]);
+
+  const hiddenIds = ((hiddenRes.data ?? []) as { level_id: string }[]).map(
+    (r) => r.level_id,
+  );
+  const dbLevels = ((dbRes.data ?? []) as Record<string, unknown>[]).map((r) =>
+    dbRowToLevel(r as Parameters<typeof dbRowToLevel>[0]),
+  );
+  const playable = mergeLevels(dbLevels, hiddenIds);
+  const playableIds = new Set(playable.map((l) => l.id));
+
+  const solvedIds = ((progressRes.data ?? []) as { level_id: string }[]).map(
+    (r) => r.level_id,
+  );
+  const solved = solvedIds.length;
+  // Progress rows survive a level being hidden, so the "all levels" count is
+  // taken over playable levels only — otherwise an old solve of a removed
+  // level would pay for a level still on the board.
+  const solvedPlayable = solvedIds.filter((id) => playableIds.has(id)).length;
+
   const codes: string[] = [];
   if (solved >= 3) codes.push("robot_3");
   if (instruction_count > 0 && instruction_count <= 5) codes.push("robot_short");
-  // Award "robot_all" if they've solved every level (built-in + DB custom).
-  const { LEVELS } = await import("@/app/(app)/game/robot/levels");
-  const { count: dbCount } = await admin
-    .from("robot_levels")
-    .select("id", { count: "exact", head: true });
-  const totalLevels = LEVELS.length + (dbCount ?? 0);
-  if (solved >= totalLevels) codes.push("robot_all");
+  if (playable.length > 0 && solvedPlayable >= playable.length) {
+    codes.push("robot_all");
+  }
   if (codes.length > 0) {
     const { data: badges } = await admin
       .from("badges")

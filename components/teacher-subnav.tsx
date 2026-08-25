@@ -12,6 +12,8 @@ import {
   Trophy,
   Gamepad2,
   BarChart3,
+  UserPlus,
+  MessageSquare,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -24,9 +26,11 @@ type Item = {
     | "problems"
     | "assignments"
     | "contests"
+    | "messages"
     | "plagiarism"
     | "robot_levels"
-    | "analytics";
+    | "analytics"
+    | "teachers";
   Icon: typeof LayoutDashboard;
   exact?: boolean;
 };
@@ -46,9 +50,11 @@ const ITEMS: Item[] = [
     Icon: ClipboardList,
   },
   { href: "/teacher/contests", labelKey: "contests", Icon: Trophy },
+  { href: "/teacher/messages", labelKey: "messages", Icon: MessageSquare },
   { href: "/teacher/plagiarism", labelKey: "plagiarism", Icon: ShieldAlert },
   { href: "/teacher/robot-levels", labelKey: "robot_levels", Icon: Gamepad2 },
   { href: "/teacher/analytics", labelKey: "analytics", Icon: BarChart3 },
+  { href: "/teacher/teachers", labelKey: "teachers", Icon: UserPlus },
 ];
 
 export function TeacherSubnav() {

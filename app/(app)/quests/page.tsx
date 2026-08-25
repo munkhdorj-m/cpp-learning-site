@@ -11,10 +11,14 @@ import {
 } from "@/lib/quest-selection";
 
 import { QuestsBoard } from "./quests-board";
+import { requireAuth } from "@/lib/auth-helpers";
 
 export const dynamic = "force-dynamic";
 
 export default async function QuestsPage() {
+  // personal: your quests
+  await requireAuth();
+
   const t = await getTranslations();
   const localeRaw = await getLocale();
   const locale = isLocale(localeRaw) ? localeRaw : DEFAULT_LOCALE;

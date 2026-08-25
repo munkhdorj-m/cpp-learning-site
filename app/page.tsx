@@ -106,7 +106,7 @@ export default async function LandingPage() {
       {/* Feature modules */}
       <section className="mx-auto max-w-4xl space-y-4">
         <div className="hud-label flex items-center gap-2">
-          <span className="text-primary">//</span>
+          <span className="text-primary">{"//"}</span>
           {en ? "MODULES" : "МОДУЛИУД"}
           <span className="h-px flex-1 bg-gradient-to-r from-primary/30 to-transparent" />
         </div>

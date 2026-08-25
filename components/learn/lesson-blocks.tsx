@@ -2,10 +2,12 @@
 
 import { Lightbulb, AlertTriangle } from "lucide-react";
 
+import type { Deck } from "@/lib/lesson-slides";
 import { cn } from "@/lib/utils";
 import { Prose } from "./prose";
 import { Figure } from "./figure";
 import { CodeBlock } from "./code-block";
+import { SlideDeck } from "./slide-deck";
 
 /** A lesson section, already resolved to one language of the site. */
 export interface ViewSection {
@@ -15,7 +17,7 @@ export interface ViewSection {
   blocks: ViewBlock[];
 }
 
-export type ViewBlock =
+export type ViewBlock = (
   | { kind: "text"; text: string }
   | {
       kind: "code";
@@ -30,7 +32,13 @@ export type ViewBlock =
   | { kind: "list"; items: string[]; ordered?: boolean }
   | { kind: "note"; tone: "tip" | "warn"; text: string }
   | { kind: "table"; head: string[]; rows: string[][] }
-  | { kind: "image"; image: string; caption?: string };
+  | { kind: "image"; image: string; caption?: string }
+  /** The deck arrives resolved: only this lesson's is sent to the browser. */
+  | { kind: "slides"; deck: Deck }
+) & {
+  /** Mirrors Block.only in lib/lessons.ts — see the note there. */
+  only?: "cpp" | "py";
+};
 
 function SectionCode({
   block,
@@ -92,9 +100,16 @@ export function LessonBlocks({
   python: boolean;
   en: boolean;
 }) {
+  // A block marked `only` belongs to one language. Filtered here rather than
+  // at the section level so a mostly-universal section can still say two
+  // different things about the one detail that differs.
+  const visible = blocks.filter(
+    (b) => !b.only || b.only === (python ? "py" : "cpp"),
+  );
+
   return (
     <div className="space-y-3">
-      {blocks.map((b, i) => {
+      {visible.map((b, i) => {
         switch (b.kind) {
           case "text":
             return (
@@ -111,6 +126,9 @@ export function LessonBlocks({
 
           case "image":
             return <Figure key={i} id={b.image} caption={b.caption} />;
+
+          case "slides":
+            return <SlideDeck key={i} deck={b.deck} en={en} />;
 
           case "list": {
             const Tag = b.ordered ? "ol" : "ul";

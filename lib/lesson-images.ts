@@ -361,7 +361,7 @@ export const LESSON_IMAGES: Record<string, LessonImage> = {
     src: "/img/lessons/structs.webp",
     width: 800,
     height: 376,
-    title: "Card catalog from page 167 of \"Manual of library classification and shelf arrangement\" (1898)",
+    title: "Card catalog from page 167 of \\\"Manual of library classification and shelf arrangement\\\" (1898)",
     creator: "Internet Archive Book Images",
     license: "No restrictions",
     source: "https://commons.wikimedia.org/wiki/File%3ACard%20catalog%20from%20page%20167%20of%20%22Manual%20of%20library%20classification%20and%20shelf%20arrangement%22%20(1898).jpg",

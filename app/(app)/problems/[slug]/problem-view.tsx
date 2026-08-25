@@ -1,11 +1,14 @@
 "use client";
 
+import Link from "next/link";
+
 import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import {
   Play,
   Sparkles,
+  ClipboardList,
   Clock,
   HardDrive,
   ArrowLeft,
@@ -30,6 +33,7 @@ import { VerdictBadge } from "@/components/verdict-badge";
 import { cn } from "@/lib/utils";
 import { celebrate } from "@/lib/celebrate";
 import type { Difficulty, Verdict } from "@/types/database";
+import { useAuthGate } from "@/lib/auth-gate";
 
 interface Problem {
   id: string;
@@ -109,12 +113,15 @@ export function ProblemView({
   labels,
   fromPage = 1,
   pastSubmissions = [],
+  homework = null,
 }: {
   problem: Problem;
   samples: Sample[];
   labels: Labels;
   fromPage?: number;
   pastSubmissions?: PastSubmission[];
+  /** Set when the student came here from an assignment. */
+  homework?: { id: string; title: string; points: number } | null;
 }) {
   const tDiff = useTranslations("problems.difficulty");
   const tVerdict = useTranslations("verdict");
@@ -123,6 +130,7 @@ export function ProblemView({
   const tProblems = useTranslations("problems");
   const locale = useLocale();
   const router = useRouter();
+  const { handleUnauthorized } = useAuthGate();
 
   // Remember the language between problems so a Python student isn't reset
   // to C++ on every page.
@@ -164,9 +172,20 @@ export function ProblemView({
       const res = await fetch("/api/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ problem_id: problem.id, code, language }),
+        body: JSON.stringify({
+          problem_id: problem.id,
+          code,
+          language,
+          // Puts the submission in the assignment track rather than practice.
+          // The server verifies it before believing it.
+          assignment_id: homework?.id,
+        }),
       });
       if (!res.ok) {
+        // Reading a problem no longer needs an account; submitting one does.
+        // This also catches the session that quietly expired while the tab was
+        // open, where the page was rendered signed-in and the button lies.
+        if (handleUnauthorized(res)) return;
         if (res.status === 429) {
           toast.error("Rate limited. Try again in a minute.");
         } else {
@@ -203,6 +222,24 @@ export function ProblemView({
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
       <div className="space-y-4 max-h-[calc(100vh-7rem)] lg:overflow-y-auto lg:pr-2">
+        {/* Which track this counts for. Without it a student cannot tell why
+            the same problem paid 50 one time and 10 another. */}
+        {homework && (
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 border border-primary/30 bg-primary/[0.07] px-3 py-2 text-sm">
+            <ClipboardList className="h-4 w-4 shrink-0 text-primary" />
+            <span className="font-semibold">{tProblems("for_assignment")}</span>
+            <Link
+              href={`/assignments/${homework.id}`}
+              className="min-w-0 flex-1 truncate text-primary hover:underline"
+            >
+              {homework.title}
+            </Link>
+            <span className="inline-flex shrink-0 items-center gap-1 font-code text-xs font-semibold text-arcade-yellow">
+              <Sparkles className="h-3 w-3" />
+              {homework.points} XP
+            </span>
+          </div>
+        )}
         {/* Back button */}
         <button
           onClick={() =>
@@ -277,7 +314,7 @@ export function ProblemView({
         {samples.length > 0 && (
           <div className="space-y-2">
             <h2 className="hud-label flex items-center gap-2">
-              <span className="text-primary">//</span>
+              <span className="text-primary">{"//"}</span>
               {labels.samples}
               <span className="h-px flex-1 bg-gradient-to-r from-primary/25 to-transparent" />
             </h2>
@@ -443,7 +480,7 @@ function Section({ title, body }: { title: string; body: string }) {
   return (
     <div className="space-y-1.5">
       <h2 className="hud-label flex items-center gap-2">
-        <span className="text-primary">//</span>
+        <span className="text-primary">{"//"}</span>
         {title}
         <span className="h-px flex-1 bg-gradient-to-r from-primary/25 to-transparent" />
       </h2>

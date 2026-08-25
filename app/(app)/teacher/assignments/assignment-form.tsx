@@ -24,6 +24,12 @@ import {
   updateAssignment,
 } from "@/app/actions/assignments";
 import type { Difficulty } from "@/types/database";
+import {
+  MaterialsEditor,
+  newMaterial,
+  type MaterialDraft,
+} from "@/components/assignments/materials-editor";
+import { TasksEditor, type TaskDraft } from "@/components/assignments/tasks-editor";
 
 interface ClassOpt {
   id: string;
@@ -48,6 +54,8 @@ export interface AssignmentFormInitial {
   allow_late: boolean;
   late_penalty_pct: number;
   problems: { id: string; points: number }[];
+  materials: MaterialDraft[];
+  tasks: TaskDraft[];
 }
 
 const DIFFICULTY_STYLES: Record<Difficulty, string> = {
@@ -102,6 +110,10 @@ export function AssignmentForm({
   const [picked, setPicked] = useState<{ id: string; points: number }[]>(
     initial?.problems ?? [],
   );
+  const [materials, setMaterials] = useState<MaterialDraft[]>(
+    initial?.materials ?? [],
+  );
+  const [tasks, setTasks] = useState<TaskDraft[]>(initial?.tasks ?? []);
   const [search, setSearch] = useState("");
   const [pending, startTransition] = useTransition();
 
@@ -120,8 +132,8 @@ export function AssignmentForm({
       toast.error("Pick a class first");
       return;
     }
-    if (picked.length === 0) {
-      toast.error("Add at least one problem");
+    if (picked.length === 0 && materials.length === 0 && tasks.length === 0) {
+      toast.error("Add a problem, a task or something to read");
       return;
     }
     startTransition(async () => {
@@ -134,6 +146,26 @@ export function AssignmentForm({
         allow_late: allowLate,
         late_penalty_pct: latePenalty,
         problems: picked.map((p) => ({ problem_id: p.id, points: p.points })),
+        materials: materials.map((m) => ({
+          kind: m.kind,
+          title: m.title,
+          url: m.kind === "link" ? m.url : null,
+          upload_id: m.kind === "file" ? (m.file?.id ?? null) : null,
+        })),
+        tasks: tasks.map((t) => ({
+          title: t.title,
+          instructions: t.instructions || null,
+          points: t.points,
+          accept_file: t.accept_file,
+          accept_link: t.accept_link,
+          accept_text: t.accept_text,
+          accept_ide: t.accept_ide,
+          starter_repo: t.starter_repo || null,
+          // Stored as JSON on the task: the import happened once, here.
+          starter_files: t.starter_files.length
+            ? JSON.stringify(t.starter_files)
+            : null,
+        })),
       };
       const res =
         isEdit && initial
@@ -325,6 +357,24 @@ export function AssignmentForm({
               ))
             )}
           </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="text-base">Materials</CardTitle>
+        </CardHeader>
+        <CardContent className="p-4 pt-0">
+          <MaterialsEditor materials={materials} onChange={setMaterials} />
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="text-base">Work to hand in</CardTitle>
+        </CardHeader>
+        <CardContent className="p-4 pt-0">
+          <TasksEditor tasks={tasks} onChange={setTasks} />
         </CardContent>
       </Card>
     </div>

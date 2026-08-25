@@ -13,6 +13,7 @@ import { today } from "@/lib/progress/schedule";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 
 import { ReviewDrill } from "./review-drill";
+import { requireAuth } from "@/lib/auth-helpers";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Today" };
@@ -84,6 +85,9 @@ async function load(userId: string) {
 }
 
 export default async function TodayPage() {
+  // personal: your day
+  await requireAuth();
+
   const user = await getCachedSession();
   if (!user) return null; // the layout redirects; this keeps types honest
 
@@ -117,7 +121,7 @@ export default async function TodayPage() {
     <div className="mx-auto max-w-3xl space-y-6">
       <div className="space-y-1">
         <div className="hud-label flex items-center gap-2">
-          <span className="text-primary">//</span>
+          <span className="text-primary">{"//"}</span>
           {en ? "TODAY" : "ӨНӨӨДӨР"}
         </div>
         <h1 className="text-3xl font-bold">

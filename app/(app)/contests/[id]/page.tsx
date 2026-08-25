@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 
 import { ContestDetail } from "@/components/contest-detail";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
+import { requireAuth } from "@/lib/auth-helpers";
 
 export const dynamic = "force-dynamic";
 
@@ -10,6 +11,9 @@ export default async function ContestStudentDetailPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  // renders a named student roster — verified high-severity leak
+  await requireAuth();
+
   const { id } = await params;
   const supabase = await createClient();
   const {

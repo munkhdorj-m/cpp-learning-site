@@ -434,7 +434,7 @@ export function RobotProgrammer({
         </div>
         <div className="flex-1">
           <div className="hud-label flex items-center gap-2">
-            <span className="text-primary">//</span>
+            <span className="text-primary">{"//"}</span>
             ROBOT.LAB
           </div>
           <h1 className="text-2xl font-bold">{t("title")}</h1>

@@ -1,16 +1,61 @@
 import Link from "next/link";
 import { getTranslations, getLocale } from "next-intl/server";
-import { Calendar, ClipboardList, CheckCircle2 } from "lucide-react";
+import {
+  Calendar,
+  CheckCircle2,
+  ClipboardList,
+  AlertCircle,
+  Clock,
+  Sparkles,
+} from "lucide-react";
 
 import { Card } from "@/components/ui/card";
 import { createClient } from "@/lib/supabase/server";
+import { query } from "@/lib/mysql/pool";
+import { hasTable } from "@/lib/mysql/has-table";
+import {
+  BUCKET_KEY,
+  BUCKET_ORDER,
+  bucketFor,
+  buildAssignmentListQuery,
+  type Bucket,
+} from "@/lib/assignments";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 import { cn } from "@/lib/utils";
+import { requireAuth } from "@/lib/auth-helpers";
 
 export const dynamic = "force-dynamic";
 
+/**
+ * A student's assignments, sorted by what they still have to do.
+ *
+ * It used to group by the calendar — active, upcoming, past — which answers a
+ * question nobody asks. What a student wants to know is what is left, and the
+ * old page could not tell them: it had no notion of finishing anything. The
+ * groups are now the four states an assignment is actually in, and the one
+ * that matters is at the top.
+ */
+
+interface Row {
+  id: string;
+  title: string;
+  start_at: string;
+  due_at: string;
+  allow_late: number;
+  turned_in_at: string | null;
+  late: number | null;
+  problems: number;
+  solved: number;
+  points: number;
+  earned: number;
+  tasks: number;
+  handed_in: number;
+}
+
 export default async function StudentAssignmentsPage() {
-  const t = await getTranslations("nav");
+  await requireAuth();
+
+  const t = await getTranslations("assignments");
   const localeRaw = await getLocale();
   const locale = isLocale(localeRaw) ? localeRaw : DEFAULT_LOCALE;
   const supabase = await createClient();
@@ -19,180 +64,193 @@ export default async function StudentAssignmentsPage() {
   } = await supabase.auth.getUser();
   if (!user) return null;
 
-  // RLS already restricts assignments to the student's class.
-  const { data: assignments } = await supabase
-    .from("assignments")
-    .select("id, title, description, start_at, due_at")
-    .order("due_at", { ascending: true });
+  // One query. The old page made four round trips and then did the arithmetic
+  // in JavaScript; with a term's worth of assignments that is a lot of rows
+  // pulled across the wire to count them.
+  //
+  // Every subselect is scoped to this student, and the assignment list itself
+  // is scoped to their class — a student cannot see another class's work.
+  // Migrations are applied by hand here, so the code can land before the
+  // tables do. Ask first, and leave out the columns whose tables are not there
+  // yet rather than throwing ER_NO_SUCH_TABLE at every student in the school.
+  const [hasTurnins, hasTasks] = await Promise.all([
+    hasTable("assignment_turnins"),
+    hasTable("assignment_tasks"),
+  ]);
 
-  const assignmentIds = (assignments ?? []).map((a) => a.id);
-  type LinkRow = { assignment_id: string; problem_id: string; points: number };
-  let links: LinkRow[] = [];
-  if (assignmentIds.length > 0) {
-    const { data } = await supabase
-      .from("assignment_problems")
-      .select("assignment_id, problem_id, points")
-      .in("assignment_id", assignmentIds);
-    links = data ?? [];
-  }
-
-  // Collect unique problem ids and fetch this student's first-AC submissions for them.
-  const problemIds = Array.from(new Set(links.map((l) => l.problem_id)));
-  const solvedSet = new Set<string>();
-  if (problemIds.length > 0) {
-    const { data: mySubs } = await supabase
-      .from("submissions")
-      .select("problem_id")
-      .eq("user_id", user.id)
-      .eq("verdict", "accepted")
-      .eq("is_first_accepted", true)
-      .in("problem_id", problemIds);
-    for (const s of mySubs ?? []) solvedSet.add(s.problem_id);
-  }
-
-  // Aggregate per-assignment progress
-  const progress = new Map<
-    string,
-    { total: number; solved: number; score: number; max: number }
-  >();
-  for (const l of links) {
-    const agg = progress.get(l.assignment_id) ?? {
-      total: 0,
-      solved: 0,
-      score: 0,
-      max: 0,
-    };
-    agg.total += 1;
-    agg.max += l.points;
-    if (solvedSet.has(l.problem_id)) {
-      agg.solved += 1;
-      agg.score += l.points;
-    }
-    progress.set(l.assignment_id, agg);
-  }
+  const { sql, params } = buildAssignmentListQuery({
+    userId: user.id,
+    hasTurnins,
+    hasTasks,
+  });
+  const rows = await query<Row>(sql, params);
 
   const now = Date.now();
-  const live: typeof assignments = [];
-  const past: typeof assignments = [];
-  const upcoming: typeof assignments = [];
-  for (const a of assignments ?? []) {
-    const start = new Date(a.start_at).getTime();
-    const due = new Date(a.due_at).getTime();
-    if (now < start) upcoming!.push(a);
-    else if (now > due) past!.push(a);
-    else live!.push(a);
+  const grouped = new Map<Bucket, Row[]>();
+  for (const r of rows) {
+    const bucket = bucketFor(
+      {
+        startAt: r.start_at,
+        dueAt: r.due_at,
+        allowLate: !!r.allow_late,
+        turnedIn: !!r.turned_in_at,
+      },
+      now,
+    );
+    if (!grouped.has(bucket)) grouped.set(bucket, []);
+    grouped.get(bucket)!.push(r);
+  }
+
+  // Inside a group: soonest deadline first, except the ones already behind
+  // you, where the most recent is the interesting end.
+  for (const [b, list] of grouped) {
+    list.sort((x, y) => {
+      const dx = new Date(x.due_at).getTime();
+      const dy = new Date(y.due_at).getTime();
+      return b === "done" || b === "missed" ? dy - dx : dx - dy;
+    });
   }
 
   return (
-    <div className="space-y-6 max-w-3xl mx-auto">
+    <div className="mx-auto max-w-3xl space-y-6">
       <div className="space-y-1">
         <div className="hud-label flex items-center gap-2">
-          <span className="text-primary">//</span>
+          <span className="text-primary">{"//"}</span>
           ASSIGNMENTS
         </div>
-        <h1 className="text-3xl font-bold">{t("assignments")}</h1>
+        <h1 className="text-3xl font-bold">{t("title")}</h1>
       </div>
 
-      <Section title="Идэвхтэй" items={live} locale={locale} progress={progress} accent />
-      <Section title="Удахгүй" items={upcoming} locale={locale} progress={progress} />
-      <Section title="Дууссан" items={past} locale={locale} progress={progress} muted />
-
-      {(!live || live.length === 0) &&
-        (!upcoming || upcoming.length === 0) &&
-        (!past || past.length === 0) && (
-          <Card>
-            <p className="text-center text-muted-foreground py-12">
-              Одоогоор даалгавар алга
-            </p>
-          </Card>
-        )}
+      {rows.length === 0 ? (
+        <Card>
+          <p className="py-12 text-center text-muted-foreground">{t("none")}</p>
+        </Card>
+      ) : (
+        BUCKET_ORDER.filter((b) => grouped.has(b)).map((bucket) => (
+          <div key={bucket} className="space-y-2">
+            <h2 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              {bucket === "missed" && (
+                <AlertCircle className="h-3.5 w-3.5 text-destructive" />
+              )}
+              {t(BUCKET_KEY[bucket])}
+              <span className="font-code text-[10px] font-normal opacity-60 tabular-nums">
+                {grouped.get(bucket)!.length}
+              </span>
+            </h2>
+            <div className="grid gap-2">
+              {grouped.get(bucket)!.map((a) => (
+                <AssignmentCard
+                  key={a.id}
+                  row={a}
+                  bucket={bucket}
+                  locale={locale}
+                  labels={{
+                    due: t("due"),
+                    pts: t("pts_short"),
+                    late: t("late"),
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        ))
+      )}
     </div>
   );
 }
 
-interface AssignmentRow {
-  id: string;
-  title: string;
-  description: string | null;
-  start_at: string;
-  due_at: string;
-}
-
-function Section({
-  title,
-  items,
+function AssignmentCard({
+  row,
+  bucket,
   locale,
-  progress,
-  accent,
-  muted,
+  labels,
 }: {
-  title: string;
-  items: AssignmentRow[] | null;
+  row: Row;
+  bucket: Bucket;
   locale: string;
-  progress: Map<string, { total: number; solved: number; score: number; max: number }>;
-  accent?: boolean;
-  muted?: boolean;
+  labels: { due: string; pts: string; late: string };
 }) {
-  if (!items || items.length === 0) return null;
+  const done = bucket === "turned_in" || bucket === "done";
+  const missed = bucket === "missed";
+
+  // Problems and tasks are both work, so both count toward the bar. An
+  // assignment with neither is a worksheet: there is nothing to fill in, and a
+  // bar stuck at zero would read as "you have not started" when there is
+  // nothing to start.
+  const totalWork = Number(row.problems) + Number(row.tasks);
+  const doneWork = Number(row.solved) + Number(row.handed_in);
+  const pct = totalWork > 0 ? (doneWork / totalWork) * 100 : 0;
+  const points = Number(row.points);
+  const earned = Number(row.earned);
+
   return (
-    <div className="space-y-2">
-      <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-        {title}
-      </h2>
-      <div className="grid gap-2">
-        {items.map((a) => {
-          const p = progress.get(a.id) ?? { total: 0, solved: 0, score: 0, max: 0 };
-          const done = p.total > 0 && p.solved === p.total;
-          const pct = p.total > 0 ? (p.solved / p.total) * 100 : 0;
-          return (
-            <Link key={a.id} href={`/assignments/${a.id}`}>
-              <Card
-                className={cn(
-                  "hover:border-violet-300 dark:hover:border-violet-700 transition-colors",
-                  accent &&
-                    "border-emerald-300 dark:border-emerald-800 bg-emerald-50/40 dark:bg-emerald-950/15",
-                  muted && "opacity-70",
-                  done && "border-emerald-400 dark:border-emerald-700",
-                )}
-              >
-                <div className="p-4 flex items-center gap-3">
-                  {done ? (
-                    <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0" />
-                  ) : (
-                    <ClipboardList className="h-5 w-5 text-muted-foreground shrink-0" />
-                  )}
-                  <div className="flex-1 min-w-0">
-                    <div className="font-semibold truncate">{a.title}</div>
-                    <div className="flex items-center gap-2 mt-1">
-                      <div className="flex-1 max-w-[140px] h-1.5 rounded-full bg-muted overflow-hidden">
-                        <div
-                          className={cn(
-                            "h-full transition-all",
-                            done
-                              ? "bg-emerald-500"
-                              : "bg-gradient-to-r from-violet-400 to-violet-500",
-                          )}
-                          style={{ width: `${pct}%` }}
-                        />
-                      </div>
-                      <span className="text-xs text-muted-foreground tabular-nums">
-                        {p.solved} / {p.total}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="text-sm text-muted-foreground inline-flex items-center gap-1.5 shrink-0">
-                    <Calendar className="h-3.5 w-3.5" />
-                    {new Date(a.due_at).toLocaleDateString(locale, {
-                      month: "short",
-                      day: "numeric",
-                    })}
-                  </div>
+    <Link href={`/assignments/${row.id}`}>
+      <Card
+        className={cn(
+          "hud-hover transition-colors",
+          done && "border-signal-ok/40 bg-signal-ok/[0.05]",
+          missed && "border-destructive/35",
+          bucket === "done" && "opacity-75",
+        )}
+      >
+        <div className="flex items-center gap-3 p-4">
+          <span className="shrink-0">
+            {done ? (
+              <CheckCircle2 className="h-5 w-5 text-signal-ok" />
+            ) : missed ? (
+              <AlertCircle className="h-5 w-5 text-destructive" />
+            ) : bucket === "upcoming" ? (
+              <Clock className="h-5 w-5 text-muted-foreground" />
+            ) : (
+              <ClipboardList className="h-5 w-5 text-muted-foreground" />
+            )}
+          </span>
+
+          <div className="min-w-0 flex-1">
+            <div className="truncate font-semibold">
+              {row.title}
+              {done && !!row.late && (
+                <span className="ml-2 font-code text-[10px] text-neon-amber">
+                  {labels.late}
+                </span>
+              )}
+            </div>
+            {totalWork > 0 && (
+              <div className="mt-1 flex items-center gap-2">
+                <div className="h-1.5 max-w-[140px] flex-1 overflow-hidden rounded-full bg-muted">
+                  <div
+                    className={cn(
+                      "h-full transition-all",
+                      doneWork >= totalWork ? "bg-signal-ok" : "bg-primary",
+                    )}
+                    style={{ width: `${pct}%` }}
+                  />
                 </div>
-              </Card>
-            </Link>
-          );
-        })}
-      </div>
-    </div>
+                <span className="font-code text-[11px] tabular-nums text-muted-foreground">
+                  {doneWork} / {totalWork}
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* Points, which the list never used to show at all — a student had
+              to open every assignment to find out which one was worth doing. */}
+          {points > 0 && (
+            <span className="inline-flex shrink-0 items-center gap-1 font-code text-xs font-semibold tabular-nums text-arcade-yellow">
+              <Sparkles className="h-3 w-3" />
+              {earned}/{points} {labels.pts}
+            </span>
+          )}
+
+          <span className="inline-flex shrink-0 items-center gap-1.5 font-code text-xs text-muted-foreground">
+            <Calendar className="h-3.5 w-3.5" />
+            {new Date(row.due_at).toLocaleDateString(locale, {
+              month: "short",
+              day: "numeric",
+            })}
+          </span>
+        </div>
+      </Card>
+    </Link>
   );
 }

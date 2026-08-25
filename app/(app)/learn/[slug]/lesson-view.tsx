@@ -31,6 +31,7 @@ import {
 import { OnThisPage, type PageAnchor } from "@/components/learn/on-this-page";
 import { CourseRail, type RailLesson } from "@/components/learn/course-rail";
 import { LANGUAGES, toLanguage, type LanguageId } from "@/lib/languages";
+import { shuffleQuiz } from "@/lib/quiz-shuffle";
 
 export interface LessonViewData {
   slug: string;
@@ -89,9 +90,7 @@ function Heading({
       id={id}
       className="hud-label flex scroll-mt-24 items-center gap-2 pt-1"
     >
-      <span className={tone === "amber" ? "text-neon-amber" : "text-primary"}>
-        //
-      </span>
+      <span className={tone === "amber" ? "text-neon-amber" : "text-primary"}>{"//"}</span>
       {children}
       <span
         className={cn(
@@ -262,7 +261,11 @@ export function LessonView({
           </p>
         </div>
 
-        {/* A picture of the idea, before any code. Every lesson has one. */}
+        {/* A picture of the idea, before any code. The advanced lessons have
+            a step-by-step deck lower down instead — a photograph of a
+            matryoshka doll sets a mood, but it cannot show a call stack
+            unwinding, so those lessons dropped theirs. Figure renders nothing
+            when a lesson has no picture. */}
         <Figure id={lesson.slug} priority />
 
         {/* Explanation */}
@@ -436,7 +439,18 @@ export function LessonView({
                   </span>
                 </p>
                 <div className="space-y-1.5">
-                  {shown.quiz.choices.map((c, i) => {
+                  {/* Reordered, because every quiz in the course was written
+                      with answer: 0 and this list used to render in source
+                      order. Seeded on the slug plus the question, so it is the
+                      same arrangement on every visit; `picked` still holds the
+                      SOURCE index so the check below and the recorded review
+                      data are unaffected. */}
+                  {shuffleQuiz(
+                    `${lesson.slug}:${shown.quiz.question}`,
+                    shown.quiz.choices.length,
+                    shown.quiz.answer,
+                  ).order.map((i) => {
+                    const c = shown.quiz!.choices[i];
                     const chosen = picked === i;
                     const correct = i === shown.quiz!.answer;
                     const show = picked !== null;

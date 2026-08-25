@@ -15,6 +15,7 @@ interface GridBackgroundProps {
 export function GridBackground({ className }: GridBackgroundProps) {
   return (
     <div
+      data-ambient=""
       className={cn(
         "pointer-events-none fixed inset-0 -z-10 overflow-hidden",
         className,

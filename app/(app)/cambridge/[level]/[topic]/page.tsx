@@ -108,7 +108,7 @@ export default async function CambridgeTopicPage({
       {await Promise.all((t.notes ?? []).map(async (n) => (
         <section key={n.heading} className="space-y-2">
           <h2 className="hud-label flex items-center gap-2">
-            <span className="text-primary">//</span>
+            <span className="text-primary">{"//"}</span>
             {n.heading}
             <span className="h-px flex-1 bg-gradient-to-r from-primary/25 to-transparent" />
           </h2>

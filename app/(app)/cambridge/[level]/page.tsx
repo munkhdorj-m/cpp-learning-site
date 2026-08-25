@@ -49,7 +49,7 @@ export default async function CambridgeLevelPage({
           All levels
         </Link>
         <div className="hud-label flex items-center gap-2">
-          <span className="text-primary">//</span>
+          <span className="text-primary">{"//"}</span>
           {info.code}
         </div>
         <h1 className="text-2xl font-bold sm:text-3xl">{info.title}</h1>
@@ -67,7 +67,7 @@ export default async function CambridgeLevelPage({
       {units.map((unit) => (
         <section key={unit} className="space-y-2">
           <h2 className="hud-label flex items-center gap-2">
-            <span className="text-primary">//</span>
+            <span className="text-primary">{"//"}</span>
             {unit}
             <span className="h-px flex-1 bg-gradient-to-r from-primary/25 to-transparent" />
           </h2>

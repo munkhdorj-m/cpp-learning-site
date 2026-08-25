@@ -9,6 +9,7 @@ import type {
 } from "@/components/learn/lesson-blocks";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 
+import { deckFor } from "@/lib/lesson-slides";
 import { highlightCode } from "@/lib/shiki";
 import { LessonView } from "./lesson-view";
 
@@ -28,9 +29,13 @@ async function localize(
     cppOnly: s.cppOnly,
     blocks: await Promise.all(
       s.blocks.map(async (b): Promise<ViewBlock> => {
+      // Carried onto every kind: the client filters on it once the student
+      // picks a language, so dropping it here would silently show C++-only
+      // sentences to Python readers again.
+      const only = b.only;
       switch (b.kind) {
         case "text":
-          return { kind: "text", text: en ? b.en : b.mn };
+          return { kind: "text", text: en ? b.en : b.mn, only };
         case "code":
           return {
             kind: "code",
@@ -40,27 +45,38 @@ async function localize(
             pyHtml: b.py ? await highlightCode(b.py, "python") : null,
             output: b.output,
             caption: en ? b.caption_en : b.caption_mn,
+            only,
           };
         case "list":
           return {
             kind: "list",
             items: en ? b.en : b.mn,
             ordered: b.ordered,
+            only,
           };
         case "note":
-          return { kind: "note", tone: b.tone, text: en ? b.en : b.mn };
+          return { kind: "note", tone: b.tone, text: en ? b.en : b.mn, only };
         case "table":
           return {
             kind: "table",
             head: en ? b.head_en : b.head_mn,
             rows: b.rows,
+            only,
           };
         case "image":
           return {
             kind: "image",
             image: b.image,
             caption: en ? b.caption_en : b.caption_mn,
+            only,
           };
+        case "slides": {
+          // A deck naming nothing is dropped rather than crashing the lesson.
+          const deck = deckFor(b.deck);
+          return deck
+            ? { kind: "slides", deck, only }
+            : { kind: "text", text: "", only };
+        }
       }
     }),
     ),

@@ -74,32 +74,9 @@ export async function POST(request: Request) {
   // Award XP (was the on_quest_attempt trigger).
   if (xp > 0) await addXp(user.id, xp);
 
-  // Quest-count badges (idempotent via ON CONFLICT)
-  if (correct) {
-    const { count } = await admin
-      .from("user_quest_attempts")
-      .select("quest_id", { count: "exact", head: true })
-      .eq("user_id", user.id)
-      .eq("was_correct", true);
-    const total = count ?? 0;
-    const codes: string[] = [];
-    if (total === 10) codes.push("quest_10");
-    if (total === 50) codes.push("quest_50");
-    if (codes.length > 0) {
-      const { data: badges } = await admin
-        .from("badges")
-        .select("id")
-        .in("code", codes);
-      if (badges && badges.length > 0) {
-        await admin
-          .from("user_badges")
-          .upsert(
-            badges.map((b) => ({ user_id: user.id, badge_id: b.id })),
-            { onConflict: "user_id,badge_id", ignoreDuplicates: true },
-          );
-      }
-    }
-  }
+  // The three daily-quest badges were removed along with the daily quests.
+  // Nothing is awarded here any more; the attempt and its XP are still
+  // recorded above. See migration/remove-quest-badges.sql.
 
   return NextResponse.json({
     was_correct: correct,

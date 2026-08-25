@@ -2,15 +2,19 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { JudgeRateLimitError, grade } from "@/lib/judge";
-import { SIMILARITY_THRESHOLD, similarity } from "@/lib/plagiarism";
+import { SIMILARITY_THRESHOLD, compare } from "@/lib/plagiarism";
+import { SIGNAL_THRESHOLD, analyse } from "@/lib/code-signals";
+import { earnedClassChampion } from "@/lib/badge-rules";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
 import { toLanguage } from "@/lib/languages";
 import {
+  awardAssignmentSolve,
   awardProblemSolve,
   awardBadges,
   nextStreak,
   utcToday,
 } from "@/lib/gamification";
+import { hasEarlierAccept, resolveTrack } from "@/lib/assignment-track";
 
 export const maxDuration = 60;
 
@@ -56,6 +60,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "no_tests_configured" }, { status: 500 });
   }
 
+  // Which track this submission belongs to. The assignment id comes from the
+  // URL and is therefore student-supplied, so resolveTrack re-checks that the
+  // assignment is really theirs, really contains this problem and is really
+  // open; anything that fails falls back to practice.
+  const track = await resolveTrack(assignment_id, user.id, problem_id);
+
   // Snapshot level + badges before so we can report deltas if accepted.
   const [{ data: beforeProfile }, { data: beforeBadgeRows }] = await Promise.all([
     admin.from("profiles").select("level").eq("id", user.id).single(),
@@ -75,7 +85,7 @@ export async function POST(request: Request) {
       code,
       language,
       verdict: "judging",
-      assignment_id: assignment_id ?? null,
+      assignment_id: track.assignmentId,
       contest_id: contest_id ?? null,
     })
     .select("id")
@@ -118,19 +128,58 @@ export async function POST(request: Request) {
       icon: string;
       color: string;
     }[] = [];
-    if (result.verdict === "accepted") {
-      // --- gamification (previously done by Postgres triggers) ---
-      const { data: priorAc } = await admin
+    // What is worth a teacher's glance about this submission. Every
+    // submission, accepted or not: a copied wrong answer is still a copy, and
+    // whoever supplied it is worth knowing about before the retry passes.
+    {
+      const { count: attemptsBefore } = await admin
         .from("submissions")
-        .select("id")
+        .select("id", { count: "exact", head: true })
         .eq("user_id", user.id)
         .eq("problem_id", problem_id)
-        .eq("verdict", "accepted")
+        .neq("id", created.id);
+      const { data: previous } = await admin
+        .from("submissions")
+        .select("created_at")
+        .eq("user_id", user.id)
         .neq("id", created.id)
-        .limit(1)
-        .maybeSingle();
+        .order("created_at", { ascending: false })
+        .limit(1);
+      const previousAt = previous?.[0]?.created_at
+        ? new Date(previous[0].created_at as string).getTime()
+        : null;
+      const signals = analyse(code, language === "python" ? "python" : "cpp", {
+        difficulty: problem.difficulty,
+        attemptsBefore: attemptsBefore ?? 0,
+        secondsSincePrevious:
+          previousAt === null ? null : (Date.now() - previousAt) / 1000,
+      });
+      if (signals.score >= SIGNAL_THRESHOLD) {
+        await admin
+          .from("submissions")
+          .update({
+            signal_score: signals.score,
+            signal_flags: JSON.stringify(signals.signals),
+          })
+          .eq("id", created.id);
+      }
+    }
 
-      if (!priorAc) {
+    if (result.verdict === "accepted") {
+      // --- gamification (previously done by Postgres triggers) ---
+      //
+      // Homework and practice are separate tracks. "First accepted" means
+      // first in ITS track, so a problem solved for an assignment is still
+      // open on the problems page and still worth solving there. See
+      // lib/assignment-track.ts.
+      const earlier = await hasEarlierAccept(
+        user.id,
+        problem_id,
+        track.assignmentId,
+        created.id,
+      );
+
+      if (!earlier) {
         const { data: prof } = await admin
           .from("profiles")
           .select("streak_days, last_solve_date")
@@ -142,38 +191,61 @@ export async function POST(request: Request) {
           prof?.streak_days ?? 0,
           today,
         );
-        const xpReward = problem.xp_reward ?? 10;
 
-        await awardProblemSolve(user.id, xpReward, streak, today);
+        // Homework is worth what the teacher set for it; practice is worth
+        // the problem's own reward. That is the dial that lets an assignment
+        // matter to the Class Cup more than idle practice does.
+        const isHomework = track.assignmentId !== null;
+        const xpReward = isHomework
+          ? (track.points ?? problem.xp_reward ?? 10)
+          : (problem.xp_reward ?? 10);
+
+        if (isHomework) {
+          await awardAssignmentSolve(user.id, xpReward, streak, today);
+        } else {
+          await awardProblemSolve(user.id, xpReward, streak, today);
+        }
         await admin
           .from("submissions")
           .update({ is_first_accepted: true, xp_awarded: xpReward })
           .eq("id", created.id);
 
         // Badges (mirrors the old award_badges_on_accept trigger).
-        const { data: prof2 } = await admin
-          .from("profiles")
-          .select("problems_solved, streak_days")
-          .eq("id", user.id)
-          .single();
-        const { count: otherSubs } = await admin
-          .from("submissions")
-          .select("id", { count: "exact", head: true })
-          .eq("user_id", user.id)
-          .eq("problem_id", problem_id)
-          .neq("id", created.id);
+        //
+        // Practice only, deliberately. problems_solved does not move for
+        // homework, so the badges that read it would never fire here anyway —
+        // and awarding first_hard or first_try off a homework solve while
+        // first_solve stayed locked would be incoherent. One rule: homework
+        // earns XP and keeps the streak, practice earns the badges.
+        if (!isHomework) {
+          const { data: prof2 } = await admin
+            .from("profiles")
+            .select("problems_solved, streak_days, class_id")
+            .eq("id", user.id)
+            .single();
+          const { count: otherSubs } = await admin
+            .from("submissions")
+            .select("id", { count: "exact", head: true })
+            .eq("user_id", user.id)
+            .eq("problem_id", problem_id)
+            .neq("id", created.id);
 
-        const codes = ["first_solve"];
-        const ps = prof2?.problems_solved ?? 0;
-        if (ps >= 10) codes.push("ten_solved");
-        if (ps >= 50) codes.push("fifty_solved");
-        if (ps >= 100) codes.push("hundred_solved");
-        const st = prof2?.streak_days ?? 0;
-        if (st >= 7) codes.push("streak_7");
-        if (st >= 30) codes.push("streak_30");
-        if (problem.difficulty === "hard") codes.push("first_hard");
-        if ((otherSubs ?? 0) === 0) codes.push("first_try");
-        await awardBadges(user.id, codes);
+          const codes = ["first_solve"];
+          const ps = prof2?.problems_solved ?? 0;
+          if (ps >= 10) codes.push("ten_solved");
+          if (ps >= 50) codes.push("fifty_solved");
+          if (ps >= 100) codes.push("hundred_solved");
+          const st = prof2?.streak_days ?? 0;
+          if (st >= 7) codes.push("streak_7");
+          if (st >= 30) codes.push("streak_30");
+          if (problem.difficulty === "hard") codes.push("first_hard");
+          if ((otherSubs ?? 0) === 0) codes.push("first_try");
+          // Top of their class for XP over the last seven days.
+          if (await earnedClassChampion(user.id, prof2?.class_id)) {
+            codes.push("class_champion");
+          }
+          await awardBadges(user.id, codes);
+        }
       }
       // --- end gamification ---
 
@@ -232,11 +304,21 @@ export async function POST(request: Request) {
             submission_b_id: string;
             problem_id: string;
             similarity: number;
+            jaccard: number;
+            contained: number;
+            longest_run: number;
+            tokens: number;
             class_id: string;
           }[] = [];
           for (const other of otherSubs ?? []) {
-            const sim = similarity(code, other.code);
-            if (sim >= SIMILARITY_THRESHOLD) {
+            // The language is known here; passing it picks the right keyword
+            // set and comment syntax, which the default never could.
+            const report = compare(
+              code,
+              other.code,
+              language === "python" ? "python" : "cpp",
+            );
+            if (report.score >= SIMILARITY_THRESHOLD) {
               // Schema requires submission_a_id < submission_b_id
               const [a, b] =
                 created.id < other.id
@@ -246,7 +328,11 @@ export async function POST(request: Request) {
                 submission_a_id: a,
                 submission_b_id: b,
                 problem_id,
-                similarity: sim,
+                similarity: report.score,
+                jaccard: report.jaccard,
+                contained: report.contained,
+                longest_run: report.longestRun,
+                tokens: report.tokens,
                 class_id: meProfile.class_id,
               });
             }

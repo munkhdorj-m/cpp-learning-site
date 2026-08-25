@@ -1,7 +1,12 @@
 import Link from "next/link";
+
+import { MaterialList } from "@/components/assignments/material-list";
+import { HandIn } from "@/components/assignments/hand-in";
+import { TurnIn } from "@/components/assignments/turn-in";
 import { notFound } from "next/navigation";
 import { getTranslations, getLocale } from "next-intl/server";
 import {
+  BookOpen,
   ArrowLeft,
   Calendar,
   CheckCircle2,
@@ -15,6 +20,9 @@ import { Markdown } from "@/components/markdown";
 import { createClient } from "@/lib/supabase/server";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 import { cn } from "@/lib/utils";
+import { requireAuth } from "@/lib/auth-helpers";
+import { query } from "@/lib/mysql/pool";
+import { hasTable } from "@/lib/mysql/has-table";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +31,9 @@ export default async function StudentAssignmentDetailPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  // personal + class-scoped
+  await requireAuth();
+
   const { id } = await params;
   const t = await getTranslations();
   const localeRaw = await getLocale();
@@ -46,6 +57,82 @@ export default async function StudentAssignmentDetailPage({
     .eq("assignment_id", id)
     .order("order_idx", { ascending: true });
 
+  const [{ data: materialRows }, { data: taskRows }] = await Promise.all([
+    supabase
+      .from("assignment_materials")
+      .select("id, kind, title, url, upload_id, order_idx")
+      .eq("assignment_id", id)
+      .order("order_idx", { ascending: true }),
+    supabase
+      .from("assignment_tasks")
+      .select(
+        "id, title, instructions, points, accept_file, accept_link, accept_text, accept_ide, starter_files, order_idx",
+      )
+      .eq("assignment_id", id)
+      .order("order_idx", { ascending: true }),
+  ]);
+
+  // The size of a material's file, for the list. One query, not one per row.
+  const uploadIds = (materialRows ?? [])
+    .map((m: { upload_id: string | null }) => m.upload_id)
+    .filter((v: string | null): v is string => !!v);
+  const { data: uploadRows } = uploadIds.length
+    ? await supabase.from("uploads").select("id, mime, bytes").in("id", uploadIds)
+    : { data: [] };
+  const uploadById = new Map<string, { mime: string; bytes: number }>(
+    (uploadRows ?? []).map((u: { id: string; mime: string; bytes: number }) => [
+      u.id,
+      { mime: u.mime, bytes: u.bytes },
+    ]),
+  );
+
+  const materials = (materialRows ?? []).map(
+    (m: {
+      id: string;
+      kind: "link" | "file";
+      title: string;
+      url: string | null;
+      upload_id: string | null;
+    }) => ({
+      id: m.id,
+      kind: m.kind,
+      title: m.title,
+      url: m.url,
+      upload_id: m.upload_id,
+      mime: m.upload_id ? (uploadById.get(m.upload_id)?.mime ?? null) : null,
+      bytes: m.upload_id ? (uploadById.get(m.upload_id)?.bytes ?? null) : null,
+    }),
+  );
+
+  const taskIds = (taskRows ?? []).map((t: { id: string }) => t.id);
+  const { data: mineRows } = taskIds.length
+    ? await supabase
+        .from("task_submissions")
+        .select(
+          "task_id, note, link, upload_id, ide_project_id, submitted_at, score, feedback",
+        )
+        .eq("user_id", user.id)
+        .in("task_id", taskIds)
+    : { data: [] };
+  const mineByTask = new Map<string, Record<string, unknown>>(
+    (mineRows ?? []).map((r: { task_id: string }) => [r.task_id, r]),
+  );
+  const mineUploadIds = (mineRows ?? [])
+    .map((r: { upload_id: string | null }) => r.upload_id)
+    .filter((v: string | null): v is string => !!v);
+  const { data: mineUploads } = mineUploadIds.length
+    ? await supabase
+        .from("uploads")
+        .select("id, original_name")
+        .in("id", mineUploadIds)
+    : { data: [] };
+  const mineUploadName = new Map<string, string>(
+    (mineUploads ?? []).map((u: { id: string; original_name: string }) => [
+      u.id,
+      u.original_name,
+    ]),
+  );
+
   const problemIds = (links ?? []).map((l) => l.problem_id);
   const { data: problems } = problemIds.length
     ? await supabase
@@ -63,6 +150,9 @@ export default async function StudentAssignmentDetailPage({
       .eq("user_id", user.id)
       .eq("verdict", "accepted")
       .eq("is_first_accepted", true)
+      // Scoped to THIS assignment. A problem the student solved as practice
+      // does not tick off their homework, and vice versa.
+      .eq("assignment_id", id)
       .in("problem_id", problemIds);
     for (const s of mySubs ?? []) solvedSet.add(s.problem_id);
   }
@@ -77,10 +167,39 @@ export default async function StudentAssignmentDetailPage({
     solvedSet.has(l.problem_id),
   ).length;
 
+  // Work, as the student sees it: a problem the judge accepted and a task
+  // they handed in both count as one thing done. Kept in step with the same
+  // sum on the list page (lib/assignments.ts).
+  const totalTasks = (taskRows ?? []).length;
+  const handedIn = mineByTask.size;
+  const totalWork = totalProblems + totalTasks;
+  const doneWork = solvedCount + handedIn;
+
   const now = Date.now();
   const start = new Date(assignment.start_at).getTime();
   const due = new Date(assignment.due_at).getTime();
   const status = now < start ? "upcoming" : now > due ? "past" : "live";
+
+  // Applied by hand on the server, so the page has to cope with the table not
+  // being there yet — see lib/mysql/has-table.ts.
+  let turnedInAt: string | null = null;
+  let turnedInLate = false;
+  if (await hasTable("assignment_turnins")) {
+    const mine = await query<{ turned_in_at: string; late: number }>(
+      `SELECT turned_in_at, late
+         FROM assignment_turnins
+        WHERE assignment_id = ? AND user_id = ?`,
+      [id, user.id],
+    );
+    if (mine[0]) {
+      turnedInAt = String(mine[0].turned_in_at);
+      turnedInLate = !!mine[0].late;
+    }
+  }
+
+  const acceptingWork =
+    status !== "upcoming" && (status !== "past" || !!assignment.allow_late);
+  const hardClosed = status === "past" && !assignment.allow_late;
 
   return (
     <div className="space-y-4 max-w-3xl mx-auto">
@@ -96,10 +215,10 @@ export default async function StudentAssignmentDetailPage({
 
       <Card>
         <CardContent className="p-4 flex flex-wrap items-center gap-3 text-sm">
-          <StatusPill status={status} />
+          <StatusPill status={status} label={t(`assignments.status_${status === "live" ? "active" : status}`)} />
           <span className="inline-flex items-center gap-1.5 text-muted-foreground">
             <Calendar className="h-3.5 w-3.5" />
-            Due{" "}
+            {t("assignments.due")}{" "}
             {new Date(assignment.due_at).toLocaleString(locale, {
               month: "short",
               day: "numeric",
@@ -108,17 +227,27 @@ export default async function StudentAssignmentDetailPage({
             })}
           </span>
           {status === "past" && !assignment.allow_late && (
-            <span className="text-xs text-rose-600 dark:text-rose-400 font-medium">
-              Closed
+            <span className="text-xs font-medium text-destructive">
+              {t("assignments.closed")}
             </span>
           )}
           {status === "past" && assignment.allow_late && (
-            <span className="text-xs text-amber-600 dark:text-amber-400 font-medium">
-              Late: -{assignment.late_penalty_pct}%
+            <span className="text-xs font-medium text-neon-amber">
+              {t("assignments.late_penalty", {
+                pct: assignment.late_penalty_pct,
+              })}
             </span>
           )}
         </CardContent>
       </Card>
+
+      <TurnIn
+        assignmentId={assignment.id}
+        turnedInAt={turnedInAt}
+        late={turnedInLate}
+        open={acceptingWork}
+        closed={hardClosed}
+      />
 
       {assignment.description && (
         <Card>
@@ -128,27 +257,61 @@ export default async function StudentAssignmentDetailPage({
         </Card>
       )}
 
-      <Card>
-        <CardContent className="p-4 flex items-center gap-4">
-          <div className="flex-1">
-            <div className="flex items-center justify-between text-sm mb-1.5">
-              <span className="font-semibold">Progress</span>
-              <span className="text-muted-foreground tabular-nums">
-                {solvedCount} / {totalProblems} · {earned} / {totalPoints} pts
-              </span>
+      {/* Only when there is something to count. This used to render for every
+          assignment, so one made of a worksheet and nothing else showed
+          "0 / 0 · 0 / 0 pts" — four counts of nothing, and no clue what any of
+          the four were. Hand-in tasks count toward "done" here, the same as
+          they do on the list, or an assignment made only of tasks showed an
+          empty bar however much work had been handed in. */}
+      {totalWork > 0 && (
+        <Card>
+          <CardContent className="flex items-center gap-4 p-4">
+            <div className="flex-1">
+              <div className="mb-1.5 flex flex-wrap items-center justify-between gap-x-3 text-sm">
+                <span className="font-semibold">{t("assignments.progress")}</span>
+                <span className="tabular-nums text-muted-foreground">
+                  {t("assignments.done_count", {
+                    done: doneWork,
+                    total: totalWork,
+                  })}
+                  {totalPoints > 0 && (
+                    <>
+                      {" · "}
+                      {t("assignments.points_count", {
+                        earned,
+                        total: totalPoints,
+                      })}
+                    </>
+                  )}
+                </span>
+              </div>
+              <div className="h-2 overflow-hidden rounded-full bg-muted">
+                <div
+                  className={
+                    doneWork >= totalWork
+                      ? "h-full bg-signal-ok transition-all"
+                      : "h-full bg-primary transition-all"
+                  }
+                  style={{ width: `${(doneWork / totalWork) * 100}%` }}
+                />
+              </div>
             </div>
-            <div className="h-2 rounded-full bg-muted overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-emerald-500 to-emerald-400 transition-all"
-                style={{
-                  width: `${totalProblems > 0 ? (solvedCount / totalProblems) * 100 : 0}%`,
-                }}
-              />
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      )}
 
+      {materials.length > 0 && (
+        <Card className="overflow-hidden p-0">
+          <div className="border-b px-4 py-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            {t("assignments.materials")}
+          </div>
+          <div className="p-3">
+            <MaterialList materials={materials} />
+          </div>
+        </Card>
+      )}
+
+      {(links ?? []).length > 0 && (
       <Card className="overflow-hidden p-0">
         <div className="border-b px-4 py-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
           {t("teacher.assignments.field.problems")}
@@ -168,7 +331,9 @@ export default async function StudentAssignmentDetailPage({
             return (
               <Link
                 key={p.id}
-                href={`/problems/${p.slug}`}
+                // Carries the track, so the solve counts as homework and is
+                // worth the points set for it rather than the problem's own XP.
+                href={`/problems/${p.slug}?assignment=${id}`}
                 className={cn(
                   "flex items-center gap-3 px-4 py-2.5 transition-colors",
                   solved
@@ -205,17 +370,80 @@ export default async function StudentAssignmentDetailPage({
               </Link>
             );
           })}
-          {(links ?? []).length === 0 && (
-            <p className="text-center text-muted-foreground py-8">—</p>
-          )}
         </div>
       </Card>
+      )}
+
+      {(taskRows ?? []).length > 0 && (
+        <div className="space-y-3">
+          <div className="hud-label flex items-center gap-2">
+            <BookOpen className="h-3.5 w-3.5 text-primary" />
+            {t("assignments.work_to_hand_in")}
+          </div>
+          {(taskRows ?? []).map(
+            (t: {
+              id: string;
+              title: string;
+              instructions: string | null;
+              points: number;
+              accept_file: number | boolean;
+              accept_link: number | boolean;
+              accept_text: number | boolean;
+              accept_ide: number | boolean;
+              starter_files: string | null;
+            }) => {
+              const mine = mineByTask.get(t.id) as
+                | {
+                    note: string | null;
+                    link: string | null;
+                    upload_id: string | null;
+                    ide_project_id: string | null;
+                    submitted_at: string;
+                    score: number | null;
+                    feedback: string | null;
+                  }
+                | undefined;
+              return (
+                <HandIn
+                  key={t.id}
+                  open={acceptingWork}
+                  task={{
+                    id: t.id,
+                    title: t.title,
+                    instructions: t.instructions,
+                    points: t.points,
+                    accept_file: !!t.accept_file,
+                    accept_link: !!t.accept_link,
+                    accept_text: !!t.accept_text,
+                    accept_ide: !!t.accept_ide,
+                    has_starter: !!t.starter_files,
+                    mine: mine
+                      ? {
+                          ...mine,
+                          upload_name: mine.upload_id
+                            ? (mineUploadName.get(mine.upload_id) ?? "file")
+                            : null,
+                          submitted_at: String(mine.submitted_at),
+                        }
+                      : null,
+                  }}
+                />
+              );
+            },
+          )}
+        </div>
+      )}
     </div>
   );
 }
 
-function StatusPill({ status }: { status: "live" | "upcoming" | "past" }) {
-  const labels = { live: "Active", upcoming: "Upcoming", past: "Past" };
+function StatusPill({
+  status,
+  label,
+}: {
+  status: "live" | "upcoming" | "past";
+  label: string;
+}) {
   const styles = {
     live: "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300",
     upcoming: "bg-amber-100 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300",
@@ -226,9 +454,9 @@ function StatusPill({ status }: { status: "live" | "upcoming" | "past" }) {
       className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-xs font-semibold uppercase tracking-wide ${styles[status]}`}
     >
       {status === "live" && (
-        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
       )}
-      {labels[status]}
+      {label}
     </span>
   );
 }

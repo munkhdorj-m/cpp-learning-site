@@ -118,7 +118,7 @@ export function UnassignedStudents({
       <CardContent className="space-y-3 p-4">
         <div>
           <div className="hud-label flex items-center gap-2">
-            <span className="text-neon-amber">//</span>
+            <span className="text-neon-amber">{"//"}</span>
             NO CLASS ({students.length})
           </div>
           <p className="text-sm text-muted-foreground">

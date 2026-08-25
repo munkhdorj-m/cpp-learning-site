@@ -41,6 +41,34 @@ export async function awardProblemSolve(
   );
 }
 
+/**
+ * First-accepted reward for a problem done AS HOMEWORK.
+ *
+ * Everything awardProblemSolve does except `problems_solved`. The same problem
+ * can now be solved once for an assignment and once for practice, and counting
+ * both would make "100 problems solved" mean fifty problems done twice. The
+ * count, and the badges that read it, stay on the practice track.
+ *
+ * The streak IS kept alive: doing your homework is doing the work, and a
+ * student who only ever does what was set should not lose a streak for it.
+ */
+export async function awardAssignmentSolve(
+  userId: string,
+  xpReward: number,
+  newStreak: number,
+  today: string,
+): Promise<void> {
+  await query(
+    `UPDATE profiles
+        SET xp = xp + ?,
+            streak_days = ?,
+            last_solve_date = ?,
+            level = GREATEST(1, FLOOR(SQRT(xp / 50)) + 1)
+      WHERE id = ?`,
+    [xpReward, newStreak, today, userId],
+  );
+}
+
 /** Grant badges by code to a user (idempotent). */
 export async function awardBadges(
   userId: string,

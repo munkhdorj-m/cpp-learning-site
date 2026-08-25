@@ -1,60 +1,48 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Play, X, Eye } from "lucide-react";
+import { Check, Play, X, Eye, Database, ExternalLink } from "lucide-react";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
-  COLUMNS,
-  TABLE,
-  runQuery,
+  TABLES,
+  runOneQuery,
   sameResult,
-  type Result,
-} from "@/lib/cambridge/sql-engine";
+  type QueryResult,
+} from "@/lib/cambridge/sql-db";
+import { SQL_TASKS } from "@/lib/cambridge/sql-tasks";
+import { useSqlDatabase } from "@/lib/cambridge/use-sql-db";
 
 /**
  * Write a SELECT and see the rows come back.
  *
- * Marking compares the *result* against the result of a model answer, not the
+ * Marking compares the RESULT against the result of a model answer, not the
  * text of the query — there is more than one correct way to write nearly every
  * one of these, and marking on wording would fail students who are right.
+ *
+ * Both the student's query and the model answer go through the same SQLite
+ * that powers /cambridge/sql, against the same tables. That is deliberate: a
+ * query accepted in the playground has to be accepted here too.
  */
 
-interface Task {
-  ask: string;
-  solution: string;
+/**
+ * These tasks all ask for a SELECT, and letting an UPDATE or DELETE through
+ * would quietly change the data every later task is marked against.
+ */
+function isSelect(sql: string) {
+  return /^\s*select\b/i.test(sql);
 }
 
-const TASKS: Task[] = [
-  {
-    ask: "List the Name of every student in Year 9.",
-    solution: "SELECT Name FROM Student WHERE Year = 9",
-  },
-  {
-    ask: "List the Name and Mark of every student who scored more than 70, highest mark first.",
-    solution: "SELECT Name, Mark FROM Student WHERE Mark > 70 ORDER BY Mark DESC",
-  },
-  {
-    ask: "List all details of the students in Ariun house.",
-    solution: "SELECT * FROM Student WHERE House = 'Ariun'",
-  },
-  {
-    ask: "List the Name of every Year 10 student who scored at least 60.",
-    solution: "SELECT Name FROM Student WHERE Year = 10 AND Mark >= 60",
-  },
-  {
-    ask: "List the Name and House of every student, in alphabetical order of Name.",
-    solution: "SELECT Name, House FROM Student ORDER BY Name",
-  },
-];
-
 export function SqlPractice() {
+  const { db, status, error: loadError, reset } = useSqlDatabase();
+
   const [at, setAt] = useState(0);
-  const task = TASKS[at];
+  const task = SQL_TASKS[at];
 
   const [sql, setSql] = useState("");
-  const [result, setResult] = useState<Result | null>(null);
+  const [result, setResult] = useState<QueryResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [verdict, setVerdict] = useState<"right" | "wrong" | null>(null);
   const [shown, setShown] = useState(false);
@@ -70,13 +58,24 @@ export function SqlPractice() {
 
   const run = () => {
     setShown(false);
+    if (!db.current) return;
+
+    if (!isSelect(sql)) {
+      setResult(null);
+      setVerdict(null);
+      setError("This task asks for a SELECT. Start your query with SELECT.");
+      return;
+    }
+
     try {
-      const got = runQuery(sql);
-      const want = runQuery(task.solution);
+      const got = runOneQuery(db.current, sql);
+      const want = runOneQuery(db.current, task.solution);
       setResult(got);
       setError(null);
       setVerdict(
-        sameResult(got, want, /ORDER\s+BY/i.test(task.solution)) ? "right" : "wrong",
+        sameResult(got, want, /ORDER\s+BY/i.test(task.solution))
+          ? "right"
+          : "wrong",
       );
     } catch (e) {
       setResult(null);
@@ -90,12 +89,12 @@ export function SqlPractice() {
       <div className="flex flex-wrap items-center gap-2">
         <span className="hud-label">WRITE THE QUERY</span>
         <span className="ml-auto font-code text-xs text-muted-foreground">
-          {at + 1}/{TASKS.length}
+          {at + 1}/{SQL_TASKS.length}
         </span>
       </div>
 
       <div className="flex flex-wrap gap-1">
-        {TASKS.map((_, i) => (
+        {SQL_TASKS.map((_, i) => (
           <button
             key={i}
             onClick={() => pick(i)}
@@ -111,33 +110,43 @@ export function SqlPractice() {
         ))}
       </div>
 
-      {/* The table they are querying */}
-      <div className="overflow-x-auto rounded-lg border border-primary/15">
-        <table className="w-full text-left text-xs">
-          <caption className="hud-label px-2 py-1.5 text-left text-[10px]">
-            TABLE: Student
-          </caption>
-          <thead>
-            <tr className="border-y border-primary/15 bg-primary/[0.06]">
-              {COLUMNS.map((c) => (
-                <th key={c} className="whitespace-nowrap px-2 py-1.5 font-code">
-                  {c}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-primary/10">
-            {TABLE.map((r) => (
-              <tr key={String(r.StudentID)}>
-                {COLUMNS.map((c) => (
-                  <td key={c} className="px-2 py-1 font-mono text-muted-foreground">
-                    {r[c]}
-                  </td>
+      {/* The schema rather than the rows: there are three tables now, and a
+          student can see any of them by running SELECT * on it. */}
+      <div className="rounded-lg border border-primary/15 p-2.5">
+        <div className="mb-1.5 flex items-center gap-1.5">
+          <Database className="h-3.5 w-3.5 text-primary" />
+          <span className="hud-label text-[10px]">THE DATABASE</span>
+          <Link
+            href="/cambridge/sql"
+            className="ml-auto flex items-center gap-1 font-code text-[11px] text-primary hover:underline"
+          >
+            open the playground
+            <ExternalLink className="h-3 w-3" />
+          </Link>
+        </div>
+        <div className="grid gap-2 sm:grid-cols-3">
+          {TABLES.map((t) => (
+            <div key={t.name}>
+              <button
+                type="button"
+                onClick={() => setSql(`SELECT * FROM ${t.name}`)}
+                className="font-code text-xs font-semibold text-primary hover:underline"
+              >
+                {t.name}
+              </button>
+              <ul className="mt-0.5">
+                {t.columns.map((c) => (
+                  <li
+                    key={c.name}
+                    className="font-code text-[11px] text-muted-foreground"
+                  >
+                    {c.name}
+                  </li>
                 ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
 
       <p className="text-sm">
@@ -156,9 +165,14 @@ export function SqlPractice() {
       />
 
       <div className="flex flex-wrap gap-2">
-        <Button size="sm" onClick={run} disabled={!sql.trim()} className="font-code">
+        <Button
+          size="sm"
+          onClick={run}
+          disabled={!sql.trim() || status !== "ready"}
+          className="font-code"
+        >
           <Play className="mr-1.5 h-3.5 w-3.5" />
-          Run
+          {status === "loading" ? "Loading…" : "Run"}
         </Button>
         <Button
           size="sm"
@@ -170,6 +184,21 @@ export function SqlPractice() {
           Show answer
         </Button>
       </div>
+
+      {status === "failed" && (
+        <p
+          role="alert"
+          className="flex items-start gap-1.5 rounded-lg border border-destructive/40 bg-destructive/10 p-2.5 text-sm text-destructive"
+        >
+          <X className="mt-0.5 h-4 w-4 shrink-0" />
+          <span>
+            {loadError} —{" "}
+            <button type="button" onClick={() => void reset()} className="underline">
+              try again
+            </button>
+          </span>
+        </p>
+      )}
 
       {shown && (
         <pre className="overflow-x-auto rounded-lg border border-primary/20 bg-background/40 p-2.5 font-mono text-xs text-primary">
@@ -211,8 +240,11 @@ export function SqlPractice() {
                 {result.rows.map((r, i) => (
                   <tr key={i}>
                     {r.map((v, j) => (
-                      <td key={j} className="px-2 py-1 font-mono text-muted-foreground">
-                        {v}
+                      <td
+                        key={j}
+                        className="whitespace-nowrap px-2 py-1 font-mono text-muted-foreground"
+                      >
+                        {v === null ? "NULL" : String(v)}
                       </td>
                     ))}
                   </tr>

@@ -1,5 +1,11 @@
 import Link from "next/link";
-import { GraduationCap, ChevronRight, FileText } from "lucide-react";
+import {
+  GraduationCap,
+  ChevronRight,
+  FileText,
+  Database,
+  SquareTerminal,
+} from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { LEVELS, topicsForLevel } from "@/lib/cambridge";
@@ -12,12 +18,38 @@ const GLOW: Record<string, string> = {
   "a-level": "var(--neon-amber)",
 };
 
+/**
+ * The two things on this syllabus that students write constantly and never see
+ * run. Both playgrounds work entirely in the browser, so they open instantly
+ * and need no account.
+ */
+const TOOLS = [
+  {
+    href: "/cambridge/pseudocode",
+    icon: SquareTerminal,
+    title: "Pseudocode playground",
+    blurb:
+      "Write the pseudocode the papers use, then press Run and watch it do what you actually wrote.",
+    cta: "Write pseudocode",
+    glow: "var(--neon-lime)",
+  },
+  {
+    href: "/cambridge/sql",
+    icon: Database,
+    title: "SQL playground",
+    blurb:
+      "A sample school database and real SQLite. Query it, change it, break it — Reset puts it back.",
+    cta: "Write SQL",
+    glow: "var(--neon-cyan)",
+  },
+] as const;
+
 export default function CambridgePage() {
   return (
     <div className="mx-auto max-w-4xl space-y-6">
       <div className="space-y-2">
         <div className="hud-label flex items-center gap-2">
-          <span className="text-primary">//</span>
+          <span className="text-primary">{"//"}</span>
           CAMBRIDGE.SYLLABUS
         </div>
         <div className="flex items-center gap-3">
@@ -95,6 +127,48 @@ export default function CambridgePage() {
         })}
       </div>
 
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {TOOLS.map((tool) => (
+          <Link key={tool.href} href={tool.href} className="group block">
+            <Card
+              className="hud-hover h-full"
+              style={{
+                ["--glow" as string]: tool.glow,
+                ["--neon-cyan" as string]: tool.glow,
+              }}
+            >
+              <CardContent className="flex h-full flex-col gap-2 p-5">
+                <div className="flex items-center gap-2.5">
+                  <div
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border"
+                    style={{
+                      borderColor: tool.glow,
+                      color: tool.glow,
+                      background: "color-mix(in srgb, currentColor 10%, transparent)",
+                    }}
+                  >
+                    <tool.icon className="h-4.5 w-4.5" />
+                  </div>
+                  <div className="text-base font-bold" style={{ color: tool.glow }}>
+                    {tool.title}
+                  </div>
+                </div>
+                <p className="flex-1 text-sm text-muted-foreground">
+                  {tool.blurb}
+                </p>
+                <div
+                  className="flex items-center gap-1 font-code text-xs font-semibold"
+                  style={{ color: tool.glow }}
+                >
+                  {tool.cta}
+                  <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+        ))}
+      </div>
+
       <Card className="hud-panel">
         <CardContent className="space-y-2 p-5 text-sm">
           <div className="hud-label">HOW TO USE THIS</div>
@@ -109,9 +183,20 @@ export default function CambridgePage() {
             </Link>{" "}
             and the{" "}
             <Link href="/ide" className="text-primary hover:underline">
-              playground
+              C++ playground
             </Link>
-            .
+            , and the two things this syllabus examines on paper in the{" "}
+            <Link
+              href="/cambridge/pseudocode"
+              className="text-primary hover:underline"
+            >
+              pseudocode
+            </Link>{" "}
+            and{" "}
+            <Link href="/cambridge/sql" className="text-primary hover:underline">
+              SQL
+            </Link>{" "}
+            playgrounds above.
           </p>
         </CardContent>
       </Card>

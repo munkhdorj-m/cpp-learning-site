@@ -36,7 +36,7 @@ export default async function GameHubPage() {
     <div className="mx-auto max-w-4xl space-y-6">
       <div className="space-y-2">
         <div className="hud-label flex items-center gap-2">
-          <span className="text-primary">//</span>
+          <span className="text-primary">{"//"}</span>
           {en ? "ARCADE" : "ТОГЛООМЫН ТАЛБАЙ"}
         </div>
         <h1 className="text-3xl font-bold">{t("game_hub.title")}</h1>

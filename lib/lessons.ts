@@ -45,7 +45,7 @@ export interface Quiz {
  *
  * Text is plain, except that `backticks` mark inline code.
  */
-export type Block =
+export type Block = (
   | { kind: "text"; mn: string; en: string }
   | {
       kind: "code";
@@ -61,7 +61,29 @@ export type Block =
   | { kind: "note"; tone: "tip" | "warn"; mn: string; en: string }
   | { kind: "table"; head_mn: string[]; head_en: string[]; rows: string[][] }
   /** A photograph from lib/lesson-images, with its credit rendered under it. */
-  | { kind: "image"; image: string; caption_mn?: string; caption_en?: string };
+  | { kind: "image"; image: string; caption_mn?: string; caption_en?: string }
+  /**
+   * A step-by-step diagram from lib/lesson-slides, keyed by deck name.
+   *
+   * The deck itself is not inlined here: only the lesson being read should
+   * cross to the browser, so the page resolves the name server-side.
+   */
+  | { kind: "slides"; deck: string }
+) & {
+  /**
+   * Show this block only when reading in one language.
+   *
+   * `cppOnly` on a Section is all-or-nothing, which is too blunt when a
+   * section is mostly universal but one sentence is not — "put `//` in front
+   * of a line" is right in C++ and wrong in Python, yet comments themselves
+   * matter in both. Hiding the whole section would have cost the Python
+   * reader the lesson; leaving it taught them something false. This lets the
+   * two sentences sit side by side, one shown to each.
+   *
+   * Code blocks do not need it — they already carry cpp and py.
+   */
+  only?: "cpp" | "py";
+};
 
 /**
  * A heading-level chunk of a lesson. These are what the "on this page" rail
@@ -174,6 +196,48 @@ export const UNITS: Unit[] = [
     title_en: "Bigger Programs",
     blurb_mn: "Давхар давталт, функц, уян хатан жагсаалт.",
     blurb_en: "Nested loops, functions, and growable lists.",
+  },
+  {
+    id: 7,
+    title_mn: "Алгоритмын суурь",
+    title_en: "Algorithm Foundations",
+    blurb_mn: "Рекурс, хурд, хоёр хэмжээст хүснэгт — цаашдын бүх зүйлийн суурь.",
+    blurb_en: "Recursion, speed and grids — what everything after this rests on.",
+  },
+  {
+    id: 8,
+    title_mn: "Хайлт ба эрэмбэлэлт",
+    title_en: "Searching and Sorting",
+    blurb_mn: "Хайх, эрэмбэлэх, хоёртын хайлт, угтвар нийлбэр.",
+    blurb_en: "Finding things, sorting them, binary search and prefix sums.",
+  },
+  {
+    id: 9,
+    title_mn: "Бэлэн савнууд",
+    title_en: "Ready-made Containers",
+    blurb_mn: "map, set, стек, дараалал — өөрөө бичихгүйгээр ашиглах.",
+    blurb_en: "map, set, stack and queue — the ones you use instead of writing your own.",
+  },
+  {
+    id: 10,
+    title_mn: "Алгоритмын аргууд",
+    title_en: "Algorithm Techniques",
+    blurb_mn: "Шуналт арга, ухран буцах, динамик програмчлал.",
+    blurb_en: "Greedy, backtracking and dynamic programming.",
+  },
+  {
+    id: 11,
+    title_mn: "Граф",
+    title_en: "Graphs",
+    blurb_mn: "Цэг ба холбоос, гүнзгий ба өргөн хайлт, хамгийн богино зам.",
+    blurb_en: "Nodes and edges, depth-first and breadth-first search, shortest paths.",
+  },
+  {
+    id: 12,
+    title_mn: "Обьект",
+    title_en: "Objects",
+    blurb_mn: "Класс, метод, өөрийн оператор. Жижиг боловч Cambridge-д хэрэгтэй.",
+    blurb_en: "Classes, methods and your own operators. Small, but needed for Cambridge.",
   },
 ];
 
@@ -556,12 +620,11 @@ using namespace std;
 
 int main() {
     int a, b;
-    cout << "Enter two numbers: ";
     cin >> a >> b;
     cout << "Sum = " << a + b << endl;
     return 0;
 }`,
-    output: "Enter two numbers: 4 6\nSum = 10",
+    output: "(input: 4 6)\nSum = 10",
     lines: [
       {
         code: "int a, b;",
@@ -577,6 +640,16 @@ int main() {
       },
     ],
     mistakes: [
+      {
+        wrong: 'cout << "Enter a number: ";',
+        fix: "cin >> n;",
+        why_mn:
+          "Шүүгч гаралтыг яг харьцуулдаг. Асуултын текст нэмэлт гаралт болж, зөв бодсон ч буруу гэж тооцогдоно. Бодлого бодохдоо хэзээ ч асуулт хэвлэхгүй.",
+        why_en:
+          "The judge compares your output exactly. A prompt is extra output, so a correct answer is still marked wrong. Never print a prompt in a contest problem.",
+
+      },
+
       {
         wrong: "cin << a;",
         fix: "cin >> a;",
@@ -678,14 +751,14 @@ using namespace std;
 int main() {
     int score = 10;
 
-    score = score + 5;   // энгийн арга
-    score += 5;          // ижил утгатай, богино
-    score++;             // яг 1 нэмнэ
+    score = score + 5;   // энгийн арга / the long way
+    score += 5;          // ижил утгатай, богино / same thing, shorter
+    score++;             // яг 1 нэмнэ / adds exactly 1
 
     cout << score << endl;
 
     int x = 1;
-    int y = x++;         // эхлээд y-д өгөөд, ДАРАА нь x өснө
+    int y = x++;         // эхлээд y-д өгнө, ДАРАА нь x өснө / y gets it first, THEN x grows
     cout << x << " " << y << endl;
 
     return 0;
@@ -779,7 +852,7 @@ int main() {
     cout << static_cast<double>(total) / count << endl;  // 3.5
 
     double price = 9.99;
-    int rounded = (int)price;   // таслаад хаяна, дугуйруулахгүй
+    int rounded = (int)price;   // таслаад хаяна, дугуйруулахгүй / cuts, does not round
     cout << rounded << endl;
 
     return 0;
@@ -830,7 +903,7 @@ int main() {
           "The division happens **first**, in whole numbers, and only then is the result stored. Too late — convert before dividing.",
       },
       {
-        wrong: "int n = 3.7;   // 4 гэж бодов",
+        wrong: "int n = 3.7;   // 4 гэж бодов / expected 4",
         fix: "int n = round(3.7);",
         why_mn: "Хөрвүүлэлт дугуйруулдаггүй, таслаад хаядаг тул 3 болно.",
         why_en: "Conversion cuts rather than rounds, so you get 3.",
@@ -1262,8 +1335,8 @@ int main() {
     } while (i < 1);
 
     for (int n = 1; n <= 10; n++) {
-        if (n % 2 == 0) continue;   // тэгш бол алгасна
-        if (n > 7) break;           // 7-оос хойш зогсоно
+        if (n % 2 == 0) continue;   // тэгш бол алгасна / skip if even
+        if (n > 7) break;           // 7-оос хойш зогсоно / stop after 7
         cout << n << " ";
     }
     cout << endl;
@@ -2014,11 +2087,11 @@ int main() {
     code: `#include <iostream>
 using namespace std;
 
-void addTax(double& price) {   // & = эх хувьсагчийг өөрчилнө
+void addTax(double& price) {   // & = эх хувьсагчийг өөрчилнө / & changes the original
     price = price * 1.1;
 }
 
-int power(int base, int exp = 2) {   // exp өгөхгүй бол 2
+int power(int base, int exp = 2) {   // exp өгөхгүй бол 2 / exp is 2 if you omit it
     int result = 1;
     for (int i = 0; i < exp; i++) result *= base;
     return result;
@@ -2136,7 +2209,7 @@ int main() {
     cout << s.name << " (grade " << s.grade << ") "
          << s.average << endl;
 
-    Student best = s;   // бүх талбар нь хамт хуулагдана
+    Student best = s;   // бүх талбар нь хамт хуулагдана / every field is copied
     cout << best.name << endl;
 
     return 0;
@@ -2306,6 +2379,3162 @@ int main() {
     challenge_en: "Read n numbers into a vector and print their sum.",
   },
 );
+
+// ── Units 7-12 · the advanced half ──────────────────────────────────────
+//
+// Pushed last so the array is in curriculum order. The site numbers each
+// lesson by its position here and walks next/previous the same way, so a
+// unit out of place shows up as a wrong lesson number and a jump to the
+// wrong lesson at the end of a unit. scripts/check-sections.mts asserts it.
+LESSONS.push(
+  {
+    slug: "recursion",
+    unit: 7,
+    title_mn: "Рекурс",
+    title_en: "Recursion",
+    goal_mn: "Өөрийгөө дуудаж байгаа функц бичих, зогсох нөхцөлийг зөв тавих.",
+    goal_en: "Write a function that calls itself, and stop it at the right moment.",
+    intro_mn:
+      "Функц өөрийгөө дуудаж болно. Энэ нь том бодлогыг яг адилхан жижиг бодлого болгон хувааж, сүүлд нь маш амархан тохиолдол дээр зогсоно. Зогсох тохиолдлыг ЭХЛЭЭД бичих нь чухал — тэрийг мартвал програм хэзээ ч дуусахгүй.",
+    intro_en:
+      "A function is allowed to call itself. That turns a big job into the same job on something smaller, until you reach a case so easy you can answer it outright. Write that stopping case FIRST — forget it and the program never ends.",
+    code: `#include <iostream>
+using namespace std;
+
+int factorial(int n) {
+    if (n <= 1) {
+        return 1;
+    }
+    return n * factorial(n - 1);
+}
+
+int main() {
+    cout << factorial(5) << endl;
+    return 0;
+}`,
+    output: "120",
+    lines: [
+      {
+        code: "if (n <= 1) {",
+        note_mn:
+          "Зогсох нөхцөл. 1-ийн факториал бол 1 — үүнийг бодох шаардлагагүй, шууд мэднэ.",
+        note_en:
+          "The stopping case. The factorial of 1 is just 1 — nothing to work out.",
+      },
+      {
+        code: "return n * factorial(n - 1);",
+        note_mn:
+          "Өөрийгөө дуудаж байна, гэхдээ ҮРГЭЛЖ бага тоогоор. Тийм учраас эцэст нь 1 хүрнэ.",
+        note_en:
+          "It calls itself, but ALWAYS with a smaller number. That is why it eventually reaches 1.",
+      },
+      {
+        code: "cout << factorial(5) << endl;",
+        note_mn:
+          "5 → 5*factorial(4) → 5*4*factorial(3) → ... → 5*4*3*2*1 = 120.",
+        note_en:
+          "5 → 5*factorial(4) → 5*4*factorial(3) → … → 5*4*3*2*1 = 120.",
+      },
+    ],
+    terms: [
+      {
+        term: "recursion",
+        def_mn: "Функц өөрийгөө дуудах.",
+        def_en: "A function calling itself.",
+      },
+      {
+        term: "base case",
+        def_mn:
+          "Дуудалт зогсох тохиолдол. Үүнгүйгээр рекурс хязгааргүй үргэлжилнэ.",
+        def_en: "The case where the calls stop. Without one, recursion never ends.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "int f(int n) { return n * f(n - 1); }",
+        fix: "int f(int n) { if (n <= 1) return 1; return n * f(n - 1); }",
+        why_mn:
+          "Зогсох нөхцөлгүй. Програм хязгааргүй дуудаж, санах ой дүүрч сүйрнэ (stack overflow).",
+        why_en:
+          "No stopping case. It calls forever until memory runs out — a stack overflow.",
+      },
+      {
+        wrong: "return n * factorial(n);",
+        fix: "return n * factorial(n - 1);",
+        why_mn:
+          "Тоо нь буурахгүй бол зогсох нөхцөл рүү хэзээ ч ойртохгүй. Дуудалт бүр багасаж байх ёстой.",
+        why_en:
+          "If the value never shrinks it never approaches the stopping case. Each call must get smaller.",
+      },
+    ],
+    quiz: {
+      question_mn: "Зогсох нөхцөл (base case) байхгүй бол юу болох вэ?",
+      question_en: "What happens if a recursive function has no base case?",
+      choices: [
+        "Функц 0 буцаана / The function returns 0",
+        "Хязгааргүй дуудаж програм сүйрнэ / It calls itself forever and crashes",
+        "Компилятор алдаа заана / The compiler refuses to build it",
+      ],
+      answer: 1,
+      explain_mn:
+        "Компилятор үүнийг барьж чадахгүй — ажиллах үедээ л сүйрнэ. Тийм учраас зогсох нөхцөлөө эхэлж бич.",
+      explain_en:
+        "The compiler cannot catch this — it only fails when it runs. That is why you write the stopping case first.",
+    },
+    challenge_mn:
+      "n-ээс 1 хүртэл тоонуудын нийлбэрийг рекурсээр бод. sum(4) нь 10 гарна.",
+    challenge_en:
+      "Write a recursive function that adds up 1 to n. sum(4) should give 10.",
+    python: {
+      code: `def factorial(n):
+    if n <= 1:
+        return 1
+    return n * factorial(n - 1)
+
+print(factorial(5))`,
+      output: "120",
+      lines: [
+        {
+          code: "if n <= 1:",
+          note_mn: "Зогсох нөхцөл — C++ дээрхтэй яг адилхан.",
+          note_en: "The stopping case — exactly as in C++.",
+        },
+        {
+          code: "return n * factorial(n - 1)",
+          note_mn: "Бага тоогоор өөрийгөө дуудна.",
+          note_en: "Calls itself with a smaller number.",
+        },
+      ],
+      mistakes: [
+        {
+          wrong: "def f(n): return n * f(n - 1)",
+          fix: "def f(n):\n    if n <= 1: return 1\n    return n * f(n - 1)",
+          why_mn:
+            "Python-д энэ нь RecursionError өгнө — анхдагчаар ойролцоогоор 1000 дуудалтын дараа зогсоно.",
+          why_en:
+            "In Python this raises RecursionError — it stops after about 1000 calls by default.",
+        },
+      ],
+    },
+  },
+  {
+    slug: "complexity",
+    unit: 7,
+    title_mn: "Хэр хурдан вэ?",
+    title_en: "How Fast Is It?",
+    goal_mn:
+      "Хэдэн үйлдэл хийгдэхийг тоолж, бодлогын хязгаараас аргаа сонгож сурах.",
+    goal_en:
+      "Count how much work a program does, and read the limits to choose an approach.",
+    intro_mn:
+      "Хоёр програм ижил хариу өгч болох ч нэг нь секунд, нөгөө нь цаг зарцуулна. Чухал нь мөрийн тоо биш, ДАВТАЛТЫН тоо. Бодлогын хязгаарыг хараад аль арга багтахыг урьдчилж мэдэж болно.",
+    intro_en:
+      "Two programs can give the same answer, one in a second and one in an hour. What matters is not how many lines you wrote but how many times the computer repeats something. The limits in a problem tell you which approach will fit.",
+    code: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    vector<int> v = {4, 8, 15, 16, 23, 42};
+    int n = v.size();
+
+    long long steps = 0;
+    for (int i = 0; i < n; i++) {
+        steps++;
+    }
+    cout << "one loop: " << steps << endl;
+
+    steps = 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            steps++;
+        }
+    }
+    cout << "two loops: " << steps << endl;
+    return 0;
+}`,
+    output: "one loop: 6\ntwo loops: 36",
+    lines: [
+      {
+        code: "for (int i = 0; i < n; i++) {",
+        note_mn: "Нэг давталт — n удаа ажиллана. Үүнийг O(n) гэдэг.",
+        note_en: "One loop runs n times. We call that O(n).",
+      },
+      {
+        code: "for (int j = 0; j < n; j++) {",
+        note_mn:
+          "Давталт дотор давталт — n × n удаа. Үүнийг O(n²) гэдэг. n=1000 бол нэг сая удаа.",
+        note_en:
+          "A loop inside a loop runs n × n times — O(n²). With n=1000 that is a million steps.",
+      },
+      {
+        code: "long long steps = 0;",
+        note_mn:
+          "Тоолуур том болж магадгүй тул `long long`. `int` 2 тэрбумаас хэтэрвэл алдаа өгнө.",
+        note_en:
+          "The counter can get big, so `long long`. An `int` breaks past about 2 billion.",
+      },
+    ],
+    terms: [
+      {
+        term: "O(n)",
+        def_mn: "Өгөгдлийн хэмжээтэй шууд пропорциональ ажиллагаа.",
+        def_en: "Work that grows in step with the amount of data.",
+      },
+      {
+        term: "O(n²)",
+        def_mn:
+          "Хоёр давхар давталт. n хоёр дахин ихсэхэд ажил дөрөв дахин нэмэгдэнэ.",
+        def_en: "Two nested loops. Double n and the work goes up four times.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "n ≤ 100000 бодлогод хоёр давхар давталт / A double loop when n ≤ 100000",
+        fix: "Нэг давталт эсвэл эрэмбэлэлт / One pass, or a sort",
+        why_mn:
+          "100000² = 10 тэрбум үйлдэл. Ямар ч шүүгч үүнийг хүлээхгүй — TLE гарна.",
+        why_en:
+          "100000² is ten billion steps. No judge waits that long — you get TLE.",
+      },
+      {
+        wrong: "Нэрийг богиносгож хурдасгах / Shortening names to go faster",
+        fix: "Давталтын тоог багасгах / Do less repeated work",
+        why_mn:
+          "Нэрний урт хурдад огт нөлөөлөхгүй. Зөвхөн хийгдэж буй ажлын хэмжээ л чухал.",
+        why_en:
+          "Name length has no effect at all. Only the amount of repeated work matters.",
+      },
+    ],
+    quiz: {
+      question_mn:
+        "Бодлогод n ≤ 200000 гэж байвал аль арга багтах магадлалтай вэ?",
+      question_en: "A problem says n ≤ 200000. Which approach is likely to fit?",
+      choices: [
+        "Хоёр давхар давталт O(n²) / A double loop, O(n²)",
+        "Гурван давхар давталт O(n³) / A triple loop, O(n³)",
+        "Нэг давталт эсвэл эрэмбэлэлт O(n log n) / One pass or a sort, O(n log n)",
+      ],
+      answer: 2,
+      explain_mn:
+        "n = 200000 бол n² нь 40 тэрбум — хэтэрхий их. O(n) ба O(n log n) л багтана.",
+      explain_en:
+        "With n = 200000, n² is forty billion — far too much. Only O(n) or O(n log n) fits.",
+    },
+    challenge_mn:
+      "Массив дотор ижил хоёр тоо байгаа эсэхийг ол. Эхлээд хоёр давхар давталтаар, дараа нь эрэмбэлээд нэг давталтаар бич. Хоёулаа ижил хариу өгөх ёстой.",
+    challenge_en:
+      "Find whether an array contains the same number twice. Do it with a double loop first, then by sorting and making one pass. Both must agree.",
+  },
+  {
+    slug: "grids",
+    unit: 7,
+    title_mn: "Хоёр хэмжээст хүснэгт",
+    title_en: "Grids",
+    goal_mn: "Мөр, баганатай хүснэгт үүсгэж, дамжин уншиж сурах.",
+    goal_en: "Build a table with rows and columns, and walk through it.",
+    intro_mn:
+      "Шатрын самбар, лабиринт, зургийн цэгүүд — эдгээр нь бүгд хүснэгт. Массивын доторх массив гэж бодож болно: эхний индекс нь МӨР, хоёр дахь нь БАГАНА.",
+    intro_en:
+      "A chessboard, a maze, the pixels of a picture — all of them are grids. Think of an array of arrays: the first index is the ROW, the second is the COLUMN.",
+    code: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    int rows = 3, cols = 4;
+    vector<vector<int>> g(rows, vector<int>(cols, 0));
+
+    g[0][0] = 1;
+    g[1][2] = 7;
+    g[2][3] = 9;
+
+    for (int r = 0; r < rows; r++) {
+        for (int c = 0; c < cols; c++) {
+            cout << g[r][c] << " ";
+        }
+        cout << endl;
+    }
+    return 0;
+}`,
+    output: "1 0 0 0 \n0 0 7 0 \n0 0 0 9",
+    lines: [
+      {
+        code: "vector<vector<int>> g(rows, vector<int>(cols, 0));",
+        note_mn:
+          "3 мөр үүсгэж, мөр бүрд 4 нүд, бүгдийг 0-ээр дүүргэв. Хэмжээгээ энд нэг л удаа зааж өгнө.",
+        note_en:
+          "Makes 3 rows, each with 4 cells, all set to 0. You give the size once, here.",
+      },
+      {
+        code: "g[1][2] = 7;",
+        note_mn:
+          "МӨР эхэлж, дараа нь БАГАНА. Энэ бол 2-р мөрийн 3 дахь нүд — тоолол 0-ээс.",
+        note_en:
+          "ROW first, then COLUMN. This is row 2, column 3 — counting from 0.",
+      },
+      {
+        code: "for (int r = 0; r < rows; r++) {",
+        note_mn:
+          "Гадна давталт мөрөөр явна. Тийм учраас нэг мөр бүрэн хэвлэгдээд шинэ мөр эхэлнэ.",
+        note_en:
+          "The outer loop walks the rows. That is why a whole row prints before the line break.",
+      },
+      {
+        code: "cout << endl;",
+        note_mn: "Мөр бүрийн ТӨГСГӨЛД. Дотор давталтад байвал багана болно.",
+        note_en:
+          "At the END of each row. Put it inside the inner loop and you get a column instead.",
+      },
+    ],
+    terms: [
+      {
+        term: "row",
+        def_mn: "Хэвтээ эгнээ. Эхний индекс.",
+        def_en: "A horizontal line of cells. The first index.",
+      },
+      {
+        term: "column",
+        def_mn: "Босоо эгнээ. Хоёр дахь индекс.",
+        def_en: "A vertical line of cells. The second index.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "g[c][r]",
+        fix: "g[r][c]",
+        why_mn:
+          "Мөр, багана солигдвол хүснэгт эргэнэ. Дөрвөлжин биш хүснэгт дээр бол шууд сүйрнэ.",
+        why_en:
+          "Swapping row and column flips the grid — and on a non-square grid it crashes outright.",
+      },
+      {
+        wrong: "vector<vector<int>> g; g[0][0] = 1;",
+        fix: "vector<vector<int>> g(rows, vector<int>(cols, 0));",
+        why_mn:
+          "Хоосон хүснэгтэд нүд байхгүй. Ашиглахаас өмнө хэмжээг нь өгөх ёстой.",
+        why_en:
+          "An empty grid has no cells at all. Give it a size before you use it.",
+      },
+    ],
+    quiz: {
+      question_mn: "`g[2][0]` гэдэг нь юуг заах вэ?",
+      question_en: "What does `g[2][0]` refer to?",
+      choices: [
+        "3 дахь мөрийн 1 дэх нүд / Row 3, column 1",
+        "1 дэх мөрийн 3 дахь нүд / Row 1, column 3",
+        "2 дахь мөрийн 0 дахь мөр / Row 2 of row 0",
+      ],
+      answer: 0,
+      explain_mn:
+        "Эхний тоо нь мөр. 0-ээс тоолохоор индекс 2 нь 3 дахь мөр, индекс 0 нь 1 дэх багана.",
+      explain_en:
+        "The first number is the row. Counting from 0, index 2 is the third row and index 0 is the first column.",
+    },
+    challenge_mn:
+      "3×3 хүснэгт уншаад голын диагоналын нийлбэрийг хэвлэ (g[0][0] + g[1][1] + g[2][2]).",
+    challenge_en:
+      "Read a 3×3 grid and print the sum of the main diagonal (g[0][0] + g[1][1] + g[2][2]).",
+    python: {
+      code: `rows, cols = 3, 4
+g = [[0] * cols for _ in range(rows)]
+
+g[0][0] = 1
+g[1][2] = 7
+g[2][3] = 9
+
+for r in range(rows):
+    for c in range(cols):
+        print(g[r][c], end=" ")
+    print()`,
+      output: "1 0 0 0 \n0 0 7 0 \n0 0 0 9",
+      lines: [
+        {
+          code: "g = [[0] * cols for _ in range(rows)]",
+          note_mn:
+            "Мөр бүрийг ТУСДАА үүсгэж байна. `[[0]*cols]*rows` гэвэл бүх мөр нэг л жагсаалт болно.",
+          note_en:
+            "Builds each row SEPARATELY. Writing `[[0]*cols]*rows` makes every row the same list.",
+        },
+        {
+          code: "print(g[r][c], end=\" \")",
+          note_mn: "`end=\" \"` нь мөр таслахгүй, зай тавина.",
+          note_en: "`end=\" \"` prints a space instead of a line break.",
+        },
+      ],
+      mistakes: [
+        {
+          wrong: "g = [[0] * cols] * rows",
+          fix: "g = [[0] * cols for _ in range(rows)]",
+          why_mn:
+            "Эхнийх нь нэг мөрийг олон удаа заасан. `g[0][0]` -г өөрчилвөл бүх мөр өөрчлөгдөнө.",
+          why_en:
+            "The first makes every row point at the SAME list. Change `g[0][0]` and every row changes.",
+        },
+      ],
+    },
+  },
+  {
+    slug: "arrays-in-functions",
+    unit: 7,
+    title_mn: "Массивыг функцэд өгөх",
+    title_en: "Passing Arrays to Functions",
+    goal_mn:
+      "Вектороо хуулбарлахгүйгээр функцэд дамжуулж, өөрчлөлт нь үлдэхээр болгох.",
+    goal_en:
+      "Hand a vector to a function without copying it, and keep the changes.",
+    intro_mn:
+      "Функцэд вектор өгөхөд анхдагчаараа ХУУЛБАР үүснэ. Тэр хуулбар дээр хийсэн өөрчлөлт гадна үлдэхгүй, том вектор дээр удаан ажиллана. `&` тэмдэг тавьвал хуулбар үүсэхгүй, жинхэнэ вектор дээр ажиллана.",
+    intro_en:
+      "By default a vector handed to a function is COPIED. Changes to that copy do not survive, and on a big vector the copying itself is slow. An `&` means the function works on the real one instead.",
+    code: `#include <iostream>
+#include <vector>
+using namespace std;
+
+void addOne(vector<int>& v) {
+    for (int& x : v) {
+        x = x + 1;
+    }
+}
+
+int sum(const vector<int>& v) {
+    int total = 0;
+    for (int x : v) {
+        total = total + x;
+    }
+    return total;
+}
+
+int main() {
+    vector<int> nums = {1, 2, 3};
+    addOne(nums);
+    cout << nums[0] << " " << nums[1] << " " << nums[2] << endl;
+    cout << sum(nums) << endl;
+    return 0;
+}`,
+    output: "2 3 4\n9",
+    lines: [
+      {
+        code: "void addOne(vector<int>& v) {",
+        note_mn:
+          "`&` — хуулбар биш, жинхэнэ вектор. Дотор нь хийсэн өөрчлөлт гадна үлдэнэ.",
+        note_en:
+          "The `&` means the real vector, not a copy. Changes made inside stay.",
+      },
+      {
+        code: "for (int& x : v) {",
+        note_mn:
+          "Энд бас `&` хэрэгтэй. Үгүй бол `x` нь нүдний хуулбар болж, өөрчлөлт алдагдана.",
+        note_en:
+          "This needs an `&` too. Without it `x` is a copy of the cell and the change is lost.",
+      },
+      {
+        code: "int sum(const vector<int>& v) {",
+        note_mn:
+          "`const&` — хуулбарлахгүй, гэхдээ өөрчлөхгүй гэж амлаж байна. Уншиж л байгаа бол үүнийг хэрэглэ.",
+        note_en:
+          "`const&` means no copy, and a promise not to change it. Use this when you only read.",
+      },
+    ],
+    terms: [
+      {
+        term: "&",
+        def_mn: "Хуулбар биш, жинхэнэ утга дээр ажиллана гэсэн тэмдэг.",
+        def_en: "A mark saying: work on the real thing, not a copy.",
+      },
+      {
+        term: "const&",
+        def_mn: "Хуулбарлахгүй, гэхдээ өөрчлөхийг хориглоно.",
+        def_en: "No copy, and changing it is forbidden.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "void addOne(vector<int> v)",
+        fix: "void addOne(vector<int>& v)",
+        why_mn:
+          "`&` мартвал функц хуулбар дээр ажиллана. Програм алдаа заахгүй, зүгээр л юу ч өөрчлөгдөхгүй.",
+        why_en:
+          "Without the `&` the function edits a copy. Nothing errors — nothing simply changes.",
+      },
+      {
+        wrong: "for (int x : v) { x = x + 1; }",
+        fix: "for (int& x : v) { x = x + 1; }",
+        why_mn:
+          "Нүд бүрийн хуулбарыг нэмээд хаяж байна. Вектор хэвээрээ үлдэнэ.",
+        why_en:
+          "This increments a copy of each cell and throws it away. The vector is untouched.",
+      },
+    ],
+    quiz: {
+      question_mn:
+        "Функц векторыг зөвхөн УНШИХ бол аль гарын үсэг хамгийн зөв вэ?",
+      question_en:
+        "A function only READS a vector. Which signature is best?",
+      choices: [
+        "vector<int> v — хуулбар / a copy",
+        "const vector<int>& v — хуулбаргүй, өөрчлөхгүй / no copy, cannot change",
+        "vector<int>& v — хуулбаргүй, өөрчилж болно / no copy, can change",
+      ],
+      answer: 1,
+      explain_mn:
+        "Хуулбар нь удаан, өөрчилж болдог хувилбар нь буруугаар өөрчлөх эрсдэлтэй. `const&` хоёуланг нь шийднэ.",
+      explain_en:
+        "A copy is slow, and a plain `&` allows accidental edits. `const&` avoids both.",
+    },
+    challenge_mn:
+      "Векторын хамгийн их утгыг буцаадаг функц бич. Хуулбар үүсгэхгүй байхаар `const&` ашигла.",
+    challenge_en:
+      "Write a function that returns the largest value in a vector. Use `const&` so nothing is copied.",
+  },
+  {
+    slug: "fast-io",
+    unit: 7,
+    title_mn: "Хурдан оролт",
+    title_en: "Fast Input",
+    goal_mn:
+      "Хэдэн ширхэг тоо ирэхийг мэдэхгүй үед уншиж, оролтоо хурдасгах.",
+    goal_en:
+      "Read numbers when you are not told how many there are, and make reading fast.",
+    intro_mn:
+      "Заримдаа бодлого «файл дуустал тоо унш» гэдэг. `cin >> x` нь амжилттай уншсан эсэхээ хэлдэг тул үүнийг давталтын нөхцөл болгон ашиглаж болно. Мөн олон мянган тоо уншихад эхэнд нэг мөр нэмбэл хэд дахин хурдан болно.",
+    intro_en:
+      "Sometimes a problem says: keep reading numbers until the input runs out. `cin >> x` reports whether it succeeded, so you can use it as the loop condition. And when there are tens of thousands of numbers, one extra line at the top makes reading several times faster.",
+    code: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    vector<int> nums;
+    int x;
+    while (cin >> x) {
+        nums.push_back(x);
+    }
+
+    long long total = 0;
+    for (int v : nums) {
+        total = total + v;
+    }
+    cout << nums.size() << " " << total << endl;
+    return 0;
+}`,
+    output: "(input: 10 20 5 15 10)\n5 60",
+    lines: [
+      {
+        code: "ios::sync_with_stdio(false);",
+        note_mn:
+          "C++-ийн уншилтыг C-ийнхтэй тааруулахаа болино. Ганц мөр, гэхдээ том оролт дээр хэд дахин хурдасна.",
+        note_en:
+          "Stops C++ from keeping in step with C's own input. One line, and on big inputs it is several times faster.",
+      },
+      {
+        code: "cin.tie(nullptr);",
+        note_mn:
+          "Уншихаас өмнө гаралтыг албадан хэвлэхээ болино. Дээрхтэй хамт хэрэглэнэ.",
+        note_en:
+          "Stops it flushing output before every read. Used together with the line above.",
+      },
+      {
+        code: "while (cin >> x) {",
+        note_mn:
+          "Уншиж чадвал үнэн, оролт дуусвал худал. Тоо хэд болохыг мэдэх шаардлагагүй.",
+        note_en:
+          "True while it can read, false when the input runs out. You never need to be told the count.",
+      },
+      {
+        code: "long long total = 0;",
+        note_mn:
+          "Олон тоо нэмэхэд нийлбэр том болно. `int` хүрэхгүй байж магадгүй.",
+        note_en:
+          "Adding many numbers gives a big total. An `int` may not be enough.",
+      },
+    ],
+    terms: [
+      {
+        term: "EOF",
+        def_mn: "Оролтын төгсгөл. Уншихыг оролдоход амжилтгүй болно.",
+        def_en: "The end of the input. A read attempt there fails.",
+      },
+      {
+        term: "sync_with_stdio",
+        def_mn: "Уншилтыг хурдасгадаг нэг удаагийн тохиргоо.",
+        def_en: "A one-off setting that speeds reading up.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "while (!cin.eof()) { cin >> x; ... }",
+        fix: "while (cin >> x) { ... }",
+        why_mn:
+          "`eof()` нь уншилт БҮТЭЛГҮЙТСЭНИЙ ДАРАА үнэн болно. Тийм учраас сүүлийн тоо давхар боловсруулагдана.",
+        why_en:
+          "`eof()` only turns true AFTER a read has already failed, so the last value gets handled twice.",
+      },
+      {
+        wrong: "sync_with_stdio(false) + printf хольж хэрэглэх / Mixing sync_with_stdio(false) with printf",
+        fix: "Зөвхөн нэгийг нь сонгох / Pick one family and stay in it",
+        why_mn:
+          "Хоёуланг нь холивол гаралтын дараалал будлиантана. Нэгийг нь сонго.",
+        why_en:
+          "Mixing the two after that line scrambles the order of your output. Pick one.",
+      },
+    ],
+    quiz: {
+      question_mn: "`while (cin >> x)` давталт хэзээ зогсох вэ?",
+      question_en: "When does `while (cin >> x)` stop?",
+      choices: [
+        "x нь 0 болоход / When x becomes 0",
+        "Яг 100 тоо уншсаны дараа / After exactly 100 numbers",
+        "Уншиж чадахгүй болоход буюу оролт дуусахад / When it can no longer read — the input ended",
+      ],
+      answer: 2,
+      explain_mn:
+        "`cin >> x` нь амжилттай уншсан бол үнэн буцаана. Оролт дуусахад худал болж давталт зогсоно.",
+      explain_en:
+        "`cin >> x` reports success. When the input ends it reports failure and the loop stops.",
+    },
+    challenge_mn:
+      "Оролт дуустал тоо уншаад хамгийн их, хамгийн бага утгыг хэвлэ. Тоо хэд байхыг чамд хэлэхгүй.",
+    challenge_en:
+      "Read numbers until the input ends, then print the largest and the smallest. You are not told how many there are.",
+  },
+  {
+    slug: "linear-search",
+    unit: 8,
+    title_mn: "Шугаман хайлт",
+    title_en: "Linear Search",
+    goal_mn: "Массиваас утга хайж, олдсон байрлалыг нь буцаах.",
+    goal_en: "Look for a value in an array and report where it is.",
+    intro_mn:
+      "Хамгийн энгийн хайлт: эхнээс нь эхлээд нэг бүрчлэн шалгана. Олдвол шууд зогсоно. Олдохгүй бол -1 буцаах нь заншил — «байхгүй» гэдгийг ингэж илэрхийлдэг.",
+    intro_en:
+      "The simplest search there is: start at the front and check each cell. Stop the moment you find it. If it is not there, returning -1 is the convention for \"not found\".",
+    code: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int find(const vector<int>& v, int target) {
+    for (int i = 0; i < (int)v.size(); i++) {
+        if (v[i] == target) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+int main() {
+    vector<int> v = {4, 8, 15, 16, 23, 42};
+    cout << find(v, 15) << endl;
+    cout << find(v, 99) << endl;
+    return 0;
+}`,
+    output: "2\n-1",
+    lines: [
+      {
+        code: "if (v[i] == target) {",
+        note_mn: "Нүд бүрийг хайж буй утгатай харьцуулна.",
+        note_en: "Compare each cell with the value we want.",
+      },
+      {
+        code: "return i;",
+        note_mn:
+          "Олонгуут ШУУД буцна. Цааш үргэлжлүүлэх нь дэмий ажил.",
+        note_en:
+          "Return the moment it is found. Carrying on is wasted work.",
+      },
+      {
+        code: "return -1;",
+        note_mn:
+          "Давталт бүрэн дуусвал олдоогүй гэсэн үг. -1 бол «байхгүй»-гийн тэмдэг.",
+        note_en:
+          "If the loop finishes, it was never found. -1 is the sign for \"not there\".",
+      },
+      {
+        code: "for (int i = 0; i < (int)v.size(); i++) {",
+        note_mn:
+          "`(int)` — `size()` нь тэмдэггүй тоо буцаадаг тул харьцуулахад анхааруулга гарахаас сэргийлж байна.",
+        note_en:
+          "The `(int)` avoids a warning: `size()` returns an unsigned type and comparing it to an int complains.",
+      },
+    ],
+    terms: [
+      {
+        term: "linear search",
+        def_mn: "Эхнээс нь дараалан шалгах хайлт. O(n).",
+        def_en: "Checking each item in turn from the start. O(n).",
+      },
+      {
+        term: "sentinel value",
+        def_mn: "«Олдсонгүй» гэх мэт тусгай утга. Энд -1.",
+        def_en: "A special value meaning something like \"not found\". Here, -1.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "if (v[i] == target) found = i;",
+        fix: "if (v[i] == target) return i;",
+        why_mn:
+          "Зогсохгүй бол сүүлчийн тохиолдол хадгалагдана. Эхний тохиолдлыг хүсвэл шууд буц.",
+        why_en:
+          "Without stopping you end up with the LAST match. If you want the first, return straight away.",
+      },
+      {
+        wrong: "for (int i = 0; i <= v.size(); i++)",
+        fix: "for (int i = 0; i < (int)v.size(); i++)",
+        why_mn:
+          "`<=` бол хамгийн сүүлийн нүднээс хэтэрнэ. Массивын гадна унших нь ямар ч алдаа заахгүй, зүгээр л хог өгнө.",
+        why_en:
+          "`<=` runs one past the last cell. Reading outside an array does not error — it just hands you rubbish.",
+      },
+    ],
+    quiz: {
+      question_mn:
+        "6 элементтэй массиваас байхгүй утга хайвал хэдэн харьцуулалт хийгдэх вэ?",
+      question_en:
+        "Searching a 6-element array for a value that is not there — how many comparisons?",
+      choices: [
+        "1 / 1",
+        "3 / 3",
+        "6 / 6",
+      ],
+      answer: 2,
+      explain_mn:
+        "Олдохгүй гэдгийг батлахын тулд БҮГДИЙГ шалгах ёстой. Тийм учраас хамгийн муу тохиолдол нь n.",
+      explain_en:
+        "To be sure it is absent you must check every one. That is why the worst case is n.",
+    },
+    challenge_mn:
+      "Утга массивт ХЭДЭН удаа таарахыг тоолдог функц бич. Олдмогц бүү зогс.",
+    challenge_en:
+      "Write a function that counts HOW MANY times a value appears. This one must not stop early.",
+    python: {
+      code: `def find(v, target):
+    for i in range(len(v)):
+        if v[i] == target:
+            return i
+    return -1
+
+v = [4, 8, 15, 16, 23, 42]
+print(find(v, 15))
+print(find(v, 99))`,
+      output: "2\n-1",
+      lines: [
+        {
+          code: "for i in range(len(v)):",
+          note_mn: "`range(len(v))` нь 0-ээс сүүлийн индекс хүртэл.",
+          note_en: "`range(len(v))` runs from 0 to the last index.",
+        },
+        {
+          code: "return -1",
+          note_mn:
+            "Python-д `v.index(target)` гэж бас болно, гэхдээ олдохгүй бол алдаа шидэнэ.",
+          note_en:
+            "Python also has `v.index(target)`, but that raises an error when it is missing.",
+        },
+      ],
+    },
+  },
+  {
+    slug: "sorting-tools",
+    unit: 8,
+    title_mn: "Эрэмбэлэх",
+    title_en: "Sorting",
+    goal_mn:
+      "`sort` ашиглан эрэмбэлэх, өөрийн дүрмээр эрэмбэлэх.",
+    goal_en: "Sort with `sort`, and sort by your own rule.",
+    intro_mn:
+      "Эрэмбэлэх алгоритмыг өөрөө бичих шаардлагагүй — C++ дотор бэлэн байдаг бөгөөд чиний бичихээс хурдан. Мэдэх ёстой зүйл нь: хэрхэн дуудах, өөрийн дүрмээ яаж өгөх вэ гэдэг.",
+    intro_en:
+      "You do not need to write a sorting algorithm — C++ ships one, and it is faster than anything you would write. What you need to know is how to call it, and how to give it your own rule.",
+    code: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+struct Student {
+    string name;
+    int score;
+};
+
+bool byScore(const Student& a, const Student& b) {
+    return a.score > b.score;
+}
+
+int main() {
+    vector<int> v = {5, 2, 9, 1};
+    sort(v.begin(), v.end());
+    for (int x : v) cout << x << " ";
+    cout << endl;
+
+    vector<Student> s = {{"Bat", 70}, {"Suvd", 95}, {"Tuul", 82}};
+    sort(s.begin(), s.end(), byScore);
+    for (const Student& st : s) cout << st.name << " ";
+    cout << endl;
+    return 0;
+}`,
+    output: "1 2 5 9 \nSuvd Tuul Bat",
+    lines: [
+      {
+        code: "#include <algorithm>",
+        note_mn: "`sort` энд байрладаг. `<cmath>` дотор БИШ.",
+        note_en: "This is where `sort` lives. NOT in `<cmath>`.",
+      },
+      {
+        code: "sort(v.begin(), v.end());",
+        note_mn:
+          "Эхлэл ба төгсгөлийг өгнө. Анхдагчаар багаас их рүү эрэмбэлнэ.",
+        note_en:
+          "You give it the start and the end. By default it sorts smallest first.",
+      },
+      {
+        code: "return a.score > b.score;",
+        note_mn:
+          "«a нь b-ээс ӨМНӨ байх ёстой юу?» гэсэн асуултад хариулна. `>` тул өндөр оноо түрүүлнэ.",
+        note_en:
+          "Answers \"should a come BEFORE b?\". With `>`, the higher score comes first.",
+      },
+      {
+        code: "sort(s.begin(), s.end(), byScore);",
+        note_mn: "Гурав дахь аргумент нь өөрийн дүрэм.",
+        note_en: "The third argument is your own rule.",
+      },
+    ],
+    terms: [
+      {
+        term: "comparator",
+        def_mn:
+          "Хоёр элементийн аль нь өмнө байхыг хэлдэг функц.",
+        def_en: "A function that says which of two items comes first.",
+      },
+      {
+        term: "O(n log n)",
+        def_mn: "`sort`-ын хурд. n = 200000 байсан ч амархан багтана.",
+        def_en: "How fast `sort` is. Even n = 200000 fits comfortably.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "return a.score >= b.score;",
+        fix: "return a.score > b.score;",
+        why_mn:
+          "Тэнцүү үед `true` буцаавал `sort` сүйрч болно. Тэнцүү бол ЗААВАЛ `false` байх ёстой.",
+        why_en:
+          "Returning true for equal items can crash `sort`. Equal must always give false.",
+      },
+      {
+        wrong: "sort(v);",
+        fix: "sort(v.begin(), v.end());",
+        why_mn:
+          "C++-д мужийг эхлэл, төгсгөлөөр нь өгдөг. Векторыг шууд өгч болохгүй.",
+        why_en:
+          "C++ takes a range as a start and an end. You cannot hand it the vector itself.",
+      },
+    ],
+    quiz: {
+      question_mn: "Comparator функц юуг буцаах ёстой вэ?",
+      question_en: "What should a comparator return?",
+      choices: [
+        "a нь b-ээс өмнө байх ёстой бол true / true when a must come before b",
+        "a ба b тэнцүү бол true / true when a and b are equal",
+        "Хоёрын ялгааг / The difference between them",
+      ],
+      answer: 0,
+      explain_mn:
+        "«Өмнө байх уу?» гэсэн асуулт. Тэнцүү бол заавал false — эс бөгөөс `sort` сүйрнэ.",
+      explain_en:
+        "It answers \"does a come first?\". Equal items must give false, or `sort` can crash.",
+    },
+    challenge_mn:
+      "Оюутнуудыг оноогоор нь ӨСӨХ дарааллаар эрэмбэл. Оноо тэнцвэл нэрээр нь цагаан толгойн дарааллаар.",
+    challenge_en:
+      "Sort the students by score, lowest first. When scores tie, order them by name.",
+  },
+  {
+    slug: "binary-search",
+    unit: 8,
+    title_mn: "Хоёртын хайлт",
+    title_en: "Binary Search",
+    goal_mn:
+      "Эрэмбэлэгдсэн массиваас хагасаар нь тасалж хайх.",
+    goal_en: "Search a sorted array by halving it each time.",
+    intro_mn:
+      "Толь бичгээс үг хайхдаа эхний хуудаснаас эхэлдэггүй — дунд нь нээгээд аль тал руу явахаа шийддэг. Хоёртын хайлт яг ийм. Ганц болзол: өгөгдөл ЭРЭМБЭЛЭГДСЭН байх ёстой.",
+    intro_en:
+      "Looking a word up in a dictionary, you do not start at page one — you open the middle and decide which half to keep. Binary search is exactly that. One condition: the data must already be SORTED.",
+    code: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int bsearch(const vector<int>& v, int target) {
+    int lo = 0, hi = (int)v.size() - 1;
+    while (lo <= hi) {
+        int mid = lo + (hi - lo) / 2;
+        if (v[mid] == target) return mid;
+        if (v[mid] < target) lo = mid + 1;
+        else hi = mid - 1;
+    }
+    return -1;
+}
+
+int main() {
+    vector<int> v = {4, 8, 15, 16, 23, 42};
+    cout << bsearch(v, 23) << endl;
+    cout << bsearch(v, 5) << endl;
+    return 0;
+}`,
+    output: "4\n-1",
+    lines: [
+      {
+        code: "int lo = 0, hi = (int)v.size() - 1;",
+        note_mn:
+          "Хайж буй муж. `hi` нь СҮҮЛИЙН индекс, хэмжээ биш.",
+        note_en:
+          "The range still in play. `hi` is the LAST index, not the size.",
+      },
+      {
+        code: "int mid = lo + (hi - lo) / 2;",
+        note_mn:
+          "Дунд. `(lo + hi) / 2` гэвэл маш том тоон дээр хэтэрч болзошгүй тул ингэж бичдэг.",
+        note_en:
+          "The middle. Written this way because `(lo + hi) / 2` can overflow on very large values.",
+      },
+      {
+        code: "if (v[mid] < target) lo = mid + 1;",
+        note_mn:
+          "Дунд нь жижиг бол хариу баруун талд. `mid + 1` — `mid`-ийг дахин шалгах хэрэггүй.",
+        note_en:
+          "Middle too small, so the answer is to the right. `mid + 1` — no need to check `mid` again.",
+      },
+      {
+        code: "while (lo <= hi) {",
+        note_mn:
+          "`<=` — муж дотор ганц элемент үлдсэн ч шалгах ёстой. `<` бол түүнийг алдана.",
+        note_en:
+          "`<=` because a range of one still needs checking. With `<` you would miss it.",
+      },
+    ],
+    terms: [
+      {
+        term: "binary search",
+        def_mn: "Хагасаар нь тасалж хайх. O(log n).",
+        def_en: "Searching by halving. O(log n).",
+      },
+      {
+        term: "O(log n)",
+        def_mn:
+          "Маш удаан өсдөг. Сая элемент дунд ердөө 20 орчим алхам.",
+        def_en: "Grows very slowly. About 20 steps among a million items.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "Эрэмбэлэгдээгүй массив дээр / Binary search on unsorted data",
+        fix: "Эхлээд sort(v.begin(), v.end()); / Sort it first",
+        why_mn:
+          "Эрэмбэлэгдээгүй бол «аль тал руу явах» гэсэн шийдвэр утгагүй. Алдаа заахгүй, зүгээр л буруу хариу өгнө.",
+        why_en:
+          "Unsorted, the choice of \"which half\" means nothing. It does not error — it just answers wrongly.",
+      },
+      {
+        wrong: "lo = mid;",
+        fix: "lo = mid + 1;",
+        why_mn:
+          "`mid` шалгагдсан. Дахин оруулбал муж багасахгүй, давталт хэзээ ч дуусахгүй.",
+        why_en:
+          "`mid` has been checked. Keep it and the range never shrinks — the loop hangs forever.",
+      },
+    ],
+    quiz: {
+      question_mn: "Хоёртын хайлт ажиллахын тулд юу ЗААВАЛ шаардлагатай вэ?",
+      question_en: "What does binary search absolutely require?",
+      choices: [
+        "Массив эрэмбэлэгдсэн байх / The array must be sorted",
+        "Массив тэгш тооны элементтэй байх / An even number of elements",
+        "Бүх утга эерэг байх / All values positive",
+      ],
+      answer: 0,
+      explain_mn:
+        "Эрэмбэ л «энэ талд байх боломжгүй» гэж хэлэх эрхийг өгдөг. Тэрийг алдвал бүх зүйл нурна.",
+      explain_en:
+        "Only the ordering lets you say \"it cannot be in that half\". Lose that and the whole idea collapses.",
+    },
+    challenge_mn:
+      "Эрэмбэлэгдсэн массиваас өгөгдсөн утгаас ИХ хамгийн эхний тоог ол. Байхгүй бол -1.",
+    challenge_en:
+      "In a sorted array, find the first value strictly greater than a given number. Return -1 if there is none.",
+  },
+  {
+    slug: "binary-search-answer",
+    unit: 8,
+    title_mn: "Хариу дээрх хоёртын хайлт",
+    title_en: "Binary Search on the Answer",
+    goal_mn:
+      "Хариуг шууд бодохын оронд таагаад шалгах аргыг ойлгох.",
+    goal_en: "Guess an answer and check it, instead of computing it directly.",
+    intro_mn:
+      "Энэ бол хүнд сэдэв — эхлээд өмнөх хичээлээ сайн ойлгоод ир. Санаа нь: заримдаа хариуг шууд бодоход хэцүү ч «энэ хариу боломжтой юу?» гэдгийг шалгахад амархан байдаг. Тэгвэл боломжтой хариунуудын дундаас хоёртын хайлтаар хамгийн сайныг олж болно.",
+    intro_en:
+      "This one is hard — be comfortable with the previous lesson first. The idea: sometimes computing the answer is difficult, but checking \"is this answer possible?\" is easy. When that is true you can binary search over the possible answers.",
+    code: `#include <iostream>
+#include <vector>
+using namespace std;
+
+// Can we cut k pieces of this length from the boards?
+bool enough(const vector<int>& boards, int length, int k) {
+    int pieces = 0;
+    for (int b : boards) {
+        pieces = pieces + b / length;
+    }
+    return pieces >= k;
+}
+
+int main() {
+    vector<int> boards = {8, 12, 5};
+    int k = 4;
+
+    int lo = 1, hi = 12, best = 0;
+    while (lo <= hi) {
+        int mid = lo + (hi - lo) / 2;
+        if (enough(boards, mid, k)) {
+            best = mid;
+            lo = mid + 1;
+        } else {
+            hi = mid - 1;
+        }
+    }
+    cout << best << endl;
+    return 0;
+}`,
+    output: "5",
+    lines: [
+      {
+        code: "bool enough(const vector<int>& boards, int length, int k) {",
+        note_mn:
+          "Шалгагч функц. «Ийм урттай k ширхэг гарах уу?» гэдэгт л хариулна.",
+        note_en:
+          "The checker. It only answers \"can we get k pieces of this length?\".",
+      },
+      {
+        code: "pieces = pieces + b / length;",
+        note_mn:
+          "Бүхэл хуваалт — 12 урттай банзнаас 5 урттай 2 ширхэг гарна, үлдэгдэл нь хаягдана.",
+        note_en:
+          "Whole-number division — a board of 12 gives two pieces of 5, and the remainder is scrap.",
+      },
+      {
+        code: "best = mid;",
+        note_mn:
+          "Болж байвал ЭНЭ хариуг санаж аваад, илүү ихийг оролдоно.",
+        note_en:
+          "If it works, remember THIS answer and then try for a bigger one.",
+      },
+      {
+        code: "hi = mid - 1;",
+        note_mn:
+          "Болохгүй бол хариу үүнээс бага. Урт нэмэгдэх тусам хэсгийн тоо цөөрдөг тул энэ дүрэм ажиллана.",
+        note_en:
+          "If it fails, the answer is smaller. This works because longer pieces always mean fewer of them.",
+      },
+    ],
+    terms: [
+      {
+        term: "monotonic",
+        def_mn:
+          "Нэг чигт өөрчлөгдөх. Урт ихсэхэд хэсгийн тоо зөвхөн буурна.",
+        def_en: "Changing in one direction only. Longer pieces, never more of them.",
+      },
+      {
+        term: "predicate",
+        def_mn: "Тийм/үгүй гэж хариулдаг функц.",
+        def_en: "A function that answers yes or no.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "Ямар ч бодлогод хэрэглэх / Using it on any problem at all",
+        fix: "Нэг чигт өөрчлөгдөхийг шалгах / Check the answer is monotonic first",
+        why_mn:
+          "Хариу нэг чигт өөрчлөгдөхгүй бол «дээшээ юу доошоо юу» гэдэг нь утгагүй болно.",
+        why_en:
+          "If the yes/no answer does not change in one direction, \"go up or go down\" means nothing.",
+      },
+      {
+        wrong: "lo = 0",
+        fix: "lo = 1",
+        why_mn:
+          "0 урттай хэсэг гэж байхгүй бөгөөд `b / 0` нь програмыг унагана.",
+        why_en:
+          "A piece of length 0 makes no sense, and `b / 0` crashes the program.",
+      },
+    ],
+    quiz: {
+      question_mn:
+        "Хариу дээр хоёртын хайлт хийхийн тулд юу үнэн байх ёстой вэ?",
+      question_en: "What must be true to binary search on the answer?",
+      choices: [
+        "Өгөгдөл эрэмбэлэгдсэн байх / The input must be sorted",
+        "Хариу нэг чигт л өөрчлөгдөх — болж байсан бол түүнээс бага нь бас болно / The yes/no answer changes only once, in one direction",
+        "Хариу нь заавал тэгш тоо байх / The answer must be even",
+      ],
+      answer: 1,
+      explain_mn:
+        "Өгөгдөл биш, ХАРИУ нь эрэмбэтэй байх ёстой: боломжтой хэсэг ба боломжгүй хэсэг тодорхой хуваагдана.",
+      explain_en:
+        "It is not the input that must be ordered but the ANSWERS: everything up to a point works, everything after it fails.",
+    },
+    challenge_mn:
+      "n ширхэг ном m хүнд тарааж байна. Хүн бүрд өгөх номын хамгийн бага тоо хамгийн их байхаар хуваа.",
+    challenge_en:
+      "Share n books among m people. Make the smallest share as large as you can.",
+  },
+  {
+    slug: "prefix-sums",
+    unit: 8,
+    title_mn: "Угтвар нийлбэр",
+    title_en: "Prefix Sums",
+    goal_mn:
+      "Нэг удаа бэлтгээд, дурын мужийн нийлбэрийг шууд гаргах.",
+    goal_en: "Prepare once, then answer any range-sum question instantly.",
+    intro_mn:
+      "«3-аас 7 дугаар элементийн нийлбэрийг ол» гэсэн асуултыг олон удаа асуувал давталтаар бодох нь удаан. Эхэнд нэг удаа явж, эхнээс энэ хүртэлх нийлбэрүүдийг хадгалвал дараа нь асуулт бүрийг НЭГ хасалтаар хариулна.",
+    intro_en:
+      "If you are asked \"what do elements 3 to 7 add up to?\" many times, looping each time is slow. Walk the array once, storing the total up to each point, and every later question becomes a single subtraction.",
+    code: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    vector<int> v = {3, 1, 4, 1, 5, 9};
+    int n = (int)v.size();
+
+    vector<long long> p(n + 1, 0);
+    for (int i = 0; i < n; i++) {
+        p[i + 1] = p[i] + v[i];
+    }
+
+    // sum of v[1..3] = 1 + 4 + 1
+    cout << p[4] - p[1] << endl;
+    // sum of v[0..5] = everything
+    cout << p[6] - p[0] << endl;
+    return 0;
+}`,
+    output: "6\n23",
+    lines: [
+      {
+        code: "vector<long long> p(n + 1, 0);",
+        note_mn:
+          "Нэгээр УРТ. `p[0] = 0` нь «юу ч аваагүй» гэсэн үг — энэ нь хасалтыг амар болгодог.",
+        note_en:
+          "One longer than the array. `p[0] = 0` means \"nothing taken yet\", which makes the subtraction clean.",
+      },
+      {
+        code: "p[i + 1] = p[i] + v[i];",
+        note_mn: "Өмнөх нийлбэр дээр энэ элементийг нэмнэ.",
+        note_en: "The previous total plus this element.",
+      },
+      {
+        code: "cout << p[4] - p[1] << endl;",
+        note_mn:
+          "v[1]-ээс v[3] хүртэлх нийлбэр. Ерөнхий дүрэм: v[a..b] = p[b+1] - p[a].",
+        note_en:
+          "The sum of v[1] to v[3]. The rule: v[a..b] is p[b+1] - p[a].",
+      },
+      {
+        code: "vector<long long> p",
+        note_mn:
+          "`long long` — нийлбэр анхны утгуудаас хамаагүй том болно.",
+        note_en:
+          "`long long` because a total grows far beyond the individual values.",
+      },
+    ],
+    terms: [
+      {
+        term: "prefix sum",
+        def_mn: "Эхнээс тухайн байрлал хүртэлх нийлбэр.",
+        def_en: "The total from the start up to a position.",
+      },
+      {
+        term: "precompute",
+        def_mn:
+          "Асуулт ирэхээс өмнө нэг удаа бодож тавих.",
+        def_en: "Doing the work once, before the questions arrive.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "p[b] - p[a]",
+        fix: "p[b + 1] - p[a]",
+        why_mn:
+          "b дугаар элементийг өөрийг нь оруулах ёстой. Нэгээр алдах хамгийн түгээмэл алдаа энд гардаг.",
+        why_en:
+          "Element b itself must be included. This is where the off-by-one usually bites.",
+      },
+      {
+        wrong: "vector<int> p(n + 1, 0);",
+        fix: "vector<long long> p(n + 1, 0);",
+        why_mn:
+          "100000 ширхэг мянган тооны нийлбэр нь `int`-ээс хэтэрнэ. Хариу чимээгүйхэн буруу болно.",
+        why_en:
+          "A hundred thousand values of a thousand each overflows an `int`. The answer goes silently wrong.",
+      },
+    ],
+    quiz: {
+      question_mn:
+        "Угтвар нийлбэр бэлдсэний дараа нэг мужийн нийлбэрийг олоход хэдэн үйлдэл хэрэгтэй вэ?",
+      question_en:
+        "Once the prefix sums are built, how much work is one range query?",
+      choices: [
+        "Мужийн урттай тэнцүү / As many steps as the range is long",
+        "Массивын урттай тэнцүү / As many steps as the array is long",
+        "Ганц хасалт / A single subtraction",
+      ],
+      answer: 2,
+      explain_mn:
+        "Бэлтгэл нь O(n), гэхдээ дараа нь асуулт бүр O(1). Олон асуулттай үед л ашигтай.",
+      explain_en:
+        "Building costs O(n), but each later question is O(1). It pays off when there are many questions.",
+    },
+    challenge_mn:
+      "Массив ба q ширхэг (a, b) асуулт ирнэ. Асуулт бүрийн хариуг угтвар нийлбэрээр гарга.",
+    challenge_en:
+      "You are given an array and q queries of the form (a, b). Answer each one using prefix sums.",
+  },
+  {
+    slug: "stl-map-set",
+    unit: 9,
+    title_mn: "map ба set",
+    title_en: "map and set",
+    goal_mn:
+      "Юмыг тоолохдоо map, давхардлыг арилгахдаа set ашиглах.",
+    goal_en: "Count things with a map, and remove duplicates with a set.",
+    intro_mn:
+      "«Үг бүр хэдэн удаа гарсан бэ?» гэдгийг массиваар бодоход хэцүү. `map` нь түлхүүр бүрд утга хадгална — үг → тоо. `set` нь зөвхөн байгаа эсэхийг санана, давхардлыг өөрөө хаяна. Хоёулаа түлхүүрээ ЭРЭМБЭЛЖ хадгална.",
+    intro_en:
+      "\"How many times did each word appear?\" is awkward with an array. A `map` stores a value for each key — word to count. A `set` only remembers whether something is present, dropping duplicates by itself. Both keep their keys in SORTED order.",
+    code: `#include <iostream>
+#include <map>
+#include <set>
+#include <string>
+using namespace std;
+
+int main() {
+    map<string, int> count;
+    count["cat"]++;
+    count["dog"]++;
+    count["cat"]++;
+
+    for (auto& pair : count) {
+        cout << pair.first << "=" << pair.second << " ";
+    }
+    cout << endl;
+
+    set<int> seen;
+    seen.insert(5);
+    seen.insert(2);
+    seen.insert(5);
+    cout << seen.size() << endl;
+    cout << (seen.count(2) ? "yes" : "no") << endl;
+    return 0;
+}`,
+    output: "cat=2 dog=1 \n2\nyes",
+    lines: [
+      {
+        code: "count[\"cat\"]++;",
+        note_mn:
+          "Байхгүй түлхүүр рүү хандахад map өөрөө 0-ээр үүсгэнэ. Тийм учраас шууд нэмж болно.",
+        note_en:
+          "Touching a missing key makes the map create it as 0. That is why you can just increment it.",
+      },
+      {
+        code: "for (auto& pair : count) {",
+        note_mn:
+          "`pair.first` бол түлхүүр, `pair.second` бол утга. Дараалал нь ҮРГЭЛЖ эрэмбэлэгдсэн.",
+        note_en:
+          "`pair.first` is the key, `pair.second` the value. The order is ALWAYS sorted.",
+      },
+      {
+        code: "seen.insert(5);",
+        note_mn:
+          "5-ыг хоёр удаа хийсэн ч set-д ганцхан удаа л байна. Хэмжээ нь 2.",
+        note_en:
+          "5 goes in twice but a set holds it once. The size is 2.",
+      },
+      {
+        code: "seen.count(2)",
+        note_mn:
+          "Байвал 1, байхгүй бол 0. Set-д байгаа эсэхийг ингэж шалгана.",
+        note_en:
+          "1 if present, 0 if not. This is how you test membership in a set.",
+      },
+    ],
+    terms: [
+      {
+        term: "map",
+        def_mn: "Түлхүүр → утга. Түлхүүр давхардахгүй, эрэмбэтэй.",
+        def_en: "Key to value. Keys are unique and kept in order.",
+      },
+      {
+        term: "set",
+        def_mn: "Давхардалгүй утгуудын эрэмбэтэй цуглуулга.",
+        def_en: "An ordered collection with no duplicates.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "if (count[\"cat\"] > 0)",
+        fix: "if (count.count(\"cat\"))",
+        why_mn:
+          "Эхнийх нь шалгах гэж байгаад «cat» гэсэн бичлэгийг 0 утгатайгаар ҮҮСГЭНЭ. Map-ын хэмжээ чимээгүйхэн өснө.",
+        why_en:
+          "The first one CREATES a \"cat\" entry with value 0 just by looking. The map silently grows.",
+      },
+      {
+        wrong: "map оруулсан дарааллаа санана гэж бодох / Expecting a map to keep insertion order",
+        fix: "vector-т хийж эрэмбэлэх / Copy into a vector and sort",
+        why_mn:
+          "`map` нь ҮРГЭЛЖ түлхүүрээр эрэмбэлж хадгална, оруулсан дарааллыг санахгүй.",
+        why_en:
+          "A `map` is always in key order and never remembers the order you inserted in.",
+      },
+    ],
+    quiz: {
+      question_mn:
+        "`map<string,int> m;` дээр `m[\"x\"]` гэж УНШИХАД юу болох вэ?",
+      question_en:
+        "With `map<string,int> m;`, what happens when you merely READ `m[\"x\"]`?",
+      choices: [
+        "Алдаа заана / It reports an error",
+        "\"x\" гэсэн бичлэгийг 0 утгатай үүсгэнэ / It creates an \"x\" entry set to 0",
+        "Юу ч болохгүй / Nothing at all happens",
+      ],
+      answer: 1,
+      explain_mn:
+        "Тийм учраас зөвхөн шалгах бол `count()` эсвэл `find()` ашиглах ёстой.",
+      explain_en:
+        "That is exactly why you use `count()` or `find()` when you only want to check.",
+    },
+    challenge_mn:
+      "Мөр уншаад үсэг бүр хэдэн удаа орсныг цагаан толгойн дарааллаар хэвлэ.",
+    challenge_en:
+      "Read a line and print how many times each letter appears, in alphabetical order.",
+    python: {
+      code: `count = {}
+for w in ["cat", "dog", "cat"]:
+    count[w] = count.get(w, 0) + 1
+
+for k in sorted(count):
+    print(k, "=", count[k], end="  ")
+print()
+
+seen = {5, 2, 5}
+print(len(seen))
+print("yes" if 2 in seen else "no")`,
+      output: "cat = 2  dog = 1  \n2\nyes",
+      lines: [
+        {
+          code: "count[w] = count.get(w, 0) + 1",
+          note_mn:
+            "`get(w, 0)` — байхгүй бол 0. Python-ы dict нь C++-ын map шиг өөрөө үүсгэдэггүй.",
+          note_en:
+            "`get(w, 0)` gives 0 when missing. A Python dict does NOT auto-create like a C++ map.",
+        },
+        {
+          code: "for k in sorted(count):",
+          note_mn:
+            "Python-ы dict нь оруулсан дарааллаа санадаг. Эрэмбэ хэрэгтэй бол `sorted()` гэж хэлэх ёстой — C++-аас ялгаатай.",
+          note_en:
+            "A Python dict keeps insertion order. If you want sorted order you must ask — unlike C++.",
+        },
+      ],
+    },
+  },
+  {
+    slug: "stack-queue",
+    unit: 9,
+    title_mn: "Стек ба дараалал",
+    title_en: "Stack and Queue",
+    goal_mn:
+      "Хамгийн сүүлд орсныг эхлүүлэх, эсвэл хамгийн түрүүнд орсныг эхлүүлэх.",
+    goal_en: "Take the newest first, or take the oldest first.",
+    intro_mn:
+      "Стек бол таваг угаах овоолго — дээрээс нь авна, хамгийн сүүлд тавьсан нь эхэлж гарна. Дараалал бол дэлгүүрийн ээлж — түрүүлж ирсэн нь түрүүлж гарна. Аль нь хэрэгтэйг бодлого өөрөө хэлдэг.",
+    intro_en:
+      "A stack is a pile of plates — you take from the top, so the last one on is the first one off. A queue is a shop line — first in, first out. Which you need is usually obvious from the problem.",
+    code: `#include <iostream>
+#include <stack>
+#include <queue>
+#include <string>
+using namespace std;
+
+bool balanced(const string& s) {
+    stack<char> st;
+    for (char c : s) {
+        if (c == '(') st.push(c);
+        else if (c == ')') {
+            if (st.empty()) return false;
+            st.pop();
+        }
+    }
+    return st.empty();
+}
+
+int main() {
+    cout << (balanced("(()())") ? "yes" : "no") << endl;
+    cout << (balanced("(()") ? "yes" : "no") << endl;
+
+    queue<string> line;
+    line.push("Bat");
+    line.push("Suvd");
+    cout << line.front() << endl;
+    line.pop();
+    cout << line.front() << endl;
+    return 0;
+}`,
+    output: "yes\nno\nBat\nSuvd",
+    lines: [
+      {
+        code: "if (c == '(') st.push(c);",
+        note_mn: "Нээх хаалт бүрийг овоолго дээр тавина.",
+        note_en: "Every opening bracket goes on the pile.",
+      },
+      {
+        code: "if (st.empty()) return false;",
+        note_mn:
+          "Хаах хаалт ирсэн ч овоолго хоосон — тохирох нээлт байхгүй.",
+        note_en:
+          "A closing bracket with an empty pile means there is nothing to match it.",
+      },
+      {
+        code: "return st.empty();",
+        note_mn:
+          "Төгсгөлд овоолго хоосон байвал бүх хаалт тохирсон.",
+        note_en:
+          "If the pile is empty at the end, every bracket found its pair.",
+      },
+      {
+        code: "cout << line.front() << endl;",
+        note_mn:
+          "Дараалалд `front()` — хамгийн эхэнд орсон. Стект бол `top()` гэдэг.",
+        note_en:
+          "A queue has `front()` — the oldest. A stack calls it `top()` instead.",
+      },
+    ],
+    terms: [
+      {
+        term: "stack (LIFO)",
+        def_mn: "Сүүлд орсон нь эхэлж гарна.",
+        def_en: "Last in, first out.",
+      },
+      {
+        term: "queue (FIFO)",
+        def_mn: "Түрүүлж орсон нь түрүүлж гарна.",
+        def_en: "First in, first out.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "int x = st.pop();",
+        fix: "int x = st.top(); st.pop();",
+        why_mn:
+          "C++-д `pop()` юу ч буцаадаггүй, зөвхөн хаядаг. Утгыг нь урьдчилж `top()`-оор ав.",
+        why_en:
+          "In C++ `pop()` returns nothing — it only removes. Read the value with `top()` first.",
+      },
+      {
+        wrong: "Хоосон стект top() дуудах / Calling top() on an empty stack",
+        fix: "if (!st.empty()) ... st.top()",
+        why_mn:
+          "Хоосон үед `top()` дуудвал програм ажиллах үедээ сүйрнэ. Алдаа заахгүй.",
+        why_en:
+          "Calling `top()` on an empty stack crashes at run time. Nothing warns you.",
+      },
+    ],
+    quiz: {
+      question_mn:
+        "Стект 1, 2, 3 гэж дараалан хийгээд нэгийг гаргавал юу гарах вэ?",
+      question_en: "Push 1, then 2, then 3 onto a stack and pop once. What comes out?",
+      choices: [
+        "1 / 1",
+        "3 / 3",
+        "2 / 2",
+      ],
+      answer: 1,
+      explain_mn:
+        "Стек нь дээрээс авдаг. Хамгийн сүүлд тавьсан 3 эхэлж гарна.",
+      explain_en:
+        "A stack is taken from the top, so 3 — the last one on — comes off first.",
+    },
+    challenge_mn:
+      "Мөрийг стек ашиглан урвуугаар нь хэвлэ.",
+    challenge_en: "Use a stack to print a string backwards.",
+  },
+  {
+    slug: "priority-queue",
+    unit: 9,
+    title_mn: "Эрэмбэтэй дараалал",
+    title_en: "Priority Queue",
+    goal_mn:
+      "Дараагийн хамгийн том (эсвэл хамгийн бага) утгыг байнга авах.",
+    goal_en: "Always take the largest — or the smallest — next.",
+    intro_mn:
+      "Заримдаа «дараагийн хамгийн том» гэдгийг дахин дахин авах хэрэгтэй болдог. Бүхэлд нь дахин эрэмбэлэх нь удаан. `priority_queue` нь хамгийн томыг үргэлж дээрээ барьж байдаг бөгөөд нэмэх, авах хоёул log n хугацаа авна.",
+    intro_en:
+      "Sometimes you need \"the biggest one left\", over and over. Re-sorting each time is slow. A `priority_queue` always keeps the biggest on top, and both adding and taking cost log n.",
+    code: `#include <iostream>
+#include <queue>
+#include <vector>
+using namespace std;
+
+int main() {
+    priority_queue<int> big;
+    big.push(5);
+    big.push(1);
+    big.push(9);
+    cout << big.top() << endl;
+    big.pop();
+    cout << big.top() << endl;
+
+    priority_queue<int, vector<int>, greater<int>> small;
+    small.push(5);
+    small.push(1);
+    small.push(9);
+    cout << small.top() << endl;
+    return 0;
+}`,
+    output: "9\n5\n1",
+    lines: [
+      {
+        code: "priority_queue<int> big;",
+        note_mn:
+          "Анхдагчаар ХАМГИЙН ИХ нь дээрээ. Оруулсан дараалал огт хамаагүй.",
+        note_en:
+          "By default the LARGEST sits on top. The order you added them does not matter.",
+      },
+      {
+        code: "cout << big.top() << endl;",
+        note_mn: "`top()` нь хамгийн томыг харуулна, гаргахгүй.",
+        note_en: "`top()` shows the biggest without removing it.",
+      },
+      {
+        code: "priority_queue<int, vector<int>, greater<int>> small;",
+        note_mn:
+          "Урт бичлэг, гэхдээ эсрэгээр — хамгийн БАГА нь дээрээ. Цээжлэх шаардлагагүй, хэрэгтэй үед хараарай.",
+        note_en:
+          "A mouthful, but it flips it: now the SMALLEST is on top. Look it up when you need it.",
+      },
+      {
+        code: "big.pop();",
+        note_mn:
+          "Дээдийг хаяна. Дараа нь дараагийн том нь өөрөө дээшилнэ.",
+        note_en:
+          "Removes the top. The next biggest rises by itself.",
+      },
+    ],
+    terms: [
+      {
+        term: "priority_queue",
+        def_mn: "Хамгийн эрэмбэ өндөртэйг үргэлж дээрээ барих сав.",
+        def_en: "A container that always keeps the highest-priority item on top.",
+      },
+      {
+        term: "heap",
+        def_mn:
+          "Үүнийг дотроос нь ажиллуулдаг бүтэц. Хэрхэн ажилладгийг мэдэх шаардлагагүй.",
+        def_en: "The structure that makes it work. You do not need to know how.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "priority_queue-г бүхэлд нь унших / Trying to read through a priority_queue",
+        fix: "vector ашиглаад эрэмбэлэх / Use a vector and sort it",
+        why_mn:
+          "Зөвхөн дээдийг л харж болно. Дотор нь бүрэн эрэмбэлэгдээгүй байдаг.",
+        why_en:
+          "You can only ever see the top. The rest is not held in sorted order.",
+      },
+      {
+        wrong: "greater<int> нь хамгийн их өгнө гэж бодох / Expecting greater<int> to give the largest",
+        fix: "greater нь хамгийн БАГА-г дээшлүүлнэ / greater puts the SMALLEST on top",
+        why_mn:
+          "Нэр нь төөрөгдүүлдэг: `greater` бол харьцуулах дүрэм, үр дүн нь эсрэгээрээ.",
+        why_en:
+          "The name misleads: `greater` is the comparison rule, and it produces the opposite result.",
+      },
+    ],
+    quiz: {
+      question_mn:
+        "`priority_queue<int>` дээр 3, 7, 5 нэмээд `top()` дуудвал?",
+      question_en: "Push 3, 7 and 5 into a `priority_queue<int>` and call `top()`. What is it?",
+      choices: [
+        "7 / 7",
+        "3 / 3",
+        "5 / 5",
+      ],
+      answer: 0,
+      explain_mn:
+        "Анхдагчаар хамгийн их нь дээрээ байдаг тул 7 гарна.",
+      explain_en: "The default keeps the largest on top, so 7.",
+    },
+    challenge_mn:
+      "n ширхэг тоо уншаад хамгийн том 3 утгыг нь хэвлэ.",
+    challenge_en: "Read n numbers and print the three largest.",
+  },
+  {
+    slug: "two-pointers",
+    unit: 9,
+    title_mn: "Хоёр заагч",
+    title_en: "Two Pointers",
+    goal_mn:
+      "Эрэмбэлэгдсэн массивт хоёр захаас нь дөхөж хос олох.",
+    goal_en: "Close in from both ends of a sorted array to find a pair.",
+    intro_mn:
+      "«Нийлбэр нь яг S болох хоёр тоо байна уу?» Хоёр давхар давталтаар бодвол O(n²). Гэхдээ массив эрэмбэлэгдсэн бол хоёр захаас нь эхэлж, нийлбэр нь их бол баруун заагчийг зүүн тийш, бага бол зүүн заагчийг баруун тийш зөөж, ганцхан удаагийн явалтаар шийднэ.",
+    intro_en:
+      "\"Are there two numbers adding to exactly S?\" A double loop makes that O(n²). But if the array is sorted you can start at both ends: too big, move the right pointer left; too small, move the left pointer right. One pass and you are done.",
+    code: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    vector<int> v = {1, 3, 4, 7, 11};
+    int target = 10;
+
+    int lo = 0, hi = (int)v.size() - 1;
+    bool found = false;
+    while (lo < hi) {
+        int sum = v[lo] + v[hi];
+        if (sum == target) {
+            cout << v[lo] << " " << v[hi] << endl;
+            found = true;
+            break;
+        }
+        if (sum < target) lo++;
+        else hi--;
+    }
+    if (!found) cout << "none" << endl;
+    return 0;
+}`,
+    output: "3 7",
+    lines: [
+      {
+        code: "int lo = 0, hi = (int)v.size() - 1;",
+        note_mn: "Хоёр заагч — хамгийн бага ба хамгийн их дээр.",
+        note_en: "Two pointers — one on the smallest, one on the largest.",
+      },
+      {
+        code: "if (sum < target) lo++;",
+        note_mn:
+          "Бага байна — илүү том тоо хэрэгтэй тул зүүн заагчийг баруун тийш.",
+        note_en:
+          "Too small, so we need a bigger number: move the left pointer right.",
+      },
+      {
+        code: "else hi--;",
+        note_mn:
+          "Их байна — багасгах хэрэгтэй тул баруун заагчийг зүүн тийш.",
+        note_en:
+          "Too big, so we need to shrink it: move the right pointer left.",
+      },
+      {
+        code: "while (lo < hi) {",
+        note_mn:
+          "`<` — нэг элементийг өөртэй нь хослуулж болохгүй тул `<=` биш.",
+        note_en:
+          "`<`, not `<=`: an element must not be paired with itself.",
+      },
+    ],
+    terms: [
+      {
+        term: "two pointers",
+        def_mn: "Хоёр индекс нэг массив дээр зэрэг хөдлөх арга.",
+        def_en: "Two indices moving along one array together.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "Эрэмбэлэгдээгүй массив дээр / On an unsorted array",
+        fix: "Эхлээд эрэмбэл / Sort it first",
+        why_mn:
+          "«Их байвал багасга» гэдэг шийдвэр зөвхөн эрэмбэтэй үед л зөв.",
+        why_en:
+          "\"Too big, shrink it\" is only a valid move when the data is ordered.",
+      },
+      {
+        wrong: "while (lo <= hi)",
+        fix: "while (lo < hi)",
+        why_mn:
+          "Тэнцүү болоход хоёр заагч нэг элемент дээр байна. Тэр тоог өөртэй нь нэмэх нь ихэвчлэн буруу.",
+        why_en:
+          "When they meet both point at the same element, and adding it to itself is usually wrong.",
+      },
+    ],
+    quiz: {
+      question_mn:
+        "Нийлбэр нь хэтэрхий ИХ байвал аль заагчийг хөдөлгөх вэ?",
+      question_en: "The sum is too BIG. Which pointer moves?",
+      choices: [
+        "Зүүнийг баруун тийш / The left one, rightwards",
+        "Баруунг зүүн тийш / The right one, leftwards",
+        "Хоёуланг нь / Both of them",
+      ],
+      answer: 1,
+      explain_mn:
+        "Баруун заагч зүүн тийш явахад жижиг тоон дээр очиж нийлбэр буурна.",
+      explain_en:
+        "Moving the right pointer left lands on a smaller value, bringing the sum down.",
+    },
+    challenge_mn:
+      "Эрэмбэлэгдсэн массиваас нийлбэр нь S болох ХОСУУДЫН тоог ол.",
+    challenge_en:
+      "Count how many PAIRS in a sorted array add up to S.",
+  },
+  {
+    slug: "greedy",
+    unit: 10,
+    title_mn: "Шуналт арга",
+    title_en: "Greedy",
+    goal_mn:
+      "Тухайн агшинд хамгийн сайн санагдахыг сонгох арга, түүний хязгаарыг ойлгох.",
+    goal_en:
+      "Take the best-looking choice right now — and learn when that fails.",
+    intro_mn:
+      "Шуналт арга бол «одоо хамгийн сайн харагдаж байгааг нь ав, эргэж бүү бод» гэсэн санаа. Заримдаа энэ нь яг зөв хариу өгдөг, заримдаа огт өгдөггүй. Хамгийн чухал нь: аль тохиолдолд ажилладгийг мэдэх.",
+    intro_en:
+      "Greedy means: take whatever looks best right now and never look back. Sometimes that gives exactly the right answer. Sometimes it does not. Knowing which is the whole skill.",
+    code: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int coins(int amount, vector<int> values) {
+    int used = 0;
+    for (int v : values) {
+        while (amount >= v) {
+            amount = amount - v;
+            used++;
+        }
+    }
+    return used;
+}
+
+int main() {
+    vector<int> mnt = {500, 100, 50, 10};
+    cout << coins(680, mnt) << endl;
+
+    // Greedy is NOT always right:
+    vector<int> odd = {4, 3, 1};
+    cout << coins(6, odd) << endl;   // greedy: 4+1+1 = 3 coins
+    cout << "best is 2 (3+3)" << endl;
+    return 0;
+}`,
+    output: "6\n3\nbest is 2 (3+3)",
+    lines: [
+      {
+        code: "for (int v : values) {",
+        note_mn:
+          "Утгууд ИХЭЭС БАГА руу эрэмбэлэгдсэн байх ёстой. Шуналт арга томоос нь эхэлдэг.",
+        note_en:
+          "The values must be in order, largest first. Greedy starts from the big ones.",
+      },
+      {
+        code: "while (amount >= v) {",
+        note_mn:
+          "Энэ дэвсгэртийг багтах чинээгээ ав, дараа нь дараагийнх руу шилж.",
+        note_en:
+          "Take as many of this coin as fit, then move to the next.",
+      },
+      {
+        code: "cout << coins(6, odd) << endl;",
+        note_mn:
+          "4, 3, 1 дэвсгэртээр 6-г шуналтаар: 4 + 1 + 1 = 3 зоос. Гэтэл 3 + 3 = 2 зоос л хэрэгтэй.",
+        note_en:
+          "With coins 4, 3, 1 greedy makes 6 as 4 + 1 + 1 — three coins. But 3 + 3 needs only two.",
+      },
+    ],
+    terms: [
+      {
+        term: "greedy",
+        def_mn: "Одоогийн хамгийн сайныг сонгож, эргэж эргэлзэхгүй арга.",
+        def_en: "Taking the locally best option and never reconsidering.",
+      },
+      {
+        term: "counterexample",
+        def_mn:
+          "Аргыг буруу гэдгийг харуулах нэг жишээ. Нэг л хангалттай.",
+        def_en: "One example that shows a method is wrong. One is enough.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "Шуналт арга үргэлж зөв гэж үзэх / Assuming greedy is always right",
+        fix: "Эсрэг жишээ хайх / Hunt for a counterexample",
+        why_mn:
+          "Монголын дэвсгэрт дээр ажиллана, гэхдээ {4,3,1} дээр ажиллахгүй. Эхлээд гараар хэдэн жишээ шалга.",
+        why_en:
+          "It works for real money but not for coins {4,3,1}. Test a few small cases by hand first.",
+      },
+      {
+        wrong: "Эрэмбэлэхээ мартах / Forgetting to sort",
+        fix: "sort(values.rbegin(), values.rend());",
+        why_mn:
+          "Жижигээс нь эхэлбэл шуналт арга огт утгагүй болно.",
+        why_en:
+          "Starting from the small coins makes the whole idea meaningless.",
+      },
+    ],
+    quiz: {
+      question_mn: "Шуналт аргын талаар аль нь ҮНЭН бэ?",
+      question_en: "Which statement about greedy is TRUE?",
+      choices: [
+        "Ямар ч бодлогод хамгийн сайн хариу өгнө / It always gives the best answer",
+        "Заримдаа хамгийн сайн хариу өгдөггүй / It sometimes fails to give the best answer",
+        "Зөвхөн эрэмбэлэгдсэн өгөгдөл дээр ажиллана / It only works on sorted data",
+      ],
+      answer: 1,
+      explain_mn:
+        "Тийм учраас шуналт арга сонгохоосоо өмнө эсрэг жишээ хайх ёстой.",
+      explain_en:
+        "Which is why you hunt for a counterexample before trusting a greedy idea.",
+    },
+    challenge_mn:
+      "Эхлэх, дуусах цагтай олон арга хэмжээ өгөгдөнө. Хамгийн олныг нь давхцалгүй сонго. Зөвлөгөө: хамгийн ЭРТ дуусахаар нь эрэмбэл.",
+    challenge_en:
+      "You are given events with start and end times. Choose as many as possible without overlap. Hint: sort by EARLIEST finishing time.",
+  },
+  {
+    slug: "backtracking",
+    unit: 10,
+    title_mn: "Ухран буцах",
+    title_en: "Backtracking",
+    goal_mn:
+      "Бүх боломжийг туршиж, буруу замаас буцаж эргэх.",
+    goal_en: "Try every possibility, and step back out of the wrong ones.",
+    intro_mn:
+      "Лабиринт дотор зам хайхтай адил: нэг замаар яв, тэнхэрвэл буцаад өөр замаар оролд. Кодоор бол — сонголт хий, рекурсээр цааш яв, буцаж ирээд тэр сонголтоо БУЦААЖ АВ. Сүүлийн алхам нь хамгийн чухал.",
+    intro_en:
+      "Like finding your way through a maze: take a path, and if it dead-ends, come back and try another. In code — make a choice, recurse, then UNDO the choice on the way back. That last step is the one people forget.",
+    code: `#include <iostream>
+#include <vector>
+using namespace std;
+
+void permute(vector<int>& v, vector<bool>& used, vector<int>& cur) {
+    if (cur.size() == v.size()) {
+        for (int x : cur) cout << x;
+        cout << " ";
+        return;
+    }
+    for (int i = 0; i < (int)v.size(); i++) {
+        if (used[i]) continue;
+        used[i] = true;
+        cur.push_back(v[i]);
+
+        permute(v, used, cur);
+
+        cur.pop_back();
+        used[i] = false;
+    }
+}
+
+int main() {
+    vector<int> v = {1, 2, 3};
+    vector<bool> used(3, false);
+    vector<int> cur;
+    permute(v, used, cur);
+    cout << endl;
+    return 0;
+}`,
+    output: "123 132 213 231 312 321",
+    lines: [
+      {
+        code: "if (cur.size() == v.size()) {",
+        note_mn:
+          "Бүрэн хариу бүрдсэн — хэвлээд буц. Энэ бол рекурсийн зогсох нөхцөл.",
+        note_en:
+          "A complete answer — print it and return. This is the recursion's stopping case.",
+      },
+      {
+        code: "used[i] = true;",
+        note_mn: "Сонголт хийж байна: энэ тоог авлаа гэж тэмдэглэв.",
+        note_en: "Making a choice: mark this number as taken.",
+      },
+      {
+        code: "cur.pop_back();",
+        note_mn:
+          "БУЦААЖ АВЧ БАЙНА. Үүнийг мартвал дараагийн салаа буруу төлөвөөс эхэлнэ.",
+        note_en:
+          "UNDOING the choice. Forget this and the next branch starts from a wrong state.",
+      },
+      {
+        code: "used[i] = false;",
+        note_mn:
+          "Мөн адил буцаана. Сонголт ба буцаалт үргэлж хосоороо явна.",
+        note_en:
+          "Undone as well. A choice and its undo always come in a pair.",
+      },
+    ],
+    terms: [
+      {
+        term: "backtracking",
+        def_mn: "Сонго → гүнзгийр → буцааж ав.",
+        def_en: "Choose, go deeper, then undo.",
+      },
+      {
+        term: "state",
+        def_mn:
+          "Одоогийн байдал. Буцахдаа яг хуучин байдалдаа орох ёстой.",
+        def_en: "Where you currently are. Undoing must restore it exactly.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "cur.push_back(v[i]); permute(...);",
+        fix: "cur.push_back(v[i]); permute(...); cur.pop_back();",
+        why_mn:
+          "Буцааж авахгүй бол `cur` улам л уртсаад, хариунууд нь утгагүй болно.",
+        why_en:
+          "Without the undo, `cur` only ever grows and the answers turn to nonsense.",
+      },
+      {
+        wrong: "n = 20 дээр бүх сэлгэмж / All permutations of 20 items",
+        fix: "n ≤ 10 орчимд л / Only for n around 10 or less",
+        why_mn:
+          "20! нь 2 квинтиллион. Ухран буцах нь бага n дээр л ажиллана — хязгаарыг нь хараарай.",
+        why_en:
+          "20! is about two quintillion. Backtracking only works for small n — check the limits.",
+      },
+    ],
+    quiz: {
+      question_mn: "Ухран буцахад «буцааж авах» алхам яагаад чухал вэ?",
+      question_en: "Why does backtracking need the undo step?",
+      choices: [
+        "Санах ой хэмнэхийн тулд / To save memory",
+        "Дараагийн салаа цэвэр төлөвөөс эхлэхийн тулд / So the next branch starts from a clean state",
+        "Програмыг хурдасгахын тулд / To make the program faster",
+      ],
+      answer: 1,
+      explain_mn:
+        "Буцаахгүй бол өмнөх сонголтууд үлдэж, дараагийн салаа буруу байрнаас эхэлнэ.",
+      explain_en:
+        "Without it the previous choices linger, and the next branch explores from the wrong place.",
+    },
+    challenge_mn:
+      "1-ээс n хүртэлх тооноос k ширхэгийг сонгох бүх хослолыг хэвлэ.",
+    challenge_en:
+      "Print every way of choosing k numbers from 1 to n.",
+  },
+  {
+    slug: "dp-intro",
+    unit: 10,
+    title_mn: "Динамик програмчлал",
+    title_en: "Dynamic Programming",
+    goal_mn:
+      "Дахин давтагдах бодолтыг санаж хадгалж, рекурсийг хурдасгах.",
+    goal_en: "Remember repeated work instead of doing it again.",
+    intro_mn:
+      "Фибоначчийг рекурсээр бодоход f(30) нь 1.6 сая гаруй дуудалт хийдэг — учир нь ижил утгыг дахин дахин боддог. Хариултуудаа массивт хадгалж, дахин хэрэгтэй болбол шууд харвал 30 дуудалт л болно. Энэ л бүх динамик програмчлалын үндэс.",
+    intro_en:
+      "Computing Fibonacci by plain recursion, f(30) makes over 1.6 million calls — because it works out the same values again and again. Store each answer in an array and look it up next time, and it becomes 30 calls. That single idea is all dynamic programming is.",
+    code: `#include <iostream>
+#include <vector>
+using namespace std;
+
+vector<long long> memo;
+long long calls = 0;
+
+long long fib(int n) {
+    calls++;
+    if (n <= 1) return n;
+    if (memo[n] != -1) return memo[n];
+    memo[n] = fib(n - 1) + fib(n - 2);
+    return memo[n];
+}
+
+int main() {
+    memo.assign(31, -1);
+    cout << fib(30) << endl;
+    cout << calls << endl;
+    return 0;
+}`,
+    output: "832040\n59",
+    lines: [
+      {
+        code: "memo.assign(31, -1);",
+        note_mn:
+          "-1 нь «хараахан бодоогүй» гэсэн тэмдэг. Фибоначчийн утга хэзээ ч сөрөг байхгүй тул аюулгүй.",
+        note_en:
+          "-1 means \"not worked out yet\". Fibonacci values are never negative, so it is a safe marker.",
+      },
+      {
+        code: "if (memo[n] != -1) return memo[n];",
+        note_mn:
+          "Өмнө нь бодсон бол шууд буцаана. Энэ ГАНЦ мөр 1.6 сая дуудалтыг 59 болгож байна.",
+        note_en:
+          "Already known, so return it. This ONE line turns 1.6 million calls into 59.",
+      },
+      {
+        code: "memo[n] = fib(n - 1) + fib(n - 2);",
+        note_mn: "Бодоод ХАДГАЛНА. Хадгалахаа мартвал бүх ашиг алга.",
+        note_en: "Work it out and STORE it. Forget the storing and the gain vanishes.",
+      },
+      {
+        code: "vector<long long> memo;",
+        note_mn:
+          "`long long` — фибоначчи хурдан өсдөг. f(47) аль хэдийн `int`-ээс хэтэрнэ.",
+        note_en:
+          "`long long` because Fibonacci grows fast — f(47) already overflows an `int`.",
+      },
+    ],
+    terms: [
+      {
+        term: "memoization",
+        def_mn: "Бодсон хариугаа санаж хадгалах.",
+        def_en: "Remembering an answer you already worked out.",
+      },
+      {
+        term: "overlapping subproblems",
+        def_mn:
+          "Ижил дэд бодлого олон дахин гарч ирэх. DP-ийн үндсэн болзол.",
+        def_en:
+          "The same smaller problem coming up many times. The condition DP needs.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "memo-г 0-ээр дүүргэх / Filling the memo with 0",
+        fix: "-1 гэх мэт боломжгүй утгаар / Use an impossible value like -1",
+        why_mn:
+          "0 бол хүчинтэй хариу байж болно. Тэгвэл «бодсон» ба «бодоогүй»-г ялгаж чадахгүй.",
+        why_en:
+          "0 can be a real answer, so you can no longer tell \"known\" from \"unknown\".",
+      },
+      {
+        wrong: "Хадгалаад буцаахаа мартах / Storing but forgetting to return",
+        fix: "return memo[n];",
+        why_mn:
+          "Хадгалаад буцаахгүй бол функц хог утга буцаана.",
+        why_en:
+          "Storing without returning leaves the function handing back rubbish.",
+      },
+    ],
+    quiz: {
+      question_mn: "Санах ойд хадгалах (memo) юуг өөрчилдөг вэ?",
+      question_en: "What does memoising actually change?",
+      choices: [
+        "Хариуг илүү нарийвчлалтай болгодог / It makes the answer more accurate",
+        "Кодыг богиносгодог / It makes the code shorter",
+        "Ижил бодолтыг дахин хийхээс сэргийлдэг / It stops the same work being repeated",
+      ],
+      answer: 2,
+      explain_mn:
+        "Хариу нь ижил хэвээр — зөвхөн ажлын хэмжээ асар багасна.",
+      explain_en:
+        "The answer is identical. Only the amount of work collapses.",
+    },
+    challenge_mn:
+      "Memo ашиглалгүй fib(30)-ыг бодоод дуудалтыг тоол. Дараа нь memo нэмээд харьцуул.",
+    challenge_en:
+      "Compute fib(30) without the memo and count the calls. Then add the memo and compare.",
+  },
+  {
+    slug: "dp-1d",
+    unit: 10,
+    title_mn: "Нэг мөр DP",
+    title_en: "One-dimensional DP",
+    goal_mn:
+      "Хүснэгтийг зүүнээс баруун тийш дүүргэж хариу гаргах.",
+    goal_en: "Fill a table from left to right to reach the answer.",
+    intro_mn:
+      "Рекурсгүйгээр ч DP хийж болно: хамгийн жижиг тохиолдлоос эхлээд хүснэгтээ дараалан дүүргэнэ. Шат өөд гарах бодлого сонгодог жишээ — нэг алхамд 1 эсвэл 2 шат гарч болно, n шатанд хэдэн янзаар гарах вэ?",
+    intro_en:
+      "You can do DP without recursion: start from the smallest case and fill a table in order. Climbing stairs is the classic — you take 1 or 2 steps at a time, so in how many ways can you climb n stairs?",
+    code: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    int n = 6;
+    vector<long long> ways(n + 1, 0);
+
+    ways[0] = 1;
+    ways[1] = 1;
+    for (int i = 2; i <= n; i++) {
+        ways[i] = ways[i - 1] + ways[i - 2];
+    }
+
+    for (int i = 0; i <= n; i++) cout << ways[i] << " ";
+    cout << endl;
+    cout << ways[n] << endl;
+    return 0;
+}`,
+    output: "1 1 2 3 5 8 13 \n13",
+    lines: [
+      {
+        code: "ways[0] = 1;",
+        note_mn:
+          "Хамгийн жижиг тохиолдол: 0 шат гарахад «юу ч хийхгүй» гэсэн нэг л арга бий.",
+        note_en:
+          "The smallest case: there is exactly one way to climb no stairs — do nothing.",
+      },
+      {
+        code: "ways[i] = ways[i - 1] + ways[i - 2];",
+        note_mn:
+          "i-р шатанд ирэхийн тулд i-1 эсвэл i-2-оос үсэрсэн байна. Тэдгээрийн аргууд нэмэгдэнэ.",
+        note_en:
+          "To be on stair i you came from i-1 or i-2, so the ways add together.",
+      },
+      {
+        code: "for (int i = 2; i <= n; i++) {",
+        note_mn:
+          "Зүүнээс баруун тийш. Хэрэгтэй утгууд аль хэдийн бодогдсон байна.",
+        note_en:
+          "Left to right, so the values you need are already worked out.",
+      },
+    ],
+    terms: [
+      {
+        term: "bottom-up",
+        def_mn: "Жижигээс нь эхэлж хүснэгт дүүргэх арга.",
+        def_en: "Filling the table from the smallest case upwards.",
+      },
+      {
+        term: "recurrence",
+        def_mn:
+          "Нэг нүдийг өмнөх нүднүүдээр илэрхийлсэн дүрэм.",
+        def_en: "The rule that builds one cell from earlier cells.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "ways[0]-ыг тохируулахгүй орхих / Leaving ways[0] unset",
+        fix: "ways[0] = 1;",
+        why_mn:
+          "Суурь утгууд буруу бол хүснэгт бүхэлдээ буруу болно. Хамгийн түгээмэл DP-ийн алдаа.",
+        why_en:
+          "Wrong starting values poison the whole table. The most common DP mistake there is.",
+      },
+      {
+        wrong: "for (int i = n; i >= 2; i--)",
+        fix: "for (int i = 2; i <= n; i++)",
+        why_mn:
+          "Буруу чиглэлд явбал `ways[i-1]` хараахан бодогдоогүй байна.",
+        why_en:
+          "Going the wrong way, `ways[i-1]` has not been worked out yet.",
+      },
+    ],
+    quiz: {
+      question_mn: "DP хүснэгтийг дүүргэх дараалал яагаад чухал вэ?",
+      question_en: "Why does the order of filling a DP table matter?",
+      choices: [
+        "Хэрэгтэй нүд нь өмнө нь бодогдсон байх ёстой / The cells you rely on must already be filled",
+        "Санах ой хэмнэхийн тулд / To save memory",
+        "Хүснэгт эрэмбэлэгдсэн байх ёстой / The table has to end up sorted",
+      ],
+      answer: 0,
+      explain_mn:
+        "Нэг нүд өмнөх нүднүүдээс хамаардаг тул тэднийг эхэлж бодох ёстой.",
+      explain_en:
+        "A cell is built from earlier cells, so those must be computed first.",
+    },
+    challenge_mn:
+      "Шат бүрд торгууль байна. n шат гарахад хамгийн бага нийт торгуулийг ол.",
+    challenge_en:
+      "Each stair has a cost. Find the cheapest total cost to climb n stairs.",
+  },
+  {
+    slug: "dp-grid",
+    unit: 10,
+    title_mn: "Хүснэгт дээрх DP",
+    title_en: "DP on a Grid",
+    goal_mn:
+      "Хоёр хэмжээст хүснэгт дээр зам тоолох.",
+    goal_en: "Count paths across a two-dimensional grid.",
+    intro_mn:
+      "Зөвхөн БАРУУН эсвэл ДООШ явж болох хүснэгтийн зүүн дээд булангаас баруун доод булан руу хэдэн зам байх вэ? Нэг мөр DP-ийн яг тэр санаа, зөвхөн хоёр хэмжээст болсон: нүд бүрд зүүн талаас нь эсвэл дээрээс нь ирнэ.",
+    intro_en:
+      "Moving only RIGHT or DOWN, how many paths cross a grid from the top-left to the bottom-right? It is the same idea as one-dimensional DP with one more dimension: you reach a cell either from the left or from above.",
+    code: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    int rows = 3, cols = 4;
+    vector<vector<long long>> paths(rows, vector<long long>(cols, 0));
+
+    for (int r = 0; r < rows; r++) {
+        for (int c = 0; c < cols; c++) {
+            if (r == 0 && c == 0) {
+                paths[r][c] = 1;
+            } else {
+                long long fromUp = (r > 0) ? paths[r - 1][c] : 0;
+                long long fromLeft = (c > 0) ? paths[r][c - 1] : 0;
+                paths[r][c] = fromUp + fromLeft;
+            }
+        }
+    }
+
+    for (int r = 0; r < rows; r++) {
+        for (int c = 0; c < cols; c++) cout << paths[r][c] << " ";
+        cout << endl;
+    }
+    return 0;
+}`,
+    output: "1 1 1 1 \n1 2 3 4 \n1 3 6 10",
+    lines: [
+      {
+        code: "paths[r][c] = 1;",
+        note_mn:
+          "Эхлэл нүд. Тэнд очих ганцхан «зам» бий — хөдлөхгүй байх.",
+        note_en:
+          "The starting cell. There is exactly one way to be there: don't move.",
+      },
+      {
+        code: "long long fromUp = (r > 0) ? paths[r - 1][c] : 0;",
+        note_mn:
+          "Эхний мөрөнд дээрээс ирэх зам байхгүй тул 0. Хязгаарыг ингэж шалгана.",
+        note_en:
+          "On the first row nothing comes from above, so 0. This is how you guard the edges.",
+      },
+      {
+        code: "paths[r][c] = fromUp + fromLeft;",
+        note_mn:
+          "Хоёр л зам бий — дээрээс эсвэл зүүнээс. Тэднийг нэмнэ.",
+        note_en:
+          "Only two ways in — from above or from the left. Add them.",
+      },
+      {
+        code: "for (int r = 0; r < rows; r++) {",
+        note_mn:
+          "Мөр мөрөөр нь дээрээс доош. Хэрэгтэй нүднүүд аль хэдийн бэлэн болсон байна.",
+        note_en:
+          "Row by row from the top, so the cells you need are already done.",
+      },
+    ],
+    terms: [
+      {
+        term: "grid DP",
+        def_mn: "Хоёр хэмжээст хүснэгт дээрх динамик програмчлал.",
+        def_en: "Dynamic programming across a two-dimensional table.",
+      },
+      {
+        term: "boundary",
+        def_mn:
+          "Эхний мөр, эхний багана — тусад нь шалгах ёстой хэсэг.",
+        def_en: "The first row and column — the parts needing their own check.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "paths[r-1][c] -г шалгалтгүй / Reading paths[r-1][c] unguarded",
+        fix: "(r > 0) ? paths[r - 1][c] : 0",
+        why_mn:
+          "r = 0 үед `paths[-1]` нь массиваас гарна. Алдаа заахгүй, хог утга авна.",
+        why_en:
+          "At r = 0 that reads `paths[-1]`, outside the grid. No error — just rubbish.",
+      },
+      {
+        wrong: "vector<vector<int>>",
+        fix: "vector<vector<long long>>",
+        why_mn:
+          "Замын тоо маш хурдан өснө. 20×20 хүснэгт дээр аль хэдийн `int` хэтэрнэ.",
+        why_en:
+          "Path counts explode. On a 20×20 grid an `int` has already overflowed.",
+      },
+    ],
+    quiz: {
+      question_mn:
+        "Зөвхөн баруун ба доош явж болох 2×2 хүснэгтэд хэдэн зам байх вэ?",
+      question_en:
+        "Moving only right and down, how many paths cross a 2×2 grid?",
+      choices: [
+        "4 / 4",
+        "2 / 2",
+        "3 / 3",
+      ],
+      answer: 1,
+      explain_mn:
+        "Баруун-доош, эсвэл доош-баруун. Ердөө хоёр.",
+      explain_en: "Right then down, or down then right. Just two.",
+    },
+    challenge_mn:
+      "Зарим нүдэнд хана байна (тэнд орж болохгүй). Хана тойрсон замын тоог ол.",
+    challenge_en:
+      "Some cells are walls you cannot enter. Count the paths that avoid them.",
+  },
+  {
+    slug: "graphs-intro",
+    unit: 11,
+    title_mn: "Граф гэж юу вэ",
+    title_en: "What a Graph Is",
+    goal_mn:
+      "Цэг ба холбоосыг зэргэлдээх жагсаалтаар кодонд оруулах.",
+    goal_en: "Put nodes and edges into code as an adjacency list.",
+    intro_mn:
+      "Граф бол цэгүүд (хот, хүн, нүд) ба тэдгээрийн хоорондох холбоос (зам, найзын холбоо) юм. Зурагтай нь ойлгоход амархан, кодонд оруулахад бага зэрэг бодох хэрэгтэй. Хамгийн түгээмэл арга нь: цэг бүрд хэнтэй холбоотойг нь жагсаах.",
+    intro_en:
+      "A graph is a set of nodes — cities, people, cells — and the links between them: roads, friendships. It is easy to picture and takes a moment to encode. The usual way: for each node, list who it connects to.",
+    code: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    int n = 5;
+    vector<vector<int>> adj(n);
+
+    // undirected edges
+    adj[0].push_back(1); adj[1].push_back(0);
+    adj[0].push_back(2); adj[2].push_back(0);
+    adj[1].push_back(3); adj[3].push_back(1);
+
+    for (int v = 0; v < n; v++) {
+        cout << v << ":";
+        for (int to : adj[v]) cout << " " << to;
+        cout << endl;
+    }
+    return 0;
+}`,
+    output: "0: 1 2\n1: 0 3\n2: 0\n3: 1\n4:",
+    lines: [
+      {
+        code: "vector<vector<int>> adj(n);",
+        note_mn:
+          "Цэг бүрд нэг жагсаалт. `adj[3]` бол 3-р цэгийн хөршүүд.",
+        note_en:
+          "One list per node. `adj[3]` holds the neighbours of node 3.",
+      },
+      {
+        code: "adj[0].push_back(1); adj[1].push_back(0);",
+        note_mn:
+          "Чиглэлгүй холбоосыг ХОЁР ТАЛД нь бичнэ. Нэг талыг нь мартах нь маш түгээмэл алдаа.",
+        note_en:
+          "An undirected edge is written on BOTH sides. Forgetting one is a very common bug.",
+      },
+      {
+        code: "for (int to : adj[v]) cout << \" \" << to;",
+        note_mn:
+          "Цэгийн хөршүүдээр явна. Граф дээрх бараг бүх алгоритм ингэж эхэлдэг.",
+        note_en:
+          "Walk a node's neighbours. Nearly every graph algorithm starts like this.",
+      },
+      {
+        code: "cout << v << \":\";",
+        note_mn:
+          "4-р цэг хоосон — холбоосгүй цэг бас байж болно.",
+        note_en:
+          "Node 4 prints empty — a node with no edges is perfectly legal.",
+      },
+    ],
+    terms: [
+      {
+        term: "node (vertex)",
+        def_mn: "Графын нэг цэг.",
+        def_en: "One point in the graph.",
+      },
+      {
+        term: "edge",
+        def_mn: "Хоёр цэгийг холбосон холбоос.",
+        def_en: "A link joining two nodes.",
+      },
+      {
+        term: "adjacency list",
+        def_mn: "Цэг бүрд хөршүүдийг нь жагсаасан бүтэц.",
+        def_en: "The structure listing each node's neighbours.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "adj[a].push_back(b);",
+        fix: "adj[a].push_back(b); adj[b].push_back(a);",
+        why_mn:
+          "Чиглэлгүй граф дээр нэг талыг нь бичвэл зам нэг зүгт л явна. Хайлт хагас граф олно.",
+        why_en:
+          "On an undirected graph, writing one side makes the road one-way. Searches then find only half of it.",
+      },
+      {
+        wrong: "vector<vector<int>> adj; adj[0].push_back(1);",
+        fix: "vector<vector<int>> adj(n);",
+        why_mn:
+          "Хэмжээг нь өгөхгүй бол `adj[0]` гэж байхгүй. Програм сүйрнэ.",
+        why_en:
+          "Without a size there is no `adj[0]` at all, and the program crashes.",
+      },
+    ],
+    quiz: {
+      question_mn:
+        "Чиглэлгүй граф дээр a—b холбоосыг хэрхэн бичих вэ?",
+      question_en: "How do you record an undirected edge a—b?",
+      choices: [
+        "Зөвхөн adj[a]-д b / Only b in adj[a]",
+        "adj[a]-д b, adj[b]-д a / b in adj[a] and a in adj[b]",
+        "Тусдаа жагсаалтад / In a separate list of its own",
+      ],
+      answer: 1,
+      explain_mn:
+        "Хоёр талаас нь явж болох тул хоёуланд нь бичих ёстой.",
+      explain_en:
+        "You can travel it in both directions, so it is written on both sides.",
+    },
+    challenge_mn:
+      "n цэг, m холбоос уншаад цэг бүрийн зэргийг (хэдэн холбоостойг) хэвлэ.",
+    challenge_en:
+      "Read n nodes and m edges, then print the degree of each node — how many edges it has.",
+  },
+  {
+    slug: "dfs",
+    unit: 11,
+    title_mn: "Гүнзгий хайлт",
+    title_en: "Depth-First Search",
+    goal_mn:
+      "Графыг рекурсээр тойрч, холбоотой хэсгүүдийг тоолох.",
+    goal_en: "Walk a graph recursively and count its connected pieces.",
+    intro_mn:
+      "Гүнзгий хайлт бол «болтол нь урагшаа яв, тэнхэрвэл буц» гэсэн санаа — яг лабиринт дотор нэг гараа ханан дээр тавиад явахтай адил. Рекурсээр бичихэд маш богино. Ганц зүйлийг мартаж болохгүй: очсон цэгээ ТЭМДЭГЛЭ.",
+    intro_en:
+      "Depth-first search means: go forward as far as you can, and back up when you cannot — like walking a maze with one hand on the wall. Written recursively it is very short. One thing you must not forget: MARK where you have been.",
+    code: `#include <iostream>
+#include <vector>
+using namespace std;
+
+vector<vector<int>> adj;
+vector<bool> seen;
+
+void dfs(int v) {
+    seen[v] = true;
+    for (int to : adj[v]) {
+        if (!seen[to]) {
+            dfs(to);
+        }
+    }
+}
+
+int main() {
+    int n = 6;
+    adj.assign(n, {});
+    seen.assign(n, false);
+
+    adj[0].push_back(1); adj[1].push_back(0);
+    adj[1].push_back(2); adj[2].push_back(1);
+    adj[3].push_back(4); adj[4].push_back(3);
+
+    int groups = 0;
+    for (int v = 0; v < n; v++) {
+        if (!seen[v]) {
+            groups++;
+            dfs(v);
+        }
+    }
+    cout << groups << endl;
+    return 0;
+}`,
+    output: "3",
+    lines: [
+      {
+        code: "seen[v] = true;",
+        note_mn:
+          "ХАМГИЙН ЭХЭНД тэмдэглэнэ. Үүнгүй бол мөчлөгтэй граф дээр хязгааргүй эргэлдэнэ.",
+        note_en:
+          "Mark it FIRST. Without this, a graph with a cycle loops forever.",
+      },
+      {
+        code: "if (!seen[to]) {",
+        note_mn:
+          "Зөвхөн очоогүй хөрш рүү явна. Тийм учраас цэг бүр ганц удаа боловсруулагдана.",
+        note_en:
+          "Only visit a neighbour you have not seen. That is what makes each node handled once.",
+      },
+      {
+        code: "if (!seen[v]) { groups++; dfs(v); }",
+        note_mn:
+          "Шинэ эхлэл цэг олдвол шинэ бүлэг. 0-1-2 нэг бүлэг, 3-4 нэг, 5 ганцаараа — нийт 3.",
+        note_en:
+          "A fresh starting point means a new group. 0-1-2, then 3-4, then 5 alone — three in all.",
+      },
+      {
+        code: "adj.assign(n, {});",
+        note_mn: "n ширхэг хоосон жагсаалт үүсгэнэ.",
+        note_en: "Creates n empty neighbour lists.",
+      },
+    ],
+    terms: [
+      {
+        term: "DFS",
+        def_mn: "Гүн рүү нь эхлээд явдаг хайлт.",
+        def_en: "A search that goes deep before it goes wide.",
+      },
+      {
+        term: "connected component",
+        def_mn:
+          "Хоорондоо хүрч болох цэгүүдийн бүлэг.",
+        def_en: "A group of nodes that can all reach each other.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "dfs дуудсаны ДАРАА тэмдэглэх / Marking AFTER the dfs call",
+        fix: "Функцийн эхэнд тэмдэглэх / Mark at the top of the function",
+        why_mn:
+          "Хожуу тэмдэглэвэл мөчлөг дээр ижил цэг рүү дахин орж, стек дүүрч сүйрнэ.",
+        why_en:
+          "Marking late lets a cycle re-enter the same node until the stack overflows.",
+      },
+      {
+        wrong: "10^6 цэг дээр рекурсив DFS / Recursive DFS on 10^6 nodes",
+        fix: "Стектэй давталттай хувилбар / An iterative version with a stack",
+        why_mn:
+          "Рекурсийн гүн хэтэрвэл програм сүйрнэ. Жижиг граф дээр л рекурс аюулгүй.",
+        why_en:
+          "Too much recursion depth crashes the program. Recursive DFS is safe only on smaller graphs.",
+      },
+    ],
+    quiz: {
+      question_mn: "DFS дээр `seen` массив юунаас сэргийлдэг вэ?",
+      question_en: "What does the `seen` array prevent in DFS?",
+      choices: [
+        "Санах ой их зарцуулахаас / Using too much memory",
+        "Ижил цэг рүү дахин орж хязгааргүй эргэлдэхээс / Re-entering a node and looping forever",
+        "Буруу хариу гарахаас / An arithmetic mistake",
+      ],
+      answer: 1,
+      explain_mn:
+        "Мөчлөгтэй граф дээр тэмдэглэлгүй бол хоёр цэгийн хооронд эцэс төгсгөлгүй үсэрнэ.",
+      explain_en:
+        "In a graph with a cycle, without marking you bounce between two nodes forever.",
+    },
+    challenge_mn:
+      "Хамгийн том холбоотой бүлэгт хэдэн цэг байгааг ол.",
+    challenge_en:
+      "Find how many nodes are in the largest connected group.",
+  },
+  {
+    slug: "bfs",
+    unit: 11,
+    title_mn: "Өргөн хайлт",
+    title_en: "Breadth-First Search",
+    goal_mn:
+      "Дараалал ашиглан хамгийн богино замын уртыг олох.",
+    goal_en: "Use a queue to find the length of the shortest path.",
+    intro_mn:
+      "Өргөн хайлт нь ойрын цэгүүдийг бүгдийг нь эхэлж үзээд, дараа нь нэг алхам хол руу шилждэг. Яг үүнээс болж ГАЙХАЛТАЙ шинж чанар үүсдэг: жин ижил байх үед BFS хамгийн богино замыг олдог. Тийм учраас хүснэгт дээрх бодлогуудад хамгийн их хэрэглэгддэг.",
+    intro_en:
+      "Breadth-first search looks at everything one step away, then everything two steps away. That gives it a remarkable property: when every move costs the same, BFS finds the SHORTEST path. It is the workhorse of grid problems for exactly that reason.",
+    code: `#include <iostream>
+#include <vector>
+#include <queue>
+using namespace std;
+
+int main() {
+    int rows = 3, cols = 4;
+    vector<vector<int>> dist(rows, vector<int>(cols, -1));
+
+    queue<pair<int,int>> q;
+    dist[0][0] = 0;
+    q.push({0, 0});
+
+    int dr[4] = {-1, 1, 0, 0};
+    int dc[4] = {0, 0, -1, 1};
+
+    while (!q.empty()) {
+        pair<int,int> cell = q.front();
+        q.pop();
+        int r = cell.first, c = cell.second;
+        for (int k = 0; k < 4; k++) {
+            int nr = r + dr[k], nc = c + dc[k];
+            if (nr < 0 || nr >= rows || nc < 0 || nc >= cols) continue;
+            if (dist[nr][nc] != -1) continue;
+            dist[nr][nc] = dist[r][c] + 1;
+            q.push({nr, nc});
+        }
+    }
+
+    cout << dist[2][3] << endl;
+    return 0;
+}`,
+    output: "5",
+    lines: [
+      {
+        code: "dist[0][0] = 0;",
+        note_mn:
+          "Эхлэл цэг хүртэлх зай 0. `dist` нь зайг хадгалахаас гадна «очсон уу» гэдгийг бас хэлнэ.",
+        note_en:
+          "Zero steps to the start. `dist` doubles as the visited marker.",
+      },
+      {
+        code: "int dr[4] = {-1, 1, 0, 0};",
+        note_mn:
+          "Дөрвөн чиглэл: дээш, доош, зүүн, баруун. `dc` -тэй хосоороо уншина.",
+        note_en:
+          "The four directions: up, down, left, right. Read together with `dc`.",
+      },
+      {
+        code: "if (nr < 0 || nr >= rows || nc < 0 || nc >= cols) continue;",
+        note_mn:
+          "Хүснэгтээс гарсан эсэхийг ЭХЛЭЭД шалгана. Дараалал нь эсрэг байвал массиваас гадуур уншина.",
+        note_en:
+          "Check you are still inside FIRST. The other order reads outside the grid.",
+      },
+      {
+        code: "dist[nr][nc] = dist[r][c] + 1;",
+        note_mn:
+          "Нэг алхам нэмэгдэнэ. Тэмдэглэхийг дараалалд хийхтэй ЗЭРЭГ хий — эс бөгөөс нэг нүд олон удаа орно.",
+        note_en:
+          "One more step. Mark it at the same moment you queue it, or a cell gets added many times.",
+      },
+    ],
+    terms: [
+      {
+        term: "BFS",
+        def_mn: "Ойрын цэгүүдийг эхэлж үздэг хайлт. Дараалал ашиглана.",
+        def_en: "A search that visits nearby nodes first, using a queue.",
+      },
+      {
+        term: "shortest path",
+        def_mn:
+          "Хамгийн цөөн алхамтай зам. Жин ижил үед BFS үүнийг баталгаатай олно.",
+        def_en:
+          "The fewest-steps route. When every step costs the same, BFS is guaranteed to find it.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "Дараалалаас ГАРГАХ үед тэмдэглэх / Marking when you POP",
+        fix: "Дараалалд ХИЙХ үед тэмдэглэх / Mark when you PUSH",
+        why_mn:
+          "Хожуу тэмдэглэвэл нэг нүд олон удаа дараалалд орж, ажил хэд дахин нэмэгдэнэ.",
+        why_en:
+          "Marking on the way out lets one cell enter the queue many times, multiplying the work.",
+      },
+      {
+        wrong: "stack ашиглаад BFS гэж нэрлэх / Calling it BFS while using a stack",
+        fix: "queue ашиглах / Use a queue",
+        why_mn:
+          "Стек бол DFS. Дараалал л «ойроос эхлэх» шинжийг өгдөг бөгөөд богино замын баталгаа тэндээс гардаг.",
+        why_en:
+          "A stack gives you DFS. Only a queue gives the nearest-first order, and that is where the shortest-path guarantee comes from.",
+      },
+    ],
+    quiz: {
+      question_mn: "BFS хамгийн богино замыг хэзээ баталгаатай олох вэ?",
+      question_en: "When is BFS guaranteed to find the shortest path?",
+      choices: [
+        "Алхам бүр ижил зардалтай үед / When every step costs the same",
+        "Граф жижиг үед / When the graph is small",
+        "Үргэлж / Always, without exception",
+      ],
+      answer: 0,
+      explain_mn:
+        "Холбоос өөр өөр жинтэй бол BFS хангалтгүй — Дейкстра хэрэгтэй болно.",
+      explain_en:
+        "With different edge weights BFS is not enough — you need Dijkstra.",
+    },
+    challenge_mn:
+      "Хана бүхий лабиринт өгөгдөнө. Эхлэлээс төгсгөл хүртэлх хамгийн богино замыг ол. Хүрэхгүй бол -1.",
+    challenge_en:
+      "Given a maze with walls, find the shortest route from start to finish. Print -1 if it cannot be reached.",
+  },
+  {
+    slug: "dijkstra",
+    unit: 11,
+    title_mn: "Хамгийн богино зам (жинтэй)",
+    title_en: "Shortest Path with Weights",
+    goal_mn:
+      "Холбоос бүр өөр зардалтай үед хамгийн богино замыг олох.",
+    goal_en: "Find the cheapest route when edges cost different amounts.",
+    intro_mn:
+      "Энэ бол хүнд сэдэв — BFS болон эрэмбэтэй дараалал хоёрыг сайн ойлгосны дараа унш. Зам бүр өөр урттай бол «хамгийн цөөн холбоос» нь хамгийн богино гэсэн үг биш. Дейкстрагийн алгоритм нь хамгийн ойрын цэгийг байнга сонгож, түүгээр дамжсан замуудыг шинэчилдэг.",
+    intro_en:
+      "This one is hard — read it after you are comfortable with BFS and the priority queue. When roads have different lengths, fewest-roads no longer means shortest. Dijkstra's algorithm repeatedly takes the nearest unfinished node and improves the routes through it.",
+    code: `#include <iostream>
+#include <vector>
+#include <queue>
+using namespace std;
+
+int main() {
+    int n = 4;
+    vector<vector<pair<int,int>>> adj(n);
+    // adj[from] = list of (to, cost)
+    adj[0].push_back({1, 1});
+    adj[0].push_back({2, 8});
+    adj[1].push_back({2, 2});
+    adj[2].push_back({3, 3});
+
+    vector<int> dist(n, 1000000000);
+    dist[0] = 0;
+
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+    pq.push({0, 0});
+
+    while (!pq.empty()) {
+        pair<int,int> top = pq.top();
+        pq.pop();
+        int d = top.first, v = top.second;
+        if (d > dist[v]) continue;
+        for (pair<int,int> e : adj[v]) {
+            int to = e.first, cost = e.second;
+            if (dist[v] + cost < dist[to]) {
+                dist[to] = dist[v] + cost;
+                pq.push({dist[to], to});
+            }
+        }
+    }
+
+    cout << dist[3] << endl;
+    return 0;
+}`,
+    output: "6",
+    lines: [
+      {
+        code: "vector<int> dist(n, 1000000000);",
+        note_mn:
+          "«Хараахан хүрээгүй» гэдгийг маш том тоогоор илэрхийлнэ. INT_MAX хэрэглэвэл нэмэхэд хэтэрч болно.",
+        note_en:
+          "A huge number stands for \"not reached yet\". Using INT_MAX risks overflow when you add to it.",
+      },
+      {
+        code: "pq.push({0, 0});",
+        note_mn:
+          "Хосын ЭХНИЙ утга нь зай. Эрэмбэтэй дараалал эхний утгаар нь эрэмбэлдэг тул ингэж бичнэ.",
+        note_en:
+          "Distance goes FIRST in the pair, because the priority queue orders on the first value.",
+      },
+      {
+        code: "if (d > dist[v]) continue;",
+        note_mn:
+          "Хуучирсан бичлэг. Илүү сайн зам аль хэдийн олдсон тул алгасна.",
+        note_en:
+          "A stale entry — a better route was already found, so skip it.",
+      },
+      {
+        code: "if (dist[v] + cost < dist[to]) {",
+        note_mn:
+          "v-ээр дамжвал богино болох уу? Болвол шинэчилнэ. Үүнийг «сулруулах» гэдэг.",
+        note_en:
+          "Is going via v shorter? Then improve it. This step is called relaxing an edge.",
+      },
+    ],
+    terms: [
+      {
+        term: "weighted edge",
+        def_mn: "Зардалтай холбоос — урт, цаг, төлбөр.",
+        def_en: "An edge with a cost — a length, a time, a price.",
+      },
+      {
+        term: "relaxation",
+        def_mn:
+          "Илүү богино зам олдвол зайг шинэчлэх алхам.",
+        def_en: "Updating a distance when a shorter route appears.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "Сөрөг жинтэй холбоос дээр Дейкстра / Dijkstra with a negative edge",
+        fix: "Өөр алгоритм хэрэгтэй / A different algorithm is needed",
+        why_mn:
+          "Дейкстра «нэг удаа шийдсэн цэгийг дахин хөндөхгүй» гэж таамагладаг. Сөрөг жин үүнийг эвдэнэ.",
+        why_en:
+          "Dijkstra assumes a finished node stays finished. A negative edge breaks that assumption.",
+      },
+      {
+        wrong: "pq.push({to, dist[to]});",
+        fix: "pq.push({dist[to], to});",
+        why_mn:
+          "Дараалал эхний утгаар эрэмбэлдэг. Солиод бичвэл цэгийн дугаараар эрэмбэлж, алгоритм утгагүй болно.",
+        why_en:
+          "The queue orders on the first value. Swapped, it sorts by node number and the algorithm means nothing.",
+      },
+    ],
+    quiz: {
+      question_mn: "Дейкстрагийн хосын эхний утга яагаад зай байх ёстой вэ?",
+      question_en: "Why must distance be the first value in Dijkstra's pair?",
+      choices: [
+        "Уншихад амар / It is easier to read",
+        "Эрэмбэтэй дараалал эхний утгаар эрэмбэлдэг тул / Because the priority queue orders on the first value",
+        "Санах ой хэмнэдэг / It saves memory",
+      ],
+      answer: 1,
+      explain_mn:
+        "Хамгийн ойрыг эхэлж авах ёстой. Эхний утга нь зай биш бол дараалал буруу зүйлээр эрэмбэлнэ.",
+      explain_en:
+        "You must always take the nearest node next. If distance is not first, the queue orders by the wrong thing.",
+    },
+    challenge_mn:
+      "n хот, m зам өгөгдөнө. 1-р хотоос бусад бүх хот хүртэлх хамгийн богино зайг хэвлэ.",
+    challenge_en:
+      "Given n cities and m roads, print the shortest distance from city 1 to every other city.",
+  },
+  {
+    slug: "classes",
+    unit: 12,
+    title_mn: "Класс ба обьект",
+    title_en: "Classes and Objects",
+    goal_mn:
+      "Дүрэмтэй бүтэц үүсгэж, дотоод өгөгдлөө хамгаалах.",
+    goal_en: "Build a structure with rules that protects its own data.",
+    intro_mn:
+      "Класс бол дүрэмтэй бүтэц. `struct`-д хэн ч дурын утга оноож болно — оноог -50 болгож болно. Класст өгөгдлөө нуувал зөвхөн зөвшөөрсөн замаар л өөрчлөгдөнө. Бодлого бодоход `struct` ихэвчлэн хангалттай; энэ хичээл нь Cambridge шалгалт болон дараагийн хоёр хичээлийн суурь.",
+    intro_en:
+      "A class is a struct with rules. Anyone can put anything in a `struct` — including a score of -50. Hiding the data in a class means it only changes through the routes you allow. For contest problems a `struct` is usually enough; this lesson is here for the Cambridge syllabus and for the two lessons that follow.",
+    code: `#include <iostream>
+#include <string>
+using namespace std;
+
+class Student {
+private:
+    string name;
+    int score;
+
+public:
+    void set(string n, int s) {
+        name = n;
+        if (s < 0) s = 0;
+        if (s > 100) s = 100;
+        score = s;
+    }
+    int get() {
+        return score;
+    }
+};
+
+int main() {
+    Student a;
+    a.set("Bat", 150);
+    cout << a.get() << endl;
+
+    a.set("Bat", 72);
+    cout << a.get() << endl;
+    return 0;
+}`,
+    output: "100\n72",
+    lines: [
+      {
+        code: "private:",
+        note_mn:
+          "Эндээс доош бичсэн зүйлд ГАДНААС хандаж болохгүй. `a.score` гэвэл компилятор татгалзана.",
+        note_en:
+          "Everything below this is off limits from OUTSIDE. Writing `a.score` is refused by the compiler.",
+      },
+      {
+        code: "public:",
+        note_mn: "Эндээс доош нь гаднаас дуудаж болно.",
+        note_en: "Everything below this can be called from outside.",
+      },
+      {
+        code: "if (s > 100) s = 100;",
+        note_mn:
+          "Энэ бол дүрэм. `struct` дээр ийм хамгаалалт байхгүй тул 150 шууд орно.",
+        note_en:
+          "This is the rule. A `struct` has no such guard, so 150 would go straight in.",
+      },
+      {
+        code: "class Student {",
+        note_mn:
+          "`class` -ын гишүүд анхдагчаараа хаалттай. `struct` -ынх нээлттэй. Ялгаа нь ердөө энэ.",
+        note_en:
+          "A `class` starts private, a `struct` starts public. That is the entire difference.",
+      },
+    ],
+    terms: [
+      {
+        term: "private",
+        def_mn: "Зөвхөн класс дотроос хандах боломжтой.",
+        def_en: "Reachable only from inside the class.",
+      },
+      {
+        term: "public",
+        def_mn: "Гаднаас хандаж болно.",
+        def_en: "Reachable from outside.",
+      },
+      {
+        term: "encapsulation",
+        def_mn:
+          "Өгөгдлөө нууж, зөвхөн зөвшөөрсөн замаар өөрчлүүлэх зарчим.",
+        def_en:
+          "Hiding data so it can only change through routes you approve.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "class Student { string name; }; ... s.name = \"Bat\";",
+        fix: "public: гэж бичих / Add public:, or use a struct",
+        why_mn:
+          "`class` анхдагчаараа хаалттай тул энэ нь компиляцын алдаа өгнө. `struct` дээр ажиллаж байсан код энд ажиллахгүй.",
+        why_en:
+          "A `class` is private by default, so this fails to compile. Code that worked on a `struct` will not work here.",
+      },
+      {
+        wrong: "Бүх зүйлийг класс болгох / Making everything a class",
+        fix: "Ихэнхдээ struct хангалттай / A struct is usually enough",
+        why_mn:
+          "Тэмцээнд хурд чухал. Хамгаалалт хэрэггүй үед `struct` богино бөгөөд ойлгомжтой.",
+        why_en:
+          "In a contest speed matters. Where you do not need the guard, a `struct` is shorter and clearer.",
+      },
+    ],
+    quiz: {
+      question_mn: "`class` ба `struct`-ийн үндсэн ялгаа юу вэ?",
+      question_en: "What is the basic difference between `class` and `struct`?",
+      choices: [
+        "class нь функц агуулж чадна, struct чадахгүй / A class can hold functions, a struct cannot",
+        "class нь илүү хурдан / A class is faster",
+        "class нь анхдагчаараа хаалттай, struct нээлттэй / A class starts private, a struct starts public",
+      ],
+      answer: 2,
+      explain_mn:
+        "`struct` бас функц агуулж чадна. Ялгаа нь зөвхөн анхдагч хандалт.",
+      explain_en:
+        "A `struct` can hold functions too. The only difference is the default access.",
+    },
+    challenge_mn:
+      "Дансны үлдэгдэл хадгалдаг класс бич. Мөнгө татахдаа үлдэгдлээс хэтэрвэл татгалзаж, үлдэгдлийг өөрчлөхгүй байг.",
+    challenge_en:
+      "Write a class holding a bank balance. Withdrawing more than the balance must be refused, leaving the balance unchanged.",
+  },
+  {
+    slug: "class-methods",
+    unit: 12,
+    title_mn: "Метод ба байгуулагч",
+    title_en: "Methods and Constructors",
+    goal_mn:
+      "Классын дотор функц бичих, обьектыг үүсэх үед нь зөв утгатай болгох.",
+    goal_en:
+      "Write functions inside a class, and make an object valid the moment it is created.",
+    intro_mn:
+      "Классын дотор бичсэн функцийг метод гэнэ — тэр нь өөрийн обьектын өгөгдөлд шууд ханддаг. Байгуулагч бол обьект үүсэх үед автоматаар ажилладаг онцгой метод. Түүний ач холбогдол нь: «утга оноохоо мартсан» гэсэн алдаа гарах боломжгүй болно.",
+    intro_en:
+      "A function written inside a class is a method — it reaches its own object's data directly. A constructor is a special method that runs automatically when the object is created. Its value: \"I forgot to fill that in\" stops being possible.",
+    code: `#include <iostream>
+#include <string>
+using namespace std;
+
+class Rect {
+private:
+    int w, h;
+
+public:
+    Rect(int width, int height) {
+        w = width;
+        h = height;
+    }
+    int area() {
+        return w * h;
+    }
+    int perimeter() {
+        return 2 * (w + h);
+    }
+};
+
+int main() {
+    Rect r(3, 4);
+    cout << r.area() << endl;
+    cout << r.perimeter() << endl;
+
+    Rect small(2, 2);
+    cout << small.area() << endl;
+    return 0;
+}`,
+    output: "12\n14\n4",
+    lines: [
+      {
+        code: "Rect(int width, int height) {",
+        note_mn:
+          "Байгуулагч. Нэр нь классын нэртэй ЯГ адилхан, буцаах төрөлгүй.",
+        note_en:
+          "The constructor. Its name matches the class exactly, and it has no return type.",
+      },
+      {
+        code: "Rect r(3, 4);",
+        note_mn:
+          "Обьект үүсэхэд байгуулагч шууд ажиллана. `w` ба `h` хоосон үлдэх боломжгүй.",
+        note_en:
+          "Creating the object runs the constructor. `w` and `h` cannot be left empty.",
+      },
+      {
+        code: "int area() {",
+        note_mn:
+          "Метод. `w`, `h`-г аргументаар авах шаардлагагүй — өөрийнх нь өгөгдөл.",
+        note_en:
+          "A method. It needs no arguments for `w` and `h` — they are its own data.",
+      },
+      {
+        code: "Rect small(2, 2);",
+        note_mn:
+          "Обьект бүр өөрийн `w`, `h`-тэй. `r` ба `small` хоорондоо огт хамааралгүй.",
+        note_en:
+          "Each object has its own `w` and `h`. `r` and `small` are entirely separate.",
+      },
+    ],
+    terms: [
+      {
+        term: "method",
+        def_mn: "Классын дотор бичигдсэн, обьектын өгөгдөлд ханддаг функц.",
+        def_en: "A function inside a class that reaches its object's data.",
+      },
+      {
+        term: "constructor",
+        def_mn:
+          "Обьект үүсэх үед автоматаар ажиллах метод. Классын нэртэй ижил нэртэй.",
+        def_en:
+          "A method that runs automatically when an object is created. Named after the class.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "void Rect(int w, int h) { ... }",
+        fix: "Rect(int w, int h) { ... }",
+        why_mn:
+          "Байгуулагчид буцаах төрөл БАЙХГҮЙ. `void` бичвэл энэ нь энгийн метод болж, обьект үүсэхэд ажиллахаа болино.",
+        why_en:
+          "A constructor has NO return type. Adding `void` turns it into an ordinary method that never runs on creation.",
+      },
+      {
+        wrong: "Байгуулагчтай атлаа Rect r; гэх / Rect r; when a constructor takes arguments",
+        fix: "Rect r(3, 4);",
+        why_mn:
+          "Аргументтай байгуулагч тодорхойлбол аргументгүй хувилбар алга болно. Компилятор татгалзана.",
+        why_en:
+          "Defining a constructor with arguments removes the no-argument one. The compiler refuses.",
+      },
+    ],
+    quiz: {
+      question_mn: "Байгуулагч хэзээ ажилладаг вэ?",
+      question_en: "When does a constructor run?",
+      choices: [
+        "Обьект үүсэх үед автоматаар / Automatically, when the object is created",
+        "Гараар дуудахад / Only when you call it by name",
+        "Програм дуусахад / When the program ends",
+      ],
+      answer: 0,
+      explain_mn:
+        "Тийм учраас обьект үргэлж зөв утгатай эхэлдэг — «оноохоо мартсан» гэсэн алдаа гарахгүй.",
+      explain_en:
+        "That is why an object always starts valid — forgetting to fill it in becomes impossible.",
+    },
+    challenge_mn:
+      "Тойргийн радиусыг байгуулагчаар авч, талбай ба урттай нь буцаадаг метод бүхий класс бич.",
+    challenge_en:
+      "Write a Circle class taking its radius in the constructor, with methods for area and circumference.",
+  },
+  {
+    slug: "operator-overload",
+    unit: 12,
+    title_mn: "Оператор тодорхойлох",
+    title_en: "Defining an Operator",
+    goal_mn:
+      "`operator<` бичиж, өөрийн төрлөө `sort`-оор эрэмбэлүүлэх.",
+    goal_en: "Write `operator<` so `sort` can order your own type.",
+    intro_mn:
+      "Энэ бол энэ бүлгийн хамгийн ашигтай хичээл. `sort` нь хоёр элементийн аль нь өмнө байхыг мэдэх ёстой. Тусдаа comparator бичихийн оронд төрөл дотроо `operator<` тодорхойлвол `sort`, `set`, `priority_queue` бүгд ямар ч нэмэлт зүйлгүйгээр ажиллана.",
+    intro_en:
+      "This is the lesson in this unit that actually pays off. `sort` has to know which of two items comes first. Instead of a separate comparator, define `operator<` inside the type and `sort`, `set` and `priority_queue` all just work.",
+    code: `#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+struct Student {
+    string name;
+    int score;
+
+    bool operator<(const Student& other) const {
+        return score > other.score;
+    }
+};
+
+int main() {
+    vector<Student> v = {{"Bat", 70}, {"Suvd", 95}, {"Tuul", 82}};
+    sort(v.begin(), v.end());
+    for (const Student& s : v) {
+        cout << s.name << " " << s.score << endl;
+    }
+    return 0;
+}`,
+    output: "Suvd 95\nTuul 82\nBat 70",
+    lines: [
+      {
+        code: "bool operator<(const Student& other) const {",
+        note_mn:
+          "«Би нөгөөгөөсөө өмнө байх ёстой юу?» Сүүлийн `const` нь энэ функц юуг ч өөрчлөхгүй гэсэн амлалт.",
+        note_en:
+          "\"Do I come before the other one?\" The trailing `const` promises this changes nothing.",
+      },
+      {
+        code: "return score > other.score;",
+        note_mn:
+          "`>` тэмдэг тул өндөр оноо түрүүлнэ. Оператор нь `<` боловч дотор нь юу ч бичиж болно.",
+        note_en:
+          "A `>` here puts higher scores first. The operator is `<` but the rule inside is yours.",
+      },
+      {
+        code: "sort(v.begin(), v.end());",
+        note_mn:
+          "Гурав дахь аргумент БАЙХГҮЙ. `sort` өөрөө `operator<` -г олж ашиглана.",
+        note_en:
+          "No third argument. `sort` finds and uses `operator<` by itself.",
+      },
+      {
+        code: "const Student& other",
+        note_mn:
+          "`const&` — хуулбарлахгүй, өөрчлөхгүй. Эрэмбэлэхэд сая удаа дуудагдаж болзошгүй тул чухал.",
+        note_en:
+          "`const&` — no copy, no change. It matters because sorting may call this a million times.",
+      },
+    ],
+    terms: [
+      {
+        term: "operator overloading",
+        def_mn: "Өөрийн төрөлд `<`, `+` зэрэг тэмдгийн утгыг тодорхойлох.",
+        def_en: "Giving symbols like `<` or `+` a meaning for your own type.",
+      },
+      {
+        term: "strict weak ordering",
+        def_mn:
+          "`sort`-ын шаарддаг дүрэм. Тэнцүү элемент дээр ЗААВАЛ false буцаах ёстой.",
+        def_en:
+          "The rule `sort` requires. Equal items must always give false.",
+      },
+    ],
+    mistakes: [
+      {
+        wrong: "return score >= other.score;",
+        fix: "return score > other.score;",
+        why_mn:
+          "Тэнцүү үед `true` буцаавал `sort` массиваас гарч сүйрч болно. Энэ бол ажиллах үеийн сүйрэл, компиляцын алдаа биш.",
+        why_en:
+          "Returning true for equals can send `sort` off the end of the array. It crashes at run time, with no compiler warning.",
+      },
+      {
+        wrong: "bool operator<(Student other) {",
+        fix: "bool operator<(const Student& other) const {",
+        why_mn:
+          "Хуулбараар авбал эрэмбэлэлт бүрд нэмэлт хуулбар үүснэ. Сүүлийн `const`-гүй бол `const` обьект дээр ажиллахгүй.",
+        why_en:
+          "Taking a copy adds a copy per comparison, and without the trailing `const` it will not work on a const object.",
+      },
+    ],
+    quiz: {
+      question_mn:
+        "`operator<` тодорхойлсны дараа `sort(v.begin(), v.end())` -д юу хэрэгтэй вэ?",
+      question_en:
+        "Once `operator<` is defined, what does `sort(v.begin(), v.end())` need?",
+      choices: [
+        "Comparator функц заавал өгөх / A comparator function, always",
+        "Юу ч нэмэх шаардлагагүй / Nothing more at all",
+        "Эхлээд эрэмбэлэгдсэн байх / The vector to be sorted already",
+      ],
+      answer: 1,
+      explain_mn:
+        "`sort` нь өөрийн төрлийн `operator<` -г автоматаар олдог. `set`, `priority_queue` бас адилхан.",
+      explain_en:
+        "`sort` finds your type's `operator<` on its own — and so do `set` and `priority_queue`.",
+    },
+    challenge_mn:
+      "Оноогоор буурахаар, оноо тэнцвэл нэрээр өсөхөөр эрэмбэлдэг `operator<` бич.",
+    challenge_en:
+      "Write an `operator<` that orders by score descending, and by name ascending when scores tie.",
+  },
+);
+
 
 // Attach the Python rendering of each lesson (kept in its own file so this
 // one stays about the curriculum rather than syntax), and the reference

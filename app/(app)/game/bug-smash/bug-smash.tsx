@@ -2,7 +2,6 @@
 
 import { Canvas, useFrame, type ThreeEvent } from "@react-three/fiber";
 import { Sparkles as ThreeSparkles } from "@react-three/drei";
-import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { Play, RotateCcw, Sparkles, Clock, Zap, Trophy } from "lucide-react";
@@ -46,17 +45,27 @@ interface BurstState {
 
 type Phase = "idle" | "playing" | "over";
 
-export function BugSmash() {
+export function BugSmash({
+  playsUsed,
+  limit,
+}: {
+  /** Rounds already recorded today, from the server. */
+  playsUsed: number;
+  limit: number;
+}) {
   const t = useTranslations("bug_smash");
-  const router = useRouter();
   const [phase, setPhase] = useState<Phase>("idle");
+  // Counted here as rounds are played so the button updates without a
+  // round-trip; the server is still the one that decides (429), and its
+  // answer overwrites this.
+  const [used, setUsed] = useState(playsUsed);
+  const playsLeft = Math.max(0, limit - used);
   const [score, setScore] = useState(0);
   const [combo, setCombo] = useState(0);
   const [bestCombo, setBestCombo] = useState(0);
   const [timeLeft, setTimeLeft] = useState(ROUND_SECONDS);
   const [bugs, setBugs] = useState<BugState[]>([]);
   const [bursts, setBursts] = useState<BurstState[]>([]);
-  const [xpEarned, setXpEarned] = useState<number | null>(null);
 
   const nextBugId = useRef(0);
   const nextBurstId = useRef(0);
@@ -132,28 +141,27 @@ export function BugSmash() {
       if (cancelled) return;
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
+        // Out of rounds: not an error the student did anything to cause, so
+        // it is stated rather than shouted, and the count is corrected from
+        // the server's answer.
+        if (res.status === 429) {
+          setUsed(data.limit ?? limit);
+          toast.message(t("no_plays_left", { limit: data.limit ?? limit }));
+          return;
+        }
         const msg: string | undefined = data?.error;
-        // Most common cause: migration 007_game.sql hasn't been run yet.
-        const friendly = msg && msg.toLowerCase().includes("game_attempts")
-          ? "Database not migrated — run supabase/migrations/007_game.sql"
-          : msg || `Score submit failed (${res.status})`;
-        toast.error(friendly);
-        setXpEarned(0);
+        toast.error(msg || `Score submit failed (${res.status})`);
         return;
       }
-      setXpEarned(data.xp_awarded ?? 0);
-      if (data.xp_awarded > 0) {
-        toast.success(`+${data.xp_awarded} XP`);
-        // Refresh server components so nav XP bar updates immediately
-        router.refresh();
-      } else if (data.xp_total_today >= data.daily_cap) {
-        toast.message(t("daily_cap_hit", { cap: data.daily_cap }));
+      if (typeof data.plays_used === "number") setUsed(data.plays_used);
+      if (data.plays_left === 0) {
+        toast.message(t("no_plays_left", { limit: data.limit ?? limit }));
       }
     })();
     return () => {
       cancelled = true;
     };
-  }, [phase, score, bestCombo, t]);
+  }, [phase, score, bestCombo, t, limit]);
 
   const startGame = () => {
     setScore(0);
@@ -162,7 +170,6 @@ export function BugSmash() {
     setTimeLeft(ROUND_SECONDS);
     setBugs([]);
     setBursts([]);
-    setXpEarned(null);
     nextBugId.current = 0;
     nextBurstId.current = 0;
     lastSmashAt.current = 0;
@@ -294,14 +301,21 @@ export function BugSmash() {
             <p className="text-white/70 text-sm max-w-md text-center mb-6">
               {t("instructions")}
             </p>
-            <Button
-              onClick={startGame}
-              size="lg"
-              className="font-code"
-            >
-              <Play className="h-4 w-4 mr-2" />
-              {t("start")}
-            </Button>
+            {playsLeft > 0 ? (
+              <>
+                <Button onClick={startGame} size="lg" className="font-code">
+                  <Play className="h-4 w-4 mr-2" />
+                  {t("start")}
+                </Button>
+                <p className="mt-3 font-code text-xs text-white/60">
+                  {t("plays_left")}: {playsLeft} / {limit}
+                </p>
+              </>
+            ) : (
+              <p className="max-w-xs text-center text-sm text-white/70">
+                {t("come_back_tomorrow")}
+              </p>
+            )}
           </Overlay>
         )}
 
@@ -324,20 +338,18 @@ export function BugSmash() {
             <div className="grid grid-cols-3 gap-6 text-center my-5 text-white">
               <Stat label={t("score")} value={score} />
               <Stat label={t("best_combo")} value={bestCombo} />
-              <Stat
-                label="XP"
-                value={xpEarned !== null ? `+${xpEarned}` : "..."}
-                amber
-              />
+              <Stat label={t("plays_left")} value={playsLeft} amber />
             </div>
-            <Button
-              onClick={startGame}
-              size="lg"
-              className="font-code"
-            >
-              <RotateCcw className="h-4 w-4 mr-2" />
-              {t("play_again")}
-            </Button>
+            {playsLeft > 0 ? (
+              <Button onClick={startGame} size="lg" className="font-code">
+                <RotateCcw className="h-4 w-4 mr-2" />
+                {t("play_again")}
+              </Button>
+            ) : (
+              <p className="max-w-xs text-center text-sm text-white/70">
+                {t("come_back_tomorrow")}
+              </p>
+            )}
           </Overlay>
         )}
       </div>

@@ -3,8 +3,14 @@ import { notFound } from "next/navigation";
 import { getTranslations, getLocale } from "next-intl/server";
 import { ArrowLeft, CheckCircle2, XCircle, Minus, Calendar } from "lucide-react";
 
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { query } from "@/lib/mysql/pool";
+import { hasTable } from "@/lib/mysql/has-table";
 import { createServiceClient } from "@/lib/supabase/server";
+import {
+  MarkHandIns,
+  type TaskWithHandIns,
+} from "@/components/assignments/mark-hand-ins";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 
 import { AssignmentActions } from "./assignment-actions";
@@ -25,6 +31,7 @@ export default async function AssignmentDetailPage({
 
   const { id } = await params;
   const tGrading = await getTranslations("teacher.assignments.grading");
+  const tAssign = await getTranslations("assignments");
   const localeRaw = await getLocale();
   const locale = isLocale(localeRaw) ? localeRaw : DEFAULT_LOCALE;
   const supabase = createServiceClient();
@@ -53,6 +60,107 @@ export default async function AssignmentDetailPage({
 
   const problemLinks = problemLinksRes.data ?? [];
   const students = studentsRes.data ?? [];
+  const nameById = new Map<string, string>(
+    students.map((s: { id: string; display_name: string | null; username: string }) => [
+      s.id,
+      s.display_name || s.username,
+    ]),
+  );
+
+  const { data: taskRows } = await supabase
+    .from("assignment_tasks")
+    .select("id, title, points, order_idx")
+    .eq("assignment_id", id)
+    .order("order_idx", { ascending: true });
+
+  const taskIds = (taskRows ?? []).map((t: { id: string }) => t.id);
+  const { data: handInRows } = taskIds.length
+    ? await supabase
+        .from("task_submissions")
+        .select(
+          "id, task_id, user_id, note, link, upload_id, submitted_at, score, feedback",
+        )
+        .in("task_id", taskIds)
+    : { data: [] };
+
+  const handInUploadIds = (handInRows ?? [])
+    .map((r: { upload_id: string | null }) => r.upload_id)
+    .filter((v: string | null): v is string => !!v);
+  const { data: handInUploads } = handInUploadIds.length
+    ? await supabase
+        .from("uploads")
+        .select("id, original_name")
+        .in("id", handInUploadIds)
+    : { data: [] };
+  const uploadName = new Map<string, string>(
+    (handInUploads ?? []).map((u: { id: string; original_name: string }) => [
+      u.id,
+      u.original_name,
+    ]),
+  );
+
+  // Who says they are finished. Applied by hand on the server, so cope with
+  // the table not being there yet — see lib/mysql/has-table.ts.
+  const turnedIn = new Map<string, { at: string; late: boolean }>();
+  if (await hasTable("assignment_turnins")) {
+    const rows = await query<{
+      user_id: string;
+      turned_in_at: string;
+      late: number;
+    }>(
+      `SELECT user_id, turned_in_at, late
+         FROM assignment_turnins
+        WHERE assignment_id = ?`,
+      [id],
+    );
+    for (const r of rows) {
+      turnedIn.set(r.user_id, {
+        at: String(r.turned_in_at),
+        late: !!r.late,
+      });
+    }
+  }
+
+  const dueMs = new Date(assignment.due_at).getTime();
+  const tasksWithHandIns = (taskRows ?? []).map(
+    (t: { id: string; title: string; points: number }) => {
+      const rows = (handInRows ?? []).filter(
+        (r: { task_id: string }) => r.task_id === t.id,
+      );
+      const handedIn = new Set(rows.map((r: { user_id: string }) => r.user_id));
+      return {
+        id: t.id,
+        title: t.title,
+        points: t.points,
+        missing: students
+          .filter((s: { id: string }) => !handedIn.has(s.id))
+          .map((s: { id: string }) => nameById.get(s.id) ?? "?"),
+        handIns: rows.map(
+          (r: {
+            id: string;
+            user_id: string;
+            note: string | null;
+            link: string | null;
+            upload_id: string | null;
+            submitted_at: string;
+            score: number | null;
+            feedback: string | null;
+          }) => ({
+            submission_id: r.id,
+            student_name: nameById.get(r.user_id) ?? "?",
+            submitted_at: String(r.submitted_at),
+            late: new Date(r.submitted_at).getTime() > dueMs,
+            note: r.note,
+            link: r.link,
+            upload_id: r.upload_id,
+            upload_name: r.upload_id ? (uploadName.get(r.upload_id) ?? "file") : null,
+            score: r.score,
+            feedback: r.feedback,
+          }),
+        ),
+      };
+    },
+  );
   const problemIds = problemLinks.map((p) => p.problem_id);
 
   const [problemsRes, submissionsRes] = await Promise.all([
@@ -168,6 +276,14 @@ export default async function AssignmentDetailPage({
                     </th>
                   );
                 })}
+                <th className="p-3 text-center font-normal">
+                  <span className="font-semibold">
+                    {tAssign("turned_in")}
+                  </span>
+                  <div className="mt-0.5 text-[10px] font-normal text-muted-foreground tabular-nums">
+                    {turnedIn.size} / {students.length}
+                  </div>
+                </th>
                 <th className="text-right p-3">{tGrading("total")}</th>
               </tr>
             </thead>
@@ -175,7 +291,7 @@ export default async function AssignmentDetailPage({
               {students.length === 0 ? (
                 <tr>
                   <td
-                    colSpan={problemLinks.length + 2}
+                    colSpan={problemLinks.length + 3}
                     className="text-center text-muted-foreground py-8"
                   >
                     —
@@ -215,6 +331,29 @@ export default async function AssignmentDetailPage({
                           </td>
                         );
                       })}
+                      <td className="p-3 text-center">
+                        {(() => {
+                          const ti = turnedIn.get(s.id);
+                          if (!ti) {
+                            return (
+                              <Minus className="mx-auto h-4 w-4 text-muted-foreground" />
+                            );
+                          }
+                          return (
+                            <span
+                              className="inline-flex flex-col items-center"
+                              title={new Date(ti.at).toLocaleString()}
+                            >
+                              <CheckCircle2 className="h-5 w-5 text-emerald-600" />
+                              {ti.late && (
+                                <span className="font-code text-[9px] text-neon-amber">
+                                  {tAssign("late")}
+                                </span>
+                              )}
+                            </span>
+                          );
+                        })()}
+                      </td>
                       <td className="p-3 text-right tabular-nums font-semibold">
                         {total}
                       </td>
@@ -226,6 +365,17 @@ export default async function AssignmentDetailPage({
           </table>
         </div>
       </Card>
+
+      {tasksWithHandIns.length > 0 && (
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base">Work handed in</CardTitle>
+          </CardHeader>
+          <CardContent className="p-4 pt-0">
+            <MarkHandIns tasks={tasksWithHandIns as TaskWithHandIns[]} />
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }

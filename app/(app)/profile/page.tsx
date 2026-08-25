@@ -5,15 +5,21 @@ import { Trophy, Flame, BookOpen, Sparkles } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { BadgeChip } from "@/components/badge-chip";
+import { orderBadges, progressFor, specFor } from "@/lib/badges";
 import { VerdictBadge } from "@/components/verdict-badge";
 import { createClient } from "@/lib/supabase/server";
 import { getCachedSession, getCachedProfile } from "@/lib/get-session";
 import { dicebearUrl, initials } from "@/lib/avatars";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
+import { requireAuth } from "@/lib/auth-helpers";
+import { ChangePasswordForm } from "@/components/change-password-form";
 
 export const dynamic = "force-dynamic";
 
 export default async function ProfilePage() {
+  // personal: your own profile
+  await requireAuth();
+
   const t = await getTranslations("profile");
   const tVerdict = await getTranslations("verdict");
   const localeRaw = await getLocale();
@@ -68,30 +74,37 @@ export default async function ProfilePage() {
     className = cls?.name ?? "—";
   }
 
-  // Fetch badges details
-  const badgeIds = (userBadgesRows ?? []).map((b) => b.badge_id);
+  // ALL badges, not only the earned ones. A student cannot decide whether a
+  // badge is worth chasing if they cannot see it exists.
+  const earnedAt = new Map<string, string>(
+    (userBadgesRows ?? []).map((b: { badge_id: string; earned_at: string }) => [
+      b.badge_id,
+      String(b.earned_at),
+    ]),
+  );
   type BadgeRow = {
     id: string;
+    code: string;
     name_mn: string;
     name_en: string;
     description_mn: string;
     description_en: string;
     icon: string;
     color: string;
+    earned_at: string | null;
   };
-  let badges: BadgeRow[] = [];
-  if (badgeIds.length > 0) {
-    const { data } = await supabase
-      .from("badges")
-      .select(
-        "id, name_mn, name_en, description_mn, description_en, icon, color",
-      )
-      .in("id", badgeIds);
-    const order = new Map(badgeIds.map((id, idx) => [id, idx]));
-    badges = (data ?? []).sort(
-      (a, b) => (order.get(a.id) ?? 0) - (order.get(b.id) ?? 0),
+  const { data: allBadgeRows } = await supabase
+    .from("badges")
+    .select(
+      "id, code, name_mn, name_en, description_mn, description_en, icon, color",
     );
-  }
+  const badges: BadgeRow[] = orderBadges(
+    (allBadgeRows ?? []).map((b: Omit<BadgeRow, "earned_at">) => ({
+      ...b,
+      earned_at: earnedAt.get(b.id) ?? null,
+    })),
+  );
+  const earnedCount = badges.filter((b) => b.earned_at).length;
 
   // Fetch problem details for recent submissions
   const problemIds = Array.from(
@@ -226,21 +239,46 @@ export default async function ProfilePage() {
       {badges.length > 0 && (
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">{t("badges")}</CardTitle>
+            <CardTitle className="flex items-baseline gap-2 text-base">
+              {t("badges")}
+              <span className="font-code text-xs font-normal text-muted-foreground tabular-nums">
+                {earnedCount} / {badges.length}
+              </span>
+            </CardTitle>
           </CardHeader>
-          <CardContent className="flex flex-wrap gap-2">
-            {badges.map((b) => (
-              <BadgeChip
-                key={b.id}
-                badge={{
-                  icon: b.icon,
-                  color: b.color,
-                  name: locale === "en" ? b.name_en : b.name_mn,
-                  description:
-                    locale === "en" ? b.description_en : b.description_mn,
-                }}
-              />
-            ))}
+          <CardContent className="space-y-2">
+            {/* Back to a wrapping row of chips. The rule lives in the hover
+                card, so a chip only has to be wide enough for its name. */}
+            <div className="flex flex-wrap gap-2">
+              {badges.map((b) => {
+                const spec = specFor(b.code);
+                return (
+                  <BadgeChip
+                    key={b.id}
+                    badge={{
+                      icon: b.icon,
+                      color: b.color,
+                      name: locale === "en" ? b.name_en : b.name_mn,
+                      requirement:
+                        locale === "en"
+                          ? spec?.requirement_en
+                          : spec?.requirement_mn,
+                      earnedAt: b.earned_at,
+                      href: spec?.href,
+                      progress: b.earned_at
+                        ? null
+                        : progressFor(b.code, {
+                            problems_solved: profile.problems_solved,
+                            streak_days: profile.streak_days,
+                          }),
+                    }}
+                  />
+                );
+              })}
+            </div>
+            <p className="text-xs text-muted-foreground">
+              {t("badges_hint")}
+            </p>
           </CardContent>
         </Card>
       )}
@@ -290,6 +328,10 @@ export default async function ProfilePage() {
           )}
         </CardContent>
       </Card>
+
+      {/* Everyone can change their own. Minimum length follows the role —
+          a teacher account can reset every student's password. */}
+      <ChangePasswordForm minLength={profile.role === "teacher" ? 10 : 6} />
     </div>
   );
 }

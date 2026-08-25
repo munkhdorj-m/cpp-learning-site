@@ -82,7 +82,7 @@ export function BulkStudentForm({
       <CardContent className="space-y-3 p-4">
         <div>
           <div className="hud-label flex items-center gap-2">
-            <span className="text-primary">//</span>
+            <span className="text-primary">{"//"}</span>
             ADD STUDENTS
           </div>
           <p className="text-sm text-muted-foreground">

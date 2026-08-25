@@ -5,10 +5,14 @@ import { Trophy, Calendar } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { createClient } from "@/lib/supabase/server";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
+import { requireAuth } from "@/lib/auth-helpers";
 
 export const dynamic = "force-dynamic";
 
 export default async function ContestsListPage() {
+  // contest list is class-scoped
+  await requireAuth();
+
   const localeRaw = await getLocale();
   const locale = isLocale(localeRaw) ? localeRaw : DEFAULT_LOCALE;
   const supabase = await createClient();
@@ -35,7 +39,7 @@ export default async function ContestsListPage() {
     <div className="space-y-6 max-w-3xl mx-auto">
       <div className="space-y-1">
         <div className="hud-label flex items-center gap-2">
-          <span className="text-primary">//</span>
+          <span className="text-primary">{"//"}</span>
           CONTESTS
         </div>
         <h1 className="text-3xl font-bold">Тэмцээн</h1>

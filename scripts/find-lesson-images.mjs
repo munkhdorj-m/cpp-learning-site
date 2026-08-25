@@ -1,146 +1,108 @@
-// Finds a photograph for each lesson and Cambridge topic.
+// Search Wikimedia Commons for a picture to illustrate each lesson, and write
+// the manifest that fetch-lesson-images.mjs downloads.
 //
-// Searches Openverse, which indexes Flickr, Wikimedia, museums and other
-// libraries and returns only openly licensed results — so the pictures can sit
-// on a school site without a licensing problem, and each one carries the
-// credit it needs.
+//   node scripts/find-lesson-images.mjs > scripts/data/image-manifest.json
+//   node scripts/fetch-lesson-images.mjs scripts/data/image-manifest.json
 //
-// This step only SEARCHES and writes a manifest. Downloading is a separate
-// script, so the picks can be reviewed first.
+// Only openly licensed results are accepted, and the licence and author come
+// back from the API rather than being typed in, so an image cannot end up on
+// the site with the wrong credit.
+//
+// The search terms are deliberately CONCRETE objects, not abstract concepts:
+// a photograph of a real thing a 13-year-old recognises does the teaching. A
+// picture captioned "recursion" is decoration; a set of nesting dolls is an
+// explanation.
 
-import fs from "node:fs";
-import path from "node:path";
+const QUERIES = {
+  // Unit 7 — foundations
+  recursion: "matryoshka nesting dolls",
+  complexity: "queue of people waiting line",
+  grids: "chessboard empty board",
+  "arrays-in-functions": "conveyor belt boxes factory",
+  "fast-io": "water flowing pipe tap",
 
-const OUT = process.argv[2] ?? "image-manifest.json";
+  // Unit 8 — searching and sorting
+  "linear-search": "library bookshelf row books",
+  "sorting-tools": "sorted books by colour shelf",
+  "binary-search": "dictionary open page thumb index",
+  "binary-search-answer": "measuring cup kitchen scale",
+  "prefix-sums": "cash register receipt running total",
 
-// id → what to search for. The id is what a lesson or topic refers to.
-const SUBJECTS = [
-  // ── Learn: C++ course ────────────────────────────────────────────────
-  ["hello-world", "computer screen programming code"],
-  ["printing", "computer monitor text display"],
-  ["comments", "sticky notes reminder"],
-  ["variables", "labelled storage boxes"],
-  ["types", "glass jars different sizes"],
-  ["input", "computer keyboard typing"],
-  ["math", "calculator numbers"],
-  ["operators", "mathematics symbols blackboard"],
-  ["type-conversion", "measuring jug kitchen scales"],
-  ["if-else", "fork in the road path"],
-  ["conditions", "traffic lights"],
-  ["switch", "row of light switches"],
-  ["for-loop", "running track lanes"],
-  ["while-loop", "conveyor belt factory"],
-  ["loop-control", "stop sign road"],
-  ["putting-it-together", "jigsaw puzzle pieces"],
-  ["strings", "letter tiles alphabet"],
-  ["getline", "typewriter paper"],
-  ["string-tools", "scissors cutting paper"],
-  ["arrays", "post office boxes numbered"],
-  ["array-loops", "row of lockers"],
-  ["nested-loops", "chessboard squares"],
-  ["functions", "factory machine gears"],
-  ["function-details", "mechanical gears"],
-  ["structs", "filing cabinet index cards"],
-  ["vectors", "stack of cardboard boxes warehouse"],
+  // Unit 9 — containers
+  "stl-map-set": "post office pigeon holes labelled",
+  "stack-queue": "stack of plates restaurant",
+  "priority-queue": "hospital triage waiting room",
+  "two-pointers": "two hands measuring tape",
 
-  // ── Cambridge: devices students must recognise ───────────────────────
-  ["dev-keyboard", "computer keyboard"],
-  ["dev-barcode", "barcode scanner shop"],
-  ["dev-printer", "laser printer office"],
-  ["dev-3d-printer", "3d printer printing"],
-  ["dev-hdd", "hard disk drive open platter"],
-  ["dev-ssd", "solid state drive ssd"],
-  ["dev-usb", "usb flash drive"],
-  ["dev-optical", "dvd disc"],
-  ["dev-cpu", "cpu processor chip"],
-  ["dev-ram", "ram memory module"],
-  ["dev-motherboard", "computer motherboard"],
-  ["dev-router", "network router"],
-  ["dev-switch", "network switch ports"],
-  ["dev-ethernet", "ethernet cable rj45"],
-  ["dev-fibre", "fibre optic cable light"],
-  ["dev-robot", "industrial robot arm factory"],
-  ["dev-sensor", "temperature sensor greenhouse"],
-  ["dev-server", "server room data centre"],
-  ["dev-security", "padlock security computer"],
-];
+  // Unit 10 — techniques
+  greedy: "coins mongolian tugrik money",
+  backtracking: "hedge maze from above",
+  "dp-intro": "sticky notes reminder wall",
+  "dp-1d": "staircase steps climbing",
+  "dp-grid": "city street grid from above",
 
-const OK_LICENCES = ["cc0", "pdm", "by", "by-sa"];
+  // Unit 11 — graphs
+  "graphs-intro": "subway metro map diagram",
+  dfs: "cave passage exploring",
+  bfs: "water ripples circles pond",
+  dijkstra: "road signs distance kilometres",
 
-async function search(query) {
-  const url =
-    "https://api.openverse.org/v1/images/?" +
-    new URLSearchParams({
-      q: query,
-      license: OK_LICENCES.join(","),
-      category: "photograph",
-      size: "medium,large",
-      mature: "false",
-      page_size: "12",
-    });
+  // Unit 12 — objects
+  classes: "cookie cutter dough shapes",
+  "class-methods": "vending machine buttons",
+  "operator-overload": "balance scales weighing",
+};
 
-  const res = await fetch(url, {
-    headers: { "User-Agent": "cs.ub.mn school course builder" },
-  });
-  if (res.status === 429) return { rateLimited: true, results: [] };
-  if (!res.ok) return { error: `HTTP ${res.status}`, results: [] };
-  return res.json();
-}
+const OK_LICENCE =
+  /^(CC0|Public domain|PDM|CC BY [0-9.]+|CC BY-SA [0-9.]+|CC-BY|CC-BY-SA)/i;
 
-/** Prefer a wide-ish, decent-sized picture — these sit above lesson text. */
-function score(r) {
-  if (!r.url || !r.width || !r.height) return -1;
-  const ratio = r.width / r.height;
-  if (ratio < 0.9 || ratio > 2.4) return -1;
-  if (r.width < 600) return -1;
-  let s = 0;
-  if (ratio >= 1.2 && ratio <= 1.9) s += 3; // comfortable banner shape
-  if (r.width >= 1000) s += 2;
-  if (["cc0", "pdm"].includes(r.license)) s += 2; // no attribution burden
-  if (r.license === "by") s += 1;
-  return s;
-}
+const UA = "cs.ub.mn-school-course-builder/1.0 (https://cs.ub.mn; school course material)";
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const strip = (s) => String(s ?? "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 
 const manifest = [];
-const problems = [];
+const missing = [];
 
-for (const [id, query] of SUBJECTS) {
-  const data = await search(query);
-  if (data.rateLimited) {
-    problems.push(`${id}: rate limited`);
-    await new Promise((r) => setTimeout(r, 5000));
+for (const [id, query] of Object.entries(QUERIES)) {
+  const url =
+    "https://commons.wikimedia.org/w/api.php?action=query&format=json" +
+    "&generator=search&gsrnamespace=6&gsrlimit=12" +
+    `&gsrsearch=${encodeURIComponent("filetype:bitmap " + query)}` +
+    "&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=1400";
+
+  let picked = null;
+  try {
+    const res = await fetch(url, { headers: { "User-Agent": UA } });
+    const json = await res.json();
+    const pages = Object.values(json.query?.pages ?? {});
+    // Commons orders by relevance; take the first acceptably licensed hit.
+    for (const p of pages) {
+      const ii = p.imageinfo?.[0];
+      if (!ii) continue;
+      const em = ii.extmetadata ?? {};
+      const licence = strip(em.LicenseShortName?.value);
+      if (!OK_LICENCE.test(licence)) continue;
+      if (!/\.(jpe?g|png)$/i.test(p.title)) continue;
+      picked = {
+        id,
+        src: ii.thumburl ?? ii.url,
+        title: p.title.replace(/^File:/, "").replace(/\.[a-z]+$/i, ""),
+        creator: strip(em.Artist?.value) || "unknown",
+        license: licence,
+        source: ii.descriptionurl ?? "",
+      };
+      break;
+    }
+  } catch (e) {
+    missing.push(`${id}: ${e.message}`);
     continue;
   }
-  const ranked = (data.results ?? [])
-    .map((r) => ({ r, s: score(r) }))
-    .filter((x) => x.s >= 0)
-    .sort((a, b) => b.s - a.s);
 
-  if (ranked.length === 0) {
-    problems.push(`${id}: nothing usable for "${query}"`);
-    continue;
-  }
-
-  const best = ranked[0].r;
-  manifest.push({
-    id,
-    query,
-    src: best.url,
-    width: best.width,
-    height: best.height,
-    title: best.title ?? "",
-    creator: best.creator ?? "",
-    license: `${(best.license ?? "").toUpperCase()} ${best.license_version ?? ""}`.trim(),
-    source: best.foreign_landing_url ?? best.url,
-    alternatives: ranked.length,
-  });
-  process.stdout.write(".");
-  await new Promise((r) => setTimeout(r, 350)); // be polite to the API
+  if (picked) manifest.push(picked);
+  else missing.push(`${id}: nothing openly licensed for "${query}"`);
+  await sleep(300);
 }
 
-fs.mkdirSync(path.dirname(path.resolve(OUT)), { recursive: true });
-fs.writeFileSync(OUT, JSON.stringify(manifest, null, 2));
-
-console.log(`\n\nfound ${manifest.length}/${SUBJECTS.length}`);
-for (const p of problems) console.log("  ! " + p);
-console.log(`\nmanifest → ${OUT}`);
+console.log(JSON.stringify(manifest, null, 2));
+console.error(`\nfound ${manifest.length}/${Object.keys(QUERIES).length}`);
+for (const m of missing) console.error("  ! " + m);

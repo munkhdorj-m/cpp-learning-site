@@ -18,6 +18,12 @@ const BugSmash = dynamic(
   },
 );
 
-export function GameClient() {
-  return <BugSmash />;
+export function GameClient({
+  playsUsed,
+  limit,
+}: {
+  playsUsed: number;
+  limit: number;
+}) {
+  return <BugSmash playsUsed={playsUsed} limit={limit} />;
 }

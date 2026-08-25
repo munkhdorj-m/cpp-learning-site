@@ -20,6 +20,7 @@
 import fs from "node:fs";
 import { SignJWT } from "jose";
 import mysql from "mysql2/promise";
+import type { RowDataPacket } from "mysql2/promise";
 
 const BASE = process.env.CHECK_BASE || "http://localhost:3100";
 
@@ -46,7 +47,21 @@ const db = await mysql.createConnection({
   password: dev.DB_PASSWORD,
   database: dev.DB_NAME,
 });
-const [people] = await db.query<any[]>(
+interface ProfileRow extends RowDataPacket {
+  id: string;
+  username: string;
+  display_name: string;
+  role: string;
+}
+interface SlugRow extends RowDataPacket {
+  slug: string;
+}
+interface TestRow extends RowDataPacket {
+  stdin: string | null;
+  expected_stdout: string | null;
+}
+
+const [people] = await db.query<ProfileRow[]>(
   "SELECT id, username, display_name, role FROM profiles",
 );
 const teacher = people.find((p) => p.role === "teacher");
@@ -55,8 +70,8 @@ if (!teacher || !student) {
   throw new Error("need at least one teacher and one student in the dev DB");
 }
 
-const [problems] = await db.query<any[]>("SELECT slug FROM problems");
-const [tests] = await db.query<any[]>(
+const [problems] = await db.query<SlugRow[]>("SELECT slug FROM problems");
+const [tests] = await db.query<TestRow[]>(
   "SELECT stdin, expected_stdout FROM test_cases WHERE is_sample = 0 LIMIT 40",
 );
 await db.end();
