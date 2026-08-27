@@ -5,6 +5,7 @@ import { ArrowLeft, BookOpen, GraduationCap, AlertTriangle } from "lucide-react"
 
 import { Card, CardContent } from "@/components/ui/card";
 import { query } from "@/lib/mysql/pool";
+import { hasTable } from "@/lib/mysql/has-table";
 import { LESSONS } from "@/lib/lessons";
 import { TOPICS } from "@/lib/cambridge";
 import { resolveItem } from "@/lib/progress/items";
@@ -61,7 +62,11 @@ export default async function ClassProgressPage({
       )
     : [];
 
-  const quizPerStudent = ids.length
+  // quiz_answers arrives with add-progress-tracking.sql, which is applied by
+  // hand. Without this the whole progress page is a 500 until it is run.
+  const canQuiz = await hasTable("quiz_answers");
+
+  const quizPerStudent = canQuiz && ids.length
     ? await query<{
         user_id: string;
         attempts: number;
@@ -80,7 +85,7 @@ export default async function ClassProgressPage({
   // Only each student's FIRST attempt at a question counts here. Later answers
   // come from the review queue, where they have already been told the answer —
   // including those would make every question look easy.
-  const hardest = ids.length
+  const hardest = canQuiz && ids.length
     ? await query<{ item_key: string; attempts: number; right_count: number }>(
         `SELECT item_key,
                 COUNT(*) AS attempts,

@@ -7,8 +7,9 @@
 // who wrote the message instead of the person who has to answer it, and a
 // loose read rule shows one child's question to another.
 //
-// The read rule is deliberately asymmetric — a teacher sees everything — so
-// the test that matters is the student one.
+// A thread has exactly two ends: the student who opened it and the teacher
+// they addressed it to. The read rule used to let ANY teacher in, so the tests
+// that matter most now are the ones proving a second teacher is refused.
 import fs from "node:fs";
 
 import { isUnreadFor, mayReadThread } from "../lib/messages.ts";
@@ -44,21 +45,118 @@ check("boolean false behaves as 0", isUnreadFor({ ...unread, from_teacher: false
 
 /* ----------------------------------------------------------------- read */
 
-const thread = { student_id: "student-A" };
+// A thread has two ends. The point of this section is that BOTH "another
+// student" and "another teacher" are refused — the second one is what changed
+// when students started choosing who they write to, and it is the one that
+// would silently let every teacher read every child's questions again.
+
+const thread = { student_id: "student-A", teacher_id: "teacher-1" };
 const studentA = { id: "student-A", role: "student" };
 const studentB = { id: "student-B", role: "student" };
-const teacher = { id: "teacher-1", role: "teacher" };
+const teacher1 = { id: "teacher-1", role: "teacher" };
+const teacher2 = { id: "teacher-2", role: "teacher" };
 
-check("owner opens their own thread", mayReadThread(thread, studentA), true);
-// The one that would be a real problem.
-check("another student opens it", mayReadThread(thread, studentB), false);
-check("a teacher opens it", mayReadThread(thread, teacher), true);
-// A role string that is neither must not fall through to allowed.
+check("the student who opened it", mayReadThread(thread, studentA), true);
+check("another student", mayReadThread(thread, studentB), false);
+check("the teacher it was sent to", mayReadThread(thread, teacher1), true);
+// The one that matters most here.
+check("a DIFFERENT teacher", mayReadThread(thread, teacher2), false);
 check(
   "an unknown role that is not the owner",
   mayReadThread(thread, { id: "x", role: "admin" }),
   false,
 );
+
+// Threads with no teacher: made before the column existed, or whose teacher's
+// account was deleted. Any teacher may pick those up, or a child's question
+// becomes unanswerable — but a student still may not read someone else's.
+const orphan = { student_id: "student-A", teacher_id: null };
+check("an unassigned thread, its own student", mayReadThread(orphan, studentA), true);
+check("an unassigned thread, any teacher", mayReadThread(orphan, teacher2), true);
+check("an unassigned thread, another student", mayReadThread(orphan, studentB), false);
+
+// A thread row read back from a query that did not select teacher_id must not
+// accidentally grant access to everyone.
+check(
+  "teacher_id absent behaves like unassigned, not like a match",
+  mayReadThread({ student_id: "student-A" }, teacher2),
+  true,
+);
+
+/* --------------------------------------------- the queries are scoped too */
+
+const lib = fs.readFileSync("lib/messages.ts", "utf8");
+const scoped = (lib.match(/t\.teacher_id = \?/g) ?? []).length;
+if (scoped < 1) {
+  problems.push("lib/messages.ts: no query narrows to the reading teacher");
+}
+if (/listThreads\([^)]*studentId: string \| null/.test(lib)) {
+  problems.push("listThreads still has the all-threads mode");
+}
+if (!/listTeachers/.test(lib)) {
+  problems.push("lib/messages.ts: students have no list of teachers to pick from");
+}
+rows.push("  ok    teacher-scoped SQL present, all-threads mode gone");
+
+const actions = fs.readFileSync("app/actions/messages.ts", "utf8");
+// Renamed from isTeacherId when teachers gained the ability to start threads:
+// the far end is now verified against whichever role it is supposed to be.
+if (!/accountInRole/.test(actions)) {
+  problems.push(
+    "startThread does not verify the far end's role — a student could address a thread to a classmate and read it as the teacher",
+  );
+}
+if (!/mayReadThread\(thread, profile\)/.test(actions)) {
+  problems.push("an action skips the read rule");
+}
+// Closing must be scoped too, or one teacher can close another's thread.
+const closeFn = actions.slice(actions.indexOf("export async function setThreadClosed"));
+if (!/mayReadThread/.test(closeFn.slice(0, closeFn.indexOf("await query")))) {
+  problems.push("setThreadClosed does not check the thread belongs to this teacher");
+}
+rows.push("  ok    the chosen teacher is verified, and closing is scoped");
+
+/* ------------------------------------- either side may open a thread */
+
+// A teacher can now start one too. The danger in widening that is the sender
+// naming BOTH ends: a teacher opening a thread "from" a student they are not
+// allowed to read, or a student opening one and marking themselves teacher.
+const startFn = actions.slice(
+  actions.indexOf("export async function startThread"),
+  actions.indexOf("export async function sendMessage"),
+);
+
+if (!/const fromTeacher = profile\.role === "teacher"/.test(startFn)) {
+  problems.push("startThread does not derive the sender's role from the session");
+}
+// The sender's own end must come from the session, never the form.
+if (!/studentId = fromTeacher \? otherId : profile\.id/.test(startFn)) {
+  problems.push("startThread lets the form choose which student the thread is for");
+}
+if (!/teacherId = fromTeacher \? profile\.id : otherId/.test(startFn)) {
+  problems.push("startThread lets the form choose which teacher the thread is for");
+}
+// The far end must be checked to be in the role we expect.
+if (!/accountInRole\(otherId, fromTeacher \? "student" : "teacher"\)/.test(startFn)) {
+  problems.push(
+    "startThread does not verify the other end is in the right role — a teacher could open a thread against another teacher",
+  );
+}
+// A teacher opening a thread must not be refused any more.
+if (/Threads are started by students/.test(actions)) {
+  problems.push("teachers are still blocked from starting a thread");
+}
+// The first message must be stamped with the real sender's role, not a guess.
+if (!/from_teacher, body\)[\s\S]{0,120}fromTeacher \? 1 : 0/.test(startFn)) {
+  problems.push("the opening message does not record who actually sent it");
+}
+rows.push("  ok    either side may open a thread, and neither names both ends");
+
+const lib2 = fs.readFileSync("lib/messages.ts", "utf8");
+if (!/listStudents/.test(lib2)) {
+  problems.push("lib/messages.ts: teachers have no list of students to pick from");
+}
+rows.push("  ok    both pickers have a list to draw from");
 
 /* ------------------------------------------------------------ the wiring */
 
@@ -73,7 +171,8 @@ for (const f of [
   "app/(app)/messages/[id]/page.tsx",
   "app/(app)/teacher/messages/page.tsx",
   "components/messages/ask-form.tsx",
-  "components/messages/reply-box.tsx",
+  "components/messages/conversation.tsx",
+  "components/messages/new-thread-form.tsx",
 ]) {
   const src = fs.readFileSync(f, "utf8");
   for (const m of src.matchAll(/\bt\(\s*"([a-z0-9_]+)"/gi)) used.add(m[1]);

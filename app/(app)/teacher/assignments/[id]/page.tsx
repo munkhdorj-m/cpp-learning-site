@@ -1,16 +1,14 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations, getLocale } from "next-intl/server";
-import { ArrowLeft, CheckCircle2, XCircle, Minus, Calendar } from "lucide-react";
+import { ArrowLeft, Calendar } from "lucide-react";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { query } from "@/lib/mysql/pool";
 import { hasTable } from "@/lib/mysql/has-table";
 import { createServiceClient } from "@/lib/supabase/server";
-import {
-  MarkHandIns,
-  type TaskWithHandIns,
-} from "@/components/assignments/mark-hand-ins";
+import type { HandInRow } from "@/components/assignments/mark-hand-ins";
+import { ClassWorkTable } from "@/components/assignments/class-work-table";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 
 import { AssignmentActions } from "./assignment-actions";
@@ -32,6 +30,7 @@ export default async function AssignmentDetailPage({
   const { id } = await params;
   const tGrading = await getTranslations("teacher.assignments.grading");
   const tAssign = await getTranslations("assignments");
+  const tWork = await getTranslations("teacher.assignments.work");
   const localeRaw = await getLocale();
   const locale = isLocale(localeRaw) ? localeRaw : DEFAULT_LOCALE;
   const supabase = createServiceClient();
@@ -147,6 +146,7 @@ export default async function AssignmentDetailPage({
             feedback: string | null;
           }) => ({
             submission_id: r.id,
+            user_id: r.user_id,
             student_name: nameById.get(r.user_id) ?? "?",
             submitted_at: String(r.submitted_at),
             late: new Date(r.submitted_at).getTime() > dueMs,
@@ -204,6 +204,76 @@ export default async function AssignmentDetailPage({
       s.verdict === "accepted" ? "accepted" : "attempted";
   }
 
+  // Teacher overrides on the judge's marking. Guarded, like every other table
+  // that arrives with a migration applied by hand.
+  const marksByUser = new Map<
+    string,
+    Record<string, { points: number; note: string | null }>
+  >();
+  if (await hasTable("assignment_problem_marks")) {
+    const rows = await query<{
+      user_id: string;
+      problem_id: string;
+      points: number;
+      note: string | null;
+    }>(
+      `SELECT user_id, problem_id, points, note
+         FROM assignment_problem_marks
+        WHERE assignment_id = ?`,
+      [id],
+    );
+    for (const r of rows) {
+      const forUser = marksByUser.get(r.user_id) ?? {};
+      forUser[r.problem_id] = { points: Number(r.points), note: r.note };
+      marksByUser.set(r.user_id, forUser);
+    }
+  }
+
+  // ---- one row per student, with their whole assignment attached --------
+  const problemColumns = problemLinks.map(
+    (pl: { problem_id: string; points: number }) => {
+      const p = problemMap.get(pl.problem_id);
+      return {
+        problem_id: pl.problem_id,
+        points: pl.points,
+        slug: p?.slug ?? null,
+        title: p?.title ?? "—",
+      };
+    },
+  );
+
+  // Hand-ins arrive grouped by task; the table needs them grouped by student.
+  // Every student gets an entry for every task, so "handed nothing in" is a
+  // state you can see rather than an absence you have to notice.
+  const handInByTaskUser = new Map<string, HandInRow>();
+  for (const t of tasksWithHandIns) {
+    for (const h of t.handIns as (HandInRow & { user_id: string })[]) {
+      handInByTaskUser.set(`${t.id}:${h.user_id}`, h);
+    }
+  }
+
+  const studentRows = students.map(
+    (st: { id: string; display_name: string | null; username: string }) => {
+      const ti = turnedIn.get(st.id);
+      return {
+        id: st.id,
+        display_name: st.display_name || st.username,
+        username: st.username,
+        turned_in_at: ti?.at ?? null,
+        turned_in_late: ti?.late ?? false,
+        marks: marksByUser.get(st.id) ?? {},
+        work: tasksWithHandIns.map(
+          (t: { id: string; title: string; points: number }) => ({
+            task_id: t.id,
+            task_title: t.title,
+            task_points: t.points,
+            row: handInByTaskUser.get(`${t.id}:${st.id}`) ?? null,
+          }),
+        ),
+      };
+    },
+  );
+
   const className = classRes.data?.name ?? "—";
 
   return (
@@ -250,132 +320,34 @@ export default async function AssignmentDetailPage({
       </Card>
 
       <Card>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                <th className="text-left p-3 sticky left-0 bg-card z-10">
-                  {tGrading("student")}
-                </th>
-                {problemLinks.map((pl) => {
-                  const p = problemMap.get(pl.problem_id);
-                  return (
-                    <th
-                      key={pl.problem_id}
-                      className="text-center p-3 font-normal"
-                    >
-                      <Link
-                        href={p ? `/problems/${p.slug}` : "#"}
-                        className="text-foreground font-semibold hover:text-violet-600 hover:underline"
-                      >
-                        {p?.title ?? "—"}
-                      </Link>
-                      <div className="text-[10px] font-normal text-muted-foreground mt-0.5">
-                        {pl.points} pt
-                      </div>
-                    </th>
-                  );
-                })}
-                <th className="p-3 text-center font-normal">
-                  <span className="font-semibold">
-                    {tAssign("turned_in")}
-                  </span>
-                  <div className="mt-0.5 text-[10px] font-normal text-muted-foreground tabular-nums">
-                    {turnedIn.size} / {students.length}
-                  </div>
-                </th>
-                <th className="text-right p-3">{tGrading("total")}</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y">
-              {students.length === 0 ? (
-                <tr>
-                  <td
-                    colSpan={problemLinks.length + 3}
-                    className="text-center text-muted-foreground py-8"
-                  >
-                    —
-                  </td>
-                </tr>
-              ) : (
-                students.map((s) => {
-                  let total = 0;
-                  return (
-                    <tr key={s.id} className="hover:bg-muted/50">
-                      <td className="p-3 sticky left-0 bg-card z-10">
-                        <div className="font-medium truncate max-w-[180px]">
-                          {s.display_name}
-                        </div>
-                        <div className="text-xs text-muted-foreground">
-                          @{s.username}
-                        </div>
-                      </td>
-                      {problemLinks.map((pl) => {
-                        const cellStatus =
-                          status[s.id]?.[pl.problem_id] ?? "none";
-                        if (cellStatus === "accepted") total += pl.points;
-                        return (
-                          <td
-                            key={pl.problem_id}
-                            className="text-center p-3"
-                          >
-                            {cellStatus === "accepted" && (
-                              <CheckCircle2 className="h-5 w-5 text-emerald-600 mx-auto" />
-                            )}
-                            {cellStatus === "attempted" && (
-                              <XCircle className="h-5 w-5 text-rose-500 mx-auto" />
-                            )}
-                            {cellStatus === "none" && (
-                              <Minus className="h-4 w-4 text-muted-foreground mx-auto" />
-                            )}
-                          </td>
-                        );
-                      })}
-                      <td className="p-3 text-center">
-                        {(() => {
-                          const ti = turnedIn.get(s.id);
-                          if (!ti) {
-                            return (
-                              <Minus className="mx-auto h-4 w-4 text-muted-foreground" />
-                            );
-                          }
-                          return (
-                            <span
-                              className="inline-flex flex-col items-center"
-                              title={new Date(ti.at).toLocaleString()}
-                            >
-                              <CheckCircle2 className="h-5 w-5 text-emerald-600" />
-                              {ti.late && (
-                                <span className="font-code text-[9px] text-neon-amber">
-                                  {tAssign("late")}
-                                </span>
-                              )}
-                            </span>
-                          );
-                        })()}
-                      </td>
-                      <td className="p-3 text-right tabular-nums font-semibold">
-                        {total}
-                      </td>
-                    </tr>
-                  );
-                })
-              )}
-            </tbody>
-          </table>
-        </div>
+        <CardContent className="p-0">
+          {/* One row per student; their hand-ins open underneath it. The
+              per-task list that used to sit at the bottom of this page is
+              gone — with a class of forty, finding one student's work in it
+              meant reading every name. */}
+          <ClassWorkTable
+            students={studentRows}
+            problems={problemColumns}
+            status={status}
+            labels={{
+              assignmentId: assignment.id,
+              problemsHeading: tWork("problems_heading"),
+              autoPoints: tWork("auto_points"),
+              overrideHint: tWork("override_hint"),
+              student: tGrading("student"),
+              total: tGrading("total"),
+              turnedIn: tAssign("turned_in"),
+              late: tAssign("late"),
+              search: tWork("search"),
+              noMatch: tWork("no_match"),
+              handedIn: tWork("handed_in"),
+              notHandedIn: tWork("not_handed_in"),
+              nothingToHandIn: tWork("nothing_to_hand_in"),
+              marked: tWork("marked"),
+            }}
+          />
+        </CardContent>
       </Card>
-
-      {tasksWithHandIns.length > 0 && (
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base">Work handed in</CardTitle>
-          </CardHeader>
-          <CardContent className="p-4 pt-0">
-            <MarkHandIns tasks={tasksWithHandIns as TaskWithHandIns[]} />
-          </CardContent>
-        </Card>
-      )}
     </div>
   );
 }

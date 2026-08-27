@@ -4,9 +4,33 @@ import * as React from "react"
 import { Select as SelectPrimitive } from "@base-ui/react/select"
 
 import { cn } from "@/lib/utils"
+import { deriveSelectItems } from "@/lib/select-items"
 import { ChevronDownIcon, CheckIcon, ChevronUpIcon } from "lucide-react"
 
-const Select = SelectPrimitive.Root
+/**
+ * Base UI's Select shows the raw VALUE on the closed trigger unless the root
+ * is given an `items` map to resolve labels from. This derives that map from
+ * the options themselves, so a select keyed by id shows the name rather than
+ * the id — see lib/select-items.ts for why that is done here rather than at
+ * every call site.
+ *
+ * Pass `items` explicitly to override the derivation.
+ */
+function Select({
+  items,
+  children,
+  ...props
+}: SelectPrimitive.Root.Props<string>) {
+  const derived = React.useMemo(
+    () => items ?? deriveSelectItems(children),
+    [items, children],
+  )
+  return (
+    <SelectPrimitive.Root items={derived} {...props}>
+      {children}
+    </SelectPrimitive.Root>
+  )
+}
 
 function SelectGroup({ className, ...props }: SelectPrimitive.Group.Props) {
   return (

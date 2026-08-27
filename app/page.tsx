@@ -30,7 +30,7 @@ export default async function LandingPage() {
       <section className="relative mx-auto max-w-3xl space-y-6 text-center">
         {/* Floating characters */}
         <CharacterSprite
-          src="/characters/coder-left.png"
+          src="/characters/coder-left.webp"
           alt="Coding student"
           width={160}
           height={200}
@@ -39,7 +39,7 @@ export default async function LandingPage() {
           floatDuration={4.5}
         />
         <CharacterSprite
-          src="/characters/coder-right.png"
+          src="/characters/coder-right.webp"
           alt="Coding student"
           width={160}
           height={200}
@@ -48,7 +48,7 @@ export default async function LandingPage() {
           floatDuration={3.5}
         />
         <CharacterSprite
-          src="/characters/coder-center.png"
+          src="/characters/coder-center.webp"
           alt="Cute robot"
           width={100}
           height={130}

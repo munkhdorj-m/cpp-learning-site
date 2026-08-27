@@ -1,5 +1,6 @@
 "use client";
 
+import { LevelUp } from "@/components/level-up";
 import Link from "next/link";
 
 import { useEffect, useState, useTransition } from "react";
@@ -136,6 +137,7 @@ export function ProblemView({
   // to C++ on every page.
   const [language, setLanguage] = useState<LanguageId>(DEFAULT_LANGUAGE);
   const [code, setCode] = useState(LANGUAGES[DEFAULT_LANGUAGE].starter);
+  const [levelUp, setLevelUp] = useState<number | null>(null);
   const [result, setResult] = useState<SubmissionResult | null>(null);
 
   useEffect(() => {
@@ -202,7 +204,9 @@ export function ProblemView({
         router.refresh();
         if (data.level_up) {
           const lvl = data.new_level ?? 1;
-          // Stagger so the AC toast lands first
+          // The banner is the reward; the toast is what a screen reader and
+          // anyone who blinked still gets. Both, staggered behind the AC.
+          setTimeout(() => setLevelUp(lvl), 350);
           setTimeout(
             () => toast.success(tReward("level_up", { level: lvl })),
             400,
@@ -221,6 +225,9 @@ export function ProblemView({
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      {levelUp !== null && (
+        <LevelUp level={levelUp} onDone={() => setLevelUp(null)} />
+      )}
       <div className="space-y-4 max-h-[calc(100vh-7rem)] lg:overflow-y-auto lg:pr-2">
         {/* Which track this counts for. Without it a student cannot tell why
             the same problem paid 50 one time and 10 another. */}
@@ -367,7 +374,9 @@ export function ProblemView({
           </Button>
         </div>
 
-        <Card className="overflow-hidden">
+        {/* py-0: see the IDE page — the card's padding shows as bars above
+            and below a code theme that is darker or lighter than the page. */}
+        <Card className="overflow-hidden py-0">
           <div className="h-[500px]">
             <CodeEditor value={code} onChange={setCode} language={language} />
           </div>

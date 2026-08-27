@@ -5,9 +5,9 @@
 import { query } from "@/lib/mysql/pool";
 
 // Level curve: lvl = floor(sqrt(xp / 50)) + 1, min 1  (matches compute_level()).
-export function computeLevel(xp: number): number {
-  return Math.max(1, Math.floor(Math.sqrt(xp / 50)) + 1);
-}
+// The maths lives in lib/levels.ts so the XP bar can show the thresholds in
+// the browser without dragging a database connection along with it.
+export { levelForXp as computeLevel } from "@/lib/levels";
 
 // The `level = GREATEST(1, FLOOR(SQRT(xp/50)) + 1)` clause reads the value of
 // `xp` set earlier in the same statement (MySQL evaluates SET left-to-right),

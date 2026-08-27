@@ -1,5 +1,12 @@
 "use client";
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { UserMinus, Trash2, FolderInput } from "lucide-react";
@@ -168,18 +175,23 @@ export function UnassignedStudents({
           <span className="font-code text-xs text-muted-foreground">
             {selected.size} selected
           </span>
-          <select
-            value={target}
-            onChange={(e) => setTarget(e.target.value)}
-            className="ml-auto h-8 min-w-[160px] rounded-lg border border-input bg-background px-2 text-sm"
+          {/* See promote-class.tsx: a native select's popup cannot be
+              themed and renders white on a dark page. */}
+          <Select
+            value={target || null}
+            onValueChange={(v) => setTarget((v as string) ?? "")}
           >
-            <option value="">Put into class…</option>
-            {classes.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.name} (grade {c.grade})
-              </option>
-            ))}
-          </select>
+            <SelectTrigger size="sm" className="ml-auto min-w-[160px]">
+              <SelectValue placeholder="Put into class…" />
+            </SelectTrigger>
+            <SelectContent>
+              {classes.map((c) => (
+                <SelectItem key={c.id} value={c.id}>
+                  {c.name} (grade {c.grade})
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           <Button
             size="sm"
             variant="outline"

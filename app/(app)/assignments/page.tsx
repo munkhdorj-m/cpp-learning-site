@@ -16,8 +16,10 @@ import { hasTable } from "@/lib/mysql/has-table";
 import {
   BUCKET_KEY,
   BUCKET_ORDER,
+  applyLatePenalty,
   bucketFor,
   buildAssignmentListQuery,
+  isLate,
   type Bucket,
 } from "@/lib/assignments";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
@@ -42,6 +44,7 @@ interface Row {
   start_at: string;
   due_at: string;
   allow_late: number;
+  late_penalty_pct: number;
   turned_in_at: string | null;
   late: number | null;
   problems: number;
@@ -73,15 +76,17 @@ export default async function StudentAssignmentsPage() {
   // Migrations are applied by hand here, so the code can land before the
   // tables do. Ask first, and leave out the columns whose tables are not there
   // yet rather than throwing ER_NO_SUCH_TABLE at every student in the school.
-  const [hasTurnins, hasTasks] = await Promise.all([
+  const [hasTurnins, hasTasks, hasProblemMarks] = await Promise.all([
     hasTable("assignment_turnins"),
     hasTable("assignment_tasks"),
+    hasTable("assignment_problem_marks"),
   ]);
 
   const { sql, params } = buildAssignmentListQuery({
     userId: user.id,
     hasTurnins,
     hasTasks,
+    hasProblemMarks,
   });
   const rows = await query<Row>(sql, params);
 
@@ -181,7 +186,19 @@ function AssignmentCard({
   const doneWork = Number(row.solved) + Number(row.handed_in);
   const pct = totalWork > 0 ? (doneWork / totalWork) * 100 : 0;
   const points = Number(row.points);
-  const earned = Number(row.earned);
+  // The same late penalty the assignment page applies, so the two agree.
+  const earned = applyLatePenalty(
+    Number(row.earned),
+    Number(row.late_penalty_pct ?? 0),
+    isLate(
+      {
+        dueAt: row.due_at,
+        turnedInAt: row.turned_in_at,
+        turnedInLate: !!row.late,
+      },
+      Date.now(),
+    ),
+  );
 
   return (
     <Link href={`/assignments/${row.id}`}>

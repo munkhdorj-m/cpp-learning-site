@@ -6,7 +6,7 @@ import { MessageSquare, CheckCircle2 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { AskForm } from "@/components/messages/ask-form";
 import { getCurrentProfile } from "@/lib/auth-helpers";
-import { listThreads } from "@/lib/messages";
+import { listThreads, listTeachers } from "@/lib/messages";
 import { hasTable } from "@/lib/mysql/has-table";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 import { cn } from "@/lib/utils";
@@ -25,7 +25,12 @@ export default async function MessagesPage() {
   const locale = isLocale(localeRaw) ? localeRaw : DEFAULT_LOCALE;
 
   const ready = await hasTable("message_threads");
-  const threads = ready ? await listThreads(profile.id) : [];
+  const [threads, teachers] = ready
+    ? await Promise.all([
+        listThreads({ id: profile.id, role: profile.role }),
+        listTeachers(),
+      ])
+    : [[], []];
 
   return (
     <div className="mx-auto max-w-3xl space-y-4">
@@ -46,7 +51,15 @@ export default async function MessagesPage() {
         </Card>
       ) : (
         <>
-          <AskForm />
+          {teachers.length === 0 ? (
+            <Card>
+              <p className="py-8 text-center text-sm text-muted-foreground">
+                {t("no_teachers")}
+              </p>
+            </Card>
+          ) : (
+            <AskForm teachers={teachers} />
+          )}
 
           {threads.length === 0 ? (
             <Card>
@@ -80,7 +93,7 @@ export default async function MessagesPage() {
                           {th.subject}
                         </div>
                         <div className="truncate text-xs text-muted-foreground">
-                          {th.preview}
+                          {th.teacher_name ?? t("unassigned")} · {th.preview}
                         </div>
                       </div>
                       {th.unread > 0 && (

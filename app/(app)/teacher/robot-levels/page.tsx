@@ -10,6 +10,7 @@ import { DeleteLevelButton, PlayLevelLink } from "@/components/robot-level-actio
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 import { LEVELS } from "@/app/(app)/game/robot/levels";
 import { requireTeacher } from "@/lib/auth-helpers";
+import { hasTable } from "@/lib/mysql/has-table";
 
 export const dynamic = "force-dynamic";
 
@@ -24,12 +25,18 @@ export default async function TeacherRobotLevelsPage() {
   const locale = isLocale(localeRaw) ? localeRaw : DEFAULT_LOCALE;
   const supabase = await createClient();
 
+  // Applied by hand on the server, so the page has to survive the table not
+  // being there yet — see lib/mysql/has-table.ts. Without this the whole game
+  // is a 500 for every student between deploy and migrate.
+  const canHide = await hasTable("robot_hidden_levels");
   const [{ data: dbLevels }, { data: hiddenRows }] = await Promise.all([
     supabase
       .from("robot_levels")
       .select("id, name_mn, name_en, course, xp_reward, palette, order_idx")
       .order("order_idx", { ascending: true }),
-    supabase.from("robot_hidden_levels").select("level_id"),
+    canHide
+      ? supabase.from("robot_hidden_levels").select("level_id")
+      : Promise.resolve({ data: [] as { level_id: string }[] }),
   ]);
 
   // Merge by id: a DB row overrides the built-in with the same id.

@@ -1,5 +1,12 @@
 "use client";
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { GraduationCap } from "lucide-react";
@@ -91,19 +98,25 @@ export function PromoteClass({
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <select
-            value={target}
-            onChange={(e) => setTarget(e.target.value)}
-            className="h-8 min-w-[180px] rounded-lg border border-input bg-background px-2 text-sm"
+          {/* Not a native <select>: its popup is drawn by the OS from the
+              element's own background, so on a dark page it comes out white
+              with grey text. This one lives in the DOM and is themed. */}
+          <Select
+            value={target || null}
+            onValueChange={(v) => setTarget((v as string) ?? "")}
           >
-            <option value="">Move them to…</option>
-            {others.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.name} (grade {c.grade})
-              </option>
-            ))}
-            <option value="graduate">Graduated — no class</option>
-          </select>
+            <SelectTrigger size="sm" className="min-w-[180px]">
+              <SelectValue placeholder="Move them to…" />
+            </SelectTrigger>
+            <SelectContent>
+              {others.map((c) => (
+                <SelectItem key={c.id} value={c.id}>
+                  {c.name} (grade {c.grade})
+                </SelectItem>
+              ))}
+              <SelectItem value="graduate">Graduated — no class</SelectItem>
+            </SelectContent>
+          </Select>
           <Button
             size="sm"
             variant="outline"

@@ -3,8 +3,9 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { MessageSquare, CheckCircle2 } from "lucide-react";
 
 import { Card } from "@/components/ui/card";
+import { NewThreadForm } from "@/components/messages/new-thread-form";
 import { requireTeacher } from "@/lib/auth-helpers";
-import { listThreads } from "@/lib/messages";
+import { listThreads, listStudents } from "@/lib/messages";
 import { hasTable } from "@/lib/mysql/has-table";
 import { isLocale, DEFAULT_LOCALE } from "@/i18n/config";
 import { cn } from "@/lib/utils";
@@ -12,22 +13,30 @@ import { cn } from "@/lib/utils";
 export const dynamic = "force-dynamic";
 
 /**
- * Every question students have asked.
+ * Conversations between this teacher and their students.
  *
- * Unanswered first, because the list is a queue: a teacher opens this page to
- * find what is waiting on them, not to browse.
+ * Mostly questions students asked, which is why the queue leads with what is
+ * waiting on a reply — but a teacher can start one too.
+ *
+ * Another teacher's conversations are not here — a thread has two ends, and
+ * only those two can read it.
  */
 export default async function TeacherMessagesPage() {
   // The layout guards too, but a layout redirect does not stop this page
   // rendering — see the note on the teacher dashboard.
-  await requireTeacher();
+  const me = await requireTeacher();
 
   const t = await getTranslations("messages");
   const localeRaw = await getLocale();
   const locale = isLocale(localeRaw) ? localeRaw : DEFAULT_LOCALE;
 
   const ready = await hasTable("message_threads");
-  const threads = ready ? await listThreads(null) : [];
+  const [threads, students] = ready
+    ? await Promise.all([
+        listThreads({ id: me.id, role: me.role }),
+        listStudents(),
+      ])
+    : [[], []];
 
   const waiting = threads.filter((th) => th.unread > 0 && !th.closed_at);
   const open = threads.filter((th) => th.unread === 0 && !th.closed_at);
@@ -41,9 +50,14 @@ export default async function TeacherMessagesPage() {
 
   return (
     <div className="space-y-4">
-      <div>
-        <h1 className="text-2xl font-bold">{t("teacher_title")}</h1>
-        <p className="text-sm text-muted-foreground">{t("teacher_subtitle")}</p>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h1 className="text-2xl font-bold">{t("teacher_title")}</h1>
+          <p className="text-sm text-muted-foreground">{t("teacher_subtitle")}</p>
+        </div>
+        {ready && students.length > 0 && (
+          <NewThreadForm students={students} />
+        )}
       </div>
 
       {!ready ? (

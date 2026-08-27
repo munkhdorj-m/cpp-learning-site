@@ -8,6 +8,7 @@ import {
 } from "@/app/(app)/game/robot/levels";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
 import { addXp } from "@/lib/gamification";
+import { hasTable } from "@/lib/mysql/has-table";
 
 const schema = z.object({
   level_id: z.string().min(1).max(40),
@@ -87,10 +88,15 @@ export async function POST(request: Request) {
   // badge could not be earned by anybody. Both sides of the comparison now
   // come from the merged, de-duplicated, not-hidden set: exactly what the
   // game shows.
+  // Same guard as the pages: finishing a level must not 500 because the
+  // hide-a-level migration has not been run yet.
+  const canHide = await hasTable("robot_hidden_levels");
   const [progressRes, dbRes, hiddenRes] = await Promise.all([
     admin.from("robot_progress").select("level_id").eq("user_id", user.id),
     admin.from("robot_levels").select("*"),
-    admin.from("robot_hidden_levels").select("level_id"),
+    canHide
+      ? admin.from("robot_hidden_levels").select("level_id")
+      : Promise.resolve({ data: [] as { level_id: string }[] }),
   ]);
 
   const hiddenIds = ((hiddenRes.data ?? []) as { level_id: string }[]).map(

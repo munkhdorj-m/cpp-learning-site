@@ -23,6 +23,7 @@ import { cn } from "@/lib/utils";
 import { requireAuth } from "@/lib/auth-helpers";
 import { query } from "@/lib/mysql/pool";
 import { hasTable } from "@/lib/mysql/has-table";
+import { applyLatePenalty, isLate } from "@/lib/assignments";
 
 export const dynamic = "force-dynamic";
 
@@ -157,12 +158,27 @@ export default async function StudentAssignmentDetailPage({
     for (const s of mySubs ?? []) solvedSet.add(s.problem_id);
   }
 
+  // A teacher can overrule the judge on a problem — for copied or AI-written
+  // work, or to credit a good attempt. The student sees the number and the
+  // reason, because a mark they cannot see the cause of is just a mystery.
+  const myMarks = new Map<string, { points: number; note: string | null }>();
+  if (problemIds.length > 0 && (await hasTable("assignment_problem_marks"))) {
+    const rows = await query<{
+      problem_id: string;
+      points: number;
+      note: string | null;
+    }>(
+      `SELECT problem_id, points, note
+         FROM assignment_problem_marks
+        WHERE assignment_id = ? AND user_id = ?`,
+      [id, user.id],
+    );
+    for (const r of rows) {
+      myMarks.set(r.problem_id, { points: Number(r.points), note: r.note });
+    }
+  }
+
   const totalProblems = (links ?? []).length;
-  const totalPoints = (links ?? []).reduce((sum, l) => sum + l.points, 0);
-  const earned = (links ?? []).reduce(
-    (sum, l) => sum + (solvedSet.has(l.problem_id) ? l.points : 0),
-    0,
-  );
   const solvedCount = (links ?? []).filter((l) =>
     solvedSet.has(l.problem_id),
   ).length;
@@ -174,6 +190,29 @@ export default async function StudentAssignmentDetailPage({
   const handedIn = mineByTask.size;
   const totalWork = totalProblems + totalTasks;
   const doneWork = solvedCount + handedIn;
+
+  // Points, likewise, are points wherever the teacher put them. Counting only
+  // the judge problems meant an assignment made of one task worth 100 totalled
+  // zero — so the student saw no points at all, and a mark of 100/100 never
+  // showed up anywhere they looked.
+  const taskPoints = (taskRows ?? []).reduce(
+    (sum: number, t: { points: number }) => sum + Number(t.points),
+    0,
+  );
+  // A hand-in with no score is waiting to be marked, which is not zero earned.
+  const taskEarned = (taskRows ?? []).reduce((sum: number, t: { id: string }) => {
+    const mine = mineByTask.get(t.id) as { score: number | null } | undefined;
+    return sum + (mine?.score != null ? Number(mine.score) : 0);
+  }, 0);
+
+  const totalPoints =
+    (links ?? []).reduce((sum, l) => sum + l.points, 0) + taskPoints;
+  const rawEarned =
+    (links ?? []).reduce((sum, l) => {
+      const mark = myMarks.get(l.problem_id);
+      if (mark) return sum + mark.points;
+      return sum + (solvedSet.has(l.problem_id) ? l.points : 0);
+    }, 0) + taskEarned;
 
   const now = Date.now();
   const start = new Date(assignment.start_at).getTime();
@@ -196,6 +235,21 @@ export default async function StudentAssignmentDetailPage({
       turnedInLate = !!mine[0].late;
     }
   }
+
+  // The late penalty. It has been stored on every assignment since assignments
+  // existed, shown to students as "-50%", and applied to nothing at all — a
+  // student a week late scored the same as one who was on time.
+  const lateNow = isLate(
+    {
+      dueAt: assignment.due_at,
+      turnedInAt: turnedInAt,
+      turnedInLate: turnedInLate,
+    },
+    now,
+  );
+  const penaltyPct = Number(assignment.late_penalty_pct ?? 0);
+  const earned = applyLatePenalty(rawEarned, penaltyPct, lateNow);
+  const penaltyLost = rawEarned - earned;
 
   const acceptingWork =
     status !== "upcoming" && (status !== "past" || !!assignment.allow_late);
@@ -281,6 +335,17 @@ export default async function StudentAssignmentDetailPage({
                         earned,
                         total: totalPoints,
                       })}
+                      {/* A student seeing 50/100 after earning 100 deserves to
+                          be told why, next to the number, not in a banner
+                          somewhere above it. */}
+                      {penaltyLost > 0 && (
+                        <span className="ml-1 text-neon-amber">
+                          {t("assignments.penalty_applied", {
+                            pct: penaltyPct,
+                            lost: penaltyLost,
+                          })}
+                        </span>
+                      )}
                     </>
                   )}
                 </span>
@@ -362,9 +427,20 @@ export default async function StudentAssignmentDetailPage({
                 <span className={`text-xs font-medium px-2 py-0.5 rounded-md shrink-0 ${diffStyle}`}>
                   {t(`problems.difficulty.${p.difficulty}`)}
                 </span>
-                <span className="inline-flex items-center gap-1 text-amber-600 dark:text-amber-400 text-xs font-semibold tabular-nums shrink-0">
+                <span className="inline-flex shrink-0 items-center gap-1 font-code text-xs font-semibold tabular-nums text-arcade-yellow">
                   <Sparkles className="h-3 w-3" />
-                  {link.points}
+                  {(() => {
+                    const mark = myMarks.get(p.id);
+                    if (!mark) return link.points;
+                    return (
+                      <span
+                        className="text-neon-amber"
+                        title={mark.note ?? undefined}
+                      >
+                        {mark.points} / {link.points}
+                      </span>
+                    );
+                  })()}
                 </span>
                 <ExternalLink className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
               </Link>

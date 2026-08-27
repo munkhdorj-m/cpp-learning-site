@@ -6,6 +6,7 @@ import { z } from "zod";
 
 import { getCurrentProfile, requireTeacher } from "@/lib/auth-helpers";
 import { query } from "@/lib/mysql/pool";
+import { hasTable } from "@/lib/mysql/has-table";
 import { MAX_IDE_PROJECTS } from "@/lib/ide-projects";
 import { parseStarterFiles } from "@/lib/github-starter";
 
@@ -341,5 +342,83 @@ export async function undoTurnInAssignment(assignmentId: string) {
 
   revalidatePath("/assignments");
   revalidatePath(`/assignments/${assignmentId}`);
+  return { ok: true as const };
+}
+
+/* ---------------------------------------------------------------------------
+   Overruling the judge.
+
+   A coding problem marks itself, which is right almost always and wrong in the
+   one case that matters: work that was copied or produced by an AI. A teacher
+   who spots that had nothing to do about it — the points were automatic and
+   final.
+
+   A mark here replaces the automatic points for one student on one problem in
+   one assignment. Clearing it puts the judge back in charge.
+   ------------------------------------------------------------------------- */
+
+const problemMark = z.object({
+  assignmentId: z.string().uuid(),
+  userId: z.string().uuid(),
+  problemId: z.string().uuid(),
+  /** null clears the override and restores the automatic points. */
+  points: z.coerce.number().int().min(0).max(10_000).nullable(),
+  note: z.string().trim().max(500).optional().nullable(),
+});
+
+export async function setProblemMark(input: {
+  assignmentId: string;
+  userId: string;
+  problemId: string;
+  points: number | null;
+  note?: string | null;
+}) {
+  const teacher = await requireTeacher();
+
+  const parsed = problemMark.safeParse(input);
+  if (!parsed.success) return { error: "That mark was not valid." };
+  const d = parsed.data;
+
+  if (!(await hasTable("assignment_problem_marks"))) {
+    return { error: "Run migration/add-problem-marks.sql first." };
+  }
+
+  // The problem has to actually be in that assignment, or a mark could be
+  // parked against a problem the student was never set.
+  const rows = await query<{ points: number }>(
+    `SELECT points FROM assignment_problems
+      WHERE assignment_id = ? AND problem_id = ?`,
+    [d.assignmentId, d.problemId],
+  );
+  if (!rows[0]) return { error: "That problem is not in this assignment." };
+
+  if (d.points === null) {
+    await query(
+      `DELETE FROM assignment_problem_marks
+        WHERE assignment_id = ? AND user_id = ? AND problem_id = ?`,
+      [d.assignmentId, d.userId, d.problemId],
+    );
+  } else {
+    await query(
+      `INSERT INTO assignment_problem_marks
+         (assignment_id, user_id, problem_id, points, note, marked_by)
+       VALUES (?, ?, ?, ?, ?, ?)
+       ON DUPLICATE KEY UPDATE points = VALUES(points), note = VALUES(note),
+                               marked_by = VALUES(marked_by),
+                               marked_at = CURRENT_TIMESTAMP(6)`,
+      [
+        d.assignmentId,
+        d.userId,
+        d.problemId,
+        d.points,
+        d.note?.trim() || null,
+        teacher.id,
+      ],
+    );
+  }
+
+  revalidatePath(`/teacher/assignments/${d.assignmentId}`);
+  revalidatePath(`/assignments/${d.assignmentId}`);
+  revalidatePath("/assignments");
   return { ok: true as const };
 }

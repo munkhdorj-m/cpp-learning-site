@@ -1,5 +1,6 @@
 "use client";
 
+import { CodeThemePicker } from "@/components/learn/code-theme-picker";
 import {
   Suspense,
   useCallback,
@@ -240,6 +241,9 @@ function Ide() {
           <div className="hud-label flex items-center gap-2">
             <span className="text-primary">{"//"}</span>
             SANDBOX
+            {/* The same choice that colours lesson snippets colours the
+                editor — see lib/monaco-themes.ts. */}
+            <CodeThemePicker className="ml-1" />
           </div>
           <h1 className="text-2xl font-bold">{t("title")}</h1>
           <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
@@ -299,7 +303,11 @@ function Ide() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <Card className="lg:col-span-2 overflow-hidden">
+        {/* py-0: Card's vertical padding leaves a band of card colour above
+            and below the editor, which is glaring the moment the code theme
+            and the page theme disagree — a dark editor in a white card. The
+            Cambridge workbenches already do this. */}
+        <Card className="lg:col-span-2 overflow-hidden py-0">
           <div className="h-[500px]">
             <CodeEditor
               value={code}

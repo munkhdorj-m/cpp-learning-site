@@ -30,3 +30,27 @@ export const hasTable = cache(async (name: string): Promise<boolean> => {
   );
   return Number(rows[0]?.n ?? 0) > 0;
 });
+
+/**
+ * Does this column exist yet?
+ *
+ * The sibling of hasTable, and the gap that took chat down: a migration can
+ * add a COLUMN to a table that already exists. hasTable says yes — the table
+ * is right there — and the query still dies on ER_BAD_FIELD_ERROR, which
+ * reaches a student as "Something went wrong" with no clue why.
+ *
+ * Same deal as hasTable: ask, and leave the new part out until it turns up.
+ */
+export const hasColumn = cache(
+  async (table: string, column: string): Promise<boolean> => {
+    const rows = await query<{ n: number }>(
+      `SELECT COUNT(*) AS n
+         FROM information_schema.columns
+        WHERE table_schema = DATABASE()
+          AND table_name = ?
+          AND column_name = ?`,
+      [table, column],
+    );
+    return Number(rows[0]?.n ?? 0) > 0;
+  },
+);

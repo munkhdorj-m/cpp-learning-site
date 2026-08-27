@@ -5,15 +5,21 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { MessageSquare } from "lucide-react";
 
-/** How often to ask. Slow enough to be invisible on a shared-hosting box. */
-const POLL_MS = 60_000;
+/**
+ * How often to ask.
+ *
+ * Faster than it was: a minute meant a student could be mid-conversation and
+ * still see a stale badge. It only fires while the tab is visible, and it is
+ * one indexed COUNT, so twenty seconds is cheap even with a class online.
+ */
+const POLL_MS = 20_000;
 
 /**
  * Unread-message count in the header.
  *
  * Polls, because there is no socket to listen on: the app runs behind
  * Phusion Passenger, which hands each request to the Next handler and offers
- * nowhere to hold a connection open. One indexed COUNT a minute, and it stops
+ * nowhere to hold a connection open. One indexed COUNT a tick, and it stops
  * while the tab is hidden — thirty students with a tab open all afternoon
  * should not be a background load on the box.
  */

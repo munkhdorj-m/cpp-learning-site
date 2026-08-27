@@ -114,6 +114,12 @@
      LIGHT — "daylight cabinet". Same world with the lights on, for a
      bright classroom. All measured against #F3F1FB.
      --------------------------------------------------------------- */
+  /* Native controls — a <select>'s popup, scrollbars, date pickers — are
+     drawn by the operating system, not by CSS. Without this they are drawn
+     light whatever the page looks like, which is why the code-theme dropdown
+     was a white sheet of unreadable grey text in the dark theme. */
+  color-scheme: light;
+
   --ink-hot: #0E0B20;        /* 17.9:1  headings                    */
   --arcade-mag: #B3186B;     /*  5.8:1  the house accent            */
   --arcade-cyan: #0E6478;    /*  6.0:1  links, go                   */
@@ -187,6 +193,8 @@
      DARK — the cabinet. The default, and the real design.
      All measured against #14102A.
      --------------------------------------------------------------- */
+  color-scheme: dark;
+
   --ink-hot: #FFFFFF;        /* 18.4:1  headings                    */
   --arcade-mag: #FF6FB5;     /*  7.2:1  the house accent            */
   --arcade-cyan: #5FE3FF;    /* 12.2:1  links, go                   */
@@ -354,10 +362,13 @@ h4,
 /* =====================================================================
    SHIKI — student-switchable code themes
    ---------------------------------------------------------------------
-   Every token carries one custom property per theme (--s-t0 … --s-t5) and
+   Every token carries one custom property per theme (--s-t0 … --s-t25) and
    no colour of its own, so choosing a theme is one attribute on <html>.
    No re-highlighting, no JavaScript in the render path, no flash: the
    server writes data-code-theme from a cookie before the page is sent.
+
+   Generated to match CODE_THEMES in lib/shiki.ts. A theme added there
+   without a block here silently falls back to t0.
    ===================================================================== */
 
 .shiki,
@@ -413,6 +424,187 @@ h4,
 [data-code-theme="t5"] .shiki {
   background: var(--s-t5-bg);
 }
+
+[data-code-theme="t6"] .shiki,
+[data-code-theme="t6"] .shiki span {
+  color: var(--s-t6);
+  font-style: var(--s-t6-font-style, inherit);
+}
+[data-code-theme="t6"] .shiki {
+  background: var(--s-t6-bg);
+}
+
+[data-code-theme="t7"] .shiki,
+[data-code-theme="t7"] .shiki span {
+  color: var(--s-t7);
+  font-style: var(--s-t7-font-style, inherit);
+}
+[data-code-theme="t7"] .shiki {
+  background: var(--s-t7-bg);
+}
+
+[data-code-theme="t8"] .shiki,
+[data-code-theme="t8"] .shiki span {
+  color: var(--s-t8);
+  font-style: var(--s-t8-font-style, inherit);
+}
+[data-code-theme="t8"] .shiki {
+  background: var(--s-t8-bg);
+}
+
+[data-code-theme="t9"] .shiki,
+[data-code-theme="t9"] .shiki span {
+  color: var(--s-t9);
+  font-style: var(--s-t9-font-style, inherit);
+}
+[data-code-theme="t9"] .shiki {
+  background: var(--s-t9-bg);
+}
+
+[data-code-theme="t10"] .shiki,
+[data-code-theme="t10"] .shiki span {
+  color: var(--s-t10);
+  font-style: var(--s-t10-font-style, inherit);
+}
+[data-code-theme="t10"] .shiki {
+  background: var(--s-t10-bg);
+}
+
+[data-code-theme="t11"] .shiki,
+[data-code-theme="t11"] .shiki span {
+  color: var(--s-t11);
+  font-style: var(--s-t11-font-style, inherit);
+}
+[data-code-theme="t11"] .shiki {
+  background: var(--s-t11-bg);
+}
+
+[data-code-theme="t12"] .shiki,
+[data-code-theme="t12"] .shiki span {
+  color: var(--s-t12);
+  font-style: var(--s-t12-font-style, inherit);
+}
+[data-code-theme="t12"] .shiki {
+  background: var(--s-t12-bg);
+}
+
+[data-code-theme="t13"] .shiki,
+[data-code-theme="t13"] .shiki span {
+  color: var(--s-t13);
+  font-style: var(--s-t13-font-style, inherit);
+}
+[data-code-theme="t13"] .shiki {
+  background: var(--s-t13-bg);
+}
+
+[data-code-theme="t14"] .shiki,
+[data-code-theme="t14"] .shiki span {
+  color: var(--s-t14);
+  font-style: var(--s-t14-font-style, inherit);
+}
+[data-code-theme="t14"] .shiki {
+  background: var(--s-t14-bg);
+}
+
+[data-code-theme="t15"] .shiki,
+[data-code-theme="t15"] .shiki span {
+  color: var(--s-t15);
+  font-style: var(--s-t15-font-style, inherit);
+}
+[data-code-theme="t15"] .shiki {
+  background: var(--s-t15-bg);
+}
+
+[data-code-theme="t16"] .shiki,
+[data-code-theme="t16"] .shiki span {
+  color: var(--s-t16);
+  font-style: var(--s-t16-font-style, inherit);
+}
+[data-code-theme="t16"] .shiki {
+  background: var(--s-t16-bg);
+}
+
+[data-code-theme="t17"] .shiki,
+[data-code-theme="t17"] .shiki span {
+  color: var(--s-t17);
+  font-style: var(--s-t17-font-style, inherit);
+}
+[data-code-theme="t17"] .shiki {
+  background: var(--s-t17-bg);
+}
+
+[data-code-theme="t18"] .shiki,
+[data-code-theme="t18"] .shiki span {
+  color: var(--s-t18);
+  font-style: var(--s-t18-font-style, inherit);
+}
+[data-code-theme="t18"] .shiki {
+  background: var(--s-t18-bg);
+}
+
+[data-code-theme="t19"] .shiki,
+[data-code-theme="t19"] .shiki span {
+  color: var(--s-t19);
+  font-style: var(--s-t19-font-style, inherit);
+}
+[data-code-theme="t19"] .shiki {
+  background: var(--s-t19-bg);
+}
+
+[data-code-theme="t20"] .shiki,
+[data-code-theme="t20"] .shiki span {
+  color: var(--s-t20);
+  font-style: var(--s-t20-font-style, inherit);
+}
+[data-code-theme="t20"] .shiki {
+  background: var(--s-t20-bg);
+}
+
+[data-code-theme="t21"] .shiki,
+[data-code-theme="t21"] .shiki span {
+  color: var(--s-t21);
+  font-style: var(--s-t21-font-style, inherit);
+}
+[data-code-theme="t21"] .shiki {
+  background: var(--s-t21-bg);
+}
+
+[data-code-theme="t22"] .shiki,
+[data-code-theme="t22"] .shiki span {
+  color: var(--s-t22);
+  font-style: var(--s-t22-font-style, inherit);
+}
+[data-code-theme="t22"] .shiki {
+  background: var(--s-t22-bg);
+}
+
+[data-code-theme="t23"] .shiki,
+[data-code-theme="t23"] .shiki span {
+  color: var(--s-t23);
+  font-style: var(--s-t23-font-style, inherit);
+}
+[data-code-theme="t23"] .shiki {
+  background: var(--s-t23-bg);
+}
+
+[data-code-theme="t24"] .shiki,
+[data-code-theme="t24"] .shiki span {
+  color: var(--s-t24);
+  font-style: var(--s-t24-font-style, inherit);
+}
+[data-code-theme="t24"] .shiki {
+  background: var(--s-t24-bg);
+}
+
+[data-code-theme="t25"] .shiki,
+[data-code-theme="t25"] .shiki span {
+  color: var(--s-t25);
+  font-style: var(--s-t25-font-style, inherit);
+}
+[data-code-theme="t25"] .shiki {
+  background: var(--s-t25-bg);
+}
+
 
 /* Shiki ships its own <pre> padding; the site frames the block instead. */
 .shiki {
@@ -877,4 +1069,80 @@ button:not([data-slot="dropdown-menu-item"]):not([role="menuitem"]),
 }
 .print-sheet {
   display: none;
+}
+
+/* =====================================================================
+   LEVEL UP
+   ---------------------------------------------------------------------
+   A wall of blocks sweeps up the screen and is gone in under two
+   seconds. Stepped, not eased: the columns snap upward in four jumps
+   each, which is what makes it read as a cabinet rather than a modal.
+
+   Every column runs the same keyframes on its own delay — see
+   components/level-up.tsx, which staggers them from the middle out.
+   ===================================================================== */
+
+@keyframes lvlup-rise {
+  0% {
+    transform: translateY(100%);
+  }
+  /* Up, hold, then away — all in the same pass, so one animation drives
+     the whole thing and the columns cannot drift apart. */
+  30% {
+    transform: translateY(0);
+  }
+  70% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes lvlup-pop {
+  0%,
+  25% {
+    opacity: 0;
+    transform: scale(0.86);
+  }
+  35% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+  45%,
+  68% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+.lvlup-col {
+  background: var(--arcade-mag);
+  /* Four steps up, four down: the blockiness IS the effect. */
+  animation: lvlup-rise 1.9s steps(4, end) both;
+}
+
+/* Alternating columns in the second accent, so the wall has texture
+   rather than being one flat sheet of pink. */
+.lvlup-col:nth-child(odd) {
+  background: var(--arcade-cyan);
+}
+
+.lvlup-text {
+  animation: lvlup-pop 1.9s steps(2, end) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* No sweep. The words appear, hold, and go. */
+  .lvlup-col {
+    animation: none;
+    opacity: 0;
+  }
+  .lvlup-text {
+    animation: lvlup-pop 0.9s ease-out both;
+  }
 }

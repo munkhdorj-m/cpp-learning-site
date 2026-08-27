@@ -1,5 +1,6 @@
 "use client";
 
+import { CodeThemePicker } from "@/components/learn/code-theme-picker";
 import { useState } from "react";
 import { Play, RotateCcw, Terminal, AlertTriangle, BookOpen } from "lucide-react";
 
@@ -56,6 +57,10 @@ export function PseudocodeWorkbench() {
           <div className="hud-label flex items-center gap-2">
             <span className="text-primary">{"//"}</span>
             CAMBRIDGE.PSEUDOCODE
+            {/* Same control, same placement as the IDE — the editor here
+                already follows data-code-theme, it just had no way to set
+                it. */}
+            <CodeThemePicker className="ml-1" />
           </div>
           <h1 className="text-2xl font-bold">Pseudocode playground</h1>
           <p className="text-sm text-muted-foreground">

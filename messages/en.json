@@ -139,7 +139,8 @@
   },
   "reward": {
     "level_up": "Level up! Lv {level}",
-    "new_badge": "New badge"
+    "new_badge": "New badge",
+    "level_up_banner": "LEVEL UP"
   },
   "ide": {
     "title": "Online code editor",
@@ -204,7 +205,10 @@
       "err_throttled": "Too many wrong attempts. Try again in {minutes} minutes.",
       "err_failed": "Could not change the password"
     },
-    "badges_hint": "Hover or tab onto a badge to see what it takes."
+    "badges_hint": "Hover or tab onto a badge to see what it takes.",
+    "xp_to_next": "{n} to the next",
+    "xp_progress": "{into} of {span} XP into level {level}",
+    "no_max_level": "There is no top level — each one costs more than the last."
   },
   "level": {
     "1": "Newbie",
@@ -364,6 +368,17 @@
         "problem_1": "problem",
         "tasks_n": "tasks",
         "task_1": "task"
+      },
+      "work": {
+        "search": "Find a student",
+        "no_match": "No student matches",
+        "handed_in": "Handed in",
+        "not_handed_in": "Not handed in yet.",
+        "nothing_to_hand_in": "This assignment has nothing to hand in.",
+        "marked": "marked",
+        "problems_heading": "CODING PROBLEMS",
+        "auto_points": "judge:",
+        "override_hint": "The judge marks these automatically. Set a number to overrule it — for copied or AI-written work, or to credit a good attempt."
       }
     },
     "teachers": {
@@ -424,7 +439,8 @@
     "not_open_yet": "This is not open yet.",
     "closed_no_turn_in": "The deadline has passed and late work is not accepted.",
     "done_count": "{done} of {total} done",
-    "points_count": "{earned} / {total} pts"
+    "points_count": "{earned} / {total} pts",
+    "penalty_applied": "(late −{pct}%, −{lost})"
   },
   "messages": {
     "title": "Ask your teacher",
@@ -453,6 +469,21 @@
     "teacher_none": "No questions yet.",
     "group_needs_reply": "Needs a reply",
     "group_open": "Open",
-    "group_answered": "Answered"
+    "group_answered": "Answered",
+    "to_teacher": "Send to",
+    "pick_teacher": "Choose a teacher",
+    "no_teachers": "There are no teachers to write to yet.",
+    "with_teacher": "With",
+    "private_note": "Only you and this teacher can read this.",
+    "unassigned": "Any teacher",
+    "new_thread": "Message a student",
+    "find_student": "Type a name or class",
+    "no_student_match": "No student matches",
+    "change_student": "Choose someone else",
+    "cancel": "Cancel",
+    "message": "Message",
+    "teacher_body_placeholder": "Write to this student…",
+    "with_student": "With",
+    "attach": "Attach a picture or file"
   }
 }

@@ -5,19 +5,21 @@
 -- nothing has ever written a row to it; this is a different thing anyway —
 -- a conversation, with a reply.
 --
--- Shape: a thread belongs to one student and has a subject; messages hang off
--- it. Teachers are not stored on the thread. That is deliberate — classes.
--- teacher_id is nullable and frequently unset in this database, so a thread
--- addressed to "the teacher of this student's class" would be addressed to
--- nobody for most students. Every teacher sees every thread, which is how the
--- rest of the teacher pages already work (see lib/auth-helpers.ts: the role is
--- global, class ownership is not enforced anywhere).
+-- Shape: a thread has two ends — one student and one teacher the student
+-- picked — and messages hang off it. Only those two can read it.
+--
+-- The teacher is chosen rather than derived: classes.teacher_id is nullable
+-- and mostly unset here, so "the teacher of this student's class" would be
+-- nobody for most students.
 --
 -- Safe to run more than once. Depends only on the base schema.
 
 CREATE TABLE IF NOT EXISTS message_threads (
   id              CHAR(36)     NOT NULL,
   student_id      CHAR(36)     NOT NULL,
+  -- Which teacher the student addressed it to. NULL means "any teacher",
+  -- which is what threads created before add-message-teacher.sql have.
+  teacher_id      CHAR(36)     NULL,
   -- Copied at creation so a thread still says which class it came from after
   -- the student is moved up a year.
   class_id        CHAR(36)     NULL,
@@ -28,9 +30,14 @@ CREATE TABLE IF NOT EXISTS message_threads (
   closed_at       DATETIME(6)  NULL,
   PRIMARY KEY (id),
   KEY idx_mt_student (student_id, last_message_at),
+  KEY idx_mt_teacher (teacher_id, last_message_at),
   KEY idx_mt_recent (last_message_at),
   CONSTRAINT fk_mt_student FOREIGN KEY (student_id)
     REFERENCES profiles (id) ON DELETE CASCADE,
+  -- SET NULL, not CASCADE: a teacher leaving must not delete the students'
+  -- questions along with their account.
+  CONSTRAINT fk_mt_teacher FOREIGN KEY (teacher_id)
+    REFERENCES profiles (id) ON DELETE SET NULL,
   CONSTRAINT fk_mt_class FOREIGN KEY (class_id)
     REFERENCES classes (id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

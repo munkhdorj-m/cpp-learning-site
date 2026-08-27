@@ -1,9 +1,15 @@
 "use client";
 
+import {
+  DEFAULT_CODE_THEME,
+  isCodeTheme,
+  type CodeThemeKey,
+} from "@/lib/shiki";
+import { loadMonacoTheme, monacoThemeName } from "@/lib/monaco-themes";
 import dynamic from "next/dynamic";
 import { useTheme } from "next-themes";
 import { useLocale } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import type { Monaco } from "@monaco-editor/react";
 
 import {
@@ -153,6 +159,7 @@ export function CodeEditor({
   const { resolvedTheme } = useTheme();
   const locale = useLocale();
   const [mounted, setMounted] = useState(false);
+  const [ready, setReady] = useState(0);
   useEffect(() => setMounted(true), []);
 
   // Keep the box the providers read in step with the chosen language.
@@ -160,10 +167,62 @@ export function CodeEditor({
     activeLocale.current = locale === "en" ? "en" : "mn";
   }, [locale]);
 
+  // ---- the student's chosen code theme, in the editor -------------------
+  //
+  // The same choice that colours the lesson snippets colours the editor. It
+  // lives on <html data-code-theme>, so this watches that attribute rather
+  // than duplicating the cookie/localStorage reading the picker already does.
+  const [codeTheme, setCodeTheme] = useState<CodeThemeKey | null>(null);
+  const [editorBg, setEditorBg] = useState<string | null>(null);
+  const monacoRef = useRef<Parameters<
+    NonNullable<React.ComponentProps<typeof MonacoEditor>["beforeMount"]>
+  >[0] | null>(null);
+
+  useEffect(() => {
+    const read = () => {
+      const v = document.documentElement.dataset.codeTheme;
+      setCodeTheme(isCodeTheme(v) ? v : DEFAULT_CODE_THEME);
+    };
+    read();
+    // The picker sets the attribute; this follows it without a page reload.
+    const obs = new MutationObserver(read);
+    obs.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-code-theme"],
+    });
+    return () => obs.disconnect();
+  }, []);
+
+  // Define and apply it whenever either the theme or Monaco itself arrives.
+  useEffect(() => {
+    const monaco = monacoRef.current;
+    if (!monaco || !codeTheme) return;
+    let cancelled = false;
+    void (async () => {
+      const data = await loadMonacoTheme(codeTheme);
+      if (cancelled || !data) return;
+      const name = monacoThemeName(codeTheme);
+      monaco.editor.defineTheme(name, data);
+      monaco.editor.setTheme(name);
+      setEditorBg(data.colors["editor.background"] ?? null);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [codeTheme, ready]);
+
+  // Until the chosen theme's chunk has loaded, fall back to the plain pair so
+  // the editor is never unreadable white-on-white in the dark.
   const monacoTheme =
     mounted && resolvedTheme === "dark" ? "vs-dark" : "vs-light";
 
   return (
+    <div
+      className="h-full w-full"
+      // The theme's own background, so the frame around the editor matches it
+      // rather than showing the card through while Monaco loads.
+      style={editorBg ? { background: editorBg } : undefined}
+    >
     <MonacoEditor
       height={height}
       language={monacoLanguage ?? LANGUAGES[language].monaco}
@@ -174,6 +233,8 @@ export function CodeEditor({
         // The pseudocode grammar has to exist before a model asks for it.
         registerPseudocodeLanguage(monaco);
         if (!monacoLanguage) registerProviders(monaco);
+        monacoRef.current = monaco;
+        setReady((n) => n + 1);
       }}
       options={{
         minimap: { enabled: false },
@@ -205,5 +266,6 @@ export function CodeEditor({
         bracketPairColorization: { enabled: true },
       }}
     />
+    </div>
   );
 }

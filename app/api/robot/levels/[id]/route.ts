@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { isTeacher } from "@/lib/auth-helpers";
 import { query } from "@/lib/mysql/pool";
+import { hasTable } from "@/lib/mysql/has-table";
 import { findLevel } from "@/app/(app)/game/robot/levels";
 
 export async function GET(
@@ -104,6 +105,15 @@ export async function DELETE(
   }
   if (!(await isTeacher())) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  // Hiding needs its table. Say so plainly rather than throwing a MySQL error
+  // at a teacher who has not run the migration yet.
+  if (!(await hasTable("robot_hidden_levels"))) {
+    return NextResponse.json(
+      { error: "Run migration/add-robot-hidden-levels.sql first." },
+      { status: 503 },
+    );
   }
 
   const restore = req.nextUrl.searchParams.get("restore") === "1";

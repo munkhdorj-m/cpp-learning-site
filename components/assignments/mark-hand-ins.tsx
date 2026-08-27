@@ -39,7 +39,7 @@ export interface TaskWithHandIns {
   handIns: HandInRow[];
 }
 
-function OneHandIn({ row, points }: { row: HandInRow; points: number }) {
+export function OneHandIn({ row, points }: { row: HandInRow; points: number }) {
   const [score, setScore] = useState(row.score?.toString() ?? "");
   const [feedback, setFeedback] = useState(row.feedback ?? "");
   const [pending, start] = useTransition();
