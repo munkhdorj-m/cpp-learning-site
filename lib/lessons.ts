@@ -185,8 +185,8 @@ export const UNITS: Unit[] = [
   },
   {
     id: 5,
-    title_mn: "Бичвэр ба жагсаалт",
-    title_en: "Text and Lists",
+    title_mn: "Текст ба массив",
+    title_en: "Text and Array",
     blurb_mn: "Үг боловсруулах, олон утгыг нэг дор хадгалах.",
     blurb_en: "Work with words, and hold many values at once.",
   },
@@ -201,8 +201,10 @@ export const UNITS: Unit[] = [
     id: 7,
     title_mn: "Алгоритмын суурь",
     title_en: "Algorithm Foundations",
-    blurb_mn: "Рекурс, хурд, хоёр хэмжээст хүснэгт — цаашдын бүх зүйлийн суурь.",
-    blurb_en: "Recursion, speed and grids — what everything after this rests on.",
+    blurb_mn:
+      "Рекурс, хурд, хоёр хэмжээст хүснэгт — цаашдын бүх зүйлийн суурь.",
+    blurb_en:
+      "Recursion, speed and grids — what everything after this rests on.",
   },
   {
     id: 8,
@@ -213,10 +215,11 @@ export const UNITS: Unit[] = [
   },
   {
     id: 9,
-    title_mn: "Бэлэн савнууд",
+    title_mn: "Бэлэн функцууд",
     title_en: "Ready-made Containers",
     blurb_mn: "map, set, стек, дараалал — өөрөө бичихгүйгээр ашиглах.",
-    blurb_en: "map, set, stack and queue — the ones you use instead of writing your own.",
+    blurb_en:
+      "map, set, stack and queue — the ones you use instead of writing your own.",
   },
   {
     id: 10,
@@ -230,14 +233,17 @@ export const UNITS: Unit[] = [
     title_mn: "Граф",
     title_en: "Graphs",
     blurb_mn: "Цэг ба холбоос, гүнзгий ба өргөн хайлт, хамгийн богино зам.",
-    blurb_en: "Nodes and edges, depth-first and breadth-first search, shortest paths.",
+    blurb_en:
+      "Nodes and edges, depth-first and breadth-first search, shortest paths.",
   },
   {
     id: 12,
     title_mn: "Обьект",
     title_en: "Objects",
-    blurb_mn: "Класс, метод, өөрийн оператор. Жижиг боловч Cambridge-д хэрэгтэй.",
-    blurb_en: "Classes, methods and your own operators. Small, but needed for Cambridge.",
+    blurb_mn:
+      "Класс, метод, өөрийн оператор. Жижиг боловч Cambridge-д хэрэгтэй.",
+    blurb_en:
+      "Classes, methods and your own operators. Small, but needed for Cambridge.",
   },
 ];
 
@@ -293,7 +299,8 @@ int main() {
       },
       {
         code: "return 0;",
-        note_mn: "“Бүх зүйл амжилттай боллоо” гэж мэдэгдээд програмыг дуусгана.",
+        note_mn:
+          "“Бүх зүйл амжилттай боллоо” гэж мэдэгдээд програмыг дуусгана.",
         note_en: 'Ends the program and reports "everything went fine".',
       },
     ],
@@ -313,14 +320,15 @@ int main() {
       {
         wrong: 'cout << "Hello, World!" << endl',
         fix: 'cout << "Hello, World!" << endl;',
-        why_mn: "Мөр бүрийн төгсгөлд цэгтэй таслал `;` тавина. Мартвал алдаа гарна.",
+        why_mn:
+          "Мөр бүрийн төгсгөлд цэгтэй таслал `;` тавина. Мартвал алдаа гарна.",
         why_en:
           "Every statement ends with a semicolon `;`. Forgetting it is the most common error.",
       },
       {
         wrong: "cout << Hello, World!;",
         fix: 'cout << "Hello, World!";',
-        why_mn: "Бичвэрийг заавал давхар хашилтанд `\" \"` хийнэ.",
+        why_mn: 'Бичвэрийг заавал давхар хашилтанд `" "` хийнэ.',
         why_en: 'Text must be inside double quotes `" "`.',
       },
     ],
@@ -364,9 +372,9 @@ int main() {
       {
         code: 'cout << "I am " << 14 << " years old" << endl;',
         note_mn:
-          "Гурван хэсгийг нэг мөрөнд наана: бичвэр, тоо, бичвэр. Зайг анхаар — `\"I am \"` доторх зай хэрэгтэй.",
+          'Гурван хэсгийг нэг мөрөнд наана: бичвэр, тоо, бичвэр. Зайг анхаар — `"I am "` доторх зай хэрэгтэй.',
         note_en:
-          "Glues three pieces onto one line: text, number, text. Notice the space inside `\"I am \"` — you need it.",
+          'Glues three pieces onto one line: text, number, text. Notice the space inside `"I am "` — you need it.',
       },
       {
         code: "cout << 2 + 3 << endl;",
@@ -381,7 +389,7 @@ int main() {
         wrong: 'cout << "2 + 3";',
         fix: "cout << 2 + 3;",
         why_mn: "Хашилттай бол `2 + 3` гэсэн бичвэр гарна, 5 биш.",
-        why_en: 'With quotes you get the text `2 + 3`, not the answer 5.',
+        why_en: "With quotes you get the text `2 + 3`, not the answer 5.",
       },
     ],
     quiz: {
@@ -427,7 +435,8 @@ int main() {
       {
         code: "/* A longer note",
         note_mn: "`/*` ба `*/` хооронд хэдэн ч мөр тайлбар бичиж болно.",
-        note_en: "Between `/*` and `*/` you can write as many lines as you want.",
+        note_en:
+          "Between `/*` and `*/` you can write as many lines as you want.",
       },
     ],
     quiz: {
@@ -512,7 +521,7 @@ int main() {
           "Declare the variable with its type ONCE, then use it without the type.",
       },
       {
-        wrong: 'int my age = 14;',
+        wrong: "int my age = 14;",
         fix: "int myAge = 14;",
         why_mn: "Нэрэнд зай байж болохгүй. `myAge` эсвэл `my_age` гэж бич.",
         why_en: "Names cannot contain spaces. Use `myAge` or `my_age`.",
@@ -559,7 +568,8 @@ int main() {
     lines: [
       {
         code: "double price = 19.5;",
-        note_mn: "`double` бутархай тоо хадгална. `int` бол 19.5-ыг 19 болгоно.",
+        note_mn:
+          "`double` бутархай тоо хадгална. `int` бол 19.5-ыг 19 болгоно.",
         note_en:
           "`double` holds decimals. An `int` would chop 19.5 down to 19.",
       },
@@ -577,8 +587,9 @@ int main() {
       },
       {
         code: 'string name  = "Saraa";',
-        note_mn: "`string` бол үг/өгүүлбэр. Давхар хашилт `\" \"` ашиглана.",
-        note_en: 'A `string` is a word or sentence. It uses double quotes `" "`.',
+        note_mn: '`string` бол үг/өгүүлбэр. Давхар хашилт `" "` ашиглана.',
+        note_en:
+          'A `string` is a word or sentence. It uses double quotes `" "`.',
       },
     ],
     mistakes: [
@@ -647,7 +658,6 @@ int main() {
           "Шүүгч гаралтыг яг харьцуулдаг. Асуултын текст нэмэлт гаралт болж, зөв бодсон ч буруу гэж тооцогдоно. Бодлого бодохдоо хэзээ ч асуулт хэвлэхгүй.",
         why_en:
           "The judge compares your output exactly. A prompt is extra output, so a correct answer is still marked wrong. Never print a prompt in a contest problem.",
-
       },
 
       {
@@ -793,7 +803,8 @@ int main() {
       },
       {
         term: "++",
-        def_mn: "Нэгээр нэмэх. Урд нь бичвэл шинэ утга, ард нь бичвэл хуучин утга буцаана.",
+        def_mn:
+          "Нэгээр нэмэх. Урд нь бичвэл шинэ утга, ард нь бичвэл хуучин утга буцаана.",
         def_en:
           "Add one. Written before, it gives the new value; written after, the old value.",
       },
@@ -805,11 +816,11 @@ int main() {
         why_mn:
           "`=+` гэдэг нь «x-д +5 оноо» гэсэн үг — нэмэхгүй, зүгээр 5 болгоно. Тэмдгийн дараалал чухал.",
         why_en:
-          "`=+` means \"assign positive 5\" — it replaces instead of adding. The order of the symbols matters.",
+          '`=+` means "assign positive 5" — it replaces instead of adding. The order of the symbols matters.',
       },
       {
         wrong: "cout << x++ << x;",
-        fix: "cout << x << \" \";\nx++;",
+        fix: 'cout << x << " ";\nx++;',
         why_mn:
           "Нэг мөрөнд `x`-ийг өөрчилж, бас ашиглавал үр дүн тодорхойгүй болно. Тусад нь бич.",
         why_en:
@@ -884,8 +895,10 @@ int main() {
     terms: [
       {
         term: "(double)x",
-        def_mn: "Хуучин загварын хөрвүүлэлт. Богино тул бодлого бодоход түгээмэл.",
-        def_en: "The old-style cast. It is short, so it is common in exercises.",
+        def_mn:
+          "Хуучин загварын хөрвүүлэлт. Богино тул бодлого бодоход түгээмэл.",
+        def_en:
+          "The old-style cast. It is short, so it is common in exercises.",
       },
       {
         term: "static_cast<double>(x)",
@@ -920,7 +933,8 @@ int main() {
         "`a` becomes a decimal, so the division is done in decimals and gives 4.5.",
     },
     challenge_mn: "Хоёр бүхэл тоо уншаад дундажийг нь бутархайгаар хэвлэ.",
-    challenge_en: "Read two whole numbers and print their average as a decimal.",
+    challenge_en:
+      "Read two whole numbers and print their average as a decimal.",
   },
 
   // ── Unit 3 ────────────────────────────────────────────────────────────
@@ -983,7 +997,7 @@ int main() {
           "`=` assigns a value, `==` compares. This is the single most common beginner bug.",
       },
       {
-        wrong: "if (n > 0);\n    cout << \"Positive\";",
+        wrong: 'if (n > 0);\n    cout << "Positive";',
         fix: 'if (n > 0)\n    cout << "Positive";',
         why_mn:
           "`if`-ийн ард цэгтэй таслал тавьвал нөхцөл хоосон болж, дараагийн мөр үргэлж ажиллана.",
@@ -1060,12 +1074,9 @@ int main() {
     ],
     quiz: {
       question_mn: "`age = 10`, `hasTicket = false` үед эхний `if` ажиллах уу?",
-      question_en: "With `age = 10` and `hasTicket = false`, does the first `if` run?",
-      choices: [
-        "Үгүй / No",
-        "Тийм / Yes",
-        "Заримдаа / Sometimes",
-      ],
+      question_en:
+        "With `age = 10` and `hasTicket = false`, does the first `if` run?",
+      choices: ["Үгүй / No", "Тийм / Yes", "Заримдаа / Sometimes"],
       answer: 0,
       explain_mn: "`&&` хоёуланг шаардана; тасалбар байхгүй тул худал.",
       explain_en: "`&&` needs both to be true, and there is no ticket.",
@@ -1109,8 +1120,7 @@ int main() {
     lines: [
       {
         code: "switch (day) {",
-        note_mn:
-          "`day`-ийн утгыг доорх `case`-үүдтэй нэг нэгээр нь тулгана.",
+        note_mn: "`day`-ийн утгыг доорх `case`-үүдтэй нэг нэгээр нь тулгана.",
         note_en: "Compares the value of `day` against each `case` below.",
       },
       {
@@ -1220,8 +1230,7 @@ int main() {
       },
       {
         code: 'cout << i << " ";',
-        note_mn:
-          "Давталт бүрт `i` өөр утгатай: эхлээд 1, дараа 2 … 5 хүртэл.",
+        note_mn: "Давталт бүрт `i` өөр утгатай: эхлээд 1, дараа 2 … 5 хүртэл.",
         note_en:
           "Each time round, `i` holds a different value: 1, then 2 … up to 5.",
       },
@@ -1280,7 +1289,8 @@ int main() {
       {
         code: "while (n > 0) {",
         note_mn: "Давталт бүрийн ӨМНӨ нөхцөлийг шалгана. Худал бол зогсоно.",
-        note_en: "The condition is checked BEFORE each round. When false, it stops.",
+        note_en:
+          "The condition is checked BEFORE each round. When false, it stops.",
       },
       {
         code: "n--;              // without this it never ends",
@@ -1294,8 +1304,7 @@ int main() {
       {
         wrong: "int n = 3;\nwhile (n > 0) {\n    cout << n;\n}",
         fix: "int n = 3;\nwhile (n > 0) {\n    cout << n;\n    n--;\n}",
-        why_mn:
-          "Төгсгөлгүй давталт. Нөхцөлд нөлөөлдөг зүйлийг заавал өөрчил.",
+        why_mn: "Төгсгөлгүй давталт. Нөхцөлд нөлөөлдөг зүйлийг заавал өөрчил.",
         why_en:
           "An endless loop. You must change something that affects the condition.",
       },
@@ -1310,7 +1319,8 @@ int main() {
       ],
       answer: 0,
       explain_mn: "Давталт бүрийн өмнө шалгаад худал бол зогсоно.",
-      explain_en: "It checks before each round and stops once the condition is false.",
+      explain_en:
+        "It checks before each round and stops once the condition is false.",
     },
   },
   {
@@ -1405,7 +1415,8 @@ int main() {
         "If the condition is false from the very start, how many times does a `do…while` run?",
       choices: ["1 удаа", "0 удаа", "Үүрд"],
       answer: 0,
-      explain_mn: "Нөхцөлөө биеэ ажиллуулсны ДАРАА шалгадаг тул нэг удаа ажиллана.",
+      explain_mn:
+        "Нөхцөлөө биеэ ажиллуулсны ДАРАА шалгадаг тул нэг удаа ажиллана.",
       explain_en:
         "It checks the condition only after running the body, so the body runs once.",
     },
@@ -1473,8 +1484,10 @@ int main() {
         "Хурдан болно / It runs faster",
       ],
       answer: 0,
-      explain_mn: "Давталтын дотор зарласан хувьсагч давталт бүрт шинээр үүснэ.",
-      explain_en: "A variable declared inside the loop is created fresh every round.",
+      explain_mn:
+        "Давталтын дотор зарласан хувьсагч давталт бүрт шинээр үүснэ.",
+      explain_en:
+        "A variable declared inside the loop is created fresh every round.",
     },
     challenge_mn: "Тэгш биш, сондгой тоонуудын нийлбэрийг олж үз.",
     challenge_en: "Change it to add the odd numbers instead.",
@@ -1727,7 +1740,8 @@ int main() {
       choices: ["gram", "gramm", "ogra"],
       answer: 0,
       explain_mn: "3 дугаар нь `g`. Тэндээс 4 тэмдэгт авбал `gram`.",
-      explain_en: "Index 3 is `g`. Taking 4 characters from there gives `gram`.",
+      explain_en:
+        "Index 3 is `g`. Taking 4 characters from there gives `gram`.",
     },
     challenge_mn: "Үг уншаад эхний болон сүүлийн тэмдэгтийг нь хэвлэ.",
     challenge_en: "Read a word and print its first and last character.",
@@ -1890,7 +1904,8 @@ int main() {
         wrong: "int best = 0;   // then compare",
         fix: "int best = a[0];",
         why_mn: "Бүх тоо сөрөг байвал хариу нь 0 гэж буруу гарна.",
-        why_en: "If every number is negative, the answer wrongly comes out as 0.",
+        why_en:
+          "If every number is negative, the answer wrongly comes out as 0.",
       },
     ],
     quiz: {
@@ -1903,7 +1918,8 @@ int main() {
       ],
       answer: 0,
       explain_mn: "0-оор эхлүүлбэл сөрөг тоонуудын хувьд буруу хариу гарна.",
-      explain_en: "Starting at 0 gives a wrong answer when all values are below zero.",
+      explain_en:
+        "Starting at 0 gives a wrong answer when all values are below zero.",
     },
     challenge_mn: "Хамгийн БАГА утгыг олж хэвлэ.",
     challenge_en: "Find and print the smallest value instead.",
@@ -1964,12 +1980,15 @@ int main() {
       },
     ],
     quiz: {
-      question_mn: "3×4 давхар давталтын дотоод хэсэг нийт хэдэн удаа ажиллах вэ?",
-      question_en: "In a 3-by-4 nested loop, how many times does the inside run?",
+      question_mn:
+        "3×4 давхар давталтын дотоод хэсэг нийт хэдэн удаа ажиллах вэ?",
+      question_en:
+        "In a 3-by-4 nested loop, how many times does the inside run?",
       choices: ["12", "7", "4"],
       answer: 0,
       explain_mn: "3 × 4 = 12. Гадна алхам бүрт дотоод нь бүрэн эргэнэ.",
-      explain_en: "3 × 4 = 12 — the inner loop completes fully for each outer step.",
+      explain_en:
+        "3 × 4 = 12 — the inner loop completes fully for each outer step.",
     },
     challenge_mn: "Урвуу гурвалжин (4, 3, 2, 1 од) гарга.",
     challenge_en: "Print an upside-down triangle: 4 stars, then 3, 2, 1.",
@@ -2013,9 +2032,9 @@ int main() {
       },
       {
         code: "return x * x;",
-        note_mn:
-          "`return` нь хариуг буцаагаад функцийг тэр дороо дуусгана.",
-        note_en: "`return` hands the answer back and ends the function immediately.",
+        note_mn: "`return` нь хариуг буцаагаад функцийг тэр дороо дуусгана.",
+        note_en:
+          "`return` hands the answer back and ends the function immediately.",
       },
       {
         code: "void greet(string name) {",
@@ -2052,7 +2071,8 @@ int main() {
         why_en: "Without `return` the answer never comes back out.",
       },
       {
-        wrong: "int main() {\n    cout << square(5);\n}\nint square(int x){...}",
+        wrong:
+          "int main() {\n    cout << square(5);\n}\nint square(int x){...}",
         fix: "int square(int x){...}\nint main() {\n    cout << square(5);\n}",
         why_mn:
           "Функцийг ашиглахаас ӨМНӨ бичсэн байх ёстой — `main`-ийн дээр тавь.",
@@ -2069,7 +2089,8 @@ int main() {
       explain_en: "`void` means 'no answer' — it only performs an action.",
     },
     challenge_mn: "Хоёр тооны их нь буцаадаг `maxOf` функц бич.",
-    challenge_en: "Write a `maxOf` function that returns the larger of two numbers.",
+    challenge_en:
+      "Write a `maxOf` function that returns the larger of two numbers.",
   },
   {
     slug: "function-details",
@@ -2118,8 +2139,7 @@ int main() {
       },
       {
         code: "int power(int base, int exp = 2)",
-        note_mn:
-          "`exp = 2` бол анхны утга. Дуудахдаа орхивол 2 гэж үзнэ.",
+        note_mn: "`exp = 2` бол анхны утга. Дуудахдаа орхивол 2 гэж үзнэ.",
         note_en:
           "`exp = 2` is a default. If you leave the argument out, 2 is used.",
       },
@@ -2132,8 +2152,7 @@ int main() {
     terms: [
       {
         term: "&",
-        def_mn:
-          "Лавлагаа. Хуулбар биш, эх хувьсагчийг өөрийг нь дамжуулна.",
+        def_mn: "Лавлагаа. Хуулбар биш, эх хувьсагчийг өөрийг нь дамжуулна.",
         def_en: "A reference. Passes the original variable, not a copy.",
       },
       {
@@ -2154,13 +2173,13 @@ int main() {
       {
         wrong: "int f(int a = 1, int b);",
         fix: "int f(int a, int b = 1);",
-        why_mn:
-          "Анхны утгатай параметрүүд заавал **төгсгөлд** байх ёстой.",
+        why_mn: "Анхны утгатай параметрүүд заавал **төгсгөлд** байх ёстой.",
         why_en: "Parameters with defaults must come **last**.",
       },
     ],
     quiz: {
-      question_mn: "`void f(int x)` дотор `x`-ийг өөрчилвөл дуудсан хувьсагч яах вэ?",
+      question_mn:
+        "`void f(int x)` дотор `x`-ийг өөрчилвөл дуудсан хувьсагч яах вэ?",
       question_en:
         "If `void f(int x)` changes `x`, what happens to the variable that was passed in?",
       choices: [
@@ -2263,8 +2282,7 @@ int main() {
       {
         wrong: "Student s;\ncout << s.name;",
         fix: 'Student s;\ns.name = "Bat";\ncout << s.name;',
-        why_mn:
-          "Талбаруудад утга оноохоос өмнө уншвал хог утга гарна.",
+        why_mn: "Талбаруудад утга оноохоос өмнө уншвал хог утга гарна.",
         why_en: "Reading fields before you set them gives junk values.",
       },
     ],
@@ -2325,8 +2343,7 @@ int main() {
         code: "vector<int> v;",
         note_mn:
           "`<int>` дотор ямар төрлийн зүйл хадгалахыг бичнэ. Одоохондоо хоосон.",
-        note_en:
-          "Inside `< >` you say what it holds. It starts out empty.",
+        note_en: "Inside `< >` you say what it holds. It starts out empty.",
       },
       {
         code: "v.push_back(10);",
@@ -2373,7 +2390,8 @@ int main() {
       ],
       answer: 0,
       explain_mn: "Массив тогтмол хэмжээтэй, вектор ажиллаж байхдаа өснө.",
-      explain_en: "An array's size is fixed; a vector grows while the program runs.",
+      explain_en:
+        "An array's size is fixed; a vector grows while the program runs.",
     },
     challenge_mn: "n тоо уншиж вектор дүүргээд нийлбэрийг ол.",
     challenge_en: "Read n numbers into a vector and print their sum.",
@@ -2393,7 +2411,8 @@ LESSONS.push(
     title_mn: "Рекурс",
     title_en: "Recursion",
     goal_mn: "Өөрийгөө дуудаж байгаа функц бичих, зогсох нөхцөлийг зөв тавих.",
-    goal_en: "Write a function that calls itself, and stop it at the right moment.",
+    goal_en:
+      "Write a function that calls itself, and stop it at the right moment.",
     intro_mn:
       "Функц өөрийгөө дуудаж болно. Энэ нь том бодлогыг яг адилхан жижиг бодлого болгон хувааж, сүүлд нь маш амархан тохиолдол дээр зогсоно. Зогсох тохиолдлыг ЭХЛЭЭД бичих нь чухал — тэрийг мартвал програм хэзээ ч дуусахгүй.",
     intro_en:
@@ -2432,8 +2451,7 @@ int main() {
         code: "cout << factorial(5) << endl;",
         note_mn:
           "5 → 5*factorial(4) → 5*4*factorial(3) → ... → 5*4*3*2*1 = 120.",
-        note_en:
-          "5 → 5*factorial(4) → 5*4*factorial(3) → … → 5*4*3*2*1 = 120.",
+        note_en: "5 → 5*factorial(4) → 5*4*factorial(3) → … → 5*4*3*2*1 = 120.",
       },
     ],
     terms: [
@@ -2446,7 +2464,8 @@ int main() {
         term: "base case",
         def_mn:
           "Дуудалт зогсох тохиолдол. Үүнгүйгээр рекурс хязгааргүй үргэлжилнэ.",
-        def_en: "The case where the calls stop. Without one, recursion never ends.",
+        def_en:
+          "The case where the calls stop. Without one, recursion never ends.",
       },
     ],
     mistakes: [
@@ -2590,7 +2609,8 @@ int main() {
     ],
     mistakes: [
       {
-        wrong: "n ≤ 100000 бодлогод хоёр давхар давталт / A double loop when n ≤ 100000",
+        wrong:
+          "n ≤ 100000 бодлогод хоёр давхар давталт / A double loop when n ≤ 100000",
         fix: "Нэг давталт эсвэл эрэмбэлэлт / One pass, or a sort",
         why_mn:
           "100000² = 10 тэрбум үйлдэл. Ямар ч шүүгч үүнийг хүлээхгүй — TLE гарна.",
@@ -2609,7 +2629,8 @@ int main() {
     quiz: {
       question_mn:
         "Бодлогод n ≤ 200000 гэж байвал аль арга багтах магадлалтай вэ?",
-      question_en: "A problem says n ≤ 200000. Which approach is likely to fit?",
+      question_en:
+        "A problem says n ≤ 200000. Which approach is likely to fit?",
       choices: [
         "Хоёр давхар давталт O(n²) / A double loop, O(n²)",
         "Гурван давхар давталт O(n³) / A triple loop, O(n³)",
@@ -2757,9 +2778,9 @@ for r in range(rows):
             "Builds each row SEPARATELY. Writing `[[0]*cols]*rows` makes every row the same list.",
         },
         {
-          code: "print(g[r][c], end=\" \")",
-          note_mn: "`end=\" \"` нь мөр таслахгүй, зай тавина.",
-          note_en: "`end=\" \"` prints a space instead of a line break.",
+          code: 'print(g[r][c], end=" ")',
+          note_mn: '`end=" "` нь мөр таслахгүй, зай тавина.',
+          note_en: '`end=" "` prints a space instead of a line break.',
         },
       ],
       mistakes: [
@@ -2869,8 +2890,7 @@ int main() {
     quiz: {
       question_mn:
         "Функц векторыг зөвхөн УНШИХ бол аль гарын үсэг хамгийн зөв вэ?",
-      question_en:
-        "A function only READS a vector. Which signature is best?",
+      question_en: "A function only READS a vector. Which signature is best?",
       choices: [
         "vector<int> v — хуулбар / a copy",
         "const vector<int>& v — хуулбаргүй, өөрчлөхгүй / no copy, cannot change",
@@ -2892,8 +2912,7 @@ int main() {
     unit: 7,
     title_mn: "Хурдан оролт",
     title_en: "Fast Input",
-    goal_mn:
-      "Хэдэн ширхэг тоо ирэхийг мэдэхгүй үед уншиж, оролтоо хурдасгах.",
+    goal_mn: "Хэдэн ширхэг тоо ирэхийг мэдэхгүй үед уншиж, оролтоо хурдасгах.",
     goal_en:
       "Read numbers when you are not told how many there are, and make reading fast.",
     intro_mn:
@@ -2974,7 +2993,8 @@ int main() {
           "`eof()` only turns true AFTER a read has already failed, so the last value gets handled twice.",
       },
       {
-        wrong: "sync_with_stdio(false) + printf хольж хэрэглэх / Mixing sync_with_stdio(false) with printf",
+        wrong:
+          "sync_with_stdio(false) + printf хольж хэрэглэх / Mixing sync_with_stdio(false) with printf",
         fix: "Зөвхөн нэгийг нь сонгох / Pick one family and stay in it",
         why_mn:
           "Хоёуланг нь холивол гаралтын дараалал будлиантана. Нэгийг нь сонго.",
@@ -3011,7 +3031,7 @@ int main() {
     intro_mn:
       "Хамгийн энгийн хайлт: эхнээс нь эхлээд нэг бүрчлэн шалгана. Олдвол шууд зогсоно. Олдохгүй бол -1 буцаах нь заншил — «байхгүй» гэдгийг ингэж илэрхийлдэг.",
     intro_en:
-      "The simplest search there is: start at the front and check each cell. Stop the moment you find it. If it is not there, returning -1 is the convention for \"not found\".",
+      'The simplest search there is: start at the front and check each cell. Stop the moment you find it. If it is not there, returning -1 is the convention for "not found".',
     code: `#include <iostream>
 #include <vector>
 using namespace std;
@@ -3040,17 +3060,15 @@ int main() {
       },
       {
         code: "return i;",
-        note_mn:
-          "Олонгуут ШУУД буцна. Цааш үргэлжлүүлэх нь дэмий ажил.",
-        note_en:
-          "Return the moment it is found. Carrying on is wasted work.",
+        note_mn: "Олонгуут ШУУД буцна. Цааш үргэлжлүүлэх нь дэмий ажил.",
+        note_en: "Return the moment it is found. Carrying on is wasted work.",
       },
       {
         code: "return -1;",
         note_mn:
           "Давталт бүрэн дуусвал олдоогүй гэсэн үг. -1 бол «байхгүй»-гийн тэмдэг.",
         note_en:
-          "If the loop finishes, it was never found. -1 is the sign for \"not there\".",
+          'If the loop finishes, it was never found. -1 is the sign for "not there".',
       },
       {
         code: "for (int i = 0; i < (int)v.size(); i++) {",
@@ -3069,7 +3087,7 @@ int main() {
       {
         term: "sentinel value",
         def_mn: "«Олдсонгүй» гэх мэт тусгай утга. Энд -1.",
-        def_en: "A special value meaning something like \"not found\". Here, -1.",
+        def_en: 'A special value meaning something like "not found". Here, -1.',
       },
     ],
     mistakes: [
@@ -3095,11 +3113,7 @@ int main() {
         "6 элементтэй массиваас байхгүй утга хайвал хэдэн харьцуулалт хийгдэх вэ?",
       question_en:
         "Searching a 6-element array for a value that is not there — how many comparisons?",
-      choices: [
-        "1 / 1",
-        "3 / 3",
-        "6 / 6",
-      ],
+      choices: ["1 / 1", "3 / 3", "6 / 6"],
       answer: 2,
       explain_mn:
         "Олдохгүй гэдгийг батлахын тулд БҮГДИЙГ шалгах ёстой. Тийм учраас хамгийн муу тохиолдол нь n.",
@@ -3142,8 +3156,7 @@ print(find(v, 99))`,
     unit: 8,
     title_mn: "Эрэмбэлэх",
     title_en: "Sorting",
-    goal_mn:
-      "`sort` ашиглан эрэмбэлэх, өөрийн дүрмээр эрэмбэлэх.",
+    goal_mn: "`sort` ашиглан эрэмбэлэх, өөрийн дүрмээр эрэмбэлэх.",
     goal_en: "Sort with `sort`, and sort by your own rule.",
     intro_mn:
       "Эрэмбэлэх алгоритмыг өөрөө бичих шаардлагагүй — C++ дотор бэлэн байдаг бөгөөд чиний бичихээс хурдан. Мэдэх ёстой зүйл нь: хэрхэн дуудах, өөрийн дүрмээ яаж өгөх вэ гэдэг.",
@@ -3194,7 +3207,7 @@ int main() {
         note_mn:
           "«a нь b-ээс ӨМНӨ байх ёстой юу?» гэсэн асуултад хариулна. `>` тул өндөр оноо түрүүлнэ.",
         note_en:
-          "Answers \"should a come BEFORE b?\". With `>`, the higher score comes first.",
+          'Answers "should a come BEFORE b?". With `>`, the higher score comes first.',
       },
       {
         code: "sort(s.begin(), s.end(), byScore);",
@@ -3205,8 +3218,7 @@ int main() {
     terms: [
       {
         term: "comparator",
-        def_mn:
-          "Хоёр элементийн аль нь өмнө байхыг хэлдэг функц.",
+        def_mn: "Хоёр элементийн аль нь өмнө байхыг хэлдэг функц.",
         def_en: "A function that says which of two items comes first.",
       },
       {
@@ -3245,7 +3257,7 @@ int main() {
       explain_mn:
         "«Өмнө байх уу?» гэсэн асуулт. Тэнцүү бол заавал false — эс бөгөөс `sort` сүйрнэ.",
       explain_en:
-        "It answers \"does a come first?\". Equal items must give false, or `sort` can crash.",
+        'It answers "does a come first?". Equal items must give false, or `sort` can crash.',
     },
     challenge_mn:
       "Оюутнуудыг оноогоор нь ӨСӨХ дарааллаар эрэмбэл. Оноо тэнцвэл нэрээр нь цагаан толгойн дарааллаар.",
@@ -3257,8 +3269,7 @@ int main() {
     unit: 8,
     title_mn: "Хоёртын хайлт",
     title_en: "Binary Search",
-    goal_mn:
-      "Эрэмбэлэгдсэн массиваас хагасаар нь тасалж хайх.",
+    goal_mn: "Эрэмбэлэгдсэн массиваас хагасаар нь тасалж хайх.",
     goal_en: "Search a sorted array by halving it each time.",
     intro_mn:
       "Толь бичгээс үг хайхдаа эхний хуудаснаас эхэлдэггүй — дунд нь нээгээд аль тал руу явахаа шийддэг. Хоёртын хайлт яг ийм. Ганц болзол: өгөгдөл ЭРЭМБЭЛЭГДСЭН байх ёстой.",
@@ -3289,8 +3300,7 @@ int main() {
     lines: [
       {
         code: "int lo = 0, hi = (int)v.size() - 1;",
-        note_mn:
-          "Хайж буй муж. `hi` нь СҮҮЛИЙН индекс, хэмжээ биш.",
+        note_mn: "Хайж буй муж. `hi` нь СҮҮЛИЙН индекс, хэмжээ биш.",
         note_en:
           "The range still in play. `hi` is the LAST index, not the size.",
       },
@@ -3324,8 +3334,7 @@ int main() {
       },
       {
         term: "O(log n)",
-        def_mn:
-          "Маш удаан өсдөг. Сая элемент дунд ердөө 20 орчим алхам.",
+        def_mn: "Маш удаан өсдөг. Сая элемент дунд ердөө 20 орчим алхам.",
         def_en: "Grows very slowly. About 20 steps among a million items.",
       },
     ],
@@ -3336,7 +3345,7 @@ int main() {
         why_mn:
           "Эрэмбэлэгдээгүй бол «аль тал руу явах» гэсэн шийдвэр утгагүй. Алдаа заахгүй, зүгээр л буруу хариу өгнө.",
         why_en:
-          "Unsorted, the choice of \"which half\" means nothing. It does not error — it just answers wrongly.",
+          'Unsorted, the choice of "which half" means nothing. It does not error — it just answers wrongly.',
       },
       {
         wrong: "lo = mid;",
@@ -3359,7 +3368,7 @@ int main() {
       explain_mn:
         "Эрэмбэ л «энэ талд байх боломжгүй» гэж хэлэх эрхийг өгдөг. Тэрийг алдвал бүх зүйл нурна.",
       explain_en:
-        "Only the ordering lets you say \"it cannot be in that half\". Lose that and the whole idea collapses.",
+        'Only the ordering lets you say "it cannot be in that half". Lose that and the whole idea collapses.',
     },
     challenge_mn:
       "Эрэмбэлэгдсэн массиваас өгөгдсөн утгаас ИХ хамгийн эхний тоог ол. Байхгүй бол -1.",
@@ -3371,13 +3380,12 @@ int main() {
     unit: 8,
     title_mn: "Хариу дээрх хоёртын хайлт",
     title_en: "Binary Search on the Answer",
-    goal_mn:
-      "Хариуг шууд бодохын оронд таагаад шалгах аргыг ойлгох.",
+    goal_mn: "Хариуг шууд бодохын оронд таагаад шалгах аргыг ойлгох.",
     goal_en: "Guess an answer and check it, instead of computing it directly.",
     intro_mn:
       "Энэ бол хүнд сэдэв — эхлээд өмнөх хичээлээ сайн ойлгоод ир. Санаа нь: заримдаа хариуг шууд бодоход хэцүү ч «энэ хариу боломжтой юу?» гэдгийг шалгахад амархан байдаг. Тэгвэл боломжтой хариунуудын дундаас хоёртын хайлтаар хамгийн сайныг олж болно.",
     intro_en:
-      "This one is hard — be comfortable with the previous lesson first. The idea: sometimes computing the answer is difficult, but checking \"is this answer possible?\" is easy. When that is true you can binary search over the possible answers.",
+      'This one is hard — be comfortable with the previous lesson first. The idea: sometimes computing the answer is difficult, but checking "is this answer possible?" is easy. When that is true you can binary search over the possible answers.',
     code: `#include <iostream>
 #include <vector>
 using namespace std;
@@ -3415,7 +3423,7 @@ int main() {
         note_mn:
           "Шалгагч функц. «Ийм урттай k ширхэг гарах уу?» гэдэгт л хариулна.",
         note_en:
-          "The checker. It only answers \"can we get k pieces of this length?\".",
+          'The checker. It only answers "can we get k pieces of this length?".',
       },
       {
         code: "pieces = pieces + b / length;",
@@ -3426,8 +3434,7 @@ int main() {
       },
       {
         code: "best = mid;",
-        note_mn:
-          "Болж байвал ЭНЭ хариуг санаж аваад, илүү ихийг оролдоно.",
+        note_mn: "Болж байвал ЭНЭ хариуг санаж аваад, илүү ихийг оролдоно.",
         note_en:
           "If it works, remember THIS answer and then try for a bigger one.",
       },
@@ -3442,9 +3449,9 @@ int main() {
     terms: [
       {
         term: "monotonic",
-        def_mn:
-          "Нэг чигт өөрчлөгдөх. Урт ихсэхэд хэсгийн тоо зөвхөн буурна.",
-        def_en: "Changing in one direction only. Longer pieces, never more of them.",
+        def_mn: "Нэг чигт өөрчлөгдөх. Урт ихсэхэд хэсгийн тоо зөвхөн буурна.",
+        def_en:
+          "Changing in one direction only. Longer pieces, never more of them.",
       },
       {
         term: "predicate",
@@ -3459,7 +3466,7 @@ int main() {
         why_mn:
           "Хариу нэг чигт өөрчлөгдөхгүй бол «дээшээ юу доошоо юу» гэдэг нь утгагүй болно.",
         why_en:
-          "If the yes/no answer does not change in one direction, \"go up or go down\" means nothing.",
+          'If the yes/no answer does not change in one direction, "go up or go down" means nothing.',
       },
       {
         wrong: "lo = 0",
@@ -3495,13 +3502,12 @@ int main() {
     unit: 8,
     title_mn: "Угтвар нийлбэр",
     title_en: "Prefix Sums",
-    goal_mn:
-      "Нэг удаа бэлтгээд, дурын мужийн нийлбэрийг шууд гаргах.",
+    goal_mn: "Нэг удаа бэлтгээд, дурын мужийн нийлбэрийг шууд гаргах.",
     goal_en: "Prepare once, then answer any range-sum question instantly.",
     intro_mn:
       "«3-аас 7 дугаар элементийн нийлбэрийг ол» гэсэн асуултыг олон удаа асуувал давталтаар бодох нь удаан. Эхэнд нэг удаа явж, эхнээс энэ хүртэлх нийлбэрүүдийг хадгалвал дараа нь асуулт бүрийг НЭГ хасалтаар хариулна.",
     intro_en:
-      "If you are asked \"what do elements 3 to 7 add up to?\" many times, looping each time is slow. Walk the array once, storing the total up to each point, and every later question becomes a single subtraction.",
+      'If you are asked "what do elements 3 to 7 add up to?" many times, looping each time is slow. Walk the array once, storing the total up to each point, and every later question becomes a single subtraction.',
     code: `#include <iostream>
 #include <vector>
 using namespace std;
@@ -3528,7 +3534,7 @@ int main() {
         note_mn:
           "Нэгээр УРТ. `p[0] = 0` нь «юу ч аваагүй» гэсэн үг — энэ нь хасалтыг амар болгодог.",
         note_en:
-          "One longer than the array. `p[0] = 0` means \"nothing taken yet\", which makes the subtraction clean.",
+          'One longer than the array. `p[0] = 0` means "nothing taken yet", which makes the subtraction clean.',
       },
       {
         code: "p[i + 1] = p[i] + v[i];",
@@ -3539,13 +3545,11 @@ int main() {
         code: "cout << p[4] - p[1] << endl;",
         note_mn:
           "v[1]-ээс v[3] хүртэлх нийлбэр. Ерөнхий дүрэм: v[a..b] = p[b+1] - p[a].",
-        note_en:
-          "The sum of v[1] to v[3]. The rule: v[a..b] is p[b+1] - p[a].",
+        note_en: "The sum of v[1] to v[3]. The rule: v[a..b] is p[b+1] - p[a].",
       },
       {
         code: "vector<long long> p",
-        note_mn:
-          "`long long` — нийлбэр анхны утгуудаас хамаагүй том болно.",
+        note_mn: "`long long` — нийлбэр анхны утгуудаас хамаагүй том болно.",
         note_en:
           "`long long` because a total grows far beyond the individual values.",
       },
@@ -3558,8 +3562,7 @@ int main() {
       },
       {
         term: "precompute",
-        def_mn:
-          "Асуулт ирэхээс өмнө нэг удаа бодож тавих.",
+        def_mn: "Асуулт ирэхээс өмнө нэг удаа бодож тавих.",
         def_en: "Doing the work once, before the questions arrive.",
       },
     ],
@@ -3607,13 +3610,12 @@ int main() {
     unit: 9,
     title_mn: "map ба set",
     title_en: "map and set",
-    goal_mn:
-      "Юмыг тоолохдоо map, давхардлыг арилгахдаа set ашиглах.",
+    goal_mn: "Юмыг тоолохдоо map, давхардлыг арилгахдаа set ашиглах.",
     goal_en: "Count things with a map, and remove duplicates with a set.",
     intro_mn:
       "«Үг бүр хэдэн удаа гарсан бэ?» гэдгийг массиваар бодоход хэцүү. `map` нь түлхүүр бүрд утга хадгална — үг → тоо. `set` нь зөвхөн байгаа эсэхийг санана, давхардлыг өөрөө хаяна. Хоёулаа түлхүүрээ ЭРЭМБЭЛЖ хадгална.",
     intro_en:
-      "\"How many times did each word appear?\" is awkward with an array. A `map` stores a value for each key — word to count. A `set` only remembers whether something is present, dropping duplicates by itself. Both keep their keys in SORTED order.",
+      '"How many times did each word appear?" is awkward with an array. A `map` stores a value for each key — word to count. A `set` only remembers whether something is present, dropping duplicates by itself. Both keep their keys in SORTED order.',
     code: `#include <iostream>
 #include <map>
 #include <set>
@@ -3642,7 +3644,7 @@ int main() {
     output: "cat=2 dog=1 \n2\nyes",
     lines: [
       {
-        code: "count[\"cat\"]++;",
+        code: 'count["cat"]++;',
         note_mn:
           "Байхгүй түлхүүр рүү хандахад map өөрөө 0-ээр үүсгэнэ. Тийм учраас шууд нэмж болно.",
         note_en:
@@ -3659,13 +3661,11 @@ int main() {
         code: "seen.insert(5);",
         note_mn:
           "5-ыг хоёр удаа хийсэн ч set-д ганцхан удаа л байна. Хэмжээ нь 2.",
-        note_en:
-          "5 goes in twice but a set holds it once. The size is 2.",
+        note_en: "5 goes in twice but a set holds it once. The size is 2.",
       },
       {
         code: "seen.count(2)",
-        note_mn:
-          "Байвал 1, байхгүй бол 0. Set-д байгаа эсэхийг ингэж шалгана.",
+        note_mn: "Байвал 1, байхгүй бол 0. Set-д байгаа эсэхийг ингэж шалгана.",
         note_en:
           "1 if present, 0 if not. This is how you test membership in a set.",
       },
@@ -3684,15 +3684,16 @@ int main() {
     ],
     mistakes: [
       {
-        wrong: "if (count[\"cat\"] > 0)",
-        fix: "if (count.count(\"cat\"))",
+        wrong: 'if (count["cat"] > 0)',
+        fix: 'if (count.count("cat"))',
         why_mn:
           "Эхнийх нь шалгах гэж байгаад «cat» гэсэн бичлэгийг 0 утгатайгаар ҮҮСГЭНЭ. Map-ын хэмжээ чимээгүйхэн өснө.",
         why_en:
-          "The first one CREATES a \"cat\" entry with value 0 just by looking. The map silently grows.",
+          'The first one CREATES a "cat" entry with value 0 just by looking. The map silently grows.',
       },
       {
-        wrong: "map оруулсан дарааллаа санана гэж бодох / Expecting a map to keep insertion order",
+        wrong:
+          "map оруулсан дарааллаа санана гэж бодох / Expecting a map to keep insertion order",
         fix: "vector-т хийж эрэмбэлэх / Copy into a vector and sort",
         why_mn:
           "`map` нь ҮРГЭЛЖ түлхүүрээр эрэмбэлж хадгална, оруулсан дарааллыг санахгүй.",
@@ -3702,12 +3703,12 @@ int main() {
     ],
     quiz: {
       question_mn:
-        "`map<string,int> m;` дээр `m[\"x\"]` гэж УНШИХАД юу болох вэ?",
+        '`map<string,int> m;` дээр `m["x"]` гэж УНШИХАД юу болох вэ?',
       question_en:
-        "With `map<string,int> m;`, what happens when you merely READ `m[\"x\"]`?",
+        'With `map<string,int> m;`, what happens when you merely READ `m["x"]`?',
       choices: [
         "Алдаа заана / It reports an error",
-        "\"x\" гэсэн бичлэгийг 0 утгатай үүсгэнэ / It creates an \"x\" entry set to 0",
+        '"x" гэсэн бичлэгийг 0 утгатай үүсгэнэ / It creates an "x" entry set to 0',
         "Юу ч болохгүй / Nothing at all happens",
       ],
       answer: 1,
@@ -3802,15 +3803,13 @@ int main() {
       },
       {
         code: "if (st.empty()) return false;",
-        note_mn:
-          "Хаах хаалт ирсэн ч овоолго хоосон — тохирох нээлт байхгүй.",
+        note_mn: "Хаах хаалт ирсэн ч овоолго хоосон — тохирох нээлт байхгүй.",
         note_en:
           "A closing bracket with an empty pile means there is nothing to match it.",
       },
       {
         code: "return st.empty();",
-        note_mn:
-          "Төгсгөлд овоолго хоосон байвал бүх хаалт тохирсон.",
+        note_mn: "Төгсгөлд овоолго хоосон байвал бүх хаалт тохирсон.",
         note_en:
           "If the pile is empty at the end, every bracket found its pair.",
       },
@@ -3855,20 +3854,15 @@ int main() {
     quiz: {
       question_mn:
         "Стект 1, 2, 3 гэж дараалан хийгээд нэгийг гаргавал юу гарах вэ?",
-      question_en: "Push 1, then 2, then 3 onto a stack and pop once. What comes out?",
-      choices: [
-        "1 / 1",
-        "3 / 3",
-        "2 / 2",
-      ],
+      question_en:
+        "Push 1, then 2, then 3 onto a stack and pop once. What comes out?",
+      choices: ["1 / 1", "3 / 3", "2 / 2"],
       answer: 1,
-      explain_mn:
-        "Стек нь дээрээс авдаг. Хамгийн сүүлд тавьсан 3 эхэлж гарна.",
+      explain_mn: "Стек нь дээрээс авдаг. Хамгийн сүүлд тавьсан 3 эхэлж гарна.",
       explain_en:
         "A stack is taken from the top, so 3 — the last one on — comes off first.",
     },
-    challenge_mn:
-      "Мөрийг стек ашиглан урвуугаар нь хэвлэ.",
+    challenge_mn: "Мөрийг стек ашиглан урвуугаар нь хэвлэ.",
     challenge_en: "Use a stack to print a string backwards.",
   },
   {
@@ -3876,13 +3870,12 @@ int main() {
     unit: 9,
     title_mn: "Эрэмбэтэй дараалал",
     title_en: "Priority Queue",
-    goal_mn:
-      "Дараагийн хамгийн том (эсвэл хамгийн бага) утгыг байнга авах.",
+    goal_mn: "Дараагийн хамгийн том (эсвэл хамгийн бага) утгыг байнга авах.",
     goal_en: "Always take the largest — or the smallest — next.",
     intro_mn:
       "Заримдаа «дараагийн хамгийн том» гэдгийг дахин дахин авах хэрэгтэй болдог. Бүхэлд нь дахин эрэмбэлэх нь удаан. `priority_queue` нь хамгийн томыг үргэлж дээрээ барьж байдаг бөгөөд нэмэх, авах хоёул log n хугацаа авна.",
     intro_en:
-      "Sometimes you need \"the biggest one left\", over and over. Re-sorting each time is slow. A `priority_queue` always keeps the biggest on top, and both adding and taking cost log n.",
+      'Sometimes you need "the biggest one left", over and over. Re-sorting each time is slow. A `priority_queue` always keeps the biggest on top, and both adding and taking cost log n.',
     code: `#include <iostream>
 #include <queue>
 #include <vector>
@@ -3927,28 +3920,29 @@ int main() {
       },
       {
         code: "big.pop();",
-        note_mn:
-          "Дээдийг хаяна. Дараа нь дараагийн том нь өөрөө дээшилнэ.",
-        note_en:
-          "Removes the top. The next biggest rises by itself.",
+        note_mn: "Дээдийг хаяна. Дараа нь дараагийн том нь өөрөө дээшилнэ.",
+        note_en: "Removes the top. The next biggest rises by itself.",
       },
     ],
     terms: [
       {
         term: "priority_queue",
         def_mn: "Хамгийн эрэмбэ өндөртэйг үргэлж дээрээ барих сав.",
-        def_en: "A container that always keeps the highest-priority item on top.",
+        def_en:
+          "A container that always keeps the highest-priority item on top.",
       },
       {
         term: "heap",
         def_mn:
           "Үүнийг дотроос нь ажиллуулдаг бүтэц. Хэрхэн ажилладгийг мэдэх шаардлагагүй.",
-        def_en: "The structure that makes it work. You do not need to know how.",
+        def_en:
+          "The structure that makes it work. You do not need to know how.",
       },
     ],
     mistakes: [
       {
-        wrong: "priority_queue-г бүхэлд нь унших / Trying to read through a priority_queue",
+        wrong:
+          "priority_queue-г бүхэлд нь унших / Trying to read through a priority_queue",
         fix: "vector ашиглаад эрэмбэлэх / Use a vector and sort it",
         why_mn:
           "Зөвхөн дээдийг л харж болно. Дотор нь бүрэн эрэмбэлэгдээгүй байдаг.",
@@ -3956,7 +3950,8 @@ int main() {
           "You can only ever see the top. The rest is not held in sorted order.",
       },
       {
-        wrong: "greater<int> нь хамгийн их өгнө гэж бодох / Expecting greater<int> to give the largest",
+        wrong:
+          "greater<int> нь хамгийн их өгнө гэж бодох / Expecting greater<int> to give the largest",
         fix: "greater нь хамгийн БАГА-г дээшлүүлнэ / greater puts the SMALLEST on top",
         why_mn:
           "Нэр нь төөрөгдүүлдэг: `greater` бол харьцуулах дүрэм, үр дүн нь эсрэгээрээ.",
@@ -3965,21 +3960,15 @@ int main() {
       },
     ],
     quiz: {
-      question_mn:
-        "`priority_queue<int>` дээр 3, 7, 5 нэмээд `top()` дуудвал?",
-      question_en: "Push 3, 7 and 5 into a `priority_queue<int>` and call `top()`. What is it?",
-      choices: [
-        "7 / 7",
-        "3 / 3",
-        "5 / 5",
-      ],
+      question_mn: "`priority_queue<int>` дээр 3, 7, 5 нэмээд `top()` дуудвал?",
+      question_en:
+        "Push 3, 7 and 5 into a `priority_queue<int>` and call `top()`. What is it?",
+      choices: ["7 / 7", "3 / 3", "5 / 5"],
       answer: 0,
-      explain_mn:
-        "Анхдагчаар хамгийн их нь дээрээ байдаг тул 7 гарна.",
+      explain_mn: "Анхдагчаар хамгийн их нь дээрээ байдаг тул 7 гарна.",
       explain_en: "The default keeps the largest on top, so 7.",
     },
-    challenge_mn:
-      "n ширхэг тоо уншаад хамгийн том 3 утгыг нь хэвлэ.",
+    challenge_mn: "n ширхэг тоо уншаад хамгийн том 3 утгыг нь хэвлэ.",
     challenge_en: "Read n numbers and print the three largest.",
   },
   {
@@ -3987,13 +3976,12 @@ int main() {
     unit: 9,
     title_mn: "Хоёр заагч",
     title_en: "Two Pointers",
-    goal_mn:
-      "Эрэмбэлэгдсэн массивт хоёр захаас нь дөхөж хос олох.",
+    goal_mn: "Эрэмбэлэгдсэн массивт хоёр захаас нь дөхөж хос олох.",
     goal_en: "Close in from both ends of a sorted array to find a pair.",
     intro_mn:
       "«Нийлбэр нь яг S болох хоёр тоо байна уу?» Хоёр давхар давталтаар бодвол O(n²). Гэхдээ массив эрэмбэлэгдсэн бол хоёр захаас нь эхэлж, нийлбэр нь их бол баруун заагчийг зүүн тийш, бага бол зүүн заагчийг баруун тийш зөөж, ганцхан удаагийн явалтаар шийднэ.",
     intro_en:
-      "\"Are there two numbers adding to exactly S?\" A double loop makes that O(n²). But if the array is sorted you can start at both ends: too big, move the right pointer left; too small, move the left pointer right. One pass and you are done.",
+      '"Are there two numbers adding to exactly S?" A double loop makes that O(n²). But if the array is sorted you can start at both ends: too big, move the right pointer left; too small, move the left pointer right. One pass and you are done.',
     code: `#include <iostream>
 #include <vector>
 using namespace std;
@@ -4033,8 +4021,7 @@ int main() {
       },
       {
         code: "else hi--;",
-        note_mn:
-          "Их байна — багасгах хэрэгтэй тул баруун заагчийг зүүн тийш.",
+        note_mn: "Их байна — багасгах хэрэгтэй тул баруун заагчийг зүүн тийш.",
         note_en:
           "Too big, so we need to shrink it: move the right pointer left.",
       },
@@ -4042,8 +4029,7 @@ int main() {
         code: "while (lo < hi) {",
         note_mn:
           "`<` — нэг элементийг өөртэй нь хослуулж болохгүй тул `<=` биш.",
-        note_en:
-          "`<`, not `<=`: an element must not be paired with itself.",
+        note_en: "`<`, not `<=`: an element must not be paired with itself.",
       },
     ],
     terms: [
@@ -4057,10 +4043,9 @@ int main() {
       {
         wrong: "Эрэмбэлэгдээгүй массив дээр / On an unsorted array",
         fix: "Эхлээд эрэмбэл / Sort it first",
-        why_mn:
-          "«Их байвал багасга» гэдэг шийдвэр зөвхөн эрэмбэтэй үед л зөв.",
+        why_mn: "«Их байвал багасга» гэдэг шийдвэр зөвхөн эрэмбэтэй үед л зөв.",
         why_en:
-          "\"Too big, shrink it\" is only a valid move when the data is ordered.",
+          '"Too big, shrink it" is only a valid move when the data is ordered.',
       },
       {
         wrong: "while (lo <= hi)",
@@ -4072,8 +4057,7 @@ int main() {
       },
     ],
     quiz: {
-      question_mn:
-        "Нийлбэр нь хэтэрхий ИХ байвал аль заагчийг хөдөлгөх вэ?",
+      question_mn: "Нийлбэр нь хэтэрхий ИХ байвал аль заагчийг хөдөлгөх вэ?",
       question_en: "The sum is too BIG. Which pointer moves?",
       choices: [
         "Зүүнийг баруун тийш / The left one, rightwards",
@@ -4088,8 +4072,7 @@ int main() {
     },
     challenge_mn:
       "Эрэмбэлэгдсэн массиваас нийлбэр нь S болох ХОСУУДЫН тоог ол.",
-    challenge_en:
-      "Count how many PAIRS in a sorted array add up to S.",
+    challenge_en: "Count how many PAIRS in a sorted array add up to S.",
   },
   {
     slug: "greedy",
@@ -4142,8 +4125,7 @@ int main() {
         code: "while (amount >= v) {",
         note_mn:
           "Энэ дэвсгэртийг багтах чинээгээ ав, дараа нь дараагийнх руу шилж.",
-        note_en:
-          "Take as many of this coin as fit, then move to the next.",
+        note_en: "Take as many of this coin as fit, then move to the next.",
       },
       {
         code: "cout << coins(6, odd) << endl;",
@@ -4161,14 +4143,14 @@ int main() {
       },
       {
         term: "counterexample",
-        def_mn:
-          "Аргыг буруу гэдгийг харуулах нэг жишээ. Нэг л хангалттай.",
+        def_mn: "Аргыг буруу гэдгийг харуулах нэг жишээ. Нэг л хангалттай.",
         def_en: "One example that shows a method is wrong. One is enough.",
       },
     ],
     mistakes: [
       {
-        wrong: "Шуналт арга үргэлж зөв гэж үзэх / Assuming greedy is always right",
+        wrong:
+          "Шуналт арга үргэлж зөв гэж үзэх / Assuming greedy is always right",
         fix: "Эсрэг жишээ хайх / Hunt for a counterexample",
         why_mn:
           "Монголын дэвсгэрт дээр ажиллана, гэхдээ {4,3,1} дээр ажиллахгүй. Эхлээд гараар хэдэн жишээ шалга.",
@@ -4178,8 +4160,7 @@ int main() {
       {
         wrong: "Эрэмбэлэхээ мартах / Forgetting to sort",
         fix: "sort(values.rbegin(), values.rend());",
-        why_mn:
-          "Жижигээс нь эхэлбэл шуналт арга огт утгагүй болно.",
+        why_mn: "Жижигээс нь эхэлбэл шуналт арга огт утгагүй болно.",
         why_en:
           "Starting from the small coins makes the whole idea meaningless.",
       },
@@ -4208,8 +4189,7 @@ int main() {
     unit: 10,
     title_mn: "Ухран буцах",
     title_en: "Backtracking",
-    goal_mn:
-      "Бүх боломжийг туршиж, буруу замаас буцаж эргэх.",
+    goal_mn: "Бүх боломжийг туршиж, буруу замаас буцаж эргэх.",
     goal_en: "Try every possibility, and step back out of the wrong ones.",
     intro_mn:
       "Лабиринт дотор зам хайхтай адил: нэг замаар яв, тэнхэрвэл буцаад өөр замаар оролд. Кодоор бол — сонголт хий, рекурсээр цааш яв, буцаж ирээд тэр сонголтоо БУЦААЖ АВ. Сүүлийн алхам нь хамгийн чухал.",
@@ -4268,10 +4248,8 @@ int main() {
       },
       {
         code: "used[i] = false;",
-        note_mn:
-          "Мөн адил буцаана. Сонголт ба буцаалт үргэлж хосоороо явна.",
-        note_en:
-          "Undone as well. A choice and its undo always come in a pair.",
+        note_mn: "Мөн адил буцаана. Сонголт ба буцаалт үргэлж хосоороо явна.",
+        note_en: "Undone as well. A choice and its undo always come in a pair.",
       },
     ],
     terms: [
@@ -4282,8 +4260,7 @@ int main() {
       },
       {
         term: "state",
-        def_mn:
-          "Одоогийн байдал. Буцахдаа яг хуучин байдалдаа орох ёстой.",
+        def_mn: "Одоогийн байдал. Буцахдаа яг хуучин байдалдаа орох ёстой.",
         def_en: "Where you currently are. Undoing must restore it exactly.",
       },
     ],
@@ -4321,16 +4298,14 @@ int main() {
     },
     challenge_mn:
       "1-ээс n хүртэлх тооноос k ширхэгийг сонгох бүх хослолыг хэвлэ.",
-    challenge_en:
-      "Print every way of choosing k numbers from 1 to n.",
+    challenge_en: "Print every way of choosing k numbers from 1 to n.",
   },
   {
     slug: "dp-intro",
     unit: 10,
     title_mn: "Динамик програмчлал",
     title_en: "Dynamic Programming",
-    goal_mn:
-      "Дахин давтагдах бодолтыг санаж хадгалж, рекурсийг хурдасгах.",
+    goal_mn: "Дахин давтагдах бодолтыг санаж хадгалж, рекурсийг хурдасгах.",
     goal_en: "Remember repeated work instead of doing it again.",
     intro_mn:
       "Фибоначчийг рекурсээр бодоход f(30) нь 1.6 сая гаруй дуудалт хийдэг — учир нь ижил утгыг дахин дахин боддог. Хариултуудаа массивт хадгалж, дахин хэрэгтэй болбол шууд харвал 30 дуудалт л болно. Энэ л бүх динамик програмчлалын үндэс.",
@@ -4364,7 +4339,7 @@ int main() {
         note_mn:
           "-1 нь «хараахан бодоогүй» гэсэн тэмдэг. Фибоначчийн утга хэзээ ч сөрөг байхгүй тул аюулгүй.",
         note_en:
-          "-1 means \"not worked out yet\". Fibonacci values are never negative, so it is a safe marker.",
+          '-1 means "not worked out yet". Fibonacci values are never negative, so it is a safe marker.',
       },
       {
         code: "if (memo[n] != -1) return memo[n];",
@@ -4376,7 +4351,8 @@ int main() {
       {
         code: "memo[n] = fib(n - 1) + fib(n - 2);",
         note_mn: "Бодоод ХАДГАЛНА. Хадгалахаа мартвал бүх ашиг алга.",
-        note_en: "Work it out and STORE it. Forget the storing and the gain vanishes.",
+        note_en:
+          "Work it out and STORE it. Forget the storing and the gain vanishes.",
       },
       {
         code: "vector<long long> memo;",
@@ -4394,8 +4370,7 @@ int main() {
       },
       {
         term: "overlapping subproblems",
-        def_mn:
-          "Ижил дэд бодлого олон дахин гарч ирэх. DP-ийн үндсэн болзол.",
+        def_mn: "Ижил дэд бодлого олон дахин гарч ирэх. DP-ийн үндсэн болзол.",
         def_en:
           "The same smaller problem coming up many times. The condition DP needs.",
       },
@@ -4407,13 +4382,12 @@ int main() {
         why_mn:
           "0 бол хүчинтэй хариу байж болно. Тэгвэл «бодсон» ба «бодоогүй»-г ялгаж чадахгүй.",
         why_en:
-          "0 can be a real answer, so you can no longer tell \"known\" from \"unknown\".",
+          '0 can be a real answer, so you can no longer tell "known" from "unknown".',
       },
       {
         wrong: "Хадгалаад буцаахаа мартах / Storing but forgetting to return",
         fix: "return memo[n];",
-        why_mn:
-          "Хадгалаад буцаахгүй бол функц хог утга буцаана.",
+        why_mn: "Хадгалаад буцаахгүй бол функц хог утга буцаана.",
         why_en:
           "Storing without returning leaves the function handing back rubbish.",
       },
@@ -4427,10 +4401,8 @@ int main() {
         "Ижил бодолтыг дахин хийхээс сэргийлдэг / It stops the same work being repeated",
       ],
       answer: 2,
-      explain_mn:
-        "Хариу нь ижил хэвээр — зөвхөн ажлын хэмжээ асар багасна.",
-      explain_en:
-        "The answer is identical. Only the amount of work collapses.",
+      explain_mn: "Хариу нь ижил хэвээр — зөвхөн ажлын хэмжээ асар багасна.",
+      explain_en: "The answer is identical. Only the amount of work collapses.",
     },
     challenge_mn:
       "Memo ашиглалгүй fib(30)-ыг бодоод дуудалтыг тоол. Дараа нь memo нэмээд харьцуул.",
@@ -4442,8 +4414,7 @@ int main() {
     unit: 10,
     title_mn: "Нэг мөр DP",
     title_en: "One-dimensional DP",
-    goal_mn:
-      "Хүснэгтийг зүүнээс баруун тийш дүүргэж хариу гаргах.",
+    goal_mn: "Хүснэгтийг зүүнээс баруун тийш дүүргэж хариу гаргах.",
     goal_en: "Fill a table from left to right to reach the answer.",
     intro_mn:
       "Рекурсгүйгээр ч DP хийж болно: хамгийн жижиг тохиолдлоос эхлээд хүснэгтээ дараалан дүүргэнэ. Шат өөд гарах бодлого сонгодог жишээ — нэг алхамд 1 эсвэл 2 шат гарч болно, n шатанд хэдэн янзаар гарах вэ?",
@@ -4500,8 +4471,7 @@ int main() {
       },
       {
         term: "recurrence",
-        def_mn:
-          "Нэг нүдийг өмнөх нүднүүдээр илэрхийлсэн дүрэм.",
+        def_mn: "Нэг нүдийг өмнөх нүднүүдээр илэрхийлсэн дүрэм.",
         def_en: "The rule that builds one cell from earlier cells.",
       },
     ],
@@ -4517,10 +4487,8 @@ int main() {
       {
         wrong: "for (int i = n; i >= 2; i--)",
         fix: "for (int i = 2; i <= n; i++)",
-        why_mn:
-          "Буруу чиглэлд явбал `ways[i-1]` хараахан бодогдоогүй байна.",
-        why_en:
-          "Going the wrong way, `ways[i-1]` has not been worked out yet.",
+        why_mn: "Буруу чиглэлд явбал `ways[i-1]` хараахан бодогдоогүй байна.",
+        why_en: "Going the wrong way, `ways[i-1]` has not been worked out yet.",
       },
     ],
     quiz: {
@@ -4547,8 +4515,7 @@ int main() {
     unit: 10,
     title_mn: "Хүснэгт дээрх DP",
     title_en: "DP on a Grid",
-    goal_mn:
-      "Хоёр хэмжээст хүснэгт дээр зам тоолох.",
+    goal_mn: "Хоёр хэмжээст хүснэгт дээр зам тоолох.",
     goal_en: "Count paths across a two-dimensional grid.",
     intro_mn:
       "Зөвхөн БАРУУН эсвэл ДООШ явж болох хүснэгтийн зүүн дээд булангаас баруун доод булан руу хэдэн зам байх вэ? Нэг мөр DP-ийн яг тэр санаа, зөвхөн хоёр хэмжээст болсон: нүд бүрд зүүн талаас нь эсвэл дээрээс нь ирнэ.",
@@ -4584,8 +4551,7 @@ int main() {
     lines: [
       {
         code: "paths[r][c] = 1;",
-        note_mn:
-          "Эхлэл нүд. Тэнд очих ганцхан «зам» бий — хөдлөхгүй байх.",
+        note_mn: "Эхлэл нүд. Тэнд очих ганцхан «зам» бий — хөдлөхгүй байх.",
         note_en:
           "The starting cell. There is exactly one way to be there: don't move.",
       },
@@ -4598,10 +4564,8 @@ int main() {
       },
       {
         code: "paths[r][c] = fromUp + fromLeft;",
-        note_mn:
-          "Хоёр л зам бий — дээрээс эсвэл зүүнээс. Тэднийг нэмнэ.",
-        note_en:
-          "Only two ways in — from above or from the left. Add them.",
+        note_mn: "Хоёр л зам бий — дээрээс эсвэл зүүнээс. Тэднийг нэмнэ.",
+        note_en: "Only two ways in — from above or from the left. Add them.",
       },
       {
         code: "for (int r = 0; r < rows; r++) {",
@@ -4619,8 +4583,7 @@ int main() {
       },
       {
         term: "boundary",
-        def_mn:
-          "Эхний мөр, эхний багана — тусад нь шалгах ёстой хэсэг.",
+        def_mn: "Эхний мөр, эхний багана — тусад нь шалгах ёстой хэсэг.",
         def_en: "The first row and column — the parts needing their own check.",
       },
     ],
@@ -4647,14 +4610,9 @@ int main() {
         "Зөвхөн баруун ба доош явж болох 2×2 хүснэгтэд хэдэн зам байх вэ?",
       question_en:
         "Moving only right and down, how many paths cross a 2×2 grid?",
-      choices: [
-        "4 / 4",
-        "2 / 2",
-        "3 / 3",
-      ],
+      choices: ["4 / 4", "2 / 2", "3 / 3"],
       answer: 1,
-      explain_mn:
-        "Баруун-доош, эсвэл доош-баруун. Ердөө хоёр.",
+      explain_mn: "Баруун-доош, эсвэл доош-баруун. Ердөө хоёр.",
       explain_en: "Right then down, or down then right. Just two.",
     },
     challenge_mn:
@@ -4667,8 +4625,7 @@ int main() {
     unit: 11,
     title_mn: "Граф гэж юу вэ",
     title_en: "What a Graph Is",
-    goal_mn:
-      "Цэг ба холбоосыг зэргэлдээх жагсаалтаар кодонд оруулах.",
+    goal_mn: "Цэг ба холбоосыг зэргэлдээх жагсаалтаар кодонд оруулах.",
     goal_en: "Put nodes and edges into code as an adjacency list.",
     intro_mn:
       "Граф бол цэгүүд (хот, хүн, нүд) ба тэдгээрийн хоорондох холбоос (зам, найзын холбоо) юм. Зурагтай нь ойлгоход амархан, кодонд оруулахад бага зэрэг бодох хэрэгтэй. Хамгийн түгээмэл арга нь: цэг бүрд хэнтэй холбоотойг нь жагсаах.",
@@ -4698,10 +4655,8 @@ int main() {
     lines: [
       {
         code: "vector<vector<int>> adj(n);",
-        note_mn:
-          "Цэг бүрд нэг жагсаалт. `adj[3]` бол 3-р цэгийн хөршүүд.",
-        note_en:
-          "One list per node. `adj[3]` holds the neighbours of node 3.",
+        note_mn: "Цэг бүрд нэг жагсаалт. `adj[3]` бол 3-р цэгийн хөршүүд.",
+        note_en: "One list per node. `adj[3]` holds the neighbours of node 3.",
       },
       {
         code: "adj[0].push_back(1); adj[1].push_back(0);",
@@ -4711,16 +4666,15 @@ int main() {
           "An undirected edge is written on BOTH sides. Forgetting one is a very common bug.",
       },
       {
-        code: "for (int to : adj[v]) cout << \" \" << to;",
+        code: 'for (int to : adj[v]) cout << " " << to;',
         note_mn:
           "Цэгийн хөршүүдээр явна. Граф дээрх бараг бүх алгоритм ингэж эхэлдэг.",
         note_en:
           "Walk a node's neighbours. Nearly every graph algorithm starts like this.",
       },
       {
-        code: "cout << v << \":\";",
-        note_mn:
-          "4-р цэг хоосон — холбоосгүй цэг бас байж болно.",
+        code: 'cout << v << ":";',
+        note_mn: "4-р цэг хоосон — холбоосгүй цэг бас байж болно.",
         note_en:
           "Node 4 prints empty — a node with no edges is perfectly legal.",
       },
@@ -4754,15 +4708,13 @@ int main() {
       {
         wrong: "vector<vector<int>> adj; adj[0].push_back(1);",
         fix: "vector<vector<int>> adj(n);",
-        why_mn:
-          "Хэмжээг нь өгөхгүй бол `adj[0]` гэж байхгүй. Програм сүйрнэ.",
+        why_mn: "Хэмжээг нь өгөхгүй бол `adj[0]` гэж байхгүй. Програм сүйрнэ.",
         why_en:
           "Without a size there is no `adj[0]` at all, and the program crashes.",
       },
     ],
     quiz: {
-      question_mn:
-        "Чиглэлгүй граф дээр a—b холбоосыг хэрхэн бичих вэ?",
+      question_mn: "Чиглэлгүй граф дээр a—b холбоосыг хэрхэн бичих вэ?",
       question_en: "How do you record an undirected edge a—b?",
       choices: [
         "Зөвхөн adj[a]-д b / Only b in adj[a]",
@@ -4770,8 +4722,7 @@ int main() {
         "Тусдаа жагсаалтад / In a separate list of its own",
       ],
       answer: 1,
-      explain_mn:
-        "Хоёр талаас нь явж болох тул хоёуланд нь бичих ёстой.",
+      explain_mn: "Хоёр талаас нь явж болох тул хоёуланд нь бичих ёстой.",
       explain_en:
         "You can travel it in both directions, so it is written on both sides.",
     },
@@ -4785,8 +4736,7 @@ int main() {
     unit: 11,
     title_mn: "Гүнзгий хайлт",
     title_en: "Depth-First Search",
-    goal_mn:
-      "Графыг рекурсээр тойрч, холбоотой хэсгүүдийг тоолох.",
+    goal_mn: "Графыг рекурсээр тойрч, холбоотой хэсгүүдийг тоолох.",
     goal_en: "Walk a graph recursively and count its connected pieces.",
     intro_mn:
       "Гүнзгий хайлт бол «болтол нь урагшаа яв, тэнхэрвэл буц» гэсэн санаа — яг лабиринт дотор нэг гараа ханан дээр тавиад явахтай адил. Рекурсээр бичихэд маш богино. Ганц зүйлийг мартаж болохгүй: очсон цэгээ ТЭМДЭГЛЭ.",
@@ -4864,8 +4814,7 @@ int main() {
       },
       {
         term: "connected component",
-        def_mn:
-          "Хоорондоо хүрч болох цэгүүдийн бүлэг.",
+        def_mn: "Хоорондоо хүрч болох цэгүүдийн бүлэг.",
         def_en: "A group of nodes that can all reach each other.",
       },
     ],
@@ -4901,18 +4850,15 @@ int main() {
       explain_en:
         "In a graph with a cycle, without marking you bounce between two nodes forever.",
     },
-    challenge_mn:
-      "Хамгийн том холбоотой бүлэгт хэдэн цэг байгааг ол.",
-    challenge_en:
-      "Find how many nodes are in the largest connected group.",
+    challenge_mn: "Хамгийн том холбоотой бүлэгт хэдэн цэг байгааг ол.",
+    challenge_en: "Find how many nodes are in the largest connected group.",
   },
   {
     slug: "bfs",
     unit: 11,
     title_mn: "Өргөн хайлт",
     title_en: "Breadth-First Search",
-    goal_mn:
-      "Дараалал ашиглан хамгийн богино замын уртыг олох.",
+    goal_mn: "Дараалал ашиглан хамгийн богино замын уртыг олох.",
     goal_en: "Use a queue to find the length of the shortest path.",
     intro_mn:
       "Өргөн хайлт нь ойрын цэгүүдийг бүгдийг нь эхэлж үзээд, дараа нь нэг алхам хол руу шилждэг. Яг үүнээс болж ГАЙХАЛТАЙ шинж чанар үүсдэг: жин ижил байх үед BFS хамгийн богино замыг олдог. Тийм учраас хүснэгт дээрх бодлогуудад хамгийн их хэрэглэгддэг.",
@@ -5005,7 +4951,8 @@ int main() {
           "Marking on the way out lets one cell enter the queue many times, multiplying the work.",
       },
       {
-        wrong: "stack ашиглаад BFS гэж нэрлэх / Calling it BFS while using a stack",
+        wrong:
+          "stack ашиглаад BFS гэж нэрлэх / Calling it BFS while using a stack",
         fix: "queue ашиглах / Use a queue",
         why_mn:
           "Стек бол DFS. Дараалал л «ойроос эхлэх» шинжийг өгдөг бөгөөд богино замын баталгаа тэндээс гардаг.",
@@ -5037,8 +4984,7 @@ int main() {
     unit: 11,
     title_mn: "Хамгийн богино зам (жинтэй)",
     title_en: "Shortest Path with Weights",
-    goal_mn:
-      "Холбоос бүр өөр зардалтай үед хамгийн богино замыг олох.",
+    goal_mn: "Холбоос бүр өөр зардалтай үед хамгийн богино замыг олох.",
     goal_en: "Find the cheapest route when edges cost different amounts.",
     intro_mn:
       "Энэ бол хүнд сэдэв — BFS болон эрэмбэтэй дараалал хоёрыг сайн ойлгосны дараа унш. Зам бүр өөр урттай бол «хамгийн цөөн холбоос» нь хамгийн богино гэсэн үг биш. Дейкстрагийн алгоритм нь хамгийн ойрын цэгийг байнга сонгож, түүгээр дамжсан замуудыг шинэчилдэг.",
@@ -5088,7 +5034,7 @@ int main() {
         note_mn:
           "«Хараахан хүрээгүй» гэдгийг маш том тоогоор илэрхийлнэ. INT_MAX хэрэглэвэл нэмэхэд хэтэрч болно.",
         note_en:
-          "A huge number stands for \"not reached yet\". Using INT_MAX risks overflow when you add to it.",
+          'A huge number stands for "not reached yet". Using INT_MAX risks overflow when you add to it.',
       },
       {
         code: "pq.push({0, 0});",
@@ -5120,14 +5066,14 @@ int main() {
       },
       {
         term: "relaxation",
-        def_mn:
-          "Илүү богино зам олдвол зайг шинэчлэх алхам.",
+        def_mn: "Илүү богино зам олдвол зайг шинэчлэх алхам.",
         def_en: "Updating a distance when a shorter route appears.",
       },
     ],
     mistakes: [
       {
-        wrong: "Сөрөг жинтэй холбоос дээр Дейкстра / Dijkstra with a negative edge",
+        wrong:
+          "Сөрөг жинтэй холбоос дээр Дейкстра / Dijkstra with a negative edge",
         fix: "Өөр алгоритм хэрэгтэй / A different algorithm is needed",
         why_mn:
           "Дейкстра «нэг удаа шийдсэн цэгийг дахин хөндөхгүй» гэж таамагладаг. Сөрөг жин үүнийг эвдэнэ.",
@@ -5167,8 +5113,7 @@ int main() {
     unit: 12,
     title_mn: "Класс ба обьект",
     title_en: "Classes and Objects",
-    goal_mn:
-      "Дүрэмтэй бүтэц үүсгэж, дотоод өгөгдлөө хамгаалах.",
+    goal_mn: "Дүрэмтэй бүтэц үүсгэж, дотоод өгөгдлөө хамгаалах.",
     goal_en: "Build a structure with rules that protects its own data.",
     intro_mn:
       "Класс бол дүрэмтэй бүтэц. `struct`-д хэн ч дурын утга оноож болно — оноог -50 болгож болно. Класст өгөгдлөө нуувал зөвхөн зөвшөөрсөн замаар л өөрчлөгдөнө. Бодлого бодоход `struct` ихэвчлэн хангалттай; энэ хичээл нь Cambridge шалгалт болон дараагийн хоёр хичээлийн суурь.",
@@ -5246,15 +5191,13 @@ int main() {
       },
       {
         term: "encapsulation",
-        def_mn:
-          "Өгөгдлөө нууж, зөвхөн зөвшөөрсөн замаар өөрчлүүлэх зарчим.",
-        def_en:
-          "Hiding data so it can only change through routes you approve.",
+        def_mn: "Өгөгдлөө нууж, зөвхөн зөвшөөрсөн замаар өөрчлүүлэх зарчим.",
+        def_en: "Hiding data so it can only change through routes you approve.",
       },
     ],
     mistakes: [
       {
-        wrong: "class Student { string name; }; ... s.name = \"Bat\";",
+        wrong: 'class Student { string name; }; ... s.name = "Bat";',
         fix: "public: гэж бичих / Add public:, or use a struct",
         why_mn:
           "`class` анхдагчаараа хаалттай тул энэ нь компиляцын алдаа өгнө. `struct` дээр ажиллаж байсан код энд ажиллахгүй.",
@@ -5301,7 +5244,7 @@ int main() {
     intro_mn:
       "Классын дотор бичсэн функцийг метод гэнэ — тэр нь өөрийн обьектын өгөгдөлд шууд ханддаг. Байгуулагч бол обьект үүсэх үед автоматаар ажилладаг онцгой метод. Түүний ач холбогдол нь: «утга оноохоо мартсан» гэсэн алдаа гарах боломжгүй болно.",
     intro_en:
-      "A function written inside a class is a method — it reaches its own object's data directly. A constructor is a special method that runs automatically when the object is created. Its value: \"I forgot to fill that in\" stops being possible.",
+      'A function written inside a class is a method — it reaches its own object\'s data directly. A constructor is a special method that runs automatically when the object is created. Its value: "I forgot to fill that in" stops being possible.',
     code: `#include <iostream>
 #include <string>
 using namespace std;
@@ -5387,7 +5330,8 @@ int main() {
           "A constructor has NO return type. Adding `void` turns it into an ordinary method that never runs on creation.",
       },
       {
-        wrong: "Байгуулагчтай атлаа Rect r; гэх / Rect r; when a constructor takes arguments",
+        wrong:
+          "Байгуулагчтай атлаа Rect r; гэх / Rect r; when a constructor takes arguments",
         fix: "Rect r(3, 4);",
         why_mn:
           "Аргументтай байгуулагч тодорхойлбол аргументгүй хувилбар алга болно. Компилятор татгалзана.",
@@ -5419,8 +5363,7 @@ int main() {
     unit: 12,
     title_mn: "Оператор тодорхойлох",
     title_en: "Defining an Operator",
-    goal_mn:
-      "`operator<` бичиж, өөрийн төрлөө `sort`-оор эрэмбэлүүлэх.",
+    goal_mn: "`operator<` бичиж, өөрийн төрлөө `sort`-оор эрэмбэлүүлэх.",
     goal_en: "Write `operator<` so `sort` can order your own type.",
     intro_mn:
       "Энэ бол энэ бүлгийн хамгийн ашигтай хичээл. `sort` нь хоёр элементийн аль нь өмнө байхыг мэдэх ёстой. Тусдаа comparator бичихийн оронд төрөл дотроо `operator<` тодорхойлвол `sort`, `set`, `priority_queue` бүгд ямар ч нэмэлт зүйлгүйгээр ажиллана.",
@@ -5456,7 +5399,7 @@ int main() {
         note_mn:
           "«Би нөгөөгөөсөө өмнө байх ёстой юу?» Сүүлийн `const` нь энэ функц юуг ч өөрчлөхгүй гэсэн амлалт.",
         note_en:
-          "\"Do I come before the other one?\" The trailing `const` promises this changes nothing.",
+          '"Do I come before the other one?" The trailing `const` promises this changes nothing.',
       },
       {
         code: "return score > other.score;",
@@ -5490,8 +5433,7 @@ int main() {
         term: "strict weak ordering",
         def_mn:
           "`sort`-ын шаарддаг дүрэм. Тэнцүү элемент дээр ЗААВАЛ false буцаах ёстой.",
-        def_en:
-          "The rule `sort` requires. Equal items must always give false.",
+        def_en: "The rule `sort` requires. Equal items must always give false.",
       },
     ],
     mistakes: [
@@ -5534,7 +5476,6 @@ int main() {
       "Write an `operator<` that orders by score descending, and by name ascending when scores tie.",
   },
 );
-
 
 // Attach the Python rendering of each lesson (kept in its own file so this
 // one stays about the curriculum rather than syntax), and the reference
